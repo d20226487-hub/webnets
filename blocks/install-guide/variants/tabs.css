@@ -1,0 +1,19 @@
+/* tabs: radio-driven panels, no JS required */
+.sx-install-guide__tabs { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.sx-install-guide__tabs input { position: absolute; opacity: 0; pointer-events: none; }
+.sx-install-guide__tabs label {
+  display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 44px; padding: 0 var(--sp-4);
+  border-radius: var(--r-btn); border: var(--bw) solid var(--c-border); background: var(--c-surface); cursor: pointer; font-weight: var(--fw-strong);
+}
+.sx-install-guide__tabs input:checked + label { background: var(--c-text); color: var(--c-bg); border-color: var(--c-text); }
+.sx-install-guide__tabs input:focus-visible + label { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+.sx-install-guide--tabs .sx-install-guide__path { display: none; max-width: 640px; }
+.sx-install-guide--tabs:has(input[data-tab="ios"]:checked) [data-path="ios"],
+.sx-install-guide--tabs:has(input[data-tab="android"]:checked) [data-path="android"],
+.sx-install-guide--tabs:has(input[data-tab="apk"]:checked) [data-path="apk"] { display: grid; }
+.sx-install-guide--tabs .sx-install-guide__path .sx-install-guide__name { display: none; }
+.sx-install-guide--tabs .sx-install-guide__meta { margin: 0; }
+@media (max-width: 640px) {
+  .sx-install-guide__inner { padding-block: var(--sp-7); }
+  .sx-install-guide__path .sx-install { justify-self: stretch; justify-content: center; }
+}

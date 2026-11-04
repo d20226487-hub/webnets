@@ -1,0 +1,96 @@
+{
+  "_demo": "Phase 3 Demo A in the DEMO-ONLY market 'xx' (brief 03, option A). Offer data comes from brands/promotions/vantro.json.",
+  "demo": true,
+  "today": "2026-10-30",
+  "id": "promo-a-vantro-xx",
+  "type": "promo",
+  "angle": "welcome",
+  "brand": "vantro",
+  "market": "xx",
+  "preset": "sunburst",
+  "seed": "vantro-xx-promo-a",
+  "prefix": "auto",
+  "links": {
+    "go": "https://vantro.example/xx/join?promo=VANTRO100&src=promo-a"
+  },
+  "site": {
+    "name": "Vantro Offers"
+  },
+  "page": {
+    "title": "Vantro promo code VANTRO100: 100% up to €100",
+    "description": "Current Vantro welcome offer and promo code, with the full terms in plain words. Verified 29 Oct 2026. 18+."
+  },
+  "variants": {
+    "header": "minimal",
+    "hero": "code-ticket",
+    "trust": "strip",
+    "terms": "table",
+    "steps": "row",
+    "more": "cards",
+    "faq": "accordion",
+    "final": "solid"
+  },
+  "order": [
+    "terms",
+    "steps",
+    "more"
+  ],
+  "content": {
+    "header": {
+      "note": "Licensed"
+    },
+    "hero": {
+      "title": "Vantro promo code: 100% up to €100",
+      "subtitle": "Enter the code when you register and make your first deposit. Your free bets arrive as soon as the deposit clears."
+    },
+    "terms": {
+      "intro": "Everything that applies to this offer, before you sign up."
+    },
+    "steps": {
+      "eyebrow": "How to claim",
+      "title": "Claim it in three steps",
+      "items": [
+        {
+          "title": "Register with the code",
+          "text": "Tap Claim offer, create your account and enter VANTRO100 in the promo code field."
+        },
+        {
+          "title": "Deposit at least €10",
+          "text": "Use a card, bank transfer or Apple Pay. Set your deposit limit in the same step."
+        },
+        {
+          "title": "Get your free bets",
+          "text": "Your free bets match your deposit up to €100. Use them on odds of 1.50 or higher."
+        }
+      ]
+    },
+    "faq": {
+      "items": [
+        {
+          "q": "Is VANTRO100 still working?",
+          "a": "Yes. We checked the code on 29 Oct 2026. It is valid until 31 Dec 2026 for new customers."
+        },
+        {
+          "q": "What does 1× wagering mean?",
+          "a": "You need to bet the bonus amount once before winnings from it can be withdrawn. Free bet stakes are not returned."
+        },
+        {
+          "q": "Can I use an e-wallet for the deposit?",
+          "a": "No. Deposits by e-wallet do not qualify. Use a debit card, bank transfer or Apple Pay."
+        },
+        {
+          "q": "I forgot to enter the code. What now?",
+          "a": "Contact Vantro support within 7 days of registering; they can add the offer if you have not placed a bet yet."
+        },
+        {
+          "q": "Can I set limits before I play?",
+          "a": "Yes. You can set deposit limits during sign-up and change them in your account at any time."
+        }
+      ]
+    },
+    "final": {
+      "title": "Your code: VANTRO100",
+      "text": "100% up to €100 in free bets. New customers, 18+."
+    }
+  }
+}

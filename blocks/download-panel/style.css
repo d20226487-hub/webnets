@@ -1,0 +1,24 @@
+.sx-dl__inner { padding-block: var(--sp-8); }
+.sx-dl__card {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--sp-7); align-items: center;
+  padding: var(--sp-7); border-radius: var(--r-lg); background: var(--hero-bg); color: var(--c-hero-text);
+}
+.sx-dl__copy { display: grid; gap: var(--sp-4); justify-items: start; min-width: 0; }
+.sx-dl__icon { width: 64px; }
+.sx-dl__title { font-size: var(--fs-5); }
+.sx-dl__text { color: var(--c-hero-muted); font-size: var(--fs-2); max-width: 44ch; }
+.sx-dl__facts { font-size: var(--fs-0); color: var(--c-hero-muted); }
+.sx-dl__qr { margin: 0; display: grid; gap: var(--sp-3); justify-items: center; text-align: center; max-width: 220px; }
+.sx-dl__code { display: block; width: 200px; padding: 10px; border-radius: var(--r); background: #FFFFFF; color: #000000; }
+.sx-dl__code svg { width: 100%; height: auto; }
+.sx-dl__qr figcaption { font-size: var(--fs-0); color: var(--c-hero-muted); }
+
+/* Phones install directly; the QR only helps on a desktop. */
+[data-platform="ios"] .sx-dl__qr, [data-platform="android"] .sx-dl__qr { display: none; }
+@media (max-width: 860px) {
+  .sx-dl__inner { padding-block: var(--sp-6); }
+  .sx-dl__card { grid-template-columns: minmax(0, 1fr); padding: var(--sp-5); }
+  .sx-dl__qr { display: none; }
+  .sx-dl .sx-installs { display: grid; width: 100%; }
+  .sx-dl .sx-install { justify-content: center; }
+}

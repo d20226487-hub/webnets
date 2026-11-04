@@ -1,0 +1,25 @@
+/* verified: one wide row per review, score column, verified-account mark, brand reply set apart */
+.sx-rlist--verified .sx-rlist__list { display: grid; gap: var(--sp-3); }
+.sx-rver { display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: var(--sp-5); padding: var(--sp-5); border-radius: var(--r-lg); background: var(--c-surface); border: var(--bw) solid var(--c-border); }
+.sx-rver__score { display: grid; justify-items: center; align-content: start; gap: 4px; padding-block-start: 2px; }
+.sx-rver__score strong { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-5); line-height: 1; }
+.sx-rver[data-rating="1"] .sx-rver__score strong, .sx-rver[data-rating="2"] .sx-rver__score strong { color: #B42318; }
+.sx-rver__score .sx-stars { font-size: .7rem; }
+.sx-rver__body { display: grid; gap: var(--sp-2); min-width: 0; }
+.sx-rver__who { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2) var(--sp-3); font-size: var(--fs-0); }
+.sx-rver__who > span:first-child { font-weight: var(--fw-strong); }
+.sx-rver__who time { margin-inline-start: auto; color: var(--c-muted); }
+.sx-rver__badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 999px; background: color-mix(in srgb, #1A7F45 14%, transparent); color: #1A7F45; font-size: .72rem; font-weight: var(--fw-strong); }
+.sx-rver__badge .sx-icon { width: 12px; height: 12px; }
+.sx-rver__title { font-size: var(--fs-2); }
+.sx-rver__topics { display: flex; flex-wrap: wrap; gap: var(--sp-1); }
+.sx-rver__topics li { padding: 2px 10px; border-radius: 999px; background: var(--c-surface-2); font-size: .72rem; color: var(--c-muted); }
+.sx-rver__reply { padding: var(--sp-3) var(--sp-4); border-inline-start: 3px solid var(--c-accent); border-radius: var(--r-sm); background: color-mix(in srgb, var(--c-accent) 7%, var(--c-bg)); font-size: var(--fs-0); }
+.sx-rver__reply p:first-child { display: flex; align-items: center; gap: 6px; font-weight: var(--fw-strong); margin-block-end: 4px; }
+.sx-rver__reply .sx-icon { width: 14px; height: 14px; }
+@media (max-width: 640px) {
+  .sx-rver { grid-template-columns: 52px minmax(0, 1fr); gap: var(--sp-3); padding: var(--sp-4); }
+  .sx-rver__score strong { font-size: var(--fs-3); }
+  .sx-rver__who time { margin-inline-start: 0; width: 100%; }
+}
+.sx-rver__score span { color: var(--c-star, #F5A524); font-size: 1rem; line-height: 1; }

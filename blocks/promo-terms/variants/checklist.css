@@ -1,0 +1,4 @@
+/* checklist: one line per term */
+.sx-pterms--checklist .sx-pterms__list { display: grid; gap: var(--sp-3); }
+.sx-pterms--checklist .sx-pterms__list li { display: flex; gap: var(--sp-3); align-items: flex-start; font-size: var(--fs-1); }
+.sx-pterms--checklist .sx-pterms__list .sx-icon { flex: none; color: var(--c-accent); margin-block-start: .15em; }

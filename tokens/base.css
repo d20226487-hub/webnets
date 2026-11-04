@@ -1,0 +1,100 @@
+/* Base layer: reset + primitives every block can rely on. Uses tokens only, no literal colours.
+   Authoring prefix is .sx-; the build rewrites it per site. Logical properties keep RTL possible. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--f-body);
+  font-size: var(--fs-1);
+  font-weight: var(--fw-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+h1, h2, h3, h4 {
+  margin: 0;
+  font-family: var(--f-display);
+  font-weight: var(--fw-heading);
+  text-transform: var(--tt-heading);
+  letter-spacing: var(--ls-heading);
+  line-height: var(--lh-heading);
+  text-wrap: balance;
+}
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+.sx-container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: max(16px, var(--sp-5));
+}
+
+.sx-visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+.sx-skip {
+  position: absolute; inset-inline-start: var(--sp-3); inset-block-start: -100px; z-index: 100;
+  padding: var(--sp-2) var(--sp-4); background: var(--c-accent); color: var(--c-on-accent); border-radius: var(--r-sm);
+}
+.sx-skip:focus { inset-block-start: var(--sp-3); }
+
+/* Buttons */
+.sx-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
+  min-height: 48px; padding: var(--sp-3) var(--sp-6);
+  border: var(--bw) solid transparent; border-radius: var(--r-btn);
+  font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-1);
+  text-transform: var(--tt-heading); letter-spacing: var(--ls-heading); line-height: 1.1;
+  text-decoration: none; cursor: pointer; white-space: nowrap;
+  transition: transform .15s ease, filter .15s ease, background-color .15s ease;
+}
+.sx-btn:hover { filter: brightness(1.06); transform: translateY(-1px); }
+.sx-btn:active { transform: translateY(0); }
+.sx-btn--primary { background: var(--c-accent); color: var(--c-on-accent); }
+.sx-btn--ghost { background: transparent; color: inherit; border-color: currentColor; }
+.sx-btn--wrap { white-space: normal; text-wrap: balance; text-align: center; }
+.sx-btn--small { min-height: 40px; padding: var(--sp-2) var(--sp-4); font-size: var(--fs-0); }
+.sx-btn--block { width: 100%; }
+/* Phones: CTAs never push the page sideways. Full buttons wrap; small header buttons keep one line and clip. */
+@media (max-width: 640px) {
+  .sx-btn { white-space: normal; text-wrap: balance; text-align: center; max-width: 100%; }
+  .sx-btn--small { white-space: nowrap; max-width: 52vw; overflow: hidden; text-overflow: ellipsis; display: inline-block; line-height: 40px; padding-block: 0; }
+}
+.sx-btn .sx-icon { width: 1.1em; height: 1.1em; }
+
+/* Cards follow the preset's surface style (flat / outlined / elevated). */
+.sx-card {
+  background: var(--card-bg);
+  border: var(--bw) solid var(--card-border);
+  border-radius: var(--r);
+  box-shadow: var(--card-shadow);
+}
+
+.sx-eyebrow {
+  font-size: var(--fs-0); font-weight: var(--fw-strong);
+  letter-spacing: .08em; text-transform: uppercase; color: var(--c-muted);
+}
+.sx-num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.sx-icon { width: 1.25em; height: 1.25em; flex: none; }
+
+/* Logo */
+.sx-logo { display: inline-flex; align-items: center; gap: .5em; font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-2); letter-spacing: var(--ls-heading); text-transform: var(--tt-heading); line-height: 1; }
+.sx-logo__mark { display: block; width: 1.35em; height: 1.35em; }
+.sx-logo__mark svg { width: 100%; height: 100%; }
+
+/* Age badge used by compliance + age gate */
+.sx-age {
+  display: inline-grid; place-items: center; flex: none;
+  width: 2.4em; height: 2.4em; border-radius: 50%;
+  border: 2px solid currentColor; font-weight: 700; font-size: var(--fs-0); line-height: 1;
+}

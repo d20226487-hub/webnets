@@ -1,0 +1,6 @@
+/* list: compact rows with dividers */
+.sx-plinks2--list .sx-plinks2__list { border-block-start: 1px solid var(--c-border); }
+.sx-plinks2--list .sx-plinks2__list a { grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: var(--sp-4); padding-block: var(--sp-4); border-block-end: 1px solid var(--c-border); }
+.sx-plinks2--list .sx-plinks2__list span { grid-column: 1; }
+.sx-plinks2--list .sx-icon { grid-column: 2; grid-row: 1 / span 2; }
+.sx-plinks2--list .sx-plinks2__list a:hover strong { color: var(--c-accent); }

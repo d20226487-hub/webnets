@@ -1,0 +1,56 @@
+{
+  "_howto": "Copy to sites/<project>/<id>.json, fill every TODO, then: php build/build.php <file>. Schema: dist/schemas/landing.schema.json. Guide: docs/types/landing.md.",
+  "id": "TODO-brand-market-01",
+  "type": "landing",
+  "angle": "matchday",
+  "brand": "vantro",
+  "market": "au",
+  "preset": "arena",
+  "seed": "TODO-unique-seed",
+  "prefix": "auto",
+  "links": { "go": "https://TODO.example/join?src=TODO" },
+  "site": { "name": "TODO site name" },
+  "page": { "title": "TODO up to 65 characters", "description": "TODO up to 160 characters" },
+  "variants": {},
+  "content": {
+    "header": { "note": "TODO licence note, e.g. Licensed in Australia" },
+    "hero": {
+      "eyebrow": "TODO up to 40 characters",
+      "title": "TODO headline, up to 60 characters",
+      "subtitle": "TODO up to 160 characters",
+      "secondary": { "label": "TODO", "url": "#how" },
+      "match": null,
+      "stat": null,
+      "art": "rings",
+      "chips": []
+    },
+    "features": {
+      "eyebrow": "TODO",
+      "title": "TODO section title",
+      "items": [
+        { "icon": "bolt", "title": "TODO up to 32", "text": "TODO up to 140 characters" },
+        { "icon": "shield", "title": "TODO", "text": "TODO" },
+        { "icon": "gauge", "title": "TODO", "text": "TODO" }
+      ]
+    },
+    "showcase": { "title": "TODO (only used when the angle turns it on)", "note": "TODO say the odds/tables are examples" },
+    "steps": {
+      "title": "TODO",
+      "items": [
+        { "title": "TODO", "text": "TODO" },
+        { "title": "TODO", "text": "TODO" },
+        { "title": "TODO", "text": "TODO" }
+      ]
+    },
+    "payments": { "title": "TODO (only used when the angle turns it on)", "rows": [], "note": "" },
+    "faq": {
+      "items": [
+        { "q": "TODO is it legal in <country>?", "a": "TODO" },
+        { "q": "TODO how fast are withdrawals?", "a": "TODO" },
+        { "q": "TODO which payment methods?", "a": "TODO" },
+        { "q": "TODO verification / limits?", "a": "TODO" }
+      ]
+    },
+    "final": { "title": "TODO up to 40 characters", "text": "TODO" }
+  }
+}

@@ -1,0 +1,13 @@
+/* list: one compact row per promotion */
+.sx-plist--list { background: transparent; }
+.sx-plist__rows { display: grid; border-block-start: 1px solid var(--c-border); }
+.sx-plist__row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, auto) auto; gap: var(--sp-4); align-items: center; padding-block: var(--sp-5); border-block-end: 1px solid var(--c-border); }
+.sx-plist__what { display: grid; gap: var(--sp-1); min-width: 0; }
+.sx-plist__meta { font-size: var(--fs-0); color: var(--c-muted); }
+.sx-plist__meta strong { color: var(--c-text); }
+.sx-plist__meta a { color: var(--c-text); }
+.sx-plist__code { min-height: 52px; }
+@media (max-width: 760px) {
+  .sx-plist__row { grid-template-columns: minmax(0, 1fr); gap: var(--sp-3); }
+  .sx-plist__cta { width: 100%; }
+}

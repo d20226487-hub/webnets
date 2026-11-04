@@ -1,0 +1,8 @@
+/* answer: the key fact in a highlighted box with the CTA, like a featured snippet */
+.sx-phero__box { display: grid; gap: var(--sp-4); justify-items: start; width: 100%; max-width: 640px; padding: var(--sp-5); border-radius: var(--r-lg); background: var(--c-surface); color: var(--c-text); border: var(--bw) solid var(--c-border); box-shadow: var(--card-shadow); }
+.sx-phero--answer .sx-phero__answer { display: flex; gap: var(--sp-3); align-items: start; color: var(--c-text); font-weight: var(--fw-strong); }
+.sx-phero--answer .sx-phero__answer .sx-icon { flex: none; width: 24px; height: 24px; margin-block-start: 2px; color: var(--c-accent); }
+@media (max-width: 760px) {
+  .sx-phero__box { padding: var(--sp-4); }
+  .sx-phero--answer .sx-phero__cta { width: 100%; }
+}

@@ -1,0 +1,6 @@
+{
+  "fields": [
+    { "name": "variant", "type": "select", "label": "Layout", "choices": ["auto", "card"], "default": "auto" },
+    { "name": "title", "type": "text", "label": "Form title", "default": "", "maxlength": 60 }
+  ]
+}

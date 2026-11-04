@@ -1,0 +1,20 @@
+/* Google Play look: flat white listing, green Install button, outlined secondary actions, Material-style cards */
+.sx-install { min-height: 44px; min-width: 0; padding: 0 var(--sp-6); border-radius: 8px; background: #FFFFFF; color: #01875F; border: 1px solid #DADCE0; }
+.sx-install .sx-icon { width: 20px; height: 20px; }
+.sx-install__text small { display: none; }
+.sx-install__text strong { font-family: var(--f-body); font-weight: 500; font-size: .95rem; letter-spacing: .01em; }
+.sx-installs > .sx-install:first-child { background: #01875F; color: #FFFFFF; border-color: #01875F; }
+.sx-appicon { border-radius: 20%; box-shadow: 0 1px 3px rgba(60,64,67,.3), 0 4px 8px rgba(60,64,67,.15); }
+.sx-apphero__title, h2 { letter-spacing: 0; }
+.sx-apphero__facts, [class*="__facts"] { border-color: #DADCE0; }
+.sx-btn { border-radius: 8px; font-weight: 500; letter-spacing: .01em; }
+[class*="__card"], [class*="__item"] { box-shadow: none; }
+.sx-trust__item, [class*="trust__"] { border-radius: 8px; }
+
+/* store layout: one left-aligned column with even spacing, the way store listings read */
+.sx-changes__inner { max-width: 1200px; padding-block: var(--sp-6); }
+.sx-changes__inner > * { max-width: 860px; }
+.sx-faq__inner, .sx-appinfo__inner { padding-block: var(--sp-6); }
+.sx-shots__head { margin-block-end: var(--sp-2); }
+.sx-shots__eyebrow, [class*="shots__eyebrow"] { display: none; }
+.sx-shots__title { font-size: var(--fs-3); }

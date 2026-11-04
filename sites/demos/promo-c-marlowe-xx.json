@@ -1,0 +1,98 @@
+{
+  "_demo": "Phase 3 Demo C in the DEMO-ONLY market 'xx' (brief 03, option A). Code-first angle for a casino brand: the code is the hero. Offer data comes from brands/promotions/marlowe.json.",
+  "demo": true,
+  "today": "2026-10-30",
+  "id": "promo-c-marlowe-xx",
+  "type": "promo",
+  "angle": "code-first",
+  "brand": "marlowe",
+  "market": "xx",
+  "locale": "pt",
+  "preset": "velvet-club",
+  "seed": "marlowe-xx-promo-c",
+  "prefix": "auto",
+  "links": {
+    "go": "https://marlowe.example/xx/join?promo=MARLOWE50&src=promo-c"
+  },
+  "cta_short": "Resgatar",
+  "site": {
+    "name": "Códigos Marlowe"
+  },
+  "page": {
+    "title": "Código promocional Marlowe Club MARLOWE50: 50% até €200",
+    "description": "O código atual do cassino Marlowe Club, o que ele oferece e todos os termos em palavras simples: rollover de 10×, aposta máxima de €5, 21 dias. Verificado em 29 out 2026. 18+."
+  },
+  "variants": {
+    "header": "minimal",
+    "hero": "centered-code",
+    "trust": "badges",
+    "terms": "table",
+    "steps": "timeline",
+    "more": "cards",
+    "faq": "columns",
+    "final": "solid"
+  },
+  "order": [
+    "terms",
+    "more",
+    "steps"
+  ],
+  "content": {
+    "header": {
+      "note": "Licenciado"
+    },
+    "hero": {
+      "title": "Código promocional Marlowe Club",
+      "subtitle": "Copie o código, informe-o no primeiro depósito e o bônus entra no seu saldo na hora."
+    },
+    "terms": {
+      "intro": "As regras completas do MARLOWE50. Leia a linha do rollover antes de depositar."
+    },
+    "steps": {
+      "eyebrow": "Como usar o código",
+      "title": "Do código ao bônus em três passos",
+      "items": [
+        {
+          "title": "Copie MARLOWE50",
+          "text": "Toque em Copiar acima e depois em Pegar oferta para abrir o cadastro da Marlowe Club."
+        },
+        {
+          "title": "Deposite €20 ou mais",
+          "text": "Cole o código no formulário de depósito. Cartão, transferência bancária e Apple Pay valem. Defina um limite de depósito na mesma tela."
+        },
+        {
+          "title": "Cumpra o rollover",
+          "text": "O bônus de 50% entra na hora. Aposte o valor 10 vezes em slots em até 21 dias, com no máximo €5 por giro."
+        }
+      ]
+    },
+    "faq": {
+      "items": [
+        {
+          "q": "O MARLOWE50 ainda funciona?",
+          "a": "Sim. Testamos o código em 29 out 2026. Ele vale para novos clientes até 31 dez 2026."
+        },
+        {
+          "q": "Quanto preciso apostar?",
+          "a": "Dez vezes o valor do bônus. Um bônus de €100 exige €1.000 em apostas antes de sacar os ganhos do bônus."
+        },
+        {
+          "q": "As mesas ao vivo contam?",
+          "a": "Só 10% das apostas em mesas ao vivo contam para o rollover. Slots contam integralmente."
+        },
+        {
+          "q": "E se eu apostar mais de €5?",
+          "a": "Apostas acima de €5 com o bônus ativo podem anular o bônus e os ganhos dele."
+        },
+        {
+          "q": "Posso limitar meus depósitos?",
+          "a": "Sim. Limites de depósito, perda e sessão podem ser definidos no cadastro e alterados na sua conta a qualquer momento."
+        }
+      ]
+    },
+    "final": {
+      "title": "Seu código: MARLOWE50",
+      "text": "50% até €200 no primeiro depósito. Novos clientes, 18+."
+    }
+  }
+}

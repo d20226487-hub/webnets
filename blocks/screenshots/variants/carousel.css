@@ -1,0 +1,13 @@
+/* carousel: scroll-snap row */
+.sx-shots__strip {
+  display: grid; grid-auto-flow: column; grid-auto-columns: 220px; gap: var(--sp-6);
+  overflow-x: auto; scroll-snap-type: x mandatory; padding-block: var(--sp-2) var(--sp-4); scrollbar-width: thin;
+}
+.sx-shots__item { display: grid; gap: var(--sp-4); justify-items: center; scroll-snap-align: center; }
+.sx-shots__item .sx-phone { width: 220px; box-shadow: inset 0 0 0 2px #2A2C33, 0 16px 32px rgba(0,0,0,.22); }
+
+@media (max-width: 640px) {
+  .sx-shots__inner { padding-block: var(--sp-7); }
+  .sx-shots__strip { grid-auto-columns: 62%; gap: var(--sp-4); }
+  .sx-shots__item .sx-phone { width: 100%; }
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/steps",
+  "title": "SX How To Start",
+  "category": "sx-conversion",
+  "description": "Three real steps from sign-up to first bet, followed by the mid-page CTA.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false },
+  "sx": {
+    "role": "content",
+    "variants": ["row", "timeline"],
+    "default_variant": "row",
+    "guardrails": [
+      "Exactly 3 steps; numbers are used because the order is real.",
+      "Mention verification and deposit limits honestly; do not promise instant approval."
+    ]
+  }
+}

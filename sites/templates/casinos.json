@@ -1,0 +1,54 @@
+{
+  "_howto": "Copy to sites/<project>/<id>.json, fill every TODO, then: php build/build.php <file>. Scores, ranks and facts come from brands/ratings/<market>.json and brands/facts/<market>.json, never from this file. In review-page content and meta, {item} is the brand's name. Schema: dist/schemas/casinos.schema.json. Guide: docs/types/casinos.md.",
+  "id": "TODO-publisher-market-casinos-01",
+  "type": "casinos",
+  "angle": "fast-payouts",
+  "publisher": "TODO id from brands/publishers.json",
+  "market": "br",
+  "locale": "pt",
+  "preset": "editorial",
+  "seed": "TODO-unique-seed",
+  "prefix": "auto",
+  "urls": "pretty",
+  "brands": ["TODO", "TODO", "TODO"],
+  "links": {
+    "brands": {
+      "TODO-brand-id": "https://TODO.bet.br/cadastro?src=TODO"
+    }
+  },
+  "site": { "name": "TODO site name", "url": "https://TODO-domain" },
+  "meta": {
+    "home": { "title": "TODO up to 65 characters", "description": "TODO up to 160 characters" },
+    "review": { "title": "Análise {item}: TODO", "description": "TODO, may use {item}" },
+    "compare": { "title": "TODO", "description": "TODO" },
+    "live": { "title": "TODO (if the angle has this page)", "description": "TODO" },
+    "app": { "title": "TODO (if the angle has this page)", "description": "TODO" },
+    "method": { "title": "TODO", "description": "TODO" }
+  },
+  "variants": {},
+  "content": {
+    "home": {
+      "hero": { "title": "TODO H1 up to 70 characters", "intro": "TODO no scores or rankings in the text" },
+      "faq": { "items": [
+        { "q": "TODO How do you test?", "a": "TODO" },
+        { "q": "TODO Does anyone pay to be listed?", "a": "TODO explain the featured slot if used" },
+        { "q": "TODO", "a": "TODO" },
+        { "q": "TODO Are all casinos licensed?", "a": "TODO" }
+      ] },
+      "final": { "title": "TODO up to 40 characters", "text": "TODO include the age line" }
+    },
+    "review": {
+      "hero": { "title": "Análise {item}" },
+      "others": { "title": "TODO e.g. Outros cassinos que testamos" },
+      "final": { "title": "TODO may use {item}", "text": "TODO" }
+    },
+    "compare": { "table": { "title": "TODO H1" } },
+    "live": { "hero": { "title": "TODO", "intro": "TODO" }, "text": { "html": "<h2>TODO</h2><p>TODO</p>", "toc": false } },
+    "app": { "hero": { "title": "TODO", "intro": "TODO" }, "text": { "html": "<h2>TODO</h2><p>TODO</p>", "toc": false } },
+    "method": {
+      "hero": { "title": "TODO", "answer": "TODO one sentence on how scores are made" },
+      "criteria": { "title": "TODO" },
+      "text": { "html": "<h2>TODO How we test</h2><p>TODO</p><h2>TODO How often</h2><p>TODO</p><h2>TODO How we earn money</h2><p>TODO</p>", "toc": true }
+    }
+  }
+}

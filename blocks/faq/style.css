@@ -1,0 +1,8 @@
+.sx-faq__inner { display: grid; gap: var(--sp-6); padding-block: var(--sp-8); }
+.sx-faq__title { font-size: var(--fs-5); }
+.sx-faq__list { margin: 0; }
+/* accordion: narrow centred column */
+/* columns: everything visible */
+@media (max-width: 760px) {
+  .sx-faq__inner { padding-block: var(--sp-7); }
+}

@@ -1,0 +1,14 @@
+#sx-skeltoggle{position:fixed;left:20px;bottom:164px;z-index:2147483600;display:inline-flex;align-items:center;gap:10px;padding:13px 20px 13px 14px;border:2px solid rgba(255,255,255,.7);border-radius:999px;background:linear-gradient(135deg,#0F172A 0%,#334155 100%);color:#fff;font:800 15px/1 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;box-shadow:0 10px 30px rgba(15,23,42,.45),0 2px 6px rgba(0,0,0,.25);cursor:pointer;transition:transform .15s ease}
+#sx-skeltoggle:hover,#sx-skeltoggle:focus-visible{transform:translateY(-2px) scale(1.03);outline:none}
+#sx-skeltoggle .ic{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#22D3EE;color:#0F172A}#sx-skeltoggle svg{width:18px;height:18px}
+html.sxdev-on #sx-skeltoggle,html.sxdev-on #sx-devtoggle{display:none}
+@media (max-width:700px){#sx-skeltoggle{display:none}}
+@media (prefers-reduced-motion:reduce){#sx-skeltoggle{transition:none}}
+html.sxdev-on.sxdev-side body{margin-right:min(440px,42vw)!important}
+html.sxwire body{background:#F4F5F7!important}
+html.sxwire body>:not(.vbar):not([id^="sx-"]),html.sxwire body>:not(.vbar):not([id^="sx-"]) *{background-image:none!important;background-color:transparent!important;box-shadow:none!important;text-shadow:none!important;color:transparent!important;border-color:#C9CED8!important;caret-color:transparent!important}
+html.sxwire body>:not(.vbar):not([id^="sx-"]) [data-sxdev]{background-color:#fff!important}
+html.sxwire body>:not(.vbar):not([id^="sx-"]) :is(h1,h2,h3,h4,h5,h6,p,li,a,span,strong,em,b,small,td,th,dt,dd,label,figcaption,time,cite,blockquote,code,summary,legend){background-color:rgba(120,128,145,.2)!important;border-radius:3px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+html.sxwire body>:not(.vbar):not([id^="sx-"]) :is(h1,h2,h3){background-color:rgba(71,85,105,.42)!important}
+html.sxwire body>:not(.vbar):not([id^="sx-"]) :is(a[data-cta],button,input,select,textarea){background-color:rgba(34,211,238,.38)!important;border-color:#0891B2!important}
+html.sxwire body>:not(.vbar):not([id^="sx-"]) :is(img,svg,video,picture,canvas,iframe){filter:grayscale(1) opacity(.22)!important}

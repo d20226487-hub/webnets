@@ -1,0 +1,29 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/store-reviews",
+  "title": "SX Store Reviews",
+  "category": "sx-conversion",
+  "description": "Store-style ratings and reviews: overall store rating with the 5-to-1 split and the latest player reviews.",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "sx_acf_render"
+  },
+  "supports": {
+    "align": false,
+    "html": false,
+    "multiple": false
+  },
+  "sx": {
+    "role": "content",
+    "variants": [
+      "play",
+      "appstore"
+    ],
+    "default_variant": "play",
+    "guardrails": [
+      "Rating and split come from app.store (the real store listing); review cards from brands/reviews/<brand>.json.",
+      "Seeded (made-up) reviews render only with \"demo\": true and carry a sample label."
+    ]
+  }
+}

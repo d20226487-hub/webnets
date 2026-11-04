@@ -1,0 +1,36 @@
+{
+    "fields": [
+        {
+            "name": "variant",
+            "type": "select",
+            "label": "Layout",
+            "choices": [
+                "auto",
+                "solid",
+                "split"
+            ],
+            "default": "auto"
+        },
+        {
+            "name": "title",
+            "type": "text",
+            "label": "Headline",
+            "required": true,
+            "default": "",
+            "maxlength": 40
+        },
+        {
+            "name": "text",
+            "type": "text",
+            "label": "Line under the headline",
+            "default": "",
+            "maxlength": 120
+        },
+        {
+            "name": "show_code",
+            "type": "true_false",
+            "label": "Show the lead offer code (promo pages)",
+            "default": false
+        }
+    ]
+}

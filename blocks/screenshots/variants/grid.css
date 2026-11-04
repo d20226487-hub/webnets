@@ -1,0 +1,7 @@
+/* grid: every screen visible, no scrolling */
+.sx-shots__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--sp-6) var(--sp-4); }
+.sx-shots--grid .sx-shots__item .sx-phone { width: 100%; max-width: 220px; }
+@media (max-width: 640px) {
+  .sx-shots__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-5) var(--sp-3); }
+  .sx-shots--grid .sx-shots__caption { font-size: var(--fs-0); }
+}

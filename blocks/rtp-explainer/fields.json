@@ -1,0 +1,5 @@
+{
+  "fields": [
+    { "name": "variant", "type": "select", "label": "Layout", "choices": ["auto", "inline", "card"], "default": "auto" }
+  ]
+}

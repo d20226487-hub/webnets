@@ -1,0 +1,759 @@
+# Rebuild brief: Paddock Wire
+
+You are rebuilding every page of the **Paddock Wire** template, a news site (angle: newsroom). Keep the section order, the content and every rule below. Write the page text exactly as given (it is in English); write code and comments in English.
+
+**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section below with the listed fields as props.
+
+## Site context
+
+- Site: Paddock Wire (https://paddockwire.example)
+- Market: Australia (`au`), language `en`, text direction `ltr`, currency AUD
+- Minimum age: 18+
+- Products allowed: sports betting yes, online casino **no**
+- Market note: Online casino is prohibited under the Interactive Gambling Act. Credit cards cannot be used for online wagering (from June 2024). Inducement advertising is restricted in several states.
+- Pages (17):
+  - `index.html` — Paddock Wire: Australian betting news and guides
+  - `news-credit-card-ban-what-changed.html` — Credit card ban: what changed for online betting accounts | Paddock Wire
+  - `guides-how-betstop-works.html` — How BetStop works, and how to register | Paddock Wire
+  - `partner-content-vantro-payid-withdrawal-tracker.html` — Inside Vantro's new PayID withdrawal tracker | Paddock Wire
+  - `news-vantro-netball-same-game-multis.html` — Vantro adds same-game multis for netball | Paddock Wire
+  - `partner-content-nyxa-live-stats-afl.html` — Nyxa launches live stats overlay for AFL matches | Paddock Wire
+  - `guides-same-game-multis-explained.html` — Same-game multis explained | Paddock Wire
+  - `news-cup-week-deposit-limits.html` — Before Cup week, set a deposit limit that matches your budget | Paddock Wire
+  - `news-nyxa-face-id-update.html` — Nyxa app update brings Face ID log-in and faster bet slips | Paddock Wire
+  - `partner-content-vantro-community-footy.html` — Vantro backs grassroots footy grounds in regional Victoria | Paddock Wire
+  - `guides-odds-formats.html` — Decimal odds: what the number actually means | Paddock Wire
+  - `partner-content-nyxa-bet-slip-limits.html` — Why Nyxa put deposit limits inside the bet slip | Paddock Wire
+  - `guides-activity-statements.html` — Activity statements: the monthly number worth reading | Paddock Wire
+  - `news.html` — Betting industry news | Paddock Wire
+  - `guides.html` — Betting guides | Paddock Wire
+  - `partner-content.html` — Partner content | Paddock Wire
+  - `about.html` — About Paddock Wire and our sponsored content
+
+## Design tokens
+
+Fonts (Google Fonts): Fira Sans, Lora.
+
+Use these CSS custom properties (they are the whole palette, type scale and radius set):
+
+```css
+:root {
+  --c-bg: #F6F6F3;
+  --c-surface: #FFFFFF;
+  --c-surface-2: #ECECE7;
+  --c-text: #1B1B18;
+  --c-muted: #5A5A52;
+  --c-border: #D6D6CF;
+  --c-accent: #C8102E;
+  --c-on-accent: #FFFFFF;
+  --c-accent-2: #1B1B18;
+  --c-success: #1F9D55;
+  --c-warning: #D98B00;
+  --c-danger: #D93636;
+  --c-hero-text: #1B1B18;
+  --c-hero-muted: #5A5A52;
+  --c-hero-accent: #C8102E;
+  --c-hero-on-accent: #FFFFFF;
+  --hero-bg: #F6F6F3;
+  --f-display: "Lora",Georgia,"Times New Roman",serif;
+  --f-body: "Fira Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono: "Fira Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --fw-heading: 700;
+  --fw-body: 400;
+  --fw-strong: 500;
+  --tt-heading: none;
+  --ls-heading: -0.01em;
+  --lh-body: 1.65;
+  --lh-heading: 1.15;
+  --r-sm: 0px;
+  --r: 0px;
+  --r-lg: 2px;
+  --r-btn: 2px;
+  --bw: 1px;
+  --density: 1.05;
+  --fs-0: 13.6px;
+  --fs-1: 17px;
+  --fs-2: 26.56px;
+  --fs-3: clamp(22.58px,18.02px + 1.265vw,33.2px);
+  --fs-4: clamp(28.22px,22.53px + 1.581vw,41.5px);
+  --fs-5: clamp(35.28px,28.16px + 1.976vw,51.88px);
+  --fs-6: clamp(44.1px,35.2px + 2.47vw,64.85px);
+  --sp-1: 4.2px;
+  --sp-2: 8.4px;
+  --sp-3: 12.6px;
+  --sp-4: 16.8px;
+  --sp-5: 25.2px;
+  --sp-6: 33.6px;
+  --sp-7: 50.4px;
+  --sp-8: 67.2px;
+  --sp-9: 100.8px;
+  --card-bg: #FFFFFF;
+  --card-border: transparent;
+  --card-shadow: none;
+  --surface-style: flat;
+}
+```
+
+Layout is mobile-first: it must work from 375px to 1440px wide.
+
+## Rules you must not break
+
+- Every page opens with an age gate (18+) before any gambling content.
+- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- No casino content anywhere: online casino is not allowed in this market.
+- Responsible gambling: All copy comes from markets/<id>.json; never type compliance text into a page.
+- Responsible gambling: Every page renders a 'panel' (usually inside the footer). 'strip' is an optional top-of-page addition.
+- Responsible gambling: Where a market lists several mandated taglines, one is chosen per site by seed.
+- Affiliate disclosure: Fixed wording per locale; cannot be removed on review sites.
+- Header: One-page landing and app pages use 'minimal' (no nav) so attention stays on the conversion.
+- Header: The CTA stays visible at every width; on mobile the nav collapses into a menu, the CTA does not.
+- Lead stories: PR articles are never the lead story.
+- Article list: Paid (pr) articles always carry the Sponsored label and sponsor name.
+- Footer: Always renders the compliance panel; it cannot be switched off.
+- Footer: Payment methods come from the market config so they are always locally correct.
+- Age gate: Age comes from the market (21 in KZ, 18 in AU/BR). Never hard-code it.
+- Age gate: Content stays in the HTML for crawlers; the overlay is shown by script, so no-JS users still see the compliance footer.
+- Sticky CTA: Phones only (860px and narrower). Never covers the compliance panel: the footer gets bottom padding.
+- Sticky CTA: Shows the market age badge next to the CTA.
+- Article body: Paid articles show the Sponsored label, the sponsor and a disclosure box; their brand links are rel="sponsored nofollow".
+- Article body: Paid articles get no NewsArticle structured data.
+- Page title: The answer line states the page's key fact in one sentence, above the fold on phones.
+- Text block: Only h2, h3, p, ul, ol, li, strong, em, a, table, blockquote survive; all attributes except href are removed.
+- Text block: Links: page:<id> for internal pages, https:// for sources. Brand links belong in CTAs, not in prose.
+- Page links: Internal links only; never a substitute for the brand CTA.
+
+## Page `index.html`
+
+- Title tag: Paddock Wire: Australian betting news and guides
+- Meta description: Betting industry news, plain-language guides and clearly labelled partner content for Australian punters.
+- The only H1: Australian betting news and guides
+- Structured data (JSON-LD): WebPage, WebSite
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `news-credit-card-ban-what-changed.html`, `guides-how-betstop-works.html`, `news-vantro-netball-same-game-multis.html`, `guides-same-game-multis-explained.html`, `news-cup-week-deposit-limits.html`, `news-nyxa-face-id-update.html`, `guides-odds-formats.html`, `guides-activity-statements.html`, `partner-content-vantro-payid-withdrawal-tracker.html`, `partner-content-nyxa-live-stats-afl.html`, `partner-content-vantro-community-footy.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+4. **Lead stories** — block `sx/article-lead`, variant `split`, role `content`
+   Purpose: Home masthead: H1 and the newest news or guide stories (split, stack or numbered wire). Never paid content.
+   - `title`: "Australian betting news and guides"
+5. **Article list** — block `sx/article-list`, variant `cards`, role `content`
+   Purpose: Articles newest first: one kind or all, with the Sponsored label on paid ones, optional paging and a "see all" link.
+   - `heading`: "h2"
+   - `title`: "Latest"
+   - `exclude_pr`: true
+   - `skip_lead`: true
+   - `limit`: "6"
+   - `more`: "news"
+   - `exclude_current`: false
+6. **Article list** — block `sx/article-list`, variant `list`, role `content`
+   Purpose: Articles newest first: one kind or all, with the Sponsored label on paid ones, optional paging and a "see all" link.
+   - `heading`: "h2"
+   - `title`: "Guides"
+   - `kind`: "guide"
+   - `exclude_pr`: false
+   - `skip_lead`: true
+   - `limit`: "3"
+   - `more`: "guides"
+   - `exclude_current`: false
+7. **Article list** — block `sx/article-list`, variant `rail`, role `content`
+   Purpose: Articles newest first: one kind or all, with the Sponsored label on paid ones, optional paging and a "see all" link.
+   - `heading`: "h2"
+   - `title`: "Partner content"
+   - `kind`: "pr"
+   - `exclude_pr`: false
+   - `skip_lead`: false
+   - `limit`: "3"
+   - `more`: "partners"
+   - `exclude_current`: false
+8. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+9. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+10. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `news-credit-card-ban-what-changed.html`
+
+- Title tag: Credit card ban: what changed for online betting accounts | Paddock Wire
+- Meta description: Credit card ban: what changed for online betting accounts. Paddock Wire, Australian betting news.
+- The only H1: Credit card ban: what changed for online betting accounts
+- Structured data (JSON-LD): WebPage, NewsArticle, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `news-vantro-netball-same-game-multis.html`, `news-cup-week-deposit-limits.html`, `news-nyxa-face-id-update.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+4. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+7. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `guides-how-betstop-works.html`
+
+- Title tag: How BetStop works, and how to register | Paddock Wire
+- Meta description: How BetStop works, and how to register. Paddock Wire, Australian betting news.
+- The only H1: How BetStop works, and how to register
+- Structured data (JSON-LD): WebPage, Article, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `guides-same-game-multis-explained.html`, `guides-odds-formats.html`, `guides-activity-statements.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+4. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+7. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `partner-content-vantro-payid-withdrawal-tracker.html`
+
+- Title tag: Inside Vantro's new PayID withdrawal tracker | Paddock Wire
+- Meta description: Inside Vantro's new PayID withdrawal tracker. Paddock Wire, Australian betting news.
+- The only H1: Inside Vantro's new PayID withdrawal tracker
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `partner-content-nyxa-live-stats-afl.html`, `partner-content-vantro-community-footy.html`, `partner-content-nyxa-bet-slip-limits.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+4. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+7. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `news-vantro-netball-same-game-multis.html`
+
+- Title tag: Vantro adds same-game multis for netball | Paddock Wire
+- Meta description: Vantro adds same-game multis for netball. Paddock Wire, Australian betting news.
+- The only H1: Vantro adds same-game multis for netball
+- Structured data (JSON-LD): WebPage, NewsArticle, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `guides-same-game-multis-explained.html`, `news-credit-card-ban-what-changed.html`, `news-cup-week-deposit-limits.html`, `news-nyxa-face-id-update.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+4. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+7. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `partner-content-nyxa-live-stats-afl.html`
+
+- Title tag: Nyxa launches live stats overlay for AFL matches | Paddock Wire
+- Meta description: Nyxa launches live stats overlay for AFL matches. Paddock Wire, Australian betting news.
+- The only H1: Nyxa launches live stats overlay for AFL matches
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `partner-content-vantro-payid-withdrawal-tracker.html`, `partner-content-vantro-community-footy.html`, `partner-content-nyxa-bet-slip-limits.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+4. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+7. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `guides-same-game-multis-explained.html`
+
+- Title tag: Same-game multis explained | Paddock Wire
+- Meta description: Same-game multis explained. Paddock Wire, Australian betting news.
+- The only H1: Same-game multis explained
+- Structured data (JSON-LD): WebPage, Article, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `guides-activity-statements.html`, `guides-how-betstop-works.html`, `guides-odds-formats.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+4. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+7. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `news-cup-week-deposit-limits.html`
+
+- Title tag: Before Cup week, set a deposit limit that matches your budget | Paddock Wire
+- Meta description: Before Cup week, set a deposit limit that matches your budget. Paddock Wire, Australian betting news.
+- The only H1: Before Cup week, set a deposit limit that matches your budget
+- Structured data (JSON-LD): WebPage, NewsArticle, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `guides-how-betstop-works.html`, `news-credit-card-ban-what-changed.html`, `news-vantro-netball-same-game-multis.html`, `news-nyxa-face-id-update.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+4. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+7. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `news-nyxa-face-id-update.html`
+
+- Title tag: Nyxa app update brings Face ID log-in and faster bet slips | Paddock Wire
+- Meta description: Nyxa app update brings Face ID log-in and faster bet slips. Paddock Wire, Australian betting news.
+- The only H1: Nyxa app update brings Face ID log-in and faster bet slips
+- Structured data (JSON-LD): WebPage, NewsArticle, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `news-credit-card-ban-what-changed.html`, `news-vantro-netball-same-game-multis.html`, `news-cup-week-deposit-limits.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+4. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+7. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `partner-content-vantro-community-footy.html`
+
+- Title tag: Vantro backs grassroots footy grounds in regional Victoria | Paddock Wire
+- Meta description: Vantro backs grassroots footy grounds in regional Victoria. Paddock Wire, Australian betting news.
+- The only H1: Vantro backs grassroots footy grounds in regional Victoria
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `partner-content-vantro-payid-withdrawal-tracker.html`, `partner-content-nyxa-live-stats-afl.html`, `partner-content-nyxa-bet-slip-limits.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+4. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+7. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `guides-odds-formats.html`
+
+- Title tag: Decimal odds: what the number actually means | Paddock Wire
+- Meta description: Decimal odds: what the number actually means. Paddock Wire, Australian betting news.
+- The only H1: Decimal odds: what the number actually means
+- Structured data (JSON-LD): WebPage, Article, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `guides-same-game-multis-explained.html`, `guides-how-betstop-works.html`, `guides-activity-statements.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+4. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+7. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `partner-content-nyxa-bet-slip-limits.html`
+
+- Title tag: Why Nyxa put deposit limits inside the bet slip | Paddock Wire
+- Meta description: Why Nyxa put deposit limits inside the bet slip. Paddock Wire, Australian betting news.
+- The only H1: Why Nyxa put deposit limits inside the bet slip
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `guides-how-betstop-works.html`, `partner-content-vantro-payid-withdrawal-tracker.html`, `partner-content-nyxa-live-stats-afl.html`, `partner-content-vantro-community-footy.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+4. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+7. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `guides-activity-statements.html`
+
+- Title tag: Activity statements: the monthly number worth reading | Paddock Wire
+- Meta description: Activity statements: the monthly number worth reading. Paddock Wire, Australian betting news.
+- The only H1: Activity statements: the monthly number worth reading
+- Structured data (JSON-LD): WebPage, Article, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `guides-how-betstop-works.html`, `guides-same-game-multis-explained.html`, `guides-odds-formats.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+4. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+7. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `news.html`
+
+- Title tag: Betting industry news | Paddock Wire
+- Meta description: The latest Australian betting industry and brand news.
+- The only H1: News
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `news-credit-card-ban-what-changed.html`, `news-vantro-netball-same-game-multis.html`, `news-cup-week-deposit-limits.html`, `news-nyxa-face-id-update.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+4. **Article list** — block `sx/article-list`, variant `list`, role `content`
+   Purpose: Articles newest first: one kind or all, with the Sponsored label on paid ones, optional paging and a "see all" link.
+   - `heading`: "h1"
+   - `title`: "News"
+   - `kind`: "news"
+   - `exclude_pr`: false
+   - `skip_lead`: false
+   - `limit`: "0"
+   - `exclude_current`: false
+5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+7. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `guides.html`
+
+- Title tag: Betting guides | Paddock Wire
+- Meta description: How betting works, limits, BetStop and odds, explained plainly.
+- The only H1: Guides
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `guides-how-betstop-works.html`, `guides-same-game-multis-explained.html`, `guides-odds-formats.html`, `guides-activity-statements.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+4. **Article list** — block `sx/article-list`, variant `list`, role `content`
+   Purpose: Articles newest first: one kind or all, with the Sponsored label on paid ones, optional paging and a "see all" link.
+   - `heading`: "h1"
+   - `title`: "Guides"
+   - `kind`: "guide"
+   - `exclude_pr`: false
+   - `skip_lead`: false
+   - `limit`: "0"
+   - `exclude_current`: false
+5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+7. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `partner-content.html`
+
+- Title tag: Partner content | Paddock Wire
+- Meta description: Articles paid for by betting brands. Every one is labelled Sponsored.
+- The only H1: Sponsored Partner content
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `partner-content-vantro-payid-withdrawal-tracker.html`, `partner-content-nyxa-live-stats-afl.html`, `partner-content-vantro-community-footy.html`, `partner-content-nyxa-bet-slip-limits.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+4. **Article list** — block `sx/article-list`, variant `cards`, role `content`
+   Purpose: Articles newest first: one kind or all, with the Sponsored label on paid ones, optional paging and a "see all" link.
+   - `heading`: "h1"
+   - `title`: "Partner content"
+   - `intro`: "These articles are paid for by betting brands and reviewed by them before publication. They are advertising, not independent journalism."
+   - `kind`: "pr"
+   - `exclude_pr`: false
+   - `skip_lead`: false
+   - `limit`: "0"
+   - `exclude_current`: false
+5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+7. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `about.html`
+
+- Title tag: About Paddock Wire and our sponsored content
+- Meta description: Who we are, how we label paid articles, our corrections policy and how to contact us.
+- The only H1: About Paddock Wire
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+4. **Page title** — block `sx/page-hero`, variant `compact`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "About Paddock Wire"
+   - `answer`: "We write news and guides about betting in Australia. Brands can pay for articles; every paid article is labelled Sponsored."
+   - `show_cta`: false
+5. **Text block** — block `sx/prose`, variant `article`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<h2>Sponsored articles</h2><p>Betting brands can pay us to publish articles about their products. Those articles are labelled Sponsored on every listing and above the headline, name the brand that paid, and carry a note explaining that they are advertising.</p><p>Links in sponsored articles are marked as paid links for search engines.</p><h2>What sponsors cannot do</h2><ul><li>Pay for or edit our …` (HTML)
+   - `toc`: true
+6. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+7. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+8. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+9. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Acceptance checklist
+
+- [ ] Sections appear in the order above, with the same layout variant (or an equivalent layout).
+- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
+- [ ] One H1 per page; headings do not skip levels.
+- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
+- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
+- [ ] The structured data listed for each page is present and valid.
+- [ ] Every internal link opens an existing page.
+- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
+- [ ] Every rule in "Rules you must not break" holds on every page.
+
+_Long text and lists are shortened here (…, "[n items]"). For the full text run `php build/ai-brief.php sites/demos/<config>.json`._

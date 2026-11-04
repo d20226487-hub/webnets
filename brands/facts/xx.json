@@ -1,0 +1,115 @@
+{
+  "_note": "Facts for the demo market xx (Demoland). Fictional demo data in EUR. checked_at older than 30 days gives a build warning. withdrawal_minutes: typical time for that method after approval.",
+  "brands": {
+    "marlowe": {
+      "min_deposit": 20,
+      "withdrawal_minutes": {
+        "visa-debit": 240,
+        "bank": 1440
+      },
+      "payments": [
+        "visa-debit",
+        "mastercard-debit",
+        "apple-pay",
+        "bank"
+      ],
+      "support": {
+        "chat": "24h",
+        "email": true,
+        "phone": true
+      },
+      "games": 2600,
+      "live_tables": 130,
+      "app": true,
+      "domain": "marlowe.example",
+      "checked_at": "2026-10-27"
+    },
+    "nyxa": {
+      "min_deposit": 10,
+      "withdrawal_minutes": {
+        "apple-pay": 15,
+        "visa-debit": 120
+      },
+      "payments": [
+        "visa-debit",
+        "mastercard-debit",
+        "apple-pay"
+      ],
+      "support": {
+        "chat": "24h",
+        "email": true,
+        "phone": false
+      },
+      "games": 3300,
+      "live_tables": 70,
+      "app": true,
+      "domain": "nyxa.example",
+      "checked_at": "2026-10-28"
+    },
+    "verazul": {
+      "min_deposit": 15,
+      "withdrawal_minutes": {
+        "visa-debit": 90,
+        "bank": 1440
+      },
+      "payments": [
+        "visa-debit",
+        "mastercard-debit",
+        "bank"
+      ],
+      "support": {
+        "chat": "08–24h",
+        "email": true,
+        "phone": true
+      },
+      "games": 1900,
+      "live_tables": 150,
+      "app": true,
+      "domain": "verazul.example",
+      "checked_at": "2026-10-25"
+    },
+    "cobaltio": {
+      "min_deposit": 10,
+      "withdrawal_minutes": {
+        "bank": 2880
+      },
+      "payments": [
+        "visa-debit",
+        "bank"
+      ],
+      "support": {
+        "chat": "24h",
+        "email": true,
+        "phone": false
+      },
+      "games": 4500,
+      "live_tables": 55,
+      "app": false,
+      "domain": "cobaltio.example",
+      "checked_at": "2026-10-23"
+    },
+    "lunaro": {
+      "min_deposit": 25,
+      "withdrawal_minutes": {
+        "visa-debit": 180,
+        "bank": 1440
+      },
+      "payments": [
+        "visa-debit",
+        "mastercard-debit",
+        "apple-pay",
+        "bank"
+      ],
+      "support": {
+        "chat": "09–21h",
+        "email": true,
+        "phone": false
+      },
+      "games": 1300,
+      "live_tables": 220,
+      "app": true,
+      "domain": "lunaro.example",
+      "checked_at": "2026-10-26"
+    }
+  }
+}

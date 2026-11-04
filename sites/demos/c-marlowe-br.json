@@ -1,0 +1,78 @@
+{
+  "_demo": "Phase 1 Demo C. All copy is placeholder written to the brief; tables, studios and limits are fictional.",
+  "id": "c-marlowe-br",
+  "type": "landing",
+  "angle": "live-casino",
+  "brand": "marlowe",
+  "market": "br",
+  "preset": "luxury-gold",
+  "seed": "marlowe-br-c",
+  "prefix": "auto",
+  "links": { "go": "https://marlowe.bet.br/cadastro?src=sat-c" },
+  "site": { "name": "Marlowe Club Brasil" },
+  "page": {
+    "title": "Marlowe Club: cassino ao vivo com saque via PIX",
+    "description": "Roleta, blackjack e bacará ao vivo com crupiês reais. Saques via PIX em até 30 minutos. Autorizada SPA/MF. 18+."
+  },
+  "variants": {
+    "header": "minimal", "hero": "full-bleed", "trust": "strip", "features": "bento", "showcase": "game-strip",
+    "steps": "row", "faq": "accordion", "final": "solid", "sticky-cta": "bar"
+  },
+  "order": ["features", "steps", "showcase"],
+  "content": {
+    "header": { "note": "Autorizada SPA/MF" },
+    "hero": {
+      "eyebrow": "Cassino ao vivo",
+      "title": "Mesas ao vivo com crupiês reais, 24 horas",
+      "subtitle": "Roleta, blackjack e bacará transmitidos de estúdio, com saques via PIX em até 30 minutos.",
+      "secondary": { "label": "Ver as mesas", "url": "#games" },
+      "art": "roulette",
+      "chips": ["Roleta", "Blackjack", "Bacará", "Game shows"]
+    },
+    "features": {
+      "eyebrow": "Por que a Marlowe",
+      "title": "Um cassino feito para mesas ao vivo",
+      "items": [
+        { "icon": "play", "title": "Estúdios em alta definição", "text": "Mais de 60 mesas ao vivo em HD, com crupiês que falam português." },
+        { "icon": "wallet", "title": "Saque via PIX", "text": "A maioria dos saques cai na conta em até 30 minutos, todos os dias." },
+        { "icon": "shield", "title": "Autorizada no Brasil", "text": "Operação autorizada pela SPA/MF, no domínio .bet.br." },
+        { "icon": "gauge", "title": "Limites de depósito", "text": "Defina limites diários, semanais ou mensais e faça pausas quando quiser." }
+      ]
+    },
+    "showcase": {
+      "eyebrow": "Ao vivo agora",
+      "title": "Mesas abertas",
+      "tiles": [
+        { "name": "Roleta Imperial", "studio": "Velvet Live", "meta": "Aposta mín. R$ 1", "tag": "Ao vivo", "motif": "wheel", "colors": ["#8C2B3A", "#1A0B0E"] },
+        { "name": "Blackjack Clássico", "studio": "Velvet Live", "meta": "3 lugares livres", "tag": "Ao vivo", "motif": "cards", "colors": ["#1E5A44", "#08160F"] },
+        { "name": "Bacará Speed", "studio": "Harbor Studios", "meta": "Rodada a cada 27 s", "tag": "Ao vivo", "motif": "cards", "colors": ["#2B3F8C", "#0A0F24"] },
+        { "name": "Roleta Dourada", "studio": "Harbor Studios", "meta": "Aposta mín. R$ 5", "motif": "wheel", "colors": ["#C9A45C", "#2A1E08"] },
+        { "name": "Mega Roda", "studio": "Velvet Live", "meta": "Game show", "motif": "rings", "colors": ["#6E3BB5", "#160A26"] },
+        { "name": "Dragon Tiger", "studio": "Harbor Studios", "meta": "Aposta mín. R$ 2", "motif": "cards", "colors": ["#B5482A", "#26100A"] }
+      ],
+      "note": "Mesas, estúdios e limites ilustrativos."
+    },
+    "steps": {
+      "eyebrow": "Como começar",
+      "title": "Três passos até a mesa",
+      "items": [
+        { "title": "Crie sua conta", "text": "Cadastro com CPF e verificação facial, como exige a lei. Leva poucos minutos." },
+        { "title": "Deposite via PIX", "text": "Depósito mínimo de R$ 10, aprovado na hora. Defina seu limite no mesmo passo." },
+        { "title": "Escolha sua mesa", "text": "Entre em uma mesa ao vivo e jogue com crupiês reais." }
+      ]
+    },
+    "faq": {
+      "items": [
+        { "q": "A Marlowe Club é legalizada no Brasil?", "a": "Sim. A Marlowe Club é autorizada pela Secretaria de Prêmios e Apostas do Ministério da Fazenda e opera no domínio marlowe.bet.br." },
+        { "q": "Quanto tempo demora o saque?", "a": "A maioria dos saques via PIX é concluída em até 30 minutos." },
+        { "q": "Posso usar cartão de crédito?", "a": "Não. A regulamentação brasileira permite apenas PIX, TED e cartão de débito." },
+        { "q": "Por que preciso informar meu CPF?", "a": "A lei exige a verificação de identidade e idade de todos os jogadores. Seus dados são protegidos." },
+        { "q": "Existe bônus de boas-vindas?", "a": "Não. A regulamentação brasileira não permite bônus de boas-vindas. Em vez disso, focamos em saques rápidos e mesas de qualidade." }
+      ]
+    },
+    "final": {
+      "title": "A mesa está posta.",
+      "text": "Cadastro em poucos minutos. Defina seus limites desde o primeiro dia."
+    }
+  }
+}

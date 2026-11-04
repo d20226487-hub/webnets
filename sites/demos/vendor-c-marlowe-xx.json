@@ -1,0 +1,56 @@
+{
+  "_demo": "Phase 4 Demo C (brief 04, option C) in the DEMO-ONLY market 'xx'. Games come from brands/catalog/marlowe.json (market xx).",
+  "demo": true,
+  "today": "2026-10-30",
+  "id": "vendor-c-marlowe-xx",
+  "type": "vendor",
+  "angle": "studio",
+  "brand": "marlowe",
+  "market": "xx",
+  "provider": "paper-lantern",
+  "preset": "editorial",
+  "seed": "marlowe-xx-vendor-c",
+  "prefix": "auto",
+  "links": {
+    "go": "https://marlowe.example/xx/casino/studios/paper-lantern?src=vendor-c",
+    "game": "https://marlowe.example/xx/casino/games/{game}?src=vendor-c",
+    "provider": "https://marlowe.example/xx/casino/studios/{provider}?src=vendor-c"
+  },
+  "site": { "name": "Paper Lantern at Marlowe" },
+  "page": {
+    "title": "Paper Lantern Games at Marlowe Club: the studio and its slots",
+    "description": "Who Paper Lantern Games are, what their slots play like, and all six of their games at Marlowe Club with RTP and volatility. 18+."
+  },
+  "variants": {
+    "header": "minimal", "hero": "studio-banner", "trust": "strip", "games": "grid", "explainer": "inline",
+    "about": "bento", "more": "logos-text", "faq": "accordion", "final": "split", "sticky-cta": "bar"
+  },
+  "order": ["games", "explainer", "about"],
+  "content": {
+    "hero": {
+      "title": "Paper Lantern Games: small studio, story-led slots",
+      "subtitle": "A young studio with hand-drawn worlds and gentle bonus rounds. All six of its games are in the Marlowe Club lobby."
+    },
+    "about": {
+      "eyebrow": "The studio",
+      "title": "What Paper Lantern slots feel like",
+      "items": [
+        { "icon": "star", "title": "Hand-drawn worlds", "text": "Every game is drawn in ink and watercolour, set in night markets, rivers and festivals." },
+        { "icon": "bolt", "title": "Story bonus rounds", "text": "Bonus rounds move through short scenes instead of a plain spin counter." },
+        { "icon": "shield", "title": "Volatility for every taste", "text": "Three of the six games are low or medium volatility. Paper Tigers is the only very high one." },
+        { "icon": "clock", "title": "Founded 2024", "text": "A small team; new games arrive every two to three months." }
+      ]
+    },
+    "games": { "intro": "In order of popularity at Marlowe Club." },
+    "faq": {
+      "items": [
+        { "q": "Which Paper Lantern games does Marlowe Club have?", "a": "All six: Fox & Kite, Night Market, Moon Ferry, Ink & Gold, Lantern Festival and Paper Tigers." },
+        { "q": "Is the RTP the same at every casino?", "a": "Not always. Studios often offer several RTP versions and each casino picks one. We show the version Marlowe Club runs." },
+        { "q": "Can I play on my phone?", "a": "Yes. The games run in the mobile browser; no download is needed." },
+        { "q": "How do I deposit?", "a": "By card, bank transfer or e-wallet. You can set a deposit limit when you sign up." },
+        { "q": "Can I take a break?", "a": "Yes. Set time and loss limits in your account, or pause it for a period you choose." }
+      ]
+    },
+    "final": { "title": "Open the Paper Lantern lobby", "text": "Six games at Marlowe Club. 18+ only." }
+  }
+}

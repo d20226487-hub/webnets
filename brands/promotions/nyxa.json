@@ -1,0 +1,119 @@
+{
+  "_note": "Promotion feed for Nyxa (fictional). Maintained by the affiliate team. Offers render only in markets whose promotion policy allows their type. See brief 03, section 3.",
+  "promotions": [
+    {
+      "id": "nyxa-xx-boost",
+      "type": "odds_boost",
+      "markets": [
+        "xx"
+      ],
+      "title": {
+        "en": "Live price boosts every evening",
+        "ru": "Повышенные коэффициенты на live каждый вечер"
+      },
+      "value": {
+        "kind": "boost",
+        "percent": 30
+      },
+      "code": null,
+      "code_scope": "public",
+      "terms": {
+        "min_deposit": null,
+        "wagering": null,
+        "min_odds": null,
+        "max_bet": 25,
+        "expiry_days": 1,
+        "eligible": {
+          "en": "Verified customers, 18+",
+          "ru": "Верифицированные клиенты, 18+"
+        },
+        "excluded_payments": null,
+        "games": {
+          "en": "Selected live football and hockey markets, single bets",
+          "ru": "Отдельные live-рынки футбола и хоккея, только ординары"
+        }
+      },
+      "valid_from": "2026-10-01",
+      "valid_to": "2026-12-31",
+      "verified_at": "2026-10-28",
+      "terms_url": "https://nyxa.example/xx/promotions/boosts-terms"
+    },
+    {
+      "id": "nyxa-xx-cashback",
+      "type": "cashback",
+      "markets": [
+        "xx"
+      ],
+      "title": {
+        "en": "Weekly cashback on casino play",
+        "ru": "Еженедельный кешбэк в казино"
+      },
+      "value": {
+        "kind": "cashback",
+        "percent": 15,
+        "max": 75
+      },
+      "code": "NYXACASH",
+      "code_scope": "public",
+      "terms": {
+        "min_deposit": null,
+        "wagering": 1,
+        "min_odds": null,
+        "max_bet": null,
+        "expiry_days": 7,
+        "eligible": {
+          "en": "Verified customers who opt in, 18+",
+          "ru": "Верифицированные клиенты, подключившие акцию, 18+"
+        },
+        "excluded_payments": null,
+        "games": {
+          "en": "Slots and live casino",
+          "ru": "Слоты и live-казино"
+        }
+      },
+      "valid_from": "2026-10-01",
+      "valid_to": "2026-12-31",
+      "verified_at": "2026-10-28",
+      "terms_url": "https://nyxa.example/xx/promotions/cashback-terms",
+      "code_via_link": true
+    },
+    {
+      "id": "nyxa-xx-lanterns",
+      "type": "tournaments",
+      "markets": [
+        "xx"
+      ],
+      "title": {
+        "en": "Lantern Nights slot tournament",
+        "ru": "Турнир по слотам Lantern Nights"
+      },
+      "value": {
+        "kind": "prize_pool",
+        "amount": 10000
+      },
+      "code": "LANTERN",
+      "code_scope": "public",
+      "terms": {
+        "min_deposit": null,
+        "wagering": null,
+        "min_odds": null,
+        "max_bet": 5,
+        "expiry_days": null,
+        "eligible": {
+          "en": "Verified customers who join with the code, 18+",
+          "ru": "Верифицированные клиенты, вступившие по коду, 18+"
+        },
+        "excluded_payments": null,
+        "games": {
+          "en": "Paper Lantern Games slots",
+          "ru": "Слоты Paper Lantern Games"
+        }
+      },
+      "valid_from": "2026-10-15",
+      "valid_to": "2026-11-30",
+      "verified_at": "2026-10-28",
+      "terms_url": "https://nyxa.example/xx/promotions/lantern-terms",
+      "code_via_link": true
+    }
+  ]
+}

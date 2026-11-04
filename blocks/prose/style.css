@@ -1,0 +1,15 @@
+.sx-prose__inner { display: grid; gap: var(--sp-5); padding-block: var(--sp-7); }
+.sx-prose__body { max-width: 68ch; display: grid; gap: var(--sp-4); }
+.sx-prose__body h2 { font-size: var(--fs-3); margin-block-start: var(--sp-4); scroll-margin-top: var(--sp-6); }
+.sx-prose__body h3 { font-size: var(--fs-2); }
+.sx-prose__body ul, .sx-prose__body ol { display: grid; gap: var(--sp-2); padding-inline-start: 1.3em; }
+.sx-prose__body ul { list-style: disc; }
+.sx-prose__body ol { list-style: decimal; }
+.sx-prose__body a { color: var(--c-accent); text-underline-offset: 3px; }
+.sx-prose__body table { width: 100%; border-collapse: collapse; font-size: var(--fs-0); }
+.sx-prose__body th, .sx-prose__body td { padding: var(--sp-2) var(--sp-3); text-align: start; border-block-end: 1px solid var(--c-border); }
+.sx-prose__body th { color: var(--c-muted); font-weight: var(--fw-strong); }
+.sx-prose__body blockquote { padding: var(--sp-3) var(--sp-4); border-inline-start: 4px solid var(--c-accent); background: var(--c-surface-2); border-radius: var(--r-sm); }
+.sx-prose__toc { padding: var(--sp-4); border-radius: var(--r); background: var(--c-surface-2); max-width: 68ch; }
+.sx-prose__toc ol { display: grid; gap: var(--sp-1, 4px); padding-inline-start: 1.3em; list-style: decimal; }
+.sx-prose__toc a { display: inline-block; padding-block: 6px; }

@@ -1,0 +1,145 @@
+{
+  "type": "satellite",
+  "title": "Multi-page brand satellite (home + service pages)",
+  "brief": "docs/briefs/05-multi-page-satellite.md",
+  "defaults": { "cta_label": "cta.join" },
+  "frame": {
+    "top": [{ "block": "compliance-bar", "props": { "variant": "strip" }, "when": "market.strip" }],
+    "header": { "block": "header", "variants": ["inline", "centered"], "props": { "sticky": false } },
+    "footer": { "block": "footer", "variants": ["compact", "columns"] },
+    "overlay": [{ "block": "age-gate" }, { "block": "sticky-cta", "variants": ["bar", "pill"] }]
+  },
+  "pages": {
+    "home": {
+      "rule": "required",
+      "nav": "nav.home",
+      "sections": [
+        { "id": "hero", "block": "hero", "zone": "top", "rule": "required" },
+        { "id": "trust", "block": "trust-bar", "zone": "top", "rule": "required" },
+        { "id": "guides", "block": "page-links", "zone": "middle", "rule": "required" },
+        { "id": "features", "block": "features", "zone": "middle", "rule": "required" },
+        { "id": "steps", "block": "steps", "zone": "middle", "rule": "optional" },
+        { "id": "faq", "block": "faq", "zone": "bottom", "rule": "required" },
+        { "id": "final", "block": "cta-band", "zone": "bottom", "rule": "required" }
+      ],
+      "order_rules": [{ "rule": "before", "a": "features", "b": "steps" }],
+      "angles": {
+        "starter-guide": { "optional": ["steps"], "variants": { "hero": ["stat-led", "split"] } },
+        "fast-payouts":  { "optional": [], "variants": { "hero": ["stat-led", "split"] } },
+        "sports-depth":  { "optional": ["steps"], "variants": { "hero": ["scoreboard", "split"] } }
+      }
+    },
+    "signup": {
+      "rule": "required",
+      "slug": "sign-up",
+      "nav": "nav.signup",
+      "blurb": "page.blurb.signup",
+      "sections": [
+        { "id": "hero", "block": "page-hero", "zone": "top", "rule": "required" },
+        { "id": "steps", "block": "steps", "zone": "middle", "rule": "required", "props": { "show_cta": false } },
+        { "id": "needs", "block": "features", "zone": "middle", "rule": "required" },
+        { "id": "text", "block": "prose", "zone": "middle", "rule": "required" },
+        { "id": "faq", "block": "faq", "zone": "bottom", "rule": "required" },
+        { "id": "related", "block": "page-links", "zone": "bottom", "rule": "required" },
+        { "id": "final", "block": "cta-band", "zone": "bottom", "rule": "required" }
+      ],
+      "order_rules": [{ "rule": "before", "a": "steps", "b": "text" }, { "rule": "not_first", "a": "text" }]
+    },
+    "payments": {
+      "rule": "required",
+      "slug": "payments",
+      "nav": "nav.payments",
+      "blurb": "page.blurb.payments",
+      "sections": [
+        { "id": "hero", "block": "page-hero", "zone": "top", "rule": "required" },
+        { "id": "methods", "block": "payments", "zone": "middle", "rule": "required" },
+        { "id": "text", "block": "prose", "zone": "middle", "rule": "required" },
+        { "id": "faq", "block": "faq", "zone": "bottom", "rule": "required" },
+        { "id": "related", "block": "page-links", "zone": "bottom", "rule": "required" },
+        { "id": "final", "block": "cta-band", "zone": "bottom", "rule": "required" }
+      ],
+      "order_rules": [{ "rule": "before", "a": "methods", "b": "text" }]
+    },
+    "app": {
+      "rule": "optional",
+      "requires_app": true,
+      "slug": "app",
+      "nav": "nav.app",
+      "blurb": "page.blurb.app",
+      "sections": [
+        { "id": "hero", "block": "page-hero", "zone": "top", "rule": "required" },
+        { "id": "download", "block": "download-panel", "zone": "middle", "rule": "required" },
+        { "id": "features", "block": "features", "zone": "middle", "rule": "required" },
+        { "id": "text", "block": "prose", "zone": "middle", "rule": "optional" },
+        { "id": "faq", "block": "faq", "zone": "bottom", "rule": "required" },
+        { "id": "related", "block": "page-links", "zone": "bottom", "rule": "required" }
+      ],
+      "order_rules": [{ "rule": "before", "a": "download", "b": "features" }, { "rule": "not_first", "a": "text" }]
+    },
+    "betting": {
+      "rule": "optional",
+      "requires_vertical": "sports",
+      "slug": "betting",
+      "nav": "nav.betting",
+      "blurb": "page.blurb.betting",
+      "sections": [
+        { "id": "hero", "block": "page-hero", "zone": "top", "rule": "required" },
+        { "id": "markets", "block": "showcase", "zone": "middle", "rule": "required" },
+        { "id": "features", "block": "features", "zone": "middle", "rule": "required" },
+        { "id": "text", "block": "prose", "zone": "middle", "rule": "optional" },
+        { "id": "faq", "block": "faq", "zone": "bottom", "rule": "required" },
+        { "id": "related", "block": "page-links", "zone": "bottom", "rule": "required" },
+        { "id": "final", "block": "cta-band", "zone": "bottom", "rule": "required" }
+      ]
+    },
+    "casino": {
+      "rule": "optional",
+      "requires_vertical": "casino",
+      "slug": "casino",
+      "nav": "nav.casino",
+      "blurb": "page.blurb.casino",
+      "sections": [
+        { "id": "hero", "block": "page-hero", "zone": "top", "rule": "required" },
+        { "id": "features", "block": "features", "zone": "middle", "rule": "required" },
+        { "id": "text", "block": "prose", "zone": "middle", "rule": "optional" },
+        { "id": "faq", "block": "faq", "zone": "bottom", "rule": "required" },
+        { "id": "related", "block": "page-links", "zone": "bottom", "rule": "required" },
+        { "id": "final", "block": "cta-band", "zone": "bottom", "rule": "required" }
+      ]
+    },
+    "bonus": {
+      "rule": "optional",
+      "requires_promo": true,
+      "slug": "bonus",
+      "nav": "nav.bonus",
+      "blurb": "page.blurb.bonus",
+      "sections": [
+        { "id": "hero", "block": "page-hero", "zone": "top", "rule": "required" },
+        { "id": "terms", "block": "promo-terms", "zone": "middle", "rule": "required" },
+        { "id": "text", "block": "prose", "zone": "middle", "rule": "optional" },
+        { "id": "faq", "block": "faq", "zone": "bottom", "rule": "required" },
+        { "id": "related", "block": "page-links", "zone": "bottom", "rule": "required" },
+        { "id": "final", "block": "cta-band", "zone": "bottom", "rule": "required" }
+      ]
+    },
+    "responsible": {
+      "rule": "optional",
+      "required_in": ["au"],
+      "slug": "responsible-gambling",
+      "hide_frame": ["sticky-cta"],
+      "nav": "nav.rg",
+      "blurb": "page.blurb.rg",
+      "sections": [
+        { "id": "hero", "block": "page-hero", "zone": "top", "rule": "required", "props": { "show_cta": false } },
+        { "id": "text", "block": "prose", "zone": "middle", "rule": "required" },
+        { "id": "faq", "block": "faq", "zone": "bottom", "rule": "required" },
+        { "id": "related", "block": "page-links", "zone": "bottom", "rule": "required" }
+      ]
+    }
+  },
+  "angles": {
+    "starter-guide": { "pages": ["signup", "payments", "app"] },
+    "fast-payouts":  { "pages": ["payments", "signup", "app"] },
+    "sports-depth":  { "pages": ["betting", "signup", "payments"], "requires_vertical": "sports" }
+  }
+}

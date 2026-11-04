@@ -1,0 +1,22 @@
+{
+    "fields": [
+        {
+            "name": "variant",
+            "type": "select",
+            "label": "Layout",
+            "choices": [
+                "auto",
+                "table",
+                "chips"
+            ],
+            "default": "auto"
+        },
+        {
+            "name": "title",
+            "type": "text",
+            "label": "Section title",
+            "default": "",
+            "instructions": "Empty = 'App information'."
+        }
+    ]
+}

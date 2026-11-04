@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/compliance-bar",
+  "title": "SX Compliance",
+  "category": "sx-shared",
+  "description": "Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false, "multiple": true },
+  "sx": {
+    "role": "compliance",
+    "variants": ["strip", "panel"],
+    "default_variant": "panel",
+    "required": true,
+    "guardrails": [
+      "All copy comes from markets/<id>.json; never type compliance text into a page.",
+      "Every page renders a 'panel' (usually inside the footer). 'strip' is an optional top-of-page addition.",
+      "Where a market lists several mandated taglines, one is chosen per site by seed."
+    ]
+  }
+}

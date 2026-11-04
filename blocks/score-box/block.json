@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/score-box",
+  "title": "SX Score Breakdown",
+  "category": "sx-conversion",
+  "description": "Each criterion with its weight, score and the reason for the score; overall computed.",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "sx_acf_render"
+  },
+  "supports": {
+    "align": false,
+    "html": false,
+    "multiple": false
+  },
+  "sx": {
+    "role": "content",
+    "variants": [
+      "rows"
+    ],
+    "default_variant": "rows",
+    "guardrails": [
+      "Every score shows its reason. Criteria a market does not score (e.g. bonuses in BR) are hidden, with a note."
+    ]
+  }
+}

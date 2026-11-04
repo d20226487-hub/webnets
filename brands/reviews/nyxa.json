@@ -1,0 +1,469 @@
+{
+  "_note": "Review feed for Nyxa (fictional). EVERY review here is source 'seed': written for design demos, not real player reviews. A config that uses seed reviews builds only with \"demo\": true and shows a sample-content banner on every page (brief 07, section 2). Real reviews use source 'site-form' or 'import' and status pending/published/rejected.",
+  "reviews": [
+    {
+      "id": "s01",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Айдос К.",
+      "city": "Алматы",
+      "date": "2026-10-27",
+      "rating": 5,
+      "topics": [
+        "payouts",
+        "deposits"
+      ],
+      "title": "Вывод на Kaspi за пару минут",
+      "text": "Вывожу на Kaspi уже третий месяц, каждый раз приходит за 3–5 минут. Пополнение тоже мгновенное. Комиссий не заметил.",
+      "verified": true
+    },
+    {
+      "id": "s02",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Марина Л.",
+      "city": "Астана",
+      "date": "2026-10-25",
+      "rating": 2,
+      "topics": [
+        "verification",
+        "support"
+      ],
+      "title": "Верификация заняла четыре дня",
+      "text": "Загрузила удостоверение, потом попросили ещё селфи с документом, потом выписку. Чат отвечал вежливо, но шаблонами. Пока не прошла проверку, вывести нельзя.",
+      "reply": {
+        "date": "2026-10-26",
+        "text": "Марина, извините за ожидание. Выписку запрашиваем, если адрес в документе не совпадает с адресом в профиле. Ваша проверка завершена, вывод доступен."
+      },
+      "verified": true
+    },
+    {
+      "id": "s03",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Тимур Б.",
+      "city": "Шымкент",
+      "date": "2026-10-24",
+      "rating": 5,
+      "topics": [
+        "odds",
+        "app"
+      ],
+      "title": "Удобный лайв в приложении",
+      "text": "Ставлю на футбол в лайве. Коэффициенты обновляются быстро, купон не слетает. Приложение на Android работает без зависаний.",
+      "verified": true
+    },
+    {
+      "id": "s04",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Ержан С.",
+      "city": "Караганда",
+      "date": "2026-10-22",
+      "rating": 4,
+      "topics": [
+        "payouts"
+      ],
+      "title": "Быстро, но лимит на вывод",
+      "text": "Деньги приходят быстро, но за один раз можно вывести не больше установленного лимита, пришлось делать два вывода. В остальном всё нормально.",
+      "verified": false
+    },
+    {
+      "id": "s05",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Алия Н.",
+      "city": "Алматы",
+      "date": "2026-10-21",
+      "rating": 1,
+      "topics": [
+        "payouts",
+        "support"
+      ],
+      "title": "Вывод завис на сутки",
+      "text": "Заказала вывод на карту Halyk, сутки висел в обработке. В чате отвечали, что всё в порядке, и просили подождать. Пришёл только на следующий день.",
+      "reply": {
+        "date": "2026-10-22",
+        "text": "Алия, выводы на карты Halyk в тот день задерживались из-за работ на стороне банка. Мы предупредили об этом в приложении, но не в чате. Поддержке дали инструкцию сообщать о таких задержках сразу."
+      },
+      "verified": true
+    },
+    {
+      "id": "s06",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Даурен М.",
+      "city": "Актобе",
+      "date": "2026-10-19",
+      "rating": 5,
+      "topics": [
+        "support"
+      ],
+      "title": "Поддержка ответила за минуту",
+      "text": "Не мог поменять номер телефона в профиле. Написал в чат, ответили почти сразу и всё поменяли после короткой проверки.",
+      "verified": true
+    },
+    {
+      "id": "s07",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Светлана П.",
+      "city": "Павлодар",
+      "date": "2026-10-18",
+      "rating": 4,
+      "topics": [
+        "app",
+        "deposits"
+      ],
+      "title": "Хорошее приложение",
+      "text": "Пополняю через Kaspi прямо в приложении, удобно. Хотелось бы тёмную тему и чтобы история ставок грузилась быстрее.",
+      "verified": true
+    },
+    {
+      "id": "s08",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Нурлан Ж.",
+      "city": "Астана",
+      "date": "2026-10-16",
+      "rating": 3,
+      "topics": [
+        "odds"
+      ],
+      "title": "Линия на хоккей могла бы быть шире",
+      "text": "На футбол всё отлично, а на КХЛ и местный хоккей рынков мало, тоталы по периодам не всегда есть.",
+      "verified": false
+    },
+    {
+      "id": "s09",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Камила Т.",
+      "city": "Алматы",
+      "date": "2026-10-15",
+      "rating": 5,
+      "topics": [
+        "verification"
+      ],
+      "title": "Проверка за 10 минут",
+      "text": "Загрузила удостоверение через приложение, через десять минут пришло уведомление, что аккаунт подтверждён.",
+      "verified": true
+    },
+    {
+      "id": "s10",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Руслан А.",
+      "city": "Усть-Каменогорск",
+      "date": "2026-10-13",
+      "rating": 2,
+      "topics": [
+        "app"
+      ],
+      "title": "Приложение вылетает на старом телефоне",
+      "text": "На моём Android 9 приложение закрывается при открытии лайва. Пришлось ставить через браузер, там работает.",
+      "reply": {
+        "date": "2026-10-14",
+        "text": "Руслан, спасибо за подробности. Ошибка на Android 9 исправлена в версии 4.12, она уже доступна в магазине приложений."
+      },
+      "verified": true
+    },
+    {
+      "id": "s11",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Гульнара Е.",
+      "city": "Костанай",
+      "date": "2026-10-11",
+      "rating": 4,
+      "topics": [
+        "deposits",
+        "payouts"
+      ],
+      "title": "Без комиссий",
+      "text": "Пополняю и вывожу через Kaspi, комиссий нет. Минус: минимальный вывод 1 000 ₸, мелкие суммы не вывести.",
+      "verified": true
+    },
+    {
+      "id": "s12",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Арман Д.",
+      "city": "Шымкент",
+      "date": "2026-10-09",
+      "rating": 5,
+      "topics": [
+        "payouts"
+      ],
+      "title": "Ни одной задержки",
+      "text": "Пользуюсь полгода, выводил раз двадцать. Все выплаты пришли в течение нескольких минут.",
+      "verified": false
+    },
+    {
+      "id": "s13",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Елена В.",
+      "city": "Караганда",
+      "date": "2026-10-07",
+      "rating": 3,
+      "topics": [
+        "support",
+        "verification"
+      ],
+      "title": "Долго ждала ответа на почте",
+      "text": "Чат работает быстро, а на письмо по поводу документов ответили только через два дня. Лучше сразу писать в чат.",
+      "verified": true
+    },
+    {
+      "id": "s14",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Бауыржан О.",
+      "city": "Астана",
+      "date": "2026-10-05",
+      "rating": 5,
+      "topics": [
+        "app",
+        "odds"
+      ],
+      "title": "Всё под рукой",
+      "text": "Экспресс собирается в пару нажатий, статистика матчей прямо в купоне. Лимит на депозит поставил в настройках за минуту.",
+      "verified": true
+    },
+    {
+      "id": "s15",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Динара Ш.",
+      "city": "Алматы",
+      "date": "2026-10-03",
+      "rating": 4,
+      "topics": [
+        "verification",
+        "payouts"
+      ],
+      "title": "После проверки всё быстро",
+      "text": "Первый вывод ждал, пока проверят документы, это заняло день. Все следующие выводы уже за несколько минут.",
+      "verified": true
+    },
+    {
+      "id": "s16",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Максим Р.",
+      "city": "Павлодар",
+      "date": "2026-09-30",
+      "rating": 1,
+      "topics": [
+        "verification",
+        "support"
+      ],
+      "title": "Заблокировали аккаунт",
+      "text": "После пополнения аккаунт заблокировали до проверки. Объяснили, что данные не совпали с базой. Неприятно, что сначала взяли деньги, а потом проверяют.",
+      "reply": {
+        "date": "2026-10-01",
+        "text": "Максим, проверку запускает система, если данные профиля не совпадают с данными документа. Средства на балансе в сохранности. После проверки 2 октября аккаунт разблокирован. Мы изменили порядок: теперь проверка проходит до первого пополнения."
+      },
+      "verified": false
+    },
+    {
+      "id": "s17",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Асель К.",
+      "city": "Актобе",
+      "date": "2026-09-28",
+      "rating": 5,
+      "topics": [
+        "support"
+      ],
+      "title": "Помогли поставить лимиты",
+      "text": "Попросила в чате помочь настроить лимит на пополнение и перерыв на неделю. Всё объяснили и сделали без лишних вопросов.",
+      "verified": true
+    },
+    {
+      "id": "s18",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Олжас Н.",
+      "city": "Шымкент",
+      "date": "2026-09-26",
+      "rating": 3,
+      "topics": [
+        "payouts",
+        "deposits"
+      ],
+      "title": "На карту дольше, чем на Kaspi",
+      "text": "На Kaspi вывод за минуты, а на Visa ждал почти сутки. Пишут, что зависит от банка. Буду выводить только на Kaspi.",
+      "verified": true
+    },
+    {
+      "id": "s19",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Жанна Ф.",
+      "city": "Астана",
+      "date": "2026-09-24",
+      "rating": 5,
+      "topics": [
+        "app",
+        "deposits"
+      ],
+      "title": "Удобно пополнять",
+      "text": "Пополнение через Kaspi в два нажатия, деньги сразу на балансе. Приложение лёгкое и понятное.",
+      "verified": true
+    },
+    {
+      "id": "s20",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Санжар И.",
+      "city": "Алматы",
+      "date": "2026-09-21",
+      "rating": 4,
+      "topics": [
+        "odds"
+      ],
+      "title": "Хорошие коэффициенты на топ-лиги",
+      "text": "На АПЛ и Лигу чемпионов коэффициенты одни из лучших, что видел. На низшие лиги маржа выше.",
+      "verified": false
+    },
+    {
+      "id": "s21",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Виктор Г.",
+      "city": "Усть-Каменогорск",
+      "date": "2026-09-19",
+      "rating": 2,
+      "topics": [
+        "payouts"
+      ],
+      "title": "Отменили вывод без объяснений",
+      "text": "Вывод отменился, деньги вернулись на баланс. В чате сказали, что реквизиты карты не совпадают с именем в профиле. Можно было написать это сразу в уведомлении.",
+      "reply": {
+        "date": "2026-09-20",
+        "text": "Виктор, вы правы, причина должна быть видна сразу. С 1 октября при отмене вывода в уведомлении указывается причина."
+      },
+      "verified": true
+    },
+    {
+      "id": "s22",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Айгерим Б.",
+      "city": "Костанай",
+      "date": "2026-09-16",
+      "rating": 5,
+      "topics": [
+        "verification",
+        "app"
+      ],
+      "title": "Регистрация за пять минут",
+      "text": "Зарегистрировалась с телефона, документы проверили почти сразу. Всё на русском и казахском.",
+      "verified": true
+    },
+    {
+      "id": "s23",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Дмитрий Ч.",
+      "city": "Караганда",
+      "date": "2026-09-12",
+      "rating": 4,
+      "topics": [
+        "support",
+        "payouts"
+      ],
+      "title": "Решили вопрос с выводом",
+      "text": "Был вопрос по лимиту вывода, в чате всё объяснили и предложили разбить на две суммы. Получил в тот же день.",
+      "verified": true
+    },
+    {
+      "id": "s24",
+      "source": "seed",
+      "status": "published",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Мадина Ж.",
+      "city": "Алматы",
+      "date": "2026-09-08",
+      "rating": 5,
+      "topics": [
+        "payouts",
+        "app"
+      ],
+      "title": "Выплаты без проблем",
+      "text": "Выводила и на Kaspi, и на Halyk, всё приходило быстро. Удобно, что статус вывода видно в приложении.",
+      "reply": {
+        "date": "2026-09-09",
+        "text": "Мадина, спасибо за отзыв!"
+      },
+      "verified": false
+    },
+    {
+      "id": "s25",
+      "source": "seed",
+      "status": "rejected",
+      "market": "kz",
+      "locale": "ru",
+      "name": "Test",
+      "city": "",
+      "date": "2026-10-28",
+      "rating": 5,
+      "topics": [
+        "payouts"
+      ],
+      "title": "Rejected example",
+      "text": "An example of a rejected review (spam). It must never appear on a page; it is here to test the status filter.",
+      "verified": true
+    }
+  ]
+}

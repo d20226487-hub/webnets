@@ -1,0 +1,22 @@
+{
+  "fields": [
+    {
+      "name": "variant",
+      "type": "select",
+      "label": "Layout",
+      "choices": [
+        "auto",
+        "list"
+      ],
+      "default": "auto"
+    },
+    {
+      "name": "title",
+      "type": "text",
+      "label": "Section title",
+      "required": true,
+      "default": "",
+      "maxlength": 60
+    }
+  ]
+}

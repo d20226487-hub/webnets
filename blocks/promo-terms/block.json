@@ -1,0 +1,16 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/promo-terms",
+  "title": "SX Offer Terms",
+  "category": "sx-conversion",
+  "description": "Every significant term of the lead offer, in plain words, with a link to the full T&Cs.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false, "multiple": false },
+  "sx": {
+    "role": "content",
+    "variants": ["table", "checklist"],
+    "default_variant": "table",
+    "guardrails": ["Terms come from the promotion feed only. Never collapsed by default; never in small print."]
+  }
+}

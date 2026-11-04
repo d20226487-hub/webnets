@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/age-gate",
+  "title": "SX Age Gate",
+  "category": "sx-shared",
+  "description": "Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false, "multiple": false },
+  "sx": {
+    "role": "age-gate",
+    "variants": ["modal", "fullscreen"],
+    "default_variant": "modal",
+    "required": true,
+    "guardrails": [
+      "Age comes from the market (21 in KZ, 18 in AU/BR). Never hard-code it.",
+      "Content stays in the HTML for crawlers; the overlay is shown by script, so no-JS users still see the compliance footer."
+    ]
+  }
+}

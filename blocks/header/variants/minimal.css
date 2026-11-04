@@ -1,0 +1,2 @@
+/* minimal: logo | note + cta */
+.sx-header--minimal .sx-header__aside { margin-inline-start: auto; display: flex; align-items: center; gap: var(--sp-4); }

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/pros-cons",
+  "title": "SX Pros and Cons",
+  "category": "sx-conversion",
+  "description": "Strengths and weaknesses from the rating file. A review without cons does not build.",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "sx_acf_render"
+  },
+  "supports": {
+    "align": false,
+    "html": false,
+    "multiple": false
+  },
+  "sx": {
+    "role": "content",
+    "variants": [
+      "columns"
+    ],
+    "default_variant": "columns",
+    "guardrails": [
+      "Cons are mandatory and never hidden."
+    ]
+  }
+}

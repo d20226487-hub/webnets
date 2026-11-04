@@ -1,0 +1,176 @@
+{
+  "_demo": "Phase 7 Demo C (brief 07). Review site for Australia with SEEDED reviews from brands/reviews/vantro.json, angle balanced (latest praise and complaint side by side): builds only with demo: true and shows a sample banner on every page. Copy is placeholder.",
+  "demo": true,
+  "today": "2026-10-30",
+  "id": "reviews-c-vantro-au",
+  "type": "reviews",
+  "angle": "balanced",
+  "brand": "vantro",
+  "market": "au",
+  "locale": "en",
+  "preset": "clean-sportsbook",
+  "seed": "vantro-au-reviews-c",
+  "prefix": "auto",
+  "urls": "pretty",
+  "links": {
+    "go": "https://vantro.example/au/join?src=reviews-c"
+  },
+  "site": {
+    "name": "Vantro Reviews AU",
+    "url": "https://vantro-reviews.example"
+  },
+  "meta": {
+    "home": {
+      "title": "Vantro reviews: what Australian punters say, good and bad",
+      "description": "Player reviews of Vantro in Australia: PayID withdrawals, ID checks, the app, odds and support. Every rating is published, high or low. 18+."
+    },
+    "reviews": {
+      "title": "All Vantro reviews, filter by topic",
+      "description": "Every published Vantro review, newest first. Filter by withdrawals, verification, support, app, odds or deposits. 18+."
+    },
+    "write": {
+      "title": "Write a Vantro review",
+      "description": "Tell other punters how Vantro worked for you. We publish positive and negative reviews after moderation."
+    },
+    "policy": {
+      "title": "How we moderate Vantro reviews",
+      "description": "What we remove, what we never remove, where Vantro's replies come from and how this site makes money."
+    }
+  },
+  "variants": {
+    "header": "inline",
+    "footer": "columns",
+    "sticky-cta": "bar",
+    "home": {
+      "hero": "quotes",
+      "trust": "badges",
+      "topics": "grid",
+      "latest": "cards",
+      "guides": "list",
+      "faq": "columns",
+      "final": "split"
+    },
+    "reviews": {
+      "hero": "strip",
+      "list": "cards",
+      "related": "cards",
+      "final": "split"
+    },
+    "write": {
+      "hero": "answer",
+      "form": "card",
+      "next": "row",
+      "related": "cards"
+    },
+    "policy": {
+      "hero": "compact",
+      "text": "article",
+      "related": "cards"
+    }
+  },
+  "sections": {
+    "home": {
+      "guides": true
+    }
+  },
+  "order": {
+    "home": [
+      "topics",
+      "latest",
+      "guides"
+    ],
+    "write": [
+      "form",
+      "next"
+    ]
+  },
+  "content": {
+    "header": {
+      "note": "Licensed in Australia"
+    },
+    "home": {
+      "hero": {
+        "title": "Vantro reviews from Australian punters",
+        "subtitle": "The newest praise and the newest complaint, side by side. We publish every review except spam and abuse."
+      },
+      "guides": {
+        "title": "Read more"
+      },
+      "faq": {
+        "items": [
+          {
+            "q": "Are these real reviews?",
+            "a": "Yes. Every review comes from a player and is read by a moderator before it goes live. Critical reviews stay up; we only remove spam, abuse and personal details."
+          },
+          {
+            "q": "Do you remove bad reviews?",
+            "a": "No. We only remove spam, abuse, personal details and advertising. Negative reviews stay up."
+          },
+          {
+            "q": "Where do Vantro's replies come from?",
+            "a": "Vantro writes them. We publish them under the review, labelled as a reply from Vantro."
+          },
+          {
+            "q": "Are you connected to Vantro?",
+            "a": "We earn a commission when you join through our links. It doesn't change which reviews we publish."
+          }
+        ]
+      },
+      "final": {
+        "title": "Want to try Vantro?",
+        "text": "Sign-up takes a few minutes. 18+ only. Set a deposit limit when you join."
+      }
+    },
+    "reviews": {
+      "hero": {
+        "title": "All Vantro reviews"
+      },
+      "final": {
+        "title": "See Vantro for yourself",
+        "text": "18+ only. Gamble responsibly."
+      }
+    },
+    "write": {
+      "hero": {
+        "title": "Write a Vantro review",
+        "answer": "Tell us what worked and what didn't. We publish good and bad reviews once they pass a spam check."
+      },
+      "form": {
+        "title": "Your review"
+      },
+      "next": {
+        "eyebrow": "After you submit",
+        "title": "What happens next",
+        "items": [
+          {
+            "title": "Moderation",
+            "text": "A moderator checks for spam, abuse and personal details, usually within a day."
+          },
+          {
+            "title": "Published",
+            "text": "Your review appears with your first name and last initial."
+          },
+          {
+            "title": "Vantro's reply",
+            "text": "Vantro may reply. The reply appears under your review, labelled."
+          }
+        ]
+      }
+    },
+    "policy": {
+      "hero": {
+        "title": "How we moderate reviews",
+        "answer": "We remove spam, abuse, personal details and advertising. We never remove negative reviews."
+      },
+      "text": {
+        "html": "<p>This site publishes reviews of Vantro written by Australian punters. For those reviews to be worth reading, we follow a short set of rules and apply them the same way to praise and to complaints. Below is what we remove, what we never remove and how the scores are worked out. Moderation is handled by the site's editor, Liam Carter.</p><h2>How moderation works</h2><p>Every new review is read by a person, not just a filter. Checks usually take up to 24 hours. We look at three things: whether the review describes the writer's own experience, whether it breaks any of the rules below, and whether the same person is posting the same story more than once. We don't fix typos or rewrite anything: a review goes live the way it was written.</p><h2>What we remove</h2><ul><li>Spam, advertising and links to other sites.</li><li>Abuse, threats and personal attacks on staff by name.</li><li>Personal details: phone numbers, account or card numbers, addresses — yours or anyone else's.</li><li>Repeat reviews from the same person about the same issue.</li><li>Reviews whose main point is a big win or easy money.</li><li>Paid reviews, or reviews written on behalf of the operator.</li></ul><p>If a review contains personal details but is otherwise fine, we hide those details and let the writer know, rather than removing the whole review.</p><h2>What we never remove</h2><p>Negative reviews and complaints about withdrawals, verification or support stay up. We don't hide low ratings, we don't push positive reviews to the top, and we show every review newest first. Vantro cannot ask us to take down a review it doesn't like.</p><h2>Vantro's replies</h2><p>Vantro can reply to any review. The reply is published underneath and labelled as coming from the operator. We don't edit reviews or replies, and a reply never appears above the punter's own words.</p><h2>How we make money</h2><p>We earn a commission when you join Vantro through our links. It doesn't depend on ratings and doesn't affect which reviews we publish or the order they appear in. If that ever changes, we'll say so on this page.</p><h2>Ratings on this site</h2><p>The average and the topic scores — payouts, verification, support, the app — are calculated automatically from every published review. We never change them by hand, and we don't drop older reviews to improve the numbers.</p><h2>If you disagree with a decision</h2><p>Get in touch through the form on <a href=\"page:write\">Write a review</a> and tell us which review it's about. We'll read it again and reply within a few days. This site is for people aged 18 and over. If gambling stops being fun, free and confidential support is available at gamblinghelponline.org.au, and you can exclude yourself from every licensed provider through BetStop.</p>",
+        "toc": false
+      }
+    }
+  },
+  "editor": {
+    "name": "Liam Carter",
+    "role": "Editor and review moderator",
+    "bio": "Reads every review before it goes live and re-tests Vantro withdrawals each month. Critical reviews stay up; only spam and abuse are removed."
+  }
+}

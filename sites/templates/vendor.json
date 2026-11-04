@@ -1,0 +1,43 @@
+{
+  "_howto": "Copy to sites/<project>/<id>.json, fill every TODO, then: php build/build.php <file>. Games, RTP, volatility, max win and dates come from brands/providers.json + brands/catalog/<brand>.json, never from this file. Schema: dist/schemas/vendor.schema.json. Guide: docs/types/vendor.md. The build FAILS in markets without casino (KZ, AU) or when the brand carries none of the provider's games there.",
+  "id": "TODO-brand-market-provider-01",
+  "type": "vendor",
+  "angle": "new-releases",
+  "brand": "marlowe",
+  "market": "TODO a market that allows casino, e.g. br",
+  "provider": "TODO a provider id from brands/providers.json that is in the brand's catalog for this market",
+  "preset": "luxury-gold",
+  "seed": "TODO-unique-seed",
+  "prefix": "auto",
+  "links": {
+    "go": "https://TODO/provider-lobby?src=TODO",
+    "game": "https://TODO/game/{game}?src=TODO",
+    "provider": "https://TODO/provider/{provider}?src=TODO"
+  },
+  "site": { "name": "TODO site name" },
+  "page": { "title": "TODO up to 65 characters, e.g. '<Provider> slots at <Brand>'", "description": "TODO up to 160 characters" },
+  "variants": {},
+  "content": {
+    "hero": { "title": "TODO up to 60 characters", "subtitle": "TODO up to 160 characters" },
+    "games": { "intro": "TODO one line, optional" },
+    "about": {
+      "eyebrow": "TODO",
+      "title": "TODO e.g. Who <Provider> are",
+      "items": [
+        { "icon": "star", "title": "TODO", "text": "TODO matches providers.json (founded, signature)" },
+        { "icon": "bolt", "title": "TODO", "text": "TODO signature mechanic, plainly" },
+        { "icon": "shield", "title": "TODO", "text": "TODO volatility profile, checked against the games" }
+      ]
+    },
+    "faq": {
+      "items": [
+        { "q": "TODO Which <Provider> games does <Brand> have?", "a": "TODO names exactly as in providers.json" },
+        { "q": "TODO Is the RTP the same at every casino?", "a": "TODO" },
+        { "q": "TODO Can I play on my phone?", "a": "TODO" },
+        { "q": "TODO How do I deposit?", "a": "TODO mention deposit limits" },
+        { "q": "TODO Can I take a break?", "a": "TODO" }
+      ]
+    },
+    "final": { "title": "TODO up to 40 characters", "text": "TODO include the age line" }
+  }
+}

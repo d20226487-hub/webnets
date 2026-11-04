@@ -1,0 +1,67 @@
+{
+  "fields": [
+    {
+      "name": "variant",
+      "type": "select",
+      "label": "Layout",
+      "choices": [
+        "auto",
+        "cards",
+        "compact",
+        "verified"
+      ],
+      "default": "auto"
+    },
+    {
+      "name": "mode",
+      "type": "select",
+      "label": "Which reviews",
+      "choices": [
+        "latest",
+        "all",
+        "topic"
+      ],
+      "default": "all"
+    },
+    {
+      "name": "topic",
+      "type": "select",
+      "label": "Topic (mode topic)",
+      "choices": [
+        "",
+        "payouts",
+        "verification",
+        "support",
+        "app",
+        "odds",
+        "deposits"
+      ],
+      "default": ""
+    },
+    {
+      "name": "limit",
+      "type": "text",
+      "label": "Max reviews (mode latest)",
+      "default": "6"
+    },
+    {
+      "name": "title",
+      "type": "text",
+      "label": "Section title (empty = automatic)",
+      "default": "",
+      "maxlength": 60
+    },
+    {
+      "name": "filters",
+      "type": "true_false",
+      "label": "Topic and rating filters",
+      "default": false
+    },
+    {
+      "name": "cta_every",
+      "type": "text",
+      "label": "CTA after every N reviews (0 = none)",
+      "default": "6"
+    }
+  ]
+}

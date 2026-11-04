@@ -1,0 +1,10 @@
+/* table: label | value rows in a card */
+.sx-pterms--table .sx-pterms__list { margin: 0; padding: var(--sp-2) var(--sp-5); }
+.sx-pterms--table .sx-pterms__list div { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: var(--sp-4); padding-block: var(--sp-3); border-block-end: 1px solid var(--c-border); }
+.sx-pterms--table .sx-pterms__list div:last-child { border-block-end: 0; }
+.sx-pterms--table .sx-pterms__list dt { color: var(--c-muted); }
+.sx-pterms--table .sx-pterms__list dd { margin: 0; font-weight: var(--fw-strong); }
+@media (max-width: 640px) {
+  .sx-pterms--table .sx-pterms__list { padding: var(--sp-1) var(--sp-4); }
+  .sx-pterms--table .sx-pterms__list div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+}

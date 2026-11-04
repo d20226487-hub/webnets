@@ -1,0 +1,11 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/disclosure",
+  "title": "SX Affiliate Disclosure",
+  "category": "sx-shared",
+  "description": "One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false, "multiple": false },
+  "sx": { "role": "top", "variants": ["line"], "default_variant": "line", "guardrails": ["Fixed wording per locale; cannot be removed on review sites."] }
+}

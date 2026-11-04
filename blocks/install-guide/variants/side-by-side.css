@@ -1,0 +1,7 @@
+/* side-by-side: one card per install path */
+.sx-install-guide--side-by-side .sx-install-guide__paths { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--sp-4); align-items: stretch; }
+@media (max-width: 640px) {
+  .sx-install-guide__inner { padding-block: var(--sp-7); }
+  .sx-install-guide--side-by-side .sx-install-guide__paths { grid-template-columns: minmax(0, 1fr); }
+  .sx-install-guide__path .sx-install { justify-self: stretch; justify-content: center; }
+}

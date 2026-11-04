@@ -1,0 +1,29 @@
+{
+  "_howto": "Copy to brands/promotions/<brand-id>.json. One entry per offer per set of markets. Field reference: docs/types/promo.md, section 2.",
+  "promotions": [
+    {
+      "id": "TODO-brand-market-short-name",
+      "type": "welcome_bonus | deposit_bonus | free_bets | promo_code | odds_boost | cashback | loyalty | tournaments",
+      "markets": ["TODO market id"],
+      "title": { "en": "TODO short factual title" },
+      "value": { "kind": "match", "percent": 100, "max": 100 },
+      "_value_kinds": "match {percent,max} | boost {percent} | cashback {percent,max} | free_bets {amount} | free_spins {count} | prize_pool {amount}",
+      "code": "TODO or null when no code is needed",
+      "code_scope": "public | exclusive (exclusive only if the code is really unique to this site)",
+      "terms": {
+        "min_deposit": 10,
+        "wagering": 1,
+        "min_odds": "1.50",
+        "max_bet": null,
+        "expiry_days": 30,
+        "eligible": { "en": "TODO who can claim" },
+        "excluded_payments": { "en": "TODO or null" },
+        "games": { "en": "TODO where it counts" }
+      },
+      "valid_from": "YYYY-MM-DD",
+      "valid_to": "YYYY-MM-DD",
+      "verified_at": "YYYY-MM-DD (date someone last checked the offer on the brand's site)",
+      "terms_url": "https://TODO full T&Cs on the brand's site"
+    }
+  ]
+}

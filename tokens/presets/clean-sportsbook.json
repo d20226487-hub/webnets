@@ -1,0 +1,14 @@
+{
+  "id": "clean-sportsbook",
+  "name": "Clean Sportsbook",
+  "mood": "Utility-first operator look. Dense, flat, outlined, trustworthy green.",
+  "fits": ["sportsbook", "satellite", "bonuses"],
+  "theme": "light",
+  "fonts": { "display": { "family": "Rubik", "weights": [600, 700] }, "body": { "family": "Rubik", "weights": [400, 500] } },
+  "color": { "bg": "#F3F5F4", "surface": "#FFFFFF", "surface2": "#E9EEEC", "text": "#10201A", "muted": "#52645C", "border": "#D5DDD9", "accent": "#0A7A4B", "onAccent": "#FFFFFF", "accent2": "#FFD23F", "heroText": "#FFFFFF", "heroMuted": "#CFE7DC" },
+  "shape": { "radiusSm": "4px", "radius": "8px", "radiusLg": "12px", "buttonRadius": "6px", "borderWidth": "1px" },
+  "type": { "base": 15, "scale": 1.2, "headingWeight": 700, "headingCase": "none", "headingTracking": "-0.01em", "lineHeight": 1.5, "bodyWeight": 400 },
+  "space": { "density": 0.85 },
+  "surface": { "style": "outlined", "shadow": "none" },
+  "decor": { "heroBg": "linear-gradient(180deg, #0A7A4B 0%, #075C39 100%)", "heroAccent": "#FFD23F", "heroOnAccent": "#10201A" }
+}

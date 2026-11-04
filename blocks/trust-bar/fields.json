@@ -1,0 +1,9 @@
+{
+  "fields": [
+    { "name": "variant", "type": "select", "label": "Layout", "choices": ["auto", "strip", "badges"], "default": "auto" },
+    { "name": "items", "type": "select", "label": "Proof points, in order", "multiple": true,
+      "choices": ["rating", "licence", "payout", "since", "payments"],
+      "default": ["licence", "payout", "since", "payments"],
+      "instructions": "Max 4. Items without data (e.g. rating with no source) are skipped." }
+  ]
+}

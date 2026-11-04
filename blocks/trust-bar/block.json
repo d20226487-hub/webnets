@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/trust-bar",
+  "title": "SX Trust Bar",
+  "category": "sx-conversion",
+  "description": "Licence, payout time, years operating, local payments and (only if sourced) rating.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false },
+  "sx": {
+    "role": "trust",
+    "variants": ["strip", "badges"],
+    "default_variant": "strip",
+    "guardrails": [
+      "Values come from brand facts and market config; nothing is typed by hand.",
+      "Rating shows only when the brand has facts.rating_source.",
+      "Sits directly under the hero (section 2 or 3)."
+    ]
+  }
+}

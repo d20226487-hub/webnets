@@ -1,0 +1,13 @@
+/* accordion */
+.sx-faq--accordion .sx-faq__inner { max-width: 860px; }
+.sx-faq--accordion .sx-faq__list { display: grid; gap: var(--sp-2); }
+.sx-faq--accordion .sx-faq__item { border: var(--bw) solid var(--c-border); border-radius: var(--r); background: var(--c-surface); }
+.sx-faq--accordion summary { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); min-height: 56px; padding: var(--sp-4) var(--sp-5); cursor: pointer; list-style: none; font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-2); text-transform: var(--tt-heading); letter-spacing: var(--ls-heading); line-height: 1.25; }
+.sx-faq--accordion summary::-webkit-details-marker { display: none; }
+.sx-faq--accordion summary .sx-icon { transition: transform .2s ease; color: var(--c-muted); }
+.sx-faq--accordion details[open] summary .sx-icon { transform: rotate(180deg); }
+.sx-faq--accordion details p { padding: 0 var(--sp-5) var(--sp-5); color: var(--c-muted); max-width: 70ch; }
+@media (max-width: 760px) {
+  .sx-faq--accordion summary { font-size: var(--fs-1); padding-inline: var(--sp-4); }
+  .sx-faq--accordion details p { padding-inline: var(--sp-4); }
+}

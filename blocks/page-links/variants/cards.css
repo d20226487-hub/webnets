@@ -1,0 +1,10 @@
+/* cards: one card per page */
+.sx-plinks2--cards .sx-plinks2__list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--sp-4); }
+.sx-plinks2--cards .sx-plinks2__list a { height: 100%; align-content: start; padding: var(--sp-5); padding-inline-end: var(--sp-7); border-radius: var(--r); background: var(--c-surface); border: var(--bw) solid var(--c-border); box-shadow: var(--card-shadow); }
+.sx-plinks2--cards .sx-plinks2__list a:hover { border-color: var(--c-accent); }
+.sx-plinks2--cards .sx-icon { position: absolute; inset-block-start: var(--sp-5); inset-inline-end: var(--sp-4); }
+@media (max-width: 640px) {
+  .sx-plinks2--cards .sx-plinks2__list { grid-template-columns: 1fr; gap: var(--sp-3); }
+  .sx-plinks2--cards .sx-plinks2__list a { padding: var(--sp-4); padding-inline-end: var(--sp-7); }
+  .sx-plinks2--cards .sx-icon { inset-block-start: 50%; transform: translateY(-50%); }
+}

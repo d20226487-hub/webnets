@@ -1,0 +1,36 @@
+{
+  "fields": [
+    {
+      "name": "variant",
+      "type": "select",
+      "label": "Layout",
+      "choices": [
+        "auto",
+        "play",
+        "appstore"
+      ],
+      "default": "auto"
+    },
+    {
+      "name": "title",
+      "type": "text",
+      "label": "Section title",
+      "default": "",
+      "instructions": "Empty = 'About this app'."
+    },
+    {
+      "name": "text",
+      "type": "textarea",
+      "label": "Description",
+      "required": true,
+      "default": "",
+      "maxlength": 900
+    },
+    {
+      "name": "tags",
+      "type": "text",
+      "label": "Tags (comma-separated)",
+      "default": ""
+    }
+  ]
+}

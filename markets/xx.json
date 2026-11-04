@@ -1,0 +1,111 @@
+{
+  "_purpose": "DEMO-ONLY market for designing offer-led site types (brief 03). Not a real jurisdiction. The build refuses it unless the site config has \"demo\": true.",
+  "id": "xx",
+  "name": "Demoland (demo only)",
+  "demo_only": true,
+  "locales": [
+    "en",
+    "ru",
+    "pt"
+  ],
+  "default_locale": "en",
+  "dir": "ltr",
+  "currency": {
+    "code": "EUR",
+    "symbol": "€",
+    "position": "before",
+    "space": false,
+    "decimal": ".",
+    "thousands": ",",
+    "decimals": 0
+  },
+  "date_format": "j M Y",
+  "min_age": 18,
+  "verticals": {
+    "sports": true,
+    "casino": true
+  },
+  "promotions": {
+    "welcome_bonus": "allowed",
+    "deposit_bonus": "allowed",
+    "free_bets": "allowed",
+    "promo_code": "allowed",
+    "odds_boost": "allowed",
+    "cashback": "allowed",
+    "loyalty": "allowed",
+    "tournaments": "allowed"
+  },
+  "payments": [
+    "visa-debit",
+    "mastercard-debit",
+    "apple-pay",
+    "bank"
+  ],
+  "apps": {
+    "ios": "app-store",
+    "android": "play"
+  },
+  "compliance": {
+    "_verify": "DEMO COPY. This market does not exist.",
+    "license_line": {
+      "en": "{brand} is licensed by the {regulator}, licence {license_no}.",
+      "ru": "{brand} работает по лицензии {regulator} № {license_no}.",
+      "pt": "{brand} é licenciada pela {regulator}, licença {license_no}."
+    },
+    "regulator_default": {
+      "en": "Demoland Gaming Authority",
+      "ru": "Игорного управления Демоландии",
+      "pt": "Autoridade de Jogos de Demolândia"
+    },
+    "license_short": {
+      "en": "Licensed",
+      "ru": "Лицензия",
+      "pt": "Licenciado"
+    },
+    "strip": "required",
+    "age_notice": {
+      "en": "18+ only. Offers are subject to terms.",
+      "ru": "Только 18+. Действуют условия предложений.",
+      "pt": "Apenas maiores de 18. Ofertas sujeitas a termos."
+    },
+    "taglines": {
+      "en": [
+        "Play responsibly. Set a deposit limit before you play."
+      ],
+      "ru": [
+        "Играйте ответственно. Установите лимит депозита до начала игры."
+      ],
+      "pt": [
+        "Jogue com responsabilidade. Defina um limite de depósito antes de jogar."
+      ]
+    },
+    "self_exclusion": {
+      "en": "Self-exclusion and deposit-limit tools are available in every account.",
+      "ru": "Самоисключение и лимиты депозита доступны в каждом аккаунте.",
+      "pt": "Autoexclusão e limites de depósito estão disponíveis em todas as contas."
+    },
+    "helpline": null,
+    "required_blocks": [
+      "age-gate",
+      "compliance-bar"
+    ],
+    "notes": "Every promotion type is allowed here so the full promo-page design can be reviewed. Mirror the first real market that uses the promo type."
+  },
+  "locale_formats": {
+    "ru": {
+      "decimal": ",",
+      "thousands": " ",
+      "date_format": "d.m.Y"
+    },
+    "pt": {
+      "decimal": ",",
+      "thousands": ".",
+      "date_format": "d/m/Y"
+    }
+  },
+  "short_label": {
+    "en": "Demoland",
+    "ru": "Демоландия",
+    "pt": "Demolândia"
+  }
+}

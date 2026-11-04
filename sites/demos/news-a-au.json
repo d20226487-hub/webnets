@@ -1,0 +1,57 @@
+{
+  "_demo": "Phase 9 Demo A (brief 09). News site with SAMPLE articles (content/paddock-wire-au/articles): builds only with demo: true and shows a sample banner on every page. PR articles are labelled Sponsored.",
+  "demo": true,
+  "today": "2026-10-30",
+  "id": "news-a-au",
+  "type": "news",
+  "angle": "newsroom",
+  "publisher": "paddockwire",
+  "market": "au",
+  "preset": "editorial",
+  "seed": "paddockwire-au-news-a",
+  "prefix": "auto",
+  "urls": "pretty",
+  "articles": "content/paddock-wire-au/articles",
+  "links": {
+    "brands": {
+      "vantro": "https://vantro.example/au/join?src=paddockwire",
+      "nyxa": "https://nyxa.example/au/join?src=paddockwire"
+    }
+  },
+  "site": { "name": "Paddock Wire", "url": "https://paddockwire.example" },
+  "meta": {
+    "home": { "title": "Paddock Wire: Australian betting news and guides", "description": "Betting industry news, plain-language guides and clearly labelled partner content for Australian punters." },
+    "article": { "title": "{item} | Paddock Wire", "description": "{item}. Paddock Wire, Australian betting news." },
+    "news": { "title": "Betting industry news | Paddock Wire", "description": "The latest Australian betting industry and brand news." },
+    "guides": { "title": "Betting guides | Paddock Wire", "description": "How betting works, limits, BetStop and odds, explained plainly." },
+    "partners": { "title": "Partner content | Paddock Wire", "description": "Articles paid for by betting brands. Every one is labelled Sponsored." },
+    "about": { "title": "About Paddock Wire and our sponsored content", "description": "Who we are, how we label paid articles, our corrections policy and how to contact us." }
+  },
+  "variants": {
+    "header": "inline", "footer": "columns", "sticky-cta": "bar",
+    "home": { "lead": "split", "latest": "cards", "partners": "rail", "guides": "list" },
+    "article": { "body": "standard" },
+    "news": { "list": "list" },
+    "guides": { "list": "list" },
+    "partners": { "list": "cards" },
+    "about": { "hero": "compact", "text": "article", "related": "list" }
+  },
+  "content": {
+    "home": {
+      "lead": { "title": "Australian betting news and guides" },
+      "latest": { "title": "Latest" },
+      "partners": { "title": "Partner content" },
+      "guides": { "title": "Guides" }
+    },
+    "news": { "list": { "title": "News" } },
+    "guides": { "list": { "title": "Guides" } },
+    "partners": { "list": { "title": "Partner content", "intro": "These articles are paid for by betting brands and reviewed by them before publication. They are advertising, not independent journalism." } },
+    "about": {
+      "hero": { "title": "About Paddock Wire", "answer": "We write news and guides about betting in Australia. Brands can pay for articles; every paid article is labelled Sponsored." },
+      "text": {
+        "html": "<h2>Sponsored articles</h2><p>Betting brands can pay us to publish articles about their products. Those articles are labelled Sponsored on every listing and above the headline, name the brand that paid, and carry a note explaining that they are advertising.</p><p>Links in sponsored articles are marked as paid links for search engines.</p><h2>What sponsors cannot do</h2><ul><li>Pay for or edit our news and guides</li><li>Include offers or inducements in their articles</li><li>Remove the Sponsored label</li></ul><h2>Corrections</h2><p>If we get something wrong, we correct it and show the date of the update at the top of the article.</p><h2>Gambling help</h2><p>Free, confidential support is available from Gambling Help Online on 1800 858 858. BetStop lets you exclude yourself from every licensed provider.</p>",
+        "toc": true
+      }
+    }
+  }
+}

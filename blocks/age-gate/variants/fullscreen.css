@@ -1,0 +1,5 @@
+/* fullscreen */
+.sx-agegate--fullscreen { background: var(--hero-bg); backdrop-filter: none; }
+.sx-agegate--fullscreen .sx-agegate__box { background: transparent; border: 0; color: var(--c-hero-text); }
+.sx-agegate--fullscreen .sx-agegate__box > p { color: var(--c-hero-muted); }
+.sx-agegate--fullscreen .sx-btn--primary { background: var(--c-hero-accent); color: var(--c-hero-on-accent); }

@@ -1,0 +1,14 @@
+{
+  "id": "candy-pop",
+  "name": "Candy Pop",
+  "mood": "Casual slots and promos. Chunky rounded type, soft blobs, offset shadows.",
+  "fits": ["casino", "bonuses", "vendor"],
+  "theme": "light",
+  "fonts": { "display": { "family": "Nunito", "weights": [800, 900] }, "body": { "family": "Nunito", "weights": [400, 600] } },
+  "color": { "bg": "#F7F2FF", "surface": "#FFFFFF", "surface2": "#EEE5FF", "text": "#241640", "muted": "#5F5480", "border": "#E0D4FA", "accent": "#D81B66", "onAccent": "#FFFFFF", "accent2": "#7A3CFF", "heroText": "#241640", "heroMuted": "#5F5480" },
+  "shape": { "radiusSm": "14px", "radius": "22px", "radiusLg": "32px", "buttonRadius": "999px", "borderWidth": "2px" },
+  "type": { "base": 16, "scale": 1.25, "headingWeight": 900, "headingCase": "none", "headingTracking": "-0.01em", "lineHeight": 1.55, "bodyWeight": 400 },
+  "space": { "density": 1.05 },
+  "surface": { "style": "elevated", "shadow": "0 8px 0 rgba(122,60,255,.16)" },
+  "decor": { "heroBg": "radial-gradient(60% 80% at 100% 0%, #FFD6EA, transparent 60%), radial-gradient(50% 70% at 0% 100%, #DCCBFF, transparent 60%), #F7F2FF" }
+}

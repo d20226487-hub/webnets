@@ -1,0 +1,14 @@
+{
+  "id": "luxury-gold",
+  "name": "Luxury Gold",
+  "mood": "High-roller lounge. Serif display, hairline gold rules, square corners, lots of air.",
+  "fits": ["casino", "vip", "satellite"],
+  "theme": "dark",
+  "fonts": { "display": { "family": "Cormorant Garamond", "weights": [600, 700] }, "body": { "family": "Montserrat", "weights": [400, 500] } },
+  "color": { "bg": "#0F0D0B", "surface": "#18150F", "surface2": "#221D16", "text": "#F3ECDF", "muted": "#B3A68F", "border": "#3A3226", "accent": "#D4AF6A", "onAccent": "#1A140A", "accent2": "#8C6B3F", "heroText": "#F3ECDF", "heroMuted": "#C4B79F" },
+  "shape": { "radiusSm": "0px", "radius": "2px", "radiusLg": "4px", "buttonRadius": "0px", "borderWidth": "1px" },
+  "type": { "base": 16, "scale": 1.333, "headingWeight": 600, "headingCase": "none", "headingTracking": "0.005em", "lineHeight": 1.65, "bodyWeight": 400 },
+  "space": { "density": 1.15 },
+  "surface": { "style": "outlined", "shadow": "none" },
+  "decor": { "heroBg": "radial-gradient(70% 90% at 50% 0%, rgba(212,175,106,.18), transparent 70%), #0F0D0B" }
+}

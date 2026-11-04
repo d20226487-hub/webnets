@@ -1,0 +1,16 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/changelog",
+  "title": "SX What's New",
+  "category": "sx-conversion",
+  "description": "Latest app release notes from the brand's app data. Shows the app is maintained.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false, "multiple": false },
+  "sx": {
+    "role": "content",
+    "variants": ["list"],
+    "default_variant": "list",
+    "guardrails": ["Renders nothing (and warns) if the brand has no changelog for the site's locale."]
+  }
+}

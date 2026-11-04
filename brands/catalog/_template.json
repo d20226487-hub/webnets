@@ -1,0 +1,14 @@
+{
+  "_note": "Copy to <brand>.json. Per market: which providers and games are live at the brand. id = game id in brands/providers.json; rtp = the RTP version the brand runs in that market (null if unknown); added = date added to the brand (drives 'New', 60 days); rank = the brand's popularity order (1 = most played).",
+  "markets": {
+    "br": {
+      "providers": {
+        "provider-id": {
+          "games": [
+            { "id": "game-id", "rtp": 96.0, "added": "2026-01-31", "rank": 1 }
+          ]
+        }
+      }
+    }
+  }
+}

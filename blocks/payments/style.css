@@ -1,0 +1,31 @@
+.sx-pay__inner { display: grid; gap: var(--sp-5); padding-block: var(--sp-8); }
+.sx-pay__head { display: grid; gap: var(--sp-2); }
+.sx-pay__title { font-size: var(--fs-5); }
+.sx-pay__mark {
+  display: inline-flex; align-items: center; min-height: 32px; padding: 0 var(--sp-3);
+  border-radius: var(--r-sm); background: var(--c-surface-2); border: var(--bw) solid var(--c-border);
+  font-family: var(--f-display); font-weight: var(--fw-heading); letter-spacing: .01em; white-space: nowrap;
+}
+.sx-pay__note { display: flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-0); color: var(--c-muted); }
+
+/* table */
+.sx-pay__wrap { overflow-x: auto; }
+.sx-pay__table { width: 100%; border-collapse: collapse; font-size: var(--fs-1); }
+.sx-pay__table th, .sx-pay__table td { padding: var(--sp-4) var(--sp-5); text-align: start; border-block-end: 1px solid var(--c-border); white-space: nowrap; }
+.sx-pay__table thead th { font-size: .75rem; font-weight: var(--fw-strong); text-transform: uppercase; letter-spacing: .06em; color: var(--c-muted); }
+.sx-pay__table tbody tr:last-child > * { border-block-end: 0; }
+.sx-pay__table td strong { color: var(--c-accent); }
+
+/* tiles */
+.sx-pay__tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--sp-4); }
+.sx-pay__tile { display: grid; gap: var(--sp-4); padding: var(--sp-5); }
+.sx-pay__tile dl { margin: 0; display: grid; gap: var(--sp-2); }
+.sx-pay__tile dl div { display: flex; justify-content: space-between; gap: var(--sp-3); font-size: var(--fs-0); }
+.sx-pay__tile dt { color: var(--c-muted); }
+.sx-pay__tile dd { margin: 0; font-weight: var(--fw-strong); }
+.sx-pay__tile dl div:first-child dd { color: var(--c-accent); font-size: var(--fs-2); font-family: var(--f-display); }
+
+@media (max-width: 640px) {
+  .sx-pay__inner { padding-block: var(--sp-7); }
+  .sx-pay__table th, .sx-pay__table td { padding: var(--sp-3); font-size: var(--fs-0); }
+}

@@ -1,0 +1,67 @@
+{
+    "fields": [
+        {
+            "name": "variant",
+            "type": "select",
+            "label": "Layout",
+            "choices": [
+                "auto",
+                "carousel",
+                "fan",
+                "grid"
+            ],
+            "default": "auto"
+        },
+        {
+            "name": "eyebrow",
+            "type": "text",
+            "label": "Eyebrow",
+            "default": ""
+        },
+        {
+            "name": "title",
+            "type": "text",
+            "label": "Section title",
+            "required": true,
+            "default": "",
+            "maxlength": 60
+        },
+        {
+            "name": "screens",
+            "type": "repeater",
+            "label": "Screens",
+            "required": true,
+            "min": 3,
+            "max": 6,
+            "default": [],
+            "fields": [
+                {
+                    "name": "kind",
+                    "type": "select",
+                    "label": "Drawn screen",
+                    "choices": [
+                        "home",
+                        "live",
+                        "slip",
+                        "wallet",
+                        "casino",
+                        "table",
+                        "install"
+                    ]
+                },
+                {
+                    "name": "caption",
+                    "type": "text",
+                    "label": "Caption",
+                    "required": true,
+                    "maxlength": 48
+                },
+                {
+                    "name": "image",
+                    "type": "url",
+                    "label": "Screenshot image"
+                }
+            ]
+        }
+    ]
+}

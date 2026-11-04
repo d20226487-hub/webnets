@@ -1,0 +1,4 @@
+.sx-phone__video { position: relative; aspect-ratio: 4 / 3; border-radius: 10px; overflow: hidden; background: radial-gradient(80% 70% at 50% 40%, #1E5A44, #0A1F17); }
+.sx-phone__video span { position: absolute; inset: 22% 26%; border-radius: 50%; background: repeating-conic-gradient(#8C2B3A 0 10deg, #111 10deg 20deg); -webkit-mask: radial-gradient(circle, transparent 30%, #000 31%); mask: radial-gradient(circle, transparent 30%, #000 31%); }
+.sx-phone__chips { display: flex; justify-content: space-between; padding-block: 6px; }
+.sx-phone__chips span { width: 28px; height: 28px; border-radius: 50%; border: 3px dashed rgba(255,255,255,.7); }

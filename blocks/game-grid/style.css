@@ -1,0 +1,11 @@
+.sx-ggrid__inner { display: grid; gap: var(--sp-5); padding-block: var(--sp-8); }
+.sx-ggrid__head { display: grid; gap: var(--sp-2); }
+.sx-ggrid__title { font-size: var(--fs-4); }
+.sx-ggrid__intro { color: var(--c-muted); }
+@media (max-width: 640px) {
+  .sx-ggrid__inner { padding-block: var(--sp-7); }
+}
+.sx-ggrid__studio { display: flex; align-items: center; gap: var(--sp-2); margin-block: var(--sp-4) calc(-1 * var(--sp-1)); font-size: var(--fs-2); }
+.sx-ggrid__studio > span { width: 12px; height: 12px; border-radius: 50%; background: var(--p1); }
+.sx-ggrid__studio small { font-family: var(--f-body); font-weight: 400; font-size: var(--fs-0); color: var(--c-muted); }
+.sx-ggrid__tstudio { display: block; font-size: .72rem; font-weight: 400; text-transform: uppercase; letter-spacing: .05em; color: var(--c-muted); }

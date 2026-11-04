@@ -1,0 +1,207 @@
+{
+  "_note": "Editorial scores for Brazil (fictional demo data). Each criterion 0-10 with a one-line reason; the overall score is computed from the weights in the blueprint, never typed here. Every review needs at least one con. tested_at older than 90 days gives a build warning.",
+  "brands": {
+    "nyxa": {
+      "tested_at": "2026-10-21",
+      "summary": "O saque PIX mais rápido que testamos, com app completo.",
+      "verdict": "A Nyxa é a melhor escolha para quem quer receber rápido: todos os nossos saques PIX chegaram em menos de 10 minutos. O cassino ao vivo é menor que o dos concorrentes.",
+      "scores": {
+        "safety": {
+          "score": 9,
+          "reason": "Autorizada pela SPA/MF, verificação de identidade antes do primeiro depósito."
+        },
+        "payouts": {
+          "score": 9.5,
+          "reason": "Cinco saques PIX de teste, todos em 3 a 8 minutos."
+        },
+        "games": {
+          "score": 8.5,
+          "reason": "Cerca de 3.100 jogos de estúdios conhecidos, filtros fáceis."
+        },
+        "live": {
+          "score": 7,
+          "reason": "80 mesas ao vivo, poucas mesas em português."
+        },
+        "app": {
+          "score": 9,
+          "reason": "App rápido no iOS e Android, depósito PIX em dois toques."
+        },
+        "support": {
+          "score": 8,
+          "reason": "Chat 24h respondeu em 2 minutos; e-mail levou um dia."
+        }
+      },
+      "pros": [
+        "Saques PIX em minutos",
+        "Depósito mínimo de R$ 10",
+        "App bem avaliado"
+      ],
+      "cons": [
+        "Cassino ao vivo menor",
+        "Sem saque por TED"
+      ]
+    },
+    "marlowe": {
+      "tested_at": "2026-10-19",
+      "summary": "Mesas ao vivo de alto nível e atendimento atencioso.",
+      "verdict": "A Marlowe Club é forte em cassino ao vivo e atendimento. O saque PIX levou cerca de meia hora nos nossos testes, mais lento que o da Nyxa e da Verazul.",
+      "scores": {
+        "safety": {
+          "score": 9,
+          "reason": "Autorizada pela SPA/MF; limites de depósito oferecidos no cadastro."
+        },
+        "payouts": {
+          "score": 8,
+          "reason": "Saques PIX de teste em 20 a 40 minutos."
+        },
+        "games": {
+          "score": 8,
+          "reason": "Cerca de 2.400 jogos, com boa seleção de estúdios menores."
+        },
+        "live": {
+          "score": 9,
+          "reason": "120 mesas, incluindo roleta e bacará em português."
+        },
+        "app": {
+          "score": 8.5,
+          "reason": "App estável; a busca de jogos poderia ser melhor."
+        },
+        "support": {
+          "score": 8.5,
+          "reason": "Chat 24h cordial; resolveu nossa dúvida de verificação na hora."
+        }
+      },
+      "pros": [
+        "Mesas ao vivo em português",
+        "Atendimento 24h atencioso",
+        "Boa curadoria de jogos"
+      ],
+      "cons": [
+        "Saque PIX mais lento que o dos líderes",
+        "Depósito mínimo de R$ 20"
+      ]
+    },
+    "verazul": {
+      "tested_at": "2026-10-17",
+      "summary": "Saque rápido e o segundo maior cassino ao vivo da lista.",
+      "verdict": "A Verazul combina saques PIX rápidos com 140 mesas ao vivo. O suporte não funciona de madrugada e o catálogo de slots é menor.",
+      "scores": {
+        "safety": {
+          "score": 8.5,
+          "reason": "Autorizada pela SPA/MF; termos claros, mas verificação demorou um dia."
+        },
+        "payouts": {
+          "score": 9,
+          "reason": "Saques PIX de teste em 10 a 20 minutos."
+        },
+        "games": {
+          "score": 7.5,
+          "reason": "Cerca de 1.800 jogos; poucos lançamentos recentes."
+        },
+        "live": {
+          "score": 9.5,
+          "reason": "140 mesas ao vivo, várias com crupiê brasileiro."
+        },
+        "app": {
+          "score": 8,
+          "reason": "App completo; notificações em excesso por padrão."
+        },
+        "support": {
+          "score": 7,
+          "reason": "Chat só das 8h à meia-noite; telefone disponível."
+        }
+      },
+      "pros": [
+        "Saque PIX em cerca de 15 minutos",
+        "140 mesas ao vivo",
+        "Atendimento por telefone"
+      ],
+      "cons": [
+        "Sem chat de madrugada",
+        "Depósito mínimo de R$ 25"
+      ]
+    },
+    "lunaro": {
+      "tested_at": "2026-10-23",
+      "summary": "O maior cassino ao vivo da lista, com catálogo de slots pequeno.",
+      "verdict": "A Lunaro é para quem joga ao vivo: 210 mesas, muitas 24 horas. Para slots há opções melhores, e o suporte fecha às 21h.",
+      "scores": {
+        "safety": {
+          "score": 8.5,
+          "reason": "Autorizada pela SPA/MF; ferramentas de limite fáceis de achar."
+        },
+        "payouts": {
+          "score": 8.5,
+          "reason": "Saques PIX de teste em 15 a 25 minutos."
+        },
+        "games": {
+          "score": 6.5,
+          "reason": "Cerca de 1.200 jogos, foco em mesas."
+        },
+        "live": {
+          "score": 10,
+          "reason": "210 mesas ao vivo, a maior seleção que testamos."
+        },
+        "app": {
+          "score": 8,
+          "reason": "App leve; transmissão ao vivo estável no 4G."
+        },
+        "support": {
+          "score": 6.5,
+          "reason": "Chat das 9h às 21h; e-mail respondeu em dois dias."
+        }
+      },
+      "pros": [
+        "210 mesas ao vivo",
+        "Transmissão estável no celular",
+        "Saque PIX em cerca de 20 minutos"
+      ],
+      "cons": [
+        "Poucos slots",
+        "Suporte fecha às 21h",
+        "Depósito mínimo de R$ 30"
+      ]
+    },
+    "cobaltio": {
+      "tested_at": "2026-10-15",
+      "summary": "O maior catálogo de jogos, mas saques lentos e sem app.",
+      "verdict": "O Cobaltio tem o maior catálogo da lista, com mais de 4.200 jogos. Os saques PIX levaram cerca de uma hora e não há app, só site móvel.",
+      "scores": {
+        "safety": {
+          "score": 8,
+          "reason": "Autorizado pela SPA/MF; página de jogo responsável incompleta."
+        },
+        "payouts": {
+          "score": 6.5,
+          "reason": "Saques PIX de teste em 45 a 75 minutos."
+        },
+        "games": {
+          "score": 9,
+          "reason": "Mais de 4.200 jogos, a maior seleção que testamos."
+        },
+        "live": {
+          "score": 6.5,
+          "reason": "60 mesas ao vivo, poucas em português."
+        },
+        "app": {
+          "score": 5,
+          "reason": "Sem app; o site móvel funciona, mas é lento."
+        },
+        "support": {
+          "score": 8,
+          "reason": "Chat 24h respondeu rápido e em português."
+        }
+      },
+      "pros": [
+        "Mais de 4.200 jogos",
+        "Depósito mínimo de R$ 10",
+        "Chat 24h"
+      ],
+      "cons": [
+        "Saques PIX lentos",
+        "Sem app",
+        "Poucas mesas ao vivo em português"
+      ]
+    }
+  }
+}

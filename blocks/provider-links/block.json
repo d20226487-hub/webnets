@@ -1,0 +1,16 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/provider-links",
+  "title": "SX More Providers",
+  "category": "sx-conversion",
+  "description": "Other studios the brand carries in this market, with game counts, linking to their lobbies or vendor pages.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false, "multiple": false },
+  "sx": {
+    "role": "content",
+    "variants": ["chips", "logos-text"],
+    "default_variant": "chips",
+    "guardrails": ["Lists only providers in the brand catalog for this market. No rankings between providers."]
+  }
+}

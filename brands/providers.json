@@ -1,0 +1,258 @@
+{
+    "_note": "Fictional game providers for vendor-overview demos (Phase 4). Stats are invented.",
+    "emberforge": {
+        "name": "Emberforge",
+        "personality": "Edgy, high-volatility studio. Dark art, huge max wins, mechanic-driven.",
+        "founded": 2017,
+        "games_total": 96,
+        "signature": {
+            "en": "Volatile bonus-buy slots",
+            "ru": "Волатильные слоты с покупкой бонуса",
+            "kk": "Бонус сатып алуға болатын құбылмалы слоттар",
+            "pt": "Slots voláteis com compra de bônus"
+        },
+        "colors": [
+            "#FF4D1A",
+            "#2A0E05"
+        ],
+        "games": [
+            {
+                "id": "ashen-crown",
+                "name": "Ashen Crown",
+                "rtp": 96.3,
+                "volatility": "very-high",
+                "max_win": 25000,
+                "released": "2026-09-18",
+                "tags": [
+                    "new",
+                    "bonus-buy"
+                ]
+            },
+            {
+                "id": "slag-kings",
+                "name": "Slag Kings",
+                "rtp": 96.1,
+                "volatility": "high",
+                "max_win": 12500,
+                "released": "2026-06-02",
+                "tags": [
+                    "cluster"
+                ]
+            },
+            {
+                "id": "furnace-777",
+                "name": "Furnace 777",
+                "rtp": 95.9,
+                "volatility": "high",
+                "max_win": 7770,
+                "released": "2025-11-20",
+                "tags": [
+                    "popular"
+                ]
+            },
+            {
+                "id": "iron-wolves",
+                "name": "Iron Wolves",
+                "rtp": 96.4,
+                "volatility": "very-high",
+                "max_win": 50000,
+                "released": "2025-03-11",
+                "tags": [
+                    "popular",
+                    "bonus-buy"
+                ]
+            },
+            {
+                "id": "cinder-rush",
+                "name": "Cinder Rush",
+                "rtp": 96,
+                "volatility": "medium",
+                "max_win": 5000,
+                "released": "2026-10-09",
+                "tags": [
+                    "new"
+                ]
+            },
+            {
+                "id": "blackforge",
+                "name": "Blackforge",
+                "rtp": 96.2,
+                "volatility": "very-high",
+                "max_win": 30000,
+                "released": "2024-08-27",
+                "tags": [
+                    "popular"
+                ]
+            }
+        ]
+    },
+    "tidewell": {
+        "name": "Tidewell Studios",
+        "personality": "Mainstream hit factory. Bright themes, frequent releases, broad appeal.",
+        "founded": 2012,
+        "games_total": 310,
+        "signature": {
+            "en": "Weekly releases, tumble mechanics",
+            "ru": "Еженедельные релизы, каскадные барабаны",
+            "kk": "Апта сайынғы релиздер, каскадты барабандар",
+            "pt": "Lançamentos semanais, giros em cascata"
+        },
+        "colors": [
+            "#1FA2FF",
+            "#0A2540"
+        ],
+        "games": [
+            {
+                "id": "coral-fortune",
+                "name": "Coral Fortune",
+                "rtp": 96.5,
+                "volatility": "medium",
+                "max_win": 5000,
+                "released": "2026-10-16",
+                "tags": [
+                    "new"
+                ]
+            },
+            {
+                "id": "sugar-tide",
+                "name": "Sugar Tide",
+                "rtp": 96.5,
+                "volatility": "high",
+                "max_win": 21100,
+                "released": "2025-07-03",
+                "tags": [
+                    "popular"
+                ]
+            },
+            {
+                "id": "pearl-harbour-hold",
+                "name": "Pearl Hold & Win",
+                "rtp": 96.2,
+                "volatility": "medium",
+                "max_win": 3000,
+                "released": "2026-08-21",
+                "tags": [
+                    "hold-and-win"
+                ]
+            },
+            {
+                "id": "big-catch",
+                "name": "Big Catch Deluxe",
+                "rtp": 96.7,
+                "volatility": "high",
+                "max_win": 10000,
+                "released": "2024-12-05",
+                "tags": [
+                    "popular"
+                ]
+            },
+            {
+                "id": "lighthouse",
+                "name": "Lighthouse Riches",
+                "rtp": 96.4,
+                "volatility": "low",
+                "max_win": 2500,
+                "released": "2026-09-25",
+                "tags": [
+                    "new"
+                ]
+            },
+            {
+                "id": "tidal-gems",
+                "name": "Tidal Gems",
+                "rtp": 96.5,
+                "volatility": "medium",
+                "max_win": 6500,
+                "released": "2025-02-14",
+                "tags": [
+                    "popular",
+                    "cluster"
+                ]
+            }
+        ]
+    },
+    "paper-lantern": {
+        "name": "Paper Lantern Games",
+        "personality": "New boutique studio. Illustrated art, story-driven features, few but polished titles.",
+        "founded": 2024,
+        "games_total": 14,
+        "signature": {
+            "en": "Illustrated story slots",
+            "ru": "Иллюстрированные сюжетные слоты",
+            "kk": "Суретті сюжеттік слоттар",
+            "pt": "Slots ilustrados com história"
+        },
+        "colors": [
+            "#F2B544",
+            "#3B1F4A"
+        ],
+        "games": [
+            {
+                "id": "night-market",
+                "name": "Night Market",
+                "rtp": 96.2,
+                "volatility": "medium",
+                "max_win": 8000,
+                "released": "2026-10-02",
+                "tags": [
+                    "new"
+                ]
+            },
+            {
+                "id": "kite-runner-fox",
+                "name": "Fox & Kite",
+                "rtp": 96,
+                "volatility": "high",
+                "max_win": 15000,
+                "released": "2026-05-14",
+                "tags": [
+                    "popular"
+                ]
+            },
+            {
+                "id": "moon-ferry",
+                "name": "Moon Ferry",
+                "rtp": 96.3,
+                "volatility": "medium",
+                "max_win": 4000,
+                "released": "2025-12-01",
+                "tags": [
+                    "popular"
+                ]
+            },
+            {
+                "id": "ink-and-gold",
+                "name": "Ink & Gold",
+                "rtp": 95.8,
+                "volatility": "high",
+                "max_win": 12000,
+                "released": "2026-08-07",
+                "tags": [
+                    "bonus-buy"
+                ]
+            },
+            {
+                "id": "paper-tigers",
+                "name": "Paper Tigers",
+                "rtp": 96.1,
+                "volatility": "very-high",
+                "max_win": 20000,
+                "released": "2026-10-23",
+                "tags": [
+                    "new"
+                ]
+            },
+            {
+                "id": "lantern-festival",
+                "name": "Lantern Festival",
+                "rtp": 96.4,
+                "volatility": "low",
+                "max_win": 2000,
+                "released": "2025-09-19",
+                "tags": [
+                    "popular"
+                ]
+            }
+        ]
+    }
+}

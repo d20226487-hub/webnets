@@ -1,0 +1,28 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "sx/app-info",
+    "title": "SX App Information",
+    "category": "sx-conversion",
+    "description": "Version, size, requirements, languages, age rating, developer, licence. All from brand app data.",
+    "acf": {
+        "mode": "preview",
+        "renderCallback": "sx_acf_render"
+    },
+    "supports": {
+        "align": false,
+        "html": false,
+        "multiple": false
+    },
+    "sx": {
+        "role": "content",
+        "variants": [
+            "table",
+            "chips"
+        ],
+        "default_variant": "table",
+        "guardrails": [
+            "Every value comes from brands/<brand>.app and the market; nothing is typed per site."
+        ]
+    }
+}

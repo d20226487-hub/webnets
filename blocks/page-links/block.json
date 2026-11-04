@@ -1,0 +1,16 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/page-links",
+  "title": "SX Page Links",
+  "category": "sx-conversion",
+  "description": "Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false, "multiple": false },
+  "sx": {
+    "role": "content",
+    "variants": ["cards", "list"],
+    "default_variant": "cards",
+    "guardrails": ["Internal links only; never a substitute for the brand CTA."]
+  }
+}

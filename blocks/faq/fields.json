@@ -1,0 +1,46 @@
+{
+    "fields": [
+        {
+            "name": "variant",
+            "type": "select",
+            "label": "Layout",
+            "choices": [
+                "auto",
+                "accordion",
+                "columns"
+            ],
+            "default": "auto"
+        },
+        {
+            "name": "title",
+            "type": "text",
+            "label": "Section title",
+            "default": "",
+            "instructions": "Empty = 'Questions before you join'."
+        },
+        {
+            "name": "items",
+            "type": "repeater",
+            "label": "Questions",
+            "max": 6,
+            "default": [],
+            "fields": [
+                {
+                    "name": "q",
+                    "type": "text",
+                    "label": "Question",
+                    "required": true
+                },
+                {
+                    "name": "a",
+                    "type": "textarea",
+                    "label": "Answer",
+                    "required": true,
+                    "maxlength": 320
+                }
+            ],
+            "min": 4,
+            "required": true
+        }
+    ]
+}

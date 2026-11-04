@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/download-panel",
+  "title": "SX Download Panel",
+  "category": "sx-conversion",
+  "description": "Final install section: all install buttons, a QR code for desktop visitors, key app facts.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false, "multiple": false },
+  "sx": {
+    "role": "content",
+    "variants": ["panel"],
+    "default_variant": "panel",
+    "guardrails": [
+      "Always the last section before the footer on app pages.",
+      "QR encodes links.qr (a device-aware tracked link) or links.go; generated at build time, no external service.",
+      "QR shows on desktop only; phones get the buttons."
+    ]
+  }
+}

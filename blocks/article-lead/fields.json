@@ -1,0 +1,24 @@
+{
+  "fields": [
+    {
+      "name": "variant",
+      "type": "select",
+      "label": "Layout",
+      "choices": [
+        "auto",
+        "split",
+        "stack",
+        "list"
+      ],
+      "default": "auto"
+    },
+    {
+      "name": "title",
+      "type": "text",
+      "label": "Page headline (H1)",
+      "required": true,
+      "default": "",
+      "maxlength": 70
+    }
+  ]
+}

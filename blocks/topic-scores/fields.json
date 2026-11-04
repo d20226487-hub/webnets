@@ -1,0 +1,6 @@
+{
+  "fields": [
+    { "name": "variant", "type": "select", "label": "Layout", "choices": ["auto", "bars", "grid"], "default": "auto" },
+    { "name": "title", "type": "text", "label": "Section title (empty = automatic)", "default": "", "maxlength": 60 }
+  ]
+}

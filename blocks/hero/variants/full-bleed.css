@@ -1,0 +1,38 @@
+/* full-bleed: CSS art behind the copy */
+.sx-hero--bleed { position: relative; overflow: hidden; isolation: isolate; }
+.sx-hero--bleed .sx-hero__inner { min-height: clamp(560px, 78vh, 760px); align-content: center; padding-block: var(--sp-8); }
+.sx-hero--bleed .sx-hero__copy { max-width: 620px; }
+.sx-hero--bleed .sx-hero__title { max-width: 18ch; }
+.sx-hero__art { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.sx-hero__art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, color-mix(in srgb, var(--c-bg) 92%, transparent) 30%, color-mix(in srgb, var(--c-bg) 25%, transparent) 75%); }
+.sx-hero__art[data-art="roulette"]::before {
+  content: ""; position: absolute; width: min(900px, 120vw); aspect-ratio: 1; inset-inline-end: -14%; inset-block-start: 50%; translate: 0 -50%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, var(--c-bg) 0 21%, var(--c-accent) 21.4% 22.4%, transparent 22.8% 58%, var(--c-accent) 58.4% 59.2%, transparent 59.6% 66%, color-mix(in srgb, var(--c-accent) 55%, transparent) 66.4% 67%, transparent 67.4%),
+    repeating-conic-gradient(from 0deg, color-mix(in srgb, var(--c-accent-2) 85%, black) 0 4.86deg, color-mix(in srgb, var(--c-surface-2) 80%, black) 4.86deg 9.73deg);
+  -webkit-mask: radial-gradient(circle, #000 66.6%, transparent 67%);
+          mask: radial-gradient(circle, #000 66.6%, transparent 67%);
+  animation: sx-spin 120s linear infinite;
+}
+.sx-hero__art[data-art="rings"]::before {
+  content: ""; position: absolute; width: min(1000px, 130vw); aspect-ratio: 1; inset-inline-end: -20%; inset-block-start: 50%; translate: 0 -50%; border-radius: 50%;
+  background: repeating-radial-gradient(circle, transparent 0 38px, color-mix(in srgb, var(--c-accent) 35%, transparent) 39px 40px);
+}
+.sx-hero__art[data-art="cards"] { display: grid; place-items: center end; padding-inline-end: 6%; }
+.sx-hero__art[data-art="cards"] span {
+  grid-area: 1 / 1; width: clamp(160px, 18vw, 240px); aspect-ratio: 5 / 7; border-radius: var(--r-lg);
+  background: linear-gradient(160deg, var(--c-surface-2), var(--c-surface)); border: 2px solid var(--c-accent);
+  box-shadow: 0 30px 60px rgba(0,0,0,.45);
+}
+.sx-hero__art[data-art="cards"] span:nth-child(1) { rotate: -14deg; translate: -40% 4%; }
+.sx-hero__art[data-art="cards"] span:nth-child(2) { rotate: 0deg; }
+.sx-hero__art[data-art="cards"] span:nth-child(3) { rotate: 14deg; translate: 40% 4%; }
+@keyframes sx-spin { to { rotate: 360deg; } }
+.sx-hero__chips { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.sx-hero__chips li { padding: var(--sp-1) var(--sp-3); border: var(--bw) solid color-mix(in srgb, var(--c-hero-text) 30%, transparent); border-radius: var(--r-btn); font-size: var(--fs-0); color: var(--c-hero-muted); background: color-mix(in srgb, var(--c-bg) 60%, transparent); }
+@media (max-width: 860px) {
+  .sx-hero--bleed .sx-hero__inner { min-height: 0; padding-block: var(--sp-6) var(--sp-7); }
+  .sx-hero__art::after { background: linear-gradient(180deg, color-mix(in srgb, var(--c-bg) 55%, transparent), color-mix(in srgb, var(--c-bg) 94%, transparent) 55%); }
+  .sx-hero__art[data-art="roulette"]::before, .sx-hero__art[data-art="rings"]::before { width: 140vw; inset-block-start: 0; inset-inline-end: -55vw; translate: 0 -35%; }
+}

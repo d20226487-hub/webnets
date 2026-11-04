@@ -1,0 +1,54 @@
+{
+  "_note": "Game catalog for Marlowe Club (fictional): which providers and games are live per market, when each game was added to the brand, the brand's popularity rank, and the RTP version the brand runs in that market (null = unknown, the page then says 'RTP set by the brand'). See brief 04, section 3.",
+  "markets": {
+    "br": {
+      "providers": {
+        "emberforge": {
+          "games": [
+            { "id": "iron-wolves", "rtp": 96.4, "added": "2025-05-02", "rank": 1 },
+            { "id": "furnace-777", "rtp": 95.9, "added": "2025-12-01", "rank": 2 },
+            { "id": "ashen-crown", "rtp": 96.3, "added": "2026-10-10", "rank": 3 },
+            { "id": "blackforge", "rtp": null, "added": "2025-03-14", "rank": 4 },
+            { "id": "slag-kings", "rtp": 96.1, "added": "2026-06-20", "rank": 5 },
+            { "id": "cinder-rush", "rtp": 94.1, "added": "2026-10-12", "rank": 6 }
+          ]
+        },
+        "tidewell": {
+          "games": [
+            { "id": "sugar-tide", "rtp": 96.5, "added": "2025-07-10", "rank": 1 },
+            { "id": "big-catch", "rtp": 96.7, "added": "2025-01-20", "rank": 2 },
+            { "id": "tidal-gems", "rtp": 96.5, "added": "2025-03-01", "rank": 3 },
+            { "id": "coral-fortune", "rtp": 96.5, "added": "2026-10-20", "rank": 4 }
+          ]
+        },
+        "paper-lantern": {
+          "games": [
+            { "id": "night-market", "rtp": 96.2, "added": "2026-10-05", "rank": 1 },
+            { "id": "kite-runner-fox", "rtp": 96.0, "added": "2026-05-20", "rank": 2 },
+            { "id": "moon-ferry", "rtp": 96.3, "added": "2025-12-10", "rank": 3 }
+          ]
+        }
+      }
+    },
+    "xx": {
+      "providers": {
+        "paper-lantern": {
+          "games": [
+            { "id": "night-market", "rtp": 96.2, "added": "2026-10-05", "rank": 2 },
+            { "id": "kite-runner-fox", "rtp": 96.0, "added": "2026-05-20", "rank": 1 },
+            { "id": "moon-ferry", "rtp": 96.3, "added": "2025-12-10", "rank": 3 },
+            { "id": "ink-and-gold", "rtp": 95.8, "added": "2026-08-10", "rank": 4 },
+            { "id": "paper-tigers", "rtp": 96.1, "added": "2026-10-24", "rank": 6 },
+            { "id": "lantern-festival", "rtp": 96.4, "added": "2025-09-25", "rank": 5 }
+          ]
+        },
+        "emberforge": {
+          "games": [
+            { "id": "iron-wolves", "rtp": 96.4, "added": "2025-05-02", "rank": 1 },
+            { "id": "ashen-crown", "rtp": 96.3, "added": "2026-10-10", "rank": 2 }
+          ]
+        }
+      }
+    }
+  }
+}

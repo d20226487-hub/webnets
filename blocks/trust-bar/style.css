@@ -1,0 +1,8 @@
+.sx-trust__list { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: var(--sp-4); }
+.sx-trust__item { display: flex; align-items: center; gap: var(--sp-3); min-width: 0; }
+.sx-trust__item .sx-icon { width: 28px; height: 28px; color: var(--c-accent); }
+.sx-trust__text { display: grid; min-width: 0; }
+.sx-trust__value { font-family: var(--f-display); font-weight: var(--fw-heading); text-transform: var(--tt-heading); letter-spacing: var(--ls-heading); line-height: 1.2; overflow-wrap: anywhere; }
+.sx-trust__label { font-size: var(--fs-0); color: var(--c-muted); }
+/* strip: full-width band right under the hero */
+/* badges: pills on the page background */

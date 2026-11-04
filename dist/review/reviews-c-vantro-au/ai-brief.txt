@@ -1,0 +1,390 @@
+# Rebuild brief: Vantro Reviews AU
+
+You are rebuilding every page of the **Vantro Reviews AU** template, a reviews site (angle: balanced). Keep the section order, the content and every rule below. Write the page text exactly as given (it is in English); write code and comments in English.
+
+**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section below with the listed fields as props.
+
+## Site context
+
+- Site: Vantro Reviews AU (https://vantro-reviews.example), brand or publisher: Vantro
+- Market: Australia (`au`), language `en`, text direction `ltr`, currency AUD
+- Minimum age: 18+
+- Products allowed: sports betting yes, online casino **no**
+- Market note: Online casino is prohibited under the Interactive Gambling Act. Credit cards cannot be used for online wagering (from June 2024). Inducement advertising is restricted in several states.
+- Pages (5):
+  - `index.html` — Vantro reviews: what Australian punters say, good and bad
+  - `reviews.html` — All Vantro reviews, filter by topic
+  - `reviews-2.html` — All Vantro reviews, filter by topic · page 2
+  - `write-a-review.html` — Write a Vantro review
+  - `how-we-moderate.html` — How we moderate Vantro reviews
+
+## Design tokens
+
+Fonts (Google Fonts): Rubik.
+
+Use these CSS custom properties (they are the whole palette, type scale and radius set):
+
+```css
+:root {
+  --c-bg: #F3F5F4;
+  --c-surface: #FFFFFF;
+  --c-surface-2: #E9EEEC;
+  --c-text: #10201A;
+  --c-muted: #52645C;
+  --c-border: #D5DDD9;
+  --c-accent: #0A7A4B;
+  --c-on-accent: #FFFFFF;
+  --c-accent-2: #FFD23F;
+  --c-success: #1F9D55;
+  --c-warning: #D98B00;
+  --c-danger: #D93636;
+  --c-hero-text: #FFFFFF;
+  --c-hero-muted: #CFE7DC;
+  --c-hero-accent: #FFD23F;
+  --c-hero-on-accent: #10201A;
+  --hero-bg: linear-gradient(180deg,#0A7A4B 0%,#075C39 100%);
+  --f-display: "Rubik",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-body: "Rubik",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono: "Rubik",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --fw-heading: 700;
+  --fw-body: 400;
+  --fw-strong: 500;
+  --tt-heading: none;
+  --ls-heading: -0.01em;
+  --lh-body: 1.5;
+  --lh-heading: 1.15;
+  --r-sm: 4px;
+  --r: 8px;
+  --r-lg: 12px;
+  --r-btn: 6px;
+  --bw: 1px;
+  --density: 0.85;
+  --fs-0: 12.5px;
+  --fs-1: 15px;
+  --fs-2: 21.6px;
+  --fs-3: clamp(17.63px,14.07px + 0.987vw,25.92px);
+  --fs-4: clamp(21.15px,16.89px + 1.185vw,31.1px);
+  --fs-5: clamp(25.38px,20.26px + 1.422vw,37.32px);
+  --fs-6: clamp(30.46px,24.31px + 1.706vw,44.79px);
+  --sp-1: 3.4px;
+  --sp-2: 6.8px;
+  --sp-3: 10.2px;
+  --sp-4: 13.6px;
+  --sp-5: 20.4px;
+  --sp-6: 27.2px;
+  --sp-7: 40.8px;
+  --sp-8: 54.4px;
+  --sp-9: 81.6px;
+  --card-bg: #FFFFFF;
+  --card-border: #D5DDD9;
+  --card-shadow: none;
+  --surface-style: outlined;
+}
+```
+
+Layout is mobile-first: it must work from 375px to 1440px wide.
+
+## Rules you must not break
+
+- Every page opens with an age gate (18+) before any gambling content.
+- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- No casino content anywhere: online casino is not allowed in this market.
+- Responsible gambling: All copy comes from markets/<id>.json; never type compliance text into a page.
+- Responsible gambling: Every page renders a 'panel' (usually inside the footer). 'strip' is an optional top-of-page addition.
+- Responsible gambling: Where a market lists several mandated taglines, one is chosen per site by seed.
+- Affiliate disclosure: Fixed wording per locale; cannot be removed on review sites.
+- Header: One-page landing and app pages use 'minimal' (no nav) so attention stays on the conversion.
+- Header: The CTA stays visible at every width; on mobile the nav collapses into a menu, the CTA does not.
+- Rating summary: No typed-in scores: everything comes from brands/reviews/<brand>.json.
+- Rating summary: No AggregateRating structured data.
+- Trust bar: Values come from brand facts and market config; nothing is typed by hand.
+- Trust bar: Rating shows only when the brand has facts.rating_source.
+- Trust bar: Sits directly under the hero (section 2 or 3).
+- Topic scores: Computed from the review feed; topics without reviews are hidden.
+- Review list: Newest first, every published review; never sorted or filtered by rating by default.
+- Review list: The CTA sits between reviews, never inside a review card.
+- Page links: Internal links only; never a substitute for the brand CTA.
+- Editor box: Person comes from the site config "editor" {name, role, bio}; renders nothing (and warns) without it.
+- FAQ: 4-6 questions: legality in the country, deposits/withdrawals, payout time, verification, limits or self-exclusion.
+- FAQ: Answers are plain text, 1-3 sentences. No CTA links inside answers.
+- Final CTA: Always the last section before the footer.
+- Final CTA: Headline 40 characters max. No urgency claims (timers, 'last chance').
+- Footer: Always renders the compliance panel; it cannot be switched off.
+- Footer: Payment methods come from the market config so they are always locally correct.
+- Age gate: Age comes from the market (21 in KZ, 18 in AU/BR). Never hard-code it.
+- Age gate: Content stays in the HTML for crawlers; the overlay is shown by script, so no-JS users still see the compliance footer.
+- Sticky CTA: Phones only (860px and narrower). Never covers the compliance panel: the footer gets bottom padding.
+- Sticky CTA: Shows the market age badge next to the CTA.
+- Page title: The answer line states the page's key fact in one sentence, above the fold on phones.
+- Review form: No incentives for reviews. Asks only for a display name; never email, phone or account numbers.
+- Steps: Exactly 3 steps; numbers are used because the order is real.
+- Steps: Mention verification and deposit limits honestly; do not promise instant approval.
+- Text block: Only h2, h3, p, ul, ol, li, strong, em, a, table, blockquote survive; all attributes except href are removed.
+- Text block: Links: page:<id> for internal pages, https:// for sources. Brand links belong in CTAs, not in prose.
+
+## Page `index.html`
+
+- Title tag: Vantro reviews: what Australian punters say, good and bad
+- Meta description: Player reviews of Vantro in Australia: PayID withdrawals, ID checks, the app, odds and support. Every rating is published, high or low. 18+.
+- The only H1: Vantro reviews from Australian punters
+- Structured data (JSON-LD): WebPage, FAQPage, WebSite
+- Links to: `how-we-moderate.html`, `index.html`, `reviews.html`, `write-a-review.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Licensed in Australia"
+   - `sticky`: false
+   - `show_cta`: true
+4. **Rating summary** — block `sx/rating-summary`, variant `quotes`, role `hero`
+   Purpose: Hero for review sites: average score, review count, 5-to-1 distribution, one topic score and the CTA. Every number is computed from the review feed.
+   - `title`: "Vantro reviews from Australian punters"
+   - `subtitle`: "The newest praise and the newest complaint, side by side. We publish every review except spam and abuse."
+5. **Trust bar** — block `sx/trust-bar`, variant `badges`, role `trust`
+   Purpose: Licence, payout time, years operating, local payments and (only if sourced) rating.
+   - `items`: `["licence","payout","since","payments"]`
+6. **Topic scores** — block `sx/topic-scores`, variant `grid`, role `content`
+   Purpose: Average score and review count per topic (payouts, verification, support...), each linking to those reviews.
+7. **Review list** — block `sx/review-list`, variant `cards`, role `content`
+   Purpose: Published reviews, newest first. Optional topic and rating filters (pure CSS, no JavaScript needed) and a CTA after every few reviews.
+   - `mode`: "latest"
+   - `limit`: "6"
+   - `filters`: false
+   - `cta_every`: "0"
+8. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+   - `title`: "Read more"
+9. **Editor box** — block `sx/editor-box`, variant `card`, role `trust`
+   Purpose: Who looks after this page: editor card with role, bio, last update and the moderation policy, plus share links.
+   - `share`: true
+10. **FAQ** — block `sx/faq`, variant `columns`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Are these real reviews?","a":"Yes. Every review comes from a player and is read by a moderator before it goes live. Critical reviews stay up; we only remove spam, abuse and personal details."},{"q":"Do you remove bad reviews?","a":"No. We only remove spam, abuse, personal details and advertising. Negative reviews stay up."},{"q":"Where do Vantro's replies come from?","a":"Vantro writes them. We publish them under the review, labelled as a reply from Vantro."},{"q":"Are you connected to Vantro?","a":"We earn a commission when you join through our links. It doesn't change which reviews we publish."}]`
+11. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Want to try Vantro?"
+   - `text`: "Sign-up takes a few minutes. 18+ only. Set a deposit limit when you join."
+   - `show_code`: false
+12. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+13. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+14. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `reviews.html`
+
+- Title tag: All Vantro reviews, filter by topic
+- Meta description: Every published Vantro review, newest first. Filter by withdrawals, verification, support, app, odds or deposits. 18+.
+- The only H1: All Vantro reviews
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `how-we-moderate.html`, `index.html`, `reviews.html`, `write-a-review.html`, `reviews-2.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Licensed in Australia"
+   - `sticky`: false
+   - `show_cta`: true
+4. **Rating summary** — block `sx/rating-summary`, variant `strip`, role `hero`
+   Purpose: Hero for review sites: average score, review count, 5-to-1 distribution, one topic score and the CTA. Every number is computed from the review feed.
+   - `title`: "All Vantro reviews"
+5. **Review list** — block `sx/review-list`, variant `cards`, role `content`
+   Purpose: Published reviews, newest first. Optional topic and rating filters (pure CSS, no JavaScript needed) and a CTA after every few reviews.
+   - `mode`: "all"
+   - `limit`: "6"
+   - `filters`: true
+   - `cta_every`: "6"
+6. **Editor box** — block `sx/editor-box`, variant `card`, role `trust`
+   Purpose: Who looks after this page: editor card with role, bio, last update and the moderation policy, plus share links.
+   - `share`: true
+7. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+8. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "See Vantro for yourself"
+   - `text`: "18+ only. Gamble responsibly."
+   - `show_code`: false
+9. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+10. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+11. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `reviews-2.html`
+
+- Title tag: All Vantro reviews, filter by topic · page 2
+- Meta description: Every published Vantro review, newest first. Filter by withdrawals, verification, support, app, odds or deposits. 18+. · page 2
+- The only H1: All Vantro reviews
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `how-we-moderate.html`, `index.html`, `reviews.html`, `write-a-review.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Licensed in Australia"
+   - `sticky`: false
+   - `show_cta`: true
+4. **Rating summary** — block `sx/rating-summary`, variant `strip`, role `hero`
+   Purpose: Hero for review sites: average score, review count, 5-to-1 distribution, one topic score and the CTA. Every number is computed from the review feed.
+   - `title`: "All Vantro reviews"
+5. **Review list** — block `sx/review-list`, variant `cards`, role `content`
+   Purpose: Published reviews, newest first. Optional topic and rating filters (pure CSS, no JavaScript needed) and a CTA after every few reviews.
+   - `mode`: "all"
+   - `limit`: "6"
+   - `filters`: true
+   - `cta_every`: "6"
+6. **Editor box** — block `sx/editor-box`, variant `card`, role `trust`
+   Purpose: Who looks after this page: editor card with role, bio, last update and the moderation policy, plus share links.
+   - `share`: true
+7. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+8. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "See Vantro for yourself"
+   - `text`: "18+ only. Gamble responsibly."
+   - `show_code`: false
+9. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+10. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+11. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `write-a-review.html`
+
+- Title tag: Write a Vantro review
+- Meta description: Tell other punters how Vantro worked for you. We publish positive and negative reviews after moderation.
+- The only H1: Write a Vantro review
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `how-we-moderate.html`, `index.html`, `reviews.html`, `write-a-review.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Licensed in Australia"
+   - `sticky`: false
+   - `show_cta`: true
+4. **Page title** — block `sx/page-hero`, variant `answer`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Write a Vantro review"
+   - `answer`: "Tell us what worked and what didn't. We publish good and bad reviews once they pass a spam check."
+   - `show_cta`: false
+5. **Review form** — block `sx/review-form`, variant `card`, role `content`
+   Purpose: Write-a-review form. Disabled (mockup) unless links.review_form is set and the site uses real reviews.
+   - `title`: "Your review"
+6. **Steps** — block `sx/steps`, variant `row`, role `content`
+   Purpose: Three real steps from sign-up to first bet, followed by the mid-page CTA.
+   - `eyebrow`: "After you submit"
+   - `title`: "What happens next"
+   - `items`: `[{"title":"Moderation","text":"A moderator checks for spam, abuse and personal details, usually within a day."},{"title":"Published","text":"Your review appears with your first name and last initial."},{"title":"Vantro's reply","text":"Vantro may reply. The reply appears under your review, labelled."}]`
+   - `show_cta`: false
+7. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+8. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+9. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+
+## Page `how-we-moderate.html`
+
+- Title tag: How we moderate Vantro reviews
+- Meta description: What we remove, what we never remove, where Vantro's replies come from and how this site makes money.
+- The only H1: How we moderate reviews
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `how-we-moderate.html`, `index.html`, `reviews.html`, `write-a-review.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Licensed in Australia"
+   - `sticky`: false
+   - `show_cta`: true
+4. **Page title** — block `sx/page-hero`, variant `compact`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "How we moderate reviews"
+   - `answer`: "We remove spam, abuse, personal details and advertising. We never remove negative reviews."
+   - `show_cta`: false
+5. **Text block** — block `sx/prose`, variant `article`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<p>This site publishes reviews of Vantro written by Australian punters. For those reviews to be worth reading, we follow a short set of rules and apply them the same way to praise and to complaints. Below is what we remove, what we never remove and how the scores are worked out. Moderation is handled by the site's editor, Liam Carter.</p><h2>How moderation works</h2><p>Every new review is read by …` (HTML)
+   - `toc`: false
+6. **Editor box** — block `sx/editor-box`, variant `card`, role `trust`
+   Purpose: Who looks after this page: editor card with role, bio, last update and the moderation policy, plus share links.
+   - `share`: true
+7. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+8. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+9. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+
+## Acceptance checklist
+
+- [ ] Sections appear in the order above, with the same layout variant (or an equivalent layout).
+- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
+- [ ] One H1 per page; headings do not skip levels.
+- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
+- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
+- [ ] The structured data listed for each page is present and valid.
+- [ ] Every internal link opens an existing page.
+- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
+- [ ] Every rule in "Rules you must not break" holds on every page.
+
+_Long text and lists are shortened here (…, "[n items]"). For the full text run `php build/ai-brief.php sites/demos/<config>.json`._

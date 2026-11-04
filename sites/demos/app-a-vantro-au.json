@@ -1,0 +1,122 @@
+{
+  "_demo": "Phase 2 Demo A. Copy is placeholder written to brief 02; app facts are fictional (brands/operators.json).",
+  "id": "app-a-vantro-au",
+  "type": "app",
+  "angle": "official-app",
+  "brand": "vantro",
+  "market": "au",
+  "preset": "fresh-minimal",
+  "seed": "vantro-au-app-a",
+  "prefix": "auto",
+  "links": {
+    "go": "https://vantro.example/au/join?src=app-a",
+    "ios": "https://vantro.example/au/app/ios?src=app-a",
+    "android": "https://vantro.example/au/app/android?src=app-a",
+    "qr": "https://vantro.example/au/app?src=app-a-qr"
+  },
+  "site": {
+    "name": "Vantro App Australia"
+  },
+  "page": {
+    "title": "Vantro Sports app for iPhone and Android",
+    "description": "Download the official Vantro app. Live odds, same-game multis and PayID withdrawals. Free. 18+."
+  },
+  "variants": {
+    "hero": "listing",
+    "trust": "badges",
+    "screens": "carousel",
+    "features": "grid",
+    "info": "table",
+    "whatsnew": "list",
+    "faq": "accordion",
+    "final": "panel"
+  },
+  "order": [
+    "features",
+    "info",
+    "whatsnew"
+  ],
+  "content": {
+    "hero": {
+      "title": "The official Vantro app for Australia",
+      "subtitle": "Bet on footy, cricket and racing, build same-game multis and withdraw to PayID, all from your phone.",
+      "screen": "home"
+    },
+    "screens": {
+      "eyebrow": "Inside the app",
+      "title": "Built for your phone",
+      "screens": [
+        {
+          "kind": "home",
+          "caption": "All of tonight's markets"
+        },
+        {
+          "kind": "live",
+          "caption": "Live scores and odds"
+        },
+        {
+          "kind": "slip",
+          "caption": "Multis in a few taps"
+        },
+        {
+          "kind": "wallet",
+          "caption": "PayID withdrawals in about an hour"
+        }
+      ]
+    },
+    "features": {
+      "eyebrow": "Why the app",
+      "title": "Everything from the website, faster",
+      "items": [
+        {
+          "icon": "bolt",
+          "title": "Instant odds updates",
+          "text": "Prices refresh in real time during play, with alerts when they move."
+        },
+        {
+          "icon": "play",
+          "title": "Live streaming",
+          "text": "Watch selected matches in the app while you bet in-play."
+        },
+        {
+          "icon": "mobile",
+          "title": "Face ID log-in",
+          "text": "Log in with Face ID or your fingerprint instead of a password."
+        },
+        {
+          "icon": "gauge",
+          "title": "Limits in two taps",
+          "text": "Set deposit limits or take a break from the account screen."
+        }
+      ]
+    },
+    "faq": {
+      "items": [
+        {
+          "q": "Is the Vantro app free?",
+          "a": "Yes. The app is free to download from the App Store and Google Play."
+        },
+        {
+          "q": "Which phones are supported?",
+          "a": "iPhone with iOS 15 or later, and Android phones with Android 8.0 or later."
+        },
+        {
+          "q": "How do I know I have the official app?",
+          "a": "Use the App Store and Google Play links on this page. The app is published by Vantro Digital Pty Ltd, the licensed operator."
+        },
+        {
+          "q": "Do I need a new account for the app?",
+          "a": "No. Log in with your existing Vantro account, or create one in the app."
+        },
+        {
+          "q": "How do I set limits in the app?",
+          "a": "Open Account, then Responsible gambling, to set deposit limits or take a break. You can also use BetStop at betstop.gov.au."
+        }
+      ]
+    },
+    "final": {
+      "title": "Get the Vantro app",
+      "text": "Free on iPhone and Android. 18+ only."
+    }
+  }
+}

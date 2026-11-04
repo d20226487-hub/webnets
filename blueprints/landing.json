@@ -1,0 +1,208 @@
+{
+  "type": "landing",
+  "title": "One-page branded landing",
+  "brief": "docs/briefs/01-one-page-landing.md",
+  "frame": {
+    "top": [
+      {
+        "block": "compliance-bar",
+        "props": {
+          "variant": "strip"
+        },
+        "when": "market.strip"
+      }
+    ],
+    "header": {
+      "block": "header",
+      "variants": [
+        "minimal",
+        "minimal-split"
+      ],
+      "props": {
+        "sticky": false
+      }
+    },
+    "footer": {
+      "block": "footer",
+      "variants": [
+        "compact"
+      ]
+    },
+    "overlay": [
+      {
+        "block": "age-gate"
+      },
+      {
+        "block": "sticky-cta",
+        "variants": [
+          "bar",
+          "pill"
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "block": "hero",
+      "zone": "top",
+      "rule": "required"
+    },
+    {
+      "id": "trust",
+      "block": "trust-bar",
+      "zone": "top",
+      "rule": "required"
+    },
+    {
+      "id": "features",
+      "block": "features",
+      "zone": "middle",
+      "rule": "required"
+    },
+    {
+      "id": "showcase",
+      "block": "showcase",
+      "zone": "middle",
+      "rule": "optional"
+    },
+    {
+      "id": "games",
+      "block": "showcase",
+      "zone": "middle",
+      "rule": "optional"
+    },
+    {
+      "id": "steps",
+      "block": "steps",
+      "zone": "middle",
+      "rule": "required"
+    },
+    {
+      "id": "payments",
+      "block": "payments",
+      "zone": "middle",
+      "rule": "optional"
+    },
+    {
+      "id": "faq",
+      "block": "faq",
+      "zone": "bottom",
+      "rule": "required"
+    },
+    {
+      "id": "final",
+      "block": "cta-band",
+      "zone": "bottom",
+      "rule": "required"
+    }
+  ],
+  "order_rules": [
+    {
+      "rule": "before",
+      "a": "features",
+      "b": "payments"
+    },
+    {
+      "rule": "not_first",
+      "a": "showcase"
+    },
+    {
+      "rule": "not_first",
+      "a": "games"
+    }
+  ],
+  "angles": {
+    "matchday": {
+      "optional": [
+        "showcase"
+      ],
+      "variants": {
+        "hero": [
+          "scoreboard",
+          "split"
+        ],
+        "showcase": [
+          "odds-board"
+        ]
+      },
+      "requires_vertical": "sports"
+    },
+    "fast-payout": {
+      "optional": [
+        "payments"
+      ],
+      "variants": {
+        "hero": [
+          "stat-led",
+          "split"
+        ]
+      },
+      "requires_vertical": "sports"
+    },
+    "app-first": {
+      "optional": [],
+      "variants": {
+        "hero": [
+          "split",
+          "centered"
+        ]
+      }
+    },
+    "trusted": {
+      "optional": [
+        "payments"
+      ],
+      "variants": {
+        "hero": [
+          "centered",
+          "split"
+        ]
+      }
+    },
+    "live-casino": {
+      "optional": [
+        "showcase"
+      ],
+      "variants": {
+        "hero": [
+          "full-bleed",
+          "split"
+        ],
+        "showcase": [
+          "game-strip"
+        ]
+      },
+      "requires_vertical": "casino"
+    }
+  },
+  "layouts": {
+    "_note": "A layout replaces the section list and order (site config \"layout\").",
+    "compact": [
+      {
+        "id": "hero",
+        "block": "hero",
+        "zone": "top",
+        "rule": "required"
+      },
+      {
+        "id": "trust",
+        "block": "trust-bar",
+        "zone": "top",
+        "rule": "required"
+      },
+      {
+        "id": "features",
+        "block": "features",
+        "zone": "middle",
+        "rule": "required"
+      },
+      {
+        "id": "final",
+        "block": "cta-band",
+        "zone": "bottom",
+        "rule": "required"
+      }
+    ]
+  }
+}

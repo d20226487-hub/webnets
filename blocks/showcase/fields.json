@@ -1,0 +1,149 @@
+{
+    "fields": [
+        {
+            "name": "variant",
+            "type": "select",
+            "label": "Layout",
+            "choices": [
+                "auto",
+                "odds-board",
+                "game-strip"
+            ],
+            "default": "auto"
+        },
+        {
+            "name": "eyebrow",
+            "type": "text",
+            "label": "Eyebrow",
+            "default": ""
+        },
+        {
+            "name": "title",
+            "type": "text",
+            "label": "Section title",
+            "required": true,
+            "default": ""
+        },
+        {
+            "name": "tabs",
+            "type": "repeater",
+            "label": "Sport tabs (visual only)",
+            "max": 5,
+            "default": [],
+            "fields": [
+                {
+                    "name": "label",
+                    "type": "text",
+                    "label": "Label"
+                }
+            ]
+        },
+        {
+            "name": "columns",
+            "type": "repeater",
+            "label": "Odds column headings",
+            "max": 3,
+            "default": [],
+            "fields": [
+                {
+                    "name": "label",
+                    "type": "text",
+                    "label": "Label"
+                }
+            ]
+        },
+        {
+            "name": "rows",
+            "type": "repeater",
+            "label": "Fixtures",
+            "max": 6,
+            "default": [],
+            "fields": [
+                {
+                    "name": "when",
+                    "type": "text",
+                    "label": "Time or period"
+                },
+                {
+                    "name": "live",
+                    "type": "true_false",
+                    "label": "Live"
+                },
+                {
+                    "name": "competition",
+                    "type": "text",
+                    "label": "Competition"
+                },
+                {
+                    "name": "home",
+                    "type": "text",
+                    "label": "Home"
+                },
+                {
+                    "name": "away",
+                    "type": "text",
+                    "label": "Away"
+                },
+                {
+                    "name": "odds",
+                    "type": "repeater",
+                    "label": "Prices",
+                    "max": 3,
+                    "fields": [
+                        {
+                            "name": "price",
+                            "type": "text",
+                            "label": "Price"
+                        }
+                    ]
+                },
+                {
+                    "name": "more",
+                    "type": "text",
+                    "label": "Extra markets count"
+                }
+            ]
+        },
+        {
+            "name": "tiles",
+            "type": "repeater",
+            "label": "Game tiles (game-strip layout)",
+            "max": 8,
+            "default": [],
+            "fields": [
+                {
+                    "name": "name",
+                    "type": "text"
+                },
+                {
+                    "name": "studio",
+                    "type": "text"
+                },
+                {
+                    "name": "meta",
+                    "type": "text"
+                },
+                {
+                    "name": "tag",
+                    "type": "text"
+                },
+                {
+                    "name": "motif",
+                    "type": "select",
+                    "choices": [
+                        "rings",
+                        "wheel",
+                        "cards"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "note",
+            "type": "text",
+            "label": "Illustration note",
+            "required": true,
+            "default": ""
+        }
+    ]
+}

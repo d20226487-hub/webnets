@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/footer",
+  "title": "SX Footer",
+  "category": "sx-shared",
+  "description": "Footer with links, payment methods, the compliance panel and copyright.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false, "multiple": false },
+  "sx": {
+    "role": "footer",
+    "variants": ["columns", "compact"],
+    "default_variant": "columns",
+    "includes": ["compliance-bar"],
+    "guardrails": [
+      "Always renders the compliance panel; it cannot be switched off.",
+      "Payment methods come from the market config so they are always locally correct."
+    ]
+  }
+}

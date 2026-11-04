@@ -1,0 +1,10 @@
+.sx-footer { background: var(--c-bg); border-block-start: var(--bw) solid var(--c-border); color: var(--c-muted); font-size: var(--fs-0); }
+.sx-footer__inner { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-6); padding-block: var(--sp-7) var(--sp-6); }
+.sx-footer .sx-logo { color: var(--c-text); font-size: var(--fs-2); }
+.sx-footer a { text-decoration: none; }
+.sx-footer a:hover { color: var(--c-text); text-decoration: underline; }
+.sx-footer__about { display: grid; gap: var(--sp-3); max-width: 36ch; }
+.sx-footer__links { display: grid; gap: var(--sp-2); }
+.sx-footer__pay { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-block-start: var(--sp-2); }
+.sx-footer__pay li { padding: var(--sp-1) var(--sp-3); border: var(--bw) solid var(--c-border); border-radius: var(--r-sm); color: var(--c-text); font-weight: var(--fw-strong); font-size: .9em; }
+.sx-footer__rights { font-size: .9em; }

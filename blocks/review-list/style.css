@@ -1,0 +1,41 @@
+.sx-rlist__inner { display: grid; gap: var(--sp-5); padding-block: var(--sp-7); }
+.sx-rlist__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--sp-3); }
+.sx-rlist__title { font-size: var(--fs-4); }
+.sx-rlist__more { display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 44px; font-weight: var(--fw-strong); color: var(--c-accent); text-decoration: none; }
+.sx-rlist__more .sx-icon { width: 18px; height: 18px; }
+.sx-rlist__list { display: grid; gap: var(--sp-4); }
+.sx-rlist__cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sp-3); padding: var(--sp-4) var(--sp-5); border-radius: var(--r); background: var(--c-surface-2); border: var(--bw) dashed var(--c-border); }
+.sx-rlist__cta p { font-weight: var(--fw-strong); }
+.sx-rlist__filters { display: grid; gap: var(--sp-3); }
+.sx-rlist__filters fieldset { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); border: 0; padding: 0; margin: 0; }
+.sx-rlist__filters legend { float: left; margin-inline-end: var(--sp-2); font-size: var(--fs-0); color: var(--c-muted); }
+.sx-rlist__filters label { position: relative; }
+.sx-rlist__filters input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.sx-rlist__filters span { display: inline-flex; align-items: center; min-height: 40px; padding: 0 var(--sp-4); border-radius: var(--r-btn); border: var(--bw) solid var(--c-border); background: var(--c-surface); font-size: var(--fs-0); font-weight: var(--fw-strong); }
+.sx-rlist__filters input:checked + span { background: var(--c-text); color: var(--c-bg); border-color: var(--c-text); }
+.sx-rlist__filters input:focus-visible + span { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+/* Pure-CSS filtering: hide reviews that do not match the checked topic / rating; CTA rows hide while filtering. */
+.sx-rlist:has(input[name="rf-topic"][value="payouts"]:checked) .sx-rlist__list > li:not([data-topics~="payouts"]),
+.sx-rlist:has(input[name="rf-topic"][value="verification"]:checked) .sx-rlist__list > li:not([data-topics~="verification"]),
+.sx-rlist:has(input[name="rf-topic"][value="support"]:checked) .sx-rlist__list > li:not([data-topics~="support"]),
+.sx-rlist:has(input[name="rf-topic"][value="app"]:checked) .sx-rlist__list > li:not([data-topics~="app"]),
+.sx-rlist:has(input[name="rf-topic"][value="odds"]:checked) .sx-rlist__list > li:not([data-topics~="odds"]),
+.sx-rlist:has(input[name="rf-topic"][value="deposits"]:checked) .sx-rlist__list > li:not([data-topics~="deposits"]),
+.sx-rlist:has(input[name="rf-rating"][value="1"]:checked) .sx-rlist__list > li:not([data-rating="1"]),
+.sx-rlist:has(input[name="rf-rating"][value="2"]:checked) .sx-rlist__list > li:not([data-rating="2"]),
+.sx-rlist:has(input[name="rf-rating"][value="3"]:checked) .sx-rlist__list > li:not([data-rating="3"]),
+.sx-rlist:has(input[name="rf-rating"][value="4"]:checked) .sx-rlist__list > li:not([data-rating="4"]),
+.sx-rlist:has(input[name="rf-rating"][value="5"]:checked) .sx-rlist__list > li:not([data-rating="5"]) { display: none; }
+.sx-rlist:has(input[name^="rf-"]:not([value=""]):checked) .sx-rlist__cta { display: none; }
+.sx-rlist__scope { font-size: var(--fs-0); color: var(--c-muted); }
+.sx-rlist__pages ul { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--sp-2); }
+.sx-rlist__pages a, .sx-rlist__pages span { display: inline-grid; place-items: center; min-width: 44px; min-height: 44px; padding: 0 var(--sp-3); border-radius: var(--r-btn); border: var(--bw) solid var(--c-border); background: var(--c-surface); color: var(--c-text); font-weight: var(--fw-strong); text-decoration: none; }
+.sx-rlist__pages a:hover { border-color: var(--c-accent); }
+.sx-rlist__pages [aria-current] { background: var(--c-text); color: var(--c-bg); border-color: var(--c-text); }
+@media (max-width: 640px) {
+  .sx-rlist__filters { overflow-x: auto; }
+  .sx-rlist__filters fieldset { flex-wrap: nowrap; }
+  .sx-rlist__filters legend { display: none; }
+  .sx-rlist__filters span { white-space: nowrap; }
+  .sx-rlist__cta .sx-btn { width: 100%; }
+}

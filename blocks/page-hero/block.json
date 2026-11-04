@@ -1,0 +1,16 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/page-hero",
+  "title": "SX Page Hero (inner pages)",
+  "category": "sx-conversion",
+  "description": "Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false, "multiple": false },
+  "sx": {
+    "role": "hero",
+    "variants": ["compact", "answer"],
+    "default_variant": "compact",
+    "guardrails": ["The answer line states the page's key fact in one sentence, above the fold on phones."]
+  }
+}

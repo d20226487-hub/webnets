@@ -1,0 +1,10 @@
+/* app-banner: like a smart app banner, our own styling */
+.sx-sticky--app-banner {
+  padding: var(--sp-2) max(16px, var(--sp-4)) calc(var(--sp-2) + env(safe-area-inset-bottom, 0px));
+  background: var(--c-surface); border-block-start: var(--bw) solid var(--c-border); box-shadow: 0 -8px 24px rgba(0,0,0,.18);
+}
+.sx-sticky__appicon { width: 40px; border-radius: 11px; }
+.sx-sticky__appname { display: grid; min-width: 0; line-height: 1.15; }
+.sx-sticky__appname strong { font-family: var(--f-display); font-weight: var(--fw-heading); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sx-sticky__appname small { font-size: .72rem; color: var(--c-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sx-sticky--app-banner .sx-sticky__cta { margin-inline-start: auto; }

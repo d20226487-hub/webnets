@@ -1,0 +1,10 @@
+.sx-compliance__help { color: var(--c-muted); }
+/* Phones: the strip keeps the age badge + mandated tagline; the helpline stays in the footer panel. */
+.sx-compliance__head { display: flex; align-items: center; gap: var(--sp-4); }
+.sx-compliance__head .sx-age { color: var(--c-text); font-size: var(--fs-1); }
+.sx-compliance__title { font-size: var(--fs-2); color: var(--c-text); }
+.sx-compliance__tagline { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-2); color: var(--c-text); text-transform: var(--tt-heading); letter-spacing: var(--ls-heading); }
+.sx-compliance__list { display: grid; gap: var(--sp-3); }
+.sx-compliance__list li { display: flex; gap: var(--sp-3); align-items: flex-start; }
+.sx-compliance__list .sx-icon { margin-block-start: .15em; color: var(--c-text); }
+.sx-compliance__verify { padding: var(--sp-2) var(--sp-3); border: 1px dashed var(--c-warning); border-radius: var(--r-sm); color: var(--c-text); font-size: .85em; }

@@ -1,0 +1,192 @@
+{
+  "_demo": "Phase 4 Demo B (brief 04, option B), Russian in the demo market xx. Games, RTP versions and dates come from brands/catalog/nyxa.json; studio facts from brands/providers.json.",
+  "today": "2026-10-30",
+  "demo": true,
+  "id": "vendor-b-nyxa-xx",
+  "type": "vendor",
+  "angle": "popular",
+  "brand": "nyxa",
+  "market": "xx",
+  "locale": "ru",
+  "provider": "tidewell",
+  "preset": "candy-pop",
+  "seed": "nyxa-xx-vendor-b",
+  "prefix": "auto",
+  "links": {
+    "go": "https://nyxa.example/casino/studio/tidewell?src=vendor-b",
+    "game": "https://nyxa.example/casino/play/{game}?src=vendor-b"
+  },
+  "site": {
+    "name": "Tidewell в Nyxa"
+  },
+  "page": {
+    "title": "Слоты Tidewell в Nyxa: самые популярные, с RTP и волатильностью",
+    "description": "Шесть слотов Tidewell в Nyxa по популярности: версия RTP, которую использует Nyxa, волатильность и максимальный выигрыш. 18+."
+  },
+  "variants": {
+    "header": "minimal",
+    "hero": "stats",
+    "trust": "badges",
+    "games": "table",
+    "explainer": "card",
+    "about": "grid",
+    "faq": "columns",
+    "final": "solid",
+    "sticky-cta": "pill"
+  },
+  "order": [
+    "games",
+    "explainer",
+    "about"
+  ],
+  "content": {
+    "hero": {
+      "title": "Самые популярные слоты Tidewell в Nyxa",
+      "subtitle": "Шесть игр студии в лобби Nyxa, от самой популярной до самой новой, с той версией RTP, которую запускает Nyxa."
+    },
+    "games": {
+      "intro": "Сравните RTP, волатильность и максимальный выигрыш до того, как открыть игру."
+    },
+    "about": {
+      "eyebrow": "О студии",
+      "title": "Tidewell в трёх фактах",
+      "items": [
+        {
+          "icon": "star",
+          "title": "С 2012 года",
+          "text": "Одна из самых давних студий в лобби, с морскими и рыболовными сюжетами."
+        },
+        {
+          "icon": "bolt",
+          "title": "Фриспины с коллектором",
+          "text": "Символы рыб копят выигрыши во время фриспинов, а коллектор в конце собирает всё вместе."
+        },
+        {
+          "icon": "shield",
+          "title": "Средняя волатильность",
+          "text": "Большинство игр между низкой и высокой. Хороший выбор, если вы только знакомитесь со слотами."
+        }
+      ]
+    },
+    "faq": {
+      "items": [
+        {
+          "q": "Какие слоты Tidewell есть в Nyxa?",
+          "a": "Шесть: Big Catch Deluxe, Sugar Tide, Tidal Gems, Coral Fortune, Lighthouse Riches и Pearl Hold & Win. Все они есть в таблице выше."
+        },
+        {
+          "q": "Почему у Sugar Tide RTP 94,5%?",
+          "a": "Tidewell выпускает игру в нескольких версиях RTP, и каждое казино выбирает свою. Мы всегда показываем ту версию, которую использует Nyxa."
+        },
+        {
+          "q": "Можно играть с телефона?",
+          "a": "Да. Все игры открываются в мобильном браузере и в приложении Nyxa."
+        },
+        {
+          "q": "Как пополнить счёт?",
+          "a": "Дебетовой картой, Apple Pay или банковским переводом. Лимит депозита можно задать прямо при регистрации."
+        },
+        {
+          "q": "Как взять паузу?",
+          "a": "В личном кабинете можно задать лимиты времени и проигрыша или приостановить аккаунт на выбранный срок."
+        }
+      ]
+    },
+    "final": {
+      "title": "Откройте лобби Tidewell",
+      "text": "Шесть слотов в Nyxa. Только для лиц старше 18 лет."
+    }
+  },
+  "variations": {
+    "studios": {
+      "one": {},
+      "several": {
+        "providers": [
+          "tidewell",
+          "emberforge",
+          "paper-lantern"
+        ],
+        "sections": {
+          "more": false
+        },
+        "cta_label": "Играть в Nyxa",
+        "page": {
+          "title": "Слоты Tidewell, Emberforge и Paper Lantern в Nyxa",
+          "description": "Слоты трёх студий в Nyxa: версия RTP, волатильность и максимальный выигрыш по каждой игре. 18+."
+        },
+        "content": {
+          "hero": {
+            "title": "Слоты трёх студий в Nyxa",
+            "subtitle": "Tidewell, Emberforge и Paper Lantern: все игры студий в лобби Nyxa, с той версией RTP, которую запускает Nyxa."
+          },
+          "games": {
+            "intro": "Сравните RTP, волатильность и максимальный выигрыш до того, как открыть игру. У каждой игры указана студия."
+          },
+          "about": {
+            "eyebrow": "Студии",
+            "title": "Три студии, три стиля",
+            "items": [
+              {
+                "icon": "star",
+                "title": "Tidewell",
+                "text": "С 2012 года. Морские сюжеты, фриспины с коллектором, средняя волатильность."
+              },
+              {
+                "icon": "bolt",
+                "title": "Emberforge",
+                "text": "С 2017 года. Волатильные слоты с покупкой бонуса и крупными максимальными выигрышами."
+              },
+              {
+                "icon": "shield",
+                "title": "Paper Lantern",
+                "text": "Небольшая студия сюжетных слотов с рисованной графикой и RTP выше 96%."
+              }
+            ]
+          },
+          "final": {
+            "title": "Откройте лобби трёх студий",
+            "text": "Слоты Tidewell, Emberforge и Paper Lantern в Nyxa. Только для лиц старше 18 лет."
+          }
+        }
+      }
+    },
+    "look": {
+      "preset": {},
+      "neutral": {
+        "look": "neutral"
+      },
+      "brand": {
+        "look": "brand"
+      },
+      "provider": {
+        "look": "provider"
+      }
+    }
+  },
+  "variation_labels": {
+    "studios": {
+      "ru": "Провайдеры"
+    },
+    "one": {
+      "ru": "Один провайдер"
+    },
+    "several": {
+      "ru": "Несколько провайдеров"
+    },
+    "look": {
+      "ru": "Цвета"
+    },
+    "preset": {
+      "ru": "Исходные"
+    },
+    "neutral": {
+      "ru": "Нейтральные"
+    },
+    "brand": {
+      "ru": "Бренд казино"
+    },
+    "provider": {
+      "ru": "Бренд провайдера"
+    }
+  }
+}

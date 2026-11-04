@@ -1,0 +1,305 @@
+# Rebuild brief: Nyxa Выплаты
+
+You are rebuilding every page of the **Nyxa Выплаты** template, a satellite site (angle: fast-payouts). Keep the section order, the content and every rule below. Write the page text exactly as given (it is in Russian); write code and comments in English.
+
+**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section below with the listed fields as props.
+
+## Site context
+
+- Site: Nyxa Выплаты (https://nyxa-vyplaty.example), brand or publisher: Nyxa
+- Market: Kazakhstan (`kz`), language `ru`, text direction `ltr`, currency KZT
+- Minimum age: 21+
+- Products allowed: sports betting yes, online casino **no**
+- Market note: Online bets are processed through the Unified Accounting Centre (ЕУЦ). Online casino is not permitted: casino-vertical blocks are disabled for this market.
+- Pages (3):
+  - `lite-top-index.html` — Nyxa: вывод выигрыша на Kaspi за 5 минут
+  - `lite-top-sign-up.html` — Регистрация в Nyxa: что нужно и сколько занимает
+  - `lite-top-payments.html` — Пополнение и вывод в Nyxa: Kaspi, Halyk, Visa, Mastercard
+
+## Design tokens
+
+Fonts (Google Fonts): Manrope.
+
+Use these CSS custom properties (they are the whole palette, type scale and radius set):
+
+```css
+:root {
+  --c-bg: #FFFFFF;
+  --c-surface: #F5F7FB;
+  --c-surface-2: #EBEFF7;
+  --c-text: #0E1525;
+  --c-muted: #556079;
+  --c-border: #E2E7F0;
+  --c-accent: #2457FF;
+  --c-on-accent: #FFFFFF;
+  --c-accent-2: #00C2A8;
+  --c-success: #1F9D55;
+  --c-warning: #D98B00;
+  --c-danger: #D93636;
+  --c-hero-text: #0E1525;
+  --c-hero-muted: #556079;
+  --c-hero-accent: #2457FF;
+  --c-hero-on-accent: #FFFFFF;
+  --hero-bg: linear-gradient(180deg,#EEF2FF 0%,#FFFFFF 100%);
+  --f-display: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-body: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --fw-heading: 800;
+  --fw-body: 400;
+  --fw-strong: 500;
+  --tt-heading: none;
+  --ls-heading: -0.03em;
+  --lh-body: 1.6;
+  --lh-heading: 1.15;
+  --r-sm: 8px;
+  --r: 12px;
+  --r-lg: 20px;
+  --r-btn: 12px;
+  --bw: 1px;
+  --density: 1.15;
+  --fs-0: 12.8px;
+  --fs-1: 16px;
+  --fs-2: 25px;
+  --fs-3: clamp(21.25px,16.96px + 1.19vw,31.25px);
+  --fs-4: clamp(26.56px,21.21px + 1.488vw,39.06px);
+  --fs-5: clamp(33.2px,26.51px + 1.86vw,48.83px);
+  --fs-6: clamp(41.5px,33.13px + 2.325vw,61.04px);
+  --sp-1: 4.6px;
+  --sp-2: 9.2px;
+  --sp-3: 13.8px;
+  --sp-4: 18.4px;
+  --sp-5: 27.6px;
+  --sp-6: 36.8px;
+  --sp-7: 55.2px;
+  --sp-8: 73.6px;
+  --sp-9: 110.4px;
+  --card-bg: #F5F7FB;
+  --card-border: transparent;
+  --card-shadow: none;
+  --surface-style: flat;
+}
+```
+
+Layout is mobile-first: it must work from 375px to 1440px wide.
+
+## Rules you must not break
+
+- Every page opens with an age gate (21+) before any gambling content.
+- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- No casino content anywhere: online casino is not allowed in this market.
+- Header: One-page landing and app pages use 'minimal' (no nav) so attention stays on the conversion.
+- Header: The CTA stays visible at every width; on mobile the nav collapses into a menu, the CTA does not.
+- Hero: Exactly one primary CTA. The secondary action is a text link or ghost button.
+- Hero: Primary CTA must sit above the fold at 375x667.
+- Hero: Headline 60 characters max; subtitle 160 max (long Russian/Portuguese strings included).
+- Bonus card: mode=offer auto-switches to mode=feature in markets where promotions.welcome_bonus is 'restricted' (all three demo markets).
+- Bonus card: Offer cards always show a terms line next to the amount, not below the fold.
+- Bonus card: One primary CTA per card.
+- Trust bar: Values come from brand facts and market config; nothing is typed by hand.
+- Trust bar: Rating shows only when the brand has facts.rating_source.
+- Trust bar: Sits directly under the hero (section 2 or 3).
+- Features: 3 or 4 items. Titles 4 words max, text one sentence (about 120 characters).
+- Features: Features describe the product, never an offer or bonus.
+- Page links: Internal links only; never a substitute for the brand CTA.
+- FAQ: 4-6 questions: legality in the country, deposits/withdrawals, payout time, verification, limits or self-exclusion.
+- FAQ: Answers are plain text, 1-3 sentences. No CTA links inside answers.
+- Final CTA: Always the last section before the footer.
+- Final CTA: Headline 40 characters max. No urgency claims (timers, 'last chance').
+- Footer: Always renders the compliance panel; it cannot be switched off.
+- Footer: Payment methods come from the market config so they are always locally correct.
+- Responsible gambling: All copy comes from markets/<id>.json; never type compliance text into a page.
+- Responsible gambling: Every page renders a 'panel' (usually inside the footer). 'strip' is an optional top-of-page addition.
+- Responsible gambling: Where a market lists several mandated taglines, one is chosen per site by seed.
+- Age gate: Age comes from the market (21 in KZ, 18 in AU/BR). Never hard-code it.
+- Age gate: Content stays in the HTML for crawlers; the overlay is shown by script, so no-JS users still see the compliance footer.
+- Sticky CTA: Phones only (860px and narrower). Never covers the compliance panel: the footer gets bottom padding.
+- Sticky CTA: Shows the market age badge next to the CTA.
+- Page title: The answer line states the page's key fact in one sentence, above the fold on phones.
+- Steps: Exactly 3 steps; numbers are used because the order is real.
+- Steps: Mention verification and deposit limits honestly; do not promise instant approval.
+- Text block: Only h2, h3, p, ul, ol, li, strong, em, a, table, blockquote survive; all attributes except href are removed.
+- Text block: Links: page:<id> for internal pages, https:// for sources. Brand links belong in CTAs, not in prose.
+- Payments: Only methods listed in the market config may appear (no credit cards in AU or BR).
+- Payments: Times are typical for verified accounts and say so in the note.
+
+## Page `lite-top-index.html`
+
+- Title tag: Nyxa: вывод выигрыша на Kaspi за 5 минут
+- Meta description: Как быстро вывести деньги из Nyxa в Казахстане: Kaspi, Halyk и карты, сроки и лимиты, регистрация через eGov и приложение. 21+.
+- The only H1: Вывод на Kaspi в среднем за 5 минут
+- Structured data (JSON-LD): WebPage, FAQPage, WebSite
+- Links to: `lite-top-sign-up.html`, `lite-top-payments.html`, `lite-top-index.html`
+
+### Sections, in order
+
+1. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Лицензия РК"
+   - `sticky`: false
+   - `show_cta`: true
+2. **Hero** — block `sx/hero`, variant `split`, role `hero`
+   Purpose: Above-the-fold hero: headline, one primary CTA, trust row and an optional offer/feature card.
+   - `eyebrow`: "Выплаты Nyxa"
+   - `title`: "Вывод на Kaspi в среднем за 5 минут"
+   - `subtitle`: "Что нужно для быстрого вывода, какие сроки у каждого способа и как пройти идентификацию один раз, чтобы потом не ждать."
+   - `secondary`: `{"label":"Все способы оплаты","url":"page:payments"}`
+   - `show_trust`: true
+   - `card`: `{"mode":"feature","label":"Сроки вывода","items":[{"value":"~5 мин","text":"Kaspi Gold"},{"value":"~15 мин","text":"Halyk Bank"},{"value":"до 24 ч","text":"Visa и Mastercard"},{"value":"0 ₸","text":"Комиссия Nyxa"}]}`
+   - `art`: "rings"
+  - inside it: **Bonus card** — block `sx/bonus-card`, variant `panel`
+     - `mode`: "feature"
+     - `allow_offer`: false
+     - `label`: "Сроки вывода"
+     - `items`: `[{"value":"~5 мин","text":"Kaspi Gold"},{"value":"~15 мин","text":"Halyk Bank"},{"value":"до 24 ч","text":"Visa и Mastercard"},{"value":"0 ₸","text":"Комиссия Nyxa"}]`
+3. **Trust bar** — block `sx/trust-bar`, variant `badges`, role `trust`
+   Purpose: Licence, payout time, years operating, local payments and (only if sourced) rating.
+   - `items`: `["licence","payout","since","payments"]`
+4. **Features** — block `sx/features`, variant `rows`, role `content`
+   Purpose: 3-4 product reasons to join, each with an icon, a short title and one sentence.
+   - `eyebrow`: "Почему выводы быстрые"
+   - `title`: "Что ускоряет выплату"
+   - `items`: `[{"icon":"shield","title":"Идентификация один раз","text":"После проверки через eGov следующие выводы не требуют документов."},{"icon":"bolt","title":"Вывод на Kaspi","text":"Заявки на Kaspi Gold обрабатываются автоматически, круглосуточно."},{"icon":"check","title":"Тот же способ","text":"Выводите на карту или счёт, с которых пополняли: так проверка короче."},{"icon":"gauge","title":"Статус в приложении","text":"Каждая заявка видна в истории: принята, отправлена, зачислена."}]`
+5. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+6. **FAQ** — block `sx/faq`, variant `columns`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Nyxa работает легально в Казахстане?","a":"Да. Nyxa работает по лицензии Республики Казахстан, ставки учитываются через Единый учётный центр. Номер лицензии указан внизу каждой страницы."},{"q":"Как быстро приходит вывод на Kaspi?","a":"В среднем за 5 минут для идентифицированных игроков. Первый вывод может занять дольше, пока проверяются данные."},{"q":"Есть ли комиссия за вывод?","a":"Nyxa не берёт комиссию за пополнение и вывод. Банк может удерживать свою комиссию по своим тарифам."},{"q":"Почему вывод задерживается?","a":"Чаще всего не завершена идентификация или вывод идёт на другой способ, чем пополнение. Статус заявки виден в истории операций."},{"q":"Можно ли поставить лимит пополнений?","a":"Да, в разделе «Ответственная игра» в профиле. Снижение лимита действует сразу."}]`
+7. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Откройте счёт в Nyxa"
+   - `text`: "Регистрация за несколько минут, вывод на Kaspi без комиссии. Только 21+."
+   - `show_code`: false
+8. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+9. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+10. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `lite-top-sign-up.html`
+
+- Title tag: Регистрация в Nyxa: что нужно и сколько занимает
+- Meta description: Как открыть счёт в Nyxa за несколько минут: данные, идентификация через eGov или ЕУЦ и первое пополнение. Только для игроков 21+.
+- The only H1: Регистрация в Nyxa
+- Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
+- Links to: `lite-top-sign-up.html`, `lite-top-payments.html`, `lite-top-index.html`
+
+### Sections, in order
+
+1. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Лицензия РК"
+   - `sticky`: false
+   - `show_cta`: true
+2. **Page title** — block `sx/page-hero`, variant `compact`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Регистрация в Nyxa"
+   - `answer`: "Несколько минут: номер телефона, ИИН и идентификация через eGov. После неё можно пополнять счёт и делать ставки."
+   - `show_cta`: true
+3. **Steps** — block `sx/steps`, variant `row`, role `content`
+   Purpose: Three real steps from sign-up to first bet, followed by the mid-page CTA.
+   - `eyebrow`: "По шагам"
+   - `title`: "Как открыть счёт"
+   - `items`: `[{"title":"Укажите телефон и ИИН","text":"Номер телефона на ваше имя и ИИН. Придёт SMS с кодом подтверждения."},{"title":"Пройдите идентификацию","text":"Через eGov или по видеосвязи. Проверка подтверждает личность и возраст 21+."},{"title":"Задайте лимит и пополните","text":"Выберите лимит пополнений и внесите от 500 ₸ через Kaspi, Halyk или карту."}]`
+   - `show_cta`: false
+4. **Features** — block `sx/features`, variant `grid`, role `content`
+   Purpose: 3-4 product reasons to join, each with an icon, a short title and one sentence.
+   - `eyebrow`: "Перед началом"
+   - `title`: "Что понадобится"
+   - `items`: `[{"icon":"shield","title":"Возраст 21+","text":"Ставки в Казахстане разрешены с 21 года. Возраст проверяется при идентификации."},{"icon":"check","title":"ИИН и телефон","text":"Номер телефона должен быть оформлен на вас."},{"icon":"bolt","title":"Карта или счёт","text":"Kaspi, Halyk или банковская карта на ваше имя для пополнения и вывода."}]`
+5. **Text block** — block `sx/prose`, variant `toc-side`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<h2>Зачем нужна идентификация</h2><p>Казахстанские букмекеры обязаны подтвердить личность и возраст каждого игрока до первой ставки. Ставки и выплаты учитываются через Единый учётный центр.</p><h2>Через eGov или по видео</h2><p>Быстрее всего — подтвердить данные через eGov: это занимает несколько минут. Если такой возможности нет, оператор проведёт короткую видеоидентификацию.</p><h2>Один счёт на …` (HTML)
+   - `toc`: true
+6. **FAQ** — block `sx/faq`, variant `columns`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Можно ли зарегистрироваться без eGov?","a":"Да, через видеоидентификацию с оператором. Она занимает больше времени."},{"q":"Можно ли зарегистрироваться в приложении?","a":"Да. Шаги в приложении и на сайте одинаковые."},{"q":"Почему нужен лимит при регистрации?","a":"Лимит помогает контролировать расходы. Его можно выбрать любым и изменить позже."},{"q":"Я сменил номер телефона. Что делать?","a":"Обратитесь в поддержку: номер меняется после повторной проверки личности."}]`
+7. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+8. **Final CTA** — block `sx/cta-band`, variant `solid`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Откройте счёт"
+   - `text`: "Несколько минут, и можно делать ставки. Только 21+."
+   - `show_code`: false
+9. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+10. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+11. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `lite-top-payments.html`
+
+- Title tag: Пополнение и вывод в Nyxa: Kaspi, Halyk, Visa, Mastercard
+- Meta description: Все способы оплаты Nyxa в Казахстане: минимальные суммы, сроки зачисления и вывода. Kaspi Gold — в среднем 5 минут. Без комиссий. 21+.
+- The only H1: Пополнение и вывод в Nyxa
+- Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
+- Links to: `lite-top-sign-up.html`, `lite-top-payments.html`, `lite-top-index.html`
+
+### Sections, in order
+
+1. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Лицензия РК"
+   - `sticky`: false
+   - `show_cta`: true
+2. **Page title** — block `sx/page-hero`, variant `answer`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Пополнение и вывод в Nyxa"
+   - `answer`: "Пополнение мгновенно с Kaspi, Halyk или карты от 500 ₸. Вывод на Kaspi Gold — в среднем 5 минут, без комиссии Nyxa."
+   - `show_cta`: true
+3. **Payments** — block `sx/payments`, variant `tiles`, role `content`
+   Purpose: Local deposit and withdrawal methods with speed and minimums.
+   - `eyebrow`: "Способы оплаты"
+   - `title`: "Все способы оплаты в Nyxa"
+   - `rows`: `[{"method":"kaspi","deposit":"Мгновенно","withdraw":"~5 минут","min":"500 ₸"},{"method":"halyk","deposit":"Мгновенно","withdraw":"~15 минут","min":"500 ₸"},{"method":"visa","deposit":"Мгновенно","withdraw":"до 24 часов","min":"1 000 ₸"},{"method":"mastercard","deposit":"Мгновенно","withdraw":"до 24 часов","min":"1 000 ₸"}]`
+   - `note`: "Сроки указаны для идентифицированных игроков. Первый вывод может занять больше времени."
+4. **Text block** — block `sx/prose`, variant `article`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<h2>Как пополнить счёт</h2><p>Выберите Kaspi, Halyk или банковскую карту в разделе «Касса». Пополнение зачисляется сразу, минимальная сумма — 500 ₸ для Kaspi и Halyk, 1 000 ₸ для карт.</p><h2>Как вывести выигрыш</h2><p>Вывод возможен только на карту или счёт на ваше имя. Быстрее всего — на Kaspi Gold: заявки обрабатываются автоматически, в среднем за 5 минут.</p><ul><li>Минимальная сумма вывода: 1…` (HTML)
+   - `toc`: false
+5. **FAQ** — block `sx/faq`, variant `accordion`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Почему вывод в статусе «в обработке»?","a":"Первый вывод ждёт завершения идентификации. После неё вывод на Kaspi обычно занимает около 5 минут."},{"q":"Можно ли вывести на чужую карту?","a":"Нет. Вывод возможен только на карту или счёт, оформленные на владельца аккаунта."},{"q":"Какая минимальная сумма вывода?","a":"1 000 ₸ для всех способов."},{"q":"Берёт ли Nyxa комиссию?","a":"Нет. Банк может удерживать комиссию по своим тарифам."}]`
+6. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+7. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Пополните с Kaspi"
+   - `text`: "Мгновенное пополнение, вывод в среднем за 5 минут. Только 21+."
+   - `show_code`: false
+8. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+9. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+10. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Acceptance checklist
+
+- [ ] Sections appear in the order above, with the same layout variant (or an equivalent layout).
+- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
+- [ ] One H1 per page; headings do not skip levels.
+- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
+- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
+- [ ] The structured data listed for each page is present and valid.
+- [ ] Every internal link opens an existing page.
+- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
+- [ ] Every rule in "Rules you must not break" holds on every page.
+
+_Long text and lists are shortened here (…, "[n items]"). For the full text run `php build/ai-brief.php sites/demos/<config>.json`._

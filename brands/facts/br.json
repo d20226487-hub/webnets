@@ -1,0 +1,109 @@
+{
+  "_note": "Per-market facts used by comparison sites. Values are fictional demo data. checked_at older than 30 days gives a build warning. withdrawal_minutes: typical time for that method after approval.",
+  "brands": {
+    "marlowe": {
+      "min_deposit": 20,
+      "withdrawal_minutes": {
+        "pix": 30,
+        "ted": 1440
+      },
+      "payments": [
+        "pix",
+        "ted",
+        "debit"
+      ],
+      "support": {
+        "chat": "24h",
+        "email": true,
+        "phone": false
+      },
+      "games": 2400,
+      "live_tables": 120,
+      "app": true,
+      "domain": "marlowe.bet.br",
+      "checked_at": "2026-10-24"
+    },
+    "nyxa": {
+      "min_deposit": 10,
+      "withdrawal_minutes": {
+        "pix": 5
+      },
+      "payments": [
+        "pix",
+        "debit"
+      ],
+      "support": {
+        "chat": "24h",
+        "email": true,
+        "phone": false
+      },
+      "games": 3100,
+      "live_tables": 80,
+      "app": true,
+      "domain": "nyxa.bet.br",
+      "checked_at": "2026-10-26"
+    },
+    "verazul": {
+      "min_deposit": 25,
+      "withdrawal_minutes": {
+        "pix": 15,
+        "ted": 1440
+      },
+      "payments": [
+        "pix",
+        "ted"
+      ],
+      "support": {
+        "chat": "08–24h",
+        "email": true,
+        "phone": true
+      },
+      "games": 1800,
+      "live_tables": 140,
+      "app": true,
+      "domain": "verazul.bet.br",
+      "checked_at": "2026-10-22"
+    },
+    "cobaltio": {
+      "min_deposit": 10,
+      "withdrawal_minutes": {
+        "pix": 60
+      },
+      "payments": [
+        "pix"
+      ],
+      "support": {
+        "chat": "24h",
+        "email": true,
+        "phone": false
+      },
+      "games": 4200,
+      "live_tables": 60,
+      "app": false,
+      "domain": "cobaltio.bet.br",
+      "checked_at": "2026-10-20"
+    },
+    "lunaro": {
+      "min_deposit": 30,
+      "withdrawal_minutes": {
+        "pix": 20,
+        "ted": 1440
+      },
+      "payments": [
+        "pix",
+        "ted",
+        "debit"
+      ],
+      "support": {
+        "chat": "09–21h",
+        "email": true,
+        "phone": false
+      },
+      "games": 1200,
+      "live_tables": 210,
+      "app": true,
+      "domain": "lunaro.bet.br",
+      "checked_at": "2026-10-25"
+    }
+  }
+}

@@ -1,0 +1,194 @@
+{
+  "_demo": "Phase 8 Demo C (brief 08). Overall casino comparison in the demo market xx by the fictional publisher Casino Scout. Bonuses are scored because the demo market allows promotions. No featured slot. Facts and scores: brands/facts/xx.json, brands/ratings/xx.json.",
+  "demo": true,
+  "today": "2026-10-30",
+  "id": "casinos-c-xx",
+  "type": "casinos",
+  "angle": "overall",
+  "publisher": "casinoscout",
+  "market": "xx",
+  "locale": "en",
+  "preset": "sunburst",
+  "seed": "casinoscout-xx-casinos-c",
+  "prefix": "auto",
+  "urls": "pretty",
+  "brands": [
+    "marlowe",
+    "nyxa",
+    "verazul",
+    "lunaro",
+    "cobaltio"
+  ],
+  "links": {
+    "brands": {
+      "marlowe": "https://marlowe.example/xx/join?src=casinoscout",
+      "nyxa": "https://nyxa.example/xx/join?src=casinoscout",
+      "verazul": "https://verazul.example/xx/join?src=casinoscout",
+      "lunaro": "https://lunaro.example/xx/join?src=casinoscout",
+      "cobaltio": "https://cobaltio.example/xx/join?src=casinoscout"
+    }
+  },
+  "site": {
+    "name": "Casino Scout",
+    "url": "https://casinoscout.example"
+  },
+  "meta": {
+    "home": {
+      "title": "Best online casinos in Demoland: 2026 ranking",
+      "description": "Five licensed casinos tested for payouts, games, live tables, app, support and bonus terms. Every score has a written reason. 18+."
+    },
+    "review": {
+      "title": "{item} review: scores, bonus terms and payouts",
+      "description": "Our {item} review: a score per criterion with the reason, pros and cons, payout times and key facts. 18+."
+    },
+    "compare": {
+      "title": "Compare online casinos in Demoland",
+      "description": "Five casinos side by side: overall score, payouts, games, live casino, app, support and bonuses. 18+."
+    },
+    "fast": {
+      "title": "Fastest-paying casinos in Demoland",
+      "description": "Casinos ranked by payout score, from the real times of our test withdrawals. 18+."
+    },
+    "live": {
+      "title": "Best live casinos in Demoland",
+      "description": "Casinos ranked by live-casino score: tables open across the day, dealers and stream quality. 18+."
+    },
+    "method": {
+      "title": "How we score casinos",
+      "description": "Our seven criteria and weights, how we test, how often, and how Casino Scout makes money."
+    }
+  },
+  "variants": {
+    "header": "inline",
+    "footer": "columns",
+    "sticky-cta": "bar",
+    "home": {
+      "hero": "podium",
+      "guides": "list",
+      "faq": "columns",
+      "final": "split"
+    },
+    "review": {
+      "hero": "split",
+      "score": "rows",
+      "proscons": "columns",
+      "facts": "table",
+      "others": "list",
+      "final": "split"
+    },
+    "compare": {
+      "table": "table",
+      "related": "list"
+    },
+    "fast": {
+      "hero": "cards",
+      "text": "toc-side",
+      "related": "list"
+    },
+    "live": {
+      "hero": "list",
+      "text": "article",
+      "related": "cards"
+    },
+    "method": {
+      "hero": "answer",
+      "criteria": "list",
+      "text": "article",
+      "related": "cards"
+    }
+  },
+  "content": {
+    "home": {
+      "hero": {
+        "title": "Best online casinos, every score explained",
+        "intro": "We opened real accounts at five licensed casinos and scored seven things that matter. The list follows the overall score; tap a casino for the reasons."
+      },
+      "faq": {
+        "items": [
+          {
+            "q": "Are these casinos licensed?",
+            "a": "Yes. Every casino listed shows a Demoland Gaming Authority licence."
+          },
+          {
+            "q": "How do you test withdrawals?",
+            "a": "We deposit, play and request at least five withdrawals per casino on different days, then record the time until the money arrives."
+          },
+          {
+            "q": "Do casinos pay to be listed?",
+            "a": "We earn commission when you sign up through our links. It never changes a score or a position, and this page has no paid slot."
+          },
+          {
+            "q": "How are bonuses scored?",
+            "a": "On wagering, time limits and how clearly the terms are written. The size of the offer does not count."
+          },
+          {
+            "q": "Can I set deposit limits?",
+            "a": "Yes. Every casino here offers deposit and session limits in the account area, plus self-exclusion."
+          }
+        ]
+      },
+      "final": {
+        "title": "Pick the one that fits you",
+        "text": "All five casinos are licensed. Set a limit before you play. 18+."
+      }
+    },
+    "review": {
+      "hero": {
+        "title": "{item} review"
+      },
+      "others": {
+        "title": "Other casinos we tested"
+      },
+      "final": {
+        "title": "Thinking about {item}?",
+        "text": "Licensed in Demoland. Set a deposit limit and play responsibly. 18+."
+      }
+    },
+    "compare": {
+      "table": {
+        "title": "Compare casinos in Demoland"
+      }
+    },
+    "fast": {
+      "hero": {
+        "title": "Fastest-paying casinos",
+        "intro": "Ranked by payout score, from the real times of our test withdrawals."
+      },
+      "text": {
+        "html": "<h2>How we time payouts</h2><p>We request at least five withdrawals per casino and record the time from request to money in the account.</p><h2>Method matters</h2><p>Apple Pay at Nyxa arrived in about 15 minutes. Cobaltio only pays by bank transfer, which took about two days.</p>",
+        "toc": false
+      }
+    },
+    "live": {
+      "hero": {
+        "title": "Best live casinos",
+        "intro": "Ranked by live-casino score: tables open across the day, dealers and stream quality on 4G."
+      },
+      "text": {
+        "html": "<h2>What counts in the live score</h2><p>We count tables open at four times of day over a week and test the stream on a 4G phone.</p><h2>Late-night tables</h2><p>Lunaro and Verazul kept the most tables open after midnight in our tests.</p><h2>Stakes</h2><p>Marlowe has the most low-stake roulette tables, useful if you want to keep sessions small.</p>",
+        "toc": true
+      }
+    },
+    "method": {
+      "hero": {
+        "title": "How we score casinos",
+        "answer": "Seven criteria with fixed weights. Every score comes from a real test and has a written reason. The overall score is calculated, never typed."
+      },
+      "criteria": {
+        "title": "Criteria and weights"
+      },
+      "text": {
+        "html": "<h2>How we test</h2><p>For each casino we open a real account, pass verification, deposit, play, request at least five withdrawals and contact support at different times.</p><h2>How often</h2><p>We retest every three months or when a casino changes something important. The test date is on every review.</p><h2>How we make money</h2><p>We earn commission when you sign up through our links. Commission is not part of any score, and we do not sell ranking positions.</p>",
+        "toc": false
+      }
+    }
+  },
+  "slugs": {
+    "review": "reviews/{item}",
+    "compare": "compare",
+    "fast": "fast-withdrawals",
+    "live": "live-casino",
+    "app": "best-apps",
+    "method": "how-we-rate"
+  }
+}

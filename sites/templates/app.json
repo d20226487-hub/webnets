@@ -1,0 +1,56 @@
+{
+  "_howto": "Copy to sites/<project>/<id>.json, fill every TODO, then: php build/build.php <file>. Schema: dist/schemas/app.schema.json. Guide: docs/types/app.md. App facts (version, size, OS, languages) live in brands/operators.json under 'app', not here.",
+  "id": "TODO-brand-market-app-01",
+  "type": "app",
+  "angle": "official-app",
+  "brand": "vantro",
+  "market": "au",
+  "preset": "fresh-minimal",
+  "seed": "TODO-unique-seed",
+  "prefix": "auto",
+  "links": {
+    "go": "https://TODO.example/join?src=TODO",
+    "ios": "https://TODO.example/app/ios?src=TODO",
+    "android": "https://TODO.example/app/android?src=TODO",
+    "apk": "https://TODO.example/app/brand-x.y.z.apk?src=TODO",
+    "qr": "https://TODO.example/app?src=TODO-qr"
+  },
+  "site": { "name": "TODO site name" },
+  "page": { "title": "TODO up to 65 characters", "description": "TODO up to 160 characters" },
+  "variants": {},
+  "content": {
+    "hero": {
+      "title": "TODO headline, up to 60 characters",
+      "subtitle": "TODO up to 160 characters",
+      "screen": "home"
+    },
+    "screens": {
+      "eyebrow": "TODO",
+      "title": "TODO section title",
+      "screens": [
+        { "kind": "home", "caption": "TODO up to 48 characters" },
+        { "kind": "live", "caption": "TODO" },
+        { "kind": "wallet", "caption": "TODO" }
+      ]
+    },
+    "features": {
+      "eyebrow": "TODO",
+      "title": "TODO section title",
+      "items": [
+        { "icon": "bolt", "title": "TODO up to 32", "text": "TODO up to 140 characters" },
+        { "icon": "mobile", "title": "TODO", "text": "TODO" },
+        { "icon": "gauge", "title": "TODO", "text": "TODO" }
+      ]
+    },
+    "install": { "eyebrow": "TODO", "title": "TODO (rendered only when the site offers an APK)" },
+    "faq": {
+      "items": [
+        { "q": "TODO is the app free?", "a": "TODO" },
+        { "q": "TODO which phones are supported?", "a": "TODO" },
+        { "q": "TODO how do I know it is the official app? / why is the APK not in Google Play?", "a": "TODO" },
+        { "q": "TODO how do I set limits in the app?", "a": "TODO" }
+      ]
+    },
+    "final": { "title": "TODO up to 48 characters", "text": "TODO" }
+  }
+}

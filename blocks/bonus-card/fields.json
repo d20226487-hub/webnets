@@ -1,0 +1,83 @@
+{
+    "fields": [
+        {
+            "name": "variant",
+            "type": "select",
+            "label": "Layout",
+            "choices": [
+                "auto",
+                "ticket",
+                "panel"
+            ],
+            "default": "auto"
+        },
+        {
+            "name": "mode",
+            "type": "select",
+            "label": "Mode",
+            "choices": [
+                "offer",
+                "feature"
+            ],
+            "default": "feature"
+        },
+        {
+            "name": "allow_offer",
+            "type": "true_false",
+            "label": "Compliance approved an offer for this market",
+            "default": false
+        },
+        {
+            "name": "label",
+            "type": "text",
+            "label": "Label",
+            "default": ""
+        },
+        {
+            "name": "amount",
+            "type": "text",
+            "label": "Offer headline (offer mode)",
+            "default": ""
+        },
+        {
+            "name": "detail",
+            "type": "text",
+            "label": "Offer detail (offer mode)",
+            "default": ""
+        },
+        {
+            "name": "code",
+            "type": "text",
+            "label": "Promo code (offer mode)",
+            "default": ""
+        },
+        {
+            "name": "terms",
+            "type": "text",
+            "label": "Key terms (offer mode)",
+            "default": ""
+        },
+        {
+            "name": "items",
+            "type": "repeater",
+            "label": "Proof points (feature mode)",
+            "max": 4,
+            "default": [],
+            "instructions": "Empty = generated from brand facts.",
+            "fields": [
+                {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value",
+                    "required": true
+                },
+                {
+                    "name": "text",
+                    "type": "text",
+                    "label": "Text",
+                    "required": true
+                }
+            ]
+        }
+    ]
+}

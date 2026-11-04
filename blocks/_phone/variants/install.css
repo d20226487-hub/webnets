@@ -1,0 +1,6 @@
+.sx-phone__dim { position: absolute; inset: 0; display: grid; place-items: center; padding: 16px; background: rgba(0,0,0,.55); }
+.sx-phone__dialog { display: grid; gap: 8px; width: 100%; padding: 14px; border-radius: 14px; background: #F4F5F7; }
+.sx-phone__dialog i { background: #B9BDC6; }
+.sx-phone__dbtns { display: flex; justify-content: flex-end; gap: 8px; margin-block-start: 6px; }
+.sx-phone__dbtns span { width: 26%; height: 14px; border-radius: 4px; background: #C9CDD5; }
+.sx-phone__dbtns span[data-on] { background: #2F6FED; }

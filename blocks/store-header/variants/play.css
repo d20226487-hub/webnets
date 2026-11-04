@@ -1,0 +1,18 @@
+/* play: name, developer and three stats left; large icon right (desktop). Install leads, full width on phones. */
+.sx-shead--play .sx-shead__inner { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--sp-6); align-items: center; padding-block: var(--sp-7) var(--sp-6); }
+.sx-shead--play .sx-shead__main { display: grid; gap: var(--sp-3); justify-items: start; }
+.sx-shead--play .sx-shead__name { font-weight: 500; letter-spacing: 0; }
+.sx-shead--play .sx-shead__stats { display: flex; margin-block: var(--sp-2); }
+.sx-shead--play .sx-shead__stats li { display: grid; justify-items: center; gap: 2px; padding-inline: var(--sp-5); font-size: var(--fs-0); color: var(--c-muted); }
+.sx-shead--play .sx-shead__stats li:first-child { padding-inline-start: 0; }
+.sx-shead--play .sx-shead__stats li + li { border-inline-start: 1px solid var(--c-border); }
+.sx-shead--play .sx-shead__stats strong { font-size: var(--fs-1); font-weight: 500; color: var(--c-text); }
+.sx-shead--play .sx-shead__art .sx-appicon { width: 220px; height: 220px; border-radius: 20%; }
+.sx-shead--play .sx-shead__art .sx-appicon svg { width: 62%; height: 62%; }
+@media (max-width: 760px) {
+  .sx-shead--play .sx-shead__inner { grid-template-columns: minmax(0, 1fr); padding-block: var(--sp-5); }
+  .sx-shead--play .sx-shead__art { display: none; }
+  .sx-shead--play .sx-shead__name { font-size: var(--fs-4); }
+  .sx-shead--play .sx-shead__stats li { padding-inline: var(--sp-3); }
+  .sx-shead--play .sx-installs, .sx-shead--play .sx-install { width: 100%; justify-content: center; }
+}

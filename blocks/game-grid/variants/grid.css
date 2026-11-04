@@ -1,0 +1,9 @@
+/* grid: 4 / 3 / 2 columns */
+.sx-ggrid--grid .sx-ggrid__list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--sp-6) var(--sp-4); }
+@media (max-width: 640px) {
+  .sx-ggrid--grid .sx-ggrid__list { grid-template-columns: 1fr 1fr; gap: var(--sp-5) var(--sp-3); }
+  .sx-ggrid--grid .sx-gcover__name { font-size: var(--fs-1); }
+  .sx-ggrid--grid .sx-gcard__facts div { display: grid; gap: 0; }
+  .sx-ggrid--grid .sx-gcard__facts dt { font-size: .75rem; }
+  .sx-ggrid--grid .sx-gcard__facts dd { text-align: start; }
+}

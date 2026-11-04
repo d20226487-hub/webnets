@@ -1,0 +1,28 @@
+{
+  "id": "vantro-br",
+  "brand": "vantro",
+  "market": "br",
+  "preset": "sunburst",
+  "seed": "vantro-br-01",
+  "prefix": "auto",
+  "tokens": {},
+  "site": { "name": "Vantro Brasil" },
+  "pages": [
+    {
+      "slug": "index",
+      "title": "Vantro: apostas esportivas ao vivo",
+      "description": "Odds ao vivo, apostas múltiplas e saques via PIX.",
+      "blocks": [
+        { "block": "header", "props": { "variant": "minimal", "note": "Autorizada SPA/MF" } },
+        { "block": "hero", "props": {
+            "eyebrow": "Esportes ao vivo",
+            "title": "Cada jogo com odds ao vivo, na palma da mão",
+            "subtitle": "Apostas múltiplas, transmissões das principais ligas e saques via PIX em minutos.",
+            "secondary": { "label": "Como funciona", "url": "#how" },
+            "card": { "mode": "offer", "amount": "R$ 500", "detail": "This should be blocked in BR" }
+        } },
+        { "block": "footer" }
+      ]
+    }
+  ]
+}

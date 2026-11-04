@@ -1,0 +1,205 @@
+{
+    "fields": [
+        {
+            "name": "variant",
+            "type": "select",
+            "label": "Layout",
+            "choices": [
+                "auto",
+                "split",
+                "centered",
+                "scoreboard",
+                "stat-led",
+                "full-bleed"
+            ],
+            "default": "auto"
+        },
+        {
+            "name": "eyebrow",
+            "type": "text",
+            "label": "Eyebrow",
+            "default": "",
+            "maxlength": 40
+        },
+        {
+            "name": "title",
+            "type": "text",
+            "label": "Headline",
+            "required": true,
+            "default": "",
+            "maxlength": 60
+        },
+        {
+            "name": "subtitle",
+            "type": "textarea",
+            "label": "Subtitle",
+            "default": "",
+            "maxlength": 160
+        },
+        {
+            "name": "secondary",
+            "type": "link",
+            "label": "Secondary link",
+            "default": null
+        },
+        {
+            "name": "show_trust",
+            "type": "true_false",
+            "label": "Show trust row",
+            "default": true
+        },
+        {
+            "name": "card",
+            "type": "group",
+            "label": "Card (bonus-card props)",
+            "default": null,
+            "instructions": "Leave empty for no card. Uses the bonus-card block's fields.",
+            "fields": [
+                {
+                    "name": "mode",
+                    "type": "select",
+                    "choices": [
+                        "offer",
+                        "feature"
+                    ],
+                    "default": "feature"
+                }
+            ]
+        },
+        {
+            "name": "match",
+            "type": "group",
+            "label": "Match card (scoreboard layout)",
+            "default": null,
+            "fields": [
+                {
+                    "name": "league",
+                    "type": "text"
+                },
+                {
+                    "name": "clock",
+                    "type": "text"
+                },
+                {
+                    "name": "note",
+                    "type": "text",
+                    "instructions": "Required: say the odds are examples."
+                },
+                {
+                    "name": "home",
+                    "type": "group",
+                    "fields": [
+                        {
+                            "name": "name",
+                            "type": "text"
+                        },
+                        {
+                            "name": "short",
+                            "type": "text"
+                        },
+                        {
+                            "name": "color",
+                            "type": "text"
+                        },
+                        {
+                            "name": "score",
+                            "type": "text"
+                        }
+                    ]
+                },
+                {
+                    "name": "away",
+                    "type": "group",
+                    "fields": [
+                        {
+                            "name": "name",
+                            "type": "text"
+                        },
+                        {
+                            "name": "short",
+                            "type": "text"
+                        },
+                        {
+                            "name": "color",
+                            "type": "text"
+                        },
+                        {
+                            "name": "score",
+                            "type": "text"
+                        }
+                    ]
+                },
+                {
+                    "name": "markets",
+                    "type": "repeater",
+                    "max": 3,
+                    "fields": [
+                        {
+                            "name": "label",
+                            "type": "text"
+                        },
+                        {
+                            "name": "odds",
+                            "type": "repeater",
+                            "max": 3,
+                            "fields": [
+                                {
+                                    "name": "pick",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "price",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "stat",
+            "type": "group",
+            "label": "Big number (stat-led layout)",
+            "default": null,
+            "fields": [
+                {
+                    "name": "value",
+                    "type": "text"
+                },
+                {
+                    "name": "unit",
+                    "type": "text"
+                },
+                {
+                    "name": "caption",
+                    "type": "text"
+                }
+            ]
+        },
+        {
+            "name": "art",
+            "type": "select",
+            "label": "Background art (full-bleed layout)",
+            "choices": [
+                "rings",
+                "roulette",
+                "cards"
+            ],
+            "default": "rings"
+        },
+        {
+            "name": "chips",
+            "type": "repeater",
+            "label": "Chips under the copy (full-bleed layout)",
+            "max": 5,
+            "default": [],
+            "fields": [
+                {
+                    "name": "label",
+                    "type": "text"
+                }
+            ]
+        }
+    ]
+}

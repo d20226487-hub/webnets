@@ -1,0 +1,6 @@
+{
+  "fields": [
+    { "name": "variant", "type": "select", "label": "Layout", "choices": ["auto", "chips", "logos-text"], "default": "auto" },
+    { "name": "title", "type": "text", "label": "Section title (empty = 'More providers at {brand}')", "default": "" }
+  ]
+}

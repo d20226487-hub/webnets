@@ -1,0 +1,4 @@
+/* brand look: deep brand-shade hero, brand-coloured install buttons; light text on the hero stays readable */
+.sx-apphero__official { color: var(--c-hero-text); opacity: .9; }
+.sx-apphero .sx-installs > .sx-install:not(:first-child) { background: rgba(255,255,255,.12); color: #fff; border-color: rgba(255,255,255,.28); }
+.sx-apphero .sx-appicon { box-shadow: 0 0 0 3px rgba(255,255,255,.18); }

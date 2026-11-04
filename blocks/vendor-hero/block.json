@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/vendor-hero",
+  "title": "SX Vendor Hero",
+  "category": "sx-conversion",
+  "description": "Game studio as it exists on the brand: identity, games count at the brand, lobby CTA, optional spotlight game.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false, "multiple": false },
+  "sx": {
+    "role": "hero",
+    "variants": ["spotlight", "stats", "studio-banner"],
+    "default_variant": "spotlight",
+    "guardrails": [
+      "Lobby CTA and games count above the fold at 375x667.",
+      "The spotlight game is the newest game added to the brand, never the one with the biggest max win.",
+      "Studio facts come from brands/providers.json; game availability and RTP from brands/catalog/<brand>.json."
+    ]
+  }
+}

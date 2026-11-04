@@ -1,0 +1,105 @@
+{
+  "_demo": "Phase 8 Demo A (brief 08). Multi-brand casino reviews for Brazil. Brands, facts and scores are fictional (brands/facts/br.json, brands/ratings/br.json). Cobaltio is the labelled featured slot to show how a paid placement is displayed.",
+  "today": "2026-10-30",
+  "id": "casinos-a-br",
+  "type": "casinos",
+  "angle": "fast-payouts",
+  "publisher": "emfoco",
+  "market": "br",
+  "locale": "pt",
+  "preset": "editorial",
+  "seed": "emfoco-br-casinos-a",
+  "prefix": "auto",
+  "urls": "pretty",
+  "brands": ["marlowe", "nyxa", "verazul", "cobaltio", "lunaro"],
+  "featured": "cobaltio",
+  "links": {
+    "brands": {
+      "marlowe": "https://marlowe.bet.br/cadastro?src=emfoco",
+      "nyxa": "https://nyxa.bet.br/cadastro?src=emfoco",
+      "verazul": "https://verazul.bet.br/cadastro?src=emfoco",
+      "cobaltio": "https://cobaltio.bet.br/cadastro?src=emfoco",
+      "lunaro": "https://lunaro.bet.br/cadastro?src=emfoco"
+    }
+  },
+  "site": { "name": "Cassino em Foco", "url": "https://cassinoemfoco.example" },
+  "meta": {
+    "home": {
+      "title": "Cassinos online com saque rápido no Brasil: ranking 2026",
+      "description": "Testamos saques PIX em cinco cassinos autorizados pela SPA/MF. Ranking por velocidade de saque, com notas explicadas e pontos fracos de cada um. 18+."
+    },
+    "review": {
+      "title": "Análise {item}: saques, jogos e suporte testados",
+      "description": "Nossa análise da {item}: nota por critério com o motivo de cada nota, pontos fortes e fracos, tempo de saque PIX e dados principais. 18+."
+    },
+    "compare": {
+      "title": "Comparar cassinos online autorizados no Brasil",
+      "description": "Cinco cassinos autorizados lado a lado: nota geral, saques, jogos, cassino ao vivo, app e suporte. 18+."
+    },
+    "live": {
+      "title": "Melhores cassinos ao vivo no Brasil",
+      "description": "Cassinos autorizados ordenados pela nota de cassino ao vivo: número de mesas, mesas em português e qualidade da transmissão. 18+."
+    },
+    "app": {
+      "title": "Melhores apps de cassino no Brasil",
+      "description": "Cassinos autorizados ordenados pela nota do app: velocidade, depósito PIX e limites pelo celular. 18+."
+    },
+    "method": {
+      "title": "Como avaliamos os cassinos",
+      "description": "Os critérios e pesos das nossas notas, como testamos saques e suporte, e como ganhamos dinheiro."
+    }
+  },
+  "variants": {
+    "header": "inline", "footer": "columns", "sticky-cta": "bar",
+    "home": { "hero": "cards", "guides": "cards", "faq": "accordion", "final": "solid" },
+    "review": { "hero": "split", "score": "rows", "proscons": "columns", "facts": "table", "others": "list", "final": "split" },
+    "compare": { "table": "table", "related": "list" },
+    "live": { "hero": "table", "text": "article", "related": "list" },
+    "app": { "hero": "table", "text": "article", "related": "list" },
+    "method": { "hero": "compact", "criteria": "list", "text": "article", "related": "list" }
+  },
+  "content": {
+    "home": {
+      "hero": {
+        "title": "Cassinos com saque rápido no Brasil",
+        "intro": "Fizemos saques PIX reais em cada cassino. A lista segue a nota de saques; todos são autorizados pela SPA/MF."
+      },
+      "faq": {
+        "items": [
+          { "q": "Como vocês testam os saques?", "a": "Abrimos conta, depositamos e fizemos pelo menos cinco saques PIX em cada cassino, em dias e horários diferentes. A nota usa o tempo real de cada saque." },
+          { "q": "O cassino em destaque paga para aparecer?", "a": "Sim. A posição “Parceiro em destaque” é paga e está marcada. Ela não muda a nota nem a posição do cassino no ranking." },
+          { "q": "Por que não há bônus na lista?", "a": "A lei brasileira proíbe bônus antecipados para apostadores. Por isso bônus não entram nas notas." },
+          { "q": "Todos os cassinos são legais no Brasil?", "a": "Sim. Só listamos operadores autorizados pela SPA/MF, com site .bet.br." }
+        ]
+      },
+      "final": { "title": "Escolha com calma", "text": "Todos os cassinos da lista são autorizados no Brasil. Jogue com responsabilidade. 18+." }
+    },
+    "review": {
+      "hero": { "title": "Análise {item}" },
+      "others": { "title": "Outros cassinos que testamos" },
+      "final": { "title": "Quer conhecer a {item}?", "text": "Cassino autorizado pela SPA/MF. Jogue com responsabilidade. 18+." }
+    },
+    "compare": {
+      "table": { "title": "Comparar cassinos autorizados no Brasil" }
+    },
+    "live": {
+      "hero": { "title": "Melhores cassinos ao vivo", "intro": "Ordenado pela nota de cassino ao vivo: mesas, mesas em português e transmissão." },
+      "text": { "html": "<h2>O que pesa na nota ao vivo</h2><p>Contamos as mesas ao vivo disponíveis em horários diferentes, quantas têm crupiê falando português e se a transmissão aguenta uma conexão 4G sem travar.</p><h2>Mesas 24 horas</h2><p>Nem todas as mesas funcionam de madrugada. Lunaro e Verazul mantiveram mais mesas abertas depois da meia-noite nos nossos testes.</p>", "toc": false }
+    },
+    "app": {
+      "hero": { "title": "Melhores apps de cassino", "intro": "Ordenado pela nota do app: velocidade, depósito PIX e limites pelo celular." },
+      "text": { "html": "<h2>Como testamos os apps</h2><p>Instalamos cada app em um iPhone e um Android de entrada, fizemos depósito PIX, configuramos limite de depósito e abrimos uma mesa ao vivo no 4G.</p><h2>Sem app?</h2><p>O Cobaltio não tem app; o site móvel funciona, mas é mais lento. Isso pesa na nota de app, não nas outras.</p>", "toc": false }
+    },
+    "method": {
+      "hero": {
+        "title": "Como avaliamos os cassinos",
+        "answer": "Seis critérios com pesos fixos. Cada nota vem de testes reais e tem um motivo escrito. A nota geral é calculada, nunca digitada."
+      },
+      "criteria": { "title": "Critérios e pesos" },
+      "text": {
+        "html": "<h2>Como testamos</h2><p>Para cada cassino abrimos uma conta real, passamos pela verificação, depositamos via PIX, fizemos pelo menos cinco saques e falamos com o suporte em horários diferentes.</p><h2>Com que frequência</h2><p>Refazemos os testes a cada três meses ou quando um cassino muda algo importante. A data do último teste aparece em cada análise.</p><h2>Parceiro em destaque</h2><p>Um cassino pode pagar pela posição “Parceiro em destaque”. Ela aparece marcada, no topo, e não muda a nota nem a posição no ranking.</p><h2>Como ganhamos dinheiro</h2><p>Recebemos comissão quando você se cadastra por nossos links. A comissão não entra no cálculo das notas.</p>",
+        "toc": true
+      }
+    }
+  }
+}

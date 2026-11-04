@@ -1,0 +1,11 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/review-form",
+  "title": "SX Review Form",
+  "category": "sx-conversion",
+  "description": "Write-a-review form. Disabled (mockup) unless links.review_form is set and the site uses real reviews.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false, "multiple": false },
+  "sx": { "role": "content", "variants": ["card"], "default_variant": "card", "guardrails": ["No incentives for reviews. Asks only for a display name; never email, phone or account numbers."] }
+}

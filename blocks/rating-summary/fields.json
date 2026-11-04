@@ -1,0 +1,62 @@
+{
+  "fields": [
+    {
+      "name": "variant",
+      "type": "select",
+      "label": "Layout",
+      "choices": [
+        "auto",
+        "board",
+        "strip",
+        "quotes",
+        "band"
+      ],
+      "default": "auto"
+    },
+    {
+      "name": "title",
+      "type": "text",
+      "label": "Page headline (H1)",
+      "required": true,
+      "default": "",
+      "maxlength": 60
+    },
+    {
+      "name": "subtitle",
+      "type": "textarea",
+      "label": "Subtitle (no numbers: they are computed)",
+      "default": "",
+      "maxlength": 160
+    },
+    {
+      "name": "topic",
+      "type": "select",
+      "label": "Topic (topic pages: stats for this topic only)",
+      "choices": [
+        "",
+        "payouts",
+        "verification",
+        "support",
+        "app",
+        "odds",
+        "deposits"
+      ],
+      "default": ""
+    },
+    {
+      "name": "lead_topic",
+      "type": "select",
+      "label": "Topic score shown next to the overall score",
+      "choices": [
+        "",
+        "payouts",
+        "verification",
+        "support",
+        "app",
+        "odds",
+        "deposits"
+      ],
+      "default": ""
+    }
+  ]
+}

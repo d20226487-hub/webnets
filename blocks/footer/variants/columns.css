@@ -1,0 +1,5 @@
+/* columns */
+.sx-footer--columns .sx-footer__grid { display: grid; gap: var(--sp-6); grid-template-columns: 2fr 1fr 1.4fr; }
+@media (max-width: 760px) {
+  .sx-footer--columns .sx-footer__grid { grid-template-columns: 1fr; }
+}

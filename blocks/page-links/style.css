@@ -1,0 +1,12 @@
+.sx-plinks2__inner { display: grid; gap: var(--sp-5); padding-block: var(--sp-7); }
+.sx-plinks2__title { font-size: var(--fs-4); }
+.sx-plinks2__list a { position: relative; display: grid; gap: var(--sp-1, 4px); color: var(--c-text); text-decoration: none; }
+.sx-plinks2__list strong { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-2); }
+.sx-plinks2__list span { color: var(--c-muted); font-size: var(--fs-0); }
+.sx-plinks2__list .sx-icon { width: 18px; height: 18px; color: var(--c-accent); }
+.sx-plinks2__pic { margin-block-end: var(--sp-2); }
+.sx-plinks2--list .sx-plinks2__list a:has(.sx-plinks2__pic) { grid-template-columns: 112px minmax(0, 1fr) auto; }
+.sx-plinks2--list .sx-plinks2__pic { grid-column: 1; grid-row: 1 / span 2; margin: 0; aspect-ratio: 16 / 10 !important; }
+.sx-plinks2--list a:has(.sx-plinks2__pic) strong, .sx-plinks2--list a:has(.sx-plinks2__pic) span { grid-column: 2; }
+.sx-plinks2--list a:has(.sx-plinks2__pic) .sx-icon { grid-column: 3; }
+@media (max-width: 640px) { .sx-plinks2--list .sx-plinks2__list a:has(.sx-plinks2__pic) { grid-template-columns: 80px minmax(0, 1fr) auto; } }

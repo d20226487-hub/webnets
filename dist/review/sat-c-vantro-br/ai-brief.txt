@@ -1,0 +1,401 @@
+# Rebuild brief: Vantro Esportes Guia
+
+You are rebuilding every page of the **Vantro Esportes Guia** template, a satellite site (angle: sports-depth). Keep the section order, the content and every rule below. Write the page text exactly as given (it is in Portuguese); write code and comments in English.
+
+**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section below with the listed fields as props.
+
+## Site context
+
+- Site: Vantro Esportes Guia (https://vantro-esportes.example), brand or publisher: Vantro
+- Market: Brazil (`br`), language `pt`, text direction `ltr`, currency BRL
+- Minimum age: 18+
+- Products allowed: sports betting yes, online casino yes
+- Market note: Regulated under Lei 14.790/2023. Licensed operators use .bet.br domains. Advance bonuses are prohibited; PIX is the default payment rail; credit cards are not accepted.
+- Pages (5):
+  - `index.html` — Vantro: apostas em futebol, vôlei e basquete ao vivo
+  - `sign-up.html` — Cadastro na Vantro: CPF, reconhecimento facial e prazo
+  - `payments.html` — Depósito e saque na Vantro: PIX, TED e cartão de débito
+  - `betting.html` — Mercados da Vantro: futebol, vôlei, basquete e mais
+  - `responsible-gambling.html` — Jogo responsável na Vantro: limites, pausas e autoexclusão
+
+## Design tokens
+
+Fonts (Google Fonts): Oswald, Roboto Condensed.
+
+Use these CSS custom properties (they are the whole palette, type scale and radius set):
+
+```css
+:root {
+  --c-bg: #0C1726;
+  --c-surface: #13223A;
+  --c-surface-2: #1A2D4A;
+  --c-text: #F4F7FB;
+  --c-muted: #9FB0C8;
+  --c-border: #24395A;
+  --c-accent: #FF6A13;
+  --c-on-accent: #0C1726;
+  --c-accent-2: #2EC5FF;
+  --c-success: #1F9D55;
+  --c-warning: #D98B00;
+  --c-danger: #D93636;
+  --c-hero-text: #F4F7FB;
+  --c-hero-muted: #B5C3D6;
+  --c-hero-accent: #FF6A13;
+  --c-hero-on-accent: #0C1726;
+  --hero-bg: linear-gradient(115deg,#0C1726 45%,#16325A 100%);
+  --f-display: "Oswald",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-body: "Roboto Condensed",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono: "Roboto Condensed",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --fw-heading: 700;
+  --fw-body: 400;
+  --fw-strong: 500;
+  --tt-heading: uppercase;
+  --ls-heading: 0.01em;
+  --lh-body: 1.5;
+  --lh-heading: 1.08;
+  --r-sm: 2px;
+  --r: 4px;
+  --r-lg: 8px;
+  --r-btn: 4px;
+  --bw: 2px;
+  --density: 0.95;
+  --fs-0: 12.31px;
+  --fs-1: 16px;
+  --fs-2: 27.04px;
+  --fs-3: clamp(23.9px,19.08px + 1.339vw,35.15px);
+  --fs-4: clamp(31.07px,24.81px + 1.741vw,45.7px);
+  --fs-5: clamp(40.4px,32.25px + 2.263vw,59.41px);
+  --fs-6: clamp(52.52px,41.92px + 2.942vw,77.23px);
+  --sp-1: 3.8px;
+  --sp-2: 7.6px;
+  --sp-3: 11.4px;
+  --sp-4: 15.2px;
+  --sp-5: 22.8px;
+  --sp-6: 30.4px;
+  --sp-7: 45.6px;
+  --sp-8: 60.8px;
+  --sp-9: 91.2px;
+  --card-bg: #13223A;
+  --card-border: transparent;
+  --card-shadow: 0 8px 0 rgba(0,0,0,.35);
+  --surface-style: elevated;
+}
+```
+
+Layout is mobile-first: it must work from 375px to 1440px wide.
+
+## Rules you must not break
+
+- Every page opens with an age gate (18+) before any gambling content.
+- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- Header: One-page landing and app pages use 'minimal' (no nav) so attention stays on the conversion.
+- Header: The CTA stays visible at every width; on mobile the nav collapses into a menu, the CTA does not.
+- Hero: Exactly one primary CTA. The secondary action is a text link or ghost button.
+- Hero: Primary CTA must sit above the fold at 375x667.
+- Hero: Headline 60 characters max; subtitle 160 max (long Russian/Portuguese strings included).
+- Hero: scoreboard: the match card is an illustration and must carry a note saying odds are examples.
+- Trust bar: Values come from brand facts and market config; nothing is typed by hand.
+- Trust bar: Rating shows only when the brand has facts.rating_source.
+- Trust bar: Sits directly under the hero (section 2 or 3).
+- Features: 3 or 4 items. Titles 4 words max, text one sentence (about 120 characters).
+- Features: Features describe the product, never an offer or bonus.
+- Steps: Exactly 3 steps; numbers are used because the order is real.
+- Steps: Mention verification and deposit limits honestly; do not promise instant approval.
+- Page links: Internal links only; never a substitute for the brand CTA.
+- FAQ: 4-6 questions: legality in the country, deposits/withdrawals, payout time, verification, limits or self-exclusion.
+- FAQ: Answers are plain text, 1-3 sentences. No CTA links inside answers.
+- Final CTA: Always the last section before the footer.
+- Final CTA: Headline 40 characters max. No urgency claims (timers, 'last chance').
+- Footer: Always renders the compliance panel; it cannot be switched off.
+- Footer: Payment methods come from the market config so they are always locally correct.
+- Responsible gambling: All copy comes from markets/<id>.json; never type compliance text into a page.
+- Responsible gambling: Every page renders a 'panel' (usually inside the footer). 'strip' is an optional top-of-page addition.
+- Responsible gambling: Where a market lists several mandated taglines, one is chosen per site by seed.
+- Age gate: Age comes from the market (21 in KZ, 18 in AU/BR). Never hard-code it.
+- Age gate: Content stays in the HTML for crawlers; the overlay is shown by script, so no-JS users still see the compliance footer.
+- Sticky CTA: Phones only (860px and narrower). Never covers the compliance panel: the footer gets bottom padding.
+- Sticky CTA: Shows the market age badge next to the CTA.
+- Page title: The answer line states the page's key fact in one sentence, above the fold on phones.
+- Text block: Only h2, h3, p, ul, ol, li, strong, em, a, table, blockquote survive; all attributes except href are removed.
+- Text block: Links: page:<id> for internal pages, https:// for sources. Brand links belong in CTAs, not in prose.
+- Payments: Only methods listed in the market config may appear (no credit cards in AU or BR).
+- Payments: Times are typical for verified accounts and say so in the note.
+- Showcase: Odds and fixtures are illustrations; the note saying so is required.
+- Showcase: Never placed directly after the hero (blueprint order rule).
+
+## Page `index.html`
+
+- Title tag: Vantro: apostas em futebol, vôlei e basquete ao vivo
+- Meta description: Guia da Vantro no Brasil: mercados ao vivo do Brasileirão, cadastro com CPF, depósitos e saques via PIX e ferramentas de jogo responsável. 18+.
+- The only H1: Futebol, vôlei e basquete com odds ao vivo
+- Structured data (JSON-LD): WebPage, FAQPage, WebSite
+- Links to: `index.html`, `sign-up.html`, `payments.html`, `betting.html`, `responsible-gambling.html`
+
+### Sections, in order
+
+1. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Autorizada SPA/MF"
+   - `sticky`: false
+   - `show_cta`: true
+2. **Hero** — block `sx/hero`, variant `scoreboard`, role `hero`
+   Purpose: Above-the-fold hero: headline, one primary CTA, trust row and an optional offer/feature card.
+   - `eyebrow`: "Brasileirão · 34ª rodada"
+   - `title`: "Futebol, vôlei e basquete com odds ao vivo"
+   - `subtitle`: "Mais de 150 mercados por jogo do Brasileirão, estatísticas em tempo real e saque via PIX em cerca de 1 hora."
+   - `secondary`: `{"label":"Ver os mercados","url":"page:betting"}`
+   - `show_trust`: true
+   - `match`: `{"league":"Série A · 34ª rodada","clock":"2º T 67'","home":{"name":"Porto Alegre FC","short":"POA","color":"#1F6FEB","score":"1"},"away":{"name":"Recife Atlético","short":"REC","color":"#C62839","score":"1"},"markets":[{"label":"Resultado final","odds":[{"pick":"POA","price":"2,40"},{"pick":"Empate","price":"2,10"},{"pick":"REC","price":"4,20"}]},{"label":"Total de gols","odds":[{"pick":"Mais de 2,5","price":"2,55"},{"pick":"Menos de 2,5","price":"1,48"}]},{"label":"Próximo gol","odds":[{"pick":"POA","price":"1,95"},{"pick":"REC","price":"2,90"}]}],"note":"Mercados de exemplo, apenas ilustrativos. As odds ao vivo mudam durante a partida."}`
+   - `art`: "rings"
+3. **Trust bar** — block `sx/trust-bar`, variant `badges`, role `trust`
+   Purpose: Licence, payout time, years operating, local payments and (only if sourced) rating.
+   - `items`: `["licence","payout","since","payments"]`
+4. **Features** — block `sx/features`, variant `bento`, role `content`
+   Purpose: 3-4 product reasons to join, each with an icon, a short title and one sentence.
+   - `eyebrow`: "Por que apostar na Vantro"
+   - `title`: "O que você encontra na conta"
+   - `items`: `[{"icon":"layers","title":"Crie sua aposta","text":"Combine resultado, gols, escanteios e cartões do mesmo jogo."},{"icon":"gauge","title":"Estatísticas ao vivo","text":"Posse, finalizações e mapa de calor ao lado das odds."},{"icon":"bolt","title":"Saque via PIX","text":"A maioria dos saques cai em cerca de 1 hora, todos os dias."},{"icon":"shield","title":"Limites sob controle","text":"Limite diário, semanal ou mensal de depósito em dois toques."}]`
+5. **Steps** — block `sx/steps`, variant `timeline`, role `content`
+   Purpose: Three real steps from sign-up to first bet, followed by the mid-page CTA.
+   - `eyebrow`: "Como começar"
+   - `title`: "Comece em três passos"
+   - `items`: `[{"title":"Cadastre-se com CPF","text":"Nome, CPF e data de nascimento, mais uma selfie para a verificação facial."},{"title":"Deposite via PIX","text":"A partir de R$ 10, de uma conta no seu CPF. Defina um limite de depósito."},{"title":"Faça sua aposta","text":"Escolha um mercado, adicione ao cupom e confirme."}]`
+   - `show_cta`: true
+6. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+7. **FAQ** — block `sx/faq`, variant `columns`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"A Vantro é autorizada no Brasil?","a":"Sim. A Vantro é autorizada pela Secretaria de Prêmios e Apostas do Ministério da Fazenda e opera no domínio vantro.bet.br. O número da portaria está no rodapé."},{"q":"Quanto tempo leva o cadastro?","a":"Poucos minutos. A verificação facial costuma ser concluída na hora; você aposta assim que a conta é aprovada."},{"q":"Qual a forma de saque mais rápida?","a":"PIX. A maioria dos saques via PIX cai em cerca de 1 hora na conta do seu CPF."},{"q":"Posso usar cartão de crédito?","a":"Não. A regulamentação brasileira proíbe cartão de crédito em apostas. Use PIX, TED ou cartão de débito."},{"q":"Como defino um limite de depósito?","a":"No cadastro ou depois, em Conta → Jogo responsável. Reduções valem na hora."}]`
+8. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Pronto para a próxima rodada"
+   - `text`: "Abra sua conta na Vantro em poucos minutos. Proibido para menores de 18 anos."
+   - `show_code`: false
+9. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+10. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+11. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `sign-up.html`
+
+- Title tag: Cadastro na Vantro: CPF, reconhecimento facial e prazo
+- Meta description: Como abrir sua conta na Vantro em poucos minutos: dados, CPF, verificação facial exigida pela regulamentação e primeiro depósito via PIX. 18+.
+- The only H1: Como se cadastrar na Vantro
+- Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
+- Links to: `index.html`, `sign-up.html`, `payments.html`, `betting.html`, `responsible-gambling.html`
+
+### Sections, in order
+
+1. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Autorizada SPA/MF"
+   - `sticky`: false
+   - `show_cta`: true
+2. **Page title** — block `sx/page-hero`, variant `compact`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Como se cadastrar na Vantro"
+   - `answer`: "Poucos minutos: seus dados, CPF e uma selfie para a verificação facial. Depois, deposite via PIX e defina um limite."
+   - `show_cta`: true
+3. **Steps** — block `sx/steps`, variant `timeline`, role `content`
+   Purpose: Three real steps from sign-up to first bet, followed by the mid-page CTA.
+   - `eyebrow`: "Passo a passo"
+   - `title`: "Abrindo sua conta"
+   - `items`: `[{"title":"Informe seus dados","text":"Nome completo, CPF, data de nascimento, e-mail e celular."},{"title":"Faça a verificação facial","text":"Uma selfie confirma que você é o titular do CPF. Exigência da regulamentação."},{"title":"Defina um limite e deposite","text":"Escolha um limite de depósito e deposite a partir de R$ 10 via PIX."}]`
+   - `show_cta`: false
+4. **Features** — block `sx/features`, variant `grid`, role `content`
+   Purpose: 3-4 product reasons to join, each with an icon, a short title and one sentence.
+   - `eyebrow`: "Antes de começar"
+   - `title`: "O que você precisa"
+   - `items`: `[{"icon":"shield","title":"Ter 18 anos ou mais","text":"A idade é confirmada pelo CPF antes da primeira aposta."},{"icon":"check","title":"CPF regular","text":"Um CPF por conta. Ele também define a conta bancária para saques."},{"icon":"bolt","title":"Conta no seu nome","text":"Depósitos e saques só de e para contas do mesmo CPF."}]`
+5. **Text block** — block `sx/prose`, variant `article`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<h2>Por que a verificação facial</h2><p>Pela regulamentação brasileira (Lei 14.790/2023), as casas autorizadas precisam confirmar a identidade de cada apostador. A selfie é comparada aos dados do CPF e impede que menores de idade ou terceiros usem a conta.</p><h2>Se a verificação falhar</h2><p>Tente de novo com boa iluminação e sem óculos escuros. Se continuar falhando, o suporte pede uma foto do …` (HTML)
+   - `toc`: false
+6. **FAQ** — block `sx/faq`, variant `columns`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Preciso enviar documento?","a":"Normalmente não. A selfie e o CPF bastam na maioria dos cadastros."},{"q":"Posso usar o CPF de outra pessoa?","a":"Não. A conta, os depósitos e os saques precisam estar no mesmo CPF do titular."},{"q":"Por que definir um limite no cadastro?","a":"O limite ajuda a controlar seus gastos. Você escolhe o valor e pode mudar depois."},{"q":"Posso mudar e-mail ou celular depois?","a":"Sim, em Conta → Dados. Nome e CPF não podem ser alterados."}]`
+7. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+8. **Final CTA** — block `sx/cta-band`, variant `solid`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Abra sua conta"
+   - `text`: "Poucos minutos e você já pode apostar. Proibido para menores de 18 anos."
+   - `show_code`: false
+9. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+10. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+11. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `payments.html`
+
+- Title tag: Depósito e saque na Vantro: PIX, TED e cartão de débito
+- Meta description: Todas as formas de pagamento da Vantro no Brasil, com valores mínimos e prazos. Saque via PIX em cerca de 1 hora, sem cartão de crédito. 18+.
+- The only H1: Depósito e saque na Vantro
+- Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
+- Links to: `index.html`, `sign-up.html`, `payments.html`, `betting.html`, `responsible-gambling.html`
+
+### Sections, in order
+
+1. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Autorizada SPA/MF"
+   - `sticky`: false
+   - `show_cta`: true
+2. **Page title** — block `sx/page-hero`, variant `answer`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Depósito e saque na Vantro"
+   - `answer`: "Deposite via PIX a partir de R$ 10 na hora. Saques via PIX costumam cair em cerca de 1 hora."
+   - `show_cta`: true
+3. **Payments** — block `sx/payments`, variant `table`, role `content`
+   Purpose: Local deposit and withdrawal methods with speed and minimums.
+   - `eyebrow`: "Formas de pagamento"
+   - `title`: "Como pagar e sacar na Vantro"
+   - `rows`: `[{"method":"pix","deposit":"Na hora","withdraw":"Cerca de 1 hora","min":"R$ 10"},{"method":"ted","deposit":"Até 1 dia útil","withdraw":"Até 1 dia útil","min":"R$ 30"},{"method":"debit","deposit":"Na hora","withdraw":"Não disponível","min":"R$ 20"}]`
+   - `note`: "Prazos típicos para contas verificadas. Cartão de crédito e criptomoedas não são aceitos."
+4. **Text block** — block `sx/prose`, variant `article`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<h2>Depositando</h2><p>O PIX é a forma mais rápida: copie o código ou leia o QR no app do seu banco e o valor entra na hora. A TED leva até um dia útil. O cartão de débito também é instantâneo.</p><h2>Sacando</h2><p>Os saques vão para uma conta bancária no seu CPF. Pelo PIX, a maioria cai em cerca de 1 hora; pela TED, em até um dia útil.</p><ul><li>Saque mínimo: R$ 20</li><li>Sem tarifa da Vantro<…` (HTML)
+   - `toc`: true
+5. **FAQ** — block `sx/faq`, variant `columns`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Por que meu saque está pendente?","a":"O primeiro saque pode aguardar a verificação. Depois, saques via PIX costumam levar cerca de 1 hora."},{"q":"Há tarifas?","a":"A Vantro não cobra tarifa de depósito nem de saque. Seu banco pode cobrar as próprias tarifas."},{"q":"Posso sacar para a conta de outra pessoa?","a":"Não. O saque vai só para uma conta no mesmo CPF da conta Vantro."},{"q":"Qual o depósito mínimo?","a":"R$ 10 via PIX, R$ 20 no débito e R$ 30 via TED."}]`
+6. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+7. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Deposite via PIX"
+   - `text`: "Depósito na hora, saque em cerca de 1 hora. Proibido para menores de 18 anos."
+   - `show_code`: false
+8. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+9. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+10. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `betting.html`
+
+- Title tag: Mercados da Vantro: futebol, vôlei, basquete e mais
+- Meta description: Quais esportes e mercados a Vantro oferece: resultado, handicap, gols, escanteios e criar aposta no mesmo jogo, com estatísticas ao vivo. 18+.
+- The only H1: Mercados de apostas da Vantro
+- Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
+- Links to: `index.html`, `sign-up.html`, `payments.html`, `betting.html`, `responsible-gambling.html`
+
+### Sections, in order
+
+1. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Autorizada SPA/MF"
+   - `sticky`: false
+   - `show_cta`: true
+2. **Page title** — block `sx/page-hero`, variant `answer`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Mercados de apostas da Vantro"
+   - `answer`: "Futebol, vôlei, basquete, tênis e MMA, com mais de 150 mercados por jogo do Brasileirão e estatísticas ao vivo."
+   - `show_cta`: true
+3. **Showcase** — block `sx/showcase`, variant `odds-board`, role `content`
+   Purpose: Shows the product instead of describing it: an odds board (sports) or game strip (casino).
+   - `eyebrow`: "Hoje"
+   - `title`: "Jogos com mercados abertos"
+   - `tabs`: `[{"label":"Futebol"},{"label":"Vôlei"},{"label":"Basquete"},{"label":"Tênis"}]`
+   - `columns`: `[{"label":"Casa"},{"label":"Empate"},{"label":"Fora"}]`
+   - `rows`: `[{"when":"67'","live":true,"competition":"Série A","home":"Porto Alegre FC","away":"Recife Atlético","odds":[{"price":"2,40"},{"price":"2,10"},{"price":"4,20"}],"more":164},{"when":"19:00","competition":"Série A","home":"Capital EC","away":"Litoral SC","odds":[{"price":"1,85"},{"price":"3,40"},{"price":"4,50"}],"more":158},{"when":"21:30","competition":"Série A","home":"Serra Azul","away":"União Paulista","odds":[{"price":"2,75"},{"price":"3,10"},{"price":"2,60"}],"more":151},{"when":"21:45","competition":"Copa Regional","home":"Vale do Rio","away":"Planalto FC","odds":[{"price":"2,05"},{"price":"3,20"},{"price":"3,60"}],"more":98}]`
+   - `note`: "Jogos e odds de exemplo, apenas ilustrativos."
+4. **Features** — block `sx/features`, variant `grid`, role `content`
+   Purpose: 3-4 product reasons to join, each with an icon, a short title and one sentence.
+   - `eyebrow`: "Na hora de apostar"
+   - `title`: "Ferramentas para cada jogo"
+   - `items`: `[{"icon":"layers","title":"Crie sua aposta","text":"Junte mercados do mesmo jogo em uma única aposta."},{"icon":"play","title":"Ao vivo com dados","text":"Odds atualizadas a cada lance, com estatísticas da partida."},{"icon":"check","title":"Encerrar aposta","text":"Encerre antes do fim do jogo pelo valor oferecido no momento."},{"icon":"gauge","title":"Mercados de jogador","text":"Finalizações, gols e assistências de cada atleta."}]`
+5. **FAQ** — block `sx/faq`, variant `columns`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Quais esportes a Vantro cobre?","a":"Futebol, vôlei, basquete, tênis, MMA e e-sports, com destaque para o Brasileirão e os estaduais."},{"q":"O que é \"crie sua aposta\"?","a":"É uma aposta que junta vários mercados do mesmo jogo, como resultado e total de gols. Todas as seleções precisam acertar."},{"q":"Posso encerrar uma aposta antes do fim?","a":"Em muitos mercados, sim. O valor oferecido muda conforme o jogo e pode ser menor que o apostado."},{"q":"As odds mudam durante o jogo?","a":"Sim. Nas apostas ao vivo as odds são atualizadas a cada lance."}]`
+6. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+7. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Escolha seu jogo"
+   - `text`: "Mercados ao vivo e saque via PIX. Proibido para menores de 18 anos."
+   - `show_code`: false
+8. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+9. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+10. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `responsible-gambling.html`
+
+- Title tag: Jogo responsável na Vantro: limites, pausas e autoexclusão
+- Meta description: Limites de depósito, pausas e autoexclusão: como usar cada ferramenta de jogo responsável na Vantro e onde buscar ajuda.
+- The only H1: Jogo responsável na Vantro
+- Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
+- Links to: `index.html`, `sign-up.html`, `payments.html`, `betting.html`, `responsible-gambling.html`
+
+### Sections, in order
+
+1. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Autorizada SPA/MF"
+   - `sticky`: false
+   - `show_cta`: true
+2. **Page title** — block `sx/page-hero`, variant `answer`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Jogo responsável na Vantro"
+   - `answer`: "Defina limites de depósito, faça uma pausa ou peça a autoexclusão a qualquer momento, direto na sua conta."
+   - `show_cta`: false
+3. **Text block** — block `sx/prose`, variant `article`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<h2>Limites de depósito</h2><p>Escolha um limite diário, semanal ou mensal em Conta → Jogo responsável. Reduções valem na hora; aumentos esperam 24 horas.</p><h2>Pausas</h2><p>Faça uma pausa de 24 horas a seis meses. Durante a pausa você não consegue entrar nem apostar, e ela não pode ser cancelada antes do fim.</p><h2>Autoexclusão</h2><p>Você pode pedir a autoexclusão a qualquer momento, por praz…` (HTML)
+   - `toc`: false
+4. **FAQ** — block `sx/faq`, variant `columns`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Posso cancelar uma pausa antes do fim?","a":"Não. A pausa vale até a data escolhida."},{"q":"A autoexclusão pode ser revertida?","a":"A autoexclusão por prazo determinado termina na data escolhida. A por prazo indeterminado exige um pedido formal e um período de espera."},{"q":"A Vantro me envia promoções durante a pausa?","a":"Não. O marketing é suspenso durante pausas e autoexclusões."},{"q":"Como reduzo meu limite?","a":"Em Conta → Jogo responsável. O novo limite, menor, vale na hora."}]`
+5. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+6. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+7. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+
+## Acceptance checklist
+
+- [ ] Sections appear in the order above, with the same layout variant (or an equivalent layout).
+- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
+- [ ] One H1 per page; headings do not skip levels.
+- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
+- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
+- [ ] The structured data listed for each page is present and valid.
+- [ ] Every internal link opens an existing page.
+- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
+- [ ] Every rule in "Rules you must not break" holds on every page.
+
+_Long text and lists are shortened here (…, "[n items]"). For the full text run `php build/ai-brief.php sites/demos/<config>.json`._

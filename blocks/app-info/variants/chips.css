@@ -1,0 +1,9 @@
+/* chips: compact pills on a tinted band */
+.sx-appinfo--chips { background: var(--c-surface-2); }
+.sx-appinfo--chips .sx-appinfo__inner { padding-block: var(--sp-7); }
+.sx-appinfo--chips .sx-appinfo__list { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.sx-appinfo--chips .sx-appinfo__list div {
+  display: inline-flex; align-items: baseline; gap: var(--sp-2); max-width: 100%;
+  padding: var(--sp-2) var(--sp-4); border-radius: var(--r-btn); background: var(--c-surface); border: var(--bw) solid var(--c-border);
+}
+.sx-appinfo--chips .sx-appinfo__list dt { font-size: .7rem; }

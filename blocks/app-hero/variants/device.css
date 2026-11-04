@@ -1,0 +1,17 @@
+/* device: copy | two overlapping phones */
+.sx-apphero--device .sx-apphero__inner { grid-template-columns: minmax(0, 1.1fr) minmax(300px, 1fr); }
+.sx-apphero--device .sx-apphero__title { font-size: var(--fs-6); max-width: 14ch; }
+.sx-apphero__factline { font-size: var(--fs-0); color: var(--c-hero-muted); font-variant-numeric: tabular-nums; }
+.sx-apphero--device .sx-apphero__device { position: relative; min-height: 560px; }
+.sx-apphero__back, .sx-apphero__front { position: absolute; inset-block-start: 50%; inset-inline-start: 50%; }
+.sx-apphero__back { width: 230px; translate: -88% -46%; rotate: -8deg; opacity: .7; }
+.sx-apphero__front { width: 270px; translate: -30% -50%; rotate: 4deg; }
+
+@media (max-width: 860px) {
+  .sx-apphero--device .sx-apphero__inner { grid-template-columns: minmax(0, 1fr); }
+  .sx-apphero--device .sx-apphero__title { font-size: var(--fs-5); }
+  /* Phones: one upright phone in normal flow, so it can never overlap the install buttons. */
+  .sx-apphero--device .sx-apphero__device { min-height: 0; display: grid; place-items: center; }
+  .sx-apphero__back { display: none; }
+  .sx-apphero__front { position: static; translate: none; rotate: none; width: 200px; }
+}

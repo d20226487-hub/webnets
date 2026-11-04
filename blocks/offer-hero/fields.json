@@ -1,0 +1,31 @@
+{
+  "fields": [
+    {
+      "name": "variant",
+      "type": "select",
+      "label": "Layout",
+      "choices": [
+        "auto",
+        "code-ticket",
+        "split-offer",
+        "centered-code",
+        "banner"
+      ],
+      "default": "auto"
+    },
+    {
+      "name": "title",
+      "type": "text",
+      "label": "Headline (empty = the promotion's own title)",
+      "default": "",
+      "maxlength": 70
+    },
+    {
+      "name": "subtitle",
+      "type": "textarea",
+      "label": "Subtitle",
+      "default": "",
+      "maxlength": 160
+    }
+  ]
+}

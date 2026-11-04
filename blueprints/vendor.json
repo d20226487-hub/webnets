@@ -1,0 +1,36 @@
+{
+  "type": "vendor",
+  "title": "One-page brand vendor overview",
+  "brief": "docs/briefs/04-vendor-overview.md",
+  "requires_vertical": "casino",
+  "requires_provider": true,
+  "defaults": { "cta_label": "vendor.lobby", "cta_short": "vendor.play" },
+  "frame": {
+    "top": [{ "block": "compliance-bar", "props": { "variant": "strip" }, "when": "market.strip" }],
+    "header": { "block": "header", "variants": ["minimal", "minimal-split"], "props": { "sticky": false } },
+    "footer": { "block": "footer", "variants": ["compact"] },
+    "overlay": [{ "block": "age-gate" }, { "block": "sticky-cta", "variants": ["bar", "pill"] }]
+  },
+  "sections": [
+    { "id": "hero", "block": "vendor-hero", "zone": "top", "rule": "required" },
+    { "id": "trust", "block": "trust-bar", "zone": "top", "rule": "required", "props": { "items": ["licence", "payout", "since", "payments"] } },
+    { "id": "new", "block": "game-grid", "zone": "middle", "rule": "optional", "props": { "mode": "new" } },
+    { "id": "games", "block": "game-grid", "zone": "middle", "rule": "required", "props": { "mode": "popular" } },
+    { "id": "explainer", "block": "rtp-explainer", "zone": "middle", "rule": "required" },
+    { "id": "about", "block": "features", "zone": "middle", "rule": "optional" },
+    { "id": "more", "block": "provider-links", "zone": "bottom", "rule": "optional" },
+    { "id": "faq", "block": "faq", "zone": "bottom", "rule": "required" },
+    { "id": "final", "block": "cta-band", "zone": "bottom", "rule": "required" }
+  ],
+  "order_rules": [
+    { "rule": "before", "a": "new", "b": "games" },
+    { "rule": "before", "a": "games", "b": "explainer" },
+    { "rule": "not_first", "a": "about" },
+    { "rule": "not_first", "a": "explainer" }
+  ],
+  "angles": {
+    "new-releases": { "optional": ["new", "about"], "variants": { "hero": ["spotlight", "studio-banner"], "new": ["strip"], "games": ["grid"] } },
+    "popular":      { "optional": ["about"], "variants": { "hero": ["stats", "studio-banner"], "games": ["grid", "table"] } },
+    "studio":       { "optional": ["about", "more"], "variants": { "hero": ["studio-banner", "stats"], "games": ["grid", "table"] } }
+  }
+}

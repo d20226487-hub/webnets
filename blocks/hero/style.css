@@ -1,0 +1,40 @@
+.sx-hero { background: var(--hero-bg); color: var(--c-hero-text); }
+.sx-hero__inner { display: grid; gap: var(--sp-7); padding-block: var(--sp-8); align-items: center; }
+.sx-hero__copy { display: grid; gap: var(--sp-5); min-width: 0; }
+.sx-hero__eyebrow {
+  justify-self: start; padding: var(--sp-1) var(--sp-3); border: var(--bw) solid currentColor; border-radius: var(--r-btn);
+  font-size: var(--fs-0); font-weight: var(--fw-strong); letter-spacing: .06em; text-transform: uppercase; color: var(--c-hero-muted);
+}
+.sx-hero__title { font-size: var(--fs-6); max-width: 16ch; }
+.sx-hero__subtitle { font-size: var(--fs-2); color: var(--c-hero-muted); max-width: 46ch; line-height: 1.45; }
+.sx-hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3) var(--sp-5); }
+.sx-hero__cta { background: var(--c-hero-accent); color: var(--c-hero-on-accent); min-height: 56px; padding-inline: var(--sp-7); font-size: var(--fs-2); }
+.sx-hero__secondary { display: inline-flex; align-items: center; min-height: 44px; color: var(--c-hero-text); font-weight: var(--fw-strong); text-underline-offset: 4px; }
+.sx-hero__trust { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-5); font-size: var(--fs-0); color: var(--c-hero-muted); }
+.sx-hero__trust li { display: inline-flex; align-items: center; gap: var(--sp-2); }
+.sx-hero__trust .sx-icon { color: var(--c-hero-accent); }
+.sx-hero__trust strong { color: var(--c-hero-text); }
+.sx-hero__card { min-width: 0; }
+
+.sx-hero--split .sx-hero__inner { grid-template-columns: minmax(0, 1.35fr) minmax(280px, 1fr); }
+.sx-hero--split.sx-hero--solo .sx-hero__inner { grid-template-columns: minmax(0, 1fr); }
+
+.sx-hero--centered .sx-hero__inner { justify-items: center; text-align: center; }
+.sx-hero--centered .sx-hero__copy { justify-items: center; }
+.sx-hero--centered .sx-hero__eyebrow { justify-self: center; }
+.sx-hero--centered .sx-hero__title { max-width: 20ch; }
+.sx-hero--centered .sx-hero__actions, .sx-hero--centered .sx-hero__trust { justify-content: center; }
+.sx-hero--centered .sx-hero__card { width: min(100%, 440px); text-align: start; }
+
+@media (max-width: 860px) {
+  .sx-hero__inner { padding-block: var(--sp-5) var(--sp-7); gap: var(--sp-6); }
+  .sx-hero__copy { gap: var(--sp-4); }
+  .sx-hero--split .sx-hero__inner { grid-template-columns: minmax(0, 1fr); }
+  .sx-hero__cta { width: 100%; }
+}
+/* Phones: keep the primary CTA above the fold at 375x667 (guardrail). */
+@media (max-width: 640px) {
+  .sx-hero__title { font-size: var(--fs-5); }
+  .sx-hero__subtitle { font-size: var(--fs-1); }
+}
+.sx-hero__eyebrow { display: inline-flex; align-items: center; gap: var(--sp-2); }

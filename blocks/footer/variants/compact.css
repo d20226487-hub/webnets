@@ -1,0 +1,5 @@
+/* compact */
+.sx-footer--compact .sx-footer__inner { gap: var(--sp-5); padding-block: var(--sp-6) var(--sp-5); }
+.sx-footer--compact .sx-footer__row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sp-4); }
+.sx-footer--compact .sx-footer__links { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-5); }
+.sx-footer--compact .sx-footer__pay { margin: 0; }

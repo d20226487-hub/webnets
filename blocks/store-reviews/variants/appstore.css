@@ -1,0 +1,16 @@
+/* appstore: bars without numbers (star rows), review cards in a horizontal row of grey tiles */
+.sx-sreviews--appstore .sx-sreviews__score strong { font-weight: 700; }
+.sx-sreviews--appstore .sx-sreviews__bars div { grid-template-columns: 4.2rem minmax(0, 1fr); letter-spacing: -1px; font-size: .6rem; text-align: end; }
+.sx-sreviews--appstore .sx-sreviews__bars i { height: 4px; background: linear-gradient(90deg, var(--c-muted) var(--v), var(--c-surface-2) var(--v)); }
+.sx-sreviews--appstore .sx-sreviews__bars p { text-align: end; font-size: var(--fs-0); color: var(--c-muted); }
+.sx-sreviews--appstore .sx-sreviews__list { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: none; gap: var(--sp-4); }
+.sx-sreviews--appstore .sx-sreviews__card { align-content: start; padding: var(--sp-5); border-radius: var(--r-lg); background: var(--c-surface); }
+.sx-sreviews--appstore .sx-sreviews__card header { justify-content: space-between; align-items: baseline; }
+.sx-sreviews--appstore .sx-sreviews__card h3 { font-size: var(--fs-1); }
+.sx-sreviews--appstore .sx-sreviews__card time { font-size: .78rem; color: var(--c-muted); flex: none; }
+.sx-sreviews--appstore .sx-sreviews__text { display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+.sx-sreviews--appstore .sx-sreviews__reply { background: var(--c-bg); }
+@media (max-width: 760px) {
+  .sx-sreviews--appstore .sx-sreviews__list { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(-1 * var(--gutter, 16px)); padding-inline: var(--gutter, 16px); }
+  .sx-sreviews--appstore .sx-sreviews__card { flex: 0 0 82%; scroll-snap-align: start; }
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/payments",
+  "title": "SX Payments",
+  "category": "sx-conversion",
+  "description": "Local deposit and withdrawal methods with speed and minimums.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false, "multiple": false },
+  "sx": {
+    "role": "content",
+    "variants": ["table", "tiles"],
+    "default_variant": "table",
+    "guardrails": [
+      "Only methods listed in the market config may appear (no credit cards in AU or BR).",
+      "Times are typical for verified accounts and say so in the note."
+    ]
+  }
+}

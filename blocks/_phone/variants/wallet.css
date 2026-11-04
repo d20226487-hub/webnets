@@ -1,0 +1,3 @@
+.sx-phone__btns { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.sx-phone__bal { display: grid; gap: 6px; padding: 14px 10px; border-radius: 12px; background: var(--c-surface); }
+.sx-phone__bal b { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: 24px; }

@@ -1,0 +1,455 @@
+{
+  "_note": "Fictional demo brands. Names are not cleared for public use. Real projects replace this file with the client's brand data and logo SVG.",
+  "vantro": {
+    "name": "Vantro",
+    "kind": "sportsbook",
+    "personality": "Mass-market sportsbook. Fast, loud, match-day energy.",
+    "verticals": [
+      "sports",
+      "live"
+    ],
+    "markets": [
+      "kz",
+      "au",
+      "br",
+      "xx"
+    ],
+    "brand_color": "#FF5A1F",
+    "suggested_presets": [
+      "arena",
+      "clean-sportsbook",
+      "midnight-neon",
+      "sunburst"
+    ],
+    "logo": "logos/vantro.svg",
+    "license_no": "SB-0427",
+    "facts": {
+      "rating": 4.6,
+      "reviews": 12840,
+      "payout_minutes": 60,
+      "markets_per_match": 1200,
+      "founded": 2019,
+      "rating_source": null
+    },
+    "tagline": {
+      "en": "Every match. Every minute.",
+      "ru": "Каждый матч. Каждая минута.",
+      "kk": "Әр матч. Әр минут.",
+      "pt": "Cada jogo. Cada minuto."
+    },
+    "app": {
+      "name": "Vantro Sports",
+      "developer": "Vantro Digital Pty Ltd",
+      "platforms": [
+        "ios",
+        "android"
+      ],
+      "version": "5.12.0",
+      "updated": "2026-10-20",
+      "size_mb": {
+        "ios": 142,
+        "android": 96
+      },
+      "min_os": {
+        "ios": "iOS 15",
+        "android": "Android 8.0"
+      },
+      "languages": {
+        "en": [
+          "English"
+        ],
+        "ru": [
+          "Русский",
+          "English"
+        ],
+        "kk": [
+          "Қазақша",
+          "Русский"
+        ],
+        "pt": [
+          "Português"
+        ]
+      },
+      "age_rating": "18+",
+      "app_store_id": "6400000001",
+      "changelog": [
+        {
+          "version": "5.12.0",
+          "date": "2026-10-20",
+          "items": {
+            "en": [
+              "Build same-game multis from the live match screen.",
+              "Withdrawals to PayID now show live status.",
+              "Faster loading on older phones."
+            ]
+          }
+        },
+        {
+          "version": "5.11.2",
+          "date": "2026-10-02",
+          "items": {
+            "en": [
+              "Deposit limit reminders can be set per week.",
+              "Bug fixes."
+            ]
+          }
+        }
+      ],
+      "store": {
+        "_note": "Copy from the live store listings and refresh with checked_at. Demo values for a fictional brand.",
+        "checked_at": "2026-10-28",
+        "ios": {
+          "rating": 4.7,
+          "count": 12400,
+          "split": {
+            "5": 78,
+            "4": 12,
+            "3": 4,
+            "2": 2,
+            "1": 4
+          }
+        },
+        "android": {
+          "rating": 4.5,
+          "count": 18900,
+          "downloads": "500K+",
+          "split": {
+            "5": 71,
+            "4": 14,
+            "3": 6,
+            "2": 3,
+            "1": 6
+          }
+        }
+      },
+      "privacy": {
+        "linked": [
+          "contact",
+          "financial",
+          "identifiers",
+          "location"
+        ],
+        "not_linked": [
+          "diagnostics",
+          "usage"
+        ],
+        "shared": [],
+        "encrypted": true,
+        "deletion": true
+      }
+    }
+  },
+  "marlowe": {
+    "name": "Marlowe Club",
+    "kind": "casino",
+    "personality": "Premium online casino. Quiet confidence, table games, VIP service.",
+    "verticals": [
+      "casino",
+      "live-casino"
+    ],
+    "markets": [
+      "br",
+      "xx"
+    ],
+    "brand_color": "#C9A45C",
+    "suggested_presets": [
+      "luxury-gold",
+      "velvet-club",
+      "editorial"
+    ],
+    "logo": "logos/marlowe.svg",
+    "license_no": "2104/2025",
+    "facts": {
+      "rating": 4.8,
+      "reviews": 3920,
+      "payout_minutes": 30,
+      "games": 2400,
+      "founded": 2021,
+      "rating_source": null
+    },
+    "tagline": {
+      "en": "The table is set.",
+      "ru": "Стол накрыт.",
+      "kk": "Үстел дайын.",
+      "pt": "A mesa está posta."
+    },
+    "app": {
+      "name": "Marlowe Club",
+      "developer": "Marlowe Entretenimento Ltda.",
+      "platforms": [
+        "ios",
+        "android",
+        "apk"
+      ],
+      "version": "2.8.0",
+      "updated": "2026-10-18",
+      "size_mb": {
+        "ios": 165,
+        "android": 112
+      },
+      "min_os": {
+        "ios": "iOS 15",
+        "android": "Android 8.0"
+      },
+      "languages": {
+        "pt": [
+          "Português",
+          "English"
+        ],
+        "en": [
+          "Portuguese",
+          "English"
+        ]
+      },
+      "age_rating": "18+",
+      "app_store_id": "6400000003",
+      "changelog": []
+    }
+  },
+  "nyxa": {
+    "name": "Nyxa",
+    "kind": "hybrid",
+    "personality": "Tech-forward sports + casino hybrid. Data, speed, instant payments.",
+    "verticals": [
+      "sports",
+      "live",
+      "casino"
+    ],
+    "markets": [
+      "kz",
+      "au",
+      "br",
+      "xx"
+    ],
+    "brand_color": "#2BF5C4",
+    "suggested_presets": [
+      "terminal",
+      "midnight-neon",
+      "fresh-minimal",
+      "candy-pop"
+    ],
+    "logo": "logos/nyxa.svg",
+    "license_no": "NX-1180",
+    "facts": {
+      "rating": 4.5,
+      "reviews": 7310,
+      "payout_minutes": 5,
+      "markets_per_match": 900,
+      "games": 3100,
+      "founded": 2023,
+      "rating_source": null
+    },
+    "tagline": {
+      "en": "Odds at the speed of play.",
+      "ru": "Коэффициенты со скоростью игры.",
+      "kk": "Ойын жылдамдығындағы коэффициенттер.",
+      "pt": "Odds na velocidade do jogo."
+    },
+    "app": {
+      "name": "Nyxa",
+      "developer": "Nyxa Tech LLP",
+      "platforms": [
+        "ios",
+        "android",
+        "apk"
+      ],
+      "version": "3.4.1",
+      "updated": "2026-10-24",
+      "size_mb": {
+        "ios": 118,
+        "android": 74
+      },
+      "min_os": {
+        "ios": "iOS 14",
+        "android": "Android 7.0"
+      },
+      "languages": {
+        "en": [
+          "Russian",
+          "Kazakh",
+          "English"
+        ],
+        "ru": [
+          "Русский",
+          "Қазақша",
+          "English"
+        ],
+        "kk": [
+          "Қазақша",
+          "Русский",
+          "English"
+        ],
+        "pt": [
+          "Russo",
+          "Cazaque",
+          "Inglês"
+        ]
+      },
+      "age_rating": "21+",
+      "app_store_id": "6400000002",
+      "changelog": [
+        {
+          "version": "3.4.1",
+          "date": "2026-10-24",
+          "items": {
+            "ru": [
+              "Вход по Face ID и отпечатку пальца.",
+              "Быстрый купон: ставка в лайве в два касания.",
+              "Статус вывода на Kaspi в реальном времени."
+            ],
+            "en": [
+              "Face ID and fingerprint log-in.",
+              "Quick bet slip: a live bet in two taps.",
+              "Live status for Kaspi withdrawals."
+            ]
+          }
+        },
+        {
+          "version": "3.3.0",
+          "date": "2026-09-30",
+          "items": {
+            "ru": [
+              "Лимиты депозита можно задать на неделю и месяц.",
+              "Исправления ошибок."
+            ],
+            "en": [
+              "Deposit limits per week and per month.",
+              "Bug fixes."
+            ]
+          }
+        }
+      ],
+      "store": {
+        "_note": "Copy from the live store listing and refresh with checked_at. Demo values for a fictional brand. No Google Play listing in KZ: Android installs come from the APK.",
+        "checked_at": "2026-10-28",
+        "ios": {
+          "rating": 4.6,
+          "count": 8300,
+          "split": {
+            "5": 74,
+            "4": 13,
+            "3": 5,
+            "2": 3,
+            "1": 5
+          }
+        }
+      },
+      "privacy": {
+        "linked": [
+          "contact",
+          "financial",
+          "identifiers"
+        ],
+        "not_linked": [
+          "diagnostics",
+          "usage"
+        ],
+        "shared": [],
+        "encrypted": true,
+        "deletion": true
+      }
+    }
+  },
+  "verazul": {
+    "name": "Verazul",
+    "kind": "casino",
+    "personality": "Fictional casino brand added for the Phase 8 comparison demo.",
+    "verticals": [
+      "casino",
+      "live-casino"
+    ],
+    "markets": [
+      "br",
+      "xx"
+    ],
+    "brand_color": "#1F7AE0",
+    "suggested_presets": [
+      "fresh-minimal",
+      "clean-sportsbook"
+    ],
+    "logo": "logos/verazul.svg",
+    "license_no": "2211/2025",
+    "facts": {
+      "rating": null,
+      "reviews": null,
+      "payout_minutes": 15,
+      "games": 1800,
+      "founded": 2022,
+      "rating_source": null
+    },
+    "tagline": {
+      "en": "Clear play, fast payouts.",
+      "ru": "Clear play, fast payouts.",
+      "kk": "Clear play, fast payouts.",
+      "pt": "Jogo claro, saque rápido."
+    }
+  },
+  "cobaltio": {
+    "name": "Cobaltio",
+    "kind": "casino",
+    "personality": "Fictional casino brand added for the Phase 8 comparison demo.",
+    "verticals": [
+      "casino",
+      "live-casino"
+    ],
+    "markets": [
+      "br",
+      "xx"
+    ],
+    "brand_color": "#3A4FD8",
+    "suggested_presets": [
+      "midnight-neon",
+      "terminal"
+    ],
+    "logo": "logos/cobaltio.svg",
+    "license_no": "2179/2025",
+    "facts": {
+      "rating": null,
+      "reviews": null,
+      "payout_minutes": 60,
+      "games": 4200,
+      "founded": 2020,
+      "rating_source": null
+    },
+    "tagline": {
+      "en": "Thousands of games, one place.",
+      "ru": "Thousands of games, one place.",
+      "kk": "Thousands of games, one place.",
+      "pt": "Milhares de jogos, um só lugar."
+    }
+  },
+  "lunaro": {
+    "name": "Lunaro",
+    "kind": "casino",
+    "personality": "Fictional casino brand added for the Phase 8 comparison demo.",
+    "verticals": [
+      "casino",
+      "live-casino"
+    ],
+    "markets": [
+      "br",
+      "xx"
+    ],
+    "brand_color": "#8A5CF6",
+    "suggested_presets": [
+      "velvet-club",
+      "midnight-neon"
+    ],
+    "logo": "logos/lunaro.svg",
+    "license_no": "2246/2025",
+    "facts": {
+      "rating": null,
+      "reviews": null,
+      "payout_minutes": 20,
+      "games": 1200,
+      "founded": 2023,
+      "rating_source": null
+    },
+    "tagline": {
+      "en": "The live casino that never sleeps.",
+      "ru": "The live casino that never sleeps.",
+      "kk": "The live casino that never sleeps.",
+      "pt": "O cassino ao vivo que não dorme."
+    }
+  }
+}

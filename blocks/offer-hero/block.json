@@ -1,0 +1,32 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/offer-hero",
+  "title": "SX Offer Hero",
+  "category": "sx-conversion",
+  "description": "Lead promotion: value, code with copy, two key terms, Claim, verified date. Data from the brand promotion feed.",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "sx_acf_render"
+  },
+  "supports": {
+    "align": false,
+    "html": false,
+    "multiple": false
+  },
+  "sx": {
+    "role": "hero",
+    "variants": [
+      "code-ticket",
+      "split-offer",
+      "centered-code",
+      "banner"
+    ],
+    "default_variant": "code-ticket",
+    "guardrails": [
+      "Value, code, two key terms and Claim above the fold at 375x667.",
+      "Offer value, code and terms come only from brands/promotions/<brand>.json; content may only add a headline and subtitle.",
+      "No countdowns, no click-to-reveal; the verified date is always shown."
+    ]
+  }
+}

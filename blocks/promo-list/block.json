@@ -1,0 +1,29 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/promo-list",
+  "title": "SX More Promotions",
+  "category": "sx-conversion",
+  "description": "Other active, allowed promotions from the feed, below the lead offer. Renders nothing when there are none.",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "sx_acf_render"
+  },
+  "supports": {
+    "align": false,
+    "html": false,
+    "multiple": false
+  },
+  "sx": {
+    "role": "content",
+    "variants": [
+      "cards",
+      "list",
+      "banners"
+    ],
+    "default_variant": "cards",
+    "guardrails": [
+      "Never above the lead offer. Each promo shows value, code or 'no code', two key terms and its verified date."
+    ]
+  }
+}

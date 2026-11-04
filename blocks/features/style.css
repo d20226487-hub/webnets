@@ -1,0 +1,12 @@
+.sx-features__inner { display: grid; gap: var(--sp-6); padding-block: var(--sp-8); }
+.sx-features__head { display: grid; gap: var(--sp-2); max-width: 40ch; }
+.sx-features__title { font-size: var(--fs-5); }
+.sx-features__list { display: grid; gap: var(--sp-4); }
+.sx-features h3 { font-size: var(--fs-2); }
+.sx-features p { color: var(--c-muted); }
+.sx-features__icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: var(--r); background: var(--c-surface-2); color: var(--c-accent); }
+.sx-features__icon .sx-icon { width: 26px; height: 26px; }
+
+@media (max-width: 640px) {
+  .sx-features__inner { padding-block: var(--sp-7); }
+}

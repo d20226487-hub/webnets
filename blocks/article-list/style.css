@@ -1,0 +1,15 @@
+.sx-alist__inner { display: grid; gap: var(--sp-4); padding-block: var(--sp-6); }
+.sx-alist__crumbs ol { display: flex; flex-wrap: wrap; gap: var(--sp-2); font-size: var(--fs-0); color: var(--c-muted); }
+.sx-alist__crumbs li + li::before { content: "/"; margin-inline-end: var(--sp-2); opacity: .6; }
+.sx-alist__crumbs a { color: inherit; }
+.sx-alist__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--sp-3); padding-block-end: var(--sp-2); border-block-end: 1px solid var(--c-border); }
+h1.sx-alist__title { font-size: var(--fs-5); }
+h2.sx-alist__title { font-size: var(--fs-3); }
+.sx-alist__title .sx-sponsored { vertical-align: middle; }
+.sx-alist__more { display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 44px; font-weight: var(--fw-strong); color: var(--c-accent); text-decoration: none; }
+.sx-alist__more .sx-icon { width: 18px; height: 18px; }
+.sx-alist__intro { color: var(--c-muted); max-width: 64ch; }
+.sx-alist__pages ul { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--sp-2); }
+.sx-alist__pages a, .sx-alist__pages span { display: inline-grid; place-items: center; min-width: 44px; min-height: 44px; padding: 0 var(--sp-3); border-radius: var(--r-btn); border: var(--bw) solid var(--c-border); color: var(--c-text); font-weight: var(--fw-strong); text-decoration: none; }
+.sx-alist__pages [aria-current] { background: var(--c-text); color: var(--c-bg); }
+@media (max-width: 640px) { h1.sx-alist__title { font-size: var(--fs-4); } }

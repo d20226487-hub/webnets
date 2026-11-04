@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/faq",
+  "title": "SX FAQ",
+  "category": "sx-conversion",
+  "description": "Answers the objections that stop sign-ups. Emits FAQPage structured data.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false, "multiple": false },
+  "sx": {
+    "role": "content",
+    "variants": ["accordion", "columns"],
+    "default_variant": "accordion",
+    "guardrails": [
+      "4-6 questions: legality in the country, deposits/withdrawals, payout time, verification, limits or self-exclusion.",
+      "Answers are plain text, 1-3 sentences. No CTA links inside answers."
+    ]
+  }
+}

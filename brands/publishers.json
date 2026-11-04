@@ -1,0 +1,145 @@
+{
+  "_note": "Identities of multi-brand sites (the publisher, not an operator). Used by site types that compare brands: header logo, footer, compliance panel without an operator licence line.",
+  "emfoco": {
+    "name": "Cassino em Foco",
+    "kind": "publisher",
+    "verticals": [
+      "casino"
+    ],
+    "markets": [
+      "br",
+      "xx"
+    ],
+    "brand_color": "#0E7C66",
+    "logo": "logos/emfoco.svg",
+    "license_no": null,
+    "facts": {},
+    "tagline": {
+      "en": "Independent casino reviews. We earn commission; it never sets our scores.",
+      "ru": "Independent casino reviews.",
+      "kk": "Independent casino reviews.",
+      "pt": "Análises independentes de cassinos. Recebemos comissão, que nunca define as notas."
+    }
+  },
+  "paddockwire": {
+    "name": "Paddock Wire",
+    "kind": "publisher",
+    "verticals": [
+      "sports"
+    ],
+    "markets": [
+      "au",
+      "xx"
+    ],
+    "brand_color": "#B4232A",
+    "logo": "logos/paddockwire.svg",
+    "license_no": null,
+    "facts": {},
+    "tagline": {
+      "en": "Australian betting news, guides and labelled partner content.",
+      "ru": "Australian betting news.",
+      "kk": "Australian betting news.",
+      "pt": "Australian betting news."
+    }
+  },
+  "aovivo": {
+    "name": "Ao Vivo Clube",
+    "kind": "publisher",
+    "verticals": [
+      "casino"
+    ],
+    "markets": [
+      "br"
+    ],
+    "brand_color": "#6D28D9",
+    "logo": "logos/aovivo.svg",
+    "license_no": null,
+    "facts": {},
+    "tagline": {
+      "en": "Live casino reviews for Brazil. We earn commission; it never sets our scores.",
+      "ru": "Live casino reviews.",
+      "kk": "Live casino reviews.",
+      "pt": "Análises de cassino ao vivo. Recebemos comissão, que nunca define as notas."
+    }
+  },
+  "casinoscout": {
+    "name": "Casino Scout",
+    "kind": "publisher",
+    "verticals": [
+      "casino"
+    ],
+    "markets": [
+      "xx"
+    ],
+    "brand_color": "#C2410C",
+    "logo": "logos/casinoscout.svg",
+    "license_no": null,
+    "facts": {},
+    "tagline": {
+      "en": "Casino comparisons with every score explained.",
+      "ru": "Casino comparisons.",
+      "kk": "Casino comparisons.",
+      "pt": "Casino comparisons."
+    }
+  },
+  "placaraberto": {
+    "name": "Placar Aberto",
+    "kind": "publisher",
+    "verticals": [
+      "sports"
+    ],
+    "markets": [
+      "br"
+    ],
+    "brand_color": "#1D4ED8",
+    "logo": "logos/placaraberto.svg",
+    "license_no": null,
+    "facts": {},
+    "tagline": {
+      "en": "Brazilian betting news.",
+      "ru": "Brazilian betting news.",
+      "kk": "Brazilian betting news.",
+      "pt": "Notícias de apostas no Brasil, guias e conteúdo de parceiros sempre identificado."
+    }
+  },
+  "stavkidnya": {
+    "name": "Ставки Дня",
+    "kind": "publisher",
+    "verticals": [
+      "sports"
+    ],
+    "markets": [
+      "kz"
+    ],
+    "brand_color": "#0F766E",
+    "logo": "logos/stavkidnya.svg",
+    "license_no": null,
+    "facts": {},
+    "tagline": {
+      "en": "Kazakhstan betting news.",
+      "ru": "Новости букмекеров Казахстана, разборы и партнёрские материалы с пометкой.",
+      "kk": "Қазақстан букмекерлік жаңалықтары.",
+      "pt": "Kazakhstan betting news."
+    }
+  },
+  "zhivoystol": {
+    "name": "Живой стол",
+    "kind": "publisher",
+    "verticals": [
+      "casino"
+    ],
+    "markets": [
+      "xx"
+    ],
+    "brand_color": "#7C3AED",
+    "logo": "logos/zhivoystol.svg",
+    "license_no": null,
+    "facts": {},
+    "tagline": {
+      "en": "Live casino reviews.",
+      "ru": "Обзоры live-казино. Мы получаем комиссию, но она не влияет на оценки.",
+      "kk": "Live casino reviews.",
+      "pt": "Live casino reviews."
+    }
+  }
+}

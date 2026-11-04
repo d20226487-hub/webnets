@@ -1,0 +1,188 @@
+{
+  "type": "promo",
+  "title": "One-page brand bonuses and promo codes",
+  "brief": "docs/briefs/03-bonuses-promo-codes.md",
+  "defaults": {
+    "cta_label": "cta.claim"
+  },
+  "frame": {
+    "top": [
+      {
+        "block": "compliance-bar",
+        "props": {
+          "variant": "strip"
+        },
+        "when": "market.strip"
+      }
+    ],
+    "header": {
+      "block": "header",
+      "variants": [
+        "minimal",
+        "minimal-split"
+      ],
+      "props": {
+        "sticky": false
+      }
+    },
+    "footer": {
+      "block": "footer",
+      "variants": [
+        "compact"
+      ]
+    },
+    "overlay": [
+      {
+        "block": "age-gate"
+      },
+      {
+        "block": "sticky-cta",
+        "variants": [
+          "code-bar"
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "block": "offer-hero",
+      "zone": "top",
+      "rule": "required"
+    },
+    {
+      "id": "trust",
+      "block": "trust-bar",
+      "zone": "top",
+      "rule": "required"
+    },
+    {
+      "id": "terms",
+      "block": "promo-terms",
+      "zone": "middle",
+      "rule": "required"
+    },
+    {
+      "id": "steps",
+      "block": "steps",
+      "zone": "middle",
+      "rule": "required"
+    },
+    {
+      "id": "more",
+      "block": "promo-list",
+      "zone": "middle",
+      "rule": "optional"
+    },
+    {
+      "id": "faq",
+      "block": "faq",
+      "zone": "bottom",
+      "rule": "required"
+    },
+    {
+      "id": "final",
+      "block": "cta-band",
+      "zone": "bottom",
+      "rule": "required",
+      "props": {
+        "show_code": true
+      }
+    }
+  ],
+  "order_rules": [
+    {
+      "rule": "before",
+      "a": "terms",
+      "b": "more"
+    },
+    {
+      "rule": "not_first",
+      "a": "more"
+    }
+  ],
+  "angles": {
+    "welcome": {
+      "optional": [
+        "more"
+      ],
+      "lead": [
+        "welcome_bonus",
+        "deposit_bonus",
+        "free_bets"
+      ],
+      "requires_promo": [
+        "welcome_bonus",
+        "deposit_bonus",
+        "free_bets"
+      ],
+      "variants": {
+        "hero": [
+          "code-ticket",
+          "split-offer",
+          "banner"
+        ]
+      }
+    },
+    "code-first": {
+      "optional": [
+        "more"
+      ],
+      "lead": [
+        "code"
+      ],
+      "requires_promo": [
+        "promo_code",
+        "welcome_bonus",
+        "deposit_bonus"
+      ],
+      "variants": {
+        "hero": [
+          "centered-code",
+          "code-ticket",
+          "banner"
+        ]
+      }
+    },
+    "everyday": {
+      "optional": [
+        "more"
+      ],
+      "lead": [
+        "odds_boost",
+        "cashback",
+        "tournaments"
+      ],
+      "requires_promo": [
+        "odds_boost",
+        "cashback",
+        "tournaments"
+      ],
+      "variants": {
+        "hero": [
+          "split-offer",
+          "centered-code",
+          "banner"
+        ]
+      }
+    },
+    "loyalty": {
+      "optional": [
+        "more"
+      ],
+      "lead": [
+        "loyalty"
+      ],
+      "requires_promo": [
+        "loyalty"
+      ],
+      "variants": {
+        "hero": [
+          "split-offer",
+          "code-ticket",
+          "banner"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "fields": [
+    {
+      "name": "variant",
+      "type": "select",
+      "label": "Layout",
+      "choices": [
+        "auto",
+        "play",
+        "appstore"
+      ],
+      "default": "auto"
+    },
+    {
+      "name": "title",
+      "type": "text",
+      "label": "Headline (H1)",
+      "required": true,
+      "default": "",
+      "maxlength": 60
+    },
+    {
+      "name": "subtitle",
+      "type": "textarea",
+      "label": "Subtitle",
+      "default": "",
+      "maxlength": 160
+    },
+    {
+      "name": "screen",
+      "type": "select",
+      "label": "Phone screen (unused here)",
+      "choices": [
+        "home",
+        "live",
+        "slip",
+        "wallet",
+        "casino",
+        "table"
+      ],
+      "default": "home"
+    },
+    {
+      "name": "image",
+      "type": "text",
+      "label": "Screenshot URL (unused here)",
+      "default": ""
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "fields": [
+    {
+      "name": "variant",
+      "type": "select",
+      "label": "Layout",
+      "choices": [
+        "auto",
+        "columns"
+      ],
+      "default": "auto"
+    }
+  ]
+}

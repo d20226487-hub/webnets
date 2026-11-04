@@ -1,0 +1,8 @@
+.sx-tscores__inner { display: grid; gap: var(--sp-5); padding-block: var(--sp-7); }
+.sx-tscores__title { font-size: var(--fs-4); }
+.sx-tscores__list a { display: grid; align-items: center; color: var(--c-text); text-decoration: none; }
+.sx-tscores__name { font-weight: var(--fw-strong); }
+.sx-tscores__list small { color: var(--c-muted); font-size: var(--fs-0); }
+.sx-tscores__bar { height: 10px; border-radius: 5px; background: var(--c-surface-2); overflow: hidden; }
+.sx-tscores__bar span { display: block; height: 100%; background: var(--c-star, #F5A524); }
+.sx-tscores__list strong { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-2); }

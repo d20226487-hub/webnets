@@ -1,0 +1,4 @@
+/* rail: compact row of labelled partner articles on a tinted band */
+.sx-alist--rail { background: color-mix(in srgb, #FFE7A3 18%, var(--c-bg)); }
+.sx-alist--rail .sx-alist__list { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: var(--sp-4); }
+.sx-alist--rail .sx-acard__title { font-size: var(--fs-1); }

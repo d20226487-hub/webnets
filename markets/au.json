@@ -1,0 +1,49 @@
+{
+  "id": "au",
+  "name": "Australia",
+  "locales": ["en"],
+  "default_locale": "en",
+  "dir": "ltr",
+  "currency": { "code": "AUD", "symbol": "A$", "position": "before", "space": false, "decimal": ".", "thousands": ",", "decimals": 0 },
+  "date_format": "d/m/Y",
+  "min_age": 18,
+  "verticals": { "sports": true, "casino": false },
+  "promotions": {"welcome_bonus":"restricted","deposit_bonus":"restricted","free_bets":"restricted","promo_code":"restricted","odds_boost":"unknown","cashback":"unknown","loyalty":"unknown","tournaments":"unknown"},
+  "_promotions_verify": "Brief 03: unknown counts as restricted. Compliance sets each type to allowed/restricted.",
+  "payments": ["payid", "bpay", "visa-debit", "mastercard-debit", "apple-pay"],
+  "apps": {"ios":"app-store","android":"play"},
+  "_apps_verify": "Assumed distribution per brief 02, section 3. Confirm per brand.",
+  "compliance": {
+    "_verify": "PLACEHOLDER COPY. Confirm every line with compliance before production use.",
+    "license_line": {
+      "en": "{brand} is licensed by {regulator}, licence no. {license_no}."
+    },
+    "regulator_default": {
+      "en": "the relevant Australian state or territory regulator"
+    },
+    "license_short": { "en": "Licensed in Australia" },
+    "strip": "required",
+    "age_notice": {
+      "en": "Gambling is for adults 18+ only."
+    },
+    "taglines": {
+      "en": [
+        "Chances are you're about to lose.",
+        "Think. Is this a bet you really want to place?",
+        "What's gambling really costing you?",
+        "What are you prepared to lose today? Set a deposit limit.",
+        "Imagine what you could be buying instead.",
+        "You win some. You lose more.",
+        "What are you really gambling with?"
+      ]
+    },
+    "self_exclusion": {
+      "en": "Exclude yourself from all licensed online wagering with BetStop, the National Self-Exclusion Register: betstop.gov.au"
+    },
+    "helpline": {
+      "en": "For free and confidential support call 1800 858 858 or visit gamblinghelponline.org.au"
+    },
+    "required_blocks": ["age-gate", "compliance-bar"],
+    "notes": "Online casino is prohibited under the Interactive Gambling Act. Credit cards cannot be used for online wagering (from June 2024). Inducement advertising is restricted in several states."
+  }
+}

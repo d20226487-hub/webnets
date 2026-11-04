@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/cta-band",
+  "title": "SX Final CTA",
+  "category": "sx-conversion",
+  "description": "The last push before the footer: short headline, the CTA and two proof points.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false, "multiple": false },
+  "sx": {
+    "role": "content",
+    "variants": ["solid", "split"],
+    "default_variant": "solid",
+    "guardrails": [
+      "Always the last section before the footer.",
+      "Headline 40 characters max. No urgency claims (timers, 'last chance')."
+    ]
+  }
+}

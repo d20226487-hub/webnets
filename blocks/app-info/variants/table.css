@@ -1,0 +1,7 @@
+/* table: three-column fact sheet with hairlines */
+.sx-appinfo--table .sx-appinfo__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 var(--sp-6); }
+.sx-appinfo--table .sx-appinfo__list div { display: grid; gap: var(--sp-1); padding-block: var(--sp-4); border-block-start: 1px solid var(--c-border); min-width: 0; }
+@media (max-width: 760px) {
+  .sx-appinfo--table .sx-appinfo__list { grid-template-columns: minmax(0, 1fr); }
+  .sx-appinfo--table .sx-appinfo__list div { grid-template-columns: 120px minmax(0, 1fr); gap: var(--sp-3); padding-block: var(--sp-3); }
+}

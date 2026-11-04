@@ -1,0 +1,8 @@
+/* strip */
+.sx-trust--strip { background: var(--c-surface); border-block-end: var(--bw) solid var(--c-border); }
+.sx-trust--strip .sx-trust__list { padding-block: var(--sp-5); }
+.sx-trust--strip .sx-trust__item + .sx-trust__item { border-inline-start: var(--bw) solid var(--c-border); padding-inline-start: var(--sp-4); }
+@media (max-width: 860px) {
+  .sx-trust--strip .sx-trust__list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-4) var(--sp-3); }
+  .sx-trust--strip .sx-trust__item + .sx-trust__item { border: 0; padding: 0; }
+}

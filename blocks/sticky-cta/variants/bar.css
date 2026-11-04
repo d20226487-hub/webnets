@@ -1,0 +1,8 @@
+/* bar: full-width bottom bar with logo + age badge */
+.sx-sticky--bar {
+  padding: var(--sp-3) max(16px, var(--sp-4)) calc(var(--sp-3) + env(safe-area-inset-bottom, 0px));
+  background: var(--c-surface); border-block-start: var(--bw) solid var(--c-border);
+  box-shadow: 0 -8px 24px rgba(0,0,0,.18);
+}
+.sx-sticky__brand .sx-logo { font-size: var(--fs-1); }
+.sx-sticky--bar .sx-sticky__cta { margin-inline-start: auto; }

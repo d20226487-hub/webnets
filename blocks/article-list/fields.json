@@ -1,0 +1,83 @@
+{
+  "fields": [
+    {
+      "name": "variant",
+      "type": "select",
+      "label": "Layout",
+      "choices": [
+        "auto",
+        "cards",
+        "list",
+        "rail"
+      ],
+      "default": "auto"
+    },
+    {
+      "name": "heading",
+      "type": "select",
+      "label": "Heading level",
+      "choices": [
+        "h2",
+        "h1"
+      ],
+      "default": "h2"
+    },
+    {
+      "name": "title",
+      "type": "text",
+      "label": "Title",
+      "required": true,
+      "default": "",
+      "maxlength": 70
+    },
+    {
+      "name": "intro",
+      "type": "textarea",
+      "label": "Intro",
+      "default": "",
+      "maxlength": 240
+    },
+    {
+      "name": "kind",
+      "type": "select",
+      "label": "Which articles",
+      "choices": [
+        "",
+        "news",
+        "guide",
+        "pr"
+      ],
+      "default": ""
+    },
+    {
+      "name": "exclude_pr",
+      "type": "true_false",
+      "label": "Leave out paid articles",
+      "default": false
+    },
+    {
+      "name": "skip_lead",
+      "type": "true_false",
+      "label": "Skip the three lead stories (home)",
+      "default": false
+    },
+    {
+      "name": "limit",
+      "type": "text",
+      "label": "Max articles (0 = all / paged)",
+      "default": "0"
+    },
+    {
+      "name": "more",
+      "type": "text",
+      "label": "Page id for a 'See all' link",
+      "default": ""
+    },
+    {
+      "name": "exclude_current",
+      "type": "true_false",
+      "label": "Leave out this page's article",
+      "default": false
+    }
+  ]
+}

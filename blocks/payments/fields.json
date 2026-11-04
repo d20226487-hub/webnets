@@ -1,0 +1,16 @@
+{
+  "fields": [
+    { "name": "variant", "type": "select", "label": "Layout", "choices": ["auto", "table", "tiles"], "default": "auto" },
+    { "name": "eyebrow", "type": "text", "label": "Eyebrow", "default": "" },
+    { "name": "title", "type": "text", "label": "Section title", "required": true, "default": "" },
+    { "name": "rows", "type": "repeater", "label": "Methods", "max": 6, "default": [],
+      "fields": [
+        { "name": "method", "type": "select", "label": "Method id (from market config)", "choices": ["kaspi", "halyk", "visa", "mastercard", "payid", "bpay", "visa-debit", "mastercard-debit", "apple-pay", "pix", "ted", "debit"] },
+        { "name": "label", "type": "text", "label": "Display name override" },
+        { "name": "deposit", "type": "text", "label": "Deposit speed" },
+        { "name": "withdraw", "type": "text", "label": "Withdrawal speed" },
+        { "name": "min", "type": "text", "label": "Minimum" }
+      ] },
+    { "name": "note", "type": "text", "label": "Note", "default": "" }
+  ]
+}

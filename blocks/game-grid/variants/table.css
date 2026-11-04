@@ -1,0 +1,23 @@
+/* table: one row per game, facts in columns. Phones: each row becomes a compact card (thumb + name, facts, Play). */
+.sx-ggrid__table { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--c-surface); border: var(--bw) solid var(--c-border); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--card-shadow); }
+.sx-ggrid__table th, .sx-ggrid__table td { padding: var(--sp-3) var(--sp-4); text-align: start; vertical-align: middle; border-block-end: 1px solid var(--c-border); }
+.sx-ggrid__table thead th { font-size: var(--fs-0); font-weight: var(--fw-strong); color: var(--c-muted); background: var(--c-surface-2); }
+.sx-ggrid__table tbody tr:last-child > * { border-block-end: 0; }
+.sx-ggrid__table tbody th { display: flex; align-items: center; gap: var(--sp-3); font-family: var(--f-display); font-weight: var(--fw-heading); }
+.sx-ggrid__table td:last-child { text-align: end; }
+.sx-ggrid__thumb { width: 64px; flex: none; aspect-ratio: 1; border-radius: var(--r-sm); }
+.sx-ggrid__thumb .sx-gcover__name { display: none; }
+.sx-ggrid__new { margin-inline-start: var(--sp-2); padding: 1px var(--sp-2); border-radius: var(--r-sm); background: var(--c-accent); color: var(--c-on-accent); font-family: var(--f-body); font-size: .7rem; font-style: normal; text-transform: uppercase; letter-spacing: .05em; vertical-align: middle; }
+@media (max-width: 760px) {
+  .sx-ggrid__table, .sx-ggrid__table tbody { display: block; background: none; border: 0; box-shadow: none; border-radius: 0; }
+  .sx-ggrid__table thead { display: none; }
+  .sx-ggrid__table tbody { display: grid; gap: var(--sp-3); }
+  .sx-ggrid__table tr { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-2) var(--sp-3); padding: var(--sp-3); background: var(--c-surface); border: var(--bw) solid var(--c-border); border-radius: var(--r); box-shadow: var(--card-shadow); }
+  .sx-ggrid__table tbody th, .sx-ggrid__table td { padding: 0; border: 0; }
+  .sx-ggrid__table tbody th { grid-column: 1 / 3; grid-row: 1; }
+  .sx-ggrid__thumb { width: 48px; }
+  .sx-ggrid__table td[data-label] { display: grid; font-size: var(--fs-0); font-weight: var(--fw-strong); }
+  .sx-ggrid__table td[data-label]::before { content: attr(data-label); font-weight: 400; font-size: .72rem; color: var(--c-muted); }
+  .sx-ggrid__table td:last-child { grid-column: 3; grid-row: 1; align-self: center; }
+  .sx-ggrid__table td:last-child .sx-btn { width: 100%; }
+}

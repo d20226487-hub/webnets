@@ -1,0 +1,4 @@
+/* list: compact "other brands" rows */
+.sx-toplist--list .sx-toplist__item { padding: var(--sp-3) var(--sp-4); }
+.sx-toplist--list .sx-toplist__name { font-size: var(--fs-1); }
+.sx-toplist--list .sx-toplist__score strong { font-size: var(--fs-3); }

@@ -1,0 +1,7 @@
+/* strip */
+.sx-compliance--strip { background: var(--c-surface-2); color: var(--c-text); font-size: var(--fs-0); }
+.sx-compliance--strip .sx-compliance__inner { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2) var(--sp-4); padding-block: var(--sp-2); }
+.sx-compliance--strip .sx-age { width: 2.2em; height: 2.2em; font-size: .8em; }
+@media (max-width: 640px) {
+  .sx-compliance--strip .sx-compliance__help { display: none; }
+}

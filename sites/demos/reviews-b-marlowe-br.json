@@ -1,0 +1,200 @@
+{
+  "_demo": "Phase 7 Demo B (brief 07). Review site for Brazil with SEEDED reviews from brands/reviews/marlowe.json, angle support-focus: builds only with demo: true and shows a sample banner on every page. Copy is placeholder.",
+  "demo": true,
+  "today": "2026-10-30",
+  "id": "reviews-b-marlowe-br",
+  "type": "reviews",
+  "angle": "support-focus",
+  "brand": "marlowe",
+  "market": "br",
+  "locale": "pt",
+  "preset": "luxury-gold",
+  "seed": "marlowe-br-reviews-b",
+  "prefix": "auto",
+  "urls": "pretty",
+  "links": {
+    "go": "https://marlowe.bet.br/cadastro?src=reviews-b"
+  },
+  "site": {
+    "name": "Marlowe Club: opiniões",
+    "url": "https://marlowe-opinioes.example"
+  },
+  "meta": {
+    "home": {
+      "title": "Marlowe Club é confiável? Opiniões de jogadores e atendimento",
+      "description": "O que jogadores dizem do Marlowe Club no Brasil: atendimento no chat, saques PIX, verificação e app. Publicamos opiniões boas e ruins. 18+."
+    },
+    "reviews": {
+      "title": "Todas as opiniões sobre o Marlowe Club",
+      "description": "Todas as opiniões publicadas sobre o Marlowe Club, das mais novas às mais antigas, com filtro por tema: atendimento, saques, verificação e app. 18+."
+    },
+    "support": {
+      "title": "Atendimento do Marlowe Club: opiniões sobre chat e e-mail",
+      "description": "Como é o suporte do Marlowe Club: tempo de resposta no chat, e-mail e ajuda com verificação e saques, segundo os jogadores, com respostas da casa. 18+."
+    },
+    "write": {
+      "title": "Escrever uma opinião sobre o Marlowe Club",
+      "description": "Conte sua experiência com o Marlowe Club. Publicamos opiniões positivas e negativas depois da moderação."
+    },
+    "policy": {
+      "title": "Como moderamos as opiniões sobre o Marlowe Club",
+      "description": "Quais opiniões removemos, quais nunca removemos, de onde vêm as respostas do Marlowe Club e como ganhamos dinheiro."
+    }
+  },
+  "variants": {
+    "header": "centered",
+    "footer": "columns",
+    "sticky-cta": "bar",
+    "home": {
+      "hero": "band",
+      "trust": "badges",
+      "topics": "grid",
+      "latest": "compact",
+      "faq": "columns",
+      "final": "split"
+    },
+    "reviews": {
+      "hero": "strip",
+      "list": "compact",
+      "related": "cards",
+      "final": "solid"
+    },
+    "support": {
+      "hero": "strip",
+      "list": "cards",
+      "text": "toc-side",
+      "related": "cards",
+      "final": "split"
+    },
+    "write": {
+      "hero": "answer",
+      "form": "card",
+      "next": "timeline",
+      "related": "list"
+    },
+    "policy": {
+      "hero": "answer",
+      "text": "article",
+      "related": "cards"
+    }
+  },
+  "sections": {
+    "support": {
+      "text": true
+    }
+  },
+  "order": {
+    "home": [
+      "latest",
+      "topics"
+    ],
+    "support": [
+      "list",
+      "text"
+    ],
+    "write": [
+      "form",
+      "next"
+    ]
+  },
+  "content": {
+    "header": {
+      "note": "Autorizado SPA/MF"
+    },
+    "home": {
+      "hero": {
+        "title": "Opiniões de jogadores sobre o Marlowe Club",
+        "subtitle": "Com foco no atendimento: quanto o chat demora, se resolve e como trata saques e verificação. Publicamos tudo, menos spam e ofensas."
+      },
+      "faq": {
+        "items": [
+          {
+            "q": "Essas opiniões são reais?",
+            "a": "Sim. Cada opinião foi enviada por um jogador e lida por um moderador antes de ir ao ar. Publicamos também as negativas; só removemos spam, ofensas e dados pessoais."
+          },
+          {
+            "q": "Vocês apagam opiniões negativas?",
+            "a": "Não. Removemos apenas spam, ofensas, dados pessoais e propaganda. Opiniões negativas continuam no site."
+          },
+          {
+            "q": "Como falar com o suporte do Marlowe Club?",
+            "a": "Pelo chat no site e no app, 24 horas, ou por e-mail. Segundo as opiniões, o chat responde bem mais rápido que o e-mail."
+          },
+          {
+            "q": "Vocês têm ligação com o Marlowe Club?",
+            "a": "Recebemos comissão por cadastros feitos pelos nossos links. Isso não muda quais opiniões publicamos."
+          }
+        ]
+      },
+      "final": {
+        "title": "Quer conhecer o Marlowe Club?",
+        "text": "O cadastro leva poucos minutos. Proibido para menores de 18 anos. Jogue com responsabilidade."
+      }
+    },
+    "reviews": {
+      "hero": {
+        "title": "Todas as opiniões sobre o Marlowe Club"
+      },
+      "final": {
+        "title": "Veja o Marlowe Club por conta própria",
+        "text": "Proibido para menores de 18 anos."
+      }
+    },
+    "support": {
+      "hero": {
+        "title": "Opiniões sobre o atendimento do Marlowe Club"
+      },
+      "text": {
+        "html": "<p>O atendimento é o tema mais comentado nas opiniões sobre o Marlowe Club. Os jogadores contam quanto esperaram, se o problema foi resolvido e como foram tratados em saques e na verificação. Este resumo junta tudo o que já foi publicado e é atualizado pela editora do site, Camila Rocha, que também testa o atendimento todo mês.</p><h2>Canais de atendimento</h2><p>O Marlowe Club atende por chat no site e no aplicativo, 24 horas por dia, e por e-mail. Não há atendimento por telefone. Nas opiniões, o chat costuma responder em poucos minutos; o e-mail leva até um dia útil. Para assuntos com documentos, como a verificação de identidade, o e-mail é o caminho indicado, porque permite anexar arquivos com mais facilidade.</p><table><thead><tr><th>Canal</th><th>Horário</th><th>Tempo de resposta citado nas opiniões</th></tr></thead><tbody><tr><td>Chat (site e app)</td><td>24 horas</td><td>Poucos minutos</td></tr><tr><td>E-mail</td><td>Todos os dias</td><td>Até um dia útil</td></tr><tr><td>Telefone</td><td>Não disponível</td><td>—</td></tr></tbody></table><h2>O que mais elogiam</h2><ul><li>Atendentes que leem a pergunta antes de responder.</li><li>Ajuda passo a passo com a verificação de documentos.</li><li>Ativação imediata de pausas, limites de depósito e autoexclusão.</li><li>Respostas em português claro, sem textos prontos longos.</li></ul><h2>O que mais criticam</h2><ul><li>Respostas automáticas antes de chegar a uma pessoa.</li><li>Pedidos repetidos dos mesmos dados quando o saque está em análise.</li><li>Espera maior em noites de jogos grandes, quando o volume de contatos sobe.</li><li>Pouca explicação quando um documento é recusado.</li></ul><p>As críticas sobre saques em análise aparecem com mais frequência no primeiro saque, antes de a conta estar verificada. Depois da verificação, as reclamações caem bastante.</p><h2>Antes de abrir um chamado</h2><ol><li>Tenha em mãos o ID da transação ou o comprovante PIX.</li><li>Confira se a chave PIX está no seu CPF: saques só vão para contas no nome do titular.</li><li>Descreva o problema em uma mensagem só, com data e valor.</li><li>Se o chat não resolver, peça que o caso seja enviado por e-mail e guarde o número do protocolo.</li></ol><p>Isso costuma encurtar bastante a conversa e evita que o atendente peça as mesmas informações várias vezes.</p><h2>Como calculamos a nota de atendimento</h2><p>A nota é a média de todas as opiniões publicadas sobre atendimento. Não removemos reclamações nem mudamos números à mão. As regras completas estão em <a href=\"page:policy\">Como moderamos</a>.</p><p>Falou com o atendimento recentemente? <a href=\"page:write\">Conte como foi</a>: o canal usado e o tempo de espera ajudam outros jogadores. Jogue com responsabilidade e defina seus limites antes de começar. Apenas maiores de 18 anos.</p>",
+        "toc": true
+      },
+      "final": {
+        "title": "Veja o Marlowe Club por conta própria",
+        "text": "Proibido para menores de 18 anos."
+      }
+    },
+    "write": {
+      "hero": {
+        "title": "Escreva sua opinião sobre o Marlowe Club",
+        "answer": "Conte o que funcionou e o que não funcionou, principalmente no atendimento. Publicamos opiniões boas e ruins depois da checagem de spam."
+      },
+      "form": {
+        "title": "Sua opinião"
+      },
+      "next": {
+        "eyebrow": "Depois do envio",
+        "title": "O que acontece em seguida",
+        "items": [
+          {
+            "title": "Moderação",
+            "text": "Um moderador verifica spam, ofensas e dados pessoais, normalmente em até um dia."
+          },
+          {
+            "title": "Publicação",
+            "text": "A opinião aparece com seu nome e a inicial do sobrenome."
+          },
+          {
+            "title": "Resposta da casa",
+            "text": "O Marlowe Club pode responder. A resposta aparece logo abaixo, identificada."
+          }
+        ]
+      }
+    },
+    "policy": {
+      "hero": {
+        "title": "Como moderamos as opiniões",
+        "answer": "Removemos spam, ofensas, dados pessoais e propaganda. Opiniões negativas nunca são removidas."
+      },
+      "text": {
+        "html": "<p>Este site publica opiniões de jogadores sobre o Marlowe Club. Para que elas sejam confiáveis, seguimos regras simples e aplicamos as mesmas regras a elogios e a reclamações. Abaixo explicamos o que removemos, o que nunca removemos e como as notas são calculadas. A moderação é feita pela editora do site, Camila Rocha.</p><h2>Como funciona a moderação</h2><p>Cada opinião nova é lida por uma pessoa, não só por um filtro automático. A análise costuma levar até 24 horas. Verificamos três pontos: se o texto relata uma experiência própria, se não viola as regras abaixo e se a mesma pessoa não está publicando o mesmo relato várias vezes. Não corrigimos erros de digitação nem o estilo: a opinião vai ao ar como foi escrita.</p><h2>O que removemos</h2><ul><li>Spam, propaganda e links para outros sites.</li><li>Ofensas, ameaças e ataques pessoais a funcionários citados pelo nome.</li><li>Dados pessoais: telefones, CPF, chaves PIX, endereços — seus ou de outras pessoas.</li><li>Opiniões repetidas da mesma pessoa sobre o mesmo caso.</li><li>Textos cuja ideia principal é dinheiro fácil ou ostentação de ganhos.</li><li>Opiniões pagas ou escritas em nome do operador.</li></ul><p>Quando uma opinião traz dados pessoais mas cumpre as demais regras, ocultamos só esses dados e avisamos o autor, em vez de apagar o texto inteiro.</p><h2>O que nunca removemos</h2><p>Opiniões negativas e reclamações sobre saques, verificação ou atendimento ficam no ar. Não escondemos notas baixas, não destacamos elogios e mostramos todas as opiniões das mais novas às mais antigas. O operador não pode pedir a remoção de uma opinião desfavorável.</p><h2>Respostas do Marlowe Club</h2><p>O Marlowe Club pode responder a qualquer opinião. A resposta é publicada logo abaixo, identificada como resposta do operador. Não editamos opiniões nem respostas e não colocamos a resposta acima do relato do jogador.</p><h2>Como ganhamos dinheiro</h2><p>Recebemos comissão quando você se cadastra no Marlowe Club pelos nossos links. A comissão não depende das notas e não afeta quais opiniões publicamos nem a ordem delas. Se isso mudar algum dia, avisaremos nesta página.</p><h2>Notas no site</h2><p>A nota média e as notas por tema — atendimento, saques, verificação, aplicativo — são calculadas automaticamente a partir de todas as opiniões publicadas. Não alteramos os números manualmente nem excluímos opiniões antigas para melhorar o resultado.</p><h2>Se você discordar de uma decisão</h2><p>Escreva pelo formulário em <a href=\"page:write\">Escrever avaliação</a> indicando a opinião em questão. Vamos reler o caso e responder em poucos dias. Este site é destinado apenas a maiores de 18 anos. Jogue com responsabilidade.</p>",
+        "toc": false
+      }
+    }
+  },
+  "cta_short": "Cadastre-se",
+  "editor": {
+    "name": "Camila Rocha",
+    "role": "Editora e moderadora",
+    "bio": "Lê cada avaliação antes de publicar e testa o atendimento da Marlowe Club todo mês. Avaliações negativas ficam no ar; só removemos spam e ofensas."
+  }
+}

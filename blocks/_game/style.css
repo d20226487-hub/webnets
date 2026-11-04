@@ -1,0 +1,25 @@
+/* Shared game primitives (not a block): CSS-drawn cover and game card. Shipped only on vendor pages. */
+.sx-gcover {
+  position: relative; display: grid; align-items: end; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r);
+  background: radial-gradient(120% 90% at 25% 10%, color-mix(in srgb, var(--g1) 85%, white 15%), var(--g2) 72%);
+}
+.sx-gcover::before { content: ""; position: absolute; inset: 14% 22%; border-radius: 50%; opacity: .5; }
+.sx-gcover[data-motif="rings"]::before { background: repeating-radial-gradient(circle, transparent 0 9px, rgba(255,255,255,.35) 10px 11px); }
+.sx-gcover[data-motif="wheel"]::before { background: repeating-conic-gradient(rgba(255,255,255,.38) 0 10deg, transparent 10deg 20deg); }
+.sx-gcover[data-motif="rays"]::before { inset: -20%; border-radius: 0; background: repeating-conic-gradient(from 0deg at 50% 110%, rgba(255,255,255,.18) 0 6deg, transparent 6deg 14deg); }
+.sx-gcover[data-motif="grid"]::before { inset: 10%; border-radius: 6px; background: linear-gradient(rgba(255,255,255,.22) 2px, transparent 2px) 0 0 / 22px 22px, linear-gradient(90deg, rgba(255,255,255,.22) 2px, transparent 2px) 0 0 / 22px 22px; }
+.sx-gcover__name {
+  position: relative; padding: var(--sp-3); color: #fff; font-family: var(--f-display); font-weight: var(--fw-heading);
+  font-size: var(--fs-2); line-height: 1.05; text-shadow: 0 2px 8px rgba(0,0,0,.5); text-transform: var(--tt-heading);
+}
+
+.sx-gcard { position: relative; display: grid; align-content: start; gap: var(--sp-3); min-width: 0; }
+.sx-gcard__new { position: absolute; inset-block-start: var(--sp-2); inset-inline-start: var(--sp-2); padding: 2px var(--sp-2); border-radius: var(--r-sm); background: var(--c-accent); color: var(--c-on-accent); font-size: .72rem; font-weight: var(--fw-strong); text-transform: uppercase; letter-spacing: .06em; }
+.sx-gcard__name { font-size: var(--fs-1); }
+.sx-gcard__facts { margin: 0; display: grid; gap: 4px; font-size: var(--fs-0); }
+.sx-gcard__facts div { display: flex; justify-content: space-between; gap: var(--sp-2); }
+.sx-gcard__facts dt { color: var(--c-muted); flex: none; }
+.sx-gcard__facts dd { margin: 0; font-weight: var(--fw-strong); text-align: end; min-width: 0; }
+.sx-gcard__cta { width: 100%; }
+
+.sx-gcard__studio { font-size: .74rem; font-weight: var(--fw-strong); text-transform: uppercase; letter-spacing: .05em; color: var(--c-muted); margin-block-start: -2px; }

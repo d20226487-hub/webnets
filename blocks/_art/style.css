@@ -1,0 +1,14 @@
+.sx-pic { position: relative; display: block; overflow: hidden; border-radius: var(--r); background: var(--c-surface-2); }
+.sx-pic > img, .sx-pic > .sx-art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+/* thumbnails on article cards */
+.sx-acard--img > .sx-acard__thumb { display: block; margin-block-end: var(--sp-1); }
+.sx-acard--img > .sx-acard__thumb:hover .sx-pic { filter: brightness(1.06); }
+.sx-alist--list .sx-acard--img { grid-template-columns: 168px minmax(0, 1fr); column-gap: var(--sp-5); }
+.sx-alist--list .sx-acard--img > .sx-acard__thumb { grid-row: 1 / span 5; margin: 0; }
+@media (max-width: 640px) {
+  .sx-alist--list .sx-acard--img { grid-template-columns: 104px minmax(0, 1fr); column-gap: var(--sp-3); }
+}
+/* related articles under an article: small thumbnail beside the text */
+.sx-article__related .sx-acard--img { grid-template-columns: 168px minmax(0, 1fr); column-gap: var(--sp-5); }
+.sx-article__related .sx-acard--img > .sx-acard__thumb { grid-row: 1 / span 4; margin: 0; }
+@media (max-width: 640px) { .sx-article__related .sx-acard--img { grid-template-columns: 104px minmax(0, 1fr); column-gap: var(--sp-3); } }

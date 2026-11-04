@@ -1,0 +1,27 @@
+{
+  "fields": [
+    {
+      "name": "variant",
+      "type": "select",
+      "label": "Layout",
+      "choices": [
+        "auto",
+        "play",
+        "appstore"
+      ],
+      "default": "auto"
+    },
+    {
+      "name": "title",
+      "type": "text",
+      "label": "Section title",
+      "default": ""
+    },
+    {
+      "name": "limit",
+      "type": "text",
+      "label": "Reviews to show",
+      "default": "3"
+    }
+  ]
+}

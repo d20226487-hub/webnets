@@ -1,0 +1,4 @@
+/* compact: single column, divider lines instead of cards */
+.sx-rlist--compact .sx-rlist__list { max-width: 760px; gap: 0; }
+.sx-rlist--compact .sx-rcard { border: 0; border-block-end: 1px solid var(--c-border); border-radius: 0; background: none; padding-inline: 0; }
+.sx-rlist--compact .sx-rlist__cta { margin-block: var(--sp-4); }

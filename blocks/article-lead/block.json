@@ -1,0 +1,29 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/article-lead",
+  "title": "SX Lead Stories",
+  "category": "sx-conversion",
+  "description": "Home masthead: H1 and the newest news or guide stories (split, stack or numbered wire). Never paid content.",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "sx_acf_render"
+  },
+  "supports": {
+    "align": false,
+    "html": false,
+    "multiple": true
+  },
+  "sx": {
+    "role": "content",
+    "variants": [
+      "split",
+      "stack",
+      "list"
+    ],
+    "default_variant": "split",
+    "guardrails": [
+      "PR articles are never the lead story."
+    ]
+  }
+}

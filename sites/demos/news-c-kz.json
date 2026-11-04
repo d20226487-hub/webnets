@@ -1,0 +1,248 @@
+{
+  "_demo": "News Demo C (brief 09). Kazakhstan betting news site with SAMPLE articles (content/stavki-dnya-kz/articles). Builds only with demo: true; PR pieces are labelled Реклама and carry no offers (inducements are restricted in KZ).",
+  "demo": true,
+  "today": "2026-10-30",
+  "id": "news-c-kz",
+  "type": "news",
+  "angle": "brand-watch",
+  "publisher": "stavkidnya",
+  "market": "kz",
+  "locale": "ru",
+  "preset": "terminal",
+  "seed": "stavkidnya-kz-news-c",
+  "prefix": "auto",
+  "urls": "pretty",
+  "articles": "content/stavki-dnya-kz/articles",
+  "links": {
+    "brands": {
+      "nyxa": "https://nyxa.example/kz/register?src=stavkidnya",
+      "vantro": "https://vantro.example/kz/register?src=stavkidnya"
+    }
+  },
+  "site": {
+    "name": "Ставки Дня",
+    "url": "https://stavkidnya.example"
+  },
+  "meta": {
+    "home": {
+      "title": "Ставки Дня: новости букмекеров Казахстана",
+      "description": "Новости лицензированных букмекеров, разборы коэффициентов и верификации, партнёрские материалы с пометкой «Реклама». 21+."
+    },
+    "article": {
+      "title": "{item} | Ставки Дня",
+      "description": "{item}. Ставки Дня, новости букмекеров Казахстана."
+    },
+    "news": {
+      "title": "Новости букмекеров | Ставки Дня",
+      "description": "Что меняется у лицензированных букмекеров Казахстана."
+    },
+    "guides": {
+      "title": "Разборы и гайды | Ставки Дня",
+      "description": "Коэффициенты, верификация, вывод и лимиты простыми словами."
+    },
+    "partners": {
+      "title": "Партнёрские материалы | Ставки Дня",
+      "description": "Статьи, оплаченные букмекерами. Каждая помечена как реклама."
+    },
+    "about": {
+      "title": "О Ставках Дня и рекламных материалах",
+      "description": "Кто мы, как помечаем рекламу, как исправляем ошибки и где найти помощь."
+    }
+  },
+  "variants": {
+    "header": "inline",
+    "footer": "compact",
+    "sticky-cta": "pill",
+    "home": {
+      "lead": "list",
+      "latest": "list",
+      "partners": "cards"
+    },
+    "article": {
+      "body": "standard"
+    },
+    "news": {
+      "list": "list"
+    },
+    "guides": {
+      "list": "cards"
+    },
+    "partners": {
+      "list": "cards"
+    },
+    "about": {
+      "hero": "compact",
+      "text": "article",
+      "related": "list"
+    }
+  },
+  "content": {
+    "home": {
+      "lead": {
+        "title": "Новости букмекеров Казахстана"
+      },
+      "latest": {
+        "title": "Лента"
+      },
+      "partners": {
+        "title": "Партнёрские материалы"
+      }
+    },
+    "news": {
+      "list": {
+        "title": "Новости"
+      }
+    },
+    "guides": {
+      "list": {
+        "title": "Гайды"
+      }
+    },
+    "partners": {
+      "list": {
+        "title": "Партнёрские материалы",
+        "intro": "Эти статьи оплачены букмекерами и согласованы с ними перед публикацией. Это реклама, а не независимая журналистика."
+      }
+    },
+    "about": {
+      "hero": {
+        "title": "О Ставках Дня",
+        "answer": "Мы пишем новости и разборы о букмекерах Казахстана. Бренды могут оплатить статью; каждая такая статья помечена как реклама."
+      },
+      "text": {
+        "html": "<h2>Рекламные статьи</h2><p>Букмекеры могут заплатить нам за публикацию статьи о своём продукте. Такие статьи помечены как «Реклама» в лентах и над заголовком, называют бренд, который заплатил, и содержат пояснение, что это реклама.</p><p>Ссылки в рекламных статьях помечены для поисковых систем как оплаченные.</p><h2>Чего не могут спонсоры</h2><ul><li>Оплачивать или править наши новости и гайды</li><li>Размещать в статьях предложения и стимулы для игроков</li><li>Убирать пометку «Реклама»</li></ul><h2>Исправления</h2><p>Если мы ошиблись, мы исправляем статью и указываем дату обновления над текстом.</p><h2>Ответственная игра</h2><p>Ставки разрешены только с 21 года. Пользуйтесь лимитами и самоисключением в личном кабинете и обращайтесь за помощью, если игра перестала быть развлечением.</p>",
+        "toc": true
+      }
+    }
+  },
+  "variations": {
+    "topic": {
+      "general": {},
+      "brand": {
+        "articles": "content/stavki-dnya-kz-nyxa/articles",
+        "site": {
+          "name": "Ставки Дня · Nyxa"
+        },
+        "meta": {
+          "home": {
+            "title": "Новости Nyxa в Казахстане | Ставки Дня",
+            "description": "Всё о букмекере Nyxa: обновления линии и приложения, сроки выплат, верификация и лимиты. Партнёрские материалы помечены «Реклама». 21+."
+          },
+          "article": {
+            "title": "{item} | Новости Nyxa",
+            "description": "{item}. Ставки Дня следит за букмекером Nyxa в Казахстане."
+          },
+          "news": {
+            "title": "Новости Nyxa | Ставки Дня",
+            "description": "Что меняется у Nyxa: линия, приложение, выплаты и поддержка."
+          },
+          "guides": {
+            "title": "Гайды по Nyxa | Ставки Дня",
+            "description": "Верификация, лимиты и коэффициенты в Nyxa простыми словами."
+          }
+        },
+        "content": {
+          "home": {
+            "lead": {
+              "title": "Новости Nyxa"
+            },
+            "latest": {
+              "title": "Всё о Nyxa"
+            }
+          },
+          "news": {
+            "list": {
+              "title": "Новости Nyxa"
+            }
+          },
+          "guides": {
+            "list": {
+              "title": "Гайды по Nyxa"
+            }
+          }
+        }
+      }
+    },
+    "images": {
+      "off": {},
+      "on": {
+        "images": true
+      }
+    },
+    "lead": {
+      "list": {},
+      "split": {
+        "variants": {
+          "home": {
+            "lead": "split"
+          }
+        }
+      },
+      "stack": {
+        "variants": {
+          "home": {
+            "lead": "stack"
+          }
+        }
+      }
+    },
+    "pr": {
+      "block": {},
+      "feed": {
+        "sections": {
+          "home": {
+            "partners": false
+          }
+        },
+        "content": {
+          "home": {
+            "latest": {
+              "exclude_pr": false
+            }
+          }
+        }
+      }
+    }
+  },
+  "variation_labels": {
+    "images": {
+      "ru": "Изображения"
+    },
+    "off": {
+      "ru": "Без картинок"
+    },
+    "on": {
+      "ru": "С картинками"
+    },
+    "lead": {
+      "ru": "Главная"
+    },
+    "list": {
+      "ru": "Нумерованный список"
+    },
+    "split": {
+      "ru": "Большая новость"
+    },
+    "stack": {
+      "ru": "Панель с заголовком"
+    },
+    "pr": {
+      "ru": "Партнёрские"
+    },
+    "block": {
+      "ru": "Отдельным блоком"
+    },
+    "feed": {
+      "ru": "В ленте, с пометкой"
+    },
+    "topic": {
+      "ru": "Тема"
+    },
+    "general": {
+      "ru": "Общие новости"
+    },
+    "brand": {
+      "ru": "Новости бренда"
+    }
+  }
+}

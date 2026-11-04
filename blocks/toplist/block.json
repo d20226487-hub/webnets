@@ -1,0 +1,31 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/toplist",
+  "title": "SX Brand Ranking",
+  "category": "sx-conversion",
+  "description": "Ranked brands with score, one reason, the key fact for the page and a CTA per brand. Order = scores; one labelled featured slot at most.",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "sx_acf_render"
+  },
+  "supports": {
+    "align": false,
+    "html": false,
+    "multiple": false
+  },
+  "sx": {
+    "role": "content",
+    "variants": [
+      "cards",
+      "table",
+      "list",
+      "podium"
+    ],
+    "default_variant": "cards",
+    "guardrails": [
+      "Order always follows the computed scores.",
+      "A featured (paid) brand is shown only in a labelled slot and keeps its real rank."
+    ]
+  }
+}

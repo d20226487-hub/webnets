@@ -1,0 +1,14 @@
+.sx-sticky {
+  position: fixed; z-index: 40; inset-inline: 0; inset-block-end: 0;
+  display: flex; align-items: center; gap: var(--sp-3);
+  transform: translateY(120%); transition: transform .25s ease;
+}
+.sx-sticky[data-on] { transform: none; }
+.sx-sticky .sx-age { color: var(--c-text); width: 2.3em; height: 2.3em; font-size: .72rem; flex: none; }
+
+@media (min-width: 861px) {
+  .sx-sticky { display: none; }
+}
+@media (max-width: 860px) {
+  body:has(.sx-sticky) .sx-footer { padding-block-end: 88px; }
+}

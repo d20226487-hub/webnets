@@ -1,0 +1,28 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/article-body",
+  "title": "SX Article",
+  "category": "sx-conversion",
+  "description": "The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "sx_acf_render"
+  },
+  "supports": {
+    "align": false,
+    "html": false,
+    "multiple": false
+  },
+  "sx": {
+    "role": "hero",
+    "variants": [
+      "standard"
+    ],
+    "default_variant": "standard",
+    "guardrails": [
+      "Paid articles show the Sponsored label, the sponsor and a disclosure box; their brand links are rel=\"sponsored nofollow\".",
+      "Paid articles get no NewsArticle structured data."
+    ]
+  }
+}

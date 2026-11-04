@@ -1,0 +1,508 @@
+{
+  "type": "reviews",
+  "title": "Small brand review site (user reviews)",
+  "brief": "docs/briefs/07-brand-review-ugc.md",
+  "requires_reviews": true,
+  "defaults": {
+    "cta_label": "cta.join"
+  },
+  "frame": {
+    "top": [
+      {
+        "block": "compliance-bar",
+        "props": {
+          "variant": "strip"
+        },
+        "when": "market.strip"
+      },
+      {
+        "block": "disclosure"
+      }
+    ],
+    "header": {
+      "block": "header",
+      "variants": [
+        "inline",
+        "centered"
+      ],
+      "props": {
+        "sticky": false
+      }
+    },
+    "footer": {
+      "block": "footer",
+      "variants": [
+        "compact",
+        "columns"
+      ]
+    },
+    "overlay": [
+      {
+        "block": "age-gate"
+      },
+      {
+        "block": "sticky-cta",
+        "variants": [
+          "bar",
+          "pill"
+        ]
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "rule": "required",
+      "nav": "nav.home",
+      "sections": [
+        {
+          "id": "hero",
+          "block": "rating-summary",
+          "zone": "top",
+          "rule": "required"
+        },
+        {
+          "id": "trust",
+          "block": "trust-bar",
+          "zone": "top",
+          "rule": "required",
+          "props": {
+            "items": [
+              "licence",
+              "payout",
+              "since",
+              "payments"
+            ]
+          }
+        },
+        {
+          "id": "topics",
+          "block": "topic-scores",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "latest",
+          "block": "review-list",
+          "zone": "middle",
+          "rule": "required",
+          "props": {
+            "mode": "latest",
+            "limit": "6",
+            "cta_every": "0"
+          }
+        },
+        {
+          "id": "guides",
+          "block": "page-links",
+          "zone": "middle",
+          "rule": "optional"
+        },
+        {
+          "id": "editor",
+          "block": "editor-box",
+          "zone": "bottom",
+          "rule": "required"
+        },
+        {
+          "id": "faq",
+          "block": "faq",
+          "zone": "bottom",
+          "rule": "required"
+        },
+        {
+          "id": "final",
+          "block": "cta-band",
+          "zone": "bottom",
+          "rule": "required"
+        }
+      ],
+      "order_rules": [
+        {
+          "rule": "not_first",
+          "a": "guides"
+        }
+      ],
+      "angles": {
+        "payout-focus": {
+          "optional": [],
+          "variants": {
+            "hero": [
+              "board"
+            ]
+          },
+          "props": {
+            "hero": {
+              "lead_topic": "payouts"
+            }
+          }
+        },
+        "balanced": {
+          "optional": [
+            "guides"
+          ],
+          "variants": {
+            "hero": [
+              "quotes",
+              "board"
+            ]
+          }
+        },
+        "support-focus": {
+          "optional": [],
+          "variants": {
+            "hero": [
+              "band",
+              "board"
+            ]
+          },
+          "props": {
+            "hero": {
+              "lead_topic": "support"
+            }
+          }
+        }
+      }
+    },
+    "reviews": {
+      "rule": "required",
+      "slug": "reviews",
+      "nav": "nav.reviews",
+      "paginate": {
+        "section": "list",
+        "per_page": 12
+      },
+      "blurb": "page.blurb.reviews",
+      "sections": [
+        {
+          "id": "hero",
+          "block": "rating-summary",
+          "zone": "top",
+          "rule": "required"
+        },
+        {
+          "id": "list",
+          "block": "review-list",
+          "zone": "middle",
+          "rule": "required",
+          "props": {
+            "mode": "all",
+            "filters": true
+          }
+        },
+        {
+          "id": "editor",
+          "block": "editor-box",
+          "zone": "bottom",
+          "rule": "required"
+        },
+        {
+          "id": "related",
+          "block": "page-links",
+          "zone": "bottom",
+          "rule": "required"
+        },
+        {
+          "id": "final",
+          "block": "cta-band",
+          "zone": "bottom",
+          "rule": "required"
+        }
+      ],
+      "angles": {
+        "payout-focus": {
+          "variants": {
+            "hero": [
+              "strip"
+            ]
+          }
+        },
+        "balanced": {
+          "variants": {
+            "hero": [
+              "strip"
+            ]
+          }
+        },
+        "support-focus": {
+          "variants": {
+            "hero": [
+              "strip"
+            ]
+          }
+        }
+      }
+    },
+    "payouts": {
+      "rule": "optional",
+      "topic": "payouts",
+      "slug": "payout-reviews",
+      "paginate": {
+        "section": "list",
+        "per_page": 12
+      },
+      "nav": "nav.payout_reviews",
+      "blurb": "page.blurb.payout_reviews",
+      "sections": [
+        {
+          "id": "hero",
+          "block": "rating-summary",
+          "zone": "top",
+          "rule": "required",
+          "props": {
+            "topic": "payouts"
+          }
+        },
+        {
+          "id": "list",
+          "block": "review-list",
+          "zone": "middle",
+          "rule": "required",
+          "props": {
+            "mode": "topic",
+            "topic": "payouts"
+          }
+        },
+        {
+          "id": "text",
+          "block": "prose",
+          "zone": "middle",
+          "rule": "optional"
+        },
+        {
+          "id": "editor",
+          "block": "editor-box",
+          "zone": "bottom",
+          "rule": "required"
+        },
+        {
+          "id": "related",
+          "block": "page-links",
+          "zone": "bottom",
+          "rule": "required"
+        },
+        {
+          "id": "final",
+          "block": "cta-band",
+          "zone": "bottom",
+          "rule": "required"
+        }
+      ],
+      "order_rules": [
+        {
+          "rule": "not_first",
+          "a": "text"
+        }
+      ],
+      "angles": {
+        "payout-focus": {
+          "variants": {
+            "hero": [
+              "strip"
+            ]
+          }
+        },
+        "balanced": {
+          "variants": {
+            "hero": [
+              "strip"
+            ]
+          }
+        },
+        "support-focus": {
+          "variants": {
+            "hero": [
+              "strip"
+            ]
+          }
+        }
+      }
+    },
+    "support": {
+      "rule": "optional",
+      "topic": "support",
+      "slug": "support-reviews",
+      "paginate": {
+        "section": "list",
+        "per_page": 12
+      },
+      "nav": "nav.support_reviews",
+      "blurb": "page.blurb.support_reviews",
+      "sections": [
+        {
+          "id": "hero",
+          "block": "rating-summary",
+          "zone": "top",
+          "rule": "required",
+          "props": {
+            "topic": "support"
+          }
+        },
+        {
+          "id": "list",
+          "block": "review-list",
+          "zone": "middle",
+          "rule": "required",
+          "props": {
+            "mode": "topic",
+            "topic": "support"
+          }
+        },
+        {
+          "id": "text",
+          "block": "prose",
+          "zone": "middle",
+          "rule": "optional"
+        },
+        {
+          "id": "editor",
+          "block": "editor-box",
+          "zone": "bottom",
+          "rule": "required"
+        },
+        {
+          "id": "related",
+          "block": "page-links",
+          "zone": "bottom",
+          "rule": "required"
+        },
+        {
+          "id": "final",
+          "block": "cta-band",
+          "zone": "bottom",
+          "rule": "required"
+        }
+      ],
+      "order_rules": [
+        {
+          "rule": "not_first",
+          "a": "text"
+        }
+      ],
+      "angles": {
+        "payout-focus": {
+          "variants": {
+            "hero": [
+              "strip"
+            ]
+          }
+        },
+        "balanced": {
+          "variants": {
+            "hero": [
+              "strip"
+            ]
+          }
+        },
+        "support-focus": {
+          "variants": {
+            "hero": [
+              "strip"
+            ]
+          }
+        }
+      }
+    },
+    "write": {
+      "rule": "required",
+      "slug": "write-a-review",
+      "nav": "nav.write",
+      "blurb": "page.blurb.write",
+      "hide_frame": [
+        "sticky-cta"
+      ],
+      "sections": [
+        {
+          "id": "hero",
+          "block": "page-hero",
+          "zone": "top",
+          "rule": "required",
+          "props": {
+            "show_cta": false
+          }
+        },
+        {
+          "id": "form",
+          "block": "review-form",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "next",
+          "block": "steps",
+          "zone": "middle",
+          "rule": "required",
+          "props": {
+            "show_cta": false
+          }
+        },
+        {
+          "id": "related",
+          "block": "page-links",
+          "zone": "bottom",
+          "rule": "required"
+        }
+      ],
+      "order_rules": [
+        {
+          "rule": "before",
+          "a": "form",
+          "b": "next"
+        }
+      ]
+    },
+    "policy": {
+      "rule": "required",
+      "slug": "how-we-moderate",
+      "nav": "nav.policy",
+      "blurb": "page.blurb.policy",
+      "in_nav": false,
+      "hide_frame": [
+        "sticky-cta"
+      ],
+      "sections": [
+        {
+          "id": "hero",
+          "block": "page-hero",
+          "zone": "top",
+          "rule": "required",
+          "props": {
+            "show_cta": false
+          }
+        },
+        {
+          "id": "text",
+          "block": "prose",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "editor",
+          "block": "editor-box",
+          "zone": "bottom",
+          "rule": "required"
+        },
+        {
+          "id": "related",
+          "block": "page-links",
+          "zone": "bottom",
+          "rule": "required"
+        }
+      ]
+    }
+  },
+  "angles": {
+    "payout-focus": {
+      "pages": [
+        "payouts"
+      ]
+    },
+    "balanced": {
+      "pages": []
+    },
+    "support-focus": {
+      "pages": [
+        "support"
+      ]
+    }
+  }
+}

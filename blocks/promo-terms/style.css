@@ -1,0 +1,9 @@
+.sx-pterms__inner { display: grid; gap: var(--sp-5); padding-block: var(--sp-8); max-width: 860px; }
+.sx-pterms__head { display: grid; gap: var(--sp-2); }
+.sx-pterms__title { font-size: var(--fs-4); }
+.sx-pterms__intro { color: var(--c-muted); }
+.sx-pterms__foot { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-4); align-items: center; font-size: var(--fs-0); color: var(--c-muted); }
+.sx-pterms__foot a { color: var(--c-text); font-weight: var(--fw-strong); display: inline-flex; align-items: center; min-height: 44px; }
+@media (max-width: 640px) {
+  .sx-pterms__inner { padding-block: var(--sp-7); }
+}

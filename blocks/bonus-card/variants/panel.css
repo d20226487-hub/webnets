@@ -1,0 +1,2 @@
+/* panel */
+.sx-bonus--panel { display: grid; gap: var(--sp-4); padding: var(--sp-5); border-radius: var(--r-lg); }

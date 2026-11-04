@@ -1,0 +1,10 @@
+/* code-ticket: head + meta on the left, ticket on the right; on phones the ticket follows the headline */
+.sx-offerhero--ticket .sx-offerhero__inner { grid-template-columns: minmax(0, 1.2fr) minmax(300px, 1fr); grid-template-areas: "head ticket" "meta ticket"; }
+.sx-offerhero--ticket .sx-offerhero__head { grid-area: head; }
+.sx-offerhero--ticket .sx-offerhero__ticket { grid-area: ticket; }
+.sx-offerhero--ticket .sx-offerhero__meta { grid-area: meta; }
+@media (max-width: 860px) {
+  .sx-offerhero--ticket .sx-offerhero__inner { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "ticket" "meta"; padding-block: var(--sp-5) var(--sp-7); }
+  .sx-offerhero__title { font-size: var(--fs-4); }
+  .sx-offerhero__subtitle { display: none; }
+}

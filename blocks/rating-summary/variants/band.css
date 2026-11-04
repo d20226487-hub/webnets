@@ -1,0 +1,16 @@
+/* band: headline, then one wide band with score, a stacked 5-to-1 bar, topic scores and the CTA */
+.sx-rsum--band .sx-rsum__card { grid-template-columns: auto minmax(180px, 1fr) auto auto; align-items: center; gap: var(--sp-4) var(--sp-6); }
+.sx-rsum__stack { display: flex; height: 28px; border-radius: 6px; overflow: hidden; font-size: .72rem; font-weight: var(--fw-strong); }
+.sx-rsum__stack span { display: grid; place-items: center; min-width: 26px; color: #fff; }
+.sx-rsum__stack [data-stars="5"] { background: #1A7F45; } .sx-rsum__stack [data-stars="4"] { background: #3F8F48; }
+.sx-rsum__stack [data-stars="3"] { background: #C9A227; color: #2B2100; } .sx-rsum__stack [data-stars="2"] { background: #B85A1F; } .sx-rsum__stack [data-stars="1"] { background: #B42318; }
+.sx-rsum__topics { display: grid; grid-template-columns: repeat(2, auto); gap: 2px var(--sp-4); font-size: var(--fs-0); }
+.sx-rsum__topics li { display: flex; justify-content: space-between; gap: var(--sp-3); }
+.sx-rsum__topics span { color: var(--c-muted); }
+.sx-rsum--band .sx-rsum__cta { width: auto; }
+@media (max-width: 1000px) {
+  .sx-rsum--band .sx-rsum__card { grid-template-columns: auto minmax(0, 1fr); }
+  .sx-rsum--band .sx-rsum__topics, .sx-rsum--band .sx-rsum__stack { grid-column: 1 / -1; }
+  .sx-rsum--band .sx-rsum__cta { grid-column: 1 / -1; width: 100%; }
+}
+@media (max-width: 640px) { .sx-rsum--band .sx-rsum__topics { display: none; } }

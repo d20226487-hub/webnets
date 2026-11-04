@@ -1,0 +1,7 @@
+.sx-shead__inner { padding-block: var(--sp-6); }
+.sx-shead__name { font-size: var(--fs-5); line-height: 1.08; }
+.sx-shead__dev { font-weight: var(--fw-strong); color: var(--c-accent); }
+.sx-shead__sub { color: var(--c-muted); max-width: 52ch; }
+.sx-shead__note { display: inline-flex; align-items: center; gap: 6px; font-size: var(--fs-0); color: var(--c-muted); }
+.sx-shead__note .sx-icon { width: 14px; height: 14px; }
+.sx-shead .sx-installs { display: flex; flex-wrap: wrap; gap: var(--sp-3); }

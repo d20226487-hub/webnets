@@ -1,0 +1,40 @@
+{
+  "_howto": "Copy to sites/<project>/<id>.json, fill every TODO, then: php build/build.php <file>. Offers (value, code, terms, dates) come from brands/promotions/<brand>.json, never from this file. Schema: dist/schemas/promo.schema.json. Guide: docs/types/promo.md. The build FAILS if the market allows no promotion types or the brand has no live offer there.",
+  "id": "TODO-brand-market-promo-01",
+  "type": "promo",
+  "angle": "welcome",
+  "brand": "vantro",
+  "market": "TODO a market whose promotion policy allows the angle's types",
+  "preset": "sunburst",
+  "seed": "TODO-unique-seed",
+  "prefix": "auto",
+  "links": { "go": "https://TODO.example/join?promo=TODO&src=TODO" },
+  "site": { "name": "TODO site name" },
+  "page": { "title": "TODO up to 65 characters, e.g. '<Brand> promo code <CODE>: <value>'", "description": "TODO up to 160 characters" },
+  "variants": {},
+  "content": {
+    "hero": {
+      "title": "TODO optional headline, up to 70 characters (empty = the offer's own title)",
+      "subtitle": "TODO up to 160 characters"
+    },
+    "terms": { "intro": "TODO one line, optional" },
+    "steps": {
+      "eyebrow": "TODO",
+      "title": "TODO e.g. Claim it in three steps",
+      "items": [
+        { "title": "TODO", "text": "TODO where to enter the code (if any)" },
+        { "title": "TODO", "text": "TODO deposit + mention setting a deposit limit" },
+        { "title": "TODO", "text": "TODO when and how the offer is credited" }
+      ]
+    },
+    "faq": {
+      "items": [
+        { "q": "TODO Is the code still working?", "a": "TODO cite the verified date and end date" },
+        { "q": "TODO What does the wagering mean?", "a": "TODO" },
+        { "q": "TODO Which payments qualify?", "a": "TODO" },
+        { "q": "TODO Can I set limits before I play?", "a": "TODO" }
+      ]
+    },
+    "final": { "title": "TODO up to 40 characters", "text": "TODO" }
+  }
+}

@@ -1,0 +1,19 @@
+# Build output: only what the local gallery needs is kept (dist/index.html, gallery screenshots, review pages, AI briefs).
+dist/*
+!dist/index.html
+!dist/gallery/
+dist/gallery/*
+!dist/gallery/gallery.html
+!dist/gallery/shots/
+!dist/review/
+dist/review/*.html
+!dist/ai/
+
+*.log
+*.bak
+.DS_Store
+Thumbs.db
+
+# leftovers no gallery card uses
+dist/review/b-nyxa-kz/
+dist/gallery/shots/b-nyxa-kz-*

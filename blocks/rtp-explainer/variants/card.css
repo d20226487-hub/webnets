@@ -1,0 +1,12 @@
+/* card: the explanation as three tiles inside one card, the volatility scale as a single graded bar. */
+.sx-rtpx--card { background: none; }
+.sx-rtpx--card .sx-rtpx__inner { margin-block: var(--sp-7); padding: var(--sp-6); border-radius: var(--r-lg); background: var(--c-surface); border: var(--bw) solid var(--c-border); box-shadow: var(--card-shadow); }
+.sx-rtpx--card .sx-rtpx__cols p { padding: var(--sp-4); border-radius: var(--r); background: var(--c-surface-2); }
+.sx-rtpx--card .sx-rtpx__cols strong { display: block; margin-block-end: 4px; }
+.sx-rtpx--card .sx-rtpx__scale ol { gap: 0; border-radius: var(--r-btn); overflow: hidden; }
+.sx-rtpx--card .sx-rtpx__scale li { border-radius: 0; padding: var(--sp-2) var(--sp-3); }
+@media (max-width: 760px) {
+  .sx-rtpx--card .sx-rtpx__inner { padding: var(--sp-4); margin-inline: max(16px, var(--sp-4)); width: auto; }
+  .sx-rtpx--card .sx-rtpx__scale ol { grid-template-columns: repeat(4, minmax(0, 1fr)); border-radius: var(--r); }
+  .sx-rtpx--card .sx-rtpx__scale span { font-size: .78rem; }
+}

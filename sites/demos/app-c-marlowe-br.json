@@ -1,0 +1,71 @@
+{
+  "_demo": "Phase 2 Demo C. Copy is placeholder written to brief 02; app facts are fictional (brands/operators.json).",
+  "id": "app-c-marlowe-br",
+  "type": "app",
+  "angle": "fast-app",
+  "brand": "marlowe",
+  "market": "br",
+  "preset": "velvet-club",
+  "seed": "marlowe-br-app-c",
+  "prefix": "auto",
+  "links": {
+    "go": "https://marlowe.bet.br/cadastro?src=app-c",
+    "ios": "https://marlowe.bet.br/app/ios?src=app-c",
+    "android": "https://marlowe.bet.br/app/android?src=app-c",
+    "apk": "https://marlowe.bet.br/app/marlowe-2.8.0.apk?src=app-c",
+    "qr": "https://marlowe.bet.br/app?src=app-c-qr"
+  },
+  "site": { "name": "Marlowe Club App" },
+  "page": {
+    "title": "Baixe o app Marlowe Club para iPhone e Android",
+    "description": "App oficial da Marlowe Club: mesas ao vivo e saques via PIX em até 30 minutos. App Store, Google Play e APK. 18+."
+  },
+  "variants": {
+    "hero": "qr-first", "trust": "strip", "screens": "grid", "features": "bento",
+    "install": "tabs", "info": "chips", "faq": "accordion", "final": "panel"
+  },
+  "order": ["features", "install", "info"],
+  "content": {
+    "hero": {
+      "title": "Baixe o app Marlowe Club",
+      "subtitle": "Mesas ao vivo, depósitos e saques via PIX em até 30 minutos, direto no celular.",
+      "screen": "table"
+    },
+    "screens": {
+      "eyebrow": "No app",
+      "title": "Feito para jogar no celular",
+      "screens": [
+        { "kind": "table", "caption": "Mesas ao vivo em HD" },
+        { "kind": "casino", "caption": "Mais de 2.400 jogos" },
+        { "kind": "wallet", "caption": "Depósito e saque via PIX" },
+        { "kind": "slip", "caption": "Histórico de apostas" }
+      ]
+    },
+    "features": {
+      "eyebrow": "Pagamentos rápidos",
+      "title": "Seu dinheiro na hora, no app",
+      "items": [
+        { "icon": "wallet", "title": "PIX em segundos", "text": "Depósitos via PIX aprovados na hora, sem sair do app." },
+        { "icon": "bolt", "title": "Saque em até 30 min", "text": "A maioria dos saques via PIX cai na conta em até meia hora." },
+        { "icon": "shield", "title": "Autorizada no Brasil", "text": "Operação autorizada pela SPA/MF, no domínio .bet.br." },
+        { "icon": "gauge", "title": "Limites no app", "text": "Defina limites de depósito e pausas no seu perfil." }
+      ]
+    },
+    "install": {
+      "eyebrow": "Instalação",
+      "title": "Como instalar o app"
+    },
+    "faq": {
+      "items": [
+        { "q": "O app é gratuito?", "a": "Sim. O app é gratuito na App Store, na Google Play e como APK nesta página." },
+        { "q": "Posso instalar no Android sem a Google Play?", "a": "Sim. Além da Google Play, você pode baixar o APK oficial nesta página. O Android mostrará um aviso, o que é normal para apps fora da loja." },
+        { "q": "Quais formas de pagamento o app aceita?", "a": "PIX, TED e cartão de débito. Cartão de crédito não é aceito, conforme a regulamentação brasileira." },
+        { "q": "Preciso verificar minha conta?", "a": "Sim. A lei exige verificação de identidade e idade com CPF antes de jogar." }
+      ]
+    },
+    "final": {
+      "title": "Baixe o Marlowe Club",
+      "text": "Grátis para iPhone e Android. 18+."
+    }
+  }
+}

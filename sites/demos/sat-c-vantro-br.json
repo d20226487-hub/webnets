@@ -1,0 +1,588 @@
+{
+  "_demo": "Satellite Demo C (brief 05). Vantro, Brazil, Portuguese, sports-depth angle: betting markets page, sign-up, payments and responsible gambling. All copy is placeholder; fixtures, odds, speeds and limits are fictional.",
+  "today": "2026-10-30",
+  "id": "sat-c-vantro-br",
+  "type": "satellite",
+  "angle": "sports-depth",
+  "brand": "vantro",
+  "market": "br",
+  "locale": "pt",
+  "preset": "arena",
+  "seed": "vantro-br-sat-c",
+  "prefix": "auto",
+  "urls": "pretty",
+  "pages_on": {
+    "responsible": true
+  },
+  "links": {
+    "go": "https://vantro.bet.br/cadastro?src=sat-c",
+    "ios": "https://vantro.bet.br/app/ios?src=sat-c",
+    "android": "https://vantro.bet.br/app/android?src=sat-c",
+    "qr": "https://vantro.bet.br/app?src=sat-c-qr"
+  },
+  "site": {
+    "name": "Vantro Esportes Guia",
+    "url": "https://vantro-esportes.example"
+  },
+  "meta": {
+    "home": {
+      "title": "Vantro: apostas em futebol, vôlei e basquete ao vivo",
+      "description": "Guia da Vantro no Brasil: mercados ao vivo do Brasileirão, cadastro com CPF, depósitos e saques via PIX e ferramentas de jogo responsável. 18+."
+    },
+    "betting": {
+      "title": "Mercados da Vantro: futebol, vôlei, basquete e mais",
+      "description": "Quais esportes e mercados a Vantro oferece: resultado, handicap, gols, escanteios e criar aposta no mesmo jogo, com estatísticas ao vivo. 18+."
+    },
+    "signup": {
+      "title": "Cadastro na Vantro: CPF, reconhecimento facial e prazo",
+      "description": "Como abrir sua conta na Vantro em poucos minutos: dados, CPF, verificação facial exigida pela regulamentação e primeiro depósito via PIX. 18+."
+    },
+    "payments": {
+      "title": "Depósito e saque na Vantro: PIX, TED e cartão de débito",
+      "description": "Todas as formas de pagamento da Vantro no Brasil, com valores mínimos e prazos. Saque via PIX em cerca de 1 hora, sem cartão de crédito. 18+."
+    },
+    "responsible": {
+      "title": "Jogo responsável na Vantro: limites, pausas e autoexclusão",
+      "description": "Limites de depósito, pausas e autoexclusão: como usar cada ferramenta de jogo responsável na Vantro e onde buscar ajuda."
+    }
+  },
+  "variants": {
+    "header": "inline",
+    "footer": "compact",
+    "sticky-cta": "pill",
+    "home": {
+      "hero": "scoreboard",
+      "trust": "badges",
+      "guides": "cards",
+      "features": "bento",
+      "steps": "timeline",
+      "faq": "columns",
+      "final": "split"
+    },
+    "betting": {
+      "hero": "answer",
+      "markets": "odds-board",
+      "features": "grid",
+      "faq": "columns",
+      "related": "list",
+      "final": "split"
+    },
+    "signup": {
+      "hero": "compact",
+      "steps": "timeline",
+      "needs": "grid",
+      "text": "article",
+      "faq": "columns",
+      "related": "list",
+      "final": "solid"
+    },
+    "payments": {
+      "hero": "answer",
+      "methods": "table",
+      "text": "article",
+      "faq": "columns",
+      "related": "list",
+      "final": "split"
+    },
+    "responsible": {
+      "hero": "answer",
+      "text": "article",
+      "faq": "columns",
+      "related": "list"
+    }
+  },
+  "order": {
+    "home": [
+      "features",
+      "steps",
+      "guides"
+    ],
+    "betting": [
+      "markets",
+      "features"
+    ],
+    "signup": [
+      "steps",
+      "needs",
+      "text"
+    ],
+    "payments": [
+      "methods",
+      "text"
+    ]
+  },
+  "content": {
+    "header": {
+      "note": "Autorizada SPA/MF"
+    },
+    "home": {
+      "hero": {
+        "eyebrow": "Brasileirão · 34ª rodada",
+        "title": "Futebol, vôlei e basquete com odds ao vivo",
+        "subtitle": "Mais de 150 mercados por jogo do Brasileirão, estatísticas em tempo real e saque via PIX em cerca de 1 hora.",
+        "secondary": {
+          "label": "Ver os mercados",
+          "url": "page:betting"
+        },
+        "match": {
+          "league": "Série A · 34ª rodada",
+          "clock": "2º T 67'",
+          "home": {
+            "name": "Porto Alegre FC",
+            "short": "POA",
+            "color": "#1F6FEB",
+            "score": "1"
+          },
+          "away": {
+            "name": "Recife Atlético",
+            "short": "REC",
+            "color": "#C62839",
+            "score": "1"
+          },
+          "markets": [
+            {
+              "label": "Resultado final",
+              "odds": [
+                {
+                  "pick": "POA",
+                  "price": "2,40"
+                },
+                {
+                  "pick": "Empate",
+                  "price": "2,10"
+                },
+                {
+                  "pick": "REC",
+                  "price": "4,20"
+                }
+              ]
+            },
+            {
+              "label": "Total de gols",
+              "odds": [
+                {
+                  "pick": "Mais de 2,5",
+                  "price": "2,55"
+                },
+                {
+                  "pick": "Menos de 2,5",
+                  "price": "1,48"
+                }
+              ]
+            },
+            {
+              "label": "Próximo gol",
+              "odds": [
+                {
+                  "pick": "POA",
+                  "price": "1,95"
+                },
+                {
+                  "pick": "REC",
+                  "price": "2,90"
+                }
+              ]
+            }
+          ],
+          "note": "Mercados de exemplo, apenas ilustrativos. As odds ao vivo mudam durante a partida."
+        }
+      },
+      "features": {
+        "eyebrow": "Por que apostar na Vantro",
+        "title": "O que você encontra na conta",
+        "items": [
+          {
+            "icon": "layers",
+            "title": "Crie sua aposta",
+            "text": "Combine resultado, gols, escanteios e cartões do mesmo jogo."
+          },
+          {
+            "icon": "gauge",
+            "title": "Estatísticas ao vivo",
+            "text": "Posse, finalizações e mapa de calor ao lado das odds."
+          },
+          {
+            "icon": "bolt",
+            "title": "Saque via PIX",
+            "text": "A maioria dos saques cai em cerca de 1 hora, todos os dias."
+          },
+          {
+            "icon": "shield",
+            "title": "Limites sob controle",
+            "text": "Limite diário, semanal ou mensal de depósito em dois toques."
+          }
+        ]
+      },
+      "steps": {
+        "eyebrow": "Como começar",
+        "title": "Comece em três passos",
+        "items": [
+          {
+            "title": "Cadastre-se com CPF",
+            "text": "Nome, CPF e data de nascimento, mais uma selfie para a verificação facial."
+          },
+          {
+            "title": "Deposite via PIX",
+            "text": "A partir de R$ 10, de uma conta no seu CPF. Defina um limite de depósito."
+          },
+          {
+            "title": "Faça sua aposta",
+            "text": "Escolha um mercado, adicione ao cupom e confirme."
+          }
+        ]
+      },
+      "faq": {
+        "items": [
+          {
+            "q": "A Vantro é autorizada no Brasil?",
+            "a": "Sim. A Vantro é autorizada pela Secretaria de Prêmios e Apostas do Ministério da Fazenda e opera no domínio vantro.bet.br. O número da portaria está no rodapé."
+          },
+          {
+            "q": "Quanto tempo leva o cadastro?",
+            "a": "Poucos minutos. A verificação facial costuma ser concluída na hora; você aposta assim que a conta é aprovada."
+          },
+          {
+            "q": "Qual a forma de saque mais rápida?",
+            "a": "PIX. A maioria dos saques via PIX cai em cerca de 1 hora na conta do seu CPF."
+          },
+          {
+            "q": "Posso usar cartão de crédito?",
+            "a": "Não. A regulamentação brasileira proíbe cartão de crédito em apostas. Use PIX, TED ou cartão de débito."
+          },
+          {
+            "q": "Como defino um limite de depósito?",
+            "a": "No cadastro ou depois, em Conta → Jogo responsável. Reduções valem na hora."
+          }
+        ]
+      },
+      "final": {
+        "title": "Pronto para a próxima rodada",
+        "text": "Abra sua conta na Vantro em poucos minutos. Proibido para menores de 18 anos."
+      }
+    },
+    "betting": {
+      "hero": {
+        "title": "Mercados de apostas da Vantro",
+        "answer": "Futebol, vôlei, basquete, tênis e MMA, com mais de 150 mercados por jogo do Brasileirão e estatísticas ao vivo."
+      },
+      "markets": {
+        "eyebrow": "Hoje",
+        "title": "Jogos com mercados abertos",
+        "tabs": [
+          {
+            "label": "Futebol"
+          },
+          {
+            "label": "Vôlei"
+          },
+          {
+            "label": "Basquete"
+          },
+          {
+            "label": "Tênis"
+          }
+        ],
+        "columns": [
+          {
+            "label": "Casa"
+          },
+          {
+            "label": "Empate"
+          },
+          {
+            "label": "Fora"
+          }
+        ],
+        "rows": [
+          {
+            "when": "67'",
+            "live": true,
+            "competition": "Série A",
+            "home": "Porto Alegre FC",
+            "away": "Recife Atlético",
+            "odds": [
+              {
+                "price": "2,40"
+              },
+              {
+                "price": "2,10"
+              },
+              {
+                "price": "4,20"
+              }
+            ],
+            "more": 164
+          },
+          {
+            "when": "19:00",
+            "competition": "Série A",
+            "home": "Capital EC",
+            "away": "Litoral SC",
+            "odds": [
+              {
+                "price": "1,85"
+              },
+              {
+                "price": "3,40"
+              },
+              {
+                "price": "4,50"
+              }
+            ],
+            "more": 158
+          },
+          {
+            "when": "21:30",
+            "competition": "Série A",
+            "home": "Serra Azul",
+            "away": "União Paulista",
+            "odds": [
+              {
+                "price": "2,75"
+              },
+              {
+                "price": "3,10"
+              },
+              {
+                "price": "2,60"
+              }
+            ],
+            "more": 151
+          },
+          {
+            "when": "21:45",
+            "competition": "Copa Regional",
+            "home": "Vale do Rio",
+            "away": "Planalto FC",
+            "odds": [
+              {
+                "price": "2,05"
+              },
+              {
+                "price": "3,20"
+              },
+              {
+                "price": "3,60"
+              }
+            ],
+            "more": 98
+          }
+        ],
+        "note": "Jogos e odds de exemplo, apenas ilustrativos."
+      },
+      "features": {
+        "eyebrow": "Na hora de apostar",
+        "title": "Ferramentas para cada jogo",
+        "items": [
+          {
+            "icon": "layers",
+            "title": "Crie sua aposta",
+            "text": "Junte mercados do mesmo jogo em uma única aposta."
+          },
+          {
+            "icon": "play",
+            "title": "Ao vivo com dados",
+            "text": "Odds atualizadas a cada lance, com estatísticas da partida."
+          },
+          {
+            "icon": "check",
+            "title": "Encerrar aposta",
+            "text": "Encerre antes do fim do jogo pelo valor oferecido no momento."
+          },
+          {
+            "icon": "gauge",
+            "title": "Mercados de jogador",
+            "text": "Finalizações, gols e assistências de cada atleta."
+          }
+        ]
+      },
+      "faq": {
+        "items": [
+          {
+            "q": "Quais esportes a Vantro cobre?",
+            "a": "Futebol, vôlei, basquete, tênis, MMA e e-sports, com destaque para o Brasileirão e os estaduais."
+          },
+          {
+            "q": "O que é \"crie sua aposta\"?",
+            "a": "É uma aposta que junta vários mercados do mesmo jogo, como resultado e total de gols. Todas as seleções precisam acertar."
+          },
+          {
+            "q": "Posso encerrar uma aposta antes do fim?",
+            "a": "Em muitos mercados, sim. O valor oferecido muda conforme o jogo e pode ser menor que o apostado."
+          },
+          {
+            "q": "As odds mudam durante o jogo?",
+            "a": "Sim. Nas apostas ao vivo as odds são atualizadas a cada lance."
+          }
+        ]
+      },
+      "final": {
+        "title": "Escolha seu jogo",
+        "text": "Mercados ao vivo e saque via PIX. Proibido para menores de 18 anos."
+      }
+    },
+    "signup": {
+      "hero": {
+        "title": "Como se cadastrar na Vantro",
+        "answer": "Poucos minutos: seus dados, CPF e uma selfie para a verificação facial. Depois, deposite via PIX e defina um limite."
+      },
+      "steps": {
+        "eyebrow": "Passo a passo",
+        "title": "Abrindo sua conta",
+        "items": [
+          {
+            "title": "Informe seus dados",
+            "text": "Nome completo, CPF, data de nascimento, e-mail e celular."
+          },
+          {
+            "title": "Faça a verificação facial",
+            "text": "Uma selfie confirma que você é o titular do CPF. Exigência da regulamentação."
+          },
+          {
+            "title": "Defina um limite e deposite",
+            "text": "Escolha um limite de depósito e deposite a partir de R$ 10 via PIX."
+          }
+        ]
+      },
+      "needs": {
+        "eyebrow": "Antes de começar",
+        "title": "O que você precisa",
+        "items": [
+          {
+            "icon": "shield",
+            "title": "Ter 18 anos ou mais",
+            "text": "A idade é confirmada pelo CPF antes da primeira aposta."
+          },
+          {
+            "icon": "check",
+            "title": "CPF regular",
+            "text": "Um CPF por conta. Ele também define a conta bancária para saques."
+          },
+          {
+            "icon": "bolt",
+            "title": "Conta no seu nome",
+            "text": "Depósitos e saques só de e para contas do mesmo CPF."
+          }
+        ]
+      },
+      "text": {
+        "html": "<h2>Por que a verificação facial</h2><p>Pela regulamentação brasileira (Lei 14.790/2023), as casas autorizadas precisam confirmar a identidade de cada apostador. A selfie é comparada aos dados do CPF e impede que menores de idade ou terceiros usem a conta.</p><h2>Se a verificação falhar</h2><p>Tente de novo com boa iluminação e sem óculos escuros. Se continuar falhando, o suporte pede uma foto do documento com foto. A análise manual costuma levar menos de uma hora.</p><h2>Uma conta por CPF</h2><p>Cada pessoa pode ter apenas uma conta. Se você já teve uma e encerrou, fale com o suporte para reativar em vez de criar outra.</p><h2>Depois do cadastro</h2><p>Veja as formas de <a href=\"page:payments\">depósito e saque</a> ou confira os <a href=\"page:betting\">mercados disponíveis</a>.</p>",
+        "toc": false
+      },
+      "faq": {
+        "items": [
+          {
+            "q": "Preciso enviar documento?",
+            "a": "Normalmente não. A selfie e o CPF bastam na maioria dos cadastros."
+          },
+          {
+            "q": "Posso usar o CPF de outra pessoa?",
+            "a": "Não. A conta, os depósitos e os saques precisam estar no mesmo CPF do titular."
+          },
+          {
+            "q": "Por que definir um limite no cadastro?",
+            "a": "O limite ajuda a controlar seus gastos. Você escolhe o valor e pode mudar depois."
+          },
+          {
+            "q": "Posso mudar e-mail ou celular depois?",
+            "a": "Sim, em Conta → Dados. Nome e CPF não podem ser alterados."
+          }
+        ]
+      },
+      "final": {
+        "title": "Abra sua conta",
+        "text": "Poucos minutos e você já pode apostar. Proibido para menores de 18 anos."
+      }
+    },
+    "payments": {
+      "hero": {
+        "title": "Depósito e saque na Vantro",
+        "answer": "Deposite via PIX a partir de R$ 10 na hora. Saques via PIX costumam cair em cerca de 1 hora."
+      },
+      "methods": {
+        "eyebrow": "Formas de pagamento",
+        "title": "Como pagar e sacar na Vantro",
+        "rows": [
+          {
+            "method": "pix",
+            "deposit": "Na hora",
+            "withdraw": "Cerca de 1 hora",
+            "min": "R$ 10"
+          },
+          {
+            "method": "ted",
+            "deposit": "Até 1 dia útil",
+            "withdraw": "Até 1 dia útil",
+            "min": "R$ 30"
+          },
+          {
+            "method": "debit",
+            "deposit": "Na hora",
+            "withdraw": "Não disponível",
+            "min": "R$ 20"
+          }
+        ],
+        "note": "Prazos típicos para contas verificadas. Cartão de crédito e criptomoedas não são aceitos."
+      },
+      "text": {
+        "html": "<h2>Depositando</h2><p>O PIX é a forma mais rápida: copie o código ou leia o QR no app do seu banco e o valor entra na hora. A TED leva até um dia útil. O cartão de débito também é instantâneo.</p><h2>Sacando</h2><p>Os saques vão para uma conta bancária no seu CPF. Pelo PIX, a maioria cai em cerca de 1 hora; pela TED, em até um dia útil.</p><ul><li>Saque mínimo: R$ 20</li><li>Sem tarifa da Vantro</li><li>O primeiro saque pode aguardar a conclusão da verificação</li></ul><h2>Por que não há cartão de crédito</h2><p>A regulamentação brasileira proíbe o uso de cartão de crédito e criptomoedas em apostas. A Vantro aceita apenas PIX, TED e cartão de débito.</p><h2>Limites de depósito</h2><p>Defina um limite diário, semanal ou mensal quando quiser. Reduções valem na hora; aumentos, após um período de espera. Veja todas as ferramentas em <a href=\"page:responsible\">jogo responsável</a>.</p>",
+        "toc": true
+      },
+      "faq": {
+        "items": [
+          {
+            "q": "Por que meu saque está pendente?",
+            "a": "O primeiro saque pode aguardar a verificação. Depois, saques via PIX costumam levar cerca de 1 hora."
+          },
+          {
+            "q": "Há tarifas?",
+            "a": "A Vantro não cobra tarifa de depósito nem de saque. Seu banco pode cobrar as próprias tarifas."
+          },
+          {
+            "q": "Posso sacar para a conta de outra pessoa?",
+            "a": "Não. O saque vai só para uma conta no mesmo CPF da conta Vantro."
+          },
+          {
+            "q": "Qual o depósito mínimo?",
+            "a": "R$ 10 via PIX, R$ 20 no débito e R$ 30 via TED."
+          }
+        ]
+      },
+      "final": {
+        "title": "Deposite via PIX",
+        "text": "Depósito na hora, saque em cerca de 1 hora. Proibido para menores de 18 anos."
+      }
+    },
+    "responsible": {
+      "hero": {
+        "title": "Jogo responsável na Vantro",
+        "answer": "Defina limites de depósito, faça uma pausa ou peça a autoexclusão a qualquer momento, direto na sua conta."
+      },
+      "text": {
+        "html": "<h2>Limites de depósito</h2><p>Escolha um limite diário, semanal ou mensal em Conta → Jogo responsável. Reduções valem na hora; aumentos esperam 24 horas.</p><h2>Pausas</h2><p>Faça uma pausa de 24 horas a seis meses. Durante a pausa você não consegue entrar nem apostar, e ela não pode ser cancelada antes do fim.</p><h2>Autoexclusão</h2><p>Você pode pedir a autoexclusão a qualquer momento, por prazo determinado ou indeterminado. A conta é bloqueada e a Vantro deixa de enviar comunicações de marketing.</p><h2>Sinais de alerta</h2><ul><li>Apostar mais do que planejou</li><li>Tentar recuperar perdas</li><li>Esconder apostas de família ou amigos</li></ul><blockquote>Aposta é entretenimento, não fonte de renda. Se deixar de ser diversão, pare.</blockquote>",
+        "toc": false
+      },
+      "faq": {
+        "items": [
+          {
+            "q": "Posso cancelar uma pausa antes do fim?",
+            "a": "Não. A pausa vale até a data escolhida."
+          },
+          {
+            "q": "A autoexclusão pode ser revertida?",
+            "a": "A autoexclusão por prazo determinado termina na data escolhida. A por prazo indeterminado exige um pedido formal e um período de espera."
+          },
+          {
+            "q": "A Vantro me envia promoções durante a pausa?",
+            "a": "Não. O marketing é suspenso durante pausas e autoexclusões."
+          },
+          {
+            "q": "Como reduzo meu limite?",
+            "a": "Em Conta → Jogo responsável. O novo limite, menor, vale na hora."
+          }
+        ]
+      }
+    }
+  },
+  "cta_label": "Criar conta"
+}

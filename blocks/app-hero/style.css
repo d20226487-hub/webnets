@@ -1,0 +1,23 @@
+.sx-apphero { background: var(--hero-bg); color: var(--c-hero-text); overflow: hidden; }
+.sx-apphero__inner { display: grid; gap: var(--sp-7); padding-block: var(--sp-7) var(--sp-8); align-items: center; }
+.sx-apphero__copy { display: grid; gap: var(--sp-5); min-width: 0; }
+.sx-apphero__id { display: flex; align-items: center; gap: var(--sp-4); }
+.sx-apphero__icon { width: 88px; }
+.sx-apphero__name { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-3); letter-spacing: var(--ls-heading); line-height: 1.1; }
+.sx-apphero__dev { color: var(--c-hero-muted); font-size: var(--fs-0); }
+.sx-apphero__official { display: inline-flex; align-items: center; gap: var(--sp-1); margin-block-start: var(--sp-1); font-size: var(--fs-0); font-weight: var(--fw-strong); color: var(--c-success); }
+.sx-apphero__official .sx-icon { width: 1.1em; height: 1.1em; }
+.sx-apphero__title { font-size: var(--fs-5); max-width: 20ch; }
+.sx-apphero__desc { color: var(--c-hero-muted); max-width: 52ch; }
+.sx-apphero__device { display: grid; place-items: center; }
+
+
+@media (max-width: 860px) {
+  .sx-apphero__inner { padding-block: var(--sp-5) var(--sp-7); gap: var(--sp-6); }
+  .sx-apphero__copy { gap: var(--sp-4); }
+  .sx-apphero__icon { width: 64px; }
+  .sx-apphero__title { font-size: var(--fs-4); }
+  .sx-apphero .sx-installs { display: grid; }
+  .sx-apphero .sx-install { width: 100%; justify-content: center; }
+  .sx-apphero__device .sx-phone { width: min(70%, 240px); }
+}

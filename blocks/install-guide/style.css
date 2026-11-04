@@ -1,0 +1,13 @@
+.sx-install-guide__inner { display: grid; gap: var(--sp-6); padding-block: var(--sp-8); }
+.sx-install-guide__head { display: grid; gap: var(--sp-2); }
+.sx-install-guide__title { font-size: var(--fs-5); }
+.sx-install-guide__path { display: grid; align-content: start; gap: var(--sp-4); padding: var(--sp-5); }
+.sx-install-guide__name { display: flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-2); }
+.sx-install-guide__name .sx-icon { color: var(--c-accent); }
+.sx-install-guide__meta { font-size: var(--fs-0); color: var(--c-muted); font-variant-numeric: tabular-nums; margin-block-start: calc(var(--sp-3) * -1); }
+.sx-install-guide__steps { display: grid; gap: var(--sp-3); }
+.sx-install-guide__steps li { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: var(--sp-3); align-items: start; }
+.sx-install-guide__n { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--c-surface-2); font-weight: var(--fw-strong); }
+.sx-install-guide__note { display: flex; gap: var(--sp-2); padding: var(--sp-3); border-radius: var(--r-sm); background: var(--c-surface-2); font-size: var(--fs-0); color: var(--c-muted); }
+.sx-install-guide__note .sx-icon { flex: none; color: var(--c-warning); margin-block-start: .1em; }
+.sx-install-guide__path .sx-install { justify-self: start; margin-block-start: auto; }

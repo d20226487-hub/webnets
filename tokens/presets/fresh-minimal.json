@@ -1,0 +1,14 @@
+{
+  "id": "fresh-minimal",
+  "name": "Fresh Minimal",
+  "mood": "Consumer-app polish. White space, tight geometric type, one confident blue.",
+  "fits": ["app-download", "landing", "satellite"],
+  "theme": "light",
+  "fonts": { "display": { "family": "Manrope", "weights": [700, 800] }, "body": { "family": "Manrope", "weights": [400, 500] } },
+  "color": { "bg": "#FFFFFF", "surface": "#F5F7FB", "surface2": "#EBEFF7", "text": "#0E1525", "muted": "#556079", "border": "#E2E7F0", "accent": "#2457FF", "onAccent": "#FFFFFF", "accent2": "#00C2A8", "heroText": "#0E1525", "heroMuted": "#556079" },
+  "shape": { "radiusSm": "8px", "radius": "12px", "radiusLg": "20px", "buttonRadius": "12px", "borderWidth": "1px" },
+  "type": { "base": 16, "scale": 1.25, "headingWeight": 800, "headingCase": "none", "headingTracking": "-0.03em", "lineHeight": 1.6, "bodyWeight": 400 },
+  "space": { "density": 1.15 },
+  "surface": { "style": "flat", "shadow": "none" },
+  "decor": { "heroBg": "linear-gradient(180deg, #EEF2FF 0%, #FFFFFF 100%)" }
+}

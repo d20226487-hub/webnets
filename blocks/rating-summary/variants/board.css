@@ -1,0 +1,5 @@
+/* board: headline left, score card right */
+.sx-rsum--board .sx-rsum__inner { grid-template-columns: minmax(0, 1.1fr) minmax(300px, 420px); }
+@media (max-width: 860px) {
+  .sx-rsum--board .sx-rsum__inner { grid-template-columns: minmax(0, 1fr); }
+}

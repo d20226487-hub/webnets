@@ -1,0 +1,14 @@
+/* quotes: headline and score card side by side, then the latest praise and complaint in two columns */
+.sx-rsum--quotes .sx-rsum__inner { grid-template-columns: minmax(0, 1.1fr) minmax(280px, 380px); }
+.sx-rsum__quotes { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
+.sx-rsum__quote { margin: 0; display: grid; gap: var(--sp-2); align-content: start; padding: var(--sp-4) var(--sp-5); border-radius: var(--r); background: var(--c-surface); color: var(--c-text); border-inline-start: 4px solid var(--c-star, #F5A524); }
+.sx-rsum__quote[data-tone="bad"] { border-inline-start-color: #C0392B; }
+.sx-rsum__quote figcaption { display: flex; align-items: center; gap: var(--sp-2); font-size: .78rem; font-weight: var(--fw-strong); text-transform: uppercase; letter-spacing: .05em; color: var(--c-muted); }
+.sx-rsum__quote blockquote { margin: 0; }
+.sx-rsum__quote blockquote p { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.sx-rsum__who { font-size: var(--fs-0); color: var(--c-muted); }
+@media (max-width: 860px) {
+  .sx-rsum--quotes .sx-rsum__inner { grid-template-columns: minmax(0, 1fr); }
+  .sx-rsum__quotes { grid-template-columns: minmax(0, 1fr); gap: var(--sp-3); }
+  .sx-rsum__quote { padding: var(--sp-3) var(--sp-4); }
+}

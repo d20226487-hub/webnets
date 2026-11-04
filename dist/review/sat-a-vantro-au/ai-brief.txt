@@ -1,0 +1,408 @@
+# Rebuild brief: Vantro Guide
+
+You are rebuilding every page of the **Vantro Guide** template, a satellite site (angle: starter-guide). Keep the section order, the content and every rule below. Write the page text exactly as given (it is in English); write code and comments in English.
+
+**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section below with the listed fields as props.
+
+## Site context
+
+- Site: Vantro Guide (https://vantro-guide.example), brand or publisher: Vantro
+- Market: Australia (`au`), language `en`, text direction `ltr`, currency AUD
+- Minimum age: 18+
+- Products allowed: sports betting yes, online casino **no**
+- Market note: Online casino is prohibited under the Interactive Gambling Act. Credit cards cannot be used for online wagering (from June 2024). Inducement advertising is restricted in several states.
+- Pages (5):
+  - `index.html` — Vantro guide: sign up, deposit and bet in three steps
+  - `sign-up.html` — Vantro sign up: what you need and how long it takes
+  - `payments.html` — Vantro deposits and withdrawals: PayID, BPAY, debit cards
+  - `app.html` — Vantro app for iPhone and Android
+  - `responsible-gambling.html` — Safer gambling with Vantro: limits, time-outs and BetStop
+
+## Design tokens
+
+Fonts (Google Fonts): Rubik.
+
+Use these CSS custom properties (they are the whole palette, type scale and radius set):
+
+```css
+:root {
+  --c-bg: #F3F5F4;
+  --c-surface: #FFFFFF;
+  --c-surface-2: #E9EEEC;
+  --c-text: #10201A;
+  --c-muted: #52645C;
+  --c-border: #D5DDD9;
+  --c-accent: #0A7A4B;
+  --c-on-accent: #FFFFFF;
+  --c-accent-2: #FFD23F;
+  --c-success: #1F9D55;
+  --c-warning: #D98B00;
+  --c-danger: #D93636;
+  --c-hero-text: #FFFFFF;
+  --c-hero-muted: #CFE7DC;
+  --c-hero-accent: #FFD23F;
+  --c-hero-on-accent: #10201A;
+  --hero-bg: linear-gradient(180deg,#0A7A4B 0%,#075C39 100%);
+  --f-display: "Rubik",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-body: "Rubik",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono: "Rubik",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --fw-heading: 700;
+  --fw-body: 400;
+  --fw-strong: 500;
+  --tt-heading: none;
+  --ls-heading: -0.01em;
+  --lh-body: 1.5;
+  --lh-heading: 1.15;
+  --r-sm: 4px;
+  --r: 8px;
+  --r-lg: 12px;
+  --r-btn: 6px;
+  --bw: 1px;
+  --density: 0.85;
+  --fs-0: 12.5px;
+  --fs-1: 15px;
+  --fs-2: 21.6px;
+  --fs-3: clamp(17.63px,14.07px + 0.987vw,25.92px);
+  --fs-4: clamp(21.15px,16.89px + 1.185vw,31.1px);
+  --fs-5: clamp(25.38px,20.26px + 1.422vw,37.32px);
+  --fs-6: clamp(30.46px,24.31px + 1.706vw,44.79px);
+  --sp-1: 3.4px;
+  --sp-2: 6.8px;
+  --sp-3: 10.2px;
+  --sp-4: 13.6px;
+  --sp-5: 20.4px;
+  --sp-6: 27.2px;
+  --sp-7: 40.8px;
+  --sp-8: 54.4px;
+  --sp-9: 81.6px;
+  --card-bg: #FFFFFF;
+  --card-border: #D5DDD9;
+  --card-shadow: none;
+  --surface-style: outlined;
+}
+```
+
+Layout is mobile-first: it must work from 375px to 1440px wide.
+
+## Rules you must not break
+
+- Every page opens with an age gate (18+) before any gambling content.
+- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- No casino content anywhere: online casino is not allowed in this market.
+- Responsible gambling: All copy comes from markets/<id>.json; never type compliance text into a page.
+- Responsible gambling: Every page renders a 'panel' (usually inside the footer). 'strip' is an optional top-of-page addition.
+- Responsible gambling: Where a market lists several mandated taglines, one is chosen per site by seed.
+- Header: One-page landing and app pages use 'minimal' (no nav) so attention stays on the conversion.
+- Header: The CTA stays visible at every width; on mobile the nav collapses into a menu, the CTA does not.
+- Hero: Exactly one primary CTA. The secondary action is a text link or ghost button.
+- Hero: Primary CTA must sit above the fold at 375x667.
+- Hero: Headline 60 characters max; subtitle 160 max (long Russian/Portuguese strings included).
+- Hero: stat-led: the number must be a real brand fact (e.g. payout minutes) and match the trust bar.
+- Trust bar: Values come from brand facts and market config; nothing is typed by hand.
+- Trust bar: Rating shows only when the brand has facts.rating_source.
+- Trust bar: Sits directly under the hero (section 2 or 3).
+- Page links: Internal links only; never a substitute for the brand CTA.
+- Features: 3 or 4 items. Titles 4 words max, text one sentence (about 120 characters).
+- Features: Features describe the product, never an offer or bonus.
+- Steps: Exactly 3 steps; numbers are used because the order is real.
+- Steps: Mention verification and deposit limits honestly; do not promise instant approval.
+- FAQ: 4-6 questions: legality in the country, deposits/withdrawals, payout time, verification, limits or self-exclusion.
+- FAQ: Answers are plain text, 1-3 sentences. No CTA links inside answers.
+- Final CTA: Always the last section before the footer.
+- Final CTA: Headline 40 characters max. No urgency claims (timers, 'last chance').
+- Footer: Always renders the compliance panel; it cannot be switched off.
+- Footer: Payment methods come from the market config so they are always locally correct.
+- Age gate: Age comes from the market (21 in KZ, 18 in AU/BR). Never hard-code it.
+- Age gate: Content stays in the HTML for crawlers; the overlay is shown by script, so no-JS users still see the compliance footer.
+- Sticky CTA: Phones only (860px and narrower). Never covers the compliance panel: the footer gets bottom padding.
+- Sticky CTA: Shows the market age badge next to the CTA.
+- Page title: The answer line states the page's key fact in one sentence, above the fold on phones.
+- Text block: Only h2, h3, p, ul, ol, li, strong, em, a, table, blockquote survive; all attributes except href are removed.
+- Text block: Links: page:<id> for internal pages, https:// for sources. Brand links belong in CTAs, not in prose.
+- Payments: Only methods listed in the market config may appear (no credit cards in AU or BR).
+- Payments: Times are typical for verified accounts and say so in the note.
+- Download panel: Always the last section before the footer on app pages.
+- Download panel: QR encodes links.qr (a device-aware tracked link) or links.go; generated at build time, no external service.
+- Download panel: QR shows on desktop only; phones get the buttons.
+
+## Page `index.html`
+
+- Title tag: Vantro guide: sign up, deposit and bet in three steps
+- Meta description: How to start with Vantro in Australia: opening an account, PayID deposits and withdrawals, the app and the limits you can set. 18+.
+- The only H1: From sign-up to your first bet with Vantro
+- Structured data (JSON-LD): WebPage, FAQPage, WebSite
+- Links to: `index.html`, `sign-up.html`, `payments.html`, `app.html`, `responsible-gambling.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Licensed in Australia"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Hero** — block `sx/hero`, variant `stat-led`, role `hero`
+   Purpose: Above-the-fold hero: headline, one primary CTA, trust row and an optional offer/feature card.
+   - `eyebrow`: "The Vantro starter guide"
+   - `title`: "From sign-up to your first bet with Vantro"
+   - `subtitle`: "Open an account in about five minutes, deposit with PayID and set your limits before you bet. Everything you need, one page each."
+   - `show_trust`: true
+   - `stat`: `{"value":"3","unit":"steps","caption":"Sign up, deposit, bet"}`
+   - `art`: "rings"
+4. **Trust bar** — block `sx/trust-bar`, variant `strip`, role `trust`
+   Purpose: Licence, payout time, years operating, local payments and (only if sourced) rating.
+   - `items`: `["licence","payout","since","payments"]`
+5. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+6. **Features** — block `sx/features`, variant `grid`, role `content`
+   Purpose: 3-4 product reasons to join, each with an icon, a short title and one sentence.
+   - `eyebrow`: "Why people use Vantro"
+   - `title`: "What you get with an account"
+   - `items`: `[{"icon":"layers","title":"Same-game multis","text":"Combine head to head, line and player markets from one match."},{"icon":"play","title":"Live streaming","text":"Watch selected matches in the app while you bet in-play."},{"icon":"bolt","title":"PayID withdrawals","text":"Most withdrawals land in about an hour, seven days a week."},{"icon":"gauge","title":"Limits you control","text":"Daily, weekly or monthly deposit limits, changed in two taps."}]`
+7. **Steps** — block `sx/steps`, variant `row`, role `content`
+   Purpose: Three real steps from sign-up to first bet, followed by the mid-page CTA.
+   - `eyebrow`: "Getting started"
+   - `title`: "Start in three steps"
+   - `items`: `[{"title":"Create your account","text":"Name, date of birth and address. Most accounts are verified within minutes."},{"title":"Deposit with PayID","text":"Minimum A$10. You set a deposit limit in the same step."},{"title":"Place your first bet","text":"Pick a market, add it to your bet slip and confirm."}]`
+   - `show_cta`: true
+8. **FAQ** — block `sx/faq`, variant `accordion`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Is Vantro licensed in Australia?","a":"Yes. Vantro holds an Australian wagering licence. The licence details are in the footer of every page."},{"q":"How long does sign-up take?","a":"About five minutes. Identity checks usually finish within minutes; you can bet once you are verified."},{"q":"What is the fastest way to withdraw?","a":"PayID. Most PayID withdrawals arrive in about an hour. See the payments page for every method."},{"q":"Can I use a credit card?","a":"No. Credit cards cannot be used for online wagering in Australia. Use PayID, BPAY or a debit card."},{"q":"How do I set a deposit limit?","a":"During sign-up, or later under Account → Limits. Lower limits apply straight away."}]`
+9. **Final CTA** — block `sx/cta-band`, variant `solid`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Ready when you are"
+   - `text`: "Open your Vantro account in about five minutes. 18+ only."
+   - `show_code`: false
+10. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+11. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+12. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `sign-up.html`
+
+- Title tag: Vantro sign up: what you need and how long it takes
+- Meta description: Open a Vantro account in about five minutes. The details you need, how ID verification works and when you can place your first bet. 18+.
+- The only H1: How to sign up with Vantro
+- Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
+- Links to: `index.html`, `sign-up.html`, `payments.html`, `app.html`, `responsible-gambling.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Licensed in Australia"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Page title** — block `sx/page-hero`, variant `answer`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "How to sign up with Vantro"
+   - `answer`: "It takes about five minutes: your details, a quick ID check and a deposit limit. You can bet as soon as you are verified."
+   - `show_cta`: true
+4. **Steps** — block `sx/steps`, variant `timeline`, role `content`
+   Purpose: Three real steps from sign-up to first bet, followed by the mid-page CTA.
+   - `eyebrow`: "Step by step"
+   - `title`: "Opening your account"
+   - `items`: `[{"title":"Enter your details","text":"Full name, date of birth, residential address, email and mobile number."},{"title":"Verify your identity","text":"Vantro checks your details electronically. If that fails, upload a driver licence or passport."},{"title":"Set a limit and deposit","text":"Choose a daily, weekly or monthly deposit limit, then deposit from A$10. PayID is instant."}]`
+   - `show_cta`: false
+5. **Features** — block `sx/features`, variant `rows`, role `content`
+   Purpose: 3-4 product reasons to join, each with an icon, a short title and one sentence.
+   - `eyebrow`: "Before you start"
+   - `title`: "What you need"
+   - `items`: `[{"icon":"shield","title":"Be 18 or over","text":"And live in Australia. Vantro verifies both before you can bet."},{"icon":"check","title":"Photo ID, just in case","text":"Driver licence or passport, only if the electronic check cannot confirm you."},{"icon":"bolt","title":"A bank account","text":"In your own name, for PayID, BPAY or debit card payments."}]`
+6. **Text block** — block `sx/prose`, variant `article`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<h2>Why Vantro checks your identity</h2><p>Australian wagering providers must verify every customer's identity and age before they can bet. Vantro runs the check electronically against official records, so most people never need to upload anything.</p><h2>What happens if the check fails</h2><p>You will be asked for a photo of your driver licence or passport. Manual checks usually take under an hou…` (HTML)
+   - `toc`: false
+7. **FAQ** — block `sx/faq`, variant `accordion`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Do I need to upload ID?","a":"Usually not. Most accounts are verified electronically within minutes."},{"q":"Can I sign up in the app?","a":"Yes. The steps are the same on the website and in the app."},{"q":"Why must I set a deposit limit?","a":"Australian rules require you to be offered a deposit limit at sign-up. You can choose any amount and change it later."},{"q":"Can I change my email or phone later?","a":"Yes, under Account → Details. Name and date of birth changes need support."}]`
+8. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+9. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Open your account"
+   - `text`: "About five minutes, then you are ready to bet. 18+ only."
+   - `show_code`: false
+10. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+11. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+12. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `payments.html`
+
+- Title tag: Vantro deposits and withdrawals: PayID, BPAY, debit cards
+- Meta description: Every Vantro payment method in Australia with minimums and speeds. PayID withdrawals in about an hour. No credit cards for wagering. 18+.
+- The only H1: Vantro deposits and withdrawals
+- Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
+- Links to: `index.html`, `sign-up.html`, `payments.html`, `app.html`, `responsible-gambling.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Licensed in Australia"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Page title** — block `sx/page-hero`, variant `compact`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Vantro deposits and withdrawals"
+   - `answer`: "Deposit instantly with PayID from A$10. PayID withdrawals usually arrive in about an hour."
+   - `show_cta`: true
+4. **Payments** — block `sx/payments`, variant `table`, role `content`
+   Purpose: Local deposit and withdrawal methods with speed and minimums.
+   - `eyebrow`: "Payment methods"
+   - `title`: "Every way to pay at Vantro"
+   - `rows`: `[{"method":"payid","deposit":"Instant","withdraw":"About 1 hour","min":"A$10"},{"method":"bpay","deposit":"1 business day","withdraw":"Not available","min":"A$10"},{"method":"visa-debit","deposit":"Instant","withdraw":"1–3 business days","min":"A$10"},{"method":"mastercard-debit","deposit":"Instant","withdraw":"1–3 business days","min":"A$10"},{"method":"apple-pay","deposit":"Instant","withdraw":"Not available","min":"A$10"}]`
+   - `note`: "Credit cards and crypto cannot be used for online wagering in Australia."
+5. **Text block** — block `sx/prose`, variant `toc-side`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<h2>Depositing</h2><p>Choose PayID for instant deposits from your banking app. BPAY takes one business day. Debit cards and Apple Pay are instant.</p><h2>Withdrawing</h2><p>Withdrawals go back to a bank account in your name. PayID is the fastest; card withdrawals take one to three business days.</p><ul><li>Minimum withdrawal: A$10</li><li>No fees from Vantro</li><li>Your first withdrawal may need …` (HTML)
+   - `toc`: true
+6. **FAQ** — block `sx/faq`, variant `columns`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Why is my withdrawal pending?","a":"First withdrawals can wait for identity checks. After that, PayID withdrawals usually take about an hour."},{"q":"Are there fees?","a":"Vantro charges no deposit or withdrawal fees. Your bank's own fees may apply."},{"q":"Can I withdraw to a different account?","a":"No. Withdrawals go only to an account in your own name."},{"q":"What is the minimum deposit?","a":"A$10 for every method."}]`
+7. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+8. **Final CTA** — block `sx/cta-band`, variant `solid`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Deposit with PayID"
+   - `text`: "Instant deposits, withdrawals in about an hour. 18+ only."
+   - `show_code`: false
+9. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+10. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+11. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `app.html`
+
+- Title tag: Vantro app for iPhone and Android
+- Meta description: Get the Vantro app from the App Store or Google Play: live streaming, same-game multis, fast withdrawals and deposit limits in two taps. 18+.
+- The only H1: The Vantro app
+- Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
+- Links to: `index.html`, `sign-up.html`, `payments.html`, `app.html`, `responsible-gambling.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Licensed in Australia"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Page title** — block `sx/page-hero`, variant `compact`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "The Vantro app"
+   - `answer`: "Free on the App Store and Google Play. Live streaming, same-game multis and limits in two taps."
+   - `show_cta`: true
+4. **Download panel** — block `sx/download-panel`, variant `panel`, role `content`
+   Purpose: Final install section: all install buttons, a QR code for desktop visitors, key app facts.
+   - `title`: "Get the Vantro app"
+   - `text`: "Free for iPhone and Android. Scan the code on a computer."
+5. **Features** — block `sx/features`, variant `grid`, role `content`
+   Purpose: 3-4 product reasons to join, each with an icon, a short title and one sentence.
+   - `eyebrow`: "In the app"
+   - `title`: "What the app does"
+   - `items`: `[{"icon":"play","title":"Live streaming","text":"Watch selected matches while you bet in-play."},{"icon":"layers","title":"Same-game multis","text":"Build a multi from one match in a few taps."},{"icon":"bolt","title":"Face ID log-in","text":"Log in with Face ID or a fingerprint."},{"icon":"gauge","title":"Limits in two taps","text":"Set or lower your deposit limit from the account menu."}]`
+6. **FAQ** — block `sx/faq`, variant `accordion`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Is the app free?","a":"Yes. It is free on the App Store and Google Play."},{"q":"Which phones does it support?","a":"iPhone with iOS 16 or later and Android 9 or later."},{"q":"Can I use the same account?","a":"Yes. Log in with the account you opened on the website."},{"q":"Do I get notifications?","a":"Only if you allow them. You can turn them off in the app's settings."}]`
+7. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+8. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+9. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+10. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `responsible-gambling.html`
+
+- Title tag: Safer gambling with Vantro: limits, time-outs and BetStop
+- Meta description: Deposit limits, time-outs, self-exclusion through BetStop and free confidential help: how to use each one at Vantro.
+- The only H1: Safer gambling at Vantro
+- Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
+- Links to: `index.html`, `sign-up.html`, `payments.html`, `app.html`, `responsible-gambling.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Licensed in Australia"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Page title** — block `sx/page-hero`, variant `compact`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Safer gambling at Vantro"
+   - `answer`: "Set a deposit limit, take a time-out or exclude yourself with BetStop. Free, confidential help: 1800 858 858."
+   - `show_cta`: false
+4. **Text block** — block `sx/prose`, variant `article`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<h2>Deposit limits</h2><p>Choose a daily, weekly or monthly limit under Account → Limits. Lower limits apply straight away. Increases wait seven days.</p><h2>Time-outs</h2><p>Take a break from 24 hours to six months. You cannot log in or bet until the time-out ends, and it cannot be reversed early.</p><h2>BetStop self-exclusion</h2><p>BetStop is the National Self-Exclusion Register. Registering ex…` (HTML)
+   - `toc`: true
+5. **FAQ** — block `sx/faq`, variant `accordion`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Can I cancel a time-out early?","a":"No. A time-out stays in place until the end date you chose."},{"q":"Does BetStop cover all betting sites?","a":"It covers every licensed Australian online and phone wagering provider."},{"q":"Will Vantro contact me during a time-out?","a":"No. Marketing stops while a time-out or self-exclusion is active."},{"q":"Is the help line really free?","a":"Yes. Gambling Help Online is free, confidential and open 24/7."}]`
+6. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+7. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+8. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+
+## Acceptance checklist
+
+- [ ] Sections appear in the order above, with the same layout variant (or an equivalent layout).
+- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
+- [ ] One H1 per page; headings do not skip levels.
+- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
+- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
+- [ ] The structured data listed for each page is present and valid.
+- [ ] Every internal link opens an existing page.
+- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
+- [ ] Every rule in "Rules you must not break" holds on every page.
+
+_Long text and lists are shortened here (…, "[n items]"). For the full text run `php build/ai-brief.php sites/demos/<config>.json`._

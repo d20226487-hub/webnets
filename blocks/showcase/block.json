@@ -1,0 +1,33 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "sx/showcase",
+    "title": "SX Product Showcase",
+    "category": "sx-conversion",
+    "description": "Shows the product instead of describing it: an odds board (sports) or game strip (casino).",
+    "acf": {
+        "mode": "preview",
+        "renderCallback": "sx_acf_render"
+    },
+    "supports": {
+        "align": false,
+        "html": false
+    },
+    "sx": {
+        "role": "content",
+        "variants": [
+            "odds-board",
+            "game-strip"
+        ],
+        "variant_requires": {
+            "odds-board": "sports",
+            "match-list": "sports",
+            "game-strip": "casino"
+        },
+        "default_variant": "odds-board",
+        "guardrails": [
+            "Odds and fixtures are illustrations; the note saying so is required.",
+            "Never placed directly after the hero (blueprint order rule)."
+        ]
+    }
+}

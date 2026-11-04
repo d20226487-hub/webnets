@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/facts-table",
+  "title": "SX Brand Facts",
+  "category": "sx-conversion",
+  "description": "Key facts of the brand in this market: licence, domain, deposits, withdrawals, payments, support, games, studios.",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "sx_acf_render"
+  },
+  "supports": {
+    "align": false,
+    "html": false,
+    "multiple": false
+  },
+  "sx": {
+    "role": "content",
+    "variants": [
+      "table"
+    ],
+    "default_variant": "table",
+    "guardrails": [
+      "Facts come from brands/facts/<market>.json with a checked date; studios from the brand catalog."
+    ]
+  }
+}

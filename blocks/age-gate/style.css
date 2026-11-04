@@ -1,0 +1,9 @@
+.sx-agegate { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: var(--sp-4); background: rgba(0,0,0,.72); backdrop-filter: blur(6px); }
+.sx-agegate[hidden] { display: none; }
+.sx-agegate__box { display: grid; justify-items: center; gap: var(--sp-4); text-align: center; width: min(100%, 420px); padding: var(--sp-7) var(--sp-6); background: var(--c-surface); color: var(--c-text); border: var(--bw) solid var(--c-border); border-radius: var(--r-lg); }
+.sx-agegate__box > p { color: var(--c-muted); font-size: var(--fs-0); }
+.sx-agegate__box .sx-age { font-size: var(--fs-2); width: 2.6em; height: 2.6em; }
+.sx-agegate__title { font-size: var(--fs-3); }
+.sx-agegate__actions { display: grid; gap: var(--sp-3); width: 100%; }
+/* Preview mode: render in flow, e.g. inside an editor or a style tile. */
+.sx-agegate--preview { position: relative; inset: auto; z-index: auto; min-height: 420px; border-radius: var(--r); }

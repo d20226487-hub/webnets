@@ -1,0 +1,58 @@
+{
+    "fields": [
+        {
+            "name": "variant",
+            "type": "select",
+            "label": "Layout",
+            "choices": [
+                "auto",
+                "inline",
+                "centered",
+                "minimal",
+                "minimal-split",
+                "app-bar"
+            ],
+            "default": "auto"
+        },
+        {
+            "name": "nav",
+            "type": "repeater",
+            "label": "Navigation",
+            "max": 6,
+            "default": [],
+            "instructions": "Leave empty to build from the brand's verticals allowed in this market.",
+            "fields": [
+                {
+                    "name": "label",
+                    "type": "text",
+                    "label": "Label",
+                    "required": true
+                },
+                {
+                    "name": "url",
+                    "type": "url",
+                    "label": "URL",
+                    "required": true
+                }
+            ]
+        },
+        {
+            "name": "note",
+            "type": "text",
+            "label": "Note next to button (minimal layout)",
+            "default": ""
+        },
+        {
+            "name": "sticky",
+            "type": "true_false",
+            "label": "Sticky",
+            "default": true
+        },
+        {
+            "name": "show_cta",
+            "type": "true_false",
+            "label": "Show the brand CTA in the header",
+            "default": true
+        }
+    ]
+}

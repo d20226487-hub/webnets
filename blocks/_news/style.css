@@ -1,0 +1,12 @@
+/* News sites: article cards and the Sponsored label. Shipped when a page renders any of them. */
+.sx-sponsored { display: inline-block; padding: 2px var(--sp-2); border-radius: var(--r-sm); background: #FFE7A3; color: #4A3700; font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.sx-acard { display: grid; gap: var(--sp-2); align-content: start; }
+.sx-acard__kicker { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); font-size: .78rem; }
+.sx-acard__kind { font-weight: var(--fw-strong); letter-spacing: .06em; text-transform: uppercase; color: var(--c-accent); }
+.sx-acard__sponsor { color: var(--c-muted); }
+.sx-acard__title { font-size: var(--fs-2); line-height: 1.25; }
+.sx-acard__title a { color: var(--c-text); text-decoration: none; }
+.sx-acard__title a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.sx-acard__dek { color: var(--c-muted); }
+.sx-acard__meta { font-size: var(--fs-0); color: var(--c-muted); }
+.sx-acard--pr { padding: var(--sp-4); border-radius: var(--r); background: color-mix(in srgb, #FFE7A3 22%, var(--c-surface)); border: var(--bw) solid color-mix(in srgb, #E0B84C 45%, var(--c-border)); }

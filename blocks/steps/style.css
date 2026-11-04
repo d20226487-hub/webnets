@@ -1,0 +1,16 @@
+.sx-steps__inner { display: grid; gap: var(--sp-6); padding-block: var(--sp-8); }
+.sx-steps__head { display: grid; gap: var(--sp-3); justify-items: start; }
+.sx-steps__title { font-size: var(--fs-5); }
+.sx-steps__list { display: grid; gap: var(--sp-5); counter-reset: none; }
+.sx-steps__item { display: grid; gap: var(--sp-3); align-content: start; }
+.sx-steps__n { display: grid; place-items: center; width: 56px; height: 56px; border-radius: var(--r-btn); border: calc(var(--bw) * 2) solid var(--c-accent); color: var(--c-text); font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-3); }
+.sx-steps__copy { display: grid; gap: var(--sp-2); }
+.sx-steps h3 { font-size: var(--fs-2); }
+.sx-steps p { color: var(--c-muted); }
+/* row: three columns joined by a rule */
+.sx-steps__foot { display: flex; }
+/* timeline: heading + CTA on one side, vertical steps on the other */
+@media (max-width: 760px) {
+  .sx-steps__inner { padding-block: var(--sp-7); }
+  .sx-steps__cta { width: 100%; }
+}

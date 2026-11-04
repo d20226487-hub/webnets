@@ -1,0 +1,17 @@
+{
+    "fields": [
+        {
+            "name": "variant",
+            "type": "select",
+            "label": "Layout",
+            "choices": [
+                "auto",
+                "bar",
+                "pill",
+                "app-banner",
+                "code-bar"
+            ],
+            "default": "auto"
+        }
+    ]
+}

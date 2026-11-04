@@ -1,0 +1,14 @@
+{
+  "id": "midnight-neon",
+  "name": "Midnight Neon",
+  "mood": "Night-mode sportsbook energy. Glowing accent, pill buttons, deep shadows.",
+  "fits": ["sportsbook", "crypto", "app-download"],
+  "theme": "dark",
+  "fonts": { "display": { "family": "Unbounded", "weights": [700, 800] }, "body": { "family": "Inter", "weights": [400, 600] } },
+  "color": { "bg": "#0B0E14", "surface": "#141924", "surface2": "#1C2331", "text": "#EEF1F6", "muted": "#9BA5B7", "border": "#273042", "accent": "#C6FF3D", "onAccent": "#0B0E14", "accent2": "#7B61FF", "heroText": "#EEF1F6", "heroMuted": "#B4BCCB" },
+  "shape": { "radiusSm": "10px", "radius": "14px", "radiusLg": "22px", "buttonRadius": "999px", "borderWidth": "1px" },
+  "type": { "base": 16, "scale": 1.25, "headingWeight": 800, "headingCase": "none", "headingTracking": "-0.02em", "lineHeight": 1.55, "bodyWeight": 400 },
+  "space": { "density": 1 },
+  "surface": { "style": "elevated", "shadow": "0 12px 32px rgba(0,0,0,.45)" },
+  "decor": { "heroBg": "radial-gradient(120% 80% at 85% 0%, rgba(123,97,255,.35), transparent 60%), radial-gradient(80% 60% at 0% 100%, rgba(198,255,61,.12), transparent 60%), #0B0E14" }
+}

@@ -1,0 +1,33 @@
+.sx-offerhero { background: var(--hero-bg); color: var(--c-hero-text); }
+.sx-offerhero__inner { display: grid; gap: var(--sp-5) var(--sp-7); padding-block: var(--sp-7) var(--sp-8); align-items: start; }
+.sx-offerhero__head { display: grid; gap: var(--sp-4); min-width: 0; }
+.sx-offerhero__eyebrow { font-size: var(--fs-0); font-weight: var(--fw-strong); letter-spacing: .06em; text-transform: uppercase; color: var(--c-hero-muted); }
+.sx-offerhero__title { font-size: var(--fs-5); max-width: 18ch; }
+.sx-offerhero__subtitle { color: var(--c-hero-muted); max-width: 46ch; }
+.sx-offerhero__meta { display: grid; gap: var(--sp-4); min-width: 0; }
+.sx-offerhero__keyterms { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-block: 1px solid color-mix(in srgb, var(--c-hero-text) 16%, transparent); }
+.sx-offerhero__keyterms div { display: grid; gap: 2px; padding: var(--sp-3) 0; }
+.sx-offerhero__keyterms div + div { border-inline-start: 1px solid color-mix(in srgb, var(--c-hero-text) 16%, transparent); padding-inline-start: var(--sp-4); }
+.sx-offerhero__keyterms dt { font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; color: var(--c-hero-muted); }
+.sx-offerhero__keyterms dd { margin: 0; font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-2); }
+.sx-offerhero__verified { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); font-size: var(--fs-0); color: var(--c-hero-muted); }
+.sx-offerhero__verified .sx-icon { color: var(--c-success); }
+.sx-offerhero__terms { color: var(--c-hero-text); font-weight: var(--fw-strong); text-underline-offset: 3px; display: inline-flex; align-items: center; min-height: 44px; }
+.sx-offerhero__ticket { color: var(--c-text); overflow: hidden; border-radius: var(--r-lg); }
+.sx-offerhero__top { display: grid; gap: var(--sp-1); padding: var(--sp-5) var(--sp-5) var(--sp-4); }
+.sx-offerhero__kind { font-size: .75rem; font-weight: var(--fw-strong); letter-spacing: .08em; text-transform: uppercase; color: var(--c-accent); }
+.sx-offerhero__value { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-4); line-height: 1.05; letter-spacing: var(--ls-heading); }
+.sx-offerhero__stub {
+  display: grid; gap: var(--sp-3); padding: var(--sp-4) var(--sp-5) var(--sp-5); background: var(--c-surface-2);
+  border-block-start: 2px dashed var(--c-border);
+  -webkit-mask: radial-gradient(circle 11px at left top, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle 11px at right top, #0000 98%, #000) right / 51% 100% no-repeat;
+          mask: radial-gradient(circle 11px at left top, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle 11px at right top, #0000 98%, #000) right / 51% 100% no-repeat;
+}
+.sx-offerhero__cta { min-height: 56px; font-size: var(--fs-2); }
+.sx-offerhero__fine { font-size: .75rem; color: var(--c-muted); text-align: center; }
+/* Compact key terms inside the ticket: phones only, so the two key terms sit above the fold (brief 03 rule 1). */
+.sx-offerhero__mini { display: none; font-size: var(--fs-0); color: var(--c-muted); }
+@media (max-width: 860px) {
+  .sx-offerhero__mini { display: block; }
+  .sx-offerhero__keyterms { display: none; }
+}

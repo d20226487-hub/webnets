@@ -1,0 +1,7 @@
+/* grid: one tile per topic */
+.sx-tscores--grid .sx-tscores__list { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: var(--sp-3); }
+.sx-tscores--grid .sx-tscores__list a { gap: var(--sp-2); padding: var(--sp-4); border-radius: var(--r); background: var(--c-surface); border: var(--bw) solid var(--c-border); }
+.sx-tscores--grid .sx-tscores__list a:hover { border-color: var(--c-accent); }
+@media (max-width: 640px) {
+  .sx-tscores--grid .sx-tscores__list { grid-template-columns: 1fr 1fr; }
+}

@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "satellite-system/article.schema.json",
+  "title": "News site article (one file per article in content/<site>/articles/)",
+  "description": "Brief 09. Paid content must be kind 'pr' with a sponsor; the builder fails otherwise. Articles dated after the build's 'today' are scheduled and left out.",
+  "type": "object",
+  "required": [
+    "slug",
+    "kind",
+    "title",
+    "dek",
+    "date",
+    "author",
+    "body"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "URL part; same as the file name"
+    },
+    "kind": {
+      "enum": [
+        "news",
+        "guide",
+        "pr"
+      ],
+      "description": "pr = paid article, always labelled Sponsored"
+    },
+    "title": {
+      "type": "string",
+      "maxLength": 90
+    },
+    "dek": {
+      "type": "string",
+      "maxLength": 200,
+      "description": "One-sentence summary under the headline"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "updated": {
+      "type": "string",
+      "format": "date"
+    },
+    "author": {
+      "type": "string",
+      "description": "Id in content/<site>/authors.json"
+    },
+    "sponsor": {
+      "type": "string",
+      "description": "Required for pr: who paid"
+    },
+    "brand": {
+      "type": "string",
+      "description": "pr only: operator id; must be licensed in the market and have links.brands.<id>"
+    },
+    "body": {
+      "type": "string",
+      "description": "HTML: h2, h3, p, ul, ol, li, strong, em, a (page:<id> or https://), table, blockquote. No offers where the market restricts inducements."
+    },
+    "sample": {
+      "type": "boolean",
+      "description": "Made-up demo content: builds only with demo: true"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "pr"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "sponsor"
+        ]
+      },
+      "else": {
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "sponsor"
+              ]
+            },
+            {
+              "required": [
+                "brand"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

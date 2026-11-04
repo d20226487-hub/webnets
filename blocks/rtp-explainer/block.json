@@ -1,0 +1,16 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/rtp-explainer",
+  "title": "SX RTP & Volatility Explainer",
+  "category": "sx-conversion",
+  "description": "Plain-language explanation of RTP, volatility and max win, with a volatility scale. Text is built in.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false, "multiple": false },
+  "sx": {
+    "role": "content",
+    "variants": ["inline", "card"],
+    "default_variant": "inline",
+    "guardrails": ["The explanation is fixed UI copy in every locale; content cannot soften it or add win claims."]
+  }
+}

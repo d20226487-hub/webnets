@@ -1,0 +1,81 @@
+{
+  "_howto": "Copy to sites/<project>/<id>.json, fill every TODO, then: php build/build.php <file>. Pages come from blueprints/satellite.json; which ones exist depends on the angle and the market. Schema: dist/schemas/satellite.schema.json. Guide: docs/types/satellite.md. Internal links in prose: href=\"page:<id>\".",
+  "id": "TODO-brand-market-sat-01",
+  "type": "satellite",
+  "angle": "starter-guide",
+  "brand": "vantro",
+  "market": "TODO",
+  "preset": "clean-sportsbook",
+  "seed": "TODO-unique-seed",
+  "prefix": "auto",
+  "urls": "pretty",
+  "links": {
+    "go": "https://TODO/join?src=TODO",
+    "ios": "https://TODO (only if the brand has an iOS app in this market)",
+    "android": "https://TODO (only if the brand has an Android app in this market)"
+  },
+  "site": { "name": "TODO site name", "url": "https://TODO-domain" },
+  "meta": {
+    "home": { "title": "TODO up to 65 characters", "description": "TODO up to 160 characters" },
+    "signup": { "title": "TODO", "description": "TODO" },
+    "payments": { "title": "TODO", "description": "TODO" },
+    "app": { "title": "TODO", "description": "TODO" },
+    "responsible": { "title": "TODO (required in AU)", "description": "TODO" }
+  },
+  "variants": {},
+  "content": {
+    "header": { "note": "TODO licence line, short" },
+    "home": {
+      "hero": { "eyebrow": "TODO", "title": "TODO up to 60 characters", "subtitle": "TODO up to 160 characters", "stat": { "value": "TODO", "unit": "TODO", "caption": "TODO" } },
+      "features": { "eyebrow": "TODO", "title": "TODO", "items": [
+        { "icon": "bolt", "title": "TODO", "text": "TODO" },
+        { "icon": "gauge", "title": "TODO", "text": "TODO" },
+        { "icon": "shield", "title": "TODO", "text": "TODO" }
+      ] },
+      "faq": { "items": [
+        { "q": "TODO", "a": "TODO" }, { "q": "TODO", "a": "TODO" }, { "q": "TODO", "a": "TODO" }, { "q": "TODO", "a": "TODO" }
+      ] },
+      "final": { "title": "TODO up to 40 characters", "text": "TODO include the age line" }
+    },
+    "signup": {
+      "hero": { "title": "TODO", "answer": "TODO the answer in one sentence (how long, what you need)" },
+      "steps": { "eyebrow": "TODO", "title": "TODO", "items": [
+        { "title": "TODO", "text": "TODO" }, { "title": "TODO", "text": "TODO" }, { "title": "TODO", "text": "TODO, mention the deposit limit" }
+      ] },
+      "needs": { "eyebrow": "TODO", "title": "TODO", "items": [
+        { "icon": "shield", "title": "TODO", "text": "TODO" }, { "icon": "check", "title": "TODO", "text": "TODO" }, { "icon": "bolt", "title": "TODO", "text": "TODO" }
+      ] },
+      "text": { "html": "<h2>TODO</h2><p>TODO</p>", "toc": false },
+      "faq": { "items": [
+        { "q": "TODO", "a": "TODO" }, { "q": "TODO", "a": "TODO" }, { "q": "TODO", "a": "TODO" }, { "q": "TODO", "a": "TODO" }
+      ] },
+      "final": { "title": "TODO", "text": "TODO" }
+    },
+    "payments": {
+      "hero": { "title": "TODO", "answer": "TODO fastest method and speed in one sentence" },
+      "methods": { "eyebrow": "TODO", "title": "TODO", "rows": [ { "method": "TODO id from markets/<market>.json payments", "deposit": "TODO", "withdraw": "TODO", "min": "TODO" } ], "note": "TODO" },
+      "text": { "html": "<h2>TODO</h2><p>TODO</p><h2>TODO</h2><p>TODO</p><h2>TODO</h2><p>TODO</p>", "toc": true },
+      "faq": { "items": [
+        { "q": "TODO", "a": "TODO" }, { "q": "TODO", "a": "TODO" }, { "q": "TODO", "a": "TODO" }, { "q": "TODO", "a": "TODO" }
+      ] },
+      "final": { "title": "TODO", "text": "TODO" }
+    },
+    "app": {
+      "hero": { "title": "TODO", "answer": "TODO" },
+      "download": { "title": "TODO up to 48 characters", "text": "TODO" },
+      "features": { "eyebrow": "TODO", "title": "TODO", "items": [
+        { "icon": "play", "title": "TODO", "text": "TODO" }, { "icon": "layers", "title": "TODO", "text": "TODO" }, { "icon": "gauge", "title": "TODO", "text": "TODO" }
+      ] },
+      "faq": { "items": [
+        { "q": "TODO", "a": "TODO" }, { "q": "TODO", "a": "TODO" }, { "q": "TODO", "a": "TODO" }, { "q": "TODO", "a": "TODO" }
+      ] }
+    },
+    "responsible": {
+      "hero": { "title": "TODO", "answer": "TODO tools + help line in one sentence" },
+      "text": { "html": "<h2>TODO limits</h2><p>TODO</p><h2>TODO time-outs</h2><p>TODO</p><h2>TODO self-exclusion</h2><p>TODO</p><h2>TODO help</h2><p>TODO</p>", "toc": true },
+      "faq": { "items": [
+        { "q": "TODO", "a": "TODO" }, { "q": "TODO", "a": "TODO" }, { "q": "TODO", "a": "TODO" }, { "q": "TODO", "a": "TODO" }
+      ] }
+    }
+  }
+}

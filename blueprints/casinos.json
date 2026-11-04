@@ -1,0 +1,416 @@
+{
+  "type": "casinos",
+  "title": "Multi-brand casino review site",
+  "brief": "docs/briefs/08-multi-brand-casino-reviews.md",
+  "requires_vertical": "casino",
+  "compares_brands": true,
+  "criteria": {
+    "safety": {
+      "weight": 25
+    },
+    "payouts": {
+      "weight": 25
+    },
+    "games": {
+      "weight": 15
+    },
+    "live": {
+      "weight": 10
+    },
+    "app": {
+      "weight": 10
+    },
+    "support": {
+      "weight": 15
+    },
+    "bonuses": {
+      "weight": 10,
+      "requires_promo": true
+    }
+  },
+  "frame": {
+    "top": [
+      {
+        "block": "compliance-bar",
+        "props": {
+          "variant": "strip"
+        },
+        "when": "market.strip"
+      },
+      {
+        "block": "disclosure"
+      }
+    ],
+    "header": {
+      "block": "header",
+      "variants": [
+        "inline",
+        "centered"
+      ],
+      "props": {
+        "sticky": false
+      }
+    },
+    "footer": {
+      "block": "footer",
+      "variants": [
+        "columns",
+        "compact"
+      ]
+    },
+    "overlay": [
+      {
+        "block": "age-gate"
+      },
+      {
+        "block": "sticky-cta",
+        "variants": [
+          "bar",
+          "pill"
+        ]
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "rule": "required",
+      "nav": "nav.home",
+      "sections": [
+        {
+          "id": "hero",
+          "block": "toplist",
+          "zone": "top",
+          "rule": "required",
+          "props": {
+            "heading": "h1",
+            "show_featured": true
+          }
+        },
+        {
+          "id": "guides",
+          "block": "page-links",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "text",
+          "block": "prose",
+          "zone": "middle",
+          "rule": "optional"
+        },
+        {
+          "id": "faq",
+          "block": "faq",
+          "zone": "bottom",
+          "rule": "required"
+        },
+        {
+          "id": "final",
+          "block": "cta-band",
+          "zone": "bottom",
+          "rule": "required"
+        }
+      ],
+      "angles": {
+        "overall": {
+          "optional": [],
+          "variants": {
+            "hero": [
+              "cards",
+              "table",
+              "podium"
+            ]
+          }
+        },
+        "fast-payouts": {
+          "optional": [],
+          "variants": {
+            "hero": [
+              "cards",
+              "table",
+              "podium"
+            ]
+          }
+        },
+        "live-casino": {
+          "optional": [],
+          "variants": {
+            "hero": [
+              "cards",
+              "table",
+              "podium"
+            ]
+          }
+        }
+      }
+    },
+    "review": {
+      "rule": "required",
+      "generate": "brands",
+      "slug": "analise/{item}",
+      "sections": [
+        {
+          "id": "hero",
+          "block": "brand-header",
+          "zone": "top",
+          "rule": "required"
+        },
+        {
+          "id": "score",
+          "block": "score-box",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "proscons",
+          "block": "pros-cons",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "facts",
+          "block": "facts-table",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "others",
+          "block": "toplist",
+          "zone": "bottom",
+          "rule": "required",
+          "props": {
+            "exclude_current": true,
+            "limit": "4"
+          }
+        },
+        {
+          "id": "final",
+          "block": "cta-band",
+          "zone": "bottom",
+          "rule": "required"
+        }
+      ],
+      "order_rules": [
+        {
+          "rule": "before",
+          "a": "score",
+          "b": "proscons"
+        },
+        {
+          "rule": "before",
+          "a": "proscons",
+          "b": "facts"
+        }
+      ],
+      "angles": {
+        "overall": {
+          "variants": {
+            "others": [
+              "list"
+            ]
+          }
+        },
+        "fast-payouts": {
+          "variants": {
+            "others": [
+              "list"
+            ]
+          }
+        },
+        "live-casino": {
+          "variants": {
+            "others": [
+              "list"
+            ]
+          }
+        }
+      }
+    },
+    "compare": {
+      "rule": "required",
+      "slug": "comparar",
+      "nav": "nav.compare",
+      "blurb": "page.blurb.compare",
+      "sections": [
+        {
+          "id": "table",
+          "block": "compare-table",
+          "zone": "top",
+          "rule": "required",
+          "props": {
+            "heading": "h1"
+          }
+        },
+        {
+          "id": "text",
+          "block": "prose",
+          "zone": "middle",
+          "rule": "optional"
+        },
+        {
+          "id": "related",
+          "block": "page-links",
+          "zone": "bottom",
+          "rule": "required"
+        }
+      ]
+    },
+    "fast": {
+      "rule": "optional",
+      "slug": "saque-rapido",
+      "nav": "nav.fast",
+      "blurb": "page.blurb.fast",
+      "sections": [
+        {
+          "id": "hero",
+          "block": "toplist",
+          "zone": "top",
+          "rule": "required",
+          "props": {
+            "heading": "h1",
+            "rank_by": "payouts"
+          }
+        },
+        {
+          "id": "text",
+          "block": "prose",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "related",
+          "block": "page-links",
+          "zone": "bottom",
+          "rule": "required"
+        }
+      ]
+    },
+    "live": {
+      "rule": "optional",
+      "slug": "cassino-ao-vivo",
+      "nav": "nav.live_casino",
+      "blurb": "page.blurb.live_casino",
+      "sections": [
+        {
+          "id": "hero",
+          "block": "toplist",
+          "zone": "top",
+          "rule": "required",
+          "props": {
+            "heading": "h1",
+            "rank_by": "live"
+          }
+        },
+        {
+          "id": "text",
+          "block": "prose",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "related",
+          "block": "page-links",
+          "zone": "bottom",
+          "rule": "required"
+        }
+      ]
+    },
+    "app": {
+      "rule": "optional",
+      "slug": "melhores-apps",
+      "nav": "nav.best_app",
+      "blurb": "page.blurb.best_app",
+      "sections": [
+        {
+          "id": "hero",
+          "block": "toplist",
+          "zone": "top",
+          "rule": "required",
+          "props": {
+            "heading": "h1",
+            "rank_by": "app"
+          }
+        },
+        {
+          "id": "text",
+          "block": "prose",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "related",
+          "block": "page-links",
+          "zone": "bottom",
+          "rule": "required"
+        }
+      ]
+    },
+    "method": {
+      "rule": "required",
+      "slug": "como-avaliamos",
+      "nav": "nav.method",
+      "blurb": "page.blurb.method",
+      "hide_frame": [
+        "sticky-cta"
+      ],
+      "sections": [
+        {
+          "id": "hero",
+          "block": "page-hero",
+          "zone": "top",
+          "rule": "required",
+          "props": {
+            "show_cta": false
+          }
+        },
+        {
+          "id": "criteria",
+          "block": "criteria",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "text",
+          "block": "prose",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "related",
+          "block": "page-links",
+          "zone": "bottom",
+          "rule": "required"
+        }
+      ],
+      "order_rules": [
+        {
+          "rule": "before",
+          "a": "criteria",
+          "b": "text"
+        }
+      ]
+    }
+  },
+  "angles": {
+    "overall": {
+      "pages": [
+        "fast",
+        "live"
+      ]
+    },
+    "fast-payouts": {
+      "pages": [
+        "live",
+        "app"
+      ],
+      "rank_by": "payouts"
+    },
+    "live-casino": {
+      "pages": [
+        "fast",
+        "app"
+      ],
+      "rank_by": "live"
+    }
+  }
+}

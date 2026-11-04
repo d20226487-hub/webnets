@@ -1,0 +1,17 @@
+/* fan: three tilted phones | heading + benefit list */
+.sx-shots--fan .sx-shots__inner { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: center; gap: var(--sp-7); }
+.sx-shots__stage { position: relative; min-height: 520px; }
+.sx-shots__stage .sx-phone { position: absolute; inset-block-start: 50%; inset-inline-start: 50%; width: 210px; }
+.sx-shots__p1 { translate: -120% -46%; rotate: -10deg; opacity: .8; }
+.sx-shots__p2 { translate: -50% -50%; z-index: 1; }
+.sx-shots__p3 { translate: 20% -46%; rotate: 10deg; opacity: .8; }
+.sx-shots__side { display: grid; gap: var(--sp-5); }
+.sx-shots__list { display: grid; gap: var(--sp-3); }
+.sx-shots__list li { display: flex; gap: var(--sp-3); align-items: center; font-size: var(--fs-2); font-weight: var(--fw-strong); }
+.sx-shots__list .sx-icon { color: var(--c-accent); }
+@media (max-width: 860px) {
+  .sx-shots--fan .sx-shots__inner { grid-template-columns: minmax(0, 1fr); }
+  .sx-shots__stage { min-height: 300px; order: 2; overflow: hidden; }
+  .sx-shots__stage .sx-phone { width: 120px; }
+  .sx-shots__list li { font-size: var(--fs-1); }
+}

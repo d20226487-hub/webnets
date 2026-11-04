@@ -1,0 +1,8 @@
+/* minimal-split: licence note | logo (centre) | cta. No nav. */
+.sx-header--split .sx-header__inner { display: grid; grid-template-columns: 1fr auto 1fr; }
+.sx-header--split .sx-header__note { justify-self: start; }
+.sx-header--split .sx-header__cta { justify-self: end; }
+@media (max-width: 860px) {
+  .sx-header--split .sx-header__inner { grid-template-columns: auto 1fr; }
+  .sx-header--split .sx-header__note { display: none; }
+}

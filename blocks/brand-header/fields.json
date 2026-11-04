@@ -1,0 +1,22 @@
+{
+  "fields": [
+    {
+      "name": "variant",
+      "type": "select",
+      "label": "Layout",
+      "choices": [
+        "auto",
+        "split"
+      ],
+      "default": "auto"
+    },
+    {
+      "name": "title",
+      "type": "text",
+      "label": "Headline (H1); {item} = brand name",
+      "required": true,
+      "default": "",
+      "maxlength": 70
+    }
+  ]
+}

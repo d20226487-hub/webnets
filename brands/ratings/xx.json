@@ -1,0 +1,228 @@
+{
+  "_note": "Editorial scores for the demo market xx (fictional). Each criterion 0-10 with a one-line reason; the overall score is computed from the blueprint weights. Bonuses are scored here because the demo market allows promotions. Every review needs at least one con.",
+  "brands": {
+    "marlowe": {
+      "tested_at": "2026-10-24",
+      "summary": "The most complete all-rounder: strong live tables, phone support and fair bonus terms.",
+      "verdict": "Marlowe Club does everything well and nothing badly. Card withdrawals took about four hours in our tests, slower than Nyxa's Apple Pay payouts.",
+      "scores": {
+        "safety": {
+          "score": 9,
+          "reason": "Licence shown in the footer; deposit limits offered at sign-up."
+        },
+        "payouts": {
+          "score": 7.5,
+          "reason": "Card withdrawals arrived in 3 to 5 hours across five tests."
+        },
+        "games": {
+          "score": 8.5,
+          "reason": "About 2,600 games with a good mix of large and small studios."
+        },
+        "live": {
+          "score": 9,
+          "reason": "130 live tables, including low-stake roulette all night."
+        },
+        "app": {
+          "score": 8.5,
+          "reason": "Stable app on iOS and Android; game search could be faster."
+        },
+        "support": {
+          "score": 9,
+          "reason": "24h chat plus a phone line that answered in under a minute."
+        },
+        "bonuses": {
+          "score": 8,
+          "reason": "Welcome offer with 1× wagering on the bonus, terms on one page."
+        }
+      },
+      "pros": [
+        "Phone support around the clock",
+        "130 live tables",
+        "Low 1× wagering on the welcome offer"
+      ],
+      "cons": [
+        "Card withdrawals take hours",
+        "€20 minimum deposit"
+      ]
+    },
+    "nyxa": {
+      "tested_at": "2026-10-25",
+      "summary": "Fastest payouts we measured and a big slot library; live casino is thin.",
+      "verdict": "Nyxa pays fastest: Apple Pay withdrawals landed in about a quarter of an hour. Its live casino is small and there is no phone support.",
+      "scores": {
+        "safety": {
+          "score": 8.5,
+          "reason": "Licence displayed; identity check before the first withdrawal only."
+        },
+        "payouts": {
+          "score": 9.5,
+          "reason": "Apple Pay withdrawals in 10 to 20 minutes, cards in about 2 hours."
+        },
+        "games": {
+          "score": 9,
+          "reason": "About 3,300 games with clear filters and RTP shown."
+        },
+        "live": {
+          "score": 6.5,
+          "reason": "70 live tables, few open late at night."
+        },
+        "app": {
+          "score": 9,
+          "reason": "Quick app with deposit and limits two taps away."
+        },
+        "support": {
+          "score": 7.5,
+          "reason": "24h chat replied in 3 minutes; no phone line."
+        },
+        "bonuses": {
+          "score": 7,
+          "reason": "Generous welcome offer but 30× wagering on bonus funds."
+        }
+      },
+      "pros": [
+        "Apple Pay withdrawals in minutes",
+        "€10 minimum deposit",
+        "Large slot library"
+      ],
+      "cons": [
+        "Small live casino",
+        "No phone support",
+        "High wagering on the bonus"
+      ]
+    },
+    "verazul": {
+      "tested_at": "2026-10-22",
+      "summary": "Strong live casino and quick card payouts, smaller slot library.",
+      "verdict": "Verazul pairs 150 live tables with card withdrawals in about 90 minutes. Chat closes at midnight and the slot range is narrower.",
+      "scores": {
+        "safety": {
+          "score": 8.5,
+          "reason": "Licence displayed; clear terms, but verification took a day."
+        },
+        "payouts": {
+          "score": 8.5,
+          "reason": "Card withdrawals in 60 to 120 minutes."
+        },
+        "games": {
+          "score": 7.5,
+          "reason": "About 1,900 games, few recent releases."
+        },
+        "live": {
+          "score": 9.5,
+          "reason": "150 live tables with native-speaking dealers."
+        },
+        "app": {
+          "score": 8,
+          "reason": "Full-featured app; too many notifications by default."
+        },
+        "support": {
+          "score": 7,
+          "reason": "Chat from 8:00 to midnight; phone line available."
+        },
+        "bonuses": {
+          "score": 7.5,
+          "reason": "Cashback on live losses with no wagering, small welcome offer."
+        }
+      },
+      "pros": [
+        "150 live tables",
+        "Card payouts in about 90 minutes",
+        "Phone support"
+      ],
+      "cons": [
+        "No chat after midnight",
+        "Fewer new slots"
+      ]
+    },
+    "lunaro": {
+      "tested_at": "2026-10-23",
+      "summary": "The biggest live casino in the list; few slots and short support hours.",
+      "verdict": "Lunaro is built for live players: 220 tables, many open around the clock. Slot fans have better options, and support closes at 21:00.",
+      "scores": {
+        "safety": {
+          "score": 8.5,
+          "reason": "Licence displayed; limit tools easy to find."
+        },
+        "payouts": {
+          "score": 8,
+          "reason": "Card withdrawals in about 3 hours."
+        },
+        "games": {
+          "score": 6.5,
+          "reason": "About 1,300 games, mostly table games."
+        },
+        "live": {
+          "score": 10,
+          "reason": "220 live tables, the largest selection we tested."
+        },
+        "app": {
+          "score": 8,
+          "reason": "Light app; live streams stayed smooth on 4G."
+        },
+        "support": {
+          "score": 6.5,
+          "reason": "Chat 9:00 to 21:00; email answered in two days."
+        },
+        "bonuses": {
+          "score": 6.5,
+          "reason": "Live-only welcome offer; slots do not count toward wagering."
+        }
+      },
+      "pros": [
+        "220 live tables",
+        "Smooth streams on a phone",
+        "Apple Pay deposits"
+      ],
+      "cons": [
+        "Small slot library",
+        "Support closes at 21:00",
+        "€25 minimum deposit"
+      ]
+    },
+    "cobaltio": {
+      "tested_at": "2026-10-20",
+      "summary": "Largest game library, but slow bank-only payouts and no app.",
+      "verdict": "Cobaltio has the biggest catalogue here, over 4,500 games. Withdrawals go by bank transfer only and took two days; there is no app.",
+      "scores": {
+        "safety": {
+          "score": 8,
+          "reason": "Licence displayed; responsible-gambling page is incomplete."
+        },
+        "payouts": {
+          "score": 5.5,
+          "reason": "Bank withdrawals only, about 48 hours each time."
+        },
+        "games": {
+          "score": 9.5,
+          "reason": "Over 4,500 games, the largest selection we tested."
+        },
+        "live": {
+          "score": 6,
+          "reason": "55 live tables, limited at night."
+        },
+        "app": {
+          "score": 5,
+          "reason": "No app; the mobile site works but loads slowly."
+        },
+        "support": {
+          "score": 8,
+          "reason": "24h chat answered quickly and knew the terms."
+        },
+        "bonuses": {
+          "score": 8.5,
+          "reason": "Weekly free spins with no wagering on winnings."
+        }
+      },
+      "pros": [
+        "Over 4,500 games",
+        "Wager-free weekly free spins",
+        "24h chat"
+      ],
+      "cons": [
+        "Bank-only withdrawals, about 2 days",
+        "No app",
+        "Small live casino"
+      ]
+    }
+  }
+}

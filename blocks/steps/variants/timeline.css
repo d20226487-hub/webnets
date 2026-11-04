@@ -1,0 +1,9 @@
+/* timeline */
+.sx-steps--timeline .sx-steps__inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); align-items: start; }
+.sx-steps--timeline .sx-steps__head { position: sticky; top: 96px; }
+.sx-steps--timeline .sx-steps__item { grid-template-columns: 56px minmax(0, 1fr); gap: var(--sp-4); position: relative; padding-block-end: var(--sp-5); }
+.sx-steps--timeline .sx-steps__item:not(:last-child)::after { content: ""; position: absolute; inset-inline-start: 27px; inset-block: 64px 0; border-inline-start: 2px solid var(--c-border); }
+@media (max-width: 760px) {
+  .sx-steps--timeline .sx-steps__inner { grid-template-columns: minmax(0, 1fr); }
+  .sx-steps--timeline .sx-steps__head { position: static; }
+}

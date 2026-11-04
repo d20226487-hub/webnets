@@ -1,0 +1,30 @@
+{
+  "_note": "Looks: named token overrides applied on top of the preset (site config \"look\"). Layout and blocks stay the same; colour, type and shape change. \"brand\" is computed from the brand colour in lib/tokens.php.",
+  "neutral": {
+    "theme": "light",
+    "fonts": { "display": { "family": "DM Sans", "weights": [700] }, "body": { "family": "DM Sans", "weights": [400, 500] } },
+    "color": { "bg": "#FFFFFF", "surface": "#F4F4F5", "surface2": "#E4E4E7", "text": "#18181B", "muted": "#52525B", "border": "#E4E4E7", "accent": "#18181B", "onAccent": "#FFFFFF", "accent2": "#71717A", "heroText": "#18181B", "heroMuted": "#52525B" },
+    "shape": { "radiusSm": "6px", "radius": "10px", "radiusLg": "16px", "buttonRadius": "10px", "borderWidth": "1px" },
+    "type": { "headingWeight": 700, "headingCase": "none", "headingTracking": "-0.02em" },
+    "surface": { "style": "flat", "shadow": "none" },
+    "decor": { "heroBg": "#FAFAFA" }
+  },
+  "play": {
+    "theme": "light",
+    "fonts": { "display": { "family": "Roboto", "weights": [500, 700] }, "body": { "family": "Roboto", "weights": [400, 500] } },
+    "color": { "bg": "#FFFFFF", "surface": "#F8F9FA", "surface2": "#F1F3F4", "text": "#202124", "muted": "#5F6368", "border": "#DADCE0", "accent": "#01875F", "onAccent": "#FFFFFF", "accent2": "#1A73E8", "heroText": "#202124", "heroMuted": "#5F6368" },
+    "shape": { "radiusSm": "8px", "radius": "12px", "radiusLg": "20px", "buttonRadius": "8px", "borderWidth": "1px" },
+    "type": { "headingWeight": 500, "headingCase": "none", "headingTracking": "0" },
+    "surface": { "style": "flat", "shadow": "none" },
+    "decor": { "heroBg": "#FFFFFF" }
+  },
+  "appstore": {
+    "theme": "light",
+    "fonts": { "display": { "family": "Inter", "weights": [700, 800] }, "body": { "family": "Inter", "weights": [400, 500] } },
+    "color": { "bg": "#FFFFFF", "surface": "#F5F5F7", "surface2": "#E8E8ED", "text": "#1D1D1F", "muted": "#6E6E73", "border": "#D2D2D7", "accent": "#0071E3", "onAccent": "#FFFFFF", "accent2": "#0071E3", "heroText": "#1D1D1F", "heroMuted": "#6E6E73" },
+    "shape": { "radiusSm": "10px", "radius": "18px", "radiusLg": "28px", "buttonRadius": "980px", "borderWidth": "1px" },
+    "type": { "headingWeight": 700, "headingCase": "none", "headingTracking": "-0.025em" },
+    "surface": { "style": "flat", "shadow": "none" },
+    "decor": { "heroBg": "linear-gradient(180deg, #F5F5F7 0%, #FFFFFF 100%)" }
+  }
+}

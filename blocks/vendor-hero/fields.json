@@ -1,0 +1,7 @@
+{
+  "fields": [
+    { "name": "variant", "type": "select", "label": "Layout", "choices": ["auto", "spotlight", "stats", "studio-banner"], "default": "auto" },
+    { "name": "title", "type": "text", "label": "Headline", "required": true, "default": "", "maxlength": 60 },
+    { "name": "subtitle", "type": "textarea", "label": "Subtitle", "default": "", "maxlength": 160 }
+  ]
+}

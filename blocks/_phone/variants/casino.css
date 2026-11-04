@@ -1,0 +1,2 @@
+.sx-phone__tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.sx-phone__tiles span { aspect-ratio: 3 / 4; border-radius: 8px; }

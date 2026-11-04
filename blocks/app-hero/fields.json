@@ -1,0 +1,51 @@
+{
+    "fields": [
+        {
+            "name": "variant",
+            "type": "select",
+            "label": "Layout",
+            "choices": [
+                "auto",
+                "listing",
+                "device",
+                "qr-first"
+            ],
+            "default": "auto"
+        },
+        {
+            "name": "title",
+            "type": "text",
+            "label": "Headline",
+            "required": true,
+            "default": "",
+            "maxlength": 60
+        },
+        {
+            "name": "subtitle",
+            "type": "textarea",
+            "label": "Short description",
+            "default": "",
+            "maxlength": 160
+        },
+        {
+            "name": "screen",
+            "type": "select",
+            "label": "Phone screen",
+            "choices": [
+                "home",
+                "live",
+                "slip",
+                "wallet",
+                "casino",
+                "table"
+            ],
+            "default": "home"
+        },
+        {
+            "name": "image",
+            "type": "url",
+            "label": "Screenshot image (replaces the drawn screen)",
+            "default": ""
+        }
+    ]
+}

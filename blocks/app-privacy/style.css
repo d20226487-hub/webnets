@@ -1,0 +1,17 @@
+.sx-privacy__inner { display: grid; gap: var(--sp-4); padding-block: var(--sp-6); }
+.sx-privacy__inner > * { max-width: 860px; }
+.sx-privacy__title { font-size: var(--fs-3); }
+.sx-privacy__intro { color: var(--c-muted); font-size: var(--fs-0); }
+.sx-privacy__list { display: grid; gap: var(--sp-4); padding: var(--sp-5); border: 1px solid var(--c-border); border-radius: var(--r); }
+.sx-privacy__list li { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: var(--sp-3); align-items: start; }
+.sx-privacy__list .sx-icon { width: 22px; height: 22px; color: var(--c-muted); }
+.sx-privacy__list div { display: grid; gap: 2px; font-size: var(--fs-0); }
+.sx-privacy__list strong { font-weight: 500; font-size: var(--fs-1); }
+.sx-privacy__list span { color: var(--c-muted); }
+.sx-privacy__cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-4); }
+.sx-privacy__card { display: grid; justify-items: center; gap: var(--sp-2); padding: var(--sp-6) var(--sp-5); border-radius: var(--r-lg); background: var(--c-surface); text-align: center; }
+.sx-privacy__card .sx-icon { width: 32px; height: 32px; color: var(--c-accent); }
+.sx-privacy__card h3 { font-size: var(--fs-2); }
+.sx-privacy__card p { font-size: var(--fs-0); color: var(--c-muted); }
+.sx-privacy__card ul { display: grid; gap: 6px; margin-block-start: var(--sp-2); font-size: var(--fs-0); }
+@media (max-width: 640px) { .sx-privacy__cards { grid-template-columns: minmax(0, 1fr); } .sx-privacy__list { padding: var(--sp-4); } }

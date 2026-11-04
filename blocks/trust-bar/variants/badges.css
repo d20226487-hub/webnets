@@ -1,0 +1,6 @@
+/* badges */
+.sx-trust--badges { padding-block: var(--sp-6) 0; }
+.sx-trust--badges .sx-trust__list { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--sp-3); }
+.sx-trust--badges .sx-trust__item { padding: var(--sp-2) var(--sp-4) var(--sp-2) var(--sp-3); border: var(--bw) solid var(--c-border); border-radius: var(--r-btn); background: var(--c-surface); }
+.sx-trust--badges .sx-trust__item .sx-icon { width: 22px; height: 22px; }
+.sx-trust--badges .sx-trust__text { display: flex; gap: var(--sp-2); align-items: baseline; flex-wrap: wrap; }

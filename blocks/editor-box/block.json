@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/editor-box",
+  "title": "SX Editor Box",
+  "category": "sx-conversion",
+  "description": "Who looks after this page: editor card with role, bio, last update and the moderation policy, plus share links.",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "sx_acf_render"
+  },
+  "supports": {
+    "align": false,
+    "html": false,
+    "multiple": false
+  },
+  "sx": {
+    "role": "trust",
+    "variants": [
+      "card"
+    ],
+    "default_variant": "card",
+    "guardrails": [
+      "Person comes from the site config \"editor\" {name, role, bio}; renders nothing (and warns) without it."
+    ]
+  }
+}

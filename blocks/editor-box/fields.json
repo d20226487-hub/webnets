@@ -1,0 +1,20 @@
+{
+  "fields": [
+    {
+      "name": "variant",
+      "type": "select",
+      "label": "Layout",
+      "choices": [
+        "auto",
+        "card"
+      ],
+      "default": "auto"
+    },
+    {
+      "name": "share",
+      "type": "true_false",
+      "label": "Show share links",
+      "default": true
+    }
+  ]
+}

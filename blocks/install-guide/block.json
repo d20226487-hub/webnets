@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/install-guide",
+  "title": "SX Install Guide",
+  "category": "sx-conversion",
+  "description": "Step-by-step install per platform (iPhone, Google Play, APK), each ending in its install button.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false, "multiple": false },
+  "sx": {
+    "role": "content",
+    "variants": ["side-by-side", "tabs"],
+    "default_variant": "side-by-side",
+    "guardrails": [
+      "Required on any site that offers an APK (blueprint rule 'apk').",
+      "The APK column always shows the file size, version and the distribution note: why it is outside Google Play and that Android will warn.",
+      "Default steps are UI strings in every locale; content may override them per platform."
+    ]
+  }
+}

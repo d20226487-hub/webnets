@@ -1,0 +1,13 @@
+{
+  "fields": [
+    { "name": "variant", "type": "select", "label": "Layout", "choices": ["auto", "side-by-side", "tabs"], "default": "auto" },
+    { "name": "eyebrow", "type": "text", "label": "Eyebrow", "default": "" },
+    { "name": "title", "type": "text", "label": "Section title", "required": true, "default": "", "maxlength": 60 },
+    { "name": "steps", "type": "group", "label": "Step overrides (leave empty for the standard steps)", "default": null,
+      "fields": [
+        { "name": "ios", "type": "repeater", "label": "iPhone steps", "max": 5, "fields": [ { "name": "text", "type": "text", "label": "Step", "maxlength": 140 } ] },
+        { "name": "android", "type": "repeater", "label": "Google Play steps", "max": 5, "fields": [ { "name": "text", "type": "text", "label": "Step", "maxlength": 140 } ] },
+        { "name": "apk", "type": "repeater", "label": "APK steps", "max": 5, "fields": [ { "name": "text", "type": "text", "label": "Step", "maxlength": 140 } ] }
+      ] }
+  ]
+}

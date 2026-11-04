@@ -1,0 +1,23 @@
+{
+  "fields": [
+    {
+      "name": "variant",
+      "type": "select",
+      "label": "Layout",
+      "choices": [
+        "auto",
+        "cards",
+        "list",
+        "banners"
+      ],
+      "default": "auto"
+    },
+    {
+      "name": "title",
+      "type": "text",
+      "label": "Section title",
+      "default": "",
+      "instructions": "Empty = 'More promotions'."
+    }
+  ]
+}

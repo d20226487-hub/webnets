@@ -1,0 +1,556 @@
+<title>Satellite System Gallery</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap&subset=cyrillic">
+<style>
+/* Layout: a contact sheet. One band per site type in build order; cards pair the desktop shot with an inset phone shot.
+   Language: both languages are in the page; :root[data-lang] hides the other one. Theme: light by default, dark or auto on request. */
+:root {
+  --bg: #EEF0F2; --paper: #FFFFFF; --ink: #15181C; --muted: #5B636D; --line: #D5DAE0; --accent: #1D6B5F; --accent-soft: #DCEDEA;
+  --warn: #8A5A00; --warn-soft: #FDF0D2; --off: #7A828C;
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif; --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif; --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #111417; --paper: #1A1E23; --ink: #E8ECEF; --muted: #9AA3AD; --line: #2C333A; --accent: #5CC4B2; --accent-soft: #163631; --warn: #F2C266; --warn-soft: #3A2E12; --off: #7D8690; color-scheme: dark; } }
+:root[data-theme="dark"] { --bg: #111417; --paper: #1A1E23; --ink: #E8ECEF; --muted: #9AA3AD; --line: #2C333A; --accent: #5CC4B2; --accent-soft: #163631; --warn: #F2C266; --warn-soft: #3A2E12; --off: #7D8690; color-scheme: dark; }
+:root[data-lang="en"] [data-l="ru"], :root[data-lang="ru"] [data-l="en"], :root:not([data-lang]) [data-l="ru"] { display: none; }
+:root[data-lang="ru"] h1, :root[data-lang="ru"] .type-head h2, :root[data-lang="ru"] .stats b { font-family: var(--f-body); font-weight: 600; letter-spacing: -.01em; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.5 var(--f-body); }
+.wrap { max-width: 1240px; margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 64px; display: grid; gap: 36px; }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+p { margin: 0; }
+.bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.toggles { display: flex; gap: 8px; flex-wrap: wrap; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--paper); }
+.seg button { border: 0; background: transparent; color: var(--muted); font: 500 13px/1 var(--f-body); padding: 8px 12px; min-height: 36px; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.top { display: grid; gap: 20px; }
+.kicker { font: 500 12px/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+h1 { font: 700 clamp(2rem, 4.6vw, 3.4rem)/1.04 var(--f-display); letter-spacing: -.02em; max-width: 20ch; }
+.lede { color: var(--muted); max-width: 66ch; font-size: 1.05rem; }
+.stats { display: flex; flex-wrap: wrap; gap: 8px 28px; padding: 0; margin: 0; list-style: none; font-variant-numeric: tabular-nums; }
+.stats li { display: grid; }
+.stats b { font: 700 1.9rem/1.1 var(--f-display); }
+.stats span { font-size: 13px; color: var(--muted); }
+.filters { display: grid; gap: 10px; padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); }
+.frow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.frow > .lbl { font: 500 11px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); min-width: 64px; }
+.chip { font: 500 13px/1 var(--f-body); color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 8px 12px; min-height: 36px; cursor: pointer; }
+.chip:hover { border-color: var(--accent); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.chip:focus-visible, .open:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.clear { font: 500 13px/1 var(--f-body); color: var(--accent); background: none; border: 0; padding: 8px 4px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.type { display: grid; gap: 18px; }
+.type-head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: start; gap: 16px; padding-top: 18px; border-top: 2px solid var(--ink); }
+.phase { font: 500 13px/1 var(--f-mono); color: var(--muted); padding-top: 6px; }
+.type-head h2 { font: 700 1.5rem/1.15 var(--f-display); letter-spacing: -.01em; }
+.type-head p { color: var(--muted); }
+.status { font: 500 12px/1 var(--f-mono); padding: 6px 10px; border-radius: 6px; white-space: nowrap; }
+.status.ok { background: var(--accent-soft); color: var(--accent); }
+.status.part { background: var(--warn-soft); color: var(--warn); }
+.status.none { border: 1px dashed var(--off); color: var(--off); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 20px; }
+.card { display: grid; grid-template-rows: auto 1fr; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; min-width: 0; }
+.shots { position: relative; aspect-ratio: 16 / 10; background: var(--bg); border-bottom: 1px solid var(--line); overflow: hidden; }
+.desk { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.phone { position: absolute; right: 10px; bottom: -28px; width: 24%; max-width: 100%; aspect-ratio: 375 / 780; border: 3px solid var(--ink); border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 6px 18px rgb(0 0 0 / .22); }
+.phone img { display: block; width: 138.67%; max-width: none; height: auto; }
+.blank { display: grid; place-items: center; background: repeating-linear-gradient(135deg, transparent 0 10px, var(--line) 10px 11px), var(--bg); }
+.blank p { font: 500 12px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); background: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.body { display: grid; gap: 10px; align-content: start; padding: 16px; }
+.eyebrow { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-weight: 600; font-size: 14px; }
+.letter { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 6px; background: var(--ink); color: var(--paper); font: 500 12px/1 var(--f-mono); }
+.sample { font: 500 11px/1 var(--f-mono); color: var(--warn); background: var(--warn-soft); padding: 4px 6px; border-radius: 4px; }
+.card h3 { font: 500 1.02rem/1.35 var(--f-body); color: var(--muted); }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; list-style: none; }
+.meta li { font-size: 12px; padding: 3px 8px; border-radius: 999px; background: var(--bg); color: var(--ink); }
+.foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 4px; padding-top: 12px; border-top: 1px solid var(--line); }
+.stat { font: 500 12px/1.3 var(--f-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.open { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 8px; background: var(--accent); color: var(--paper); font-weight: 600; font-size: 14px; text-decoration: none; white-space: nowrap; }
+.open:hover { filter: brightness(1.08); }
+.open.off { background: none; color: var(--off); border: 1px dashed var(--off); }
+.note { color: var(--muted); font-size: 14px; }
+.none-msg { color: var(--muted); }
+footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
+@media (max-width: 560px) {
+  .wrap { padding-block: 20px 48px; gap: 28px; }
+  .type-head { grid-template-columns: minmax(0, 1fr) auto; }
+  .phase { display: none; }
+  .foot { flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: no-preference) { .card { transition: border-color .15s; } .card:hover { border-color: var(--muted); } }
+</style>
+
+<div class="wrap">
+  <div class="bar">
+    <p class="kicker">Satellite System · <span data-l="en">Demo gallery</span><span data-l="ru">Галерея демо</span></p>
+    <div class="toggles">
+      <div class="seg" role="group" aria-label="Language / Язык">
+        <button type="button" data-set-lang="en" aria-pressed="true" lang="en">EN</button>
+        <button type="button" data-set-lang="ru" aria-pressed="false" lang="ru">RU</button>
+      </div>
+      <div class="seg" role="group" aria-label="Theme / Тема">
+        <button type="button" data-set-theme="light" aria-pressed="true"><span data-l="en">Light</span><span data-l="ru">Светлая</span></button>
+        <button type="button" data-set-theme="dark" aria-pressed="false"><span data-l="en">Dark</span><span data-l="ru">Тёмная</span></button>
+        <button type="button" data-set-theme="auto" aria-pressed="false"><span data-l="en">Auto</span><span data-l="ru">Авто</span></button>
+      </div>
+    </div>
+  </div>
+
+  <header class="top">
+    <h1><span data-l="en">Every site type, every demo</span><span data-l="ru">Все типы сайтов, все демо</span></h1>
+    <p class="lede"><span data-l="en">Home pages of all demo sites built from the shared block library, shown at desktop and phone width. Brands, numbers and reviews are fictional. Open a demo to click through its pages.</span><span data-l="ru">Главные страницы всех демо-сайтов, собранных из общей библиотеки блоков, на компьютере и на телефоне. Бренды, цифры и отзывы вымышлены. Откройте демо, чтобы пройтись по его страницам.</span></p>
+    <ul class="stats">
+      <li><b>8</b><span><span data-l="en">of 9 site types built</span><span data-l="ru">из 9 типов сайтов готово</span></span></li>
+      <li><b>24</b><span><span data-l="en">demo sites</span><span data-l="ru">демо-сайта</span></span></li>
+      <li><b>118</b><span><span data-l="en">pages in total</span><span data-l="ru">страниц всего</span></span></li>
+      <li><b>4</b><span><span data-l="en">markets: AU, KZ, BR, demo</span><span data-l="ru">рынка: AU, KZ, BR, демо</span></span></li>
+      <li><b>3</b><span><span data-l="en">languages</span><span data-l="ru">языка</span></span></li>
+    </ul>
+  </header>
+
+  <div class="filters" role="group" aria-label="Filter demos / Фильтр демо">
+    <div class="frow"><span class="lbl"><span data-l="en">Type</span><span data-l="ru">Тип</span></span><button type="button" class="chip" data-filter="type" data-value="landing" aria-pressed="false"><span data-l="en">One-page branded landing</span><span data-l="ru">Брендовый лендинг</span></button><button type="button" class="chip" data-filter="type" data-value="app" aria-pressed="false"><span data-l="en">One-page app download</span><span data-l="ru">Страница приложения (лендинг)</span></button><button type="button" class="chip" data-filter="type" data-value="promo" aria-pressed="false"><span data-l="en">One-page bonuses and promo codes</span><span data-l="ru">Бонусы и промокоды (лендинг)</span></button><button type="button" class="chip" data-filter="type" data-value="vendor" aria-pressed="false"><span data-l="en">One-page vendor overview</span><span data-l="ru">Обзор провайдера (лендинг)</span></button><button type="button" class="chip" data-filter="type" data-value="satellite" aria-pressed="false"><span data-l="en">Multi-page brand satellite</span><span data-l="ru">Многостраничный сателлит бренда</span></button><button type="button" class="chip" data-filter="type" data-value="app-multi" aria-pressed="false"><span data-l="en">Multi-page app download</span><span data-l="ru">Многостраничный сайт приложения</span></button><button type="button" class="chip" data-filter="type" data-value="reviews" aria-pressed="false"><span data-l="en">Brand review site</span><span data-l="ru">Сайт отзывов о бренде</span></button><button type="button" class="chip" data-filter="type" data-value="casinos" aria-pressed="false"><span data-l="en">Multi-brand casino reviews</span><span data-l="ru">Обзоры нескольких казино</span></button><button type="button" class="chip" data-filter="type" data-value="news" aria-pressed="false"><span data-l="en">Gambling news with PR</span><span data-l="ru">Новости гемблинга и PR-статьи</span></button></div>
+    <div class="frow"><span class="lbl"><span data-l="en">Market</span><span data-l="ru">Рынок</span></span><button type="button" class="chip" data-filter="market" data-value="au" aria-pressed="false"><span data-l="en">Australia</span><span data-l="ru">Австралия</span></button><button type="button" class="chip" data-filter="market" data-value="kz" aria-pressed="false"><span data-l="en">Kazakhstan</span><span data-l="ru">Казахстан</span></button><button type="button" class="chip" data-filter="market" data-value="br" aria-pressed="false"><span data-l="en">Brazil</span><span data-l="ru">Бразилия</span></button><button type="button" class="chip" data-filter="market" data-value="xx" aria-pressed="false"><span data-l="en">Demo market</span><span data-l="ru">Демо-рынок</span></button><button type="button" class="clear" id="clear" hidden><span data-l="en">Show all</span><span data-l="ru">Показать все</span></button></div>
+  </div>
+  <p class="none-msg" id="none" hidden><span data-l="en">No demo matches these filters.</span><span data-l="ru">Нет демо под эти фильтры.</span> <button type="button" class="clear" id="clear2"><span data-l="en">Show all</span><span data-l="ru">Показать все</span></button></p>
+  
+    <section class="type" id="landing" data-type="landing">
+      <header class="type-head">
+        <span class="phase">01</span>
+        <div><h2><span data-l="en">One-page branded landing</span><span data-l="ru">Брендовый лендинг</span></h2><p><span data-l="en">Sells the brand on one page and sends visitors to sign up.</span><span data-l="ru">Продаёт бренд на одной странице и ведёт на регистрацию.</span></p></div>
+        <span class="status ok"><span data-l="en">Ready</span><span data-l="ru">Готово</span></span>
+      </header>
+      <div class="grid">
+      <article class="card" data-type="landing" data-market="xx">
+        <div class="shots">
+          <img class="desk" src="shots/b-nyxa-xx-d.png" data-alt-en="Desktop view of Nyxa demo B" data-alt-ru="Вид на компьютере: Nyxa, демо B" alt="Desktop view of Nyxa demo B" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/b-nyxa-xx-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">B</span>Nyxa <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
+          <h3>Nyxa: ставки на спорт и онлайн-казино с быстрым выводом</h3>
+          <ul class="meta"><li><span data-l="en">Demo market</span><span data-l="ru">Демо-рынок</span></li><li><span data-l="en">Russian</span><span data-l="ru">Русский</span></li><li>Terminal</li><li><span data-l="en">Trusted</span><span data-l="ru">Надёжность</span></li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 51.5 KB</span><span data-l="ru">макс. 51,5 КБ</span></span><a class="open" href="https://claude.ai/artifact/2qsjUPWpWFcfPYNFPJbYtf" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      <article class="card" data-type="landing" data-market="au">
+        <div class="shots">
+          <img class="desk" src="shots/a-vantro-au-d.png" data-alt-en="Desktop view of Vantro demo A" data-alt-ru="Вид на компьютере: Vantro, демо A" alt="Desktop view of Vantro demo A" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/a-vantro-au-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">A</span>Vantro</p>
+          <h3>Vantro: live footy, cricket and basketball odds</h3>
+          <ul class="meta"><li><span data-l="en">Australia</span><span data-l="ru">Австралия</span></li><li><span data-l="en">English</span><span data-l="ru">Английский</span></li><li>Arena</li><li><span data-l="en">Matchday</span><span data-l="ru">День матча</span></li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 47.5 KB</span><span data-l="ru">макс. 47,5 КБ</span></span><a class="open" href="https://claude.ai/artifact/6rq8HUmPD4bWTVm5MByQ4Z" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      <article class="card" data-type="landing" data-market="br">
+        <div class="shots">
+          <img class="desk" src="shots/c-marlowe-br-d.png" data-alt-en="Desktop view of Marlowe Club demo C" data-alt-ru="Вид на компьютере: Marlowe Club, демо C" alt="Desktop view of Marlowe Club demo C" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/c-marlowe-br-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">C</span>Marlowe Club</p>
+          <h3>Marlowe Club: cassino ao vivo com saque via PIX</h3>
+          <ul class="meta"><li><span data-l="en">Brazil</span><span data-l="ru">Бразилия</span></li><li><span data-l="en">Portuguese</span><span data-l="ru">Португальский</span></li><li>Luxury Gold</li><li><span data-l="en">Live casino</span><span data-l="ru">Живое казино</span></li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 46.5 KB</span><span data-l="ru">макс. 46,5 КБ</span></span><a class="open" href="https://claude.ai/artifact/BRe64qmtbdQHAFSL37CiRt" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      </div>
+    </section>
+    <section class="type" id="app" data-type="app">
+      <header class="type-head">
+        <span class="phase">02</span>
+        <div><h2><span data-l="en">One-page app download</span><span data-l="ru">Страница приложения (лендинг)</span></h2><p><span data-l="en">Looks and works like a store listing: install buttons, QR code, APK guide.</span><span data-l="ru">Выглядит и работает как страница в магазине приложений: кнопки установки, QR-код, инструкция для APK.</span></p></div>
+        <span class="status ok"><span data-l="en">Ready</span><span data-l="ru">Готово</span></span>
+      </header>
+      <div class="grid">
+      <article class="card" data-type="app" data-market="kz">
+        <div class="shots">
+          <img class="desk" src="shots/app-b-nyxa-kz-d.png" data-alt-en="Desktop view of Nyxa demo B" data-alt-ru="Вид на компьютере: Nyxa, демо B" alt="Desktop view of Nyxa demo B" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/app-b-nyxa-kz-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">B</span>Nyxa</p>
+          <h3>Скачать приложение Nyxa для Android (APK) и iPhone</h3>
+          <ul class="meta"><li><span data-l="en">Kazakhstan</span><span data-l="ru">Казахстан</span></li><li><span data-l="en">Russian</span><span data-l="ru">Русский</span></li><li>Midnight Neon</li><li><span data-l="en">Apk easy</span><span data-l="ru">Простой APK</span></li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 57.3 KB</span><span data-l="ru">макс. 57,3 КБ</span></span><a class="open" href="https://claude.ai/artifact/T6UfHqFvRx7PwS414xBQ8W" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      <article class="card" data-type="app" data-market="au">
+        <div class="shots">
+          <img class="desk" src="shots/app-a-vantro-au-d.png" data-alt-en="Desktop view of Vantro demo A" data-alt-ru="Вид на компьютере: Vantro, демо A" alt="Desktop view of Vantro demo A" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/app-a-vantro-au-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">A</span>Vantro</p>
+          <h3>Vantro Sports app for iPhone and Android</h3>
+          <ul class="meta"><li><span data-l="en">Australia</span><span data-l="ru">Австралия</span></li><li><span data-l="en">English</span><span data-l="ru">Английский</span></li><li>Fresh Minimal</li><li><span data-l="en">Official app</span><span data-l="ru">Официальное приложение</span></li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 54.6 KB</span><span data-l="ru">макс. 54,6 КБ</span></span><a class="open" href="https://claude.ai/artifact/Sp51ZgtUL2ia8m9WgQKMy8" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      <article class="card" data-type="app" data-market="br">
+        <div class="shots">
+          <img class="desk" src="shots/app-c-marlowe-br-d.png" data-alt-en="Desktop view of Marlowe Club demo C" data-alt-ru="Вид на компьютере: Marlowe Club, демо C" alt="Desktop view of Marlowe Club demo C" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/app-c-marlowe-br-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">C</span>Marlowe Club</p>
+          <h3>Baixe o app Marlowe Club para iPhone e Android</h3>
+          <ul class="meta"><li><span data-l="en">Brazil</span><span data-l="ru">Бразилия</span></li><li><span data-l="en">Portuguese</span><span data-l="ru">Португальский</span></li><li>Velvet Club</li><li><span data-l="en">Fast app</span><span data-l="ru">Быстрое приложение</span></li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 59.5 KB</span><span data-l="ru">макс. 59,5 КБ</span></span><a class="open" href="https://claude.ai/artifact/A314gvyNJFt2SDetdFJVXL" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      </div>
+    </section>
+    <section class="type" id="promo" data-type="promo">
+      <header class="type-head">
+        <span class="phase">03</span>
+        <div><h2><span data-l="en">One-page bonuses and promo codes</span><span data-l="ru">Бонусы и промокоды (лендинг)</span></h2><p><span data-l="en">Current offers with codes and the terms in plain words.</span><span data-l="ru">Актуальные предложения с кодами и условиями простыми словами.</span></p></div>
+        <span class="status part"><span data-l="en">Demo market only</span><span data-l="ru">Только демо-рынок</span></span>
+      </header>
+      <div class="grid">
+      <article class="card" data-type="promo" data-market="xx">
+        <div class="shots">
+          <img class="desk" src="shots/promo-b-nyxa-xx-d.png" data-alt-en="Desktop view of Nyxa demo B" data-alt-ru="Вид на компьютере: Nyxa, демо B" alt="Desktop view of Nyxa demo B" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/promo-b-nyxa-xx-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">B</span>Nyxa <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
+          <h3>Акции Nyxa: повышенные коэффициенты, кешбэк и турниры</h3>
+          <ul class="meta"><li><span data-l="en">Demo market</span><span data-l="ru">Демо-рынок</span></li><li><span data-l="en">Russian</span><span data-l="ru">Русский</span></li><li>Candy Pop</li><li><span data-l="en">Everyday</span><span data-l="ru">Каждый день</span></li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 46.4 KB</span><span data-l="ru">макс. 46,4 КБ</span></span><a class="open" href="https://claude.ai/artifact/LDUjXqQSoR8y2xd1Q4GzpB" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      <article class="card" data-type="promo" data-market="xx">
+        <div class="shots">
+          <img class="desk" src="shots/promo-a-vantro-xx-d.png" data-alt-en="Desktop view of Vantro demo A" data-alt-ru="Вид на компьютере: Vantro, демо A" alt="Desktop view of Vantro demo A" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/promo-a-vantro-xx-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">A</span>Vantro <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
+          <h3>Vantro promo code VANTRO100: 100% up to €100</h3>
+          <ul class="meta"><li><span data-l="en">Demo market</span><span data-l="ru">Демо-рынок</span></li><li><span data-l="en">English</span><span data-l="ru">Английский</span></li><li>Sunburst</li><li><span data-l="en">Welcome</span><span data-l="ru">Приветственный бонус</span></li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 42.1 KB</span><span data-l="ru">макс. 42,1 КБ</span></span><a class="open" href="https://claude.ai/artifact/X2fNCbnTMZwtcnXzWVtuwG" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      <article class="card" data-type="promo" data-market="xx">
+        <div class="shots">
+          <img class="desk" src="shots/promo-c-marlowe-xx-d.png" data-alt-en="Desktop view of Marlowe Club demo C" data-alt-ru="Вид на компьютере: Marlowe Club, демо C" alt="Desktop view of Marlowe Club demo C" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/promo-c-marlowe-xx-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">C</span>Marlowe Club <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
+          <h3>Código promocional Marlowe Club MARLOWE50: 50% até €200</h3>
+          <ul class="meta"><li><span data-l="en">Demo market</span><span data-l="ru">Демо-рынок</span></li><li><span data-l="en">Portuguese</span><span data-l="ru">Португальский</span></li><li>Velvet Club</li><li><span data-l="en">Code first</span><span data-l="ru">Сначала код</span></li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 43.7 KB</span><span data-l="ru">макс. 43,7 КБ</span></span><a class="open" href="https://claude.ai/artifact/4wB8VkYemLJ4erWZ8qNYhb" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      </div>
+    </section>
+    <section class="type" id="vendor" data-type="vendor">
+      <header class="type-head">
+        <span class="phase">04</span>
+        <div><h2><span data-l="en">One-page vendor overview</span><span data-l="ru">Обзор провайдера (лендинг)</span></h2><p><span data-l="en">One game studio as a brand carries it: new and popular games, honest RTP.</span><span data-l="ru">Одна игровая студия у конкретного бренда: новые и популярные игры, честный RTP.</span></p></div>
+        <span class="status ok"><span data-l="en">Ready</span><span data-l="ru">Готово</span></span>
+      </header>
+      <div class="grid">
+      <article class="card" data-type="vendor" data-market="xx">
+        <div class="shots">
+          <img class="desk" src="shots/vendor-b-nyxa-xx-d.png" data-alt-en="Desktop view of Nyxa demo B" data-alt-ru="Вид на компьютере: Nyxa, демо B" alt="Desktop view of Nyxa demo B" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/vendor-b-nyxa-xx-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">B</span>Nyxa <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
+          <h3>Слоты Tidewell в Nyxa: самые популярные, с RTP и волатильностью</h3>
+          <ul class="meta"><li><span data-l="en">Demo market</span><span data-l="ru">Демо-рынок</span></li><li><span data-l="en">Russian</span><span data-l="ru">Русский</span></li><li>Candy Pop</li><li><span data-l="en">Popular</span><span data-l="ru">Популярное</span></li><li>Tidewell Studios</li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 48.8 KB</span><span data-l="ru">макс. 48,8 КБ</span></span><a class="open" href="https://claude.ai/artifact/FPWQnGzwiLhwTbFy13ptyf" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      <article class="card" data-type="vendor" data-market="xx">
+        <div class="shots">
+          <img class="desk" src="shots/vendor-c-marlowe-xx-d.png" data-alt-en="Desktop view of Marlowe Club demo C" data-alt-ru="Вид на компьютере: Marlowe Club, демо C" alt="Desktop view of Marlowe Club demo C" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/vendor-c-marlowe-xx-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">C</span>Marlowe Club <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
+          <h3>Paper Lantern Games at Marlowe Club: the studio and its slots</h3>
+          <ul class="meta"><li><span data-l="en">Demo market</span><span data-l="ru">Демо-рынок</span></li><li><span data-l="en">English</span><span data-l="ru">Английский</span></li><li>Editorial</li><li><span data-l="en">Studio</span><span data-l="ru">Студия</span></li><li>Paper Lantern Games</li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 46.9 KB</span><span data-l="ru">макс. 46,9 КБ</span></span><a class="open" href="https://claude.ai/artifact/MmS16an8n8Tx798wBS98kg" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      <article class="card" data-type="vendor" data-market="br">
+        <div class="shots">
+          <img class="desk" src="shots/vendor-a-marlowe-br-d.png" data-alt-en="Desktop view of Marlowe Club demo A" data-alt-ru="Вид на компьютере: Marlowe Club, демо A" alt="Desktop view of Marlowe Club demo A" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/vendor-a-marlowe-br-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">A</span>Marlowe Club</p>
+          <h3>Emberforge na Marlowe Club: novos slots e os mais jogados</h3>
+          <ul class="meta"><li><span data-l="en">Brazil</span><span data-l="ru">Бразилия</span></li><li><span data-l="en">Portuguese</span><span data-l="ru">Португальский</span></li><li>Luxury Gold</li><li><span data-l="en">New releases</span><span data-l="ru">Новинки</span></li><li>Emberforge</li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 48.3 KB</span><span data-l="ru">макс. 48,3 КБ</span></span><a class="open" href="https://claude.ai/artifact/D2R4dMEyfAtHmKqSGYi1cX" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      </div>
+    </section>
+    <section class="type" id="satellite" data-type="satellite">
+      <header class="type-head">
+        <span class="phase">05</span>
+        <div><h2><span data-l="en">Multi-page brand satellite</span><span data-l="ru">Многостраничный сателлит бренда</span></h2><p><span data-l="en">Home plus service pages for sign-up, payments, app and safer gambling.</span><span data-l="ru">Главная и сервисные страницы: регистрация, платежи, приложение, ответственная игра.</span></p></div>
+        <span class="status ok"><span data-l="en">Ready</span><span data-l="ru">Готово</span></span>
+      </header>
+      <div class="grid">
+      <article class="card" data-type="satellite" data-market="kz">
+        <div class="shots">
+          <img class="desk" src="shots/sat-b-nyxa-kz-d.png" data-alt-en="Desktop view of Nyxa demo B" data-alt-ru="Вид на компьютере: Nyxa, демо B" alt="Desktop view of Nyxa demo B" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/sat-b-nyxa-kz-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">B</span>Nyxa</p>
+          <h3>Nyxa: вывод выигрыша на Kaspi за 5 минут</h3>
+          <ul class="meta"><li><span data-l="en">Kazakhstan</span><span data-l="ru">Казахстан</span></li><li><span data-l="en">Russian</span><span data-l="ru">Русский</span></li><li>Fresh Minimal</li><li><span data-l="en">Fast payouts</span><span data-l="ru">Быстрые выплаты</span></li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">5 pages</span><span data-l="ru">5 страниц</span> · <span data-l="en">max 43.3 KB</span><span data-l="ru">макс. 43,3 КБ</span></span><a class="open" href="https://claude.ai/artifact/YCWaxhwnCRRwHCWWoCCXnP" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      <article class="card" data-type="satellite" data-market="au">
+        <div class="shots">
+          <img class="desk" src="shots/sat-a-vantro-au-d.png" data-alt-en="Desktop view of Vantro demo A" data-alt-ru="Вид на компьютере: Vantro, демо A" alt="Desktop view of Vantro demo A" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/sat-a-vantro-au-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">A</span>Vantro</p>
+          <h3>Vantro guide: sign up, deposit and bet in three steps</h3>
+          <ul class="meta"><li><span data-l="en">Australia</span><span data-l="ru">Австралия</span></li><li><span data-l="en">English</span><span data-l="ru">Английский</span></li><li>Clean Sportsbook</li><li><span data-l="en">Starter guide</span><span data-l="ru">Гайд для новичка</span></li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">5 pages</span><span data-l="ru">5 страниц</span> · <span data-l="en">max 43.8 KB</span><span data-l="ru">макс. 43,8 КБ</span></span><a class="open" href="https://claude.ai/artifact/SZGsU5EGXFFUzJghR2xyJD" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      <article class="card" data-type="satellite" data-market="br">
+        <div class="shots">
+          <img class="desk" src="shots/sat-c-vantro-br-d.png" data-alt-en="Desktop view of Vantro demo C" data-alt-ru="Вид на компьютере: Vantro, демо C" alt="Desktop view of Vantro demo C" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/sat-c-vantro-br-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">C</span>Vantro</p>
+          <h3>Vantro: apostas em futebol, vôlei e basquete ao vivo</h3>
+          <ul class="meta"><li><span data-l="en">Brazil</span><span data-l="ru">Бразилия</span></li><li><span data-l="en">Portuguese</span><span data-l="ru">Португальский</span></li><li>Arena</li><li><span data-l="en">Sports depth</span><span data-l="ru">Глубина линии</span></li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">5 pages</span><span data-l="ru">5 страниц</span> · <span data-l="en">max 44.8 KB</span><span data-l="ru">макс. 44,8 КБ</span></span><a class="open" href="https://claude.ai/artifact/Nz2eVJGiVJbapgQJCx6mzC" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      </div>
+    </section>
+    <section class="type" id="app-multi" data-type="app-multi">
+      <header class="type-head">
+        <span class="phase">06</span>
+        <div><h2><span data-l="en">Multi-page app download</span><span data-l="ru">Многостраничный сайт приложения</span></h2><p><span data-l="en">Skipped for now. Would combine the app blocks with the multi-page plumbing.</span><span data-l="ru">Пока пропущен. Объединит блоки приложения и многостраничную основу.</span></p></div>
+        <span class="status none"><span data-l="en">Not built</span><span data-l="ru">Не сделано</span></span>
+      </header>
+      <div class="grid">
+      <article class="card empty" data-type="app-multi" data-market="none">
+        <div class="shots blank"><p><span data-l="en">No demo yet</span><span data-l="ru">Демо пока нет</span></p></div>
+        <div class="body"><p class="eyebrow"><span data-l="en">Phase 6</span><span data-l="ru">Этап 6</span></p><h3><span data-l="en">Skipped for now</span><span data-l="ru">Пока пропущено</span></h3>
+          <p class="note"><span data-l="en">The app blocks from Phase 2 and the multi-page plumbing from Phase 5 already exist, so this type mostly needs its page set and APK rules.</span><span data-l="ru">Блоки приложения из этапа 2 и многостраничная основа из этапа 5 уже есть, поэтому для этого типа нужны в основном набор страниц и правила для APK.</span></p></div>
+      </article>
+      </div>
+    </section>
+    <section class="type" id="reviews" data-type="reviews">
+      <header class="type-head">
+        <span class="phase">07</span>
+        <div><h2><span data-l="en">Brand review site</span><span data-l="ru">Сайт отзывов о бренде</span></h2><p><span data-l="en">Player reviews of one brand, with computed scores and topic filters.</span><span data-l="ru">Отзывы игроков об одном бренде с рассчитанными оценками и фильтрами по темам.</span></p></div>
+        <span class="status ok"><span data-l="en">Ready</span><span data-l="ru">Готово</span></span>
+      </header>
+      <div class="grid">
+      <article class="card" data-type="reviews" data-market="kz">
+        <div class="shots">
+          <img class="desk" src="shots/reviews-a-nyxa-kz-d.png" data-alt-en="Desktop view of Nyxa demo A" data-alt-ru="Вид на компьютере: Nyxa, демо A" alt="Desktop view of Nyxa demo A" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/reviews-a-nyxa-kz-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">A</span>Nyxa <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
+          <h3>Отзывы о Nyxa: оценки игроков, выплаты и поддержка</h3>
+          <ul class="meta"><li><span data-l="en">Kazakhstan</span><span data-l="ru">Казахстан</span></li><li><span data-l="en">Russian</span><span data-l="ru">Русский</span></li><li>Fresh Minimal</li><li><span data-l="en">Payout focus</span><span data-l="ru">Акцент на выплаты</span></li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">6 pages</span><span data-l="ru">6 страниц</span> · <span data-l="en">max 57.4 KB</span><span data-l="ru">макс. 57,4 КБ</span></span><a class="open" href="https://claude.ai/artifact/T9F1WiTpA4z6odfmXbP1NB" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      <article class="card" data-type="reviews" data-market="au">
+        <div class="shots">
+          <img class="desk" src="shots/reviews-c-vantro-au-d.png" data-alt-en="Desktop view of Vantro demo C" data-alt-ru="Вид на компьютере: Vantro, демо C" alt="Desktop view of Vantro demo C" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/reviews-c-vantro-au-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">C</span>Vantro <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
+          <h3>Vantro reviews: what Australian punters say, good and bad</h3>
+          <ul class="meta"><li><span data-l="en">Australia</span><span data-l="ru">Австралия</span></li><li><span data-l="en">English</span><span data-l="ru">Английский</span></li><li>Clean Sportsbook</li><li><span data-l="en">Balanced</span><span data-l="ru">Сбалансированный</span></li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">5 pages</span><span data-l="ru">5 страниц</span> · <span data-l="en">max 55.6 KB</span><span data-l="ru">макс. 55,6 КБ</span></span><a class="open" href="https://claude.ai/artifact/DaYPRhsDgSP4LvSZVN5TG1" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      <article class="card" data-type="reviews" data-market="br">
+        <div class="shots">
+          <img class="desk" src="shots/reviews-b-marlowe-br-d.png" data-alt-en="Desktop view of Marlowe Club demo B" data-alt-ru="Вид на компьютере: Marlowe Club, демо B" alt="Desktop view of Marlowe Club demo B" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/reviews-b-marlowe-br-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">B</span>Marlowe Club <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
+          <h3>Marlowe Club é confiável? Opiniões de jogadores e atendimento</h3>
+          <ul class="meta"><li><span data-l="en">Brazil</span><span data-l="ru">Бразилия</span></li><li><span data-l="en">Portuguese</span><span data-l="ru">Португальский</span></li><li>Luxury Gold</li><li><span data-l="en">Support focus</span><span data-l="ru">Акцент на поддержку</span></li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">7 pages</span><span data-l="ru">7 страниц</span> · <span data-l="en">max 55.6 KB</span><span data-l="ru">макс. 55,6 КБ</span></span><a class="open" href="https://claude.ai/artifact/UYKvJJK3tJTuA6uJopVfos" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      </div>
+    </section>
+    <section class="type" id="casinos" data-type="casinos">
+      <header class="type-head">
+        <span class="phase">08</span>
+        <div><h2><span data-l="en">Multi-brand casino reviews</span><span data-l="ru">Обзоры нескольких казино</span></h2><p><span data-l="en">Ranked, scored reviews of licensed casinos, with a comparison table.</span><span data-l="ru">Рейтинг и обзоры лицензированных казино с таблицей сравнения.</span></p></div>
+        <span class="status ok"><span data-l="en">Ready</span><span data-l="ru">Готово</span></span>
+      </header>
+      <div class="grid">
+      <article class="card" data-type="casinos" data-market="xx">
+        <div class="shots">
+          <img class="desk" src="shots/casinos-b-xx-d.png" data-alt-en="Desktop view of Живой стол demo B" data-alt-ru="Вид на компьютере: Живой стол, демо B" alt="Desktop view of Живой стол demo B" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/casinos-b-xx-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">B</span>Живой стол <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
+          <h3>Лучшие live-казино: рейтинг 2026 по живым столам</h3>
+          <ul class="meta"><li><span data-l="en">Demo market</span><span data-l="ru">Демо-рынок</span></li><li><span data-l="en">Russian</span><span data-l="ru">Русский</span></li><li>Midnight Neon</li><li><span data-l="en">Live casino</span><span data-l="ru">Живое казино</span></li><li><span data-l="en">5 brands</span><span data-l="ru">5 брендов</span></li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">10 pages</span><span data-l="ru">10 страниц</span> · <span data-l="en">max 45.9 KB</span><span data-l="ru">макс. 45,9 КБ</span></span><a class="open" href="https://claude.ai/artifact/SgmodicpPGcZvK5gjjYDFE" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      <article class="card" data-type="casinos" data-market="xx">
+        <div class="shots">
+          <img class="desk" src="shots/casinos-c-xx-d.png" data-alt-en="Desktop view of Casino Scout demo C" data-alt-ru="Вид на компьютере: Casino Scout, демо C" alt="Desktop view of Casino Scout demo C" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/casinos-c-xx-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">C</span>Casino Scout <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
+          <h3>Best online casinos in Demoland: 2026 ranking</h3>
+          <ul class="meta"><li><span data-l="en">Demo market</span><span data-l="ru">Демо-рынок</span></li><li><span data-l="en">English</span><span data-l="ru">Английский</span></li><li>Sunburst</li><li><span data-l="en">Overall</span><span data-l="ru">Общий рейтинг</span></li><li><span data-l="en">5 brands</span><span data-l="ru">5 брендов</span></li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">10 pages</span><span data-l="ru">10 страниц</span> · <span data-l="en">max 43.2 KB</span><span data-l="ru">макс. 43,2 КБ</span></span><a class="open" href="https://claude.ai/artifact/7MqksxBRowFv4oZkVRwNuy" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      <article class="card" data-type="casinos" data-market="br">
+        <div class="shots">
+          <img class="desk" src="shots/casinos-a-br-d.png" data-alt-en="Desktop view of Cassino em Foco demo A" data-alt-ru="Вид на компьютере: Cassino em Foco, демо A" alt="Desktop view of Cassino em Foco demo A" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/casinos-a-br-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">A</span>Cassino em Foco</p>
+          <h3>Cassinos online com saque rápido no Brasil: ranking 2026</h3>
+          <ul class="meta"><li><span data-l="en">Brazil</span><span data-l="ru">Бразилия</span></li><li><span data-l="en">Portuguese</span><span data-l="ru">Португальский</span></li><li>Editorial</li><li><span data-l="en">Fast payouts</span><span data-l="ru">Быстрые выплаты</span></li><li><span data-l="en">5 brands</span><span data-l="ru">5 брендов</span></li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">10 pages</span><span data-l="ru">10 страниц</span> · <span data-l="en">max 42.5 KB</span><span data-l="ru">макс. 42,5 КБ</span></span><a class="open" href="https://claude.ai/artifact/HFpVi7eExxJ5unqxdf2uzZ" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      </div>
+    </section>
+    <section class="type" id="news" data-type="news">
+      <header class="type-head">
+        <span class="phase">09</span>
+        <div><h2><span data-l="en">Gambling news with PR</span><span data-l="ru">Новости гемблинга и PR-статьи</span></h2><p><span data-l="en">Industry news and guides, with paid articles labelled Sponsored.</span><span data-l="ru">Новости отрасли и гайды; платные статьи помечены как реклама.</span></p></div>
+        <span class="status ok"><span data-l="en">Ready</span><span data-l="ru">Готово</span></span>
+      </header>
+      <div class="grid">
+      <article class="card" data-type="news" data-market="kz">
+        <div class="shots">
+          <img class="desk" src="shots/news-c-kz-d.png" data-alt-en="Desktop view of Ставки Дня demo C" data-alt-ru="Вид на компьютере: Ставки Дня, демо C" alt="Desktop view of Ставки Дня demo C" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/news-c-kz-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">C</span>Ставки Дня <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
+          <h3>Ставки Дня: новости букмекеров Казахстана</h3>
+          <ul class="meta"><li><span data-l="en">Kazakhstan</span><span data-l="ru">Казахстан</span></li><li><span data-l="en">Russian</span><span data-l="ru">Русский</span></li><li>Terminal</li><li><span data-l="en">Brand watch</span><span data-l="ru">brand-watch</span></li><li><span data-l="en">8 articles</span><span data-l="ru">8 статей</span></li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">13 pages</span><span data-l="ru">13 страниц</span> · <span data-l="en">max 44.8 KB</span><span data-l="ru">макс. 44,8 КБ</span></span><a class="open" href="https://claude.ai/artifact/5jCmT1ttiCN1bCL1F4vpej" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      <article class="card" data-type="news" data-market="au">
+        <div class="shots">
+          <img class="desk" src="shots/news-a-au-d.png" data-alt-en="Desktop view of Paddock Wire demo A" data-alt-ru="Вид на компьютере: Paddock Wire, демо A" alt="Desktop view of Paddock Wire demo A" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/news-a-au-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">A</span>Paddock Wire <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
+          <h3>Paddock Wire: Australian betting news and guides</h3>
+          <ul class="meta"><li><span data-l="en">Australia</span><span data-l="ru">Австралия</span></li><li><span data-l="en">English</span><span data-l="ru">Английский</span></li><li>Editorial</li><li><span data-l="en">Newsroom</span><span data-l="ru">Редакция</span></li><li><span data-l="en">13 articles</span><span data-l="ru">13 статей</span></li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">17 pages</span><span data-l="ru">17 страниц</span> · <span data-l="en">max 41.6 KB</span><span data-l="ru">макс. 41,6 КБ</span></span><a class="open" href="https://claude.ai/artifact/QkSvnYTzwgyJDB8CVXG1eF" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      <article class="card" data-type="news" data-market="br">
+        <div class="shots">
+          <img class="desk" src="shots/news-b-br-d.png" data-alt-en="Desktop view of Placar Aberto demo B" data-alt-ru="Вид на компьютере: Placar Aberto, демо B" alt="Desktop view of Placar Aberto demo B" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="shots/news-b-br-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">B</span>Placar Aberto <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
+          <h3>Placar Aberto: notícias e guias de apostas no Brasil</h3>
+          <ul class="meta"><li><span data-l="en">Brazil</span><span data-l="ru">Бразилия</span></li><li><span data-l="en">Portuguese</span><span data-l="ru">Португальский</span></li><li>Fresh Minimal</li><li><span data-l="en">Guides first</span><span data-l="ru">Сначала гайды</span></li><li><span data-l="en">8 articles</span><span data-l="ru">8 статей</span></li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">13 pages</span><span data-l="ru">13 страниц</span> · <span data-l="en">max 40.9 KB</span><span data-l="ru">макс. 40,9 КБ</span></span><a class="open" href="https://claude.ai/artifact/Y9zghU3Pnb8A1SuCJwKCU5" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      </div>
+    </section>
+  <footer><p><span data-l="en">Screenshots and review links show the current builds as of 30 Oct 2026.</span><span data-l="ru">Скриншоты и ссылки показывают текущие сборки на 30 октября 2026 года.</span></p></footer>
+</div>
+
+<script>
+(function () {
+  var docEl = document.documentElement;
+  function load(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function keep(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* private window: choice lasts for this visit */ } }
+
+  // Language: #ru / #en in the link, then the saved choice, then the browser language.
+  function setLang(l, save) {
+    docEl.setAttribute('data-lang', l);
+    docEl.lang = l;
+    document.title = l === 'ru' ? 'Галерея Satellite System' : 'Satellite System Gallery';
+    document.querySelectorAll('img[data-alt-en]').forEach(function (img) { img.alt = img.getAttribute('data-alt-' + l); });
+    document.querySelectorAll('[data-set-lang]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.setLang === l)); });
+    if (save) keep('sxg-lang', l);
+  }
+  var hashLang = (location.hash.match(/^#(ru|en)$/) || [])[1];
+  setLang(hashLang || load('sxg-lang') || ((navigator.language || '').toLowerCase().indexOf('ru') === 0 ? 'ru' : 'en'), false);
+
+  // Theme: light unless the viewer picks dark, or auto (follow the device / viewer setting).
+  function setTheme(th, save) {
+    if (th === 'auto') docEl.removeAttribute('data-theme'); else docEl.setAttribute('data-theme', th);
+    document.querySelectorAll('[data-set-theme]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.setTheme === th)); });
+    if (save) keep('sxg-theme', th);
+  }
+  setTheme(load('sxg-theme') || 'light', false);
+
+  document.querySelectorAll('[data-set-lang]').forEach(function (b) { b.addEventListener('click', function () { setLang(b.dataset.setLang, true); }); });
+  document.querySelectorAll('[data-set-theme]').forEach(function (b) { b.addEventListener('click', function () { setTheme(b.dataset.setTheme, true); }); });
+
+  var state = { type: null, market: null };
+  var chips = document.querySelectorAll('.chip');
+  var cards = document.querySelectorAll('.card');
+  var sections = document.querySelectorAll('.type');
+  var clear = document.getElementById('clear');
+  var none = document.getElementById('none');
+  function apply() {
+    var shown = 0;
+    cards.forEach(function (c) {
+      var ok = (!state.type || c.dataset.type === state.type) && (!state.market || c.dataset.market === state.market);
+      c.hidden = !ok; if (ok) shown++;
+    });
+    sections.forEach(function (s) { s.hidden = !s.querySelector('.card:not([hidden])'); });
+    chips.forEach(function (b) { b.setAttribute('aria-pressed', String(state[b.dataset.filter] === b.dataset.value)); });
+    clear.hidden = !state.type && !state.market;
+    none.hidden = shown > 0;
+  }
+  chips.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var k = b.dataset.filter;
+      state[k] = state[k] === b.dataset.value ? null : b.dataset.value;
+      apply();
+    });
+  });
+  function reset() { state = { type: null, market: null }; apply(); }
+  clear.addEventListener('click', reset);
+  document.getElementById('clear2').addEventListener('click', reset);
+})();
+</script>

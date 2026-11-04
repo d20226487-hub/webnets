@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/game-grid",
+  "title": "SX Game Grid",
+  "category": "sx-conversion",
+  "description": "The provider's games at the brand: newest additions or popular titles, each with facts and its own CTA.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false },
+  "sx": {
+    "role": "content",
+    "status": "feature layout (one large new game + list) is planned, not built",
+    "variants": ["grid", "strip", "table"],
+    "default_variant": "grid",
+    "guardrails": [
+      "Only games the brand catalog lists as live in the site's market.",
+      "mode=new shows games added to the brand in the last 60 days and renders nothing below 2.",
+      "'Popular' wording only when the catalog has ranks; otherwise the title says 'games'."
+    ]
+  }
+}

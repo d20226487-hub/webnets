@@ -1,0 +1,7 @@
+/* Multi-page navigation states (header current page, footer site nav). Shipped only on multi-page sites. */
+.sx-header__nav a[aria-current] { color: var(--c-text); box-shadow: inset 0 -2px 0 var(--c-accent); }
+.sx-header__menu a[aria-current] { font-weight: var(--fw-strong); background: var(--c-surface-2); }
+.sx-footer__site ul { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-5); }
+.sx-footer__site a { display: inline-block; padding-block: var(--sp-2); font-weight: var(--fw-strong); text-decoration: none; }
+.sx-footer__site a[aria-current] { text-decoration: underline; text-underline-offset: 4px; }
+.sx-footer--columns .sx-footer__site ul { display: grid; gap: 0; }

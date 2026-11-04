@@ -1,0 +1,3 @@
+.sx-editor__inner { display: grid; gap: var(--sp-4); padding-block: var(--sp-6); }
+.sx-editor__inner > * { max-width: 860px; }
+.sx-editor__share { padding-inline-start: var(--sp-1); }

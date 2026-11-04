@@ -1,0 +1,72 @@
+{
+    "fields": [
+        {
+            "name": "variant",
+            "type": "select",
+            "label": "Layout",
+            "choices": [
+                "auto",
+                "grid",
+                "rows",
+                "bento"
+            ],
+            "default": "auto"
+        },
+        {
+            "name": "eyebrow",
+            "type": "text",
+            "label": "Eyebrow",
+            "default": ""
+        },
+        {
+            "name": "title",
+            "type": "text",
+            "label": "Section title",
+            "required": true,
+            "default": "",
+            "maxlength": 60
+        },
+        {
+            "name": "items",
+            "type": "repeater",
+            "label": "Features",
+            "max": 4,
+            "default": [],
+            "fields": [
+                {
+                    "name": "icon",
+                    "type": "select",
+                    "label": "Icon",
+                    "choices": [
+                        "layers",
+                        "play",
+                        "bolt",
+                        "gauge",
+                        "wallet",
+                        "shield",
+                        "chart",
+                        "mobile",
+                        "clock",
+                        "star"
+                    ]
+                },
+                {
+                    "name": "title",
+                    "type": "text",
+                    "label": "Title",
+                    "required": true,
+                    "maxlength": 32
+                },
+                {
+                    "name": "text",
+                    "type": "textarea",
+                    "label": "Text",
+                    "required": true,
+                    "maxlength": 140
+                }
+            ],
+            "min": 3,
+            "required": true
+        }
+    ]
+}

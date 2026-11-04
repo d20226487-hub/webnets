@@ -1,0 +1,169 @@
+{
+  "_note": "Game catalog for Nyxa (fictional). Same shape as marlowe.json: live games per market, date added to the brand, the brand's popularity rank, and the RTP version Nyxa runs there (null = unknown).",
+  "markets": {
+    "br": {
+      "providers": {
+        "tidewell": {
+          "games": [
+            {
+              "id": "big-catch",
+              "rtp": 96.7,
+              "added": "2025-01-08",
+              "rank": 1
+            },
+            {
+              "id": "sugar-tide",
+              "rtp": 94.5,
+              "added": "2025-07-05",
+              "rank": 2
+            },
+            {
+              "id": "tidal-gems",
+              "rtp": 96.5,
+              "added": "2025-02-20",
+              "rank": 3
+            },
+            {
+              "id": "coral-fortune",
+              "rtp": 96.5,
+              "added": "2026-10-18",
+              "rank": 4
+            },
+            {
+              "id": "lighthouse",
+              "rtp": 96.4,
+              "added": "2026-09-29",
+              "rank": 5
+            },
+            {
+              "id": "pearl-harbour-hold",
+              "rtp": null,
+              "added": "2026-08-25",
+              "rank": 6
+            }
+          ]
+        },
+        "emberforge": {
+          "games": [
+            {
+              "id": "iron-wolves",
+              "rtp": 96.4,
+              "added": "2025-04-11",
+              "rank": 1
+            },
+            {
+              "id": "furnace-777",
+              "rtp": 95.9,
+              "added": "2025-11-25",
+              "rank": 2
+            },
+            {
+              "id": "ashen-crown",
+              "rtp": 94.3,
+              "added": "2026-10-01",
+              "rank": 3
+            }
+          ]
+        },
+        "paper-lantern": {
+          "games": [
+            {
+              "id": "night-market",
+              "rtp": 96.2,
+              "added": "2026-10-03",
+              "rank": 1
+            },
+            {
+              "id": "moon-ferry",
+              "rtp": 96.3,
+              "added": "2025-12-04",
+              "rank": 2
+            }
+          ]
+        }
+      }
+    },
+    "xx": {
+      "providers": {
+        "tidewell": {
+          "games": [
+            {
+              "id": "big-catch",
+              "rtp": 96.7,
+              "added": "2025-01-08",
+              "rank": 1
+            },
+            {
+              "id": "sugar-tide",
+              "rtp": 94.5,
+              "added": "2025-07-05",
+              "rank": 2
+            },
+            {
+              "id": "tidal-gems",
+              "rtp": 96.5,
+              "added": "2025-02-20",
+              "rank": 3
+            },
+            {
+              "id": "coral-fortune",
+              "rtp": 96.5,
+              "added": "2026-10-18",
+              "rank": 4
+            },
+            {
+              "id": "lighthouse",
+              "rtp": 96.4,
+              "added": "2026-09-29",
+              "rank": 5
+            },
+            {
+              "id": "pearl-harbour-hold",
+              "rtp": null,
+              "added": "2026-08-25",
+              "rank": 6
+            }
+          ]
+        },
+        "emberforge": {
+          "games": [
+            {
+              "id": "iron-wolves",
+              "rtp": 96.4,
+              "added": "2025-04-11",
+              "rank": 1
+            },
+            {
+              "id": "furnace-777",
+              "rtp": 95.9,
+              "added": "2025-11-25",
+              "rank": 2
+            },
+            {
+              "id": "ashen-crown",
+              "rtp": 94.3,
+              "added": "2026-10-01",
+              "rank": 3
+            }
+          ]
+        },
+        "paper-lantern": {
+          "games": [
+            {
+              "id": "night-market",
+              "rtp": 96.2,
+              "added": "2026-10-03",
+              "rank": 1
+            },
+            {
+              "id": "moon-ferry",
+              "rtp": 96.3,
+              "added": "2025-12-04",
+              "rank": 2
+            }
+          ]
+        }
+      }
+    }
+  }
+}

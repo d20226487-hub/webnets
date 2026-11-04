@@ -1,0 +1,618 @@
+# Rebuild brief: Casino Scout
+
+You are rebuilding every page of the **Casino Scout** template, a casinos site (angle: overall). Keep the section order, the content and every rule below. Write the page text exactly as given (it is in English); write code and comments in English.
+
+**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section below with the listed fields as props.
+
+## Site context
+
+- Site: Casino Scout (https://casinoscout.example)
+- Market: Demoland (demo only) (`xx`), language `en`, text direction `ltr`, currency EUR
+- Minimum age: 18+
+- Products allowed: sports betting yes, online casino yes
+- Market note: Every promotion type is allowed here so the full promo-page design can be reviewed. Mirror the first real market that uses the promo type.
+- Pages (10):
+  - `index.html` — Best online casinos in Demoland: 2026 ranking
+  - `reviews-marlowe.html` — Marlowe Club review: scores, bonus terms and payouts
+  - `reviews-nyxa.html` — Nyxa review: scores, bonus terms and payouts
+  - `reviews-verazul.html` — Verazul review: scores, bonus terms and payouts
+  - `reviews-lunaro.html` — Lunaro review: scores, bonus terms and payouts
+  - `reviews-cobaltio.html` — Cobaltio review: scores, bonus terms and payouts
+  - `compare.html` — Compare online casinos in Demoland
+  - `fast-withdrawals.html` — Fastest-paying casinos in Demoland
+  - `live-casino.html` — Best live casinos in Demoland
+  - `how-we-rate.html` — How we score casinos
+
+## Design tokens
+
+Fonts (Google Fonts): Onest.
+
+Use these CSS custom properties (they are the whole palette, type scale and radius set):
+
+```css
+:root {
+  --c-bg: #FFF7E6;
+  --c-surface: #FFFFFF;
+  --c-surface-2: #FFEFCC;
+  --c-text: #1F1A0E;
+  --c-muted: #6B5E3E;
+  --c-border: #F0DFB5;
+  --c-accent: #007A40;
+  --c-on-accent: #FFFFFF;
+  --c-accent-2: #FFB800;
+  --c-success: #1F9D55;
+  --c-warning: #D98B00;
+  --c-danger: #D93636;
+  --c-hero-text: #1F1A0E;
+  --c-hero-muted: #5E5236;
+  --c-hero-accent: #007A40;
+  --c-hero-on-accent: #FFFFFF;
+  --hero-bg: linear-gradient(135deg,#FFE38A 0%,#FFF7E6 55%);
+  --f-display: "Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-body: "Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono: "Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --fw-heading: 800;
+  --fw-body: 400;
+  --fw-strong: 500;
+  --tt-heading: none;
+  --ls-heading: -0.02em;
+  --lh-body: 1.55;
+  --lh-heading: 1.15;
+  --r-sm: 10px;
+  --r: 16px;
+  --r-lg: 24px;
+  --r-btn: 999px;
+  --bw: 1px;
+  --density: 1;
+  --fs-0: 12.8px;
+  --fs-1: 16px;
+  --fs-2: 25px;
+  --fs-3: clamp(21.25px,16.96px + 1.19vw,31.25px);
+  --fs-4: clamp(26.56px,21.21px + 1.488vw,39.06px);
+  --fs-5: clamp(33.2px,26.51px + 1.86vw,48.83px);
+  --fs-6: clamp(41.5px,33.13px + 2.325vw,61.04px);
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 96px;
+  --card-bg: #FFFFFF;
+  --card-border: transparent;
+  --card-shadow: 0 8px 24px rgba(120,80,0,.12);
+  --surface-style: elevated;
+}
+```
+
+Layout is mobile-first: it must work from 375px to 1440px wide.
+
+## Rules you must not break
+
+- Every page opens with an age gate (18+) before any gambling content.
+- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- Responsible gambling: All copy comes from markets/<id>.json; never type compliance text into a page.
+- Responsible gambling: Every page renders a 'panel' (usually inside the footer). 'strip' is an optional top-of-page addition.
+- Responsible gambling: Where a market lists several mandated taglines, one is chosen per site by seed.
+- Affiliate disclosure: Fixed wording per locale; cannot be removed on review sites.
+- Header: One-page landing and app pages use 'minimal' (no nav) so attention stays on the conversion.
+- Header: The CTA stays visible at every width; on mobile the nav collapses into a menu, the CTA does not.
+- Brand ranking: Order always follows the computed scores.
+- Brand ranking: A featured (paid) brand is shown only in a labelled slot and keeps its real rank.
+- Page links: Internal links only; never a substitute for the brand CTA.
+- FAQ: 4-6 questions: legality in the country, deposits/withdrawals, payout time, verification, limits or self-exclusion.
+- FAQ: Answers are plain text, 1-3 sentences. No CTA links inside answers.
+- Final CTA: Always the last section before the footer.
+- Final CTA: Headline 40 characters max. No urgency claims (timers, 'last chance').
+- Footer: Always renders the compliance panel; it cannot be switched off.
+- Footer: Payment methods come from the market config so they are always locally correct.
+- Age gate: Age comes from the market (21 in KZ, 18 in AU/BR). Never hard-code it.
+- Age gate: Content stays in the HTML for crawlers; the overlay is shown by script, so no-JS users still see the compliance footer.
+- Sticky CTA: Phones only (860px and narrower). Never covers the compliance panel: the footer gets bottom padding.
+- Sticky CTA: Shows the market age badge next to the CTA.
+- Brand header: Score is computed; verdict comes from brands/ratings/<market>.json.
+- Score box: Every score shows its reason. Criteria a market does not score (e.g. bonuses in BR) are hidden, with a note.
+- Pros and cons: Cons are mandatory and never hidden.
+- Key facts: Facts come from brands/facts/<market>.json with a checked date; studios from the brand catalog.
+- Comparison table: Columns follow the overall ranking.
+- Text block: Only h2, h3, p, ul, ol, li, strong, em, a, table, blockquote survive; all attributes except href are removed.
+- Text block: Links: page:<id> for internal pages, https:// for sources. Brand links belong in CTAs, not in prose.
+- Page title: The answer line states the page's key fact in one sentence, above the fold on phones.
+- Rating criteria: Weights shown are the weights used; nothing is typed in content.
+
+## Page `index.html`
+
+- Title tag: Best online casinos in Demoland: 2026 ranking
+- Meta description: Five licensed casinos tested for payouts, games, live tables, app, support and bonus terms. Every score has a written reason. 18+.
+- The only H1: Best online casinos, every score explained
+- Structured data (JSON-LD): WebPage, FAQPage, WebSite
+- Links to: `index.html`, `compare.html`, `fast-withdrawals.html`, `live-casino.html`, `how-we-rate.html`, `reviews-marlowe.html`, `reviews-nyxa.html`, `reviews-verazul.html`, `reviews-lunaro.html`, `reviews-cobaltio.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: true
+4. **Brand ranking** — block `sx/toplist`, variant `podium`, role `content`
+   Purpose: Ranked brands with score, one reason, the key fact for the page and a CTA per brand. Order = scores; one labelled featured slot at most.
+   - `heading`: "h1"
+   - `title`: "Best online casinos, every score explained"
+   - `intro`: "We opened real accounts at five licensed casinos and scored seven things that matter. The list follows the overall score; tap a casino for the reasons."
+   - `limit`: "0"
+   - `show_featured`: true
+   - `exclude_current`: false
+5. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+6. **FAQ** — block `sx/faq`, variant `columns`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Are these casinos licensed?","a":"Yes. Every casino listed shows a Demoland Gaming Authority licence."},{"q":"How do you test withdrawals?","a":"We deposit, play and request at least five withdrawals per casino on different days, then record the time until the money arrives."},{"q":"Do casinos pay to be listed?","a":"We earn commission when you sign up through our links. It never changes a score or a position, and this page has no paid slot."},{"q":"How are bonuses scored?","a":"On wagering, time limits and how clearly the terms are written. The size of the offer does not count."},{"q":"Can I set deposit limits?","a":"Yes. Every casino here offers deposit and session limits in the account area, plus self-exclusion."}]`
+7. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Pick the one that fits you"
+   - `text`: "All five casinos are licensed. Set a limit before you play. 18+."
+   - `show_code`: false
+8. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+9. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+10. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `reviews-marlowe.html`
+
+- Title tag: Marlowe Club review: scores, bonus terms and payouts
+- Meta description: Our Marlowe Club review: a score per criterion with the reason, pros and cons, payout times and key facts. 18+.
+- The only H1: Marlowe Club review
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `index.html`, `compare.html`, `fast-withdrawals.html`, `live-casino.html`, `how-we-rate.html`, `reviews-nyxa.html`, `reviews-verazul.html`, `reviews-lunaro.html`, `reviews-cobaltio.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: true
+4. **Brand header** — block `sx/brand-header`, variant `split`, role `content`
+   Purpose: Review page hero: brand, computed score, verdict, key facts, CTA, tested date.
+   - `title`: "Marlowe Club review"
+5. **Score box** — block `sx/score-box`, variant `rows`, role `content`
+   Purpose: Each criterion with its weight, score and the reason for the score; overall computed.
+6. **Pros and cons** — block `sx/pros-cons`, variant `columns`, role `content`
+   Purpose: Strengths and weaknesses from the rating file. A review without cons does not build.
+7. **Key facts** — block `sx/facts-table`, variant `table`, role `content`
+   Purpose: Key facts of the brand in this market: licence, domain, deposits, withdrawals, payments, support, games, studios.
+8. **Brand ranking** — block `sx/toplist`, variant `list`, role `content`
+   Purpose: Ranked brands with score, one reason, the key fact for the page and a CTA per brand. Order = scores; one labelled featured slot at most.
+   - `heading`: "h2"
+   - `title`: "Other casinos we tested"
+   - `limit`: "4"
+   - `show_featured`: false
+   - `exclude_current`: true
+9. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Thinking about Marlowe Club?"
+   - `text`: "Licensed in Demoland. Set a deposit limit and play responsibly. 18+."
+   - `show_code`: false
+10. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+11. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+12. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `reviews-nyxa.html`
+
+- Title tag: Nyxa review: scores, bonus terms and payouts
+- Meta description: Our Nyxa review: a score per criterion with the reason, pros and cons, payout times and key facts. 18+.
+- The only H1: Nyxa review
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `index.html`, `compare.html`, `fast-withdrawals.html`, `live-casino.html`, `how-we-rate.html`, `reviews-marlowe.html`, `reviews-verazul.html`, `reviews-lunaro.html`, `reviews-cobaltio.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: true
+4. **Brand header** — block `sx/brand-header`, variant `split`, role `content`
+   Purpose: Review page hero: brand, computed score, verdict, key facts, CTA, tested date.
+   - `title`: "Nyxa review"
+5. **Score box** — block `sx/score-box`, variant `rows`, role `content`
+   Purpose: Each criterion with its weight, score and the reason for the score; overall computed.
+6. **Pros and cons** — block `sx/pros-cons`, variant `columns`, role `content`
+   Purpose: Strengths and weaknesses from the rating file. A review without cons does not build.
+7. **Key facts** — block `sx/facts-table`, variant `table`, role `content`
+   Purpose: Key facts of the brand in this market: licence, domain, deposits, withdrawals, payments, support, games, studios.
+8. **Brand ranking** — block `sx/toplist`, variant `list`, role `content`
+   Purpose: Ranked brands with score, one reason, the key fact for the page and a CTA per brand. Order = scores; one labelled featured slot at most.
+   - `heading`: "h2"
+   - `title`: "Other casinos we tested"
+   - `limit`: "4"
+   - `show_featured`: false
+   - `exclude_current`: true
+9. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Thinking about Nyxa?"
+   - `text`: "Licensed in Demoland. Set a deposit limit and play responsibly. 18+."
+   - `show_code`: false
+10. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+11. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+12. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `reviews-verazul.html`
+
+- Title tag: Verazul review: scores, bonus terms and payouts
+- Meta description: Our Verazul review: a score per criterion with the reason, pros and cons, payout times and key facts. 18+.
+- The only H1: Verazul review
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `index.html`, `compare.html`, `fast-withdrawals.html`, `live-casino.html`, `how-we-rate.html`, `reviews-marlowe.html`, `reviews-nyxa.html`, `reviews-lunaro.html`, `reviews-cobaltio.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: true
+4. **Brand header** — block `sx/brand-header`, variant `split`, role `content`
+   Purpose: Review page hero: brand, computed score, verdict, key facts, CTA, tested date.
+   - `title`: "Verazul review"
+5. **Score box** — block `sx/score-box`, variant `rows`, role `content`
+   Purpose: Each criterion with its weight, score and the reason for the score; overall computed.
+6. **Pros and cons** — block `sx/pros-cons`, variant `columns`, role `content`
+   Purpose: Strengths and weaknesses from the rating file. A review without cons does not build.
+7. **Key facts** — block `sx/facts-table`, variant `table`, role `content`
+   Purpose: Key facts of the brand in this market: licence, domain, deposits, withdrawals, payments, support, games, studios.
+8. **Brand ranking** — block `sx/toplist`, variant `list`, role `content`
+   Purpose: Ranked brands with score, one reason, the key fact for the page and a CTA per brand. Order = scores; one labelled featured slot at most.
+   - `heading`: "h2"
+   - `title`: "Other casinos we tested"
+   - `limit`: "4"
+   - `show_featured`: false
+   - `exclude_current`: true
+9. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Thinking about Verazul?"
+   - `text`: "Licensed in Demoland. Set a deposit limit and play responsibly. 18+."
+   - `show_code`: false
+10. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+11. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+12. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `reviews-lunaro.html`
+
+- Title tag: Lunaro review: scores, bonus terms and payouts
+- Meta description: Our Lunaro review: a score per criterion with the reason, pros and cons, payout times and key facts. 18+.
+- The only H1: Lunaro review
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `index.html`, `compare.html`, `fast-withdrawals.html`, `live-casino.html`, `how-we-rate.html`, `reviews-marlowe.html`, `reviews-nyxa.html`, `reviews-verazul.html`, `reviews-cobaltio.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: true
+4. **Brand header** — block `sx/brand-header`, variant `split`, role `content`
+   Purpose: Review page hero: brand, computed score, verdict, key facts, CTA, tested date.
+   - `title`: "Lunaro review"
+5. **Score box** — block `sx/score-box`, variant `rows`, role `content`
+   Purpose: Each criterion with its weight, score and the reason for the score; overall computed.
+6. **Pros and cons** — block `sx/pros-cons`, variant `columns`, role `content`
+   Purpose: Strengths and weaknesses from the rating file. A review without cons does not build.
+7. **Key facts** — block `sx/facts-table`, variant `table`, role `content`
+   Purpose: Key facts of the brand in this market: licence, domain, deposits, withdrawals, payments, support, games, studios.
+8. **Brand ranking** — block `sx/toplist`, variant `list`, role `content`
+   Purpose: Ranked brands with score, one reason, the key fact for the page and a CTA per brand. Order = scores; one labelled featured slot at most.
+   - `heading`: "h2"
+   - `title`: "Other casinos we tested"
+   - `limit`: "4"
+   - `show_featured`: false
+   - `exclude_current`: true
+9. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Thinking about Lunaro?"
+   - `text`: "Licensed in Demoland. Set a deposit limit and play responsibly. 18+."
+   - `show_code`: false
+10. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+11. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+12. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `reviews-cobaltio.html`
+
+- Title tag: Cobaltio review: scores, bonus terms and payouts
+- Meta description: Our Cobaltio review: a score per criterion with the reason, pros and cons, payout times and key facts. 18+.
+- The only H1: Cobaltio review
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `index.html`, `compare.html`, `fast-withdrawals.html`, `live-casino.html`, `how-we-rate.html`, `reviews-marlowe.html`, `reviews-nyxa.html`, `reviews-verazul.html`, `reviews-lunaro.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: true
+4. **Brand header** — block `sx/brand-header`, variant `split`, role `content`
+   Purpose: Review page hero: brand, computed score, verdict, key facts, CTA, tested date.
+   - `title`: "Cobaltio review"
+5. **Score box** — block `sx/score-box`, variant `rows`, role `content`
+   Purpose: Each criterion with its weight, score and the reason for the score; overall computed.
+6. **Pros and cons** — block `sx/pros-cons`, variant `columns`, role `content`
+   Purpose: Strengths and weaknesses from the rating file. A review without cons does not build.
+7. **Key facts** — block `sx/facts-table`, variant `table`, role `content`
+   Purpose: Key facts of the brand in this market: licence, domain, deposits, withdrawals, payments, support, games, studios.
+8. **Brand ranking** — block `sx/toplist`, variant `list`, role `content`
+   Purpose: Ranked brands with score, one reason, the key fact for the page and a CTA per brand. Order = scores; one labelled featured slot at most.
+   - `heading`: "h2"
+   - `title`: "Other casinos we tested"
+   - `limit`: "4"
+   - `show_featured`: false
+   - `exclude_current`: true
+9. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Thinking about Cobaltio?"
+   - `text`: "Licensed in Demoland. Set a deposit limit and play responsibly. 18+."
+   - `show_code`: false
+10. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+11. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+12. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `compare.html`
+
+- Title tag: Compare online casinos in Demoland
+- Meta description: Five casinos side by side: overall score, payouts, games, live casino, app, support and bonuses. 18+.
+- The only H1: Compare casinos in Demoland
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `index.html`, `compare.html`, `fast-withdrawals.html`, `live-casino.html`, `how-we-rate.html`, `reviews-marlowe.html`, `reviews-nyxa.html`, `reviews-verazul.html`, `reviews-lunaro.html`, `reviews-cobaltio.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: true
+4. **Comparison table** — block `sx/compare-table`, variant `table`, role `content`
+   Purpose: All brands side by side: overall, each criterion, key facts, review link and CTA. First column sticks on phones.
+   - `title`: "Compare casinos in Demoland"
+   - `heading`: "h1"
+5. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+6. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+7. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+8. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `fast-withdrawals.html`
+
+- Title tag: Fastest-paying casinos in Demoland
+- Meta description: Casinos ranked by payout score, from the real times of our test withdrawals. 18+.
+- The only H1: Fastest-paying casinos
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `index.html`, `compare.html`, `fast-withdrawals.html`, `live-casino.html`, `how-we-rate.html`, `reviews-nyxa.html`, `reviews-verazul.html`, `reviews-lunaro.html`, `reviews-marlowe.html`, `reviews-cobaltio.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: true
+4. **Brand ranking** — block `sx/toplist`, variant `cards`, role `content`
+   Purpose: Ranked brands with score, one reason, the key fact for the page and a CTA per brand. Order = scores; one labelled featured slot at most.
+   - `heading`: "h1"
+   - `title`: "Fastest-paying casinos"
+   - `intro`: "Ranked by payout score, from the real times of our test withdrawals."
+   - `rank_by`: "payouts"
+   - `limit`: "0"
+   - `show_featured`: false
+   - `exclude_current`: false
+5. **Text block** — block `sx/prose`, variant `toc-side`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<h2>How we time payouts</h2><p>We request at least five withdrawals per casino and record the time from request to money in the account.</p><h2>Method matters</h2><p>Apple Pay at Nyxa arrived in about 15 minutes. Cobaltio only pays by bank transfer, which took about two days.</p>` (HTML)
+   - `toc`: false
+6. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+7. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+8. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+9. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `live-casino.html`
+
+- Title tag: Best live casinos in Demoland
+- Meta description: Casinos ranked by live-casino score: tables open across the day, dealers and stream quality. 18+.
+- The only H1: Best live casinos
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `index.html`, `compare.html`, `fast-withdrawals.html`, `live-casino.html`, `how-we-rate.html`, `reviews-lunaro.html`, `reviews-verazul.html`, `reviews-marlowe.html`, `reviews-nyxa.html`, `reviews-cobaltio.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: true
+4. **Brand ranking** — block `sx/toplist`, variant `list`, role `content`
+   Purpose: Ranked brands with score, one reason, the key fact for the page and a CTA per brand. Order = scores; one labelled featured slot at most.
+   - `heading`: "h1"
+   - `title`: "Best live casinos"
+   - `intro`: "Ranked by live-casino score: tables open across the day, dealers and stream quality on 4G."
+   - `rank_by`: "live"
+   - `limit`: "0"
+   - `show_featured`: false
+   - `exclude_current`: false
+5. **Text block** — block `sx/prose`, variant `article`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<h2>What counts in the live score</h2><p>We count tables open at four times of day over a week and test the stream on a 4G phone.</p><h2>Late-night tables</h2><p>Lunaro and Verazul kept the most tables open after midnight in our tests.</p><h2>Stakes</h2><p>Marlowe has the most low-stake roulette tables, useful if you want to keep sessions small.</p>` (HTML)
+   - `toc`: true
+6. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+7. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+8. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+9. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `how-we-rate.html`
+
+- Title tag: How we score casinos
+- Meta description: Our seven criteria and weights, how we test, how often, and how Casino Scout makes money.
+- The only H1: How we score casinos
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `index.html`, `compare.html`, `fast-withdrawals.html`, `live-casino.html`, `how-we-rate.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+3. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: true
+4. **Page title** — block `sx/page-hero`, variant `answer`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "How we score casinos"
+   - `answer`: "Seven criteria with fixed weights. Every score comes from a real test and has a written reason. The overall score is calculated, never typed."
+   - `show_cta`: false
+5. **Rating criteria** — block `sx/criteria`, variant `list`, role `content`
+   Purpose: The criteria and weights used in this market, rendered from the blueprint, with what each one measures.
+   - `title`: "Criteria and weights"
+6. **Text block** — block `sx/prose`, variant `article`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<h2>How we test</h2><p>For each casino we open a real account, pass verification, deposit, play, request at least five withdrawals and contact support at different times.</p><h2>How often</h2><p>We retest every three months or when a casino changes something important. The test date is on every review.</p><h2>How we make money</h2><p>We earn commission when you sign up through our links. Commissio…` (HTML)
+   - `toc`: false
+7. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+8. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+9. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+
+## Acceptance checklist
+
+- [ ] Sections appear in the order above, with the same layout variant (or an equivalent layout).
+- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
+- [ ] One H1 per page; headings do not skip levels.
+- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
+- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
+- [ ] The structured data listed for each page is present and valid.
+- [ ] Every internal link opens an existing page.
+- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
+- [ ] Every rule in "Rules you must not break" holds on every page.
+
+_Long text and lists are shortened here (…, "[n items]"). For the full text run `php build/ai-brief.php sites/demos/<config>.json`._

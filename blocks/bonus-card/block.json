@@ -1,0 +1,22 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/bonus-card",
+  "title": "SX Bonus / Feature Card",
+  "category": "sx-conversion",
+  "description": "Offer card (amount, code, terms) or, where offers are restricted, a feature card with brand proof points.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false },
+  "sx": {
+    "role": "offer",
+    "status": "preview: expanded in Phase 1",
+    "variants": ["ticket", "panel"],
+    "default_variant": "ticket",
+    "modes": ["offer", "feature"],
+    "guardrails": [
+      "mode=offer auto-switches to mode=feature in markets where promotions.welcome_bonus is 'restricted' (all three demo markets).",
+      "Offer cards always show a terms line next to the amount, not below the fold.",
+      "One primary CTA per card."
+    ]
+  }
+}

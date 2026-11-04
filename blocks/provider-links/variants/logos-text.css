@@ -1,0 +1,15 @@
+/* logos-text: each studio as a wordmark tile in its own colours (text only, no licensed logos needed). */
+.sx-plinks--logos-text .sx-plinks__list { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+.sx-plinks--logos-text .sx-plinks__list a {
+  display: grid; align-content: end; gap: 2px; min-height: 120px; padding: var(--sp-4); border: 0; border-radius: var(--r);
+  background: linear-gradient(150deg, var(--p2), color-mix(in srgb, var(--p2) 75%, #000)); color: #fff;
+}
+.sx-plinks--logos-text .sx-plinks__list a:hover { outline: 2px solid var(--p1); outline-offset: 2px; }
+.sx-plinks--logos-text .sx-plinks__dot, .sx-plinks--logos-text .sx-icon { display: none; }
+.sx-plinks--logos-text strong { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-3); line-height: 1; color: var(--p1); }
+.sx-plinks--logos-text small { color: rgba(255, 255, 255, .8); }
+@media (max-width: 640px) {
+  .sx-plinks--logos-text .sx-plinks__list { grid-template-columns: 1fr 1fr; }
+  .sx-plinks--logos-text .sx-plinks__list a { min-height: 96px; }
+  .sx-plinks--logos-text strong { font-size: var(--fs-2); }
+}

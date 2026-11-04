@@ -1,0 +1,40 @@
+{
+  "id": "br",
+  "name": "Brazil",
+  "locales": ["pt"],
+  "default_locale": "pt",
+  "dir": "ltr",
+  "currency": { "code": "BRL", "symbol": "R$", "position": "before", "space": true, "decimal": ",", "thousands": ".", "decimals": 0 },
+  "date_format": "d/m/Y",
+  "min_age": 18,
+  "verticals": { "sports": true, "casino": true },
+  "promotions": {"welcome_bonus":"restricted","deposit_bonus":"restricted","free_bets":"restricted","promo_code":"restricted","odds_boost":"unknown","cashback":"unknown","loyalty":"unknown","tournaments":"unknown"},
+  "_promotions_verify": "Brief 03: unknown counts as restricted. Compliance sets each type to allowed/restricted.",
+  "payments": ["pix", "ted", "debit"],
+  "apps": {"ios":"app-store","android":"both"},
+  "_apps_verify": "Assumed distribution per brief 02, section 3. Confirm per brand.",
+  "compliance": {
+    "_verify": "PLACEHOLDER COPY. Confirm every line with compliance before production use.",
+    "license_line": {
+      "pt": "{brand} é autorizada pela {regulator} — Portaria nº {license_no}."
+    },
+    "regulator_default": {
+      "pt": "Secretaria de Prêmios e Apostas do Ministério da Fazenda (SPA/MF)"
+    },
+    "license_short": { "pt": "Autorizada SPA/MF" },
+    "brand_domain_suffix": ".bet.br",
+    "strip": "optional",
+    "age_notice": {
+      "pt": "Proibido para menores de 18 anos."
+    },
+    "taglines": {
+      "pt": ["Jogue com responsabilidade.", "Apostas envolvem risco de perda financeira."]
+    },
+    "self_exclusion": {
+      "pt": "Você pode solicitar a autoexclusão a qualquer momento."
+    },
+    "helpline": null,
+    "required_blocks": ["age-gate", "compliance-bar"],
+    "notes": "Regulated under Lei 14.790/2023. Licensed operators use .bet.br domains. Advance bonuses are prohibited; PIX is the default payment rail; credit cards are not accepted."
+  }
+}

@@ -1,0 +1,20 @@
+.sx-sreviews__inner { display: grid; gap: var(--sp-5); padding-block: var(--sp-6); }
+.sx-sreviews__title { font-size: var(--fs-3); }
+.sx-sreviews__summary { display: grid; grid-template-columns: auto minmax(0, 420px); gap: var(--sp-6); align-items: center; justify-content: start; }
+.sx-sreviews__score { display: grid; justify-items: center; gap: 4px; }
+.sx-sreviews__score strong { font-size: calc(var(--fs-5) * 1.4); line-height: 1; font-weight: 500; }
+.sx-sreviews__score span { font-size: var(--fs-0); color: var(--c-muted); }
+.sx-sreviews__bars { display: grid; gap: 6px; }
+.sx-sreviews__bars div { display: grid; grid-template-columns: 1.2rem minmax(0, 1fr); gap: var(--sp-3); align-items: center; font-size: .78rem; color: var(--c-muted); }
+.sx-sreviews__bars i { height: 10px; border-radius: 99px; background: linear-gradient(90deg, var(--c-accent) var(--v), var(--c-surface-2) var(--v)); }
+.sx-sreviews__sample { display: flex; align-items: center; gap: 6px; font-size: var(--fs-0); color: var(--c-muted); }
+.sx-sreviews__sample .sx-icon { width: 14px; height: 14px; }
+.sx-sreviews__list { display: grid; gap: var(--sp-5); max-width: 760px; }
+.sx-sreviews__card { display: grid; gap: var(--sp-2); }
+.sx-sreviews__card header { display: flex; align-items: center; gap: var(--sp-3); }
+.sx-sreviews__avatar { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--c-accent-2); color: #fff; font-size: .85rem; font-weight: 500; }
+.sx-sreviews__meta { display: flex; align-items: center; gap: var(--sp-3); font-size: .78rem; color: var(--c-muted); }
+.sx-sreviews__text { font-size: var(--fs-0); color: var(--c-text); }
+.sx-sreviews__reply { padding: var(--sp-3) var(--sp-4); border-radius: var(--r-sm); background: var(--c-surface); font-size: var(--fs-0); }
+.sx-sreviews__reply strong { display: block; margin-block-end: 2px; font-weight: 500; }
+@media (max-width: 640px) { .sx-sreviews__summary { grid-template-columns: auto minmax(0, 1fr); gap: var(--sp-4); } .sx-sreviews__score strong { font-size: var(--fs-5); } }

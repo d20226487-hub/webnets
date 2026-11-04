@@ -1,0 +1,28 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/store-about",
+  "title": "SX Store About",
+  "category": "sx-conversion",
+  "description": "Store-style description. play = \"About this app\" with tags and a facts grid; appstore = description with developer line.",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "sx_acf_render"
+  },
+  "supports": {
+    "align": false,
+    "html": false,
+    "multiple": false
+  },
+  "sx": {
+    "role": "content",
+    "variants": [
+      "play",
+      "appstore"
+    ],
+    "default_variant": "play",
+    "guardrails": [
+      "Facts (updated, version, requirements, downloads, rating) come from the brand's app data."
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "fields": [
+    { "name": "variant", "type": "select", "label": "Layout", "choices": ["auto", "cards", "list"], "default": "auto" },
+    { "name": "title", "type": "text", "label": "Section title (empty = automatic)", "default": "", "maxlength": 60 },
+    { "name": "pages", "type": "text", "label": "Page ids, comma-separated (empty = all other pages except home)", "default": "" }
+  ]
+}

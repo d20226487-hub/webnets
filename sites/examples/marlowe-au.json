@@ -1,0 +1,12 @@
+{
+  "_purpose": "Negative test: a casino-only brand in a market where online casino is prohibited. The build must warn.",
+  "id": "marlowe-au",
+  "brand": "marlowe",
+  "market": "au",
+  "preset": "luxury-gold",
+  "seed": "marlowe-au-test",
+  "prefix": "auto",
+  "pages": [
+    { "slug": "index", "title": "Marlowe Club", "blocks": [ { "block": "header" }, { "block": "hero", "props": { "title": "The table is set." } } ] }
+  ]
+}

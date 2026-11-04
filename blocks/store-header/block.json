@@ -1,0 +1,28 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/store-header",
+  "title": "SX Store Header",
+  "category": "sx-conversion",
+  "description": "Store-listing header: icon, name, developer, rating and install. play = Google Play listing; appstore = App Store product page.",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "sx_acf_render"
+  },
+  "supports": {
+    "align": false,
+    "html": false,
+    "multiple": false
+  },
+  "sx": {
+    "role": "content",
+    "variants": [
+      "play",
+      "appstore"
+    ],
+    "default_variant": "play",
+    "guardrails": [
+      "Ratings and download counts come from brands/operators.json app.store (copied from the real listing, with checked_at); nothing is typed per site."
+    ]
+  }
+}

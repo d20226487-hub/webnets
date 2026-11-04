@@ -1,0 +1,8 @@
+.sx-ftable__inner { display: grid; gap: var(--sp-4); padding-block: var(--sp-7); }
+.sx-ftable__title { font-size: var(--fs-4); }
+.sx-ftable__table { width: 100%; max-width: 820px; border-collapse: collapse; background: var(--c-surface); border-radius: var(--r); overflow: hidden; border: var(--bw) solid var(--c-border); }
+.sx-ftable__table th, .sx-ftable__table td { padding: var(--sp-3) var(--sp-4); text-align: start; border-block-end: 1px solid var(--c-border); vertical-align: top; }
+.sx-ftable__table tr:last-child > * { border-block-end: 0; }
+.sx-ftable__table th { width: 38%; color: var(--c-muted); font-weight: 400; font-size: var(--fs-0); }
+.sx-ftable__table td { font-weight: var(--fw-strong); }
+@media (max-width: 640px) { .sx-ftable__table th, .sx-ftable__table td { padding: var(--sp-2) var(--sp-3); } }

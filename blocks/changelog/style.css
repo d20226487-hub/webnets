@@ -1,0 +1,16 @@
+.sx-changes { background: var(--c-surface-2); }
+.sx-changes__inner { display: grid; gap: var(--sp-5); padding-block: var(--sp-8); max-width: 860px; }
+.sx-changes__title { font-size: var(--fs-4); }
+.sx-changes__list { display: grid; gap: var(--sp-4); }
+.sx-changes__release { display: grid; gap: var(--sp-3); padding: var(--sp-5); border-radius: var(--r); background: var(--c-surface); border: var(--bw) solid var(--c-border); }
+.sx-changes__release--latest { border-color: var(--c-accent); }
+.sx-changes__meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--sp-2); font-size: var(--fs-0); color: var(--c-muted); }
+.sx-changes__meta strong { color: var(--c-text); font-size: var(--fs-1); }
+.sx-changes__release ul { display: grid; gap: var(--sp-2); }
+.sx-changes__release li { display: flex; gap: var(--sp-2); align-items: flex-start; }
+.sx-changes__release li .sx-icon { color: var(--c-accent); margin-block-start: .15em; }
+
+@media (max-width: 640px) {
+  .sx-changes__inner { padding-block: var(--sp-7); }
+  .sx-changes__release { padding: var(--sp-4); }
+}

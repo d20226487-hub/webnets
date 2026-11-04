@@ -1,0 +1,47 @@
+/* Shared app-page primitives (not a block): app icon, install buttons, phone mockup with CSS-drawn screens.
+   Shipped only on pages that call sx_app_icon() / sx_phone() / sx_install(). Screen-specific CSS
+   lives in variants/<kind>.css and ships only for the screens a page draws. */
+
+.sx-appicon { display: grid; place-items: center; flex: none; width: 56px; aspect-ratio: 1; border-radius: 22%; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08), 0 6px 16px rgba(0,0,0,.18); }
+.sx-appicon svg { width: 58%; height: 58%; }
+
+/* Install buttons: same footprint as store badges, our own styling, no store logos */
+.sx-installs { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
+.sx-install {
+  display: inline-flex; align-items: center; gap: var(--sp-3); min-height: 56px; min-width: 176px;
+  padding: var(--sp-2) var(--sp-5) var(--sp-2) var(--sp-4); border-radius: var(--r-btn);
+  background: var(--c-text); color: var(--c-bg); text-decoration: none; border: var(--bw) solid transparent;
+  transition: transform .15s ease, filter .15s ease;
+}
+.sx-install:hover { transform: translateY(-1px); filter: brightness(1.08); }
+.sx-install .sx-icon { width: 26px; height: 26px; }
+.sx-install__text { display: grid; line-height: 1.1; text-align: start; }
+.sx-install__text small { font-size: .72rem; opacity: .8; }
+.sx-install__text strong { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: 1.15rem; letter-spacing: -.01em; }
+.sx-installs > .sx-install:first-child { background: var(--c-accent); color: var(--c-on-accent); }
+
+/* Phone */
+.sx-phone {
+  position: relative; width: min(100%, 280px); aspect-ratio: 9 / 19.5; flex: none;
+  padding: 10px; border-radius: 44px; background: #0B0C10;
+  box-shadow: inset 0 0 0 2px #2A2C33, 0 30px 60px rgba(0,0,0,.35);
+}
+.sx-phone::before { content: ""; position: absolute; z-index: 2; inset-block-start: 18px; inset-inline-start: 50%; translate: -50% 0; width: 30%; height: 22px; border-radius: 999px; background: #0B0C10; }
+.sx-phone__screen { width: 100%; height: 100%; border-radius: 34px; overflow: hidden; background: var(--c-bg); }
+.sx-phone__screen > img { width: 100%; height: 100%; object-fit: cover; }
+.sx-phone__ui { display: grid; align-content: start; gap: 8px; height: 100%; padding: 48px 12px 12px; color: var(--c-text); font-family: var(--f-body); font-size: 11px; position: relative; }
+.sx-phone__bar { display: flex; align-items: center; gap: 6px; margin-block-end: 4px; }
+.sx-phone__bar > span { width: 18px; height: 18px; border-radius: 6px; flex: none; }
+.sx-phone__ui i { display: block; height: 7px; border-radius: 4px; background: color-mix(in srgb, var(--c-text) 28%, transparent); }
+.sx-phone__ui i[data-m] { background: color-mix(in srgb, var(--c-text) 14%, transparent); margin-block-start: 5px; }
+.sx-phone__ui i[data-a] { background: var(--c-accent); }
+.sx-phone__ui i[data-r] { margin-inline-start: auto; }
+.sx-phone__card { padding: 9px; border-radius: 10px; background: var(--c-surface); border: 1px solid var(--c-border); }
+.sx-phone__odds { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-block-start: 8px; }
+.sx-phone__odds b { display: grid; place-items: center; height: 22px; border-radius: 6px; background: var(--c-surface-2); font-weight: 700; font-variant-numeric: tabular-nums; }
+.sx-phone__odds b[data-on] { background: var(--c-accent); color: var(--c-on-accent); }
+.sx-phone__row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-block: 8px; border-block-end: 1px solid var(--c-border); }
+.sx-phone__row b, .sx-phone__total b { font-variant-numeric: tabular-nums; }
+.sx-phone__total { display: flex; align-items: center; justify-content: space-between; padding: 8px 2px; font-size: 14px; }
+.sx-phone__btn { display: block; height: 30px; border-radius: 8px; background: var(--c-accent); }
+.sx-phone__btn--ghost { background: transparent; border: 1px solid var(--c-border); }

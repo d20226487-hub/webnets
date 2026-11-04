@@ -1,0 +1,32 @@
+{
+  "fields": [
+    {
+      "name": "variant",
+      "type": "select",
+      "label": "Layout",
+      "choices": [
+        "auto",
+        "table"
+      ],
+      "default": "auto"
+    },
+    {
+      "name": "title",
+      "type": "text",
+      "label": "Section title",
+      "required": true,
+      "default": "",
+      "maxlength": 70
+    },
+    {
+      "name": "heading",
+      "type": "select",
+      "label": "Heading level",
+      "choices": [
+        "h2",
+        "h1"
+      ],
+      "default": "h2"
+    }
+  ]
+}

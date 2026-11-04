@@ -1,0 +1,21 @@
+/* qr-first: copy | card with a peeking phone and a large QR (desktop) */
+.sx-apphero--qr .sx-apphero__inner { grid-template-columns: minmax(0, 1.2fr) minmax(320px, 1fr); }
+.sx-apphero__factline { font-size: var(--fs-0); color: var(--c-hero-muted); font-variant-numeric: tabular-nums; }
+.sx-apphero__qrcard {
+  position: relative; display: grid; grid-template-columns: auto auto; align-items: end; justify-content: center; gap: var(--sp-5);
+  padding: var(--sp-6) var(--sp-6) 0; border-radius: var(--r-lg); overflow: hidden;
+  background: color-mix(in srgb, var(--c-surface) 85%, transparent); border: var(--bw) solid var(--c-border);
+}
+.sx-apphero__peek { width: 200px; margin-block-end: -90px; }
+.sx-apphero__qr { margin: 0 0 var(--sp-6); display: grid; gap: var(--sp-3); justify-items: center; text-align: center; max-width: 200px; }
+.sx-apphero__code { display: block; width: 184px; padding: 10px; border-radius: var(--r); background: #FFFFFF; color: #000000; }
+.sx-apphero__code svg { width: 100%; height: auto; }
+.sx-apphero__qr figcaption { font-size: var(--fs-0); color: var(--c-text); }
+[data-platform="ios"] .sx-apphero__qr, [data-platform="android"] .sx-apphero__qr { display: none; }
+
+@media (max-width: 860px) {
+  .sx-apphero--qr .sx-apphero__inner { grid-template-columns: minmax(0, 1fr); }
+  .sx-apphero__qrcard { grid-template-columns: 1fr; justify-items: center; padding-block-start: var(--sp-5); }
+  .sx-apphero__qr { display: none; }
+  .sx-apphero__peek { width: 180px; margin-block-end: -70px; }
+}

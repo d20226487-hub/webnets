@@ -1,0 +1,43 @@
+{
+  "_howto": "Copy to sites/<project>/<id>.json, fill every TODO, then: php build/build.php <file>. Articles are files in the 'articles' folder (schema: docs/schemas/article.schema.json); in article meta, {item} is the article title. Paid articles must be kind 'pr' with a sponsor. Guide: docs/types/news.md.",
+  "id": "TODO-publisher-market-news-01",
+  "type": "news",
+  "angle": "newsroom",
+  "publisher": "TODO id from brands/publishers.json",
+  "market": "TODO",
+  "preset": "editorial",
+  "seed": "TODO-unique-seed",
+  "prefix": "auto",
+  "urls": "pretty",
+  "articles": "content/TODO-site/articles",
+  "links": {
+    "brands": {
+      "TODO-brand-id": "https://TODO tracked link for PR articles about this brand"
+    }
+  },
+  "site": { "name": "TODO site name", "url": "https://TODO-domain" },
+  "meta": {
+    "home": { "title": "TODO up to 65 characters", "description": "TODO up to 160 characters" },
+    "article": { "title": "{item} | TODO site name", "description": "{item}. TODO" },
+    "news": { "title": "TODO", "description": "TODO" },
+    "guides": { "title": "TODO", "description": "TODO" },
+    "partners": { "title": "TODO", "description": "TODO say these are paid articles" },
+    "about": { "title": "TODO", "description": "TODO" }
+  },
+  "variants": {},
+  "content": {
+    "home": {
+      "lead": { "title": "TODO H1 masthead line" },
+      "latest": { "title": "TODO" },
+      "partners": { "title": "TODO e.g. Partner content" },
+      "guides": { "title": "TODO" }
+    },
+    "news": { "list": { "title": "TODO" } },
+    "guides": { "list": { "title": "TODO" } },
+    "partners": { "list": { "title": "TODO", "intro": "TODO explain that these articles are paid for by brands" } },
+    "about": {
+      "hero": { "title": "TODO", "answer": "TODO one sentence: who you are and that paid articles are labelled" },
+      "text": { "html": "<h2>TODO Sponsored articles</h2><p>TODO</p><h2>TODO What sponsors cannot do</h2><ul><li>TODO</li></ul><h2>TODO Corrections</h2><p>TODO</p>", "toc": true }
+    }
+  }
+}

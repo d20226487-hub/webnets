@@ -1,0 +1,162 @@
+{
+  "_note": "Promotion feed for Marlowe Club (fictional). Casino offers only. Offers render only in markets whose promotion policy allows their type. See brief 03, section 3.",
+  "promotions": [
+    {
+      "id": "marlowe-xx-code",
+      "type": "promo_code",
+      "markets": [
+        "xx"
+      ],
+      "title": {
+        "en": "Code MARLOWE50: 50% match on your first deposit",
+        "pt": "Código MARLOWE50: 50% no seu primeiro depósito"
+      },
+      "value": {
+        "kind": "match",
+        "percent": 50,
+        "max": 200
+      },
+      "code": "MARLOWE50",
+      "code_scope": "public",
+      "terms": {
+        "min_deposit": 20,
+        "wagering": 10,
+        "min_odds": null,
+        "max_bet": 5,
+        "expiry_days": 21,
+        "eligible": {
+          "en": "New customers, 18+, one offer per person",
+          "pt": "Novos clientes, 18+, uma oferta por pessoa"
+        },
+        "excluded_payments": {
+          "en": "E-wallets and prepaid vouchers",
+          "pt": "Carteiras digitais e vouchers pré-pagos"
+        },
+        "games": {
+          "en": "Slots count 100%, live tables 10%",
+          "pt": "Slots contam 100%, mesas ao vivo 10%"
+        }
+      },
+      "valid_from": "2026-10-01",
+      "valid_to": "2026-12-31",
+      "verified_at": "2026-10-29",
+      "terms_url": "https://marlowe.example/xx/promotions/marlowe50-terms"
+    },
+    {
+      "id": "marlowe-xx-reload",
+      "type": "deposit_bonus",
+      "markets": [
+        "xx"
+      ],
+      "title": {
+        "en": "Friday reload: 25% on one deposit",
+        "pt": "Recarga de sexta: 25% em um depósito"
+      },
+      "value": {
+        "kind": "match",
+        "percent": 25,
+        "max": 100
+      },
+      "code": "FRIDAY25",
+      "code_scope": "public",
+      "terms": {
+        "min_deposit": 20,
+        "wagering": 15,
+        "min_odds": null,
+        "max_bet": 5,
+        "expiry_days": 7,
+        "eligible": {
+          "en": "Verified customers, 18+, once per week",
+          "pt": "Clientes verificados, 18+, uma vez por semana"
+        },
+        "excluded_payments": {
+          "en": "E-wallets",
+          "pt": "Carteiras digitais"
+        },
+        "games": {
+          "en": "Slots only",
+          "pt": "Somente slots"
+        }
+      },
+      "valid_from": "2026-10-01",
+      "valid_to": "2026-12-31",
+      "verified_at": "2026-10-29",
+      "terms_url": "https://marlowe.example/xx/promotions/friday-terms"
+    },
+    {
+      "id": "marlowe-xx-live-cashback",
+      "type": "cashback",
+      "markets": [
+        "xx"
+      ],
+      "title": {
+        "en": "Weekly 10% cashback on live tables",
+        "pt": "Cashback semanal de 10% nas mesas ao vivo"
+      },
+      "value": {
+        "kind": "cashback",
+        "percent": 10,
+        "max": 150
+      },
+      "code": null,
+      "code_scope": "public",
+      "terms": {
+        "min_deposit": null,
+        "wagering": 1,
+        "min_odds": null,
+        "max_bet": null,
+        "expiry_days": 7,
+        "eligible": {
+          "en": "Verified customers who opt in, 18+",
+          "pt": "Clientes verificados que ativarem a oferta, 18+"
+        },
+        "excluded_payments": null,
+        "games": {
+          "en": "Live roulette, blackjack and baccarat",
+          "pt": "Roleta, blackjack e bacará ao vivo"
+        }
+      },
+      "valid_from": "2026-10-01",
+      "valid_to": "2026-12-31",
+      "verified_at": "2026-10-29",
+      "terms_url": "https://marlowe.example/xx/promotions/live-cashback-terms"
+    },
+    {
+      "id": "marlowe-xx-club",
+      "type": "loyalty",
+      "markets": [
+        "xx"
+      ],
+      "title": {
+        "en": "Marlowe Club points: free spins every level",
+        "pt": "Pontos Marlowe Club: giros grátis a cada nível"
+      },
+      "value": {
+        "kind": "free_spins",
+        "count": 50
+      },
+      "code": null,
+      "code_scope": "public",
+      "terms": {
+        "min_deposit": null,
+        "wagering": 1,
+        "min_odds": null,
+        "max_bet": null,
+        "expiry_days": 30,
+        "eligible": {
+          "en": "All verified customers, 18+",
+          "pt": "Todos os clientes verificados, 18+"
+        },
+        "excluded_payments": null,
+        "games": {
+          "en": "Points from slots and live tables; spins on selected slots",
+          "pt": "Pontos em slots e mesas ao vivo; giros em slots selecionados"
+        }
+      },
+      "valid_from": "2026-10-01",
+      "valid_to": "2026-12-31",
+      "verified_at": "2026-10-29",
+      "terms_url": "https://marlowe.example/xx/promotions/club-terms"
+    }
+  ]
+}

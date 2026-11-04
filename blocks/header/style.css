@@ -1,0 +1,12 @@
+.sx-header { background: var(--c-bg); border-block-end: var(--bw) solid var(--c-border); position: relative; z-index: 20; }
+.sx-header[data-sticky] { position: sticky; top: 0; }
+.sx-header__inner { display: flex; align-items: center; gap: var(--sp-5); min-height: 64px; }
+.sx-header__brand { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; flex: none; }
+.sx-header__brand .sx-logo { font-size: var(--fs-2); }
+.sx-header__cta { flex: none; }
+.sx-header__note { display: inline-flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-0); color: var(--c-muted); }
+@media (max-width: 860px) {
+  .sx-header__note { display: none; }
+}
+/* Multi-brand sites: the header CTA names a brand; on phones the ranked list carries the CTAs instead. */
+@media (max-width: 640px) { .sx-header__cta { flex: 0 1 auto; min-width: 0; } .sx-header__cta[data-brand] { display: none; } }

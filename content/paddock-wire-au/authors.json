@@ -1,0 +1,17 @@
+{
+  "mia": {
+    "name": "Mia Kowalski",
+    "role": "Industry reporter",
+    "bio": "Covers the Australian wagering industry: regulation, operator news and how rule changes reach punters. Eight years on the betting and racing beat."
+  },
+  "tom": {
+    "name": "Tom Reyes",
+    "role": "Guides editor",
+    "bio": "Writes the plain-English guides: odds, multis, limits and BetStop. Former trading-desk analyst who now explains the maths without the jargon."
+  },
+  "partner-desk": {
+    "name": "Partner Desk",
+    "role": "Sponsored content team",
+    "bio": "Prepares partner articles with betting brands. Every piece is labelled as paid, checked for responsible-gambling messaging and kept apart from the newsroom."
+  }
+}

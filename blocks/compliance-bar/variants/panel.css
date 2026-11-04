@@ -1,0 +1,2 @@
+/* panel */
+.sx-compliance--panel { display: grid; gap: var(--sp-4); padding: var(--sp-5); border: var(--bw) solid var(--c-border); border-radius: var(--r); background: var(--c-surface); font-size: var(--fs-0); color: var(--c-muted); }

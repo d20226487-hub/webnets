@@ -1,0 +1,20 @@
+/* listing: store-page order beside a phone */
+.sx-apphero--listing .sx-apphero__inner { grid-template-columns: minmax(0, 1.3fr) minmax(260px, 1fr); }
+@media (max-width: 860px) {
+  .sx-apphero--listing .sx-apphero__inner { grid-template-columns: minmax(0, 1fr); }
+}
+/* fact row (store-listing style) */
+.sx-apphero__facts { display: flex; flex-wrap: wrap; gap: 0; border-block: 1px solid color-mix(in srgb, var(--c-hero-text) 14%, transparent); }
+.sx-apphero__facts li { display: grid; gap: 2px; padding: var(--sp-3) var(--sp-5); text-align: center; }
+.sx-apphero__facts li:first-child { padding-inline-start: 0; text-align: start; }
+.sx-apphero__facts li + li { border-inline-start: 1px solid color-mix(in srgb, var(--c-hero-text) 14%, transparent); }
+.sx-apphero__facts strong { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-2); font-variant-numeric: tabular-nums; }
+.sx-apphero__facts span { font-size: .75rem; color: var(--c-hero-muted); text-transform: uppercase; letter-spacing: .05em; }
+@media (max-width: 860px) {
+  /* Phones: 2x2 grid so no fact is ever cut off. */
+  .sx-apphero__facts { display: grid; grid-template-columns: 1fr 1fr; }
+  .sx-apphero__facts li, .sx-apphero__facts li:first-child { padding: var(--sp-3) 0; text-align: start; }
+  .sx-apphero__facts li + li { border-inline-start: 0; }
+  .sx-apphero__facts li:nth-child(even) { border-inline-start: 1px solid color-mix(in srgb, var(--c-hero-text) 14%, transparent); padding-inline-start: var(--sp-4); }
+  .sx-apphero__facts li:nth-child(n+3) { border-block-start: 1px solid color-mix(in srgb, var(--c-hero-text) 14%, transparent); }
+}

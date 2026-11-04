@@ -1,0 +1,14 @@
+{
+  "id": "sunburst",
+  "name": "Sunburst",
+  "mood": "Warm, sunny, mass-market. Rounded pills, saturated green and yellow, soft lift.",
+  "fits": ["landing", "bonuses", "sportsbook"],
+  "theme": "light",
+  "fonts": { "display": { "family": "Onest", "weights": [700, 800] }, "body": { "family": "Onest", "weights": [400, 500] } },
+  "color": { "bg": "#FFF7E6", "surface": "#FFFFFF", "surface2": "#FFEFCC", "text": "#1F1A0E", "muted": "#6B5E3E", "border": "#F0DFB5", "accent": "#007A40", "onAccent": "#FFFFFF", "accent2": "#FFB800", "heroText": "#1F1A0E", "heroMuted": "#5E5236" },
+  "shape": { "radiusSm": "10px", "radius": "16px", "radiusLg": "24px", "buttonRadius": "999px", "borderWidth": "1px" },
+  "type": { "base": 16, "scale": 1.25, "headingWeight": 800, "headingCase": "none", "headingTracking": "-0.02em", "lineHeight": 1.55, "bodyWeight": 400 },
+  "space": { "density": 1 },
+  "surface": { "style": "elevated", "shadow": "0 8px 24px rgba(120,80,0,.12)" },
+  "decor": { "heroBg": "linear-gradient(135deg, #FFE38A 0%, #FFF7E6 55%)" }
+}

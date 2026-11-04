@@ -1,0 +1,31 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "sx/app-hero",
+    "title": "SX App Hero",
+    "category": "sx-conversion",
+    "description": "App download hero: icon, name, developer, fact row, install buttons for the visitor's device, phone.",
+    "acf": {
+        "mode": "preview",
+        "renderCallback": "sx_acf_render"
+    },
+    "supports": {
+        "align": false,
+        "html": false,
+        "multiple": false
+    },
+    "sx": {
+        "role": "hero",
+        "variants": [
+            "listing",
+            "device",
+            "qr-first"
+        ],
+        "default_variant": "listing",
+        "guardrails": [
+            "Install buttons above the fold at 375x667; the visitor's platform first.",
+            "Facts (version, size, age rating) come from brands/<brand>.app, never from content.",
+            "Store-listing structure only: no imitation of App Store or Google Play interface."
+        ]
+    }
+}

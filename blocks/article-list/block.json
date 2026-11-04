@@ -1,0 +1,29 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/article-list",
+  "title": "SX Article List",
+  "category": "sx-conversion",
+  "description": "Articles newest first: one kind or all, with the Sponsored label on paid ones, optional paging and a \"see all\" link.",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "sx_acf_render"
+  },
+  "supports": {
+    "align": false,
+    "html": false,
+    "multiple": true
+  },
+  "sx": {
+    "role": "content",
+    "variants": [
+      "cards",
+      "list",
+      "rail"
+    ],
+    "default_variant": "cards",
+    "guardrails": [
+      "Paid (pr) articles always carry the Sponsored label and sponsor name."
+    ]
+  }
+}

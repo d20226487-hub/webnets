@@ -1,0 +1,59 @@
+{
+    "fields": [
+        {
+            "name": "variant",
+            "type": "select",
+            "label": "Layout",
+            "choices": [
+                "auto",
+                "row",
+                "timeline"
+            ],
+            "default": "auto"
+        },
+        {
+            "name": "eyebrow",
+            "type": "text",
+            "label": "Eyebrow",
+            "default": ""
+        },
+        {
+            "name": "title",
+            "type": "text",
+            "label": "Section title",
+            "required": true,
+            "default": ""
+        },
+        {
+            "name": "items",
+            "type": "repeater",
+            "label": "Steps",
+            "max": 3,
+            "default": [],
+            "fields": [
+                {
+                    "name": "title",
+                    "type": "text",
+                    "label": "Title",
+                    "required": true,
+                    "maxlength": 32
+                },
+                {
+                    "name": "text",
+                    "type": "textarea",
+                    "label": "Text",
+                    "required": true,
+                    "maxlength": 140
+                }
+            ],
+            "min": 3,
+            "required": true
+        },
+        {
+            "name": "show_cta",
+            "type": "true_false",
+            "label": "Show CTA after the steps",
+            "default": true
+        }
+    ]
+}

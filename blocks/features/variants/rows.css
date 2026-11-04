@@ -1,0 +1,12 @@
+/* rows: two-column list, big icon tile + copy, no card chrome */
+.sx-features--rows .sx-features__list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-6) var(--sp-7); }
+.sx-features--rows .sx-features__item { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: var(--sp-4); align-items: start; padding-block-start: var(--sp-5); border-block-start: var(--bw) solid var(--c-border); }
+.sx-features__tile { display: grid; place-items: center; width: 72px; height: 72px; border-radius: var(--r-lg); background: var(--c-accent); color: var(--c-on-accent); }
+.sx-features__tile .sx-icon { width: 34px; height: 34px; }
+.sx-features__copy { display: grid; gap: var(--sp-2); }
+
+@media (max-width: 640px) {
+  .sx-features--rows .sx-features__list { grid-template-columns: minmax(0, 1fr); }
+  .sx-features--rows .sx-features__item { grid-template-columns: 56px minmax(0, 1fr); }
+  .sx-features__tile { width: 56px; height: 56px; }
+}

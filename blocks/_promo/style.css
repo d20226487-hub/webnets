@@ -1,0 +1,20 @@
+/* Shared promo primitives (not a block): code box with copy button. Shipped only on pages that show a code. */
+.sx-codebox {
+  display: flex; align-items: center; gap: var(--sp-3); min-height: 56px;
+  padding: var(--sp-2) var(--sp-2) var(--sp-2) var(--sp-4); border-radius: var(--r);
+  border: 2px dashed var(--c-accent); background: var(--c-surface);
+}
+.sx-codebox__label { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--c-muted); }
+.sx-codebox__code { flex: 1; min-width: 0; font-size: var(--fs-2); font-weight: 700; letter-spacing: .06em; color: var(--c-text); white-space: nowrap; user-select: all; }
+.sx-codebox__copy {
+  flex: none; min-height: 44px; padding: 0 var(--sp-4); border: 0; border-radius: var(--r-btn); cursor: pointer;
+  background: var(--c-text); color: var(--c-bg); font: inherit; font-weight: var(--fw-strong);
+}
+.sx-codebox__copy:hover { filter: brightness(1.1); }
+.sx-codebox--none { border-style: solid; border-color: var(--c-border); color: var(--c-muted); font-weight: var(--fw-strong); gap: var(--sp-2); }
+.sx-codebox--none .sx-icon { color: var(--c-success); }
+/* Phones: a code must never wrap (it would read as two codes). */
+@media (max-width: 640px) {
+  .sx-codebox__label { display: none; }
+  .sx-codebox__code { font-size: var(--fs-1); letter-spacing: .04em; }
+}

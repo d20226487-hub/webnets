@@ -1,0 +1,9 @@
+{
+  "fields": [
+    { "name": "variant", "type": "select", "label": "Layout", "choices": ["auto", "compact", "answer"], "default": "auto" },
+    { "name": "title", "type": "text", "label": "Page headline (H1)", "required": true, "default": "", "maxlength": 60 },
+    { "name": "answer", "type": "textarea", "label": "The answer in one sentence", "required": true, "default": "", "maxlength": 160,
+      "instructions": "The fact the visitor came for, e.g. 'PayID withdrawals arrive in about 5 minutes.'" },
+    { "name": "show_cta", "type": "true_false", "label": "Show the brand CTA", "default": true }
+  ]
+}

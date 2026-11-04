@@ -1,0 +1,12 @@
+/* banners: two-up banner creatives with the terms line under each */
+.sx-plist--banners .sx-plist__items { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--sp-5); }
+.sx-plist__bitem { display: grid; gap: var(--sp-2); }
+.sx-plist__banner { position: relative; isolation: isolate; overflow: hidden; display: grid; align-items: end; min-height: 240px; padding: var(--sp-5); border-radius: var(--r-lg); color: #fff; }
+.sx-plist__banner > .sx-art { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; }
+.sx-plist__banner::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(0,0,0,.66) 0%, rgba(0,0,0,.15) 100%); }
+.sx-plist__bcopy { display: grid; gap: var(--sp-1); justify-items: start; }
+.sx-plist--banners .sx-plist__kind { color: rgba(255,255,255,.8); }
+.sx-plist--banners .sx-plist__value { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-4); line-height: 1.05; color: #fff; }
+.sx-plist--banners .sx-plist__name { font-size: var(--fs-1); color: #fff; }
+.sx-plist__bcta { margin-block-start: var(--sp-2); }
+.sx-plist--banners .sx-plist__foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--sp-2); font-size: var(--fs-0); color: var(--c-muted); }

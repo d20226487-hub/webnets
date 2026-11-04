@@ -1,0 +1,7 @@
+{
+  "fields": [
+    { "name": "variant", "type": "select", "label": "Layout", "choices": ["auto", "panel"], "default": "auto" },
+    { "name": "title", "type": "text", "label": "Headline", "required": true, "default": "", "maxlength": 48 },
+    { "name": "text", "type": "text", "label": "Line under the headline", "default": "", "maxlength": 140 }
+  ]
+}

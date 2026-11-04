@@ -1,0 +1,113 @@
+{
+  "_note": "Promotion feed for Vantro (fictional). Maintained by the affiliate team. Offers render only in markets whose promotion policy allows their type. See brief 03, section 3.",
+  "promotions": [
+    {
+      "id": "vantro-xx-welcome",
+      "type": "welcome_bonus",
+      "markets": [
+        "xx"
+      ],
+      "title": {
+        "en": "100% first deposit match in free bets"
+      },
+      "value": {
+        "kind": "match",
+        "percent": 100,
+        "max": 100
+      },
+      "code": "VANTRO100",
+      "code_scope": "public",
+      "terms": {
+        "min_deposit": 10,
+        "wagering": 1,
+        "min_odds": "1.50",
+        "max_bet": null,
+        "expiry_days": 30,
+        "eligible": {
+          "en": "New customers, 18+, one offer per person"
+        },
+        "excluded_payments": {
+          "en": "E-wallets"
+        },
+        "games": {
+          "en": "Sports bets only"
+        }
+      },
+      "valid_from": "2026-10-01",
+      "valid_to": "2026-12-31",
+      "verified_at": "2026-10-29",
+      "terms_url": "https://vantro.example/xx/promotions/welcome-terms",
+      "code_via_link": true
+    },
+    {
+      "id": "vantro-xx-boost",
+      "type": "odds_boost",
+      "markets": [
+        "xx"
+      ],
+      "title": {
+        "en": "Daily price boost on a featured match"
+      },
+      "value": {
+        "kind": "boost",
+        "percent": 25
+      },
+      "code": null,
+      "code_scope": "public",
+      "terms": {
+        "min_deposit": null,
+        "wagering": null,
+        "min_odds": null,
+        "max_bet": 20,
+        "expiry_days": 1,
+        "eligible": {
+          "en": "All verified customers, 18+"
+        },
+        "excluded_payments": null,
+        "games": {
+          "en": "One featured match per day, single bets"
+        }
+      },
+      "valid_from": "2026-10-01",
+      "valid_to": "2026-12-31",
+      "verified_at": "2026-10-29",
+      "terms_url": "https://vantro.example/xx/promotions/boost-terms"
+    },
+    {
+      "id": "vantro-xx-cashback",
+      "type": "cashback",
+      "markets": [
+        "xx"
+      ],
+      "title": {
+        "en": "Weekly cashback on net losses"
+      },
+      "value": {
+        "kind": "cashback",
+        "percent": 10,
+        "max": 50
+      },
+      "code": "VANTROCASH",
+      "code_scope": "public",
+      "terms": {
+        "min_deposit": null,
+        "wagering": 1,
+        "min_odds": null,
+        "max_bet": null,
+        "expiry_days": 7,
+        "eligible": {
+          "en": "Verified customers who opt in, 18+"
+        },
+        "excluded_payments": null,
+        "games": {
+          "en": "Pre-match and live sports bets"
+        }
+      },
+      "valid_from": "2026-10-01",
+      "valid_to": "2026-12-31",
+      "verified_at": "2026-10-29",
+      "terms_url": "https://vantro.example/xx/promotions/cashback-terms",
+      "code_via_link": true
+    }
+  ]
+}

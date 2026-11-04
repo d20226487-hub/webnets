@@ -1,0 +1,3 @@
+.sx-phone__pills { display: flex; gap: 6px; }
+.sx-phone__pills span { height: 18px; flex: 1; border-radius: 999px; background: var(--c-surface-2); }
+.sx-phone__pills span[data-on] { background: var(--c-accent); }

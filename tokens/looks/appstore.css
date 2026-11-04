@@ -1,0 +1,22 @@
+/* App Store look: grey panels, blue pill "Get"-style buttons, big tight headings, rounded tiles without borders */
+.sx-install { min-height: 44px; min-width: 0; padding: 0 var(--sp-6); border-radius: 980px; background: #E8E8ED; color: #0071E3; border: 0; }
+.sx-install .sx-icon { width: 18px; height: 18px; }
+.sx-install__text small { display: none; }
+.sx-install__text strong { font-family: var(--f-body); font-weight: 600; font-size: .95rem; letter-spacing: 0; }
+.sx-installs > .sx-install:first-child { background: #0071E3; color: #FFFFFF; }
+.sx-appicon { border-radius: 22.5%; box-shadow: 0 0 0 1px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.08); }
+.sx-apphero__title { font-size: calc(var(--fs-5) * 1.12); letter-spacing: -.03em; }
+.sx-btn { border-radius: 980px; font-weight: 600; }
+[class*="__card"], [class*="__item"] { border-color: transparent; box-shadow: none; }
+
+/* store layout: one left-aligned column with even spacing, the way store listings read */
+.sx-changes__inner { max-width: 1200px; padding-block: var(--sp-6); }
+.sx-changes__inner > * { max-width: 860px; }
+.sx-faq__inner, .sx-appinfo__inner { padding-block: var(--sp-6); }
+.sx-shots__head { margin-block-end: var(--sp-2); }
+.sx-shots__eyebrow, [class*="shots__eyebrow"] { display: none; }
+.sx-shots__title { font-size: var(--fs-3); }
+/* App Store "What's New" is plain text: version and date, then the notes, no band or boxes */
+.sx-changes { background: none; }
+.sx-changes__release { background: none; border: 0; padding: 0; box-shadow: none; }
+.sx-changes__release + .sx-changes__release { padding-block-start: var(--sp-4); border-block-start: 1px solid var(--c-border); }

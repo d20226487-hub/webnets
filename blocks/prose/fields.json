@@ -1,0 +1,8 @@
+{
+  "fields": [
+    { "name": "variant", "type": "select", "label": "Layout", "choices": ["auto", "article", "toc-side"], "default": "auto" },
+    { "name": "html", "type": "wysiwyg", "label": "Text", "required": true, "default": "",
+      "instructions": "Start sections with H2. Internal links: href=\"page:payments\"." },
+    { "name": "toc", "type": "true_false", "label": "Table of contents (needs 3+ H2)", "default": true }
+  ]
+}

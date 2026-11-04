@@ -1,0 +1,14 @@
+{
+  "id": "terminal",
+  "name": "Terminal",
+  "mood": "Crypto and odds-data feel. Techno display, mono numbers, grid backdrop, outlines.",
+  "fits": ["crypto", "sportsbook", "review"],
+  "theme": "dark",
+  "fonts": { "display": { "family": "Tektur", "weights": [600, 700] }, "body": { "family": "Geologica", "weights": [400, 500] }, "mono": { "family": "JetBrains Mono", "weights": [500] } },
+  "color": { "bg": "#071210", "surface": "#0C1C19", "surface2": "#12271F", "text": "#DFF7EF", "muted": "#86A99D", "border": "#1D3A33", "accent": "#2BF5C4", "onAccent": "#04201A", "accent2": "#F5D02B", "heroText": "#DFF7EF", "heroMuted": "#9CC2B5" },
+  "shape": { "radiusSm": "2px", "radius": "6px", "radiusLg": "10px", "buttonRadius": "6px", "borderWidth": "1px" },
+  "type": { "base": 15, "scale": 1.25, "headingWeight": 700, "headingCase": "uppercase", "headingTracking": "0.02em", "lineHeight": 1.55, "bodyWeight": 400 },
+  "space": { "density": 0.95 },
+  "surface": { "style": "outlined", "shadow": "none" },
+  "decor": { "heroBg": "linear-gradient(rgba(43,245,196,.07) 1px, transparent 1px) 0 0 / 28px 28px, linear-gradient(90deg, rgba(43,245,196,.07) 1px, transparent 1px) 0 0 / 28px 28px, #071210" }
+}

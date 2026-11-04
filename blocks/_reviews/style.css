@@ -1,0 +1,19 @@
+/* Review sites: stars and review cards. Shipped when a page renders any of them. */
+.sx-stars {
+  display: inline-block; font-size: 1.05rem; letter-spacing: .08em; line-height: 1;
+  background: linear-gradient(90deg, var(--c-star, #F5A524) calc(var(--v) / 5 * 100%), var(--c-border) 0);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.sx-rcard { display: grid; gap: var(--sp-2); height: 100%; align-content: start; padding: var(--sp-5); border-radius: var(--r); background: var(--c-surface); border: var(--bw) solid var(--c-border); }
+.sx-rcard__head { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); font-size: var(--fs-0); color: var(--c-muted); }
+.sx-rcard__title { font-size: var(--fs-1); }
+.sx-rcard__text { color: var(--c-text); }
+.sx-rcard__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sp-2); font-size: var(--fs-0); }
+.sx-rcard__who { font-weight: var(--fw-strong); }
+.sx-rcard__topics { display: flex; flex-wrap: wrap; gap: 4px; }
+.sx-rcard__topics li { padding: 2px var(--sp-2); border-radius: var(--r-btn); background: var(--c-surface-2); color: var(--c-muted); font-size: .75rem; }
+.sx-rcard__reply { margin-block-start: var(--sp-2); padding: var(--sp-3) var(--sp-4); border-inline-start: 3px solid var(--c-accent); border-radius: var(--r-sm); background: var(--c-surface-2); font-size: var(--fs-0); }
+.sx-rcard__replyby { font-weight: var(--fw-strong); margin-block-end: 4px; }
+@media (max-width: 640px) {
+  .sx-rcard { padding: var(--sp-4); }
+}

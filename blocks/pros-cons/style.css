@@ -1,0 +1,8 @@
+.sx-proscons__inner { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); padding-block: var(--sp-5); }
+.sx-proscons__col { padding: var(--sp-5); border-radius: var(--r); background: var(--c-surface); border: var(--bw) solid var(--c-border); }
+.sx-proscons__col h2 { font-size: var(--fs-2); margin-block-end: var(--sp-3); }
+.sx-proscons__col ul { display: grid; gap: var(--sp-2); }
+.sx-proscons__col li { display: flex; gap: var(--sp-2); align-items: start; }
+.sx-proscons__col .sx-icon { width: 18px; height: 18px; flex: none; margin-block-start: 3px; color: #1A8F4C; }
+.sx-proscons__minus { width: 18px; flex: none; text-align: center; font-weight: 700; color: #C0392B; }
+@media (max-width: 640px) { .sx-proscons__inner { grid-template-columns: 1fr; } .sx-proscons__col { padding: var(--sp-4); } }

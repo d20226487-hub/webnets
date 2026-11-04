@@ -1,0 +1,9 @@
+{
+  "fields": [
+    { "name": "variant", "type": "select", "label": "Layout", "choices": ["auto", "grid", "strip", "table"], "default": "auto" },
+    { "name": "mode", "type": "select", "label": "Which games", "choices": ["popular", "new"], "default": "popular" },
+    { "name": "title", "type": "text", "label": "Section title (empty = automatic)", "default": "", "maxlength": 60 },
+    { "name": "intro", "type": "text", "label": "One line under the title", "default": "", "maxlength": 140 },
+    { "name": "limit", "type": "text", "label": "Max games", "default": "8" }
+  ]
+}

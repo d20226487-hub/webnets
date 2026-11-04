@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/prose",
+  "title": "SX Prose (page text)",
+  "category": "sx-conversion",
+  "description": "Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false, "multiple": true },
+  "sx": {
+    "role": "content",
+    "variants": ["article", "toc-side"],
+    "default_variant": "article",
+    "guardrails": [
+      "Only h2, h3, p, ul, ol, li, strong, em, a, table, blockquote survive; all attributes except href are removed.",
+      "Links: page:<id> for internal pages, https:// for sources. Brand links belong in CTAs, not in prose."
+    ]
+  }
+}

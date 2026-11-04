@@ -1,0 +1,2059 @@
+{
+  "_note": "UI strings for shared blocks only (not site content). {placeholders} are filled by t(). Kazakh strings need native-speaker review.",
+  "skip_link": {
+    "en": "Skip to content",
+    "ru": "Перейти к содержанию",
+    "kk": "Мазмұнға өту",
+    "pt": "Pular para o conteúdo"
+  },
+  "menu": {
+    "en": "Menu",
+    "ru": "Меню",
+    "kk": "Мәзір",
+    "pt": "Menu"
+  },
+  "nav.home": {
+    "en": "Home",
+    "ru": "Главная",
+    "kk": "Басты бет",
+    "pt": "Início"
+  },
+  "nav.sports": {
+    "en": "Sports",
+    "ru": "Спорт",
+    "kk": "Спорт",
+    "pt": "Esportes"
+  },
+  "nav.live": {
+    "en": "Live",
+    "ru": "Лайв",
+    "kk": "Тікелей",
+    "pt": "Ao vivo"
+  },
+  "nav.casino": {
+    "en": "Casino",
+    "ru": "Казино",
+    "kk": "Казино",
+    "pt": "Cassino"
+  },
+  "nav.app": {
+    "en": "App",
+    "ru": "Приложение",
+    "kk": "Қосымша",
+    "pt": "App"
+  },
+  "nav.promotions": {
+    "en": "Promotions",
+    "ru": "Акции",
+    "kk": "Акциялар",
+    "pt": "Promoções"
+  },
+  "nav.payments": {
+    "en": "Payments",
+    "ru": "Платежи",
+    "kk": "Төлемдер",
+    "pt": "Pagamentos"
+  },
+  "nav.signup": {
+    "en": "Sign up",
+    "ru": "Регистрация",
+    "kk": "Тіркелу",
+    "pt": "Cadastro"
+  },
+  "nav.rg": {
+    "en": "Safer gambling",
+    "ru": "Ответственная игра",
+    "kk": "Жауапты ойын",
+    "pt": "Jogo responsável"
+  },
+  "nav.betting": {
+    "en": "Betting",
+    "ru": "Ставки",
+    "kk": "Бәс тігу",
+    "pt": "Apostas"
+  },
+  "nav.bonus": {
+    "en": "Bonus",
+    "ru": "Бонус",
+    "kk": "Бонус",
+    "pt": "Bônus"
+  },
+  "breadcrumb": {
+    "en": "Breadcrumb",
+    "ru": "Навигационная цепочка",
+    "kk": "Навигация жолы",
+    "pt": "Trilha de navegação"
+  },
+  "toc": {
+    "en": "On this page",
+    "ru": "На этой странице",
+    "kk": "Осы бетте",
+    "pt": "Nesta página"
+  },
+  "pages.title": {
+    "en": "Everything about {brand}",
+    "ru": "{brand}: все разделы",
+    "kk": "{brand} туралы бәрі",
+    "pt": "Tudo sobre a {brand}"
+  },
+  "pages.related": {
+    "en": "Related guides",
+    "ru": "Читайте также",
+    "kk": "Тағы оқыңыз",
+    "pt": "Leia também"
+  },
+  "page.blurb.signup": {
+    "en": "What you need and how long it takes to open an account.",
+    "ru": "Что нужно и сколько времени занимает регистрация.",
+    "kk": "Тіркелуге не керек және қанша уақыт кетеді.",
+    "pt": "O que você precisa e quanto tempo leva para abrir a conta."
+  },
+  "page.blurb.payments": {
+    "en": "Deposit and withdrawal methods, limits and speeds.",
+    "ru": "Способы пополнения и вывода, лимиты и сроки.",
+    "kk": "Толтыру және шығару тәсілдері, лимиттер мен мерзімдер.",
+    "pt": "Métodos de depósito e saque, limites e prazos."
+  },
+  "page.blurb.app": {
+    "en": "Get the app on iPhone or Android and see what it does.",
+    "ru": "Как установить приложение на iPhone или Android.",
+    "kk": "iPhone немесе Android-ға қосымшаны орнату.",
+    "pt": "Baixe o app no iPhone ou Android e veja o que ele faz."
+  },
+  "page.blurb.rg": {
+    "en": "Limits, time-outs, self-exclusion and where to get help.",
+    "ru": "Лимиты, перерывы, самоисключение и где получить помощь.",
+    "kk": "Лимиттер, үзіліс, өзін-өзі шектеу және көмек.",
+    "pt": "Limites, pausas, autoexclusão e onde buscar ajuda."
+  },
+  "page.blurb.betting": {
+    "en": "Sports, markets and live betting at {brand}.",
+    "ru": "Виды спорта, рынки и лайв-ставки на {brand}.",
+    "kk": "{brand}-дағы спорт, нарықтар және тікелей бәс.",
+    "pt": "Esportes, mercados e apostas ao vivo na {brand}."
+  },
+  "page.blurb.casino": {
+    "en": "Slots, live tables and studios at {brand}.",
+    "ru": "Слоты, лайв-столы и провайдеры на {brand}.",
+    "kk": "{brand}-дағы слоттар, тікелей үстелдер және провайдерлер.",
+    "pt": "Slots, mesas ao vivo e estúdios na {brand}."
+  },
+  "page.blurb.bonus": {
+    "en": "The current offer and its terms.",
+    "ru": "Текущее предложение и его условия.",
+    "kk": "Ағымдағы ұсыныс және оның шарттары.",
+    "pt": "A oferta atual e suas regras."
+  },
+  "cta.play": {
+    "en": "Play now",
+    "ru": "Играть сейчас",
+    "kk": "Қазір ойнау",
+    "pt": "Jogar agora"
+  },
+  "cta.bet": {
+    "en": "Bet now",
+    "ru": "Сделать ставку",
+    "kk": "Бәс тігу",
+    "pt": "Apostar agora"
+  },
+  "cta.join": {
+    "en": "Join {brand}",
+    "ru": "Регистрация в {brand}",
+    "kk": "{brand}: тіркелу",
+    "pt": "Cadastre-se na {brand}"
+  },
+  "cta.claim": {
+    "en": "Claim offer",
+    "ru": "Получить бонус",
+    "kk": "Бонусты алу",
+    "pt": "Resgatar oferta"
+  },
+  "cta.learn": {
+    "en": "How it works",
+    "ru": "Как это работает",
+    "kk": "Бұл қалай жұмыс істейді",
+    "pt": "Como funciona"
+  },
+  "age_gate.title": {
+    "en": "Are you {age} or older?",
+    "ru": "Вам исполнилось {age}?",
+    "kk": "Сізге {age} жас толды ма?",
+    "pt": "Você tem {age} anos ou mais?"
+  },
+  "age_gate.body": {
+    "en": "This site contains gambling content and is intended for adults only.",
+    "ru": "Этот сайт содержит информацию об азартных играх и предназначен только для взрослых.",
+    "kk": "Бұл сайтта құмар ойындар туралы ақпарат бар және ол тек ересектерге арналған.",
+    "pt": "Este site contém conteúdo sobre apostas e é destinado apenas a adultos."
+  },
+  "age_gate.yes": {
+    "en": "Yes, I am {age}+",
+    "ru": "Да, мне есть {age}",
+    "kk": "Иә, маған {age} жас толды",
+    "pt": "Sim, tenho {age}+"
+  },
+  "age_gate.no": {
+    "en": "No, leave",
+    "ru": "Нет, покинуть сайт",
+    "kk": "Жоқ, шығу",
+    "pt": "Não, sair"
+  },
+  "footer.rg": {
+    "en": "Responsible gambling",
+    "ru": "Ответственная игра",
+    "kk": "Жауапты ойын",
+    "pt": "Jogo responsável"
+  },
+  "footer.terms": {
+    "en": "Terms",
+    "ru": "Условия",
+    "kk": "Шарттар",
+    "pt": "Termos"
+  },
+  "footer.privacy": {
+    "en": "Privacy",
+    "ru": "Конфиденциальность",
+    "kk": "Құпиялылық",
+    "pt": "Privacidade"
+  },
+  "footer.contact": {
+    "en": "Contact",
+    "ru": "Контакты",
+    "kk": "Байланыс",
+    "pt": "Contato"
+  },
+  "footer.rights": {
+    "en": "All rights reserved.",
+    "ru": "Все права защищены.",
+    "kk": "Барлық құқықтар қорғалған.",
+    "pt": "Todos os direitos reservados."
+  },
+  "footer.payments": {
+    "en": "Payment methods",
+    "ru": "Способы оплаты",
+    "kk": "Төлем тәсілдері",
+    "pt": "Formas de pagamento"
+  },
+  "terms_apply": {
+    "en": "T&Cs apply",
+    "ru": "Действуют условия",
+    "kk": "Шарттар қолданылады",
+    "pt": "Aplicam-se termos"
+  },
+  "bonus.offer": {
+    "en": "Welcome offer",
+    "ru": "Приветственное предложение",
+    "kk": "Сәлемдесу бонусы",
+    "pt": "Oferta de boas-vindas"
+  },
+  "bonus.feature": {
+    "en": "Why {brand}",
+    "ru": "Почему {brand}",
+    "kk": "Неліктен {brand}",
+    "pt": "Por que a {brand}"
+  },
+  "trust.rating": {
+    "en": "Rating",
+    "ru": "Рейтинг",
+    "kk": "Рейтинг",
+    "pt": "Avaliação"
+  },
+  "trust.reviews": {
+    "en": "{n} reviews",
+    "ru": "Отзывы: {n}",
+    "kk": "Пікірлер: {n}",
+    "pt": "{n} avaliações"
+  },
+  "trust.licensed": {
+    "en": "Licensed",
+    "ru": "Лицензия",
+    "kk": "Лицензия",
+    "pt": "Licenciada"
+  },
+  "trust.payout": {
+    "en": "Payouts",
+    "ru": "Выплаты",
+    "kk": "Төлемдер",
+    "pt": "Saques"
+  },
+  "trust.minutes": {
+    "en": "~{n} min",
+    "ru": "~{n} мин",
+    "kk": "~{n} мин",
+    "pt": "~{n} min"
+  },
+  "trust.since": {
+    "en": "Operating since",
+    "ru": "Работает с",
+    "kk": "Жұмыс істейді",
+    "pt": "Desde"
+  },
+  "live": {
+    "en": "Live",
+    "ru": "Лайв",
+    "kk": "Тікелей",
+    "pt": "Ao vivo"
+  },
+  "odds.more": {
+    "en": "+{n} markets",
+    "ru": "Ещё рынков: {n}",
+    "kk": "Тағы {n} нарық",
+    "pt": "+{n} mercados"
+  },
+  "faq.title": {
+    "en": "Questions before you join",
+    "ru": "Вопросы перед регистрацией",
+    "kk": "Тіркелу алдындағы сұрақтар",
+    "pt": "Dúvidas antes de se cadastrar"
+  },
+  "sticky.label": {
+    "en": "Quick access",
+    "ru": "Быстрый доступ",
+    "kk": "Жылдам кіру",
+    "pt": "Acesso rápido"
+  },
+  "payments.method": {
+    "en": "Method",
+    "ru": "Способ",
+    "kk": "Тәсіл",
+    "pt": "Método"
+  },
+  "payments.deposit": {
+    "en": "Deposit",
+    "ru": "Пополнение",
+    "kk": "Толтыру",
+    "pt": "Depósito"
+  },
+  "payments.withdraw": {
+    "en": "Withdrawal",
+    "ru": "Вывод",
+    "kk": "Шығару",
+    "pt": "Saque"
+  },
+  "payments.min": {
+    "en": "Minimum",
+    "ru": "Минимум",
+    "kk": "Ең аз",
+    "pt": "Mínimo"
+  },
+  "app.official": {
+    "en": "Official {brand} app",
+    "ru": "Официальное приложение {brand}",
+    "kk": "{brand} ресми қосымшасы",
+    "pt": "App oficial da {brand}"
+  },
+  "app.get": {
+    "en": "Get the app",
+    "ru": "Скачать приложение",
+    "kk": "Қосымшаны жүктеу",
+    "pt": "Baixar o app"
+  },
+  "app.get_short": {
+    "en": "Get",
+    "ru": "Скачать",
+    "kk": "Жүктеу",
+    "pt": "Baixar"
+  },
+  "app.ios.small": {
+    "en": "Download on the",
+    "ru": "Загрузите в",
+    "kk": "Жүктеп алыңыз:",
+    "pt": "Baixar na"
+  },
+  "app.ios.big": {
+    "en": "App Store",
+    "ru": "App Store",
+    "kk": "App Store",
+    "pt": "App Store"
+  },
+  "app.play.small": {
+    "en": "Get it on",
+    "ru": "Доступно в",
+    "kk": "Қолжетімді:",
+    "pt": "Disponível no"
+  },
+  "app.play.big": {
+    "en": "Google Play",
+    "ru": "Google Play",
+    "kk": "Google Play",
+    "pt": "Google Play"
+  },
+  "app.apk.small": {
+    "en": "Android · {size}",
+    "ru": "Android · {size}",
+    "kk": "Android · {size}",
+    "pt": "Android · {size}"
+  },
+  "app.apk.big": {
+    "en": "Download APK",
+    "ru": "Скачать APK",
+    "kk": "APK жүктеу",
+    "pt": "Baixar APK"
+  },
+  "app.mb": {
+    "en": "{n} MB",
+    "ru": "{n} МБ",
+    "kk": "{n} МБ",
+    "pt": "{n} MB"
+  },
+  "app.version": {
+    "en": "Version",
+    "ru": "Версия",
+    "kk": "Нұсқа",
+    "pt": "Versão"
+  },
+  "app.size": {
+    "en": "Size",
+    "ru": "Размер",
+    "kk": "Көлемі",
+    "pt": "Tamanho"
+  },
+  "app.requires": {
+    "en": "Requires",
+    "ru": "Требования",
+    "kk": "Талаптар",
+    "pt": "Requer"
+  },
+  "app.and_later": {
+    "en": "{os} or later",
+    "ru": "{os} и новее",
+    "kk": "{os} және жоғары",
+    "pt": "{os} ou superior"
+  },
+  "app.languages": {
+    "en": "Languages",
+    "ru": "Языки",
+    "kk": "Тілдер",
+    "pt": "Idiomas"
+  },
+  "app.updated": {
+    "en": "Updated",
+    "ru": "Обновлено",
+    "kk": "Жаңартылды",
+    "pt": "Atualizado"
+  },
+  "app.age": {
+    "en": "Age rating",
+    "ru": "Возраст",
+    "kk": "Жас шегі",
+    "pt": "Classificação"
+  },
+  "app.developer": {
+    "en": "Developer",
+    "ru": "Разработчик",
+    "kk": "Әзірлеуші",
+    "pt": "Desenvolvedor"
+  },
+  "app.price": {
+    "en": "Price",
+    "ru": "Цена",
+    "kk": "Бағасы",
+    "pt": "Preço"
+  },
+  "app.free": {
+    "en": "Free",
+    "ru": "Бесплатно",
+    "kk": "Тегін",
+    "pt": "Grátis"
+  },
+  "app.info_title": {
+    "en": "App information",
+    "ru": "Информация о приложении",
+    "kk": "Қосымша туралы",
+    "pt": "Informações do app"
+  },
+  "app.whats_new": {
+    "en": "What's new",
+    "ru": "Что нового",
+    "kk": "Не жаңа",
+    "pt": "Novidades"
+  },
+  "app.scan": {
+    "en": "Scan with your phone camera to download",
+    "ru": "Наведите камеру телефона, чтобы скачать",
+    "kk": "Жүктеу үшін телефон камерасын бағыттаңыз",
+    "pt": "Aponte a câmera do celular para baixar"
+  },
+  "app.iphone": {
+    "en": "iPhone",
+    "ru": "iPhone",
+    "kk": "iPhone",
+    "pt": "iPhone"
+  },
+  "app.android": {
+    "en": "Android",
+    "ru": "Android",
+    "kk": "Android",
+    "pt": "Android"
+  },
+  "install.ios.1": {
+    "en": "Tap the App Store button on this page.",
+    "ru": "Нажмите кнопку App Store на этой странице.",
+    "kk": "Осы беттегі App Store түймесін басыңыз.",
+    "pt": "Toque no botão App Store nesta página."
+  },
+  "install.ios.2": {
+    "en": "Tap Get and confirm with Face ID or your password.",
+    "ru": "Нажмите «Загрузить» и подтвердите Face ID или паролем.",
+    "kk": "«Жүктеу» түймесін басып, Face ID немесе құпиясөзбен растаңыз.",
+    "pt": "Toque em Obter e confirme com Face ID ou senha."
+  },
+  "install.play.1": {
+    "en": "Tap the Google Play button on this page.",
+    "ru": "Нажмите кнопку Google Play на этой странице.",
+    "kk": "Осы беттегі Google Play түймесін басыңыз.",
+    "pt": "Toque no botão Google Play nesta página."
+  },
+  "install.play.2": {
+    "en": "Tap Install.",
+    "ru": "Нажмите «Установить».",
+    "kk": "«Орнату» түймесін басыңыз.",
+    "pt": "Toque em Instalar."
+  },
+  "install.apk.1": {
+    "en": "Tap Download APK. The file is {size}.",
+    "ru": "Нажмите «Скачать APK». Размер файла — {size}.",
+    "kk": "«APK жүктеу» түймесін басыңыз. Файл көлемі — {size}.",
+    "pt": "Toque em Baixar APK. O arquivo tem {size}."
+  },
+  "install.apk.2": {
+    "en": "Open the file from your notifications or the Downloads folder.",
+    "ru": "Откройте файл из уведомлений или папки «Загрузки».",
+    "kk": "Файлды хабарландырудан немесе «Жүктеулер» қалтасынан ашыңыз.",
+    "pt": "Abra o arquivo pelas notificações ou pela pasta Downloads."
+  },
+  "install.apk.3": {
+    "en": "If Android asks, allow installs from this source, then tap Install.",
+    "ru": "Если Android спросит, разрешите установку из этого источника и нажмите «Установить».",
+    "kk": "Android сұраса, осы көзден орнатуға рұқсат беріп, «Орнату» түймесін басыңыз.",
+    "pt": "Se o Android pedir, permita instalar desta fonte e toque em Instalar."
+  },
+  "install.open": {
+    "en": "Open the app and log in or create an account.",
+    "ru": "Откройте приложение и войдите или зарегистрируйтесь.",
+    "kk": "Қосымшаны ашып, кіріңіз немесе тіркеліңіз.",
+    "pt": "Abra o app e entre ou crie sua conta."
+  },
+  "install.apk.note": {
+    "en": "The Android app is distributed directly by {brand}, outside Google Play. Download it only from this page or the official {brand} site. Android shows a warning for every app installed outside Google Play; that is expected.",
+    "ru": "Android-приложение {brand} распространяется напрямую, вне Google Play. Скачивайте его только с этой страницы или с официального сайта {brand}. Android предупреждает обо всех приложениях не из Google Play — это нормально.",
+    "kk": "{brand} Android қосымшасы Google Play-ден тыс тікелей таратылады. Оны тек осы беттен немесе {brand} ресми сайтынан жүктеңіз. Android Google Play-ден тыс барлық қосымшалар туралы ескертеді — бұл қалыпты.",
+    "pt": "O app Android da {brand} é distribuído diretamente, fora da Google Play. Baixe apenas por esta página ou pelo site oficial da {brand}. O Android mostra um aviso para todo app instalado fora da Google Play; isso é normal."
+  },
+  "install.via_play": {
+    "en": "Android · Google Play",
+    "ru": "Android · Google Play",
+    "kk": "Android · Google Play",
+    "pt": "Android · Google Play"
+  },
+  "install.via_apk": {
+    "en": "Android · APK file",
+    "ru": "Android · файл APK",
+    "kk": "Android · APK файлы",
+    "pt": "Android · arquivo APK"
+  },
+  "bonus.copied": {
+    "en": "Copied",
+    "ru": "Скопировано",
+    "kk": "Көшірілді",
+    "pt": "Copiado"
+  },
+  "promo.no_code": {
+    "en": "No code needed",
+    "ru": "Промокод не нужен",
+    "kk": "Промокод қажет емес",
+    "pt": "Não precisa de código"
+  },
+  "promo.verified": {
+    "en": "Verified {date}",
+    "ru": "Проверено {date}",
+    "kk": "Тексерілді {date}",
+    "pt": "Verificado em {date}"
+  },
+  "promo.full_terms": {
+    "en": "Full terms",
+    "ru": "Полные условия",
+    "kk": "Толық шарттар",
+    "pt": "Termos completos"
+  },
+  "promo.key_terms": {
+    "en": "Key terms",
+    "ru": "Основные условия",
+    "kk": "Негізгі шарттар",
+    "pt": "Principais termos"
+  },
+  "promo.more": {
+    "en": "More promotions",
+    "ru": "Другие акции",
+    "kk": "Басқа акциялар",
+    "pt": "Outras promoções"
+  },
+  "promo.v.match": {
+    "en": "{percent}% up to {max}",
+    "ru": "{percent}% до {max}",
+    "kk": "{max} дейін {percent}%",
+    "pt": "{percent}% até {max}"
+  },
+  "promo.v.boost": {
+    "en": "+{percent}% odds",
+    "ru": "+{percent}% к коэффициенту",
+    "kk": "Коэффициентке +{percent}%",
+    "pt": "+{percent}% nas odds"
+  },
+  "promo.v.cashback": {
+    "en": "{percent}% back, up to {max}",
+    "ru": "Кэшбэк {percent}% до {max}",
+    "kk": "{max} дейін {percent}% кэшбэк",
+    "pt": "{percent}% de volta, até {max}"
+  },
+  "promo.v.free_bets": {
+    "en": "{amount} in free bets",
+    "ru": "Фрибеты на {amount}",
+    "kk": "{amount} фрибет",
+    "pt": "{amount} em apostas grátis"
+  },
+  "promo.v.free_spins": {
+    "en": "{n} free spins",
+    "ru": "{n} фриспинов",
+    "kk": "{n} фриспин",
+    "pt": "{n} giros grátis"
+  },
+  "promo.v.prize_pool": {
+    "en": "{amount} prize pool",
+    "ru": "Призовой фонд {amount}",
+    "kk": "{amount} жүлде қоры",
+    "pt": "Prêmio total de {amount}"
+  },
+  "promo.t.min_deposit": {
+    "en": "Minimum deposit",
+    "ru": "Минимальный депозит",
+    "kk": "Ең аз депозит",
+    "pt": "Depósito mínimo"
+  },
+  "promo.t.wagering": {
+    "en": "Wagering",
+    "ru": "Отыгрыш",
+    "kk": "Ұтыс талабы",
+    "pt": "Rollover"
+  },
+  "promo.t.wagering_v": {
+    "en": "{n}× the bonus",
+    "ru": "{n}× сумма бонуса",
+    "kk": "Бонус сомасы × {n}",
+    "pt": "{n}× o bônus"
+  },
+  "promo.t.min_odds": {
+    "en": "Minimum odds",
+    "ru": "Минимальный коэффициент",
+    "kk": "Ең аз коэффициент",
+    "pt": "Odd mínima"
+  },
+  "promo.t.max_bet": {
+    "en": "Maximum stake",
+    "ru": "Максимальная ставка",
+    "kk": "Ең көп бәс",
+    "pt": "Aposta máxima"
+  },
+  "promo.t.expiry": {
+    "en": "Use it within",
+    "ru": "Срок использования",
+    "kk": "Пайдалану мерзімі",
+    "pt": "Use em até"
+  },
+  "promo.t.day1": {
+    "en": "1 day",
+    "ru": "1 день",
+    "kk": "1 күн",
+    "pt": "1 dia"
+  },
+  "promo.t.days": {
+    "en": "{n} days",
+    "ru": "{n} дн.",
+    "kk": "{n} күн",
+    "pt": "{n} dias"
+  },
+  "promo.t.eligible": {
+    "en": "Who can claim",
+    "ru": "Кто может получить",
+    "kk": "Кім ала алады",
+    "pt": "Quem pode resgatar"
+  },
+  "promo.t.games": {
+    "en": "Counts on",
+    "ru": "Где действует",
+    "kk": "Қай жерде жарамды",
+    "pt": "Vale para"
+  },
+  "promo.t.excluded": {
+    "en": "Not with",
+    "ru": "Не действует с",
+    "kk": "Жарамсыз",
+    "pt": "Não vale com"
+  },
+  "promo.t.ends": {
+    "en": "Offer ends",
+    "ru": "Акция до",
+    "kk": "Акция мерзімі",
+    "pt": "Válida até"
+  },
+  "promo.type.welcome_bonus": {
+    "en": "Welcome offer",
+    "ru": "Приветственное предложение",
+    "kk": "Сәлемдесу бонусы",
+    "pt": "Oferta de boas-vindas"
+  },
+  "promo.type.deposit_bonus": {
+    "en": "Deposit bonus",
+    "ru": "Бонус на депозит",
+    "kk": "Депозит бонусы",
+    "pt": "Bônus de depósito"
+  },
+  "promo.type.free_bets": {
+    "en": "Free bets",
+    "ru": "Фрибеты",
+    "kk": "Фрибеттер",
+    "pt": "Apostas grátis"
+  },
+  "promo.type.promo_code": {
+    "en": "Promo code",
+    "ru": "Промокод",
+    "kk": "Промокод",
+    "pt": "Código promocional"
+  },
+  "promo.type.odds_boost": {
+    "en": "Odds boost",
+    "ru": "Повышенный коэффициент",
+    "kk": "Жоғарылатылған коэффициент",
+    "pt": "Odds turbinadas"
+  },
+  "promo.type.cashback": {
+    "en": "Cashback",
+    "ru": "Кэшбэк",
+    "kk": "Кэшбэк",
+    "pt": "Cashback"
+  },
+  "promo.type.loyalty": {
+    "en": "Loyalty",
+    "ru": "Программа лояльности",
+    "kk": "Адалдық бағдарламасы",
+    "pt": "Fidelidade"
+  },
+  "promo.type.tournaments": {
+    "en": "Tournament",
+    "ru": "Турнир",
+    "kk": "Турнир",
+    "pt": "Torneio"
+  },
+  "vendor.lobby": {
+    "en": "Play {provider} at {brand}",
+    "ru": "Играть в {provider} на {brand}",
+    "kk": "{brand}-да {provider} ойнау",
+    "pt": "Jogar {provider} na {brand}"
+  },
+  "vendor.play": {
+    "en": "Play",
+    "ru": "Играть",
+    "kk": "Ойнау",
+    "pt": "Jogar"
+  },
+  "vendor.games_count": {
+    "en": "{n} games at {brand}",
+    "ru": "{n} игр на {brand}",
+    "kk": "{brand}-да {n} ойын",
+    "pt": "{n} jogos na {brand}"
+  },
+  "vendor.games_at": {
+    "en": "Games at {brand}",
+    "ru": "Игр на {brand}",
+    "kk": "{brand}-дағы ойындар",
+    "pt": "Jogos na {brand}"
+  },
+  "vendor.new": {
+    "en": "New",
+    "ru": "Новинка",
+    "kk": "Жаңа",
+    "pt": "Novo"
+  },
+  "vendor.new_on": {
+    "en": "New on {brand}",
+    "ru": "Новое на {brand}",
+    "kk": "{brand}-дағы жаңалықтар",
+    "pt": "Novidades na {brand}"
+  },
+  "vendor.popular": {
+    "en": "Popular at {brand}",
+    "ru": "Популярное на {brand}",
+    "kk": "{brand}-дағы танымал ойындар",
+    "pt": "Mais jogados na {brand}"
+  },
+  "vendor.games": {
+    "en": "{provider} games at {brand}",
+    "ru": "Игры {provider} на {brand}",
+    "kk": "{brand}-дағы {provider} ойындары",
+    "pt": "Jogos da {provider} na {brand}"
+  },
+  "vendor.added": {
+    "en": "Added {date}",
+    "ru": "Добавлено {date}",
+    "kk": "Қосылды {date}",
+    "pt": "Adicionado em {date}"
+  },
+  "vendor.rtp": {
+    "en": "RTP",
+    "ru": "RTP",
+    "kk": "RTP",
+    "pt": "RTP"
+  },
+  "vendor.rtp_v": {
+    "en": "{rtp}% ({brand}, {market})",
+    "ru": "{rtp}% ({brand}, {market})",
+    "kk": "{rtp}% ({brand}, {market})",
+    "pt": "{rtp}% ({brand}, {market})"
+  },
+  "vendor.rtp_unknown": {
+    "en": "Set by {brand}",
+    "ru": "Устанавливает {brand}",
+    "kk": "{brand} белгілейді",
+    "pt": "Definido pela {brand}"
+  },
+  "vendor.volatility": {
+    "en": "Volatility",
+    "ru": "Волатильность",
+    "kk": "Құбылмалылық",
+    "pt": "Volatilidade"
+  },
+  "vendor.vol.low": {
+    "en": "Low",
+    "ru": "Низкая",
+    "kk": "Төмен",
+    "pt": "Baixa"
+  },
+  "vendor.vol.medium": {
+    "en": "Medium",
+    "ru": "Средняя",
+    "kk": "Орташа",
+    "pt": "Média"
+  },
+  "vendor.vol.high": {
+    "en": "High",
+    "ru": "Высокая",
+    "kk": "Жоғары",
+    "pt": "Alta"
+  },
+  "vendor.vol.very-high": {
+    "en": "Very high",
+    "ru": "Очень высокая",
+    "kk": "Өте жоғары",
+    "pt": "Muito alta"
+  },
+  "vendor.max_win": {
+    "en": "Max win",
+    "ru": "Макс. выигрыш",
+    "kk": "Ең көп ұтыс",
+    "pt": "Ganho máximo"
+  },
+  "vendor.max_win_v": {
+    "en": "{n}× stake",
+    "ru": "{n}× ставки",
+    "kk": "Бәс × {n}",
+    "pt": "{n}× a aposta"
+  },
+  "vendor.founded": {
+    "en": "Founded",
+    "ru": "Основана",
+    "kk": "Құрылған",
+    "pt": "Fundada em"
+  },
+  "vendor.signature": {
+    "en": "Known for",
+    "ru": "Известна",
+    "kk": "Танымал",
+    "pt": "Conhecida por"
+  },
+  "vendor.newest": {
+    "en": "Newest",
+    "ru": "Новинка",
+    "kk": "Ең жаңасы",
+    "pt": "Mais recente"
+  },
+  "vendor.explain.title": {
+    "en": "How to read RTP and volatility",
+    "ru": "Как читать RTP и волатильность",
+    "kk": "RTP мен құбылмалылықты қалай түсінуге болады",
+    "pt": "Como ler RTP e volatilidade"
+  },
+  "vendor.explain.rtp": {
+    "en": "RTP (return to player) is the share of all money staked on a game that it pays back over millions of rounds, across all players. It does not predict what happens in your session.",
+    "ru": "RTP (возврат игроку) — доля всех ставок, которую игра возвращает за миллионы раундов по всем игрокам. Он не предсказывает результат вашей сессии.",
+    "kk": "RTP (ойыншыға қайтару) — ойын миллиондаған раунд бойы барлық ойыншыларға қайтаратын барлық бәстердің үлесі. Ол сіздің сессияңыздың нәтижесін болжамайды.",
+    "pt": "O RTP (retorno ao jogador) é a parte de tudo o que é apostado num jogo que ele devolve ao longo de milhões de rodadas, somando todos os jogadores. Ele não prevê o resultado da sua sessão."
+  },
+  "vendor.explain.vol": {
+    "en": "Volatility describes how wins are spread: low means frequent small wins, very high means long gaps and rare large wins. Higher volatility means your balance can drop faster.",
+    "ru": "Волатильность показывает, как распределены выигрыши: низкая — частые небольшие, очень высокая — долгие паузы и редкие крупные. Чем выше волатильность, тем быстрее может уменьшаться баланс.",
+    "kk": "Құбылмалылық ұтыстардың қалай бөлінетінін көрсетеді: төмен — жиі әрі шағын, өте жоғары — ұзақ үзілістер мен сирек ірі ұтыстар. Құбылмалылық жоғары болса, баланс тезірек азаюы мүмкін.",
+    "pt": "A volatilidade descreve como os ganhos se distribuem: baixa significa ganhos pequenos e frequentes, muito alta significa longos intervalos e ganhos grandes e raros. Quanto maior a volatilidade, mais rápido seu saldo pode cair."
+  },
+  "vendor.explain.vol_low": {
+    "en": "Frequent small wins",
+    "ru": "Частые небольшие выигрыши",
+    "kk": "Жиі шағын ұтыстар",
+    "pt": "Ganhos pequenos e frequentes"
+  },
+  "vendor.explain.vol_high": {
+    "en": "Rare large wins",
+    "ru": "Редкие крупные выигрыши",
+    "kk": "Сирек ірі ұтыстар",
+    "pt": "Ganhos grandes e raros"
+  },
+  "vendor.explain.max": {
+    "en": "Max win is the theoretical maximum of a single round, multiplied by your stake. It is very rarely reached.",
+    "ru": "Макс. выигрыш — теоретический максимум одного раунда, умноженный на ставку. Он достигается крайне редко.",
+    "kk": "Ең көп ұтыс — бір раундтың бәске көбейтілген теориялық максимумы. Оған өте сирек жетеді.",
+    "pt": "O ganho máximo é o teórico de uma única rodada, multiplicado pela aposta. Ele é atingido muito raramente."
+  },
+  "vendor.more": {
+    "en": "More providers at {brand}",
+    "ru": "Другие провайдеры на {brand}",
+    "kk": "{brand}-дағы басқа провайдерлер",
+    "pt": "Outros provedores na {brand}"
+  },
+  "vendor.n_games": {
+    "en": "{n} games",
+    "ru": "{n} игр",
+    "kk": "{n} ойын",
+    "pt": "{n} jogos"
+  },
+  "casinos.visit": {
+    "en": "Visit {name}",
+    "pt": "Visitar {name}",
+    "ru": "Перейти в {name}"
+  },
+  "casinos.visit_short": {
+    "en": "Visit",
+    "pt": "Visitar",
+    "ru": "Перейти"
+  },
+  "casinos.read": {
+    "en": "Read review",
+    "pt": "Ler análise",
+    "ru": "Читать обзор"
+  },
+  "casinos.featured": {
+    "en": "Featured partner",
+    "pt": "Parceiro em destaque",
+    "ru": "Партнёр на особом месте"
+  },
+  "casinos.featured_note": {
+    "en": "paid placement, #{n} by score",
+    "pt": "posição paga, {n}º pela nota",
+    "ru": "платное размещение, №{n} по оценке"
+  },
+  "casinos.rank_aria": {
+    "en": "Rank {n}",
+    "pt": "Posição {n}",
+    "ru": "Место {n}"
+  },
+  "casinos.rank_of": {
+    "en": "#{n} of {total} we tested",
+    "pt": "{n}º de {total} cassinos testados",
+    "ru": "№{n} из {total} проверенных"
+  },
+  "casinos.ranked_by": {
+    "en": "Ranked by {c}",
+    "pt": "Ordenado por: {c}",
+    "ru": "Рейтинг по критерию: {c}"
+  },
+  "casinos.overall": {
+    "en": "Overall score",
+    "pt": "Nota geral",
+    "ru": "Общая оценка"
+  },
+  "casinos.breakdown": {
+    "en": "How we scored {name}",
+    "pt": "Como avaliamos a {name}",
+    "ru": "Как мы оценили {name}"
+  },
+  "casinos.weight": {
+    "en": "Weight {n}%",
+    "pt": "Peso {n}%",
+    "ru": "Вес {n}%"
+  },
+  "casinos.tested": {
+    "en": "Tested {date}",
+    "pt": "Testado em {date}",
+    "ru": "Проверено {date}"
+  },
+  "casinos.method_link": {
+    "en": "How we score",
+    "pt": "Como avaliamos",
+    "ru": "Как мы оцениваем"
+  },
+  "casinos.bonus_off": {
+    "en": "Bonuses are not scored in this market: its rules restrict them.",
+    "pt": "Bônus não entram na nota neste mercado: as regras locais os restringem.",
+    "ru": "Бонусы на этом рынке не оцениваются: его правила их ограничивают."
+  },
+  "casinos.licence_line": {
+    "en": "We only list operators licensed by {regulator}.",
+    "pt": "Listamos apenas operadores autorizados pela {regulator}.",
+    "ru": "Мы показываем только операторов с лицензией {regulator}."
+  },
+  "casinos.pros": {
+    "en": "Strengths",
+    "pt": "Pontos fortes",
+    "ru": "Сильные стороны"
+  },
+  "casinos.cons": {
+    "en": "Weaknesses",
+    "pt": "Pontos fracos",
+    "ru": "Слабые стороны"
+  },
+  "casinos.facts": {
+    "en": "Key facts",
+    "pt": "Dados principais",
+    "ru": "Главное"
+  },
+  "casinos.minutes": {
+    "en": "{m} min",
+    "pt": "{m} min",
+    "ru": "{m} мин"
+  },
+  "casinos.chat": {
+    "en": "Chat {h}",
+    "pt": "Chat {h}",
+    "ru": "Чат {h}"
+  },
+  "casinos.phone": {
+    "en": "phone",
+    "pt": "telefone",
+    "ru": "телефон"
+  },
+  "casinos.app_yes": {
+    "en": "iOS and Android app",
+    "pt": "App iOS e Android",
+    "ru": "Приложение для iOS и Android"
+  },
+  "casinos.app_no": {
+    "en": "Mobile site only",
+    "pt": "Apenas site móvel",
+    "ru": "Только мобильный сайт"
+  },
+  "casinos.kf.payouts": {
+    "en": "{method} withdrawals in {t}",
+    "pt": "Saque {method} em {t}",
+    "ru": "Вывод {method} за {t}",
+    "kk": "{method} арқылы шығару {t}"
+  },
+  "casinos.kf.live": {
+    "en": "{n} live tables",
+    "pt": "{n} mesas ao vivo",
+    "ru": "{n} live-столов"
+  },
+  "casinos.kf.games": {
+    "en": "{n} games",
+    "pt": "{n} jogos",
+    "ru": "{n} игр"
+  },
+  "casinos.kf.support": {
+    "en": "Chat {h}",
+    "pt": "Chat {h}",
+    "ru": "Чат {h}"
+  },
+  "casinos.kf.min": {
+    "en": "Min. deposit {v}",
+    "pt": "Depósito mín. {v}",
+    "ru": "Мин. депозит {v}"
+  },
+  "casinos.kf.licence": {
+    "en": "Licence {no}",
+    "pt": "Portaria {no}",
+    "ru": "Лицензия {no}"
+  },
+  "casinos.f.licence": {
+    "en": "Licence",
+    "pt": "Autorização",
+    "ru": "Лицензия"
+  },
+  "casinos.f.domain": {
+    "en": "Website",
+    "pt": "Site",
+    "ru": "Сайт"
+  },
+  "casinos.f.min_deposit": {
+    "en": "Minimum deposit",
+    "pt": "Depósito mínimo",
+    "ru": "Минимальный депозит"
+  },
+  "casinos.f.withdrawal": {
+    "en": "Withdrawal time",
+    "pt": "Tempo de saque",
+    "ru": "Срок вывода"
+  },
+  "casinos.f.payments": {
+    "en": "Payment methods",
+    "pt": "Formas de pagamento",
+    "ru": "Способы оплаты"
+  },
+  "casinos.f.support": {
+    "en": "Support",
+    "pt": "Suporte",
+    "ru": "Поддержка"
+  },
+  "casinos.f.games": {
+    "en": "Games",
+    "pt": "Jogos",
+    "ru": "Игры"
+  },
+  "casinos.f.live": {
+    "en": "Live tables",
+    "pt": "Mesas ao vivo",
+    "ru": "Live-столы"
+  },
+  "casinos.f.app": {
+    "en": "App",
+    "pt": "App",
+    "ru": "Приложение"
+  },
+  "casinos.f.studios": {
+    "en": "Studios",
+    "pt": "Estúdios",
+    "ru": "Студии"
+  },
+  "casinos.f.checked": {
+    "en": "Facts checked",
+    "pt": "Dados verificados em",
+    "ru": "Данные проверены"
+  },
+  "casinos.crit.safety": {
+    "en": "Safety and licence",
+    "pt": "Segurança e licença",
+    "ru": "Безопасность и лицензия"
+  },
+  "casinos.crit.payouts": {
+    "en": "Withdrawals",
+    "pt": "Saques",
+    "ru": "Вывод средств"
+  },
+  "casinos.crit.games": {
+    "en": "Games",
+    "pt": "Jogos",
+    "ru": "Игры"
+  },
+  "casinos.crit.live": {
+    "en": "Live casino",
+    "pt": "Cassino ao vivo",
+    "ru": "Live-казино"
+  },
+  "casinos.crit.app": {
+    "en": "App",
+    "pt": "App",
+    "ru": "Приложение"
+  },
+  "casinos.crit.support": {
+    "en": "Support",
+    "pt": "Suporte",
+    "ru": "Поддержка"
+  },
+  "casinos.crit.bonuses": {
+    "en": "Bonuses",
+    "pt": "Bônus",
+    "ru": "Бонусы"
+  },
+  "casinos.crit_desc.safety": {
+    "en": "Licence, identity checks, responsible-gambling tools and clear terms.",
+    "pt": "Autorização, verificação de identidade, ferramentas de jogo responsável e termos claros.",
+    "ru": "Лицензия, проверка личности, инструменты ответственной игры и понятные условия."
+  },
+  "casinos.crit_desc.payouts": {
+    "en": "Measured with real test withdrawals: speed, limits and cancellations.",
+    "pt": "Medido com saques reais de teste: velocidade, limites e cancelamentos.",
+    "ru": "Измеряем реальными тестовыми выводами: скорость, лимиты и отмены."
+  },
+  "casinos.crit_desc.games": {
+    "en": "Size and quality of the catalogue, studios, search and filters.",
+    "pt": "Tamanho e qualidade do catálogo, estúdios, busca e filtros.",
+    "ru": "Размер и качество каталога, студии, поиск и фильтры."
+  },
+  "casinos.crit_desc.live": {
+    "en": "Number of live tables, tables in the local language, stream quality.",
+    "pt": "Número de mesas ao vivo, mesas em português, qualidade da transmissão.",
+    "ru": "Число live-столов, столы на местном языке, качество трансляции."
+  },
+  "casinos.crit_desc.app": {
+    "en": "Native apps, speed, deposits and limits from the phone.",
+    "pt": "Apps nativos, velocidade, depósitos e limites pelo celular.",
+    "ru": "Нативные приложения, скорость, депозиты и лимиты с телефона."
+  },
+  "casinos.crit_desc.support": {
+    "en": "Hours, channels and how fast and well our test questions were answered.",
+    "pt": "Horários, canais e rapidez e qualidade das respostas aos nossos testes.",
+    "ru": "Часы работы, каналы связи, скорость и качество ответов на наши тестовые вопросы."
+  },
+  "casinos.crit_desc.bonuses": {
+    "en": "Value and fairness of bonus terms, where the market allows bonuses.",
+    "pt": "Valor e justiça das regras de bônus, onde o mercado permite bônus.",
+    "ru": "Ценность и честность условий бонусов там, где рынок их разрешает."
+  },
+  "nav.compare": {
+    "en": "Compare",
+    "pt": "Comparar",
+    "ru": "Сравнение"
+  },
+  "nav.method": {
+    "en": "How we score",
+    "pt": "Como avaliamos",
+    "ru": "Как мы оцениваем"
+  },
+  "nav.fast": {
+    "en": "Fast withdrawals",
+    "pt": "Saque rápido",
+    "ru": "Быстрый вывод"
+  },
+  "nav.live_casino": {
+    "en": "Live casino",
+    "pt": "Cassino ao vivo",
+    "ru": "Live-казино"
+  },
+  "nav.best_app": {
+    "en": "Best apps",
+    "pt": "Melhores apps",
+    "ru": "Лучшие приложения"
+  },
+  "page.blurb.compare": {
+    "en": "Every casino we tested, side by side.",
+    "pt": "Todos os cassinos testados, lado a lado.",
+    "ru": "Все проверенные казино рядом."
+  },
+  "page.blurb.method": {
+    "en": "Criteria, weights and how we test.",
+    "pt": "Critérios, pesos e como testamos.",
+    "ru": "Критерии, веса и как мы тестируем."
+  },
+  "page.blurb.fast": {
+    "en": "Ranked by real test withdrawals.",
+    "pt": "Ordenado por saques reais de teste.",
+    "ru": "Рейтинг по реальным тестовым выводам."
+  },
+  "page.blurb.live_casino": {
+    "en": "Ranked by live tables and stream quality.",
+    "pt": "Ordenado por mesas e qualidade ao vivo.",
+    "ru": "Рейтинг по live-столам и качеству трансляции."
+  },
+  "page.blurb.best_app": {
+    "en": "Ranked by app speed and features.",
+    "pt": "Ordenado por velocidade e recursos do app.",
+    "ru": "Рейтинг по скорости и возможностям приложений."
+  },
+  "news.sponsored": {
+    "en": "Sponsored",
+    "pt": "Publicidade",
+    "ru": "Реклама",
+    "kk": "Жарнама"
+  },
+  "news.paid_by": {
+    "en": "Paid for by {sponsor}",
+    "pt": "Pago por {sponsor}",
+    "ru": "Оплачено: {sponsor}",
+    "kk": "Төлеген: {sponsor}"
+  },
+  "news.disclosure_box": {
+    "en": "This is a paid article. {sponsor} paid for it and reviewed it before publication. It is advertising, not independent journalism.",
+    "pt": "Este é um conteúdo pago. {sponsor} pagou por ele e o revisou antes da publicação. É publicidade, não jornalismo independente.",
+    "ru": "Это рекламная статья. {sponsor} оплатил её и проверил перед публикацией. Это реклама, а не независимая журналистика.",
+    "kk": "Бұл ақылы мақала. {sponsor} оны төлеп, жарияланар алдында тексерді. Бұл жарнама, тәуелсіз журналистика емес."
+  },
+  "news.disclosure": {
+    "en": "Some articles are paid for by betting brands. They are always labelled Sponsored.",
+    "pt": "Alguns artigos são pagos por marcas de apostas e sempre aparecem marcados como Publicidade.",
+    "ru": "Некоторые статьи оплачены букмекерами и всегда помечены как реклама.",
+    "kk": "Кейбір мақалаларды букмекерлер төлейді; олар әрқашан «Жарнама» деп белгіленеді."
+  },
+  "news.about_link": {
+    "en": "How we label paid content",
+    "pt": "Como identificamos conteúdo pago",
+    "ru": "Как мы помечаем рекламу",
+    "kk": "Жарнаманы қалай белгілейміз"
+  },
+  "news.sample_banner": {
+    "en": "Sample articles written for a design demo. They are not real news.",
+    "pt": "Exemplo: artigos escritos para uma demonstração de design. Não são notícias reais.",
+    "ru": "Пример: статьи написаны для демонстрации дизайна и не являются настоящими новостями.",
+    "kk": "Үлгі: мақалалар дизайнды көрсету үшін жазылған, нақты жаңалықтар емес."
+  },
+  "news.by": {
+    "en": "By {author}",
+    "pt": "Por {author}",
+    "ru": "Автор: {author}",
+    "kk": "Авторы: {author}"
+  },
+  "news.updated": {
+    "en": "Updated {date}",
+    "pt": "Atualizado em {date}",
+    "ru": "Обновлено {date}",
+    "kk": "Жаңартылды: {date}"
+  },
+  "news.read_min": {
+    "en": "{n} min read",
+    "pt": "{n} min de leitura",
+    "ru": "{n} мин чтения",
+    "kk": "{n} мин оқу"
+  },
+  "news.kind.news": {
+    "en": "News",
+    "pt": "Notícias",
+    "ru": "Новости",
+    "kk": "Жаңалықтар"
+  },
+  "news.kind.guide": {
+    "en": "Guide",
+    "pt": "Guia",
+    "ru": "Гайд",
+    "kk": "Нұсқаулық"
+  },
+  "news.kind.pr": {
+    "en": "Partner content",
+    "pt": "Conteúdo de parceiros",
+    "ru": "Партнёрский материал",
+    "kk": "Серіктес материалы"
+  },
+  "news.related": {
+    "en": "Read next",
+    "pt": "Leia também",
+    "ru": "Читайте также",
+    "kk": "Тағы оқыңыз"
+  },
+  "news.more": {
+    "en": "See all",
+    "pt": "Ver todos",
+    "ru": "Все материалы",
+    "kk": "Барлығы"
+  },
+  "nav.news": {
+    "en": "News",
+    "pt": "Notícias",
+    "ru": "Новости",
+    "kk": "Жаңалықтар"
+  },
+  "nav.guides": {
+    "en": "Guides",
+    "pt": "Guias",
+    "ru": "Гайды",
+    "kk": "Нұсқаулықтар"
+  },
+  "nav.partners": {
+    "en": "Partner content",
+    "pt": "Conteúdo de parceiros",
+    "ru": "Партнёрские материалы",
+    "kk": "Серіктес материалдары"
+  },
+  "nav.about": {
+    "en": "About",
+    "pt": "Sobre",
+    "ru": "О нас",
+    "kk": "Біз туралы"
+  },
+  "page.blurb.news": {
+    "en": "Industry and brand news.",
+    "pt": "Notícias do setor e das marcas.",
+    "ru": "Новости отрасли и брендов.",
+    "kk": "Сала мен брендтер жаңалықтары."
+  },
+  "page.blurb.guides": {
+    "en": "How betting works, explained plainly.",
+    "pt": "Como as apostas funcionam, sem complicação.",
+    "ru": "Как устроены ставки, простыми словами.",
+    "kk": "Бәс тігу қалай жұмыс істейді, қарапайым тілмен."
+  },
+  "page.blurb.partners": {
+    "en": "Articles paid for by brands, clearly labelled.",
+    "pt": "Artigos pagos por marcas, sempre identificados.",
+    "ru": "Статьи, оплаченные брендами, с пометкой «Реклама».",
+    "kk": "Брендтер төлеген, белгіленген мақалалар."
+  },
+  "page.blurb.about": {
+    "en": "Who we are and how we label paid content.",
+    "pt": "Quem somos e como identificamos conteúdo pago.",
+    "ru": "Кто мы и как помечаем рекламу.",
+    "kk": "Біз кімбіз және жарнаманы қалай белгілейміз."
+  },
+  "paging.label": {
+    "en": "Pages",
+    "ru": "Страницы",
+    "kk": "Беттер",
+    "pt": "Páginas"
+  },
+  "paging.prev": {
+    "en": "Previous",
+    "ru": "Назад",
+    "kk": "Артқа",
+    "pt": "Anterior"
+  },
+  "paging.next": {
+    "en": "Next",
+    "ru": "Далее",
+    "kk": "Келесі",
+    "pt": "Próxima"
+  },
+  "paging.page": {
+    "en": "page {n}",
+    "ru": "страница {n}",
+    "kk": "{n}-бет",
+    "pt": "página {n}"
+  },
+  "paging.filter_scope": {
+    "en": "Filters apply to the reviews on this page.",
+    "ru": "Фильтры применяются к отзывам на этой странице.",
+    "kk": "Сүзгілер осы беттегі пікірлерге қолданылады.",
+    "pt": "Os filtros valem para as avaliações desta página."
+  },
+  "reviews.recent_good": {
+    "en": "Recent praise",
+    "ru": "Недавняя похвала",
+    "kk": "Жақында мақталды",
+    "pt": "Elogio recente"
+  },
+  "reviews.recent_bad": {
+    "en": "Recent complaint",
+    "ru": "Недавняя жалоба",
+    "kk": "Жақындағы шағым",
+    "pt": "Reclamação recente"
+  },
+  "reviews.sample_banner": {
+    "en": "Sample reviews written for a design demo. They are not real player reviews.",
+    "ru": "Пример: отзывы написаны для демонстрации дизайна и не являются настоящими отзывами игроков.",
+    "kk": "Үлгі: пікірлер дизайнды көрсету үшін жазылған, нақты ойыншылардың пікірлері емес.",
+    "pt": "Exemplo: avaliações escritas para uma demonstração de design. Não são avaliações reais de jogadores."
+  },
+  "reviews.disclosure": {
+    "en": "We earn a commission if you sign up with {brand} through our links. It never affects which reviews we publish.",
+    "ru": "Мы получаем комиссию, если вы регистрируетесь в {brand} по нашим ссылкам. Это не влияет на то, какие отзывы мы публикуем.",
+    "kk": "{brand}-ға біздің сілтемелер арқылы тіркелсеңіз, біз комиссия аламыз. Бұл қандай пікірлер жарияланатынына әсер етпейді.",
+    "pt": "Recebemos comissão se você se cadastrar na {brand} pelos nossos links. Isso nunca muda quais avaliações publicamos."
+  },
+  "reviews.policy_link": {
+    "en": "How we moderate",
+    "ru": "Как мы модерируем",
+    "kk": "Біз қалай модерациялаймыз",
+    "pt": "Como moderamos"
+  },
+  "reviews.count": {
+    "en": "{n} reviews",
+    "ru": "{n} отзывов",
+    "kk": "{n} пікір",
+    "pt": "{n} avaliações"
+  },
+  "reviews.count.one": {
+    "en": "{n} review",
+    "ru": "{n} отзыв",
+    "kk": "{n} пікір",
+    "pt": "{n} avaliação"
+  },
+  "reviews.count.few": {
+    "en": "{n} reviews",
+    "ru": "{n} отзыва",
+    "kk": "{n} пікір",
+    "pt": "{n} avaliações"
+  },
+  "reviews.score_of": {
+    "en": "{v} out of 5",
+    "ru": "{v} из 5",
+    "kk": "5-тен {v}",
+    "pt": "{v} de 5"
+  },
+  "reviews.stars_aria": {
+    "en": "Rated {v} out of 5",
+    "ru": "Оценка {v} из 5",
+    "kk": "Баға: 5-тен {v}",
+    "pt": "Nota {v} de 5"
+  },
+  "reviews.distribution": {
+    "en": "Reviews by rating",
+    "ru": "Отзывы по оценкам",
+    "kk": "Бағалар бойынша пікірлер",
+    "pt": "Avaliações por nota"
+  },
+  "reviews.topic.payouts": {
+    "en": "Payouts",
+    "ru": "Выплаты",
+    "kk": "Төлемдер",
+    "pt": "Saques"
+  },
+  "reviews.topic.verification": {
+    "en": "Verification",
+    "ru": "Верификация",
+    "kk": "Верификация",
+    "pt": "Verificação"
+  },
+  "reviews.topic.support": {
+    "en": "Support",
+    "ru": "Поддержка",
+    "kk": "Қолдау",
+    "pt": "Suporte"
+  },
+  "reviews.topic.app": {
+    "en": "App",
+    "ru": "Приложение",
+    "kk": "Қосымша",
+    "pt": "App"
+  },
+  "reviews.topic.odds": {
+    "en": "Odds and markets",
+    "ru": "Коэффициенты и линия",
+    "kk": "Коэффициенттер мен желі",
+    "pt": "Odds e mercados"
+  },
+  "reviews.topic.deposits": {
+    "en": "Deposits",
+    "ru": "Пополнение",
+    "kk": "Толтыру",
+    "pt": "Depósitos"
+  },
+  "reviews.topics_title": {
+    "en": "Scores by topic",
+    "ru": "Оценки по темам",
+    "kk": "Тақырыптар бойынша баға",
+    "pt": "Notas por tema"
+  },
+  "reviews.latest": {
+    "en": "Latest reviews",
+    "ru": "Последние отзывы",
+    "kk": "Соңғы пікірлер",
+    "pt": "Avaliações recentes"
+  },
+  "reviews.all": {
+    "en": "All reviews",
+    "ru": "Все отзывы",
+    "kk": "Барлық пікірлер",
+    "pt": "Todas as avaliações"
+  },
+  "reviews.all_n": {
+    "en": "All reviews ({n})",
+    "ru": "Все отзывы ({n})",
+    "kk": "Барлық пікірлер ({n})",
+    "pt": "Todas as avaliações ({n})"
+  },
+  "reviews.filter_topic": {
+    "en": "Topic",
+    "ru": "Тема",
+    "kk": "Тақырып",
+    "pt": "Tema"
+  },
+  "reviews.filter_rating": {
+    "en": "Rating",
+    "ru": "Оценка",
+    "kk": "Баға",
+    "pt": "Nota"
+  },
+  "reviews.any_topic": {
+    "en": "All topics",
+    "ru": "Все темы",
+    "kk": "Барлық тақырыптар",
+    "pt": "Todos os temas"
+  },
+  "reviews.any_rating": {
+    "en": "All ratings",
+    "ru": "Все оценки",
+    "kk": "Барлық бағалар",
+    "pt": "Todas as notas"
+  },
+  "reviews.reply": {
+    "en": "Reply from {brand}",
+    "ru": "Ответ {brand}",
+    "kk": "{brand} жауабы",
+    "pt": "Resposta da {brand}"
+  },
+  "reviews.mid_cta": {
+    "en": "Read enough? See {brand} for yourself.",
+    "ru": "Прочитали достаточно? Посмотрите {brand} сами.",
+    "kk": "Жеткілікті оқыдыңыз ба? {brand}-ды өзіңіз көріңіз.",
+    "pt": "Já leu o suficiente? Conheça a {brand}."
+  },
+  "reviews.form.rating": {
+    "en": "Your rating",
+    "ru": "Ваша оценка",
+    "kk": "Сіздің бағаңыз",
+    "pt": "Sua nota"
+  },
+  "reviews.form.topics": {
+    "en": "What is your review about?",
+    "ru": "О чём ваш отзыв?",
+    "kk": "Пікіріңіз не туралы?",
+    "pt": "Sobre o que é sua avaliação?"
+  },
+  "reviews.form.name": {
+    "en": "Your name",
+    "ru": "Ваше имя",
+    "kk": "Атыңыз",
+    "pt": "Seu nome"
+  },
+  "reviews.form.name_help": {
+    "en": "Shown as first name and initial",
+    "ru": "Покажем имя и первую букву фамилии",
+    "kk": "Аты мен тегінің бірінші әрпі көрсетіледі",
+    "pt": "Mostramos nome e inicial"
+  },
+  "reviews.form.city": {
+    "en": "City (optional)",
+    "ru": "Город (необязательно)",
+    "kk": "Қала (міндетті емес)",
+    "pt": "Cidade (opcional)"
+  },
+  "reviews.form.title": {
+    "en": "Headline",
+    "ru": "Заголовок",
+    "kk": "Тақырып",
+    "pt": "Título"
+  },
+  "reviews.form.text": {
+    "en": "Your review",
+    "ru": "Ваш отзыв",
+    "kk": "Сіздің пікіріңіз",
+    "pt": "Sua avaliação"
+  },
+  "reviews.form.text_help": {
+    "en": "Describe what happened. No personal data, account numbers or links.",
+    "ru": "Опишите, что произошло. Без личных данных, номеров счетов и ссылок.",
+    "kk": "Не болғанын сипаттаңыз. Жеке деректерсіз, шот нөмірлерісіз және сілтемелерсіз.",
+    "pt": "Conte o que aconteceu. Sem dados pessoais, números de conta ou links."
+  },
+  "reviews.form.consent": {
+    "en": "I am {age} or older and agree to the moderation rules",
+    "ru": "Мне исполнилось {age} лет, и я согласен с правилами модерации",
+    "kk": "Маған {age} жас толды және модерация ережелерімен келісемін",
+    "pt": "Tenho {age} anos ou mais e concordo com as regras de moderação"
+  },
+  "reviews.form.submit": {
+    "en": "Send review",
+    "ru": "Отправить отзыв",
+    "kk": "Пікірді жіберу",
+    "pt": "Enviar avaliação"
+  },
+  "reviews.form.off": {
+    "en": "Sending reviews is switched off on this demo.",
+    "ru": "В этой демоверсии отправка отзывов отключена.",
+    "kk": "Бұл демо нұсқада пікір жіберу өшірілген.",
+    "pt": "O envio de avaliações está desativado nesta demonstração."
+  },
+  "nav.reviews": {
+    "en": "Reviews",
+    "ru": "Отзывы",
+    "kk": "Пікірлер",
+    "pt": "Avaliações"
+  },
+  "nav.write": {
+    "en": "Write a review",
+    "ru": "Написать отзыв",
+    "kk": "Пікір жазу",
+    "pt": "Escrever avaliação"
+  },
+  "nav.policy": {
+    "en": "How we moderate",
+    "ru": "Как мы модерируем",
+    "kk": "Біз қалай модерациялаймыз",
+    "pt": "Como moderamos"
+  },
+  "nav.payout_reviews": {
+    "en": "Payout reviews",
+    "ru": "Отзывы о выплатах",
+    "kk": "Төлемдер туралы пікірлер",
+    "pt": "Avaliações de saques"
+  },
+  "nav.support_reviews": {
+    "en": "Support reviews",
+    "ru": "Отзывы о поддержке",
+    "kk": "Қолдау туралы пікірлер",
+    "pt": "Avaliações do suporte"
+  },
+  "page.blurb.reviews": {
+    "en": "Every published review, filtered by topic and rating.",
+    "ru": "Все опубликованные отзывы с фильтром по темам и оценкам.",
+    "kk": "Барлық жарияланған пікірлер, тақырып пен баға бойынша сүзгі.",
+    "pt": "Todas as avaliações publicadas, com filtro por tema e nota."
+  },
+  "page.blurb.write": {
+    "en": "Share your experience. We publish good and bad reviews.",
+    "ru": "Поделитесь опытом. Мы публикуем и хорошие, и плохие отзывы.",
+    "kk": "Тәжірибеңізбен бөлісіңіз. Жақсы да, жаман да пікірлерді жариялаймыз.",
+    "pt": "Conte sua experiência. Publicamos avaliações boas e ruins."
+  },
+  "page.blurb.policy": {
+    "en": "What we remove, what we never remove, and how we earn money.",
+    "ru": "Что мы удаляем, что никогда не удаляем и как мы зарабатываем.",
+    "kk": "Нені өшіреміз, нені ешқашан өшірмейміз және қалай табыс табамыз.",
+    "pt": "O que removemos, o que nunca removemos e como ganhamos dinheiro."
+  },
+  "page.blurb.payout_reviews": {
+    "en": "What players say about withdrawals and payout speed.",
+    "ru": "Что игроки пишут о выводе и скорости выплат.",
+    "kk": "Ойыншылар ақша шығару мен төлем жылдамдығы туралы не жазады.",
+    "pt": "O que os jogadores dizem sobre saques e prazos."
+  },
+  "page.blurb.support_reviews": {
+    "en": "What players say about support and complaint handling.",
+    "ru": "Что игроки пишут о поддержке и решении жалоб.",
+    "kk": "Ойыншылар қолдау мен шағымдарды шешу туралы не жазады.",
+    "pt": "O que os jogadores dizem sobre o suporte e reclamações."
+  },
+  "vendor.n_games.one": {
+    "en": "{n} game",
+    "ru": "{n} игра",
+    "kk": "{n} ойын",
+    "pt": "{n} jogo"
+  },
+  "vendor.n_games.few": {
+    "en": "{n} games",
+    "ru": "{n} игры",
+    "kk": "{n} ойын",
+    "pt": "{n} jogos"
+  },
+  "vendor.avg_rtp": {
+    "en": "Average RTP at {brand}, {market}",
+    "ru": "Средний RTP на {brand}, {market}",
+    "kk": "{brand}-дағы орташа RTP, {market}",
+    "pt": "RTP médio na {brand}, {market}"
+  },
+  "vendor.game": {
+    "en": "Game",
+    "ru": "Игра",
+    "kk": "Ойын",
+    "pt": "Jogo"
+  },
+  "vendor.since": {
+    "en": "Studio since {year}",
+    "ru": "Студия с {year} года",
+    "kk": "{year} жылдан бергі студия",
+    "pt": "Estúdio desde {year}"
+  },
+  "bonus.code": {
+    "en": "Code",
+    "ru": "Промокод",
+    "kk": "Промокод",
+    "pt": "Código"
+  },
+  "bonus.copy": {
+    "en": "Copy",
+    "ru": "Копировать",
+    "kk": "Көшіру",
+    "pt": "Copiar"
+  },
+  "compliance.title": {
+    "en": "Play responsibly",
+    "ru": "Играйте ответственно",
+    "kk": "Жауапкершілікпен ойнаңыз",
+    "pt": "Jogue com responsabilidade"
+  },
+  "dur.min": {
+    "en": "~{n} min",
+    "pt": "~{n} min",
+    "ru": "~{n} мин",
+    "kk": "~{n} мин"
+  },
+  "dur.h": {
+    "en": "~{n} h",
+    "pt": "~{n} h",
+    "ru": "~{n} ч",
+    "kk": "~{n} сағ"
+  },
+  "dur.d": {
+    "en": "~{n} days",
+    "pt": "~{n} dias",
+    "ru": "~{n} дн.",
+    "kk": "~{n} күн"
+  },
+  "casinos.col_casino": {
+    "en": "Casino",
+    "pt": "Cassino",
+    "ru": "Казино",
+    "kk": "Казино"
+  },
+  "casinos.col_score": {
+    "en": "Score",
+    "pt": "Nota",
+    "ru": "Оценка",
+    "kk": "Баға"
+  },
+  "pay.bank": {
+    "en": "Bank transfer",
+    "ru": "Банковский перевод",
+    "kk": "Банк аударымы",
+    "pt": "Transferência bancária"
+  },
+  "store.reviews_n": {
+    "en": "{n} reviews",
+    "ru": "{n} отзывов",
+    "pt": "{n} avaliações"
+  },
+  "store.ratings_n": {
+    "en": "{n} ratings",
+    "ru": "Оценок: {n}",
+    "pt": "{n} avaliações"
+  },
+  "store.downloads": {
+    "en": "Downloads",
+    "ru": "скачиваний",
+    "pt": "downloads"
+  },
+  "store.rated_for": {
+    "en": "Rated for {age}",
+    "ru": "Для {age}",
+    "pt": "Classificação {age}"
+  },
+  "store.years": {
+    "en": "Years old",
+    "ru": "лет",
+    "pt": "anos"
+  },
+  "store.category": {
+    "en": "Category",
+    "ru": "Категория",
+    "pt": "Categoria"
+  },
+  "store.about": {
+    "en": "About this app",
+    "ru": "Об этом приложении",
+    "pt": "Sobre este app"
+  },
+  "store.description": {
+    "en": "Description",
+    "ru": "Описание",
+    "pt": "Descrição"
+  },
+  "store.released_by": {
+    "en": "Released by",
+    "ru": "Разработчик",
+    "pt": "Lançado por"
+  },
+  "store.safety": {
+    "en": "Data safety",
+    "ru": "Безопасность данных",
+    "pt": "Segurança dos dados"
+  },
+  "store.privacy": {
+    "en": "App privacy",
+    "ru": "Конфиденциальность",
+    "pt": "Privacidade do app"
+  },
+  "store.safety_intro": {
+    "en": "What the app collects and shares, as the developer declares it in the store.",
+    "ru": "Какие данные приложение собирает и передаёт — так, как это указал разработчик в магазине.",
+    "pt": "O que o app coleta e compartilha, conforme o desenvolvedor declara na loja."
+  },
+  "store.privacy_intro": {
+    "en": "{dev} declares that the app may handle the data below.",
+    "ru": "{dev} указывает, что приложение может обрабатывать данные ниже.",
+    "pt": "{dev} declara que o app pode tratar os dados abaixo."
+  },
+  "store.no_share": {
+    "en": "No data shared with third parties",
+    "ru": "Данные не передаются третьим лицам",
+    "pt": "Nenhum dado compartilhado com terceiros"
+  },
+  "store.shares": {
+    "en": "Data shared with third parties",
+    "ru": "Данные, передаваемые третьим лицам",
+    "pt": "Dados compartilhados com terceiros"
+  },
+  "store.collects": {
+    "en": "This app may collect these data types",
+    "ru": "Приложение может собирать эти типы данных",
+    "pt": "Este app pode coletar estes tipos de dados"
+  },
+  "store.encrypted": {
+    "en": "Data is encrypted in transit",
+    "ru": "Данные шифруются при передаче",
+    "pt": "Os dados são criptografados em trânsito"
+  },
+  "store.deletion": {
+    "en": "You can request that data be deleted",
+    "ru": "Можно запросить удаление данных",
+    "pt": "Você pode pedir a exclusão dos dados"
+  },
+  "store.linked": {
+    "en": "Data linked to you",
+    "ru": "Данные, связанные с вами",
+    "pt": "Dados vinculados a você"
+  },
+  "store.linked_note": {
+    "en": "May be collected and linked to your identity:",
+    "ru": "Могут собираться и связываться с вашей личностью:",
+    "pt": "Podem ser coletados e vinculados à sua identidade:"
+  },
+  "store.not_linked": {
+    "en": "Data not linked to you",
+    "ru": "Данные, не связанные с вами",
+    "pt": "Dados não vinculados a você"
+  },
+  "store.not_linked_note": {
+    "en": "May be collected but not linked to your identity:",
+    "ru": "Могут собираться, но не связываются с вами:",
+    "pt": "Podem ser coletados, mas não vinculados a você:"
+  },
+  "store.data.location": {
+    "en": "Location",
+    "ru": "Геопозиция",
+    "pt": "Localização"
+  },
+  "store.data.contact": {
+    "en": "Contact info",
+    "ru": "Контактные данные",
+    "pt": "Dados de contato"
+  },
+  "store.data.financial": {
+    "en": "Financial info",
+    "ru": "Финансовые данные",
+    "pt": "Dados financeiros"
+  },
+  "store.data.identifiers": {
+    "en": "Identifiers",
+    "ru": "Идентификаторы",
+    "pt": "Identificadores"
+  },
+  "store.data.usage": {
+    "en": "Usage data",
+    "ru": "Данные об использовании",
+    "pt": "Dados de uso"
+  },
+  "store.data.diagnostics": {
+    "en": "Diagnostics",
+    "ru": "Диагностика",
+    "pt": "Diagnóstico"
+  },
+  "store.ratings_reviews": {
+    "en": "Ratings and reviews",
+    "ru": "Оценки и отзывы",
+    "pt": "Notas e avaliações"
+  },
+  "store.ratings_reviews_as": {
+    "en": "Ratings & Reviews",
+    "ru": "Оценки и отзывы",
+    "pt": "Notas e avaliações"
+  },
+  "store.out_of_5": {
+    "en": "out of 5",
+    "ru": "из 5",
+    "pt": "de 5"
+  },
+  "store.sample_reviews": {
+    "en": "Sample reviews written for a design demo.",
+    "ru": "Примеры отзывов для демонстрации дизайна.",
+    "pt": "Avaliações de exemplo para uma demonstração de design."
+  },
+  "store.dev_response": {
+    "en": "Developer response",
+    "ru": "Ответ разработчика",
+    "pt": "Resposta do desenvolvedor"
+  },
+  "store.cat.sports": {
+    "en": "Sports",
+    "ru": "Спорт",
+    "pt": "Esportes"
+  },
+  "store.cat.casino": {
+    "en": "Casino",
+    "ru": "Казино",
+    "pt": "Cassino"
+  },
+  "share.title": {
+    "en": "Share",
+    "ru": "Поделиться",
+    "pt": "Compartilhar"
+  },
+  "share.on": {
+    "en": "Share on {net}",
+    "ru": "Поделиться в {net}",
+    "pt": "Compartilhar no {net}"
+  },
+  "share.copy": {
+    "en": "Copy link",
+    "ru": "Скопировать ссылку",
+    "pt": "Copiar link"
+  },
+  "share.copied": {
+    "en": "Link copied",
+    "ru": "Ссылка скопирована",
+    "pt": "Link copiado"
+  },
+  "news.about_author": {
+    "en": "About the author",
+    "ru": "Об авторе",
+    "pt": "Sobre o autor"
+  },
+  "news.prepared_by": {
+    "en": "Prepared by",
+    "ru": "Подготовлено",
+    "pt": "Preparado por"
+  },
+  "editor.kicker": {
+    "en": "Who looks after this page",
+    "ru": "Кто ведёт эту страницу",
+    "pt": "Quem cuida desta página"
+  },
+  "editor.updated": {
+    "en": "Updated {date}",
+    "ru": "Обновлено {date}",
+    "pt": "Atualizado em {date}"
+  },
+  "editor.policy": {
+    "en": "How we moderate",
+    "ru": "Как мы модерируем",
+    "pt": "Como moderamos"
+  },
+  "news.articles_by": {
+    "en": "{n} articles on the site",
+    "ru": "{n} статей на сайте",
+    "pt": "{n} artigos no site"
+  },
+  "news.articles_by.one": {
+    "en": "{n} article on the site",
+    "ru": "{n} статья на сайте",
+    "pt": "{n} artigo no site"
+  },
+  "news.articles_by.few": {
+    "en": "{n} articles on the site",
+    "ru": "{n} статьи на сайте",
+    "pt": "{n} artigos no site"
+  },
+  "reviews.form.thanks": {
+    "en": "Thanks! Your review will appear after moderation, usually within 24 hours.",
+    "ru": "Спасибо! Отзыв появится после модерации, обычно в течение суток.",
+    "kk": "Рақмет! Пікір модерациядан кейін, әдетте бір тәулік ішінде шығады.",
+    "pt": "Obrigado! Sua avaliação aparece após a moderação, normalmente em até 24 horas."
+  },
+  "promo.code_auto": {
+    "en": "Code applied automatically through this page",
+    "ru": "Код применится автоматически по ссылке с этой страницы",
+    "pt": "O código é aplicado automaticamente por este link"
+  },
+  "vendor.studios": {
+    "en": "Studios",
+    "ru": "Студии",
+    "pt": "Estúdios"
+  },
+  "vendor.new_60": {
+    "en": "New in the last 60 days",
+    "ru": "Новинки за 60 дней",
+    "pt": "Novos nos últimos 60 dias"
+  },
+  "and": {
+    "en": "and",
+    "ru": "и",
+    "pt": "e"
+  },
+  "sidenav.title": {
+    "en": "In this guide",
+    "ru": "В этом гиде",
+    "pt": "Neste guia"
+  },
+  "reviews.verified": {
+    "en": "Verified player",
+    "ru": "Проверенный игрок",
+    "pt": "Jogador verificado"
+  },
+  "trust.hours": {
+    "en": "~{n} h",
+    "ru": "~{n} ч",
+    "pt": "~{n} h",
+    "kk": "~{n} сағ"
+  }
+}

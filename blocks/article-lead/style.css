@@ -1,0 +1,25 @@
+.sx-alead__inner { display: grid; gap: var(--sp-5); padding-block: var(--sp-6) var(--sp-7); }
+.sx-alead__masthead { font-size: var(--fs-3); padding-block-end: var(--sp-3); border-block-end: 2px solid var(--c-text); }
+.sx-alead--split .sx-alead__grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: var(--sp-6); }
+.sx-alead__main { display: grid; gap: var(--sp-3); align-content: start; }
+.sx-alead__cover { display: grid; place-items: end start; aspect-ratio: 16 / 7; padding: var(--sp-4); border-radius: var(--r); text-decoration: none; color: #fff; font-weight: var(--fw-strong); letter-spacing: .08em; text-transform: uppercase; font-size: .78rem;
+  background: radial-gradient(120% 120% at 100% 0%, color-mix(in srgb, var(--c-accent) 70%, #fff) 0 18%, transparent 19%), repeating-linear-gradient(135deg, transparent 0 18px, rgba(255,255,255,.07) 18px 20px), linear-gradient(135deg, var(--c-accent), color-mix(in srgb, var(--c-accent) 55%, #000)); }
+.sx-alead__cover[data-kind="guide"] { filter: hue-rotate(140deg); }
+.sx-alead__title { font-size: var(--fs-5); line-height: 1.1; }
+.sx-alead__title a { color: var(--c-text); text-decoration: none; }
+.sx-alead__title a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.sx-alead__dek { font-size: var(--fs-2); color: var(--c-muted); }
+.sx-alead--split .sx-alead__side { display: grid; gap: var(--sp-5); align-content: start; }
+.sx-alead--split .sx-alead__side .sx-acard + .sx-acard { padding-block-start: var(--sp-5); border-block-start: 1px solid var(--c-border); }
+@media (max-width: 860px) {
+  .sx-alead__inner { padding-block: var(--sp-4) var(--sp-6); gap: var(--sp-4); }
+  .sx-alead__masthead { font-size: var(--fs-1); }
+  .sx-alead--split .sx-alead__grid { grid-template-columns: minmax(0, 1fr); gap: var(--sp-5); }
+  .sx-alead__cover { aspect-ratio: 16 / 6; }
+  .sx-alead__title { font-size: var(--fs-4); }
+  .sx-alead__dek { font-size: var(--fs-1); }
+}
+
+/* image mode */
+.sx-alead__cover--art { padding: 0; background: none; filter: none !important; }
+.sx-alead__cover--art .sx-pic { width: 100%; height: 100%; border-radius: inherit; }

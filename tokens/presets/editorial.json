@@ -1,0 +1,14 @@
+{
+  "id": "editorial",
+  "name": "Editorial",
+  "mood": "Newsroom credibility. Serif headlines, newsprint neutrals, flat surfaces, one red.",
+  "fits": ["news", "review", "ugc"],
+  "theme": "light",
+  "fonts": { "display": { "family": "Lora", "weights": [600, 700] }, "body": { "family": "Fira Sans", "weights": [400, 500] } },
+  "color": { "bg": "#F6F6F3", "surface": "#FFFFFF", "surface2": "#ECECE7", "text": "#1B1B18", "muted": "#5A5A52", "border": "#D6D6CF", "accent": "#C8102E", "onAccent": "#FFFFFF", "accent2": "#1B1B18", "heroText": "#1B1B18", "heroMuted": "#5A5A52" },
+  "shape": { "radiusSm": "0px", "radius": "0px", "radiusLg": "2px", "buttonRadius": "2px", "borderWidth": "1px" },
+  "type": { "base": 17, "scale": 1.25, "headingWeight": 700, "headingCase": "none", "headingTracking": "-0.01em", "lineHeight": 1.65, "bodyWeight": 400 },
+  "space": { "density": 1.05 },
+  "surface": { "style": "flat", "shadow": "none" },
+  "decor": { "heroBg": "#F6F6F3" }
+}

@@ -1,0 +1,38 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "sx/hero",
+    "title": "SX Hero",
+    "category": "sx-conversion",
+    "description": "Above-the-fold hero: headline, one primary CTA, trust row and an optional offer/feature card.",
+    "acf": {
+        "mode": "preview",
+        "renderCallback": "sx_acf_render"
+    },
+    "supports": {
+        "align": false,
+        "html": false
+    },
+    "sx": {
+        "role": "hero",
+        "variants": [
+            "split",
+            "centered",
+            "scoreboard",
+            "stat-led",
+            "full-bleed"
+        ],
+        "default_variant": "split",
+        "guardrails": [
+            "Exactly one primary CTA. The secondary action is a text link or ghost button.",
+            "Primary CTA must sit above the fold at 375x667.",
+            "Headline 60 characters max; subtitle 160 max (long Russian/Portuguese strings included).",
+            "scoreboard: the match card is an illustration and must carry a note saying odds are examples.",
+            "stat-led: the number must be a real brand fact (e.g. payout minutes) and match the trust bar.",
+            "full-bleed: art is CSS only for now; text sits on a scrim so contrast holds on any preset."
+        ],
+        "variant_requires": {
+            "scoreboard": "sports"
+        }
+    }
+}

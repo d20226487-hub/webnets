@@ -1,0 +1,19 @@
+/* game strip: scrollable row of tiles with CSS cover art */
+.sx-showcase--games { background: var(--c-bg); }
+.sx-showcase__strip {
+  display: grid; grid-auto-flow: column; grid-auto-columns: minmax(180px, 220px); gap: var(--sp-4);
+  overflow-x: auto; scroll-snap-type: x mandatory; padding-block-end: var(--sp-3); scrollbar-width: thin;
+}
+.sx-showcase__game { display: grid; gap: var(--sp-2); scroll-snap-align: start; min-width: 0; }
+.sx-showcase__cover {
+  position: relative; display: block; aspect-ratio: 3 / 4; border-radius: var(--r); overflow: hidden;
+  background: radial-gradient(120% 80% at 30% 15%, color-mix(in srgb, var(--g1) 90%, white 10%), var(--g2) 70%);
+  border: var(--bw) solid var(--c-border);
+}
+.sx-showcase__cover::before { content: ""; position: absolute; inset: 18% 14%; border-radius: 50%; opacity: .55; }
+.sx-showcase__cover[data-motif="rings"]::before { background: repeating-radial-gradient(circle, transparent 0 10px, rgba(255,255,255,.35) 11px 12px); }
+.sx-showcase__cover[data-motif="wheel"]::before { background: repeating-conic-gradient(rgba(255,255,255,.4) 0 10deg, transparent 10deg 20deg); -webkit-mask: radial-gradient(circle, transparent 28%, #000 29%); mask: radial-gradient(circle, transparent 28%, #000 29%); }
+.sx-showcase__cover[data-motif="cards"]::before { inset: 22% 28%; border-radius: 10px; background: rgba(255,255,255,.22); rotate: -10deg; box-shadow: 26px 6px 0 rgba(255,255,255,.16); }
+.sx-showcase__tag { position: absolute; inset-block-start: var(--sp-2); inset-inline-start: var(--sp-2); padding: 2px var(--sp-2); border-radius: var(--r-sm); background: var(--c-danger); color: #fff; font-size: .7rem; font-weight: var(--fw-strong); text-transform: uppercase; letter-spacing: .06em; }
+.sx-showcase__gname { font-weight: var(--fw-strong); }
+.sx-showcase__gmeta { font-size: var(--fs-0); color: var(--c-muted); }

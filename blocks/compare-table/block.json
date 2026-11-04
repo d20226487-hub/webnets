@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/compare-table",
+  "title": "SX Comparison Table",
+  "category": "sx-conversion",
+  "description": "All brands side by side: overall, each criterion, key facts, review link and CTA. First column sticks on phones.",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "sx_acf_render"
+  },
+  "supports": {
+    "align": false,
+    "html": false,
+    "multiple": false
+  },
+  "sx": {
+    "role": "content",
+    "variants": [
+      "table"
+    ],
+    "default_variant": "table",
+    "guardrails": [
+      "Columns follow the overall ranking."
+    ]
+  }
+}

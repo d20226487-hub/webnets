@@ -1,0 +1,12 @@
+{
+  "fields": [
+    { "name": "variant", "type": "select", "label": "Layout", "choices": ["auto", "columns", "compact"], "default": "auto" },
+    { "name": "about", "type": "textarea", "label": "Short site description", "default": "" },
+    { "name": "links", "type": "repeater", "label": "Extra links", "max": 8, "default": [],
+      "fields": [
+        { "name": "label", "type": "text", "label": "Label", "required": true },
+        { "name": "url", "type": "url", "label": "URL", "required": true }
+      ] },
+    { "name": "show_verify", "type": "true_false", "label": "Show compliance 'placeholder copy' marker", "default": false }
+  ]
+}

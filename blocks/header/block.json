@@ -1,0 +1,32 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "sx/header",
+    "title": "SX Header",
+    "category": "sx-shared",
+    "description": "Site header with logo, navigation and primary CTA.",
+    "acf": {
+        "mode": "preview",
+        "renderCallback": "sx_acf_render"
+    },
+    "supports": {
+        "align": false,
+        "html": false,
+        "anchor": true
+    },
+    "sx": {
+        "role": "header",
+        "variants": [
+            "inline",
+            "centered",
+            "minimal",
+            "minimal-split",
+            "app-bar"
+        ],
+        "default_variant": "inline",
+        "guardrails": [
+            "One-page landing and app pages use 'minimal' (no nav) so attention stays on the conversion.",
+            "The CTA stays visible at every width; on mobile the nav collapses into a menu, the CTA does not."
+        ]
+    }
+}

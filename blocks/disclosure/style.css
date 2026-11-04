@@ -1,0 +1,2 @@
+.sx-disclose { padding: var(--sp-2) var(--sp-4); font-size: .78rem; line-height: 1.4; text-align: center; color: var(--c-muted); background: var(--c-surface-2); border-block-end: 1px solid var(--c-border); }
+.sx-disclose a { color: inherit; font-weight: var(--fw-strong); white-space: nowrap; }

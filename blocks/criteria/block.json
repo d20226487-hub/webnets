@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/criteria",
+  "title": "SX Scoring Criteria",
+  "category": "sx-conversion",
+  "description": "The criteria and weights used in this market, rendered from the blueprint, with what each one measures.",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "sx_acf_render"
+  },
+  "supports": {
+    "align": false,
+    "html": false,
+    "multiple": false
+  },
+  "sx": {
+    "role": "content",
+    "variants": [
+      "list"
+    ],
+    "default_variant": "list",
+    "guardrails": [
+      "Weights shown are the weights used; nothing is typed in content."
+    ]
+  }
+}

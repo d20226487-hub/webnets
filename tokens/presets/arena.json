@@ -1,0 +1,14 @@
+{
+  "id": "arena",
+  "name": "Arena",
+  "mood": "Stadium broadcast graphics. Condensed uppercase, thick borders, hot orange on navy.",
+  "fits": ["sportsbook", "landing", "news"],
+  "theme": "dark",
+  "fonts": { "display": { "family": "Oswald", "weights": [600, 700] }, "body": { "family": "Roboto Condensed", "weights": [400, 500] } },
+  "color": { "bg": "#0C1726", "surface": "#13223A", "surface2": "#1A2D4A", "text": "#F4F7FB", "muted": "#9FB0C8", "border": "#24395A", "accent": "#FF6A13", "onAccent": "#0C1726", "accent2": "#2EC5FF", "heroText": "#F4F7FB", "heroMuted": "#B5C3D6" },
+  "shape": { "radiusSm": "2px", "radius": "4px", "radiusLg": "8px", "buttonRadius": "4px", "borderWidth": "2px" },
+  "type": { "base": 16, "scale": 1.3, "headingWeight": 700, "headingCase": "uppercase", "headingTracking": "0.01em", "lineHeight": 1.5, "bodyWeight": 400 },
+  "space": { "density": 0.95 },
+  "surface": { "style": "elevated", "shadow": "0 8px 0 rgba(0,0,0,.35)" },
+  "decor": { "heroBg": "linear-gradient(115deg, #0C1726 45%, #16325A 100%)" }
+}

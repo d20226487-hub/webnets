@@ -1,0 +1,9 @@
+/* row */
+.sx-steps--row .sx-steps__list { grid-template-columns: repeat(3, minmax(0, 1fr)); position: relative; isolation: isolate; }
+.sx-steps--row .sx-steps__list::before { content: ""; position: absolute; inset-inline: 28px; inset-block-start: 28px; border-block-start: 2px dashed var(--c-border); z-index: -1; }
+.sx-steps--row .sx-steps__n { background: var(--c-bg); }
+@media (max-width: 760px) {
+  .sx-steps--row .sx-steps__list { grid-template-columns: minmax(0, 1fr); }
+  .sx-steps--row .sx-steps__list::before { display: none; }
+  .sx-steps--row .sx-steps__item { grid-template-columns: 56px minmax(0, 1fr); gap: var(--sp-4); }
+}

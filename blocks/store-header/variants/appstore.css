@@ -1,0 +1,27 @@
+/* appstore: big icon beside name, subtitle, developer, rating and Get; then the info strip of six cells */
+.sx-shead--appstore .sx-shead__inner { display: grid; gap: var(--sp-6); padding-block: var(--sp-7) var(--sp-5); }
+.sx-shead--appstore .sx-shead__top { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--sp-6); align-items: center; }
+.sx-shead--appstore .sx-shead__icon { width: 180px; height: 180px; border-radius: 22.5%; }
+.sx-shead--appstore .sx-shead__icon svg { width: 58%; height: 58%; }
+.sx-shead--appstore .sx-shead__main { display: grid; gap: var(--sp-2); justify-items: start; }
+.sx-shead--appstore .sx-shead__sub { font-size: var(--fs-2); }
+.sx-shead--appstore .sx-shead__dev { font-weight: 400; }
+.sx-shead--appstore .sx-shead__rating { display: flex; align-items: center; gap: 6px; font-size: var(--fs-0); color: var(--c-muted); }
+.sx-shead--appstore .sx-shead__price { font-size: var(--fs-0); color: var(--c-muted); }
+.sx-shead--appstore .sx-shead__strip { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-block: 1px solid var(--c-border); padding-block: var(--sp-4); }
+.sx-shead--appstore .sx-shead__strip li { display: grid; justify-items: center; align-content: start; gap: 4px; padding-inline: var(--sp-2); text-align: center; color: var(--c-muted); }
+.sx-shead--appstore .sx-shead__strip li + li { border-inline-start: 1px solid var(--c-border); }
+.sx-shead--appstore .sx-shead__strip span { font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; }
+.sx-shead--appstore .sx-shead__strip strong { font-size: var(--fs-3); line-height: 1; color: var(--c-muted); font-weight: 700; }
+.sx-shead--appstore .sx-shead__strip strong .sx-icon { width: 22px; height: 22px; }
+.sx-shead--appstore .sx-shead__strip small { font-size: .74rem; overflow-wrap: anywhere; }
+.sx-shead--appstore .sx-shead__strip .sx-stars { font-size: .7rem; }
+@media (max-width: 760px) {
+  .sx-shead--appstore .sx-shead__top { grid-template-columns: 96px minmax(0, 1fr); gap: var(--sp-4); align-items: start; }
+  .sx-shead--appstore .sx-shead__icon { width: 96px; height: 96px; }
+  .sx-shead--appstore .sx-shead__name { font-size: var(--fs-3); }
+  .sx-shead--appstore .sx-shead__sub { font-size: var(--fs-0); }
+  .sx-shead--appstore .sx-shead__strip { display: flex; overflow-x: auto; scrollbar-width: none; }
+  .sx-shead--appstore .sx-shead__strip li { flex: 0 0 104px; }
+  .sx-shead--appstore .sx-installs { grid-column: 1 / -1; }
+}

@@ -1,0 +1,27 @@
+/* list: numbered wire, no covers. The first item is larger and carries the dek. Two columns on wide screens. */
+.sx-alead__wire { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--sp-7); }
+.sx-alead__item { display: grid; grid-template-columns: 2.6rem minmax(0, 1fr); gap: var(--sp-3); padding-block: var(--sp-4); border-block-end: 1px solid var(--c-border); }
+.sx-alead__item[data-top] { grid-column: 1 / -1; padding-block: var(--sp-2) var(--sp-5); border-block-end-width: 2px; border-block-end-color: var(--c-text); }
+.sx-alead__n { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-3); line-height: 1; color: var(--c-accent); }
+.sx-alead--list .sx-alead__title { font-size: var(--fs-2); }
+.sx-alead--list .sx-alead__item[data-top] .sx-alead__title { font-size: var(--fs-5); }
+.sx-alead--list .sx-alead__item > div { display: grid; gap: var(--sp-1); }
+@media (max-width: 860px) {
+  .sx-alead__wire { grid-template-columns: minmax(0, 1fr); }
+  .sx-alead__item { grid-template-columns: 2rem minmax(0, 1fr); padding-block: var(--sp-3); }
+  .sx-alead__n { font-size: var(--fs-2); }
+  .sx-alead--list .sx-alead__title { font-size: var(--fs-1); }
+  .sx-alead--list .sx-alead__item[data-top] .sx-alead__title { font-size: var(--fs-4); }
+}
+/* image mode: number, thumbnail, text (explicit columns: the thumbnail comes first in the markup) */
+.sx-alead__item--img { grid-template-columns: 2.6rem 132px minmax(0, 1fr); align-items: start; }
+.sx-alead__item--img > .sx-alead__n { grid-column: 1; grid-row: 1; }
+.sx-alead__item--img > .sx-alead__ithumb { grid-column: 2; grid-row: 1; display: block; }
+.sx-alead__item--img > div { grid-column: 3; grid-row: 1; }
+.sx-alead__item--img[data-top] { grid-template-columns: 2.6rem minmax(0, 1.1fr) minmax(0, 1fr); align-items: center; column-gap: var(--sp-5); }
+@media (max-width: 860px) {
+  .sx-alead__item--img { grid-template-columns: 2rem 92px minmax(0, 1fr); }
+  .sx-alead__item--img[data-top] { grid-template-columns: 2rem minmax(0, 1fr); row-gap: var(--sp-3); }
+  .sx-alead__item--img[data-top] > .sx-alead__ithumb { grid-column: 2; grid-row: 1; }
+  .sx-alead__item--img[data-top] > div { grid-column: 2; grid-row: 2; }
+}

@@ -1,0 +1,60 @@
+{
+  "_howto": "Copy to sites/<project>/<id>.json, fill every TODO, then: php build/build.php <file>. Reviews and every score come from brands/reviews/<brand>.json, never from this file. Seeded (made-up) reviews build only with \"demo\": true. Schema: dist/schemas/reviews.schema.json. Guide: docs/types/reviews.md.",
+  "id": "TODO-brand-market-reviews-01",
+  "type": "reviews",
+  "angle": "payout-focus",
+  "brand": "nyxa",
+  "market": "TODO",
+  "locale": "TODO",
+  "preset": "fresh-minimal",
+  "seed": "TODO-unique-seed",
+  "prefix": "auto",
+  "urls": "pretty",
+  "links": {
+    "go": "https://TODO/register?src=TODO",
+    "review_form": "https://TODO endpoint that stores submissions for moderation (omit until collection is live)"
+  },
+  "site": { "name": "TODO site name", "url": "https://TODO-domain" },
+  "meta": {
+    "home": { "title": "TODO up to 65 characters", "description": "TODO up to 160 characters" },
+    "reviews": { "title": "TODO", "description": "TODO" },
+    "payouts": { "title": "TODO (payout-focus angle)", "description": "TODO" },
+    "write": { "title": "TODO", "description": "TODO" },
+    "policy": { "title": "TODO", "description": "TODO" }
+  },
+  "variants": {},
+  "content": {
+    "header": { "note": "TODO licence line, short" },
+    "home": {
+      "hero": { "title": "TODO up to 60 characters", "subtitle": "TODO no numbers: scores are computed" },
+      "faq": { "items": [
+        { "q": "TODO Are these real reviews?", "a": "TODO" },
+        { "q": "TODO Do you delete bad reviews?", "a": "TODO" },
+        { "q": "TODO Where do the brand's replies come from?", "a": "TODO" },
+        { "q": "TODO Are you connected to the brand?", "a": "TODO commission disclosure" }
+      ] },
+      "final": { "title": "TODO up to 40 characters", "text": "TODO include the age line" }
+    },
+    "reviews": {
+      "hero": { "title": "TODO" },
+      "final": { "title": "TODO", "text": "TODO" }
+    },
+    "payouts": {
+      "hero": { "title": "TODO" },
+      "final": { "title": "TODO", "text": "TODO" }
+    },
+    "write": {
+      "hero": { "title": "TODO", "answer": "TODO one sentence: we publish good and bad reviews" },
+      "form": { "title": "TODO" },
+      "next": { "eyebrow": "TODO", "title": "TODO", "items": [
+        { "title": "TODO", "text": "TODO moderation, with time" },
+        { "title": "TODO", "text": "TODO publication" },
+        { "title": "TODO", "text": "TODO brand reply" }
+      ] }
+    },
+    "policy": {
+      "hero": { "title": "TODO", "answer": "TODO what we remove, and that negative reviews stay" },
+      "text": { "html": "<h2>TODO What we remove</h2><ul><li>TODO</li></ul><h2>TODO What we never remove</h2><p>TODO</p><h2>TODO Brand replies</h2><p>TODO</p><h2>TODO How we earn money</h2><p>TODO</p>", "toc": true }
+    }
+  }
+}

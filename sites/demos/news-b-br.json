@@ -1,0 +1,122 @@
+{
+  "_demo": "News Demo B (brief 09). Brazilian betting news site with SAMPLE articles (content/placar-aberto-br/articles). Builds only with demo: true; PR pieces are labelled Publicidade.",
+  "demo": true,
+  "today": "2026-10-30",
+  "id": "news-b-br",
+  "type": "news",
+  "angle": "guides-first",
+  "publisher": "placaraberto",
+  "market": "br",
+  "locale": "pt",
+  "preset": "fresh-minimal",
+  "seed": "placaraberto-br-news-b",
+  "prefix": "auto",
+  "urls": "pretty",
+  "articles": "content/placar-aberto-br/articles",
+  "links": {
+    "brands": {
+      "nyxa": "https://nyxa.bet.br/cadastro?src=placaraberto",
+      "marlowe": "https://marlowe.bet.br/cadastro?src=placaraberto"
+    }
+  },
+  "site": {
+    "name": "Placar Aberto",
+    "url": "https://placaraberto.example"
+  },
+  "meta": {
+    "home": {
+      "title": "Placar Aberto: notícias e guias de apostas no Brasil",
+      "description": "Guias práticos sobre saque PIX, odds e limites, notícias do mercado regulado e conteúdo de parceiros sempre identificado. 18+."
+    },
+    "article": {
+      "title": "{item} | Placar Aberto",
+      "description": "{item}. Placar Aberto, notícias de apostas no Brasil."
+    },
+    "news": {
+      "title": "Notícias do mercado de apostas | Placar Aberto",
+      "description": "O que muda no mercado regulado de apostas no Brasil, em linguagem direta."
+    },
+    "guides": {
+      "title": "Guias de apostas | Placar Aberto",
+      "description": "Saque PIX, odds decimais, limites e .bet.br explicados passo a passo."
+    },
+    "partners": {
+      "title": "Conteúdo de parceiros | Placar Aberto",
+      "description": "Artigos pagos por marcas de apostas. Todos marcados como Publicidade."
+    },
+    "about": {
+      "title": "Sobre o Placar Aberto e o conteúdo pago",
+      "description": "Quem somos, como identificamos publicidade, nossa política de correções e jogo responsável."
+    }
+  },
+  "variants": {
+    "header": "centered",
+    "footer": "compact",
+    "sticky-cta": "pill",
+    "home": {
+      "lead": "stack",
+      "latest": "list",
+      "partners": "rail",
+      "guides": "cards"
+    },
+    "article": {
+      "body": "standard"
+    },
+    "news": {
+      "list": "cards"
+    },
+    "guides": {
+      "list": "cards"
+    },
+    "partners": {
+      "list": "list"
+    },
+    "about": {
+      "hero": "answer",
+      "text": "toc-side",
+      "related": "cards"
+    }
+  },
+  "content": {
+    "home": {
+      "lead": {
+        "title": "Notícias e guias de apostas no Brasil"
+      },
+      "latest": {
+        "title": "Últimas notícias"
+      },
+      "partners": {
+        "title": "Conteúdo de parceiros"
+      },
+      "guides": {
+        "title": "Guias para começar"
+      }
+    },
+    "news": {
+      "list": {
+        "title": "Notícias"
+      }
+    },
+    "guides": {
+      "list": {
+        "title": "Guias"
+      }
+    },
+    "partners": {
+      "list": {
+        "title": "Conteúdo de parceiros",
+        "intro": "Estes artigos são pagos por marcas de apostas e revisados por elas antes da publicação. São publicidade, não jornalismo independente."
+      }
+    },
+    "about": {
+      "hero": {
+        "title": "Sobre o Placar Aberto",
+        "answer": "Escrevemos notícias e guias sobre apostas no Brasil. Marcas podem pagar por artigos; todo artigo pago é marcado como Publicidade."
+      },
+      "text": {
+        "html": "<h2>Artigos pagos</h2><p>Marcas de apostas podem pagar para publicarmos artigos sobre seus produtos. Esses artigos aparecem marcados como Publicidade nas listas e acima do título, dizem qual marca pagou e trazem um aviso de que são anúncios.</p><p>Os links em artigos pagos são marcados como links patrocinados para os buscadores.</p><h2>O que patrocinadores não podem fazer</h2><ul><li>Pagar ou editar nossas notícias e guias</li><li>Incluir ofertas ou incentivos nos artigos</li><li>Remover a marcação de Publicidade</li></ul><h2>Correções</h2><p>Se errarmos, corrigimos e mostramos a data da atualização no topo do artigo.</p><h2>Jogo responsável</h2><p>Apostas são proibidas para menores de 18 anos. Use os limites de depósito e a autoexclusão disponíveis na sua conta e procure ajuda se o jogo deixar de ser diversão.</p>",
+        "toc": true
+      }
+    }
+  }
+}

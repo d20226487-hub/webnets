@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/brand-header",
+  "title": "SX Brand Review Header",
+  "category": "sx-conversion",
+  "description": "Review page hero: brand, computed score, verdict, key facts, CTA, tested date.",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "sx_acf_render"
+  },
+  "supports": {
+    "align": false,
+    "html": false,
+    "multiple": false
+  },
+  "sx": {
+    "role": "content",
+    "variants": [
+      "split"
+    ],
+    "default_variant": "split",
+    "guardrails": [
+      "Score is computed; verdict comes from brands/ratings/<market>.json."
+    ]
+  }
+}

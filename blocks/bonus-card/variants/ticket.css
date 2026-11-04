@@ -1,0 +1,4 @@
+/* ticket */
+.sx-bonus--ticket { display: grid; }
+.sx-bonus--ticket .sx-bonus__top { display: grid; gap: var(--sp-3); padding: var(--sp-5); }
+.sx-bonus--ticket .sx-bonus__stub { display: grid; gap: var(--sp-3); padding: var(--sp-4) var(--sp-5) var(--sp-5); background: var(--c-surface-2); border-block-start: 2px dashed var(--c-border); /* Punched notches that show whatever is behind the card, on any hero background. */ -webkit-mask: radial-gradient(circle 10px at left top, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle 10px at right top, #0000 98%, #000) right / 51% 100% no-repeat; mask: radial-gradient(circle 10px at left top, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle 10px at right top, #0000 98%, #000) right / 51% 100% no-repeat; }

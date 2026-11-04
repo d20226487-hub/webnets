@@ -1,0 +1,6 @@
+/* toc-side: contents in a sticky side column on wide screens; inline box on phones */
+@media (min-width: 900px) {
+  .sx-prose--toc-side .sx-prose__inner { grid-template-columns: 240px minmax(0, 68ch); gap: var(--sp-7); align-items: start; }
+  .sx-prose--toc-side .sx-prose__toc { position: sticky; top: var(--sp-5); background: none; padding: 0; border-inline-start: 2px solid var(--c-border); padding-inline-start: var(--sp-4); }
+  .sx-prose--toc-side .sx-prose__toc ol { list-style: none; padding: 0; }
+}

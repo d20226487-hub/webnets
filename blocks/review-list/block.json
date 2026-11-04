@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/review-list",
+  "title": "SX Review List",
+  "category": "sx-conversion",
+  "description": "Published reviews, newest first. Optional topic and rating filters (pure CSS, no JavaScript needed) and a CTA after every few reviews.",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "sx_acf_render"
+  },
+  "supports": {
+    "align": false,
+    "html": false,
+    "multiple": false
+  },
+  "sx": {
+    "role": "content",
+    "variants": [
+      "cards",
+      "compact",
+      "verified"
+    ],
+    "default_variant": "cards",
+    "guardrails": [
+      "Newest first, every published review; never sorted or filtered by rating by default.",
+      "The CTA sits between reviews, never inside a review card."
+    ]
+  }
+}

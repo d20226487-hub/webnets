@@ -1,0 +1,29 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "sx/features",
+    "title": "SX Features",
+    "category": "sx-conversion",
+    "description": "3-4 product reasons to join, each with an icon, a short title and one sentence.",
+    "acf": {
+        "mode": "preview",
+        "renderCallback": "sx_acf_render"
+    },
+    "supports": {
+        "align": false,
+        "html": false
+    },
+    "sx": {
+        "role": "content",
+        "variants": [
+            "grid",
+            "rows",
+            "bento"
+        ],
+        "default_variant": "grid",
+        "guardrails": [
+            "3 or 4 items. Titles 4 words max, text one sentence (about 120 characters).",
+            "Features describe the product, never an offer or bonus."
+        ]
+    }
+}

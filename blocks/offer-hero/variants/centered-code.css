@@ -1,0 +1,19 @@
+/* centered-code: one centred column, the code box wide and prominent; key terms as a row of tiles */
+.sx-offerhero--centered .sx-offerhero__inner { justify-items: center; text-align: center; max-width: 760px; }
+.sx-offerhero--centered .sx-offerhero__title { max-width: 22ch; }
+.sx-offerhero--centered .sx-offerhero__value { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: calc(var(--fs-5) * 1.1); line-height: 1.05; color: var(--c-hero-accent, var(--c-accent)); }
+.sx-offerhero__codewrap { width: min(100%, 460px); }
+.sx-offerhero--centered .sx-offerhero__cta { min-width: min(100%, 460px); min-height: 52px; }
+.sx-offerhero--centered .sx-offerhero__keyterms { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--sp-2); }
+.sx-offerhero--centered .sx-offerhero__keyterms { border: 0; }
+.sx-offerhero--centered .sx-offerhero__keyterms div, .sx-offerhero--centered .sx-offerhero__keyterms div + div { padding: var(--sp-2) var(--sp-3); border: 0; border-radius: var(--r-sm); background: color-mix(in srgb, var(--c-hero-text) 8%, transparent); }
+.sx-offerhero--centered .sx-offerhero__verified { justify-content: center; }
+@media (max-width: 640px) {
+  .sx-offerhero--centered .sx-offerhero__inner { padding-block: var(--sp-5) var(--sp-6); gap: var(--sp-3); }
+  .sx-offerhero--centered .sx-offerhero__title { font-size: var(--fs-3); }
+  .sx-offerhero--centered .sx-offerhero__value { font-size: var(--fs-4); }
+  .sx-offerhero--centered .sx-offerhero__cta { width: 100%; }
+  .sx-offerhero--centered .sx-offerhero__keyterms { display: flex; } /* two key terms stay above the fold (brief 03) */
+  .sx-offerhero--centered .sx-offerhero__keyterms div:nth-child(n+3) { display: none; }
+  .sx-offerhero--centered .sx-offerhero__keyterms dd { font-size: var(--fs-1); }
+}

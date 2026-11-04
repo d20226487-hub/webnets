@@ -1,0 +1,302 @@
+{
+  "type": "news",
+  "title": "Gambling news site with PR articles",
+  "brief": "docs/briefs/09-gambling-news-pr.md",
+  "articles": true,
+  "cta_check": false,
+  "frame": {
+    "top": [
+      {
+        "block": "compliance-bar",
+        "props": {
+          "variant": "strip"
+        },
+        "when": "market.strip"
+      },
+      {
+        "block": "disclosure",
+        "props": {
+          "text": "news.disclosure",
+          "link_page": "about",
+          "link_text": "news.about_link"
+        }
+      }
+    ],
+    "header": {
+      "block": "header",
+      "variants": [
+        "inline",
+        "centered"
+      ],
+      "props": {
+        "sticky": false,
+        "show_cta": false
+      }
+    },
+    "footer": {
+      "block": "footer",
+      "variants": [
+        "columns",
+        "compact"
+      ]
+    },
+    "overlay": [
+      {
+        "block": "age-gate"
+      },
+      {
+        "block": "sticky-cta",
+        "variants": [
+          "bar",
+          "pill"
+        ]
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "rule": "required",
+      "nav": "nav.home",
+      "sections": [
+        {
+          "id": "lead",
+          "block": "article-lead",
+          "zone": "top",
+          "rule": "required"
+        },
+        {
+          "id": "latest",
+          "block": "article-list",
+          "zone": "middle",
+          "rule": "required",
+          "props": {
+            "exclude_pr": true,
+            "skip_lead": true,
+            "limit": "6",
+            "more": "news"
+          }
+        },
+        {
+          "id": "partners",
+          "block": "article-list",
+          "zone": "middle",
+          "rule": "optional",
+          "props": {
+            "kind": "pr",
+            "limit": "3",
+            "more": "partners"
+          }
+        },
+        {
+          "id": "guides",
+          "block": "article-list",
+          "zone": "middle",
+          "rule": "optional",
+          "props": {
+            "kind": "guide",
+            "limit": "3",
+            "more": "guides",
+            "skip_lead": true
+          }
+        }
+      ],
+      "order_rules": [
+        {
+          "rule": "before",
+          "a": "latest",
+          "b": "partners"
+        }
+      ],
+      "angles": {
+        "newsroom": {
+          "optional": [
+            "guides",
+            "partners"
+          ],
+          "variants": {
+            "latest": [
+              "cards"
+            ],
+            "partners": [
+              "rail"
+            ],
+            "guides": [
+              "list",
+              "cards"
+            ],
+            "lead": [
+              "split",
+              "stack",
+              "list"
+            ]
+          }
+        },
+        "guides-first": {
+          "optional": [
+            "guides",
+            "partners"
+          ],
+          "variants": {
+            "latest": [
+              "list"
+            ],
+            "partners": [
+              "rail"
+            ],
+            "guides": [
+              "cards"
+            ],
+            "lead": [
+              "split",
+              "stack",
+              "list"
+            ]
+          }
+        },
+        "brand-watch": {
+          "optional": [
+            "partners"
+          ],
+          "variants": {
+            "lead": [
+              "split",
+              "stack",
+              "list"
+            ],
+            "latest": [
+              "list"
+            ],
+            "partners": [
+              "cards",
+              "rail"
+            ]
+          }
+        }
+      }
+    },
+    "article": {
+      "rule": "required",
+      "generate": "articles",
+      "slug": "{section}/{item}",
+      "parents": {
+        "news": "news",
+        "guide": "guides",
+        "pr": "partners"
+      },
+      "sections": [
+        {
+          "id": "body",
+          "block": "article-body",
+          "zone": "top",
+          "rule": "required"
+        }
+      ]
+    },
+    "news": {
+      "rule": "required",
+      "slug": "news",
+      "nav": "nav.news",
+      "blurb": "page.blurb.news",
+      "paginate": {
+        "section": "list",
+        "per_page": 10
+      },
+      "sections": [
+        {
+          "id": "list",
+          "block": "article-list",
+          "zone": "top",
+          "rule": "required",
+          "props": {
+            "heading": "h1",
+            "kind": "news"
+          }
+        }
+      ]
+    },
+    "guides": {
+      "rule": "required",
+      "slug": "guides",
+      "nav": "nav.guides",
+      "blurb": "page.blurb.guides",
+      "paginate": {
+        "section": "list",
+        "per_page": 10
+      },
+      "sections": [
+        {
+          "id": "list",
+          "block": "article-list",
+          "zone": "top",
+          "rule": "required",
+          "props": {
+            "heading": "h1",
+            "kind": "guide"
+          }
+        }
+      ]
+    },
+    "partners": {
+      "rule": "required",
+      "slug": "partner-content",
+      "nav": "nav.partners",
+      "blurb": "page.blurb.partners",
+      "paginate": {
+        "section": "list",
+        "per_page": 10
+      },
+      "sections": [
+        {
+          "id": "list",
+          "block": "article-list",
+          "zone": "top",
+          "rule": "required",
+          "props": {
+            "heading": "h1",
+            "kind": "pr"
+          }
+        }
+      ]
+    },
+    "about": {
+      "rule": "required",
+      "slug": "about",
+      "nav": "nav.about",
+      "blurb": "page.blurb.about",
+      "sections": [
+        {
+          "id": "hero",
+          "block": "page-hero",
+          "zone": "top",
+          "rule": "required",
+          "props": {
+            "show_cta": false
+          }
+        },
+        {
+          "id": "text",
+          "block": "prose",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "related",
+          "block": "page-links",
+          "zone": "bottom",
+          "rule": "required"
+        }
+      ]
+    }
+  },
+  "angles": {
+    "newsroom": {
+      "pages": []
+    },
+    "guides-first": {
+      "pages": []
+    },
+    "brand-watch": {
+      "pages": []
+    }
+  }
+}

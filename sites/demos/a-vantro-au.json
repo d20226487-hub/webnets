@@ -1,0 +1,88 @@
+{
+  "_demo": "Phase 1 Demo A. All copy is placeholder written to the brief; teams and odds are fictional.",
+  "id": "a-vantro-au",
+  "type": "landing",
+  "angle": "matchday",
+  "brand": "vantro",
+  "market": "au",
+  "preset": "arena",
+  "seed": "vantro-au-a",
+  "prefix": "auto",
+  "links": { "go": "https://vantro.example/au/join?src=sat-a" },
+  "site": { "name": "Vantro Australia" },
+  "page": {
+    "title": "Vantro: live footy, cricket and basketball odds",
+    "description": "Same-game multis, live streaming and PayID withdrawals in about an hour. Licensed in Australia. 18+."
+  },
+  "variants": {
+    "hero": "scoreboard", "trust": "strip", "features": "grid", "showcase": "odds-board",
+    "steps": "row", "faq": "accordion", "final": "solid", "sticky-cta": "bar"
+  },
+  "order": ["features", "showcase", "steps"],
+  "content": {
+    "header": { "note": "Licensed in Australia" },
+    "hero": {
+      "eyebrow": "Round 14 is live",
+      "title": "Footy, cricket and hoops. Live odds in one tap.",
+      "subtitle": "Build same-game multis in seconds, watch selected matches live and withdraw to PayID in about an hour.",
+      "secondary": { "label": "See how it works", "url": "#how" },
+      "match": {
+        "league": "Premiership · Round 14",
+        "clock": "Q3 08:12",
+        "home": { "name": "Harbour Hawks", "short": "HAW", "color": "#1F6FEB", "score": "54" },
+        "away": { "name": "Westside Rams", "short": "WSR", "color": "#C62839", "score": "47" },
+        "markets": [
+          { "label": "Head to head", "odds": [ { "pick": "HAW", "price": "1.62" }, { "pick": "WSR", "price": "2.30" } ] },
+          { "label": "Line", "odds": [ { "pick": "HAW −6.5", "price": "1.90" }, { "pick": "WSR +6.5", "price": "1.90" } ] },
+          { "label": "Total points", "odds": [ { "pick": "Over 160.5", "price": "1.87" }, { "pick": "Under 160.5", "price": "1.93" } ] }
+        ],
+        "note": "Example markets for illustration. Live prices change during play."
+      }
+    },
+    "features": {
+      "eyebrow": "Why Vantro",
+      "title": "Built for match day",
+      "items": [
+        { "icon": "layers", "title": "Same-game multis", "text": "Combine head to head, line and player markets from one match into a single bet." },
+        { "icon": "play", "title": "Live streaming", "text": "Watch selected matches inside the app while you bet in-play." },
+        { "icon": "bolt", "title": "PayID withdrawals", "text": "Most withdrawals land in about an hour, seven days a week." },
+        { "icon": "gauge", "title": "Limits you control", "text": "Set daily, weekly or monthly deposit limits in two taps and change them any time." }
+      ]
+    },
+    "showcase": {
+      "eyebrow": "Tonight",
+      "title": "Markets open right now",
+      "tabs": [ { "label": "Footy" }, { "label": "Cricket" }, { "label": "Basketball" }, { "label": "Racing" } ],
+      "columns": [ { "label": "Home" }, { "label": "Away" } ],
+      "rows": [
+        { "when": "Q3", "live": true, "competition": "Premiership", "home": "Harbour Hawks", "away": "Westside Rams", "odds": [ { "price": "1.62" }, { "price": "2.30" } ], "more": 148 },
+        { "when": "19:40", "competition": "Premiership", "home": "Coastal Kings", "away": "Northern Blues", "odds": [ { "price": "1.85" }, { "price": "1.95" } ], "more": 132 },
+        { "when": "20:10", "competition": "T20 Bash", "home": "Southern Strikers", "away": "City Comets", "odds": [ { "price": "2.05" }, { "price": "1.78" } ], "more": 96 },
+        { "when": "21:00", "competition": "National Basketball", "home": "Bay Breakers", "away": "Valley Stallions", "odds": [ { "price": "1.50" }, { "price": "2.60" } ], "more": 74 }
+      ],
+      "note": "Fixtures and prices are examples for illustration."
+    },
+    "steps": {
+      "eyebrow": "Getting started",
+      "title": "Start in three steps",
+      "items": [
+        { "title": "Create your account", "text": "Name, date of birth and address. Most accounts are verified within minutes." },
+        { "title": "Deposit with PayID", "text": "Minimum A$10. You will be asked to set a deposit limit while you are there." },
+        { "title": "Place your first bet", "text": "Pick a market, add it to your bet slip and confirm." }
+      ]
+    },
+    "faq": {
+      "items": [
+        { "q": "Is Vantro legal in Australia?", "a": "Yes. Vantro holds an Australian wagering licence and offers sports and racing betting, which is permitted online. Online casino games are not offered in Australia." },
+        { "q": "How fast are withdrawals?", "a": "Most PayID withdrawals arrive in about an hour. Bank transfers can take up to one business day." },
+        { "q": "Which payment methods can I use?", "a": "PayID, BPAY, Visa and Mastercard debit cards and Apple Pay. Credit cards cannot be used for online betting in Australia." },
+        { "q": "Do I need to verify my identity?", "a": "Yes. Australian law requires identity checks before you can bet. Most accounts are verified automatically within minutes." },
+        { "q": "How do I set limits or take a break?", "a": "Set deposit limits in your account settings at any time. You can also exclude yourself from all licensed betting providers through BetStop at betstop.gov.au." }
+      ]
+    },
+    "final": {
+      "title": "Round 14 is on.",
+      "text": "Join in about two minutes and set your limits from day one."
+    }
+  }
+}

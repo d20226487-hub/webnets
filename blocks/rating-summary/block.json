@@ -1,0 +1,31 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/rating-summary",
+  "title": "SX Rating Summary",
+  "category": "sx-conversion",
+  "description": "Hero for review sites: average score, review count, 5-to-1 distribution, one topic score and the CTA. Every number is computed from the review feed.",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "sx_acf_render"
+  },
+  "supports": {
+    "align": false,
+    "html": false,
+    "multiple": false
+  },
+  "sx": {
+    "role": "hero",
+    "variants": [
+      "board",
+      "strip",
+      "quotes",
+      "band"
+    ],
+    "default_variant": "board",
+    "guardrails": [
+      "No typed-in scores: everything comes from brands/reviews/<brand>.json.",
+      "No AggregateRating structured data."
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "sx/sticky-cta",
+    "title": "SX Sticky Mobile CTA",
+    "category": "sx-conversion",
+    "description": "Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.",
+    "acf": {
+        "mode": "preview",
+        "renderCallback": "sx_acf_render"
+    },
+    "supports": {
+        "align": false,
+        "html": false,
+        "multiple": false
+    },
+    "sx": {
+        "role": "sticky",
+        "variants": [
+            "bar",
+            "pill",
+            "app-banner",
+            "code-bar"
+        ],
+        "default_variant": "bar",
+        "guardrails": [
+            "Phones only (860px and narrower). Never covers the compliance panel: the footer gets bottom padding.",
+            "Shows the market age badge next to the CTA."
+        ]
+    }
+}

@@ -1,0 +1,76 @@
+{
+  "fields": [
+    {
+      "name": "variant",
+      "type": "select",
+      "label": "Layout",
+      "choices": [
+        "auto",
+        "cards",
+        "table",
+        "list",
+        "podium"
+      ],
+      "default": "auto"
+    },
+    {
+      "name": "heading",
+      "type": "select",
+      "label": "Heading level",
+      "choices": [
+        "h2",
+        "h1"
+      ],
+      "default": "h2"
+    },
+    {
+      "name": "title",
+      "type": "text",
+      "label": "Title",
+      "required": true,
+      "default": "",
+      "maxlength": 70
+    },
+    {
+      "name": "intro",
+      "type": "textarea",
+      "label": "Intro (no scores or rankings in the text)",
+      "default": "",
+      "maxlength": 200
+    },
+    {
+      "name": "rank_by",
+      "type": "select",
+      "label": "Rank by (empty = the angle's criterion)",
+      "choices": [
+        "",
+        "safety",
+        "payouts",
+        "games",
+        "live",
+        "app",
+        "support",
+        "bonuses"
+      ],
+      "default": ""
+    },
+    {
+      "name": "limit",
+      "type": "text",
+      "label": "Max brands (0 = all)",
+      "default": "0"
+    },
+    {
+      "name": "show_featured",
+      "type": "true_false",
+      "label": "Show the featured slot",
+      "default": false
+    },
+    {
+      "name": "exclude_current",
+      "type": "true_false",
+      "label": "Leave out the brand of this review page",
+      "default": false
+    }
+  ]
+}

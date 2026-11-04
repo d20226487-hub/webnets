@@ -1,0 +1,28 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/app-privacy",
+  "title": "SX App Privacy",
+  "category": "sx-conversion",
+  "description": "Store-style privacy summary. play = \"Data safety\" list; appstore = \"App Privacy\" cards (linked / not linked to you).",
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "sx_acf_render"
+  },
+  "supports": {
+    "align": false,
+    "html": false,
+    "multiple": false
+  },
+  "sx": {
+    "role": "content",
+    "variants": [
+      "play",
+      "appstore"
+    ],
+    "default_variant": "play",
+    "guardrails": [
+      "Data types come from brands/operators.json app.privacy and must match the store listing's own privacy label."
+    ]
+  }
+}

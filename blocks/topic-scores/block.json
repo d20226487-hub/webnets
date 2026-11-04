@@ -1,0 +1,11 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sx/topic-scores",
+  "title": "SX Topic Scores",
+  "category": "sx-conversion",
+  "description": "Average score and review count per topic (payouts, verification, support...), each linking to those reviews.",
+  "acf": { "mode": "preview", "renderCallback": "sx_acf_render" },
+  "supports": { "align": false, "html": false, "multiple": false },
+  "sx": { "role": "content", "variants": ["bars", "grid"], "default_variant": "bars", "guardrails": ["Computed from the review feed; topics without reviews are hidden."] }
+}

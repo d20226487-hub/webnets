@@ -1,0 +1,17 @@
+{
+  "julia": {
+    "name": "Júlia Andrade",
+    "role": "Repórter de mercado",
+    "bio": "Acompanha o mercado de apostas regulado no Brasil: regras da SPA/MF, publicidade e o que muda para o apostador. Jornalista de economia há dez anos."
+  },
+  "rafael": {
+    "name": "Rafael Moura",
+    "role": "Editor de guias",
+    "bio": "Escreve os guias práticos sobre PIX, limites e odds. Ex-analista de risco, explica as contas sem jargão."
+  },
+  "parceiros": {
+    "name": "Núcleo de Parceiros",
+    "role": "Equipe de conteúdo patrocinado",
+    "bio": "Produz os conteúdos de parceiros com as marcas. Todo texto é identificado como publicidade e revisado quanto ao jogo responsável."
+  }
+}

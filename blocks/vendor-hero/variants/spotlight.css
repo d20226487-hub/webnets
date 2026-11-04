@@ -1,0 +1,11 @@
+/* spotlight: studio + CTA | newest game card. Phones: copy and CTA first, spotlight below. */
+.sx-vhero--spotlight .sx-vhero__inner { grid-template-columns: minmax(0, 1.25fr) minmax(280px, 1fr); }
+.sx-vhero--spotlight .sx-vhero__spot { max-width: 400px; justify-self: end; width: 100%; }
+@media (max-width: 860px) {
+  .sx-vhero--spotlight .sx-vhero__inner { grid-template-columns: minmax(0, 1fr); padding-block: var(--sp-5) var(--sp-7); }
+  .sx-vhero__title { font-size: var(--fs-4); }
+  .sx-vhero__subtitle { display: none; }
+  .sx-vhero__cta { width: 100%; font-size: var(--fs-1); }
+  .sx-vhero--spotlight .sx-vhero__spot { justify-self: stretch; max-width: none; }
+}
+.sx-vhero__studios { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-4); }

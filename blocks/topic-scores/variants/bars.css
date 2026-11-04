@@ -1,0 +1,10 @@
+/* bars: one row per topic: name | bar | score | count */
+.sx-tscores--bars .sx-tscores__list { display: grid; gap: var(--sp-2); max-width: 760px; }
+.sx-tscores--bars .sx-tscores__list a { grid-template-columns: 11em 1fr 3em 7em; gap: var(--sp-3); min-height: 44px; padding-inline: var(--sp-3); border-radius: var(--r-sm); }
+.sx-tscores--bars .sx-tscores__list a:hover { background: var(--c-surface-2); }
+.sx-tscores--bars .sx-tscores__list strong { text-align: end; }
+@media (max-width: 640px) {
+  .sx-tscores--bars .sx-tscores__list a { grid-template-columns: 1fr auto; row-gap: 4px; padding-block: var(--sp-2); padding-inline: 0; }
+  .sx-tscores--bars .sx-tscores__bar { grid-column: 1 / -1; grid-row: 2; }
+  .sx-tscores--bars .sx-tscores__list small { display: none; }
+}

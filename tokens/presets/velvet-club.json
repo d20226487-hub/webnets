@@ -1,0 +1,14 @@
+{
+  "id": "velvet-club",
+  "name": "Velvet Club",
+  "mood": "Classic table-games room. Felt green, cream type, brass accent, traditional serif.",
+  "fits": ["casino", "review", "satellite"],
+  "theme": "dark",
+  "fonts": { "display": { "family": "PT Serif", "weights": [700] }, "body": { "family": "PT Sans", "weights": [400, 700] } },
+  "color": { "bg": "#0E241D", "surface": "#143128", "surface2": "#1A3D32", "text": "#F3EEDF", "muted": "#B5BFA9", "border": "#2A4F42", "accent": "#C9A45C", "onAccent": "#1A1206", "accent2": "#8E2B3A", "heroText": "#F3EEDF", "heroMuted": "#C3CCB6" },
+  "shape": { "radiusSm": "6px", "radius": "10px", "radiusLg": "14px", "buttonRadius": "6px", "borderWidth": "1px" },
+  "type": { "base": 16, "scale": 1.25, "headingWeight": 700, "headingCase": "none", "headingTracking": "0", "lineHeight": 1.6, "bodyWeight": 400 },
+  "space": { "density": 1.05 },
+  "surface": { "style": "elevated", "shadow": "0 10px 28px rgba(0,0,0,.35)" },
+  "decor": { "heroBg": "radial-gradient(90% 70% at 50% 0%, #1C4A3B, #0E241D 70%)" }
+}

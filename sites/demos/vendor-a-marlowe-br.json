@@ -1,0 +1,108 @@
+{
+  "_demo": "Phase 4 Demo A (brief 04, option A). Games, RTP versions and dates come from brands/catalog/marlowe.json; studio facts from brands/providers.json.",
+  "today": "2026-10-30",
+  "id": "vendor-a-marlowe-br",
+  "type": "vendor",
+  "angle": "new-releases",
+  "brand": "marlowe",
+  "market": "br",
+  "provider": "emberforge",
+  "preset": "luxury-gold",
+  "seed": "marlowe-br-vendor-a",
+  "prefix": "auto",
+  "links": {
+    "go": "https://marlowe.bet.br/cassino/provedores/emberforge?src=vendor-a",
+    "game": "https://marlowe.bet.br/cassino/jogo/{game}?src=vendor-a",
+    "provider": "https://marlowe.bet.br/cassino/provedores/{provider}?src=vendor-a"
+  },
+  "site": {
+    "name": "Emberforge na Marlowe"
+  },
+  "page": {
+    "title": "Emberforge na Marlowe Club: novos slots e os mais jogados",
+    "description": "Todos os slots Emberforge da Marlowe Club, com o RTP usado no Brasil, volatilidade e ganho máximo. Novidades de outubro. 18+."
+  },
+  "variants": {
+    "header": "minimal-split",
+    "hero": "spotlight",
+    "trust": "strip",
+    "new": "strip",
+    "games": "grid",
+    "explainer": "inline",
+    "about": "rows",
+    "more": "chips",
+    "faq": "accordion",
+    "final": "solid",
+    "sticky-cta": "bar"
+  },
+  "order": [
+    "new",
+    "games",
+    "explainer",
+    "about"
+  ],
+  "sections": {
+    "more": true
+  },
+  "content": {
+    "header": {
+      "note": "Autorizada SPA/MF"
+    },
+    "hero": {
+      "title": "Slots Emberforge na Marlowe Club",
+      "subtitle": "Os jogos do estúdio que chegaram à Marlowe nos últimos 60 dias e os mais jogados, com o RTP usado no Brasil."
+    },
+    "games": {
+      "intro": "Ordem de popularidade na Marlowe Club em outubro."
+    },
+    "about": {
+      "eyebrow": "Sobre o estúdio",
+      "title": "Quem é a Emberforge",
+      "items": [
+        {
+          "icon": "star",
+          "title": "Desde 2017",
+          "text": "Estúdio independente conhecido por slots de tema nórdico e industrial."
+        },
+        {
+          "icon": "bolt",
+          "title": "Compra de bônus",
+          "text": "Na maioria dos jogos você pode comprar a rodada de bônus direto. Ela custa um múltiplo da aposta e não garante retorno."
+        },
+        {
+          "icon": "shield",
+          "title": "Volatilidade alta",
+          "text": "A maioria dos títulos tem prêmios raros e grandes. Veja a escala acima antes de jogar."
+        }
+      ]
+    },
+    "faq": {
+      "items": [
+        {
+          "q": "Quais jogos da Emberforge a Marlowe Club tem?",
+          "a": "A Marlowe oferece seis slots da Emberforge no Brasil. A lista acima mostra todos, com os dois lançamentos de outubro em destaque."
+        },
+        {
+          "q": "O RTP é o mesmo em todos os cassinos?",
+          "a": "Não. Muitos estúdios lançam o mesmo jogo com versões de RTP diferentes, e cada cassino escolhe uma. Mostramos a versão usada pela Marlowe no Brasil."
+        },
+        {
+          "q": "Posso jogar no celular?",
+          "a": "Sim. Todos os slots da Emberforge rodam no navegador do celular e no app da Marlowe Club, sem download extra."
+        },
+        {
+          "q": "Como deposito para jogar?",
+          "a": "Pelo PIX, cartão ou transferência. O valor cai na hora e você pode definir um limite de depósito no cadastro."
+        },
+        {
+          "q": "Posso limitar meu tempo de jogo?",
+          "a": "Sim. Na sua conta você define limites de depósito, perda e tempo de sessão, ou pausa a conta quando quiser."
+        }
+      ]
+    },
+    "final": {
+      "title": "Jogue Emberforge na Marlowe",
+      "text": "Seis slots no lobby do estúdio. Apenas maiores de 18 anos."
+    }
+  }
+}

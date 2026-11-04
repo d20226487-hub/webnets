@@ -1,0 +1,5 @@
+/* cards: two columns on wide screens */
+@media (min-width: 900px) {
+  .sx-rlist--cards .sx-rlist__list { grid-template-columns: 1fr 1fr; align-items: start; }
+  .sx-rlist--cards .sx-rlist__cta { grid-column: 1 / -1; }
+}

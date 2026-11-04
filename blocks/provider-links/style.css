@@ -1,0 +1,11 @@
+.sx-plinks__inner { display: grid; gap: var(--sp-4); padding-block: var(--sp-7); }
+.sx-plinks__title { font-size: var(--fs-3); }
+.sx-plinks__list { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
+.sx-plinks__list a {
+  display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 48px; padding: var(--sp-2) var(--sp-4);
+  border-radius: var(--r-btn); border: var(--bw) solid var(--c-border); background: var(--c-surface); color: var(--c-text); text-decoration: none;
+}
+.sx-plinks__list a:hover { border-color: var(--c-accent); }
+.sx-plinks__dot { width: 12px; height: 12px; border-radius: 3px; flex: none; background: var(--p1); }
+.sx-plinks__list small { color: var(--c-muted); }
+.sx-plinks__list .sx-icon { width: 16px; height: 16px; color: var(--c-muted); }

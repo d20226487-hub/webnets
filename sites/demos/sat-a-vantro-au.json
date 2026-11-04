@@ -1,0 +1,207 @@
+{
+  "_demo": "Phase 5 Demo A (brief 05). Multi-page satellite: home + sign-up, payments, app, responsible gambling. All copy is placeholder written to the brief; speeds, limits and requirements are fictional.",
+  "today": "2026-10-30",
+  "id": "sat-a-vantro-au",
+  "type": "satellite",
+  "angle": "starter-guide",
+  "brand": "vantro",
+  "market": "au",
+  "preset": "clean-sportsbook",
+  "seed": "vantro-au-sat-a",
+  "prefix": "auto",
+  "urls": "pretty",
+  "links": {
+    "go": "https://vantro.example/au/join?src=sat-a",
+    "ios": "https://vantro.example/au/app/ios?src=sat-a",
+    "android": "https://vantro.example/au/app/android?src=sat-a",
+    "qr": "https://vantro.example/au/app?src=sat-a-qr"
+  },
+  "site": { "name": "Vantro Guide", "url": "https://vantro-guide.example" },
+  "meta": {
+    "home": {
+      "title": "Vantro guide: sign up, deposit and bet in three steps",
+      "description": "How to start with Vantro in Australia: opening an account, PayID deposits and withdrawals, the app and the limits you can set. 18+."
+    },
+    "signup": {
+      "title": "Vantro sign up: what you need and how long it takes",
+      "description": "Open a Vantro account in about five minutes. The details you need, how ID verification works and when you can place your first bet. 18+."
+    },
+    "payments": {
+      "title": "Vantro deposits and withdrawals: PayID, BPAY, debit cards",
+      "description": "Every Vantro payment method in Australia with minimums and speeds. PayID withdrawals in about an hour. No credit cards for wagering. 18+."
+    },
+    "app": {
+      "title": "Vantro app for iPhone and Android",
+      "description": "Get the Vantro app from the App Store or Google Play: live streaming, same-game multis, fast withdrawals and deposit limits in two taps. 18+."
+    },
+    "responsible": {
+      "title": "Safer gambling with Vantro: limits, time-outs and BetStop",
+      "description": "Deposit limits, time-outs, self-exclusion through BetStop and free confidential help: how to use each one at Vantro."
+    }
+  },
+  "variants": {
+    "header": "inline", "footer": "columns", "sticky-cta": "bar",
+    "home": { "hero": "stat-led", "trust": "strip", "guides": "cards", "features": "grid", "steps": "row", "faq": "accordion", "final": "solid" },
+    "signup": { "hero": "answer", "steps": "timeline", "needs": "rows", "text": "article", "faq": "accordion", "related": "list", "final": "split" },
+    "payments": { "hero": "compact", "methods": "table", "text": "toc-side", "faq": "columns", "related": "list", "final": "solid" },
+    "app": { "hero": "compact", "download": "panel", "features": "grid", "faq": "accordion", "related": "cards" },
+    "responsible": { "hero": "compact", "text": "article", "faq": "accordion", "related": "list" }
+  },
+  "order": {
+    "home": ["guides", "features", "steps"],
+    "signup": ["steps", "needs", "text"],
+    "payments": ["methods", "text"],
+    "app": ["download", "features"]
+  },
+  "content": {
+    "header": { "note": "Licensed in Australia" },
+    "home": {
+      "hero": {
+        "eyebrow": "The Vantro starter guide",
+        "title": "From sign-up to your first bet with Vantro",
+        "subtitle": "Open an account in about five minutes, deposit with PayID and set your limits before you bet. Everything you need, one page each.",
+        "stat": { "value": "3", "unit": "steps", "caption": "Sign up, deposit, bet" }
+      },
+      "features": {
+        "eyebrow": "Why people use Vantro",
+        "title": "What you get with an account",
+        "items": [
+          { "icon": "layers", "title": "Same-game multis", "text": "Combine head to head, line and player markets from one match." },
+          { "icon": "play", "title": "Live streaming", "text": "Watch selected matches in the app while you bet in-play." },
+          { "icon": "bolt", "title": "PayID withdrawals", "text": "Most withdrawals land in about an hour, seven days a week." },
+          { "icon": "gauge", "title": "Limits you control", "text": "Daily, weekly or monthly deposit limits, changed in two taps." }
+        ]
+      },
+      "steps": {
+        "eyebrow": "Getting started",
+        "title": "Start in three steps",
+        "items": [
+          { "title": "Create your account", "text": "Name, date of birth and address. Most accounts are verified within minutes." },
+          { "title": "Deposit with PayID", "text": "Minimum A$10. You set a deposit limit in the same step." },
+          { "title": "Place your first bet", "text": "Pick a market, add it to your bet slip and confirm." }
+        ]
+      },
+      "faq": {
+        "items": [
+          { "q": "Is Vantro licensed in Australia?", "a": "Yes. Vantro holds an Australian wagering licence. The licence details are in the footer of every page." },
+          { "q": "How long does sign-up take?", "a": "About five minutes. Identity checks usually finish within minutes; you can bet once you are verified." },
+          { "q": "What is the fastest way to withdraw?", "a": "PayID. Most PayID withdrawals arrive in about an hour. See the payments page for every method." },
+          { "q": "Can I use a credit card?", "a": "No. Credit cards cannot be used for online wagering in Australia. Use PayID, BPAY or a debit card." },
+          { "q": "How do I set a deposit limit?", "a": "During sign-up, or later under Account → Limits. Lower limits apply straight away." }
+        ]
+      },
+      "final": { "title": "Ready when you are", "text": "Open your Vantro account in about five minutes. 18+ only." }
+    },
+    "signup": {
+      "hero": {
+        "title": "How to sign up with Vantro",
+        "answer": "It takes about five minutes: your details, a quick ID check and a deposit limit. You can bet as soon as you are verified."
+      },
+      "steps": {
+        "eyebrow": "Step by step",
+        "title": "Opening your account",
+        "items": [
+          { "title": "Enter your details", "text": "Full name, date of birth, residential address, email and mobile number." },
+          { "title": "Verify your identity", "text": "Vantro checks your details electronically. If that fails, upload a driver licence or passport." },
+          { "title": "Set a limit and deposit", "text": "Choose a daily, weekly or monthly deposit limit, then deposit from A$10. PayID is instant." }
+        ]
+      },
+      "needs": {
+        "eyebrow": "Before you start",
+        "title": "What you need",
+        "items": [
+          { "icon": "shield", "title": "Be 18 or over", "text": "And live in Australia. Vantro verifies both before you can bet." },
+          { "icon": "check", "title": "Photo ID, just in case", "text": "Driver licence or passport, only if the electronic check cannot confirm you." },
+          { "icon": "bolt", "title": "A bank account", "text": "In your own name, for PayID, BPAY or debit card payments." }
+        ]
+      },
+      "text": {
+        "html": "<h2>Why Vantro checks your identity</h2><p>Australian wagering providers must verify every customer's identity and age before they can bet. Vantro runs the check electronically against official records, so most people never need to upload anything.</p><h2>What happens if the check fails</h2><p>You will be asked for a photo of your driver licence or passport. Manual checks usually take under an hour during business hours. You can browse markets while you wait, but you cannot place a bet.</p><h2>One account per person</h2><p>Each person can hold one Vantro account. If you already had one and closed it, contact support to reopen it instead of signing up again.</p><h2>After you sign up</h2><p>Set up your deposit method on the <a href=\"page:payments\">payments page</a>, or get the <a href=\"page:app\">Vantro app</a> to bet on your phone.</p>",
+        "toc": false
+      },
+      "faq": {
+        "items": [
+          { "q": "Do I need to upload ID?", "a": "Usually not. Most accounts are verified electronically within minutes." },
+          { "q": "Can I sign up in the app?", "a": "Yes. The steps are the same on the website and in the app." },
+          { "q": "Why must I set a deposit limit?", "a": "Australian rules require you to be offered a deposit limit at sign-up. You can choose any amount and change it later." },
+          { "q": "Can I change my email or phone later?", "a": "Yes, under Account → Details. Name and date of birth changes need support." }
+        ]
+      },
+      "final": { "title": "Open your account", "text": "About five minutes, then you are ready to bet. 18+ only." }
+    },
+    "payments": {
+      "hero": {
+        "title": "Vantro deposits and withdrawals",
+        "answer": "Deposit instantly with PayID from A$10. PayID withdrawals usually arrive in about an hour."
+      },
+      "methods": {
+        "eyebrow": "Payment methods",
+        "title": "Every way to pay at Vantro",
+        "rows": [
+          { "method": "payid", "deposit": "Instant", "withdraw": "About 1 hour", "min": "A$10" },
+          { "method": "bpay", "deposit": "1 business day", "withdraw": "Not available", "min": "A$10" },
+          { "method": "visa-debit", "deposit": "Instant", "withdraw": "1–3 business days", "min": "A$10" },
+          { "method": "mastercard-debit", "deposit": "Instant", "withdraw": "1–3 business days", "min": "A$10" },
+          { "method": "apple-pay", "deposit": "Instant", "withdraw": "Not available", "min": "A$10" }
+        ],
+        "note": "Credit cards and crypto cannot be used for online wagering in Australia."
+      },
+      "text": {
+        "html": "<h2>Depositing</h2><p>Choose PayID for instant deposits from your banking app. BPAY takes one business day. Debit cards and Apple Pay are instant.</p><h2>Withdrawing</h2><p>Withdrawals go back to a bank account in your name. PayID is the fastest; card withdrawals take one to three business days.</p><ul><li>Minimum withdrawal: A$10</li><li>No fees from Vantro</li><li>Your first withdrawal may need your identity to be fully verified</li></ul><h2>Why no credit cards</h2><p>Since June 2024, Australian law bans credit cards and digital currency for online wagering. Vantro accepts debit cards, PayID, BPAY and Apple Pay only.</p><h2>Deposit limits</h2><p>You can set a daily, weekly or monthly deposit limit at any time. Lower limits apply immediately; higher limits after a cooling-off period. See <a href=\"page:responsible\">safer gambling</a> for all tools.</p>",
+        "toc": true
+      },
+      "faq": {
+        "items": [
+          { "q": "Why is my withdrawal pending?", "a": "First withdrawals can wait for identity checks. After that, PayID withdrawals usually take about an hour." },
+          { "q": "Are there fees?", "a": "Vantro charges no deposit or withdrawal fees. Your bank's own fees may apply." },
+          { "q": "Can I withdraw to a different account?", "a": "No. Withdrawals go only to an account in your own name." },
+          { "q": "What is the minimum deposit?", "a": "A$10 for every method." }
+        ]
+      },
+      "final": { "title": "Deposit with PayID", "text": "Instant deposits, withdrawals in about an hour. 18+ only." }
+    },
+    "app": {
+      "hero": {
+        "title": "The Vantro app",
+        "answer": "Free on the App Store and Google Play. Live streaming, same-game multis and limits in two taps."
+      },
+      "download": { "title": "Get the Vantro app", "text": "Free for iPhone and Android. Scan the code on a computer." },
+      "features": {
+        "eyebrow": "In the app",
+        "title": "What the app does",
+        "items": [
+          { "icon": "play", "title": "Live streaming", "text": "Watch selected matches while you bet in-play." },
+          { "icon": "layers", "title": "Same-game multis", "text": "Build a multi from one match in a few taps." },
+          { "icon": "bolt", "title": "Face ID log-in", "text": "Log in with Face ID or a fingerprint." },
+          { "icon": "gauge", "title": "Limits in two taps", "text": "Set or lower your deposit limit from the account menu." }
+        ]
+      },
+      "faq": {
+        "items": [
+          { "q": "Is the app free?", "a": "Yes. It is free on the App Store and Google Play." },
+          { "q": "Which phones does it support?", "a": "iPhone with iOS 16 or later and Android 9 or later." },
+          { "q": "Can I use the same account?", "a": "Yes. Log in with the account you opened on the website." },
+          { "q": "Do I get notifications?", "a": "Only if you allow them. You can turn them off in the app's settings." }
+        ]
+      }
+    },
+    "responsible": {
+      "hero": {
+        "title": "Safer gambling at Vantro",
+        "answer": "Set a deposit limit, take a time-out or exclude yourself with BetStop. Free, confidential help: 1800 858 858."
+      },
+      "text": {
+        "html": "<h2>Deposit limits</h2><p>Choose a daily, weekly or monthly limit under Account → Limits. Lower limits apply straight away. Increases wait seven days.</p><h2>Time-outs</h2><p>Take a break from 24 hours to six months. You cannot log in or bet until the time-out ends, and it cannot be reversed early.</p><h2>BetStop self-exclusion</h2><p>BetStop is the National Self-Exclusion Register. Registering excludes you from every licensed Australian online wagering provider for three months to life. Register at <a href=\"https://www.betstop.gov.au\">betstop.gov.au</a>.</p><h2>Getting help</h2><p>Gambling Help Online offers free, confidential support 24/7: call 1800 858 858 or visit <a href=\"https://www.gamblinghelponline.org.au\">gamblinghelponline.org.au</a>.</p><blockquote>If gambling stops being fun, stop. Help is free and confidential.</blockquote>",
+        "toc": true
+      },
+      "faq": {
+        "items": [
+          { "q": "Can I cancel a time-out early?", "a": "No. A time-out stays in place until the end date you chose." },
+          { "q": "Does BetStop cover all betting sites?", "a": "It covers every licensed Australian online and phone wagering provider." },
+          { "q": "Will Vantro contact me during a time-out?", "a": "No. Marketing stops while a time-out or self-exclusion is active." },
+          { "q": "Is the help line really free?", "a": "Yes. Gambling Help Online is free, confidential and open 24/7." }
+        ]
+      }
+    }
+  }
+}

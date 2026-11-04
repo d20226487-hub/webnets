@@ -1,0 +1,99 @@
+{
+  "id": "vantro-kz-app",
+  "type": "app",
+  "brand": "vantro",
+  "market": "kz",
+  "preset": "luxury-gold",
+  "seed": "vantro-kz-app-7brff",
+  "prefix": "auto",
+  "links": {
+    "go": "https://vantro.example/join?src=vantro-kz-app",
+    "ios": "https://vantro.example/app/ios?src=vantro-kz-app",
+    "android": "https://vantro.example/app/android?src=vantro-kz-app",
+    "apk": "https://vantro.example/app/apk?src=vantro-kz-app",
+    "qr": "https://vantro.example/app/qr?src=vantro-kz-app"
+  },
+  "site": {
+    "name": "TODO site name"
+  },
+  "page": {
+    "title": "TODO up to 65 characters",
+    "description": "TODO up to 160 characters"
+  },
+  "variants": [],
+  "content": {
+    "hero": {
+      "title": "TODO headline, up to 60 characters",
+      "subtitle": "TODO up to 160 characters",
+      "screen": "home"
+    },
+    "screens": {
+      "eyebrow": "TODO",
+      "title": "TODO section title",
+      "screens": [
+        {
+          "kind": "home",
+          "caption": "TODO up to 48 characters"
+        },
+        {
+          "kind": "live",
+          "caption": "TODO"
+        },
+        {
+          "kind": "wallet",
+          "caption": "TODO"
+        }
+      ]
+    },
+    "features": {
+      "eyebrow": "TODO",
+      "title": "TODO section title",
+      "items": [
+        {
+          "icon": "bolt",
+          "title": "TODO up to 32",
+          "text": "TODO up to 140 characters"
+        },
+        {
+          "icon": "mobile",
+          "title": "TODO",
+          "text": "TODO"
+        },
+        {
+          "icon": "gauge",
+          "title": "TODO",
+          "text": "TODO"
+        }
+      ]
+    },
+    "install": {
+      "eyebrow": "TODO",
+      "title": "TODO (rendered only when the site offers an APK)"
+    },
+    "faq": {
+      "items": [
+        {
+          "q": "TODO is the app free?",
+          "a": "TODO"
+        },
+        {
+          "q": "TODO which phones are supported?",
+          "a": "TODO"
+        },
+        {
+          "q": "TODO how do I know it is the official app? / why is the APK not in Google Play?",
+          "a": "TODO"
+        },
+        {
+          "q": "TODO how do I set limits in the app?",
+          "a": "TODO"
+        }
+      ]
+    },
+    "final": {
+      "title": "TODO up to 48 characters",
+      "text": "TODO"
+    }
+  },
+  "locale": "ru"
+}

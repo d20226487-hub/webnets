@@ -1,0 +1,7 @@
+{
+  "fields": [
+    { "name": "variant", "type": "select", "label": "Layout", "choices": ["auto", "table", "checklist"], "default": "auto" },
+    { "name": "title", "type": "text", "label": "Section title", "default": "", "instructions": "Empty = 'Key terms'." },
+    { "name": "intro", "type": "text", "label": "One line under the title", "default": "", "maxlength": 140 }
+  ]
+}

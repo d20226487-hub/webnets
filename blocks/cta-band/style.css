@@ -1,0 +1,18 @@
+.sx-band__inner { display: grid; gap: var(--sp-5); align-items: center; }
+.sx-band__title { font-size: var(--fs-5); }
+.sx-band__text { font-size: var(--fs-2); opacity: .85; }
+.sx-band__action { display: grid; gap: var(--sp-3); justify-items: start; }
+.sx-band__cta { min-height: 56px; padding-inline: var(--sp-7); font-size: var(--fs-2); }
+.sx-band__proof { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2) var(--sp-4); font-size: var(--fs-0); }
+.sx-band__proof li { display: inline-flex; align-items: center; gap: var(--sp-2); }
+.sx-band__proof .sx-age { width: 2.1em; height: 2.1em; font-size: .75rem; }
+/* solid: same treatment as the hero, so the page closes the way it opened */
+/* split: a contained card on the page background */
+@media (max-width: 760px) {
+  .sx-band__action, .sx-band__cta { width: 100%; justify-items: stretch; }
+  .sx-band__cta.sx-btn--wrap { padding-inline: var(--sp-5); font-size: var(--fs-1); }
+}
+.sx-band__code { width: 100%; min-width: 280px; color: var(--c-text); }
+@media (max-width: 760px) {
+  .sx-band__code { min-width: 0; }
+}

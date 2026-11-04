@@ -1,0 +1,482 @@
+# Rebuild brief: Marlowe Club: opiniões
+
+You are rebuilding every page of the **Marlowe Club: opiniões** template, a reviews site (angle: support-focus). Keep the section order, the content and every rule below. Write the page text exactly as given (it is in Portuguese); write code and comments in English.
+
+**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section below with the listed fields as props.
+
+## Site context
+
+- Site: Marlowe Club: opiniões (https://marlowe-opinioes.example), brand or publisher: Marlowe Club
+- Market: Brazil (`br`), language `pt`, text direction `ltr`, currency BRL
+- Minimum age: 18+
+- Products allowed: sports betting yes, online casino yes
+- Market note: Regulated under Lei 14.790/2023. Licensed operators use .bet.br domains. Advance bonuses are prohibited; PIX is the default payment rail; credit cards are not accepted.
+- Pages (7):
+  - `index.html` — Marlowe Club é confiável? Opiniões de jogadores e atendimento
+  - `reviews.html` — Todas as opiniões sobre o Marlowe Club
+  - `reviews-2.html` — Todas as opiniões sobre o Marlowe Club · página 2
+  - `support-reviews.html` — Atendimento do Marlowe Club: opiniões sobre chat e e-mail
+  - `support-reviews-2.html` — Atendimento do Marlowe Club: opiniões sobre chat e e-mail · página 2
+  - `write-a-review.html` — Escrever uma opinião sobre o Marlowe Club
+  - `how-we-moderate.html` — Como moderamos as opiniões sobre o Marlowe Club
+
+## Design tokens
+
+Fonts (Google Fonts): Cormorant Garamond, Montserrat.
+
+Use these CSS custom properties (they are the whole palette, type scale and radius set):
+
+```css
+:root {
+  --c-bg: #0F0D0B;
+  --c-surface: #18150F;
+  --c-surface-2: #221D16;
+  --c-text: #F3ECDF;
+  --c-muted: #B3A68F;
+  --c-border: #3A3226;
+  --c-accent: #D4AF6A;
+  --c-on-accent: #1A140A;
+  --c-accent-2: #8C6B3F;
+  --c-success: #1F9D55;
+  --c-warning: #D98B00;
+  --c-danger: #D93636;
+  --c-hero-text: #F3ECDF;
+  --c-hero-muted: #C4B79F;
+  --c-hero-accent: #D4AF6A;
+  --c-hero-on-accent: #1A140A;
+  --hero-bg: radial-gradient(70% 90% at 50% 0%,rgba(212,175,106,.18),transparent 70%),#0F0D0B;
+  --f-display: "Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --f-body: "Montserrat",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono: "Montserrat",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --fw-heading: 600;
+  --fw-body: 400;
+  --fw-strong: 500;
+  --tt-heading: none;
+  --ls-heading: 0.005em;
+  --lh-body: 1.65;
+  --lh-heading: 1.15;
+  --r-sm: 0px;
+  --r: 2px;
+  --r-lg: 4px;
+  --r-btn: 0px;
+  --bw: 1px;
+  --density: 1.15;
+  --fs-0: 12px;
+  --fs-1: 16px;
+  --fs-2: 28.43px;
+  --fs-3: clamp(25.77px,20.57px + 1.444vw,37.9px);
+  --fs-4: clamp(34.35px,27.42px + 1.924vw,50.52px);
+  --fs-5: clamp(45.79px,36.56px + 2.565vw,67.34px);
+  --fs-6: clamp(61.04px,48.73px + 3.42vw,89.76px);
+  --sp-1: 4.6px;
+  --sp-2: 9.2px;
+  --sp-3: 13.8px;
+  --sp-4: 18.4px;
+  --sp-5: 27.6px;
+  --sp-6: 36.8px;
+  --sp-7: 55.2px;
+  --sp-8: 73.6px;
+  --sp-9: 110.4px;
+  --card-bg: #18150F;
+  --card-border: #3A3226;
+  --card-shadow: none;
+  --surface-style: outlined;
+}
+```
+
+Layout is mobile-first: it must work from 375px to 1440px wide.
+
+## Rules you must not break
+
+- Every page opens with an age gate (18+) before any gambling content.
+- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- Affiliate disclosure: Fixed wording per locale; cannot be removed on review sites.
+- Header: One-page landing and app pages use 'minimal' (no nav) so attention stays on the conversion.
+- Header: The CTA stays visible at every width; on mobile the nav collapses into a menu, the CTA does not.
+- Rating summary: No typed-in scores: everything comes from brands/reviews/<brand>.json.
+- Rating summary: No AggregateRating structured data.
+- Trust bar: Values come from brand facts and market config; nothing is typed by hand.
+- Trust bar: Rating shows only when the brand has facts.rating_source.
+- Trust bar: Sits directly under the hero (section 2 or 3).
+- Review list: Newest first, every published review; never sorted or filtered by rating by default.
+- Review list: The CTA sits between reviews, never inside a review card.
+- Topic scores: Computed from the review feed; topics without reviews are hidden.
+- Editor box: Person comes from the site config "editor" {name, role, bio}; renders nothing (and warns) without it.
+- FAQ: 4-6 questions: legality in the country, deposits/withdrawals, payout time, verification, limits or self-exclusion.
+- FAQ: Answers are plain text, 1-3 sentences. No CTA links inside answers.
+- Final CTA: Always the last section before the footer.
+- Final CTA: Headline 40 characters max. No urgency claims (timers, 'last chance').
+- Footer: Always renders the compliance panel; it cannot be switched off.
+- Footer: Payment methods come from the market config so they are always locally correct.
+- Responsible gambling: All copy comes from markets/<id>.json; never type compliance text into a page.
+- Responsible gambling: Every page renders a 'panel' (usually inside the footer). 'strip' is an optional top-of-page addition.
+- Responsible gambling: Where a market lists several mandated taglines, one is chosen per site by seed.
+- Age gate: Age comes from the market (21 in KZ, 18 in AU/BR). Never hard-code it.
+- Age gate: Content stays in the HTML for crawlers; the overlay is shown by script, so no-JS users still see the compliance footer.
+- Sticky CTA: Phones only (860px and narrower). Never covers the compliance panel: the footer gets bottom padding.
+- Sticky CTA: Shows the market age badge next to the CTA.
+- Page links: Internal links only; never a substitute for the brand CTA.
+- Text block: Only h2, h3, p, ul, ol, li, strong, em, a, table, blockquote survive; all attributes except href are removed.
+- Text block: Links: page:<id> for internal pages, https:// for sources. Brand links belong in CTAs, not in prose.
+- Page title: The answer line states the page's key fact in one sentence, above the fold on phones.
+- Review form: No incentives for reviews. Asks only for a display name; never email, phone or account numbers.
+- Steps: Exactly 3 steps; numbers are used because the order is real.
+- Steps: Mention verification and deposit limits honestly; do not promise instant approval.
+
+## Page `index.html`
+
+- Title tag: Marlowe Club é confiável? Opiniões de jogadores e atendimento
+- Meta description: O que jogadores dizem do Marlowe Club no Brasil: atendimento no chat, saques PIX, verificação e app. Publicamos opiniões boas e ruins. 18+.
+- The only H1: Opiniões de jogadores sobre o Marlowe Club
+- Structured data (JSON-LD): WebPage, FAQPage, WebSite
+- Links to: `how-we-moderate.html`, `reviews.html`, `support-reviews.html`, `write-a-review.html`, `index.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Autorizado SPA/MF"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Rating summary** — block `sx/rating-summary`, variant `band`, role `hero`
+   Purpose: Hero for review sites: average score, review count, 5-to-1 distribution, one topic score and the CTA. Every number is computed from the review feed.
+   - `title`: "Opiniões de jogadores sobre o Marlowe Club"
+   - `subtitle`: "Com foco no atendimento: quanto o chat demora, se resolve e como trata saques e verificação. Publicamos tudo, menos spam e ofensas."
+   - `lead_topic`: "support"
+4. **Trust bar** — block `sx/trust-bar`, variant `badges`, role `trust`
+   Purpose: Licence, payout time, years operating, local payments and (only if sourced) rating.
+   - `items`: `["licence","payout","since","payments"]`
+5. **Review list** — block `sx/review-list`, variant `compact`, role `content`
+   Purpose: Published reviews, newest first. Optional topic and rating filters (pure CSS, no JavaScript needed) and a CTA after every few reviews.
+   - `mode`: "latest"
+   - `limit`: "6"
+   - `filters`: false
+   - `cta_every`: "0"
+6. **Topic scores** — block `sx/topic-scores`, variant `grid`, role `content`
+   Purpose: Average score and review count per topic (payouts, verification, support...), each linking to those reviews.
+7. **Editor box** — block `sx/editor-box`, variant `card`, role `trust`
+   Purpose: Who looks after this page: editor card with role, bio, last update and the moderation policy, plus share links.
+   - `share`: true
+8. **FAQ** — block `sx/faq`, variant `columns`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Essas opiniões são reais?","a":"Sim. Cada opinião foi enviada por um jogador e lida por um moderador antes de ir ao ar. Publicamos também as negativas; só removemos spam, ofensas e dados pessoais."},{"q":"Vocês apagam opiniões negativas?","a":"Não. Removemos apenas spam, ofensas, dados pessoais e propaganda. Opiniões negativas continuam no site."},{"q":"Como falar com o suporte do Marlowe Club?","a":"Pelo chat no site e no app, 24 horas, ou por e-mail. Segundo as opiniões, o chat responde bem mais rápido que o e-mail."},{"q":"Vocês têm ligação com o Marlowe Club?","a":"Recebemos comissão por cadastros feitos pelos nossos links. Isso não muda quais opiniões publicamos."}]`
+9. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Quer conhecer o Marlowe Club?"
+   - `text`: "O cadastro leva poucos minutos. Proibido para menores de 18 anos. Jogue com responsabilidade."
+   - `show_code`: false
+10. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+11. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+12. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `reviews.html`
+
+- Title tag: Todas as opiniões sobre o Marlowe Club
+- Meta description: Todas as opiniões publicadas sobre o Marlowe Club, das mais novas às mais antigas, com filtro por tema: atendimento, saques, verificação e app. 18+.
+- The only H1: Todas as opiniões sobre o Marlowe Club
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `how-we-moderate.html`, `reviews.html`, `support-reviews.html`, `write-a-review.html`, `index.html`, `reviews-2.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Autorizado SPA/MF"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Rating summary** — block `sx/rating-summary`, variant `strip`, role `hero`
+   Purpose: Hero for review sites: average score, review count, 5-to-1 distribution, one topic score and the CTA. Every number is computed from the review feed.
+   - `title`: "Todas as opiniões sobre o Marlowe Club"
+4. **Review list** — block `sx/review-list`, variant `compact`, role `content`
+   Purpose: Published reviews, newest first. Optional topic and rating filters (pure CSS, no JavaScript needed) and a CTA after every few reviews.
+   - `mode`: "all"
+   - `limit`: "6"
+   - `filters`: true
+   - `cta_every`: "6"
+5. **Editor box** — block `sx/editor-box`, variant `card`, role `trust`
+   Purpose: Who looks after this page: editor card with role, bio, last update and the moderation policy, plus share links.
+   - `share`: true
+6. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+7. **Final CTA** — block `sx/cta-band`, variant `solid`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Veja o Marlowe Club por conta própria"
+   - `text`: "Proibido para menores de 18 anos."
+   - `show_code`: false
+8. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+9. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+10. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `reviews-2.html`
+
+- Title tag: Todas as opiniões sobre o Marlowe Club · página 2
+- Meta description: Todas as opiniões publicadas sobre o Marlowe Club, das mais novas às mais antigas, com filtro por tema: atendimento, saques, verificação e app. 18+. · página 2
+- The only H1: Todas as opiniões sobre o Marlowe Club
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `how-we-moderate.html`, `reviews.html`, `support-reviews.html`, `write-a-review.html`, `index.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Autorizado SPA/MF"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Rating summary** — block `sx/rating-summary`, variant `strip`, role `hero`
+   Purpose: Hero for review sites: average score, review count, 5-to-1 distribution, one topic score and the CTA. Every number is computed from the review feed.
+   - `title`: "Todas as opiniões sobre o Marlowe Club"
+4. **Review list** — block `sx/review-list`, variant `compact`, role `content`
+   Purpose: Published reviews, newest first. Optional topic and rating filters (pure CSS, no JavaScript needed) and a CTA after every few reviews.
+   - `mode`: "all"
+   - `limit`: "6"
+   - `filters`: true
+   - `cta_every`: "6"
+5. **Editor box** — block `sx/editor-box`, variant `card`, role `trust`
+   Purpose: Who looks after this page: editor card with role, bio, last update and the moderation policy, plus share links.
+   - `share`: true
+6. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+7. **Final CTA** — block `sx/cta-band`, variant `solid`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Veja o Marlowe Club por conta própria"
+   - `text`: "Proibido para menores de 18 anos."
+   - `show_code`: false
+8. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+9. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+10. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `support-reviews.html`
+
+- Title tag: Atendimento do Marlowe Club: opiniões sobre chat e e-mail
+- Meta description: Como é o suporte do Marlowe Club: tempo de resposta no chat, e-mail e ajuda com verificação e saques, segundo os jogadores, com respostas da casa. 18+.
+- The only H1: Opiniões sobre o atendimento do Marlowe Club
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `how-we-moderate.html`, `reviews.html`, `support-reviews.html`, `write-a-review.html`, `index.html`, `support-reviews-2.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Autorizado SPA/MF"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Rating summary** — block `sx/rating-summary`, variant `strip`, role `hero`
+   Purpose: Hero for review sites: average score, review count, 5-to-1 distribution, one topic score and the CTA. Every number is computed from the review feed.
+   - `title`: "Opiniões sobre o atendimento do Marlowe Club"
+   - `topic`: "support"
+4. **Review list** — block `sx/review-list`, variant `cards`, role `content`
+   Purpose: Published reviews, newest first. Optional topic and rating filters (pure CSS, no JavaScript needed) and a CTA after every few reviews.
+   - `mode`: "topic"
+   - `topic`: "support"
+   - `limit`: "6"
+   - `filters`: false
+   - `cta_every`: "6"
+5. **Text block** — block `sx/prose`, variant `toc-side`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<p>O atendimento é o tema mais comentado nas opiniões sobre o Marlowe Club. Os jogadores contam quanto esperaram, se o problema foi resolvido e como foram tratados em saques e na verificação. Este resumo junta tudo o que já foi publicado e é atualizado pela editora do site, Camila Rocha, que também testa o atendimento todo mês.</p><h2>Canais de atendimento</h2><p>O Marlowe Club atende por chat no …` (HTML)
+   - `toc`: true
+6. **Editor box** — block `sx/editor-box`, variant `card`, role `trust`
+   Purpose: Who looks after this page: editor card with role, bio, last update and the moderation policy, plus share links.
+   - `share`: true
+7. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+8. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Veja o Marlowe Club por conta própria"
+   - `text`: "Proibido para menores de 18 anos."
+   - `show_code`: false
+9. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+10. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+11. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `support-reviews-2.html`
+
+- Title tag: Atendimento do Marlowe Club: opiniões sobre chat e e-mail · página 2
+- Meta description: Como é o suporte do Marlowe Club: tempo de resposta no chat, e-mail e ajuda com verificação e saques, segundo os jogadores, com respostas da casa. 18+. · página 2
+- The only H1: Opiniões sobre o atendimento do Marlowe Club
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `how-we-moderate.html`, `reviews.html`, `support-reviews.html`, `write-a-review.html`, `index.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Autorizado SPA/MF"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Rating summary** — block `sx/rating-summary`, variant `strip`, role `hero`
+   Purpose: Hero for review sites: average score, review count, 5-to-1 distribution, one topic score and the CTA. Every number is computed from the review feed.
+   - `title`: "Opiniões sobre o atendimento do Marlowe Club"
+   - `topic`: "support"
+4. **Review list** — block `sx/review-list`, variant `cards`, role `content`
+   Purpose: Published reviews, newest first. Optional topic and rating filters (pure CSS, no JavaScript needed) and a CTA after every few reviews.
+   - `mode`: "topic"
+   - `topic`: "support"
+   - `limit`: "6"
+   - `filters`: false
+   - `cta_every`: "6"
+5. **Text block** — block `sx/prose`, variant `toc-side`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<p>O atendimento é o tema mais comentado nas opiniões sobre o Marlowe Club. Os jogadores contam quanto esperaram, se o problema foi resolvido e como foram tratados em saques e na verificação. Este resumo junta tudo o que já foi publicado e é atualizado pela editora do site, Camila Rocha, que também testa o atendimento todo mês.</p><h2>Canais de atendimento</h2><p>O Marlowe Club atende por chat no …` (HTML)
+   - `toc`: true
+6. **Editor box** — block `sx/editor-box`, variant `card`, role `trust`
+   Purpose: Who looks after this page: editor card with role, bio, last update and the moderation policy, plus share links.
+   - `share`: true
+7. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+8. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Veja o Marlowe Club por conta própria"
+   - `text`: "Proibido para menores de 18 anos."
+   - `show_code`: false
+9. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+10. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+11. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `write-a-review.html`
+
+- Title tag: Escrever uma opinião sobre o Marlowe Club
+- Meta description: Conte sua experiência com o Marlowe Club. Publicamos opiniões positivas e negativas depois da moderação.
+- The only H1: Escreva sua opinião sobre o Marlowe Club
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `how-we-moderate.html`, `reviews.html`, `support-reviews.html`, `write-a-review.html`, `index.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Autorizado SPA/MF"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Page title** — block `sx/page-hero`, variant `answer`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Escreva sua opinião sobre o Marlowe Club"
+   - `answer`: "Conte o que funcionou e o que não funcionou, principalmente no atendimento. Publicamos opiniões boas e ruins depois da checagem de spam."
+   - `show_cta`: false
+4. **Review form** — block `sx/review-form`, variant `card`, role `content`
+   Purpose: Write-a-review form. Disabled (mockup) unless links.review_form is set and the site uses real reviews.
+   - `title`: "Sua opinião"
+5. **Steps** — block `sx/steps`, variant `timeline`, role `content`
+   Purpose: Three real steps from sign-up to first bet, followed by the mid-page CTA.
+   - `eyebrow`: "Depois do envio"
+   - `title`: "O que acontece em seguida"
+   - `items`: `[{"title":"Moderação","text":"Um moderador verifica spam, ofensas e dados pessoais, normalmente em até um dia."},{"title":"Publicação","text":"A opinião aparece com seu nome e a inicial do sobrenome."},{"title":"Resposta da casa","text":"O Marlowe Club pode responder. A resposta aparece logo abaixo, identificada."}]`
+   - `show_cta`: false
+6. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+7. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+8. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+
+## Page `how-we-moderate.html`
+
+- Title tag: Como moderamos as opiniões sobre o Marlowe Club
+- Meta description: Quais opiniões removemos, quais nunca removemos, de onde vêm as respostas do Marlowe Club e como ganhamos dinheiro.
+- The only H1: Como moderamos as opiniões
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `how-we-moderate.html`, `reviews.html`, `support-reviews.html`, `write-a-review.html`, `index.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Autorizado SPA/MF"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Page title** — block `sx/page-hero`, variant `answer`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Como moderamos as opiniões"
+   - `answer`: "Removemos spam, ofensas, dados pessoais e propaganda. Opiniões negativas nunca são removidas."
+   - `show_cta`: false
+4. **Text block** — block `sx/prose`, variant `article`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<p>Este site publica opiniões de jogadores sobre o Marlowe Club. Para que elas sejam confiáveis, seguimos regras simples e aplicamos as mesmas regras a elogios e a reclamações. Abaixo explicamos o que removemos, o que nunca removemos e como as notas são calculadas. A moderação é feita pela editora do site, Camila Rocha.</p><h2>Como funciona a moderação</h2><p>Cada opinião nova é lida por uma pesso…` (HTML)
+   - `toc`: false
+5. **Editor box** — block `sx/editor-box`, variant `card`, role `trust`
+   Purpose: Who looks after this page: editor card with role, bio, last update and the moderation policy, plus share links.
+   - `share`: true
+6. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+7. **Footer** — block `sx/footer`, variant `columns`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+8. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+
+## Acceptance checklist
+
+- [ ] Sections appear in the order above, with the same layout variant (or an equivalent layout).
+- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
+- [ ] One H1 per page; headings do not skip levels.
+- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
+- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
+- [ ] The structured data listed for each page is present and valid.
+- [ ] Every internal link opens an existing page.
+- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
+- [ ] Every rule in "Rules you must not break" holds on every page.
+
+_Long text and lists are shortened here (…, "[n items]"). For the full text run `php build/ai-brief.php sites/demos/<config>.json`._
