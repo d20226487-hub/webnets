@@ -23,5 +23,5 @@ $cfg['_devspec'] = true;
 $pages = array_values(array_filter(sx_build_site($cfg, $root), fn($p) => empty($p['asset'])));
 @mkdir("$root/dist/ai", 0777, true);
 $out = "$root/dist/ai/{$cfg['id']}.md";
-file_put_contents($out, sx_ai_brief($pages, null, true));
+file_put_contents($out, sx_ai_brief($pages, null, true, true));
 printf("dist/ai/%s.md (%d pages, %.1f KB)\n", $cfg['id'], count($pages), filesize($out) / 1024);

@@ -1,16 +1,64 @@
+You are rebuilding every page of the **Отзывы о Nyxa** template, a reviews site (angle: payout-focus). Keep the section order, the content and every rule in the brief. Write the page text exactly as given (it is in Russian); write code and comments in English. If something in the brief is missing or unclear, ask instead of guessing, and never invent claims, figures, offers or reviews.
+
+**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section with the listed fields as props.
+
+## Acceptance checklist
+
+- [ ] Sections appear in the order given, with the same layout variant (or an equivalent layout).
+- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
+- [ ] One H1 per page; headings do not skip levels.
+- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
+- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
+- [ ] The structured data listed for each page is present and valid.
+- [ ] Every internal link opens an existing page.
+- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
+- [ ] Every rule in the market guidance and the block rules holds on every page.
+
+---
+
 # Rebuild brief: Отзывы о Nyxa
 
-You are rebuilding every page of the **Отзывы о Nyxa** template, a reviews site (angle: payout-focus). Keep the section order, the content and every rule below. Write the page text exactly as given (it is in Russian); write code and comments in English.
+_Follow the system prompt (role, target stack, acceptance checklist) together with this brief._
 
-**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section below with the listed fields as props.
+## Site type guidance
+
+- Purpose: player reviews of one brand, with computed scores and topic filters.
+- Negative reviews stay visible; never hide, reorder or soften reviews by rating.
+- Scores are computed from the reviews; never type a score by hand.
+- Brand replies are shown under the review they answer and are labelled as the brand's.
+- Sample (made-up) reviews may only ship in demos and must be labelled as samples there.
+- The moderation policy page explains what is removed and why.
+
+## Market guidance
+
+### Market context
+
+- Market: Kazakhstan (`kz`), languages ru, kk, currency KZT
+- Minimum age: 21+
+- Products allowed: sports; not allowed: casino
+- Promotions allowed: none; restricted: welcome_bonus, deposit_bonus, free_bets, promo_code
+- Payment methods: kaspi, visa, mastercard, halyk
+- App install paths: iOS app-store, Android apk
+- Notes: Online bets are processed through the Unified Accounting Centre (ЕУЦ). Online casino is not permitted: casino-vertical blocks are disabled for this market.
+
+### Mandated texts (from the market settings)
+
+- Age notice: Участие в азартных играх разрешено с 21 года.
+- Self-exclusion: Вы можете ограничить своё участие в азартных играх через eGov.
+
+### Rules you must not break
+
+- Every page opens with an age gate (21+) before any gambling content.
+- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- Minimum age is 21: the age gate and every age line say 21+.
+- No online casino content anywhere; only sports betting.
+- Identification goes through eGov (or video identification); say so on sign-up pages.
+- Self-limitation is available through eGov; mention it on responsible-gambling content.
 
 ## Site context
 
 - Site: Отзывы о Nyxa (https://nyxa-otzyvy.example), brand or publisher: Nyxa
-- Market: Kazakhstan (`kz`), language `ru`, text direction `ltr`, currency KZT
-- Minimum age: 21+
-- Products allowed: sports betting yes, online casino **no**
-- Market note: Online bets are processed through the Unified Accounting Centre (ЕУЦ). Online casino is not permitted: casino-vertical blocks are disabled for this market.
+- Site type: reviews, angle payout-focus; language `ru`, text direction `ltr`
 - Pages (6):
   - `off-compact-index.html` — Отзывы о Nyxa: оценки игроков, выплаты и поддержка
   - `off-compact-reviews.html` — Все отзывы о Nyxa с фильтром по темам
@@ -85,11 +133,8 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
 
 Layout is mobile-first: it must work from 375px to 1440px wide.
 
-## Rules you must not break
+## Block rules
 
-- Every page opens with an age gate (21+) before any gambling content.
-- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
-- No casino content anywhere: online casino is not allowed in this market.
 - Affiliate disclosure: Fixed wording per locale; cannot be removed on review sites.
 - Header: One-page landing and app pages use 'minimal' (no nav) so attention stays on the conversion.
 - Header: The CTA stays visible at every width; on mobile the nav collapses into a menu, the CTA does not.
@@ -412,17 +457,5 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
-
-## Acceptance checklist
-
-- [ ] Sections appear in the order above, with the same layout variant (or an equivalent layout).
-- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
-- [ ] One H1 per page; headings do not skip levels.
-- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
-- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
-- [ ] The structured data listed for each page is present and valid.
-- [ ] Every internal link opens an existing page.
-- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
-- [ ] Every rule in "Rules you must not break" holds on every page.
 
 _Long text and lists are shortened here (…, "[n items]"). For the full text run `php build/ai-brief.php sites/demos/<config>.json`._

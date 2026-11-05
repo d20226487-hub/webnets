@@ -1,6 +1,7 @@
 <?php
-$lead = sx_lead_promo();
-$others = array_values(array_filter(sx_promos(), fn($p) => !$lead || $p['id'] !== $lead['id']));
+$lead = empty($props['include_lead']) ? sx_lead_promo() : null; // pages without a lead-offer section list every offer
+$types = array_filter(array_map('trim', explode(',', $props['types'] ?? '')));
+$others = array_values(array_filter(sx_promos(), fn($p) => (!$lead || $p['id'] !== $lead['id']) && (!$types || in_array($p['type'], $types, true))));
 if (!$others) {
     return;
 }

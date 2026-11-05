@@ -1,0 +1,418 @@
+{
+  "_demo": "Multi-page app demo built from app-c-marlowe-br (home = the one-page app). Copy is placeholder; app facts are fictional (brands/operators.json).",
+  "id": "appm-c-marlowe-br",
+  "type": "app-multi",
+  "angle": "fast-app",
+  "brand": "marlowe",
+  "market": "br",
+  "preset": "velvet-club",
+  "seed": "marlowe-br-appm-c",
+  "prefix": "auto",
+  "urls": "pretty",
+  "links": {
+    "go": "https://marlowe.bet.br/app?src=appm-c",
+    "ios": "https://marlowe.bet.br/app/ios?src=app-c",
+    "android": "https://marlowe.bet.br/app/android?src=app-c",
+    "apk": "https://marlowe.bet.br/app/marlowe-2.8.0.apk?src=app-c",
+    "qr": "https://marlowe.bet.br/app?src=app-c-qr"
+  },
+  "cta_label": "Baixar o app",
+  "site": {
+    "name": "Marlowe Club App",
+    "url": "https://app.marlowe.example"
+  },
+  "meta": {
+    "ios": {
+      "title": "Marlowe Club no iPhone: instale pela App Store",
+      "description": "Como instalar o app Marlowe Club no iPhone: App Store, iOS 15 ou superior, login por Face ID. Grátis. 18+."
+    },
+    "android": {
+      "title": "Marlowe Club no Android: Google Play ou APK",
+      "description": "Instale o app oficial Marlowe Club pela Google Play ou pelo APK oficial, passo a passo e com segurança. 18+."
+    },
+    "features": {
+      "title": "Recursos do app Marlowe Club",
+      "description": "Mesas ao vivo em português, saques via PIX em até 30 minutos e limites no perfil. 18+."
+    },
+    "updates": {
+      "title": "Novidades do app Marlowe Club",
+      "description": "Versões recentes do app Marlowe Club para iPhone e Android e o que mudou. 18+."
+    },
+    "help": {
+      "title": "Ajuda do app Marlowe Club: instalação, login e atualizações",
+      "description": "Soluções para problemas de instalação, login e atualização do app Marlowe Club. 18+."
+    },
+    "home": {
+      "title": "Baixe o app Marlowe Club para iPhone e Android",
+      "description": "App oficial da Marlowe Club: mesas ao vivo e saques via PIX em até 30 minutos. App Store, Google Play e APK. 18+."
+    }
+  },
+  "variants": {
+    "header": "inline",
+    "footer": "compact",
+    "sticky-cta": "app-banner",
+    "ios": {
+      "hero": "answer",
+      "download": "panel",
+      "steps": "timeline",
+      "info": "table",
+      "faq": "accordion",
+      "related": "list"
+    },
+    "android": {
+      "hero": "answer",
+      "download": "panel",
+      "install": "side-by-side",
+      "info": "table",
+      "faq": "accordion",
+      "related": "list"
+    },
+    "features": {
+      "hero": "compact",
+      "screens": "fan",
+      "features": "rows",
+      "text": "article",
+      "final": "panel",
+      "related": "cards"
+    },
+    "updates": {
+      "hero": "compact",
+      "whatsnew": "list",
+      "text": "article",
+      "final": "panel",
+      "related": "list"
+    },
+    "help": {
+      "hero": "answer",
+      "faq": "accordion",
+      "text": "toc-side",
+      "related": "cards"
+    },
+    "home": {
+      "hero": "qr-first",
+      "trust": "strip",
+      "screens": "grid",
+      "features": "bento",
+      "install": "tabs",
+      "info": "chips",
+      "faq": "accordion",
+      "final": "panel",
+      "guides": "list"
+    }
+  },
+  "order": {
+    "home": [
+      "features",
+      "guides",
+      "install",
+      "info"
+    ]
+  },
+  "content": {
+    "ios": {
+      "hero": {
+        "title": "Marlowe Club no iPhone",
+        "answer": "Grátis na App Store. Você precisa de um iPhone com iOS 15 ou superior e cerca de 165 MB livres."
+      },
+      "download": {
+        "title": "Baixar na App Store",
+        "text": "Grátis. 18+. No computador, aponte a câmera do iPhone para o QR code."
+      },
+      "steps": {
+        "eyebrow": "Instalação",
+        "title": "Como instalar no iPhone",
+        "items": [
+          {
+            "title": "Abra a App Store",
+            "text": "Toque no botão desta página para abrir a página oficial do Marlowe Club."
+          },
+          {
+            "title": "Toque em Obter",
+            "text": "Confirme com Face ID ou a senha do seu ID Apple. O app é grátis."
+          },
+          {
+            "title": "Entre na sua conta",
+            "text": "Use a mesma conta do site e ative o login por Face ID no perfil."
+          }
+        ]
+      },
+      "info": {
+        "title": "Versão para iPhone"
+      },
+      "faq": {
+        "items": [
+          {
+            "q": "O app para iPhone é grátis?",
+            "a": "Sim, é grátis na App Store."
+          },
+          {
+            "q": "Quais iPhones são compatíveis?",
+            "a": "Qualquer iPhone com iOS 15 ou superior."
+          },
+          {
+            "q": "Preciso verificar minha conta?",
+            "a": "Sim. A lei exige verificação de identidade e idade com CPF antes de jogar."
+          },
+          {
+            "q": "Posso usar a mesma conta do site?",
+            "a": "Sim. Entre com a conta que você já tem ou crie uma no próprio app."
+          }
+        ]
+      },
+      "related": {
+        "title": "Mais sobre o app"
+      }
+    },
+    "android": {
+      "hero": {
+        "title": "Marlowe Club no Android",
+        "answer": "Na Google Play ou pelo APK oficial desta página. Você precisa do Android 8.0 ou superior e cerca de 112 MB livres."
+      },
+      "download": {
+        "title": "Baixar para Android",
+        "text": "Google Play ou APK oficial. 18+."
+      },
+      "install": {
+        "eyebrow": "Instalação do APK",
+        "title": "Como instalar o APK"
+      },
+      "info": {
+        "title": "Versão para Android"
+      },
+      "faq": {
+        "items": [
+          {
+            "q": "Google Play ou APK: qual escolher?",
+            "a": "A Google Play é o caminho mais simples. O APK oficial serve para quem não usa a loja; baixe só por esta página."
+          },
+          {
+            "q": "O Android mostra um aviso no APK. É normal?",
+            "a": "Sim. O Android avisa sobre todo app instalado fora da loja."
+          },
+          {
+            "q": "Como atualizo o app?",
+            "a": "Pela Google Play automaticamente, ou o app avisa quando houver um novo APK."
+          },
+          {
+            "q": "Posso usar a mesma conta do site?",
+            "a": "Sim. Entre com a conta que você já tem ou crie uma no próprio app."
+          }
+        ]
+      },
+      "related": {
+        "title": "Mais sobre o app"
+      }
+    },
+    "features": {
+      "hero": {
+        "title": "O que o app Marlowe Club faz",
+        "answer": "Mesas ao vivo em português, saques via PIX em até 30 minutos e limites no perfil, tudo em um só app."
+      },
+      "text": {
+        "html": "<h2>Mesas ao vivo</h2><p>Roleta, blackjack e bacará transmitidos de estúdio com crupiês reais, 24 horas por dia, com mesas em português. A grade mostra os lugares livres e a aposta mínima de cada mesa.</p><h2>Pagamentos</h2><p>Depósitos e saques via PIX, TED ou cartão de débito; cartão de crédito não é aceito, conforme a regulamentação brasileira. A maioria dos saques via PIX cai em até 30 minutos, e o status aparece na carteira do app.</p><h2>Controle</h2><p>Login por Face ID ou digital. Limites de depósito por dia, semana e mês, pausa e autoexclusão ficam no perfil, em Jogo responsável.</p>"
+      },
+      "final": {
+        "title": "Baixe o app Marlowe Club",
+        "text": "Grátis na App Store, na Google Play e como APK. 18+."
+      },
+      "related": {
+        "title": "Mais sobre o app"
+      },
+      "screens": {
+        "eyebrow": "No app",
+        "title": "Feito para jogar no celular",
+        "screens": [
+          {
+            "kind": "table",
+            "caption": "Mesas ao vivo em HD"
+          },
+          {
+            "kind": "casino",
+            "caption": "Mais de 2.400 jogos"
+          },
+          {
+            "kind": "wallet",
+            "caption": "Depósito e saque via PIX"
+          },
+          {
+            "kind": "slip",
+            "caption": "Histórico de apostas"
+          }
+        ]
+      },
+      "features": {
+        "eyebrow": "Pagamentos rápidos",
+        "title": "Seu dinheiro na hora, no app",
+        "items": [
+          {
+            "icon": "wallet",
+            "title": "PIX em segundos",
+            "text": "Depósitos via PIX aprovados na hora, sem sair do app."
+          },
+          {
+            "icon": "bolt",
+            "title": "Saque em até 30 min",
+            "text": "A maioria dos saques via PIX cai na conta em até meia hora."
+          },
+          {
+            "icon": "shield",
+            "title": "Autorizada no Brasil",
+            "text": "Operação autorizada pela SPA/MF, no domínio .bet.br."
+          },
+          {
+            "icon": "gauge",
+            "title": "Limites no app",
+            "text": "Defina limites de depósito e pausas no seu perfil."
+          }
+        ]
+      }
+    },
+    "updates": {
+      "hero": {
+        "title": "Novidades do Marlowe Club",
+        "answer": "A versão mais recente é a 2.8.0, de 18 de outubro de 2026."
+      },
+      "whatsnew": {
+        "title": "Histórico de versões"
+      },
+      "text": {
+        "html": "<h2>Como manter o app atualizado</h2><p>Na App Store e na Google Play as atualizações chegam sozinhas quando a atualização automática está ativa. Quem usa o APK recebe um aviso no app quando há uma versão nova; basta instalar por cima, sem perder a conta. Se algo parar de funcionar, feche o app e abra de novo; se não resolver, fale com o suporte informando a versão.</p>"
+      },
+      "final": {
+        "title": "Baixe o app Marlowe Club",
+        "text": "Grátis na App Store, na Google Play e como APK. 18+."
+      },
+      "related": {
+        "title": "Mais sobre o app"
+      }
+    },
+    "help": {
+      "hero": {
+        "title": "Ajuda do app",
+        "answer": "A maioria dos problemas se resolve atualizando o app ou reinstalando pelo link oficial."
+      },
+      "faq": {
+        "items": [
+          {
+            "q": "O APK não instala. O que fazer?",
+            "a": "Permita a instalação desta fonte nas configurações, confira o espaço livre (cerca de 112 MB) e a versão do Android: 8.0 ou superior."
+          },
+          {
+            "q": "Não consigo entrar.",
+            "a": "Redefina a senha na tela de login. O login por Face ID ou digital é ativado depois do primeiro acesso com senha."
+          },
+          {
+            "q": "Como atualizo o app?",
+            "a": "Pela App Store ou Google Play; no APK, o app avisa quando há versão nova."
+          },
+          {
+            "q": "Onde defino limites?",
+            "a": "No perfil, em Jogo responsável: limites de depósito, pausa e autoexclusão."
+          },
+          {
+            "q": "Quem pode usar o app?",
+            "a": "Somente maiores de 18 anos, com CPF verificado."
+          }
+        ]
+      },
+      "text": {
+        "html": "<h2>Se o app estiver lento</h2><p>Feche o app por completo e abra de novo, confira a conexão e instale a versão mais recente. Em aparelhos mais antigos, limpar o cache nas configurações ajuda.</p><h2>Fale com o suporte</h2><p>O chat fica no app, em Ajuda, 24 horas por dia. Informe o modelo do celular e a versão do app para agilizar o atendimento.</p><h2>Jogo responsável</h2><p>Aposta é diversão, não fonte de renda. Se o jogo deixou de ser divertido, defina um limite ou faça uma pausa no perfil.</p>",
+        "toc": true
+      },
+      "related": {
+        "title": "Mais sobre o app"
+      }
+    },
+    "home": {
+      "hero": {
+        "title": "Baixe o app Marlowe Club",
+        "subtitle": "Mesas ao vivo, depósitos e saques via PIX em até 30 minutos, direto no celular.",
+        "screen": "table"
+      },
+      "screens": {
+        "eyebrow": "No app",
+        "title": "Feito para jogar no celular",
+        "screens": [
+          {
+            "kind": "table",
+            "caption": "Mesas ao vivo em HD"
+          },
+          {
+            "kind": "casino",
+            "caption": "Mais de 2.400 jogos"
+          },
+          {
+            "kind": "wallet",
+            "caption": "Depósito e saque via PIX"
+          },
+          {
+            "kind": "slip",
+            "caption": "Histórico de apostas"
+          }
+        ]
+      },
+      "features": {
+        "eyebrow": "Pagamentos rápidos",
+        "title": "Seu dinheiro na hora, no app",
+        "items": [
+          {
+            "icon": "wallet",
+            "title": "PIX em segundos",
+            "text": "Depósitos via PIX aprovados na hora, sem sair do app."
+          },
+          {
+            "icon": "bolt",
+            "title": "Saque em até 30 min",
+            "text": "A maioria dos saques via PIX cai na conta em até meia hora."
+          },
+          {
+            "icon": "shield",
+            "title": "Autorizada no Brasil",
+            "text": "Operação autorizada pela SPA/MF, no domínio .bet.br."
+          },
+          {
+            "icon": "gauge",
+            "title": "Limites no app",
+            "text": "Defina limites de depósito e pausas no seu perfil."
+          }
+        ]
+      },
+      "install": {
+        "eyebrow": "Instalação",
+        "title": "Como instalar o app"
+      },
+      "faq": {
+        "items": [
+          {
+            "q": "O app é gratuito?",
+            "a": "Sim. O app é gratuito na App Store, na Google Play e como APK nesta página."
+          },
+          {
+            "q": "Posso instalar no Android sem a Google Play?",
+            "a": "Sim. Além da Google Play, você pode baixar o APK oficial nesta página. O Android mostrará um aviso, o que é normal para apps fora da loja."
+          },
+          {
+            "q": "Quais formas de pagamento o app aceita?",
+            "a": "PIX, TED e cartão de débito. Cartão de crédito não é aceito, conforme a regulamentação brasileira."
+          },
+          {
+            "q": "Preciso verificar minha conta?",
+            "a": "Sim. A lei exige verificação de identidade e idade com CPF antes de jogar."
+          }
+        ]
+      },
+      "final": {
+        "title": "Baixe o Marlowe Club",
+        "text": "Grátis para iPhone e Android. 18+."
+      },
+      "guides": {
+        "title": "Mais sobre o app"
+      }
+    }
+  },
+  "sections": {
+    "home": {
+      "guides": false
+    }
+  }
+}

@@ -182,6 +182,29 @@ function sx_breadcrumbs(string $class): string
  * opens (now, on load, and twice shortly after in case the viewer restores its position late). No storage is used:
  * sandboxed viewer frames block it. Links to a #section keep their jump.
  */
+/**
+ * Review links only: inside the "Mobile view" phone frame (frame name sx-phone, or ?sxm=1) the template-variation bar
+ * is hidden, so the frame shows the page as a phone visitor sees it. Runs before the bar, so it never flashes.
+ */
+function sx_review_phone_guard(): string
+{
+    return '<script>if(window.name==="sx-phone"||/[?&]sxm=1/.test(location.search))document.documentElement.classList.add("sx-inphone");</script>'
+        . '<style>.sx-inphone .vbar{display:none!important}</style>';
+}
+
+/**
+ * Review links only: on phones the template-variation bar collapses to one row (title + the current choices) that
+ * opens the switchers on tap, so a phone visitor sees the page first. Desktop keeps the full bar.
+ */
+function sx_review_vbar_toggle(string $title, string $summary): string
+{
+    return '<style>.vbar-toggle{display:none}@media(max-width:640px){.vbar-toggle{display:flex;width:100%;align-items:center;gap:8px;min-height:32px;padding:0;border:0;background:none;color:#E8EAF0;font:600 13px/1.3 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;text-align:left;cursor:pointer}'
+        . '.vbar-toggle span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#9AA3B5;font-weight:500}'
+        . '.vbar-toggle i{flex:none;font-style:normal;transition:transform .15s}.vbar.open .vbar-toggle i{transform:rotate(180deg)}.vbar:not(.open) .vbar-row{display:none}}</style>'
+        . '<button type="button" class="vbar-toggle" aria-expanded="false" onclick="var o=this.parentNode.classList.toggle(&quot;open&quot;);this.setAttribute(&quot;aria-expanded&quot;,o)">'
+        . htmlspecialchars($title) . ' <span>' . htmlspecialchars($summary) . '</span><i aria-hidden="true">▾</i></button>';
+}
+
 function sx_review_nav_script(): string
 {
     return '<script>(function(){if(location.hash)return;var top=function(){try{window.scrollTo(0,0);'

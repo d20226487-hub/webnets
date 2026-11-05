@@ -72,7 +72,7 @@ function sx_build_site(array $cfg, string $root): array
         // Site-level warnings are reported once (on the first page) for multi-page sites.
         SX::$warnings = $map && $i > 0 ? [] : $warn;
         SX::$jsonld = [];
-        sx_context(array_merge($ctx, $map ? ['page_id' => $page['id']] : [], array_key_exists('cta_brand', $page) && $page['item'] !== null ? ['cta_brand' => $page['cta_brand']] : []));
+        sx_context(array_merge($ctx, $map ? ['page_id' => $page['id']] : [], array_key_exists('cta_brand', $page) && $page['item'] !== null ? ['cta_brand' => $page['cta_brand']] : [], $page['ctx'] ?? []));
         sx_reset_used();
         $html = sx_render_page($page, $preset, $ctx);
         $out[] = [

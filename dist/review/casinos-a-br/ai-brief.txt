@@ -1,16 +1,62 @@
+You are rebuilding every page of the **Cassino em Foco** template, a casinos site (angle: fast-payouts). Keep the section order, the content and every rule in the brief. Write the page text exactly as given (it is in Portuguese); write code and comments in English. If something in the brief is missing or unclear, ask instead of guessing, and never invent claims, figures, offers or reviews.
+
+**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section with the listed fields as props.
+
+## Acceptance checklist
+
+- [ ] Sections appear in the order given, with the same layout variant (or an equivalent layout).
+- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
+- [ ] One H1 per page; headings do not skip levels.
+- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
+- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
+- [ ] The structured data listed for each page is present and valid.
+- [ ] Every internal link opens an existing page.
+- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
+- [ ] Every rule in the market guidance and the block rules holds on every page.
+
+---
+
 # Rebuild brief: Cassino em Foco
 
-You are rebuilding every page of the **Cassino em Foco** template, a casinos site (angle: fast-payouts). Keep the section order, the content and every rule below. Write the page text exactly as given (it is in Portuguese); write code and comments in English.
+_Follow the system prompt (role, target stack, acceptance checklist) together with this brief._
 
-**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section below with the listed fields as props.
+## Site type guidance
+
+- Purpose: rank and review licensed casinos with a comparison table.
+- Ranking order always follows the computed scores; a paid (featured) brand appears only in a labelled slot and keeps its real rank.
+- Every listed brand must be licensed in the market; the build refuses unlicensed ones.
+- Each review page explains how the score was computed and links the method page.
+- Comparison values come from brand facts with a checked date; never type them by hand.
+
+## Market guidance
+
+### Market context
+
+- Market: Brazil (`br`), languages pt, currency BRL
+- Minimum age: 18+
+- Products allowed: sports, casino
+- Promotions allowed: none; restricted: welcome_bonus, deposit_bonus, free_bets, promo_code
+- Payment methods: pix, ted, debit
+- App install paths: iOS app-store, Android both
+- Notes: Regulated under Lei 14.790/2023. Licensed operators use .bet.br domains. Advance bonuses are prohibited; PIX is the default payment rail; credit cards are not accepted.
+
+### Mandated texts (from the market settings)
+
+- Age notice: Proibido para menores de 18 anos.
+- Self-exclusion: Você pode solicitar a autoexclusão a qualquer momento.
+
+### Rules you must not break
+
+- Every page opens with an age gate (18+) before any gambling content.
+- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- Only licensed operators with .bet.br domains; links go to the .bet.br domain.
+- Payments are PIX, TED and debit cards; never show credit cards.
+- Identity and age are verified with CPF before play.
 
 ## Site context
 
 - Site: Cassino em Foco (https://cassinoemfoco.example)
-- Market: Brazil (`br`), language `pt`, text direction `ltr`, currency BRL
-- Minimum age: 18+
-- Products allowed: sports betting yes, online casino yes
-- Market note: Regulated under Lei 14.790/2023. Licensed operators use .bet.br domains. Advance bonuses are prohibited; PIX is the default payment rail; credit cards are not accepted.
+- Site type: casinos, angle fast-payouts; language `pt`, text direction `ltr`
 - Pages (10):
   - `index.html` — Cassinos online com saque rápido no Brasil: ranking 2026
   - `analise-nyxa.html` — Análise Nyxa: saques, jogos e suporte testados
@@ -89,10 +135,8 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
 
 Layout is mobile-first: it must work from 375px to 1440px wide.
 
-## Rules you must not break
+## Block rules
 
-- Every page opens with an age gate (18+) before any gambling content.
-- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
 - Affiliate disclosure: Fixed wording per locale; cannot be removed on review sites.
 - Header: One-page landing and app pages use 'minimal' (no nav) so attention stays on the conversion.
 - Header: The CTA stays visible at every width; on mobile the nav collapses into a menu, the CTA does not.
@@ -572,17 +616,5 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
-
-## Acceptance checklist
-
-- [ ] Sections appear in the order above, with the same layout variant (or an equivalent layout).
-- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
-- [ ] One H1 per page; headings do not skip levels.
-- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
-- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
-- [ ] The structured data listed for each page is present and valid.
-- [ ] Every internal link opens an existing page.
-- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
-- [ ] Every rule in "Rules you must not break" holds on every page.
 
 _Long text and lists are shortened here (…, "[n items]"). For the full text run `php build/ai-brief.php sites/demos/<config>.json`._

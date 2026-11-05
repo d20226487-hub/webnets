@@ -1,0 +1,511 @@
+You are rebuilding every page of the **Nyxa Выплаты** template, a satellite site (angle: fast-payouts). Keep the section order, the content and every rule in the brief. Write the page text exactly as given (it is in Russian); write code and comments in English. If something in the brief is missing or unclear, ask instead of guessing, and never invent claims, figures, offers or reviews.
+
+**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section with the listed fields as props.
+
+## Acceptance checklist
+
+- [ ] Sections appear in the order given, with the same layout variant (or an equivalent layout).
+- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
+- [ ] One H1 per page; headings do not skip levels.
+- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
+- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
+- [ ] The structured data listed for each page is present and valid.
+- [ ] Every internal link opens an existing page.
+- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
+- [ ] Every rule in the market guidance and the block rules holds on every page.
+
+---
+
+# Rebuild brief: Nyxa Выплаты
+
+_Follow the system prompt (role, target stack, acceptance checklist) together with this brief._
+
+## Site type guidance
+
+- Purpose: a small brand site that answers the questions before sign-up: payments, sign-up, app, products and safer gambling.
+- Home links every service page; each service page answers one question first, in its hero.
+- Every page has its own title and meta description and a link back to related pages.
+- Product pages (betting, casino) exist only where the market allows that product; home shows the matching odds board or game strip.
+- Navigation styles (top menu, sidebar guide, hub of cards) change only the navigation, not the content.
+
+## Market guidance
+
+### Market context
+
+- Market: Demoland (demo only) (`xx`), languages en, ru, pt, currency EUR
+- Minimum age: 18+
+- Products allowed: sports, casino
+- Promotions allowed: welcome_bonus, deposit_bonus, free_bets, promo_code, odds_boost, cashback, loyalty, tournaments
+- Payment methods: visa-debit, mastercard-debit, apple-pay, bank
+- App install paths: iOS app-store, Android play
+- Notes: Every promotion type is allowed here so the full promo-page design can be reviewed. Mirror the first real market that uses the promo type.
+
+### Mandated texts (from the market settings)
+
+- Age notice: 18+ only. Offers are subject to terms.
+- Self-exclusion: Self-exclusion and deposit-limit tools are available in every account.
+
+### Rules you must not break
+
+- Every page opens with an age gate (18+) before any gambling content.
+- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- DEMO-ONLY market: never ship it to a real site; the build refuses it unless the config has "demo": true.
+- Every promotion type is allowed so promo designs can be reviewed; label offers and keep their terms visible.
+- Use euros and the demo payment methods only.
+
+## Site context
+
+- Site: Nyxa Выплаты (https://nyxa-vyplaty.example), brand or publisher: Nyxa
+- Site type: satellite, angle fast-payouts; language `ru`, text direction `ltr`
+- Pages (6):
+  - `sports-standard-hub-index.html` — Nyxa: ставки на спорт с выводом за 15 минут
+  - `sports-standard-hub-sign-up.html` — Регистрация в Nyxa: что нужно и сколько занимает
+  - `sports-standard-hub-payments.html` — Пополнение и вывод в Nyxa: Apple Pay, Visa, Mastercard
+  - `sports-standard-hub-app.html` — Приложение Nyxa для iPhone и Android
+  - `sports-standard-hub-betting.html` — Ставки на спорт в Nyxa: линия и лайв
+  - `sports-standard-hub-responsible-gambling.html` — Ответственная игра в Nyxa: лимиты, паузы и самоисключение
+
+## Design tokens
+
+Fonts (Google Fonts): Manrope.
+
+Use these CSS custom properties (they are the whole palette, type scale and radius set):
+
+```css
+:root {
+  --c-bg: #FFFFFF;
+  --c-surface: #F5F7FB;
+  --c-surface-2: #EBEFF7;
+  --c-text: #0E1525;
+  --c-muted: #556079;
+  --c-border: #E2E7F0;
+  --c-accent: #2457FF;
+  --c-on-accent: #FFFFFF;
+  --c-accent-2: #00C2A8;
+  --c-success: #1F9D55;
+  --c-warning: #D98B00;
+  --c-danger: #D93636;
+  --c-hero-text: #0E1525;
+  --c-hero-muted: #556079;
+  --c-hero-accent: #2457FF;
+  --c-hero-on-accent: #FFFFFF;
+  --hero-bg: linear-gradient(180deg,#EEF2FF 0%,#FFFFFF 100%);
+  --f-display: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-body: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --fw-heading: 800;
+  --fw-body: 400;
+  --fw-strong: 500;
+  --tt-heading: none;
+  --ls-heading: -0.03em;
+  --lh-body: 1.6;
+  --lh-heading: 1.15;
+  --r-sm: 8px;
+  --r: 12px;
+  --r-lg: 20px;
+  --r-btn: 12px;
+  --bw: 1px;
+  --density: 1.15;
+  --fs-0: 12.8px;
+  --fs-1: 16px;
+  --fs-2: 25px;
+  --fs-3: clamp(21.25px,16.96px + 1.19vw,31.25px);
+  --fs-4: clamp(26.56px,21.21px + 1.488vw,39.06px);
+  --fs-5: clamp(33.2px,26.51px + 1.86vw,48.83px);
+  --fs-6: clamp(41.5px,33.13px + 2.325vw,61.04px);
+  --sp-1: 4.6px;
+  --sp-2: 9.2px;
+  --sp-3: 13.8px;
+  --sp-4: 18.4px;
+  --sp-5: 27.6px;
+  --sp-6: 36.8px;
+  --sp-7: 55.2px;
+  --sp-8: 73.6px;
+  --sp-9: 110.4px;
+  --card-bg: #F5F7FB;
+  --card-border: transparent;
+  --card-shadow: none;
+  --surface-style: flat;
+}
+```
+
+Layout is mobile-first: it must work from 375px to 1440px wide.
+
+## Block rules
+
+- Responsible gambling: All copy comes from markets/<id>.json; never type compliance text into a page.
+- Responsible gambling: Every page renders a 'panel' (usually inside the footer). 'strip' is an optional top-of-page addition.
+- Responsible gambling: Where a market lists several mandated taglines, one is chosen per site by seed.
+- Header: One-page landing and app pages use 'minimal' (no nav) so attention stays on the conversion.
+- Header: The CTA stays visible at every width; on mobile the nav collapses into a menu, the CTA does not.
+- Hero: Exactly one primary CTA. The secondary action is a text link or ghost button.
+- Hero: Primary CTA must sit above the fold at 375x667.
+- Hero: Headline 60 characters max; subtitle 160 max (long Russian/Portuguese strings included).
+- Bonus card: mode=offer auto-switches to mode=feature in markets where promotions.welcome_bonus is 'restricted' (all three demo markets).
+- Bonus card: Offer cards always show a terms line next to the amount, not below the fold.
+- Bonus card: One primary CTA per card.
+- Trust bar: Values come from brand facts and market config; nothing is typed by hand.
+- Trust bar: Rating shows only when the brand has facts.rating_source.
+- Trust bar: Sits directly under the hero (section 2 or 3).
+- Page links: Internal links only; never a substitute for the brand CTA.
+- Showcase: Odds and fixtures are illustrations; the note saying so is required.
+- Showcase: Never placed directly after the hero (blueprint order rule).
+- Features: 3 or 4 items. Titles 4 words max, text one sentence (about 120 characters).
+- Features: Features describe the product, never an offer or bonus.
+- FAQ: 4-6 questions: legality in the country, deposits/withdrawals, payout time, verification, limits or self-exclusion.
+- FAQ: Answers are plain text, 1-3 sentences. No CTA links inside answers.
+- Final CTA: Always the last section before the footer.
+- Final CTA: Headline 40 characters max. No urgency claims (timers, 'last chance').
+- Footer: Always renders the compliance panel; it cannot be switched off.
+- Footer: Payment methods come from the market config so they are always locally correct.
+- Age gate: Age comes from the market (21 in KZ, 18 in AU/BR). Never hard-code it.
+- Age gate: Content stays in the HTML for crawlers; the overlay is shown by script, so no-JS users still see the compliance footer.
+- Sticky CTA: Phones only (860px and narrower). Never covers the compliance panel: the footer gets bottom padding.
+- Sticky CTA: Shows the market age badge next to the CTA.
+- Page title: The answer line states the page's key fact in one sentence, above the fold on phones.
+- Steps: Exactly 3 steps; numbers are used because the order is real.
+- Steps: Mention verification and deposit limits honestly; do not promise instant approval.
+- Text block: Only h2, h3, p, ul, ol, li, strong, em, a, table, blockquote survive; all attributes except href are removed.
+- Text block: Links: page:<id> for internal pages, https:// for sources. Brand links belong in CTAs, not in prose.
+- Payments: Only methods listed in the market config may appear (no credit cards in AU or BR).
+- Payments: Times are typical for verified accounts and say so in the note.
+- Download panel: Always the last section before the footer on app pages.
+- Download panel: QR encodes links.qr (a device-aware tracked link) or links.go; generated at build time, no external service.
+- Download panel: QR shows on desktop only; phones get the buttons.
+
+## Page `sports-standard-hub-index.html`
+
+- Title tag: Nyxa: ставки на спорт с выводом за 15 минут
+- Meta description: Ставки на спорт Nyxa: как быстро вывести выигрыш через Apple Pay и на карту, сроки, лимиты и регистрация. 18+.
+- The only H1: Ставки на спорт с выводом за 15 минут
+- Structured data (JSON-LD): WebPage, FAQPage, WebSite
+- Links to: `sports-standard-hub-index.html`, `sports-standard-hub-sign-up.html`, `sports-standard-hub-payments.html`, `sports-standard-hub-app.html`, `sports-standard-hub-betting.html`, `sports-standard-hub-responsible-gambling.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Лицензия"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Hero** — block `sx/hero`, variant `split`, role `hero`
+   Purpose: Above-the-fold hero: headline, one primary CTA, trust row and an optional offer/feature card.
+   - `eyebrow`: "Выплаты Nyxa"
+   - `title`: "Ставки на спорт с выводом за 15 минут"
+   - `subtitle`: "Прематч и лайв на футбол, хоккей и теннис. Как выводить быстро и какие сроки у каждого способа."
+   - `secondary`: `{"label":"Все способы оплаты","url":"page:payments"}`
+   - `show_trust`: true
+   - `card`: `{"mode":"feature","label":"Сроки вывода","items":[{"value":"~15 мин","text":"Apple Pay"},{"value":"~2 ч","text":"Visa и Mastercard"},{"value":"€0","text":"Комиссия Nyxa"},{"value":"€20","text":"Минимальный вывод"}]}`
+   - `art`: "rings"
+  - inside it: **Bonus card** — block `sx/bonus-card`, variant `panel`
+     - `mode`: "feature"
+     - `allow_offer`: false
+     - `label`: "Сроки вывода"
+     - `items`: `[{"value":"~15 мин","text":"Apple Pay"},{"value":"~2 ч","text":"Visa и Mastercard"},{"value":"€0","text":"Комиссия Nyxa"},{"value":"€20","text":"Минимальный вывод"}]`
+4. **Trust bar** — block `sx/trust-bar`, variant `badges`, role `trust`
+   Purpose: Licence, payout time, years operating, local payments and (only if sourced) rating.
+   - `items`: `["licence","payout","since","payments"]`
+5. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+   - `title`: "Разделы сайта"
+6. **Showcase** — block `sx/showcase`, variant `odds-board`, role `content`
+   Purpose: Shows the product instead of describing it: an odds board (sports) or game strip (casino).
+   - `eyebrow`: "Спорт"
+   - `title`: "Линия на сегодня"
+   - `tabs`: `[{"label":"Футбол"},{"label":"Хоккей"},{"label":"Теннис"}]`
+   - `columns`: `[{"label":"П1"},{"label":"X"},{"label":"П2"}]`
+   - `rows`: `[{"when":"19:00","competition":"Демо-лига","home":"Северный порт","away":"Ривер Сити","odds":[{"price":"2,15"},{"price":"3,20"},{"price":"3,40"}],"more":142},{"when":"20:30","competition":"Кубок Демоленда","home":"Атлетик","away":"Звезда","odds":[{"price":"2,60"},{"price":"4,10"},{"price":"2,35"}],"more":118},{"when":"58’","live":true,"competition":"Демо-лига","home":"Горняк","away":"Маяк","odds":[{"price":"1,72"},{"price":"3,60"},{"price":"5,40"}],"more":96}]`
+   - `note`: "Коэффициенты условные; актуальная линия — в приложении Nyxa."
+7. **Features** — block `sx/features`, variant `rows`, role `content`
+   Purpose: 3-4 product reasons to join, each with an icon, a short title and one sentence.
+   - `eyebrow`: "Почему выводы быстрые"
+   - `title`: "Что ускоряет выплату"
+   - `items`: `[{"icon":"shield","title":"Проверка один раз","text":"После проверки документов следующие выводы проходят без запросов."},{"icon":"bolt","title":"Вывод через Apple Pay","text":"Заявки обрабатываются автоматически, круглосуточно."},{"icon":"check","title":"Тот же способ","text":"Выводите туда, откуда пополняли: так проверка короче."},{"icon":"gauge","title":"Статус в приложении","text":"Каждая заявка видна в истории: принята, отправлена, зачислена."}]`
+8. **FAQ** — block `sx/faq`, variant `columns`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Nyxa работает легально?","a":"Да. Nyxa предлагает ставки на спорт по лицензии; номер лицензии указан внизу каждой страницы."},{"q":"Как быстро приходит вывод?","a":"Через Apple Pay — в среднем за 15 минут, на карту — около 2 часов. Первый вывод может занять дольше, пока проверяются документы."},{"q":"Есть ли комиссия за вывод?","a":"Nyxa не берёт комиссию за пополнение и вывод. Банк может удерживать свою комиссию по своим тарифам."},{"q":"Почему вывод задерживается?","a":"Чаще всего не завершена проверка документов или вывод идёт на другой способ, чем пополнение."},{"q":"Можно ли поставить лимит пополнений?","a":"Да, в разделе «Ответственная игра» в профиле. Снижение лимита действует сразу."}]`
+9. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Откройте счёт в Nyxa"
+   - `text`: "Регистрация за несколько минут, вывод без комиссии. Только 18+."
+   - `show_code`: false
+10. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+11. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+12. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `sports-standard-hub-sign-up.html`
+
+- Title tag: Регистрация в Nyxa: что нужно и сколько занимает
+- Meta description: Как открыть счёт в Nyxa за несколько минут: данные, проверка документа и первое пополнение. Только для игроков 18+.
+- The only H1: Регистрация в Nyxa
+- Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
+- Links to: `sports-standard-hub-index.html`, `sports-standard-hub-payments.html`, `sports-standard-hub-app.html`, `sports-standard-hub-betting.html`, `sports-standard-hub-responsible-gambling.html`, `sports-standard-hub-sign-up.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Лицензия"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Page title** — block `sx/page-hero`, variant `compact`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Регистрация в Nyxa"
+   - `answer`: "Несколько минут: e-mail, телефон и проверка документа. После неё можно пополнять счёт и играть."
+   - `show_cta`: true
+4. **Steps** — block `sx/steps`, variant `row`, role `content`
+   Purpose: Three real steps from sign-up to first bet, followed by the mid-page CTA.
+   - `eyebrow`: "По шагам"
+   - `title`: "Как открыть счёт"
+   - `items`: `[{"title":"Укажите e-mail и телефон","text":"Придёт код подтверждения по SMS."},{"title":"Подтвердите личность","text":"Фото паспорта или ID-карты и селфи. Проверка подтверждает личность и возраст 18+."},{"title":"Задайте лимит и пополните","text":"Выберите лимит пополнений и внесите от €10 через Apple Pay или карту."}]`
+   - `show_cta`: false
+5. **Features** — block `sx/features`, variant `grid`, role `content`
+   Purpose: 3-4 product reasons to join, each with an icon, a short title and one sentence.
+   - `eyebrow`: "Перед началом"
+   - `title`: "Что понадобится"
+   - `items`: `[{"icon":"shield","title":"Возраст 18+","text":"Играть можно с 18 лет. Возраст проверяется по документу."},{"icon":"check","title":"Паспорт или ID-карта","text":"Документ с фотографией на ваше имя."},{"icon":"bolt","title":"Карта или Apple Pay","text":"Способ оплаты на ваше имя для пополнения и вывода."}]`
+6. **Text block** — block `sx/prose`, variant `toc-side`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<h2>Зачем нужна проверка</h2><p>Оператор обязан подтвердить личность и возраст каждого игрока до первого вывода. Это защищает аккаунт и деньги игрока.</p><h2>Документ и селфи</h2><p>Загрузите фото паспорта или ID-карты и сделайте селфи в приложении или на сайте. Обычно проверка занимает несколько минут.</p><h2>Один счёт на человека</h2><p>У каждого игрока может быть только один аккаунт. Если вы уж…` (HTML)
+   - `toc`: true
+7. **FAQ** — block `sx/faq`, variant `columns`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Сколько длится проверка документов?","a":"Обычно несколько минут. Если фото нечёткое, система попросит загрузить его ещё раз."},{"q":"Можно ли зарегистрироваться в приложении?","a":"Да. Шаги в приложении и на сайте одинаковые."},{"q":"Почему нужен лимит при регистрации?","a":"Лимит помогает контролировать расходы. Его можно выбрать любым и изменить позже."},{"q":"Я сменил номер телефона. Что делать?","a":"Обратитесь в поддержку: номер меняется после повторной проверки личности."}]`
+8. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+9. **Final CTA** — block `sx/cta-band`, variant `solid`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Откройте счёт"
+   - `text`: "Несколько минут, и можно играть. Только 18+."
+   - `show_code`: false
+10. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+11. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+12. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `sports-standard-hub-payments.html`
+
+- Title tag: Пополнение и вывод в Nyxa: Apple Pay, Visa, Mastercard
+- Meta description: Все способы оплаты Nyxa: минимальные суммы, сроки зачисления и вывода. Apple Pay — в среднем 15 минут. Без комиссий. 18+.
+- The only H1: Пополнение и вывод в Nyxa
+- Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
+- Links to: `sports-standard-hub-index.html`, `sports-standard-hub-sign-up.html`, `sports-standard-hub-responsible-gambling.html`, `sports-standard-hub-app.html`, `sports-standard-hub-betting.html`, `sports-standard-hub-payments.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Лицензия"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Page title** — block `sx/page-hero`, variant `answer`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Пополнение и вывод в Nyxa"
+   - `answer`: "Пополнение мгновенно через Apple Pay или карту от €10. Вывод через Apple Pay — в среднем 15 минут, без комиссии Nyxa."
+   - `show_cta`: true
+4. **Payments** — block `sx/payments`, variant `tiles`, role `content`
+   Purpose: Local deposit and withdrawal methods with speed and minimums.
+   - `eyebrow`: "Способы оплаты"
+   - `title`: "Все способы оплаты в Nyxa"
+   - `rows`: `[{"method":"apple-pay","deposit":"Мгновенно","withdraw":"~15 минут","min":"€10"},{"method":"visa-debit","deposit":"Мгновенно","withdraw":"~2 часа","min":"€10"},{"method":"mastercard-debit","deposit":"Мгновенно","withdraw":"~2 часа","min":"€10"}]`
+   - `note`: "Сроки указаны для проверенных аккаунтов. Первый вывод может занять больше времени."
+5. **Text block** — block `sx/prose`, variant `article`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<h2>Как пополнить счёт</h2><p>Выберите Apple Pay или дебетовую карту Visa или Mastercard в разделе «Касса». Пополнение зачисляется сразу, минимальная сумма — €10.</p><h2>Как вывести выигрыш</h2><p>Вывод возможен только на карту или кошелёк на ваше имя. Быстрее всего — через Apple Pay: заявки обрабатываются автоматически, в среднем за 15 минут. На карту деньги приходят примерно за 2 часа.</p><ul><l…` (HTML)
+   - `toc`: false
+6. **FAQ** — block `sx/faq`, variant `accordion`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Почему вывод в статусе «в обработке»?","a":"Первый вывод ждёт завершения проверки документов. После неё вывод через Apple Pay обычно занимает около 15 минут."},{"q":"Можно ли вывести на чужую карту?","a":"Нет. Вывод возможен только на карту или кошелёк владельца аккаунта."},{"q":"Какая минимальная сумма вывода?","a":"€20 для всех способов."},{"q":"Берёт ли Nyxa комиссию?","a":"Нет. Банк может удерживать комиссию по своим тарифам."}]`
+7. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+8. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Пополните через Apple Pay"
+   - `text`: "Мгновенное пополнение, вывод в среднем за 15 минут. Только 18+."
+   - `show_code`: false
+9. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+10. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+11. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `sports-standard-hub-app.html`
+
+- Title tag: Приложение Nyxa для iPhone и Android
+- Meta description: Скачайте Nyxa в App Store или Google Play: ставки, живое казино, вход по Face ID и вывод через Apple Pay. 18+.
+- The only H1: Приложение Nyxa
+- Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
+- Links to: `sports-standard-hub-index.html`, `sports-standard-hub-sign-up.html`, `sports-standard-hub-payments.html`, `sports-standard-hub-betting.html`, `sports-standard-hub-responsible-gambling.html`, `sports-standard-hub-app.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Лицензия"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Page title** — block `sx/page-hero`, variant `answer`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Приложение Nyxa"
+   - `answer`: "Бесплатно в App Store и Google Play. Ставки, живое казино, вход по Face ID и вывод через Apple Pay в два касания."
+   - `show_cta`: true
+4. **Download panel** — block `sx/download-panel`, variant `panel`, role `content`
+   Purpose: Final install section: all install buttons, a QR code for desktop visitors, key app facts.
+   - `title`: "Скачать Nyxa"
+   - `text`: "Для iPhone и Android. На компьютере отсканируйте код телефоном."
+5. **Features** — block `sx/features`, variant `rows`, role `content`
+   Purpose: 3-4 product reasons to join, each with an icon, a short title and one sentence.
+   - `eyebrow`: "В приложении"
+   - `title`: "Что умеет приложение"
+   - `items`: `[{"icon":"bolt","title":"Вывод в два касания","text":"Заявка на вывод прямо из профиля."},{"icon":"play","title":"Лайв и живые столы","text":"Матчи со статистикой и столы с дилерами."},{"icon":"shield","title":"Вход по Face ID","text":"Вход по лицу или отпечатку пальца."},{"icon":"gauge","title":"Лимиты в профиле","text":"Лимит пополнений меняется из меню профиля."}]`
+6. **FAQ** — block `sx/faq`, variant `columns`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Приложение бесплатное?","a":"Да, в App Store и Google Play."},{"q":"Какие телефоны поддерживаются?","a":"iPhone с iOS 14 и новее, Android 7.0 и новее."},{"q":"Нужен ли новый аккаунт?","a":"Нет. Войдите с тем же аккаунтом, что и на сайте."},{"q":"Как обновлять приложение?","a":"Через App Store или Google Play, обновления приходят автоматически."}]`
+7. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+8. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+9. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+10. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `sports-standard-hub-betting.html`
+
+- Title tag: Ставки на спорт в Nyxa: линия и лайв
+- Meta description: Прематч и лайв на футбол, хоккей и теннис в Nyxa, экспрессы и лимиты ставок. 18+.
+- The only H1: Ставки на спорт в Nyxa
+- Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
+- Links to: `sports-standard-hub-index.html`, `sports-standard-hub-sign-up.html`, `sports-standard-hub-payments.html`, `sports-standard-hub-app.html`, `sports-standard-hub-responsible-gambling.html`, `sports-standard-hub-betting.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Лицензия"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Page title** — block `sx/page-hero`, variant `answer`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Ставки на спорт в Nyxa"
+   - `answer`: "Прематч и лайв на футбол, хоккей, теннис и баскетбол, до 140 исходов на топовые матчи."
+   - `show_cta`: true
+4. **Showcase** — block `sx/showcase`, variant `odds-board`, role `content`
+   Purpose: Shows the product instead of describing it: an odds board (sports) or game strip (casino).
+   - `eyebrow`: "Сегодня"
+   - `title`: "Матчи с открытой линией"
+   - `tabs`: `[{"label":"Футбол"},{"label":"Хоккей"},{"label":"Теннис"}]`
+   - `columns`: `[{"label":"П1"},{"label":"X"},{"label":"П2"}]`
+   - `rows`: `[{"when":"19:00","competition":"Демо-лига","home":"Северный порт","away":"Ривер Сити","odds":[{"price":"2,15"},{"price":"3,20"},{"price":"3,40"}],"more":142},{"when":"20:30","competition":"Кубок Демоленда","home":"Атлетик","away":"Звезда","odds":[{"price":"2,60"},{"price":"4,10"},{"price":"2,35"}],"more":118},{"when":"58’","live":true,"competition":"Демо-лига","home":"Горняк","away":"Маяк","odds":[{"price":"1,72"},{"price":"3,60"},{"price":"5,40"}],"more":96}]`
+   - `note`: "Коэффициенты условные; актуальная линия — в приложении Nyxa."
+5. **Features** — block `sx/features`, variant `grid`, role `content`
+   Purpose: 3-4 product reasons to join, each with an icon, a short title and one sentence.
+   - `eyebrow`: "Линия"
+   - `title`: "Что есть в линии"
+   - `items`: `[{"icon":"chart","title":"140+ исходов","text":"Исходы, тоталы и форы на главные матчи."},{"icon":"play","title":"Лайв со статистикой","text":"Коэффициенты обновляются по ходу матча."},{"icon":"layers","title":"Экспрессы","text":"Соберите экспресс из нескольких событий."},{"icon":"gauge","title":"Лимиты ставок","text":"Задайте лимит ставок в профиле."}]`
+6. **FAQ** — block `sx/faq`, variant `accordion`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"На какие виды спорта можно ставить?","a":"Футбол, хоккей, теннис, баскетбол и другие, до матча и в лайве."},{"q":"Какая минимальная ставка?","a":"€0,50 на любое событие."},{"q":"Как быстро рассчитываются ставки?","a":"Обычно в течение нескольких минут после окончания события."},{"q":"Можно ли продать ставку?","a":"Да, на многих событиях доступна досрочная продажа ставки."}]`
+7. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+8. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Сделайте первую ставку"
+   - `text`: "Регистрация за несколько минут. Только 18+."
+   - `show_code`: false
+9. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+10. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+11. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `sports-standard-hub-responsible-gambling.html`
+
+- Title tag: Ответственная игра в Nyxa: лимиты, паузы и самоисключение
+- Meta description: Лимиты пополнения, перерывы и самоисключение: как пользоваться каждым инструментом в Nyxa. 18+.
+- The only H1: Ответственная игра в Nyxa
+- Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
+- Links to: `sports-standard-hub-index.html`, `sports-standard-hub-sign-up.html`, `sports-standard-hub-payments.html`, `sports-standard-hub-app.html`, `sports-standard-hub-betting.html`, `sports-standard-hub-responsible-gambling.html`
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Лицензия"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Page title** — block `sx/page-hero`, variant `answer`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Ответственная игра в Nyxa"
+   - `answer`: "Установите лимит пополнений, возьмите паузу или оформите самоисключение в профиле."
+   - `show_cta`: false
+4. **Text block** — block `sx/prose`, variant `toc-side`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<h2>Лимиты пополнения</h2><p>Дневной, недельный или месячный лимит задаётся в профиле, в разделе «Ответственная игра». Снижение действует сразу, повышение — через 7 дней.</p><h2>Пауза</h2><p>Можно взять перерыв от 24 часов до 6 месяцев. На это время вход и игра недоступны, досрочно паузу не отменить.</p><h2>Самоисключение</h2><p>Самоисключение закрывает доступ к аккаунту минимум на 6 месяцев.</p><…` (HTML)
+   - `toc`: true
+5. **FAQ** — block `sx/faq`, variant `columns`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Можно ли отменить паузу досрочно?","a":"Нет. Пауза действует до выбранной даты окончания."},{"q":"Чем пауза отличается от самоисключения?","a":"Пауза — короткий перерыв, самоисключение закрывает аккаунт минимум на полгода."},{"q":"Будет ли Nyxa присылать рекламу во время паузы?","a":"Нет. Рассылки останавливаются, пока действует пауза или самоисключение."},{"q":"Как снизить лимит?","a":"В профиле, раздел «Ответственная игра». Новый, меньший лимит действует сразу."}]`
+6. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+7. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+8. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+
+_Long text and lists are shortened here (…, "[n items]"). For the full text run `php build/ai-brief.php sites/demos/<config>.json`._

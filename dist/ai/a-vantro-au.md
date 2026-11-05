@@ -1,17 +1,64 @@
+You are rebuilding every page of the **Vantro Australia** template, a landing site (angle: matchday). Keep the section order, the content and every rule in the brief. Write the page text exactly as given (it is in English); write code and comments in English. If something in the brief is missing or unclear, ask instead of guessing, and never invent claims, figures, offers or reviews.
+
+**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section with the listed fields as props.
+
+## Acceptance checklist
+
+- [ ] Sections appear in the order given, with the same layout variant (or an equivalent layout).
+- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
+- [ ] One H1 per page; headings do not skip levels.
+- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
+- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
+- [ ] The structured data listed for each page is present and valid.
+- [ ] Every internal link opens an existing page.
+- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
+- [ ] Every rule in the market guidance and the block rules holds on every page.
+
+---
+
 # Rebuild brief: Vantro Australia
 
-You are rebuilding every page of the **Vantro Australia** template, a landing site (angle: matchday). Keep the section order, the content and every rule below. Write the page text exactly as given (it is in English); write code and comments in English.
+_Follow the system prompt (role, target stack, acceptance checklist) together with this brief._
 
-**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section below with the listed fields as props.
+## Site type guidance
+
+- Purpose: sell one brand on one page and send the visitor to sign up. Every section leads to the same primary CTA.
+- Keep exactly one primary CTA per section; the hero CTA must be above the fold at 375x667.
+- The hero headline is at most 60 characters, the subtitle at most 160.
+- Trust bar values (licence, payout time, payments) come from brand and market data; never type them by hand.
+- Product sections (odds board, game strip, bonus banners) only show products the market allows.
+- The sticky CTA appears on phones after the hero scrolls out of view.
+
+## Market guidance
+
+### Market context
+
+- Market: Australia (`au`), languages en, currency AUD
+- Minimum age: 18+
+- Products allowed: sports; not allowed: casino
+- Promotions allowed: none; restricted: welcome_bonus, deposit_bonus, free_bets, promo_code
+- Payment methods: payid, bpay, visa-debit, mastercard-debit, apple-pay
+- App install paths: iOS app-store, Android play
+- Notes: Online casino is prohibited under the Interactive Gambling Act. Credit cards cannot be used for online wagering (from June 2024). Inducement advertising is restricted in several states.
+
+### Mandated texts (from the market settings)
+
+- Age notice: Gambling is for adults 18+ only.
+- Self-exclusion: Exclude yourself from all licensed online wagering with BetStop, the National Self-Exclusion Register: betstop.gov.au
+- Helpline: For free and confidential support call 1800 858 858 or visit gamblinghelponline.org.au
+
+### Rules you must not break
+
+- Every page opens with an age gate (18+) before any gambling content.
+- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- Every page links BetStop, the national self-exclusion register, and the helpline.
+- Credit cards are never shown as a payment method.
+- No online casino content anywhere (Interactive Gambling Act).
 
 ## Site context
 
 - Site: Vantro Australia, brand or publisher: Vantro
-- Market: Australia (`au`), language `en`, text direction `ltr`, currency AUD
-- Minimum age: 18+
-- Products allowed: sports betting yes, online casino **no**
-- Promotions allowed: **none** (no bonus, free-bet or promo-code offers)
-- Market note: Online casino is prohibited under the Interactive Gambling Act. Credit cards cannot be used for online wagering (from June 2024). Inducement advertising is restricted in several states.
+- Site type: landing, angle matchday; language `en`, text direction `ltr`
 
 ## Design tokens
 
@@ -79,13 +126,8 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
 
 Layout is mobile-first: it must work from 375px to 1440px wide.
 
-## Rules you must not break
+## Block rules
 
-- Every page opens with an age gate (18+) before any gambling content.
-- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
-- No casino content anywhere: online casino is not allowed in this market.
-- No promotional offers, bonuses or promo codes: the market restricts them.
-- Every affiliate or registration link (the CTAs) keeps `rel="nofollow sponsored noopener"` and its `data-cta` attribute for analytics.
 - Responsible gambling: All copy comes from markets/<id>.json; never type compliance text into a page.
 - Responsible gambling: Every page renders a 'panel' (usually inside the footer). 'strip' is an optional top-of-page addition.
 - Responsible gambling: Where a market lists several mandated taglines, one is chosen per site by seed.
@@ -183,15 +225,3 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 12. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
    Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
 
-## Acceptance checklist
-
-- [ ] Sections appear in the order above, with the same layout variant (or an equivalent layout).
-- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
-- [ ] One H1 per page; headings do not skip levels.
-- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
-- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
-- [ ] The structured data listed for each page is present and valid.
-- [ ] Every internal link opens an existing page.
-- [ ] CTA links carry `rel="nofollow sponsored noopener"`.
-- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
-- [ ] Every rule in "Rules you must not break" holds on every page.

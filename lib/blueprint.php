@@ -337,6 +337,8 @@ function sx_expand_site(array $cfg, string $root): array
     $force = $cfg['pages_on'] ?? [];
     // Only types with app pages look at install paths (avoids link warnings on sites without one).
     $hasApp = array_filter($bp['pages'], fn($p) => !empty($p['requires_app'])) ? (bool)sx_app_platforms() : false;
+    // Platform pages (app sites): "requires_platform": "ios" | "android" (Play or APK) drops the page when the site has no such install path.
+    $plats = array_filter($bp['pages'], fn($p) => !empty($p['requires_platform'])) ? sx_app_platforms() : [];
     $set = [];
     foreach ($bp['pages'] as $pid => $p) {
         $why = null;
@@ -344,6 +346,8 @@ function sx_expand_site(array $cfg, string $root): array
             $why = "market '{$market['id']}' does not allow {$p['requires_vertical']}";
         } elseif (!empty($p['requires_app']) && !$hasApp) {
             $why = 'the brand has no app in this market';
+        } elseif (!empty($p['requires_platform']) && !array_intersect($plats, $p['requires_platform'] === 'ios' ? ['ios'] : ['android', 'apk'])) {
+            $why = "the site has no {$p['requires_platform']} install path";
         } elseif (!empty($p['requires_promo']) && !sx_promo_allowed_types()) {
             $why = "market '{$market['id']}' allows no promotion type";
         }
@@ -358,7 +362,7 @@ function sx_expand_site(array $cfg, string $root): array
             }
         }
         if ($on && $why) {
-            if (!empty($force[$pid]) || $wanted || $mandatory) {
+            if ((!empty($force[$pid]) || $wanted || $mandatory) && empty($p['requires_platform'])) { // a single-platform app site simply has no page for the other platform
                 SX::$warnings[] = "Page '$pid' left out: $why.";
             }
             $on = false;
@@ -500,6 +504,7 @@ function sx_expand_site(array $cfg, string $root): array
             'sections' => $p['sections'],
             'order_rules' => $p['order_rules'] ?? [],
             'angles' => [$angleId => ($p['angles'][$angleId] ?? []) + ['optional' => [], 'variants' => []]],
+            'layouts' => $p['layouts'] ?? [], // e.g. the app home page as a store listing for look "play" / "appstore"
         ];
         $pcfg = [
             'type' => $cfg['type'],
@@ -509,6 +514,8 @@ function sx_expand_site(array $cfg, string $root): array
             'sections' => $cfg['sections'][$base] ?? [],
             'order' => $cfg['order'][$base] ?? null,
             'page' => $cfg['meta'][$base] ?? [],
+            'look' => $cfg['look'] ?? null,
+            'layout' => $cfg['layout'] ?? null,
         ];
         if (isset($p['item'])) {
             // Generated page: {item} in its content and meta becomes the brand's name or the article's title.
@@ -533,6 +540,7 @@ function sx_expand_site(array $cfg, string $root): array
         $page['id'] = $pid;
         $page['item'] = $p['item'] ?? null;
         $page['cta_brand'] = $p['cta_brand'] ?? null;
+        $page['ctx'] = $p['ctx'] ?? []; // context for this page only, e.g. the iPhone page shows App Store buttons only
         $page['slug'] = $map[$pid]['slug'];
         if (empty($page['title']) && $base === $pid) {
             SX::$warnings[] = "meta.$pid.title is required (each page needs its own title).";

@@ -23,9 +23,35 @@ Status: **Every site type has Demos A, B and C.** One-page types `landing`, `app
 | `news` (gambling news with labelled PR articles) | Demos A–C with sample articles (AU, BR, KZ; demo-only) | [docs/types/news.md](docs/types/news.md) | [brief 09](docs/briefs/09-gambling-news-pr.md) |
 | `reviews` (small brand review site, user reviews) | Demos A–C with sample reviews (KZ, BR, AU; demo-only), paged lists; needs a review backend for production | [docs/types/reviews.md](docs/types/reviews.md) | [brief 07](docs/briefs/07-brand-review-ugc.md) |
 
+## Tech stack
+
+No framework, no npm, no bundler. Every demo is plain static HTML with inline CSS and a little JS, under a 64 KB page
+budget (`SX_PAGE_BUDGET_KB`), so it can be hosted anywhere or dropped into WordPress.
+
+| Layer | Technology | Used for |
+|-------|------------|----------|
+| Rendering engine | **PHP 8** | Blocks (`blocks/*/render.php`, `variants/*.php`), blueprints, site expansion (`lib/`), build and export scripts, settings page |
+| Markup and styles | **HTML5, CSS** | Semantic page output; CSS shipped per block and per variant, so a page carries only what it uses |
+| Design tokens | **CSS custom properties** | Presets and looks (colours, fonts, spacing, radius) compiled by `tokens/build.php`, per-site class prefix |
+| Interactivity | **Vanilla JavaScript** (inline, no libraries) | Age gate, sticky CTA, promo-code copy, tabs and filters, switcher bar, phone preview, developer panel (Shadow DOM), settings page |
+| Graphics | **Inline SVG** | Icon sprite, brand logos, generated cover art, QR codes (PHP encoder, `build/test-qr.php`) |
+| Fonts | **Google Fonts** | One stylesheet link per page |
+| SEO | **schema.org JSON-LD** | WebPage, WebSite, FAQPage, Review and more, generated per page; `sitemap.xml`, `robots.txt` |
+| Content and config | **JSON** | Site configs (`sites/`), blueprints, markets, brands, promotions, block definitions and fields, UI strings (`i18n/`, RU/EN/PT/KK) |
+| CMS | **WordPress + ACF PRO** | `block.json` per block, generated ACF field groups (`wp/generate-acf-json.php`), ACF blocks and page template (`wp/`) |
+| Tooling | **Python 3** | Gallery generator (`build/gallery.py`), rebuild-all (`build/rebuild-reviews.py`), QA scripts |
+| Screenshots | **PowerShell + headless Chrome** | Desktop and phone gallery thumbnails (`build/screenshots.ps1`) |
+| Docs and AI settings | **Markdown** | Type docs, briefs, AI brief settings (`ai/`), generated AI briefs (`dist/ai/`) |
+| Local server | **PHP built-in server** (`php -S`) | Local gallery + settings (`build/local-router.php`), Site Builder (`builder/router.php`) |
+| Container | **Docker + Docker Compose** | One-command local gallery (`start-gallery.bat` / `start-gallery.sh`, PHP 8.3 + Python 3 image) |
+| Version control | **Git / GitHub** | Repository |
+| Sharing | **claude.ai Artifacts** | Published gallery and review links |
+
 ## Requirements
 
 - PHP **8.2.35+** (or 8.3.36+ / 8.4.27+ / 8.5.12+). Older builds are affected by PHP2Shell (CVE-2026-109618/109619).
+- Python 3 for the gallery and rebuild scripts; PowerShell + Chrome only for regenerating screenshots.
+- Or just Docker: `start-gallery.bat` runs the local gallery with everything included.
 - WordPress side: the custom theme with ACF PRO 6+.
 
 ## Quick start
@@ -164,3 +190,29 @@ Code: `lib/aibrief.php`, `build/ai-brief.php`.
 (`dist/review/<id>/index.html`, switchers, phone view and developer panel included). Serve the `dist` folder and open it:
 `build/serve-local.bat` (Windows) or `sh build/serve-local.sh`, both run `php -S localhost:8080 -t dist` and open the browser.
 Rebuild the review pages first when something changed (`php build/export-review-site.php …` / `php build/variations.php …`).
+
+### Docker (one command, nothing else to install)
+
+Double-click `start-gallery.bat` (Windows) or run `sh start-gallery.sh`. Both do `docker compose up -d --build` and open
+http://localhost:8090/ (settings: http://localhost:8090/settings/). The container restarts with Docker, so after the first
+start the gallery is simply there. Stop it with `docker compose down`; pick another port with `SX_PORT=9000`.
+
+- Image: PHP 8.3 CLI (Debian, for glibc `iconv` slugs) + Python 3 + rsync. It holds no project files.
+- The project folder is mounted at `/src`. `build/docker-start.sh` copies the code to `/app` on the container's own disk
+  (`build/docker-sync.sh`), because PHP builds read thousands of small files and that is ~20× slower over a Windows bind
+  mount. `ai/` and `dist/` are symlinks back to the host, so settings edits and rebuilt pages land in your folder.
+- Settings → "Rebuild review pages" re-syncs the code first, so edits to blocks, blueprints or configs are picked up
+  (27 demos in ~40 s). After editing code without rebuilding, `docker compose restart` (about 3 s) picks it up too.
+- Output is identical to a native build (files are written with LF line endings).
+
+### AI brief settings (local)
+
+The AI brief is assembled from editable files in `ai/`: `system.md` (system prompt: role, target stack, acceptance
+checklist; placeholders {scope}, {site}, {type}, {angle}, {language}), `types/<type>.md` (guidance per site type) and
+`markets/<market>.md` (market context and the rules the AI must not break). The developer panel's AI brief tab shows the
+system prompt in its own box; the site brief files and `build/ai-brief.php` put it first.
+
+Edit them in the local settings page: start the local gallery (`start-gallery.bat` for Docker on :8090, `build/serve-local.bat`, or the `local-gallery` preview,
+both route `/settings/` through `build/local-router.php` to `build/settings.php`) and open http://localhost:8080/settings/.
+It saves the files, previews the assembled brief for any demo, and "Rebuild review pages" runs
+`build/rebuild-reviews.py` in the background (log: `dist/qa/rebuild.log`). Local use only: it writes files.

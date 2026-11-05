@@ -8,7 +8,7 @@ Reference demos (fictional brands):
 | Demo | Config | Review link (all pages clickable) |
 |---|---|---|
 | A · Vantro · AU · starter-guide · 5 pages | [sites/demos/sat-a-vantro-au.json](../../sites/demos/sat-a-vantro-au.json) | https://claude.ai/artifact/SZGsU5EGXFFUzJghR2xyJD |
-| B · Nyxa · KZ · RU · fast-payouts · split hero · 5 pages | [sites/demos/sat-b-nyxa-kz.json](../../sites/demos/sat-b-nyxa-kz.json) | https://claude.ai/artifact/YCWaxhwnCRRwHCWWoCCXnP |
+| B · Nyxa · demo market · RU · fast-payouts · sports + casino | [sites/demos/sat-b-nyxa-xx.json](../../sites/demos/sat-b-nyxa-xx.json) | https://claude.ai/artifact/YCWaxhwnCRRwHCWWoCCXnP |
 | C · Vantro · BR · PT · sports-depth · scoreboard hero · 5 pages | [sites/demos/sat-c-vantro-br.json](../../sites/demos/sat-c-vantro-br.json) | https://claude.ai/artifact/Nz2eVJGiVJbapgQJCx6mzC |
 
 The three demos pass the diversity rule (overlap 3–52%). The multi-page plumbing below is shared with the review-site
@@ -95,4 +95,4 @@ preset, angle and home hero. With two home hero layouts per angle, pin `variants
 - WordPress menus instead of config navigation (brief 05, question 2).
 - Pretty URLs on WordPress need matching WP page slugs and `base`; nothing checks that automatically.
 
-**Variation demo (Russian, KZ):** `php build/export-review-site.php sites/demos/sat-b-nyxa-kz.json` builds size (standard / lite = no app and responsible pages / full = adds betting) × nav (`nav_style`: top / sidebar = sticky guide aside / hub = guide cards first). Review link: https://claude.ai/artifact/YCWaxhwnCRRwHCWWoCCXnP.
+**Variation demo (Russian, demo market):** `php build/export-review-site.php sites/demos/sat-b-nyxa-xx.json` builds product (sports + casino = betting and casino pages / sports = betting page only / casino = casino page only) × size (standard / lite = short home via the home `layouts.compact` (hero, trust, product sections, page links, final CTA) and no app or responsible pages / full = sign-up steps and an offer card on the home page plus the bonus page) × nav (`nav_style`: top / sidebar / hub): 27 combinations, 162 pages. The home page shows the odds board (`markets`) and the live-casino strip (`games`) for the products on. The casino page has a live-casino game strip (`games`, a showcase block). It runs on the demo market because casino play is illegal in KZ; `sites/demos/sat-b-nyxa-kz.json` stays as the KZ sports satellite. Review link: https://claude.ai/artifact/YCWaxhwnCRRwHCWWoCCXnP.

@@ -1,0 +1,16 @@
+# Start:  docker compose up -d      -> http://localhost:8090  (settings: /settings)
+# Stop:   docker compose down
+# Port:   SX_PORT=9000 docker compose up -d
+# Code edits on the host are picked up by every rebuild (Settings -> Rebuild) or by: docker compose restart
+services:
+  gallery:
+    build: .
+    image: satellite-gallery:local
+    container_name: satellite-gallery
+    ports:
+      - "127.0.0.1:${SX_PORT:-8090}:8080"
+    volumes:
+      - ./:/src
+    environment:
+      - SX_PORT=${SX_PORT:-8090}
+    restart: unless-stopped

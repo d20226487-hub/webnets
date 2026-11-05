@@ -1,0 +1,637 @@
+{
+  "type": "app-multi",
+  "title": "Multi-page brand app download",
+  "brief": "docs/briefs/02-app-download.md",
+  "frame": {
+    "top": [
+      {
+        "block": "compliance-bar",
+        "props": {
+          "variant": "strip"
+        },
+        "when": "market.strip"
+      }
+    ],
+    "header": {
+      "block": "header",
+      "variants": [
+        "inline",
+        "centered"
+      ],
+      "props": {
+        "sticky": false
+      }
+    },
+    "footer": {
+      "block": "footer",
+      "variants": [
+        "compact",
+        "columns"
+      ]
+    },
+    "overlay": [
+      {
+        "block": "age-gate"
+      },
+      {
+        "block": "sticky-cta",
+        "variants": [
+          "app-banner"
+        ]
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "rule": "required",
+      "nav": "nav.home",
+      "_note": "The one-page app page plus links to the other pages. A store look (play / appstore) switches it to that store listing (layouts).",
+      "sections": [
+        {
+          "id": "hero",
+          "block": "app-hero",
+          "zone": "top",
+          "rule": "required"
+        },
+        {
+          "id": "trust",
+          "block": "trust-bar",
+          "zone": "top",
+          "rule": "required"
+        },
+        {
+          "id": "screens",
+          "block": "screenshots",
+          "zone": "top",
+          "rule": "required"
+        },
+        {
+          "id": "features",
+          "block": "features",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "guides",
+          "block": "page-links",
+          "zone": "middle",
+          "rule": "optional"
+        },
+        {
+          "id": "install",
+          "block": "install-guide",
+          "zone": "middle",
+          "rule": "apk"
+        },
+        {
+          "id": "info",
+          "block": "app-info",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "whatsnew",
+          "block": "changelog",
+          "zone": "middle",
+          "rule": "optional"
+        },
+        {
+          "id": "faq",
+          "block": "faq",
+          "zone": "bottom",
+          "rule": "required"
+        },
+        {
+          "id": "final",
+          "block": "download-panel",
+          "zone": "bottom",
+          "rule": "required"
+        }
+      ],
+      "order_rules": [
+        {
+          "rule": "before",
+          "a": "features",
+          "b": "whatsnew"
+        },
+        {
+          "rule": "not_first",
+          "a": "whatsnew"
+        },
+        {
+          "rule": "before",
+          "a": "features",
+          "b": "guides"
+        }
+      ],
+      "angles": {
+        "official-app": {
+          "optional": [
+            "whatsnew",
+            "guides"
+          ],
+          "variants": {
+            "hero": [
+              "listing",
+              "device"
+            ]
+          }
+        },
+        "live-in-pocket": {
+          "optional": [
+            "whatsnew",
+            "guides"
+          ],
+          "variants": {
+            "hero": [
+              "device",
+              "listing"
+            ]
+          }
+        },
+        "apk-easy": {
+          "optional": [
+            "guides"
+          ],
+          "variants": {
+            "hero": [
+              "device",
+              "listing"
+            ],
+            "install": [
+              "side-by-side",
+              "tabs"
+            ]
+          }
+        },
+        "fast-app": {
+          "optional": [
+            "guides"
+          ],
+          "variants": {
+            "hero": [
+              "qr-first",
+              "listing"
+            ]
+          }
+        }
+      },
+      "layouts": {
+        "play": [
+          {
+            "id": "hero",
+            "block": "store-header",
+            "zone": "top",
+            "rule": "required",
+            "variant": "play"
+          },
+          {
+            "id": "screens",
+            "block": "screenshots",
+            "zone": "middle",
+            "rule": "required",
+            "variant": "carousel"
+          },
+          {
+            "id": "about",
+            "block": "store-about",
+            "zone": "middle",
+            "rule": "required",
+            "variant": "play"
+          },
+          {
+            "id": "safety",
+            "block": "app-privacy",
+            "zone": "middle",
+            "rule": "required",
+            "variant": "play"
+          },
+          {
+            "id": "reviews",
+            "block": "store-reviews",
+            "zone": "middle",
+            "rule": "required",
+            "variant": "play"
+          },
+          {
+            "id": "whatsnew",
+            "block": "changelog",
+            "zone": "middle",
+            "rule": "required",
+            "variant": "list"
+          },
+          {
+            "id": "faq",
+            "block": "faq",
+            "zone": "middle",
+            "rule": "required"
+          },
+          {
+            "id": "final",
+            "block": "download-panel",
+            "zone": "bottom",
+            "rule": "required",
+            "variant": "panel"
+          }
+        ],
+        "appstore": [
+          {
+            "id": "hero",
+            "block": "store-header",
+            "zone": "top",
+            "rule": "required",
+            "variant": "appstore"
+          },
+          {
+            "id": "whatsnew",
+            "block": "changelog",
+            "zone": "middle",
+            "rule": "required",
+            "variant": "list"
+          },
+          {
+            "id": "screens",
+            "block": "screenshots",
+            "zone": "middle",
+            "rule": "required",
+            "variant": "carousel"
+          },
+          {
+            "id": "about",
+            "block": "store-about",
+            "zone": "middle",
+            "rule": "required",
+            "variant": "appstore"
+          },
+          {
+            "id": "reviews",
+            "block": "store-reviews",
+            "zone": "middle",
+            "rule": "required",
+            "variant": "appstore"
+          },
+          {
+            "id": "privacy",
+            "block": "app-privacy",
+            "zone": "middle",
+            "rule": "required",
+            "variant": "appstore"
+          },
+          {
+            "id": "info",
+            "block": "app-info",
+            "zone": "middle",
+            "rule": "required",
+            "variant": "table"
+          },
+          {
+            "id": "faq",
+            "block": "faq",
+            "zone": "middle",
+            "rule": "required"
+          },
+          {
+            "id": "final",
+            "block": "download-panel",
+            "zone": "bottom",
+            "rule": "required",
+            "variant": "panel"
+          }
+        ]
+      }
+    },
+    "ios": {
+      "rule": "required",
+      "requires_platform": "ios",
+      "slug": "iphone",
+      "nav": "nav.ios",
+      "blurb": "page.blurb.ios",
+      "ctx": {
+        "platform_only": "ios"
+      },
+      "sections": [
+        {
+          "id": "hero",
+          "block": "page-hero",
+          "zone": "top",
+          "rule": "required",
+          "props": {
+            "show_cta": false
+          }
+        },
+        {
+          "id": "download",
+          "block": "download-panel",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "steps",
+          "block": "steps",
+          "zone": "middle",
+          "rule": "required",
+          "props": {
+            "show_cta": false
+          }
+        },
+        {
+          "id": "info",
+          "block": "app-info",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "faq",
+          "block": "faq",
+          "zone": "bottom",
+          "rule": "required"
+        },
+        {
+          "id": "related",
+          "block": "page-links",
+          "zone": "bottom",
+          "rule": "required"
+        }
+      ],
+      "order_rules": [
+        {
+          "rule": "before",
+          "a": "download",
+          "b": "steps"
+        }
+      ]
+    },
+    "android": {
+      "rule": "required",
+      "requires_platform": "android",
+      "slug": "android",
+      "nav": "nav.android",
+      "blurb": "page.blurb.android",
+      "ctx": {
+        "platform_only": "android"
+      },
+      "sections": [
+        {
+          "id": "hero",
+          "block": "page-hero",
+          "zone": "top",
+          "rule": "required",
+          "props": {
+            "show_cta": false
+          }
+        },
+        {
+          "id": "download",
+          "block": "download-panel",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "install",
+          "block": "install-guide",
+          "zone": "middle",
+          "rule": "apk"
+        },
+        {
+          "id": "steps",
+          "block": "steps",
+          "zone": "middle",
+          "rule": "optional",
+          "props": {
+            "show_cta": false
+          }
+        },
+        {
+          "id": "info",
+          "block": "app-info",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "faq",
+          "block": "faq",
+          "zone": "bottom",
+          "rule": "required"
+        },
+        {
+          "id": "related",
+          "block": "page-links",
+          "zone": "bottom",
+          "rule": "required"
+        }
+      ],
+      "order_rules": [
+        {
+          "rule": "before",
+          "a": "download",
+          "b": "install"
+        },
+        {
+          "rule": "before",
+          "a": "download",
+          "b": "steps"
+        }
+      ]
+    },
+    "features": {
+      "rule": "required",
+      "slug": "features",
+      "nav": "nav.features",
+      "blurb": "page.blurb.features",
+      "sections": [
+        {
+          "id": "hero",
+          "block": "page-hero",
+          "zone": "top",
+          "rule": "required",
+          "props": {
+            "show_cta": false
+          }
+        },
+        {
+          "id": "screens",
+          "block": "screenshots",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "features",
+          "block": "features",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "text",
+          "block": "prose",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "final",
+          "block": "download-panel",
+          "zone": "bottom",
+          "rule": "required"
+        },
+        {
+          "id": "related",
+          "block": "page-links",
+          "zone": "bottom",
+          "rule": "required"
+        }
+      ],
+      "order_rules": [
+        {
+          "rule": "before",
+          "a": "screens",
+          "b": "text"
+        }
+      ]
+    },
+    "updates": {
+      "rule": "required",
+      "slug": "whats-new",
+      "nav": "nav.updates",
+      "blurb": "page.blurb.updates",
+      "sections": [
+        {
+          "id": "hero",
+          "block": "page-hero",
+          "zone": "top",
+          "rule": "required",
+          "props": {
+            "show_cta": false
+          }
+        },
+        {
+          "id": "whatsnew",
+          "block": "changelog",
+          "zone": "middle",
+          "rule": "required",
+          "props": {
+            "limit": 0
+          }
+        },
+        {
+          "id": "text",
+          "block": "prose",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "final",
+          "block": "download-panel",
+          "zone": "bottom",
+          "rule": "required"
+        },
+        {
+          "id": "related",
+          "block": "page-links",
+          "zone": "bottom",
+          "rule": "required"
+        }
+      ],
+      "order_rules": [
+        {
+          "rule": "before",
+          "a": "whatsnew",
+          "b": "text"
+        }
+      ]
+    },
+    "help": {
+      "rule": "required",
+      "slug": "help",
+      "nav": "nav.help",
+      "blurb": "page.blurb.help",
+      "sections": [
+        {
+          "id": "hero",
+          "block": "page-hero",
+          "zone": "top",
+          "rule": "required"
+        },
+        {
+          "id": "faq",
+          "block": "faq",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "text",
+          "block": "prose",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "related",
+          "block": "page-links",
+          "zone": "bottom",
+          "rule": "required"
+        }
+      ],
+      "order_rules": [
+        {
+          "rule": "before",
+          "a": "faq",
+          "b": "text"
+        }
+      ]
+    },
+    "responsible": {
+      "rule": "optional",
+      "required_in": [
+        "au"
+      ],
+      "slug": "responsible-gambling",
+      "hide_frame": [
+        "sticky-cta"
+      ],
+      "nav": "nav.rg",
+      "blurb": "page.blurb.rg",
+      "sections": [
+        {
+          "id": "hero",
+          "block": "page-hero",
+          "zone": "top",
+          "rule": "required",
+          "props": {
+            "show_cta": false
+          }
+        },
+        {
+          "id": "text",
+          "block": "prose",
+          "zone": "middle",
+          "rule": "required"
+        },
+        {
+          "id": "faq",
+          "block": "faq",
+          "zone": "bottom",
+          "rule": "required"
+        },
+        {
+          "id": "related",
+          "block": "page-links",
+          "zone": "bottom",
+          "rule": "required"
+        }
+      ]
+    }
+  },
+  "angles": {
+    "official-app": {
+      "pages": []
+    },
+    "live-in-pocket": {
+      "pages": [],
+      "requires_vertical": "sports"
+    },
+    "apk-easy": {
+      "pages": []
+    },
+    "fast-app": {
+      "pages": []
+    }
+  }
+}

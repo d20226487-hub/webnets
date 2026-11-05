@@ -1,8 +1,9 @@
 <?php
 /**
  * AI brief: a Markdown prompt that tells an AI coding tool how to rebuild a template page (or the whole site) in the
- * developer's own stack, with the content, structure, design tokens, the rules it must not break and an acceptance
- * checklist. Instructions are in English; the site's own text stays in its language.
+ * developer's own stack. The fixed parts come from editable settings in ai/ (system.md: role, target stack, acceptance
+ * checklist; types/<type>.md; markets/<market>.md, edited in the local settings page); the brief adds the site context,
+ * design tokens, block rules and every section with its content. Instructions are in English; site text stays in its language.
  *
  * Used by the developer skeleton view (lib/devspec.php: page brief inside the panel, site brief as a published file)
  * and by build/ai-brief.php (full text, written to dist/ai/). Needs pages built with ctx devspec (cfg "_devspec").
@@ -22,8 +23,9 @@ function sx_dev_trim($v, int $str = 220, int $json = 400)
  * @param array       $pages sx_build_site() pages (not assets), each with 'dev', 'brief', 'file', 'title', 'html'
  * @param string|null $only  file of the one page to describe in detail (page brief); null = every page (site brief)
  * @param bool        $full  full field values (command line) instead of the shortened ones (review page)
+ * @param bool        $withSystem put the system prompt (ai/system.md) first, for a single self-contained file
  */
-function sx_ai_brief(array $pages, ?string $only = null, bool $full = false): string
+function sx_ai_brief(array $pages, ?string $only = null, bool $full = false, bool $withSystem = false): string
 {
     static $names = null;
     $names ??= json_decode(file_get_contents(__DIR__ . '/devspec-names.json'), true);
@@ -36,26 +38,33 @@ function sx_ai_brief(array $pages, ?string $only = null, bool $full = false): st
     $multi = count($pages) > 1;
 
     $L = [];
+    if ($withSystem) { // one self-contained document: the system prompt first, then the task
+        $L[] = sx_ai_system($pages, $only);
+        $L[] = '';
+        $L[] = '---';
+        $L[] = '';
+    }
     $L[] = '# Rebuild brief: ' . ($only !== null ? ($one[0]['title'] ?? $only) : $b['site']);
     $L[] = '';
-    $L[] = 'You are rebuilding ' . ($only !== null ? 'one page' : 'every page') . " of the **{$b['site']}** template, a {$b['type']} site"
-        . ($b['angle'] ? " (angle: {$b['angle']})" : '') . '. Keep the section order, the content and every rule below. '
-        . 'Write the page text exactly as given (it is in ' . sx_brief_lang($loc) . '); write code and comments in English.';
+    $L[] = '_Follow the system prompt (role, target stack, acceptance checklist) together with this brief._';
     $L[] = '';
-    $L[] = '**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). '
-        . 'If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section below with the listed fields as props.';
+
+    $type = sx_ai_setting("types/{$b['type']}.md");
+    if ($type !== '') {
+        $L[] = '## Site type guidance';
+        $L[] = '';
+        $L[] = $type;
+        $L[] = '';
+    }
+    $L[] = '## Market guidance';
+    $L[] = '';
+    $L[] = sx_ai_setting("markets/{$m['id']}.md") ?: "- Market: {$m['name']} (`{$m['id']}`), minimum age {$m['min_age']}+";
     $L[] = '';
 
     $L[] = '## Site context';
     $L[] = '';
     $L[] = "- Site: {$b['site']}" . ($b['url'] ? " ({$b['url']})" : '') . ($b['brand'] && $b['brand'] !== $b['site'] ? ", brand or publisher: {$b['brand']}" : '');
-    $L[] = "- Market: {$m['name']} (`{$m['id']}`), language `{$loc}`, text direction `{$m['dir']}`, currency {$m['currency']['code']}";
-    $L[] = "- Minimum age: {$m['min_age']}+";
-    $vert = $m['verticals'] ?? [];
-    $L[] = '- Products allowed: sports betting ' . (!empty($vert['sports']) ? 'yes' : '**no**') . ', online casino ' . (!empty($vert['casino']) ? 'yes' : '**no**');
-    if (!empty($m['compliance']['notes'])) {
-        $L[] = "- Market note: {$m['compliance']['notes']}";
-    }
+    $L[] = "- Site type: {$b['type']}" . ($b['angle'] ? ", angle {$b['angle']}" : '') . "; language `{$loc}`, text direction `{$m['dir']}`";
     if ($multi) {
         $L[] = '- Pages (' . count($pages) . '):';
         foreach ($pages as $p) {
@@ -86,20 +95,6 @@ function sx_ai_brief(array $pages, ?string $only = null, bool $full = false): st
         $L[] = '';
     }
 
-    $rules = [];
-    foreach ($m['compliance']['required_blocks'] ?? [] as $rb) {
-        $rules[] = match ($rb) {
-            'age-gate' => "Every page opens with an age gate ({$m['min_age']}+) before any gambling content.",
-            'compliance-bar' => 'Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.',
-            default => "Every page includes the `$rb` block.",
-        };
-    }
-    if (empty($vert['casino'])) {
-        $rules[] = 'No casino content anywhere: online casino is not allowed in this market.';
-    }
-    if (empty($vert['sports'])) {
-        $rules[] = 'No sports-betting content: it is not allowed in this market.';
-    }
     $guard = [];
     $used = [];
     foreach ($one as $p) {
@@ -117,15 +112,14 @@ function sx_ai_brief(array $pages, ?string $only = null, bool $full = false): st
             $guard[$g] = $name($blk);
         }
     }
-    $L[] = '## Rules you must not break';
-    $L[] = '';
-    foreach ($rules as $r) {
-        $L[] = "- $r";
+    if ($guard) {
+        $L[] = '## Block rules';
+        $L[] = '';
+        foreach ($guard as $g => $blk) {
+            $L[] = "- $blk: $g";
+        }
+        $L[] = '';
     }
-    foreach ($guard as $g => $blk) {
-        $L[] = "- $blk: $g";
-    }
-    $L[] = '';
 
     foreach ($one as $p) {
         $info = sx_brief_page_info($p['html']);
@@ -171,23 +165,30 @@ function sx_ai_brief(array $pages, ?string $only = null, bool $full = false): st
         }
         $L[] = '';
     }
-
-    $L[] = '## Acceptance checklist';
-    $L[] = '';
-    $L[] = '- [ ] Sections appear in the order above, with the same layout variant (or an equivalent layout).';
-    $L[] = '- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).';
-    $L[] = '- [ ] One H1 per page; headings do not skip levels.';
-    $L[] = '- [ ] No horizontal scrolling at 375px; tap targets at least 44px.';
-    $L[] = '- [ ] Each page is under 64 KB of HTML and CSS (images excluded).';
-    $L[] = '- [ ] The structured data listed for each page is present and valid.';
-    $L[] = '- [ ] Every internal link opens an existing page.';
-    $L[] = '- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.';
-    $L[] = '- [ ] Every rule in "Rules you must not break" holds on every page.';
     if (!$full) {
-        $L[] = '';
         $L[] = '_Long text and lists are shortened here (…, "[n items]"). For the full text run `php build/ai-brief.php sites/demos/<config>.json`._';
     }
     return implode("\n", $L) . "\n";
+}
+
+/** One AI settings file (ai/<rel>, edited in the local settings page) without its HTML comments; '' when missing. */
+function sx_ai_setting(string $rel): string
+{
+    $f = dirname(__DIR__) . "/ai/$rel";
+    return is_file($f) ? trim(preg_replace('/<!--.*?-->/s', '', file_get_contents($f))) : '';
+}
+
+/** The system prompt (ai/system.md) with its placeholders filled for these pages. */
+function sx_ai_system(array $pages, ?string $only = null): string
+{
+    $b = reset($pages)['brief'];
+    return strtr(sx_ai_setting('system.md'), [
+        '{scope}' => $only !== null || count($pages) === 1 ? 'one page' : 'every page',
+        '{site}' => $b['site'],
+        '{type}' => $b['type'],
+        '{angle}' => $b['angle'] ? " (angle: {$b['angle']})" : '',
+        '{language}' => sx_brief_lang($b['locale']),
+    ]);
 }
 
 function sx_brief_lang(string $loc): string

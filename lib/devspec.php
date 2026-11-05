@@ -48,6 +48,7 @@ function sx_review_devspec(array $page, array $pages, string $locale, string $pr
         'blocks' => $blocks,
         'items' => array_map(fn($d) => ['p' => array_map('sx_dev_trim', $d['p'])] + $d, $page['dev'] ?? []),
         'brief' => sx_ai_brief($pages, $page['file']),
+        'system' => sx_ai_system($pages, $page['file']),
         'siteBrief' => $siteBrief, // published file with the brief for every page of this build
         'pages' => array_map(fn($p) => [
             'f' => $p['file'],

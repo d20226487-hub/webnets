@@ -14,7 +14,8 @@
 .sx-sidenav__main > section:first-child, .sx-sidenav__main > section:first-child > * { border-radius: var(--r-lg); }
 @media (max-width: 900px) {
   .sx-sidenav__grid { grid-template-columns: minmax(0, 1fr); gap: var(--sp-3); padding-block-start: var(--sp-3); }
-  .sx-sidenav { position: static; padding: var(--sp-2); }
+  .sx-sidenav { position: static; padding: var(--sp-2); grid-template-columns: minmax(0, 1fr); } /* the row scrolls instead of widening the page */
+  .sx-sidenav > nav { min-width: 0; }
   .sx-sidenav__title { display: none; }
   .sx-sidenav ol { display: flex; overflow-x: auto; scrollbar-width: none; gap: var(--sp-1); }
   .sx-sidenav a { white-space: nowrap; }

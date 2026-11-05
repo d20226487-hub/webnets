@@ -1,0 +1,414 @@
+You are rebuilding every page of the **Nyxa Приложение** template, a app-multi site (angle: apk-easy). Keep the section order, the content and every rule in the brief. Write the page text exactly as given (it is in Russian); write code and comments in English. If something in the brief is missing or unclear, ask instead of guessing, and never invent claims, figures, offers or reviews.
+
+**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section with the listed fields as props.
+
+## Acceptance checklist
+
+- [ ] Sections appear in the order given, with the same layout variant (or an equivalent layout).
+- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
+- [ ] One H1 per page; headings do not skip levels.
+- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
+- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
+- [ ] The structured data listed for each page is present and valid.
+- [ ] Every internal link opens an existing page.
+- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
+- [ ] Every rule in the market guidance and the block rules holds on every page.
+
+---
+
+# Rebuild brief: Nyxa Приложение
+
+_Follow the system prompt (role, target stack, acceptance checklist) together with this brief._
+
+## Site type guidance
+
+- Purpose: the one-page app page as home, plus service pages: iPhone, Android, features, what's new and help.
+- The iPhone page shows only App Store buttons; the Android page only Google Play / APK buttons.
+- A single-platform site drops the other platform's page and its menu link.
+- What's new lists versions from the brand's app data, newest first.
+- Store-style looks change the home page into that store listing; the other pages keep the site layout in the store's colours.
+
+## Market guidance
+
+### Market context
+
+- Market: Kazakhstan (`kz`), languages ru, kk, currency KZT
+- Minimum age: 21+
+- Products allowed: sports; not allowed: casino
+- Promotions allowed: none; restricted: welcome_bonus, deposit_bonus, free_bets, promo_code
+- Payment methods: kaspi, visa, mastercard, halyk
+- App install paths: iOS app-store, Android apk
+- Notes: Online bets are processed through the Unified Accounting Centre (ЕУЦ). Online casino is not permitted: casino-vertical blocks are disabled for this market.
+
+### Mandated texts (from the market settings)
+
+- Age notice: Участие в азартных играх разрешено с 21 года.
+- Self-exclusion: Вы можете ограничить своё участие в азартных играх через eGov.
+
+### Rules you must not break
+
+- Every page opens with an age gate (21+) before any gambling content.
+- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- Minimum age is 21: the age gate and every age line say 21+.
+- No online casino content anywhere; only sports betting.
+- Identification goes through eGov (or video identification); say so on sign-up pages.
+- Self-limitation is available through eGov; mention it on responsible-gambling content.
+
+## Site context
+
+- Site: Nyxa Приложение (https://app.nyxa-kz.example), brand or publisher: Nyxa
+- Site type: app-multi, angle apk-easy; language `ru`, text direction `ltr`
+- Pages (5):
+  - `android-appstore-index.html` — Nyxa для Android: скачать официальный APK
+  - `android-appstore-android.html` — Nyxa для Android: как безопасно установить APK
+  - `android-appstore-features.html` — Возможности приложения Nyxa
+  - `android-appstore-whats-new.html` — Что нового в приложении Nyxa: история версий
+  - `android-appstore-help.html` — Помощь по приложению Nyxa: установка, вход, обновления
+
+## Design tokens
+
+Fonts (Google Fonts): Inter.
+
+Use these CSS custom properties (they are the whole palette, type scale and radius set):
+
+```css
+:root {
+  --c-bg: #FFFFFF;
+  --c-surface: #F5F5F7;
+  --c-surface-2: #E8E8ED;
+  --c-text: #1D1D1F;
+  --c-muted: #6E6E73;
+  --c-border: #D2D2D7;
+  --c-accent: #0071E3;
+  --c-on-accent: #FFFFFF;
+  --c-accent-2: #0071E3;
+  --c-success: #1F9D55;
+  --c-warning: #D98B00;
+  --c-danger: #D93636;
+  --c-hero-text: #1D1D1F;
+  --c-hero-muted: #6E6E73;
+  --c-hero-accent: #0071E3;
+  --c-hero-on-accent: #FFFFFF;
+  --hero-bg: linear-gradient(180deg,#F5F5F7 0%,#FFFFFF 100%);
+  --f-display: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-body: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --fw-heading: 700;
+  --fw-body: 400;
+  --fw-strong: 500;
+  --tt-heading: none;
+  --ls-heading: -0.025em;
+  --lh-body: 1.55;
+  --lh-heading: 1.15;
+  --r-sm: 10px;
+  --r: 18px;
+  --r-lg: 28px;
+  --r-btn: 980px;
+  --bw: 1px;
+  --density: 1;
+  --fs-0: 12.8px;
+  --fs-1: 16px;
+  --fs-2: 25px;
+  --fs-3: clamp(21.25px,16.96px + 1.19vw,31.25px);
+  --fs-4: clamp(26.56px,21.21px + 1.488vw,39.06px);
+  --fs-5: clamp(33.2px,26.51px + 1.86vw,48.83px);
+  --fs-6: clamp(41.5px,33.13px + 2.325vw,61.04px);
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 96px;
+  --card-bg: #F5F5F7;
+  --card-border: transparent;
+  --card-shadow: none;
+  --surface-style: flat;
+}
+```
+
+Layout is mobile-first: it must work from 375px to 1440px wide.
+
+## Block rules
+
+- Header: One-page landing and app pages use 'minimal' (no nav) so attention stays on the conversion.
+- Header: The CTA stays visible at every width; on mobile the nav collapses into a menu, the CTA does not.
+- Store header: Ratings and download counts come from brands/operators.json app.store (copied from the real listing, with checked_at); nothing is typed per site.
+- What's new: Renders nothing (and warns) if the brand has no changelog for the site's locale.
+- Screenshots: 3-6 screens, captions 6 words max, each caption names one benefit.
+- Screenshots: Real screenshots must be the brand's own, 9:19.5, WebP or AVIF.
+- About the app: Facts (updated, version, requirements, downloads, rating) come from the brand's app data.
+- Store reviews: Rating and split come from app.store (the real store listing); review cards from brands/reviews/<brand>.json.
+- Store reviews: Seeded (made-up) reviews render only with "demo": true and carry a sample label.
+- App privacy: Data types come from brands/operators.json app.privacy and must match the store listing's own privacy label.
+- App info: Every value comes from brands/<brand>.app and the market; nothing is typed per site.
+- FAQ: 4-6 questions: legality in the country, deposits/withdrawals, payout time, verification, limits or self-exclusion.
+- FAQ: Answers are plain text, 1-3 sentences. No CTA links inside answers.
+- Download panel: Always the last section before the footer on app pages.
+- Download panel: QR encodes links.qr (a device-aware tracked link) or links.go; generated at build time, no external service.
+- Download panel: QR shows on desktop only; phones get the buttons.
+- Footer: Always renders the compliance panel; it cannot be switched off.
+- Footer: Payment methods come from the market config so they are always locally correct.
+- Responsible gambling: All copy comes from markets/<id>.json; never type compliance text into a page.
+- Responsible gambling: Every page renders a 'panel' (usually inside the footer). 'strip' is an optional top-of-page addition.
+- Responsible gambling: Where a market lists several mandated taglines, one is chosen per site by seed.
+- Age gate: Age comes from the market (21 in KZ, 18 in AU/BR). Never hard-code it.
+- Age gate: Content stays in the HTML for crawlers; the overlay is shown by script, so no-JS users still see the compliance footer.
+- Sticky CTA: Phones only (860px and narrower). Never covers the compliance panel: the footer gets bottom padding.
+- Sticky CTA: Shows the market age badge next to the CTA.
+- Page title: The answer line states the page's key fact in one sentence, above the fold on phones.
+- Install guide: Required on any site that offers an APK (blueprint rule 'apk').
+- Install guide: The APK column always shows the file size, version and the distribution note: why it is outside Google Play and that Android will warn.
+- Install guide: Default steps are UI strings in every locale; content may override them per platform.
+- Page links: Internal links only; never a substitute for the brand CTA.
+- Text block: Only h2, h3, p, ul, ol, li, strong, em, a, table, blockquote survive; all attributes except href are removed.
+- Text block: Links: page:<id> for internal pages, https:// for sources. Brand links belong in CTAs, not in prose.
+- Features: 3 or 4 items. Titles 4 words max, text one sentence (about 120 characters).
+- Features: Features describe the product, never an offer or bonus.
+
+## Page `android-appstore-index.html`
+
+- Title tag: Nyxa для Android: скачать официальный APK
+- Meta description: Официальное приложение Nyxa для Android (APK): ставки на спорт, лайв и вывод на Kaspi. 21+.
+- The only H1: Nyxa
+- Structured data (JSON-LD): WebPage, MobileApplication, FAQPage, WebSite
+- Links to: `android-appstore-index.html`, `android-appstore-android.html`, `android-appstore-features.html`, `android-appstore-whats-new.html`, `android-appstore-help.html`
+
+### Sections, in order
+
+1. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: true
+2. **Store header** — block `sx/store-header`, variant `appstore`, role `content`
+   Purpose: Store-listing header: icon, name, developer, rating and install. play = Google Play listing; appstore = App Store product page.
+   - `title`: "Nyxa"
+   - `subtitle`: "Официальный APK с сайта Nyxa: ставки на спорт, лайв и вывод на Kaspi примерно за 5 минут."
+   - `screen`: "live"
+3. **What's new** — block `sx/changelog`, variant `list`, role `content`
+   Purpose: Latest app release notes from the brand's app data. Shows the app is maintained.
+   - `limit`: "2"
+4. **Screenshots** — block `sx/screenshots`, variant `carousel`, role `content`
+   Purpose: Phone screens with one-line captions. Real screenshots via image URLs; CSS-drawn screens otherwise.
+   - `title`: "Скриншоты"
+   - `screens`: `[{"kind":"home","caption":"Линия на сегодня"},{"kind":"live","caption":"Лайв и счёт матча"},{"kind":"wallet","caption":"Вывод на Kaspi за ~5 минут"}]`
+5. **About the app** — block `sx/store-about`, variant `appstore`, role `content`
+   Purpose: Store-style description. play = "About this app" with tags and a facts grid; appstore = description with developer line.
+   - `text`: "Nyxa — официальное приложение букмекера Nyxa с лицензией Республики Казахстан. Ставки на футбол, хоккей, теннис и киберспорт, лайв с обновлением коэффициентов в реальном времени и статистика матчей. Вывод на Kaspi обычно занимает около 5 минут, статус заявки виден прямо в приложении. Лимиты депозита, перерыв и самоисключение настраиваются в профиле. Только для лиц старше 21 года."
+   - `tags`: "Ставки на спорт, Лайв, Вывод на Kaspi, Face ID"
+6. **Store reviews** — block `sx/store-reviews`, variant `appstore`, role `content`
+   Purpose: Store-style ratings and reviews: overall store rating with the 5-to-1 split and the latest player reviews.
+   - `limit`: "3"
+7. **App privacy** — block `sx/app-privacy`, variant `appstore`, role `content`
+   Purpose: Store-style privacy summary. play = "Data safety" list; appstore = "App Privacy" cards (linked / not linked to you).
+8. **App info** — block `sx/app-info`, variant `table`, role `content`
+   Purpose: Version, size, requirements, languages, age rating, developer, licence. All from brand app data.
+9. **FAQ** — block `sx/faq`, variant `columns`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Почему Android-приложения нет в Google Play?","a":"Android-версия Nyxa распространяется напрямую с официального сайта. Скачивайте APK только по ссылке на этой странице."},{"q":"Это безопасно?","a":"Да, если скачивать файл по официальной ссылке. Android предупреждает обо всех приложениях не из Google Play — это стандартное сообщение."},{"q":"Как обновлять приложение?","a":"Приложение само сообщит о новой версии и предложит скачать обновление."},{"q":"Сколько места нужно?","a":"Около 74 МБ на Android 7.0 и новее."},{"q":"С какого возраста можно пользоваться?","a":"С 21 года, как требует закон Республики Казахстан. Возраст проверяется при регистрации."}]`
+10. **Download panel** — block `sx/download-panel`, variant `panel`, role `content`
+   Purpose: Final install section: all install buttons, a QR code for desktop visitors, key app facts.
+   - `title`: "Скачайте Nyxa для Android"
+   - `text`: "Официальный APK, Android 7.0 и новее. 21+."
+11. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+12. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+13. **Sticky CTA** — block `sx/sticky-cta`, variant `app-banner`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `android-appstore-android.html`
+
+- Title tag: Nyxa для Android: как безопасно установить APK
+- Meta description: Пошаговая установка официального APK Nyxa на Android: разрешения, проверка файла, обновления. 21+.
+- The only H1: Nyxa для Android
+- Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
+- Links to: `android-appstore-index.html`, `android-appstore-android.html`, `android-appstore-features.html`, `android-appstore-whats-new.html`, `android-appstore-help.html`
+
+### Sections, in order
+
+1. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: true
+2. **Page title** — block `sx/page-hero`, variant `answer`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Nyxa для Android"
+   - `answer`: "Официальный APK с сайта Nyxa. Нужен Android 7.0 или новее и около 74 МБ. Установка занимает пару минут."
+   - `show_cta`: false
+3. **Download panel** — block `sx/download-panel`, variant `panel`, role `content`
+   Purpose: Final install section: all install buttons, a QR code for desktop visitors, key app facts.
+   - `title`: "Скачать APK"
+   - `text`: "Только по официальной ссылке с этой страницы. 21+."
+4. **App info** — block `sx/app-info`, variant `chips`, role `content`
+   Purpose: Version, size, requirements, languages, age rating, developer, licence. All from brand app data.
+   - `title`: "О версии для Android"
+5. **Install guide** — block `sx/install-guide`, variant `tabs`, role `content`
+   Purpose: Step-by-step install per platform (iPhone, Google Play, APK), each ending in its install button.
+   - `eyebrow`: "Установка"
+   - `title`: "Как установить Nyxa"
+6. **FAQ** — block `sx/faq`, variant `columns`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Почему Android-приложения нет в Google Play?","a":"Android-версия Nyxa распространяется напрямую с официального сайта. Скачивайте APK только по ссылке на этой странице."},{"q":"Это безопасно?","a":"Да, если скачивать файл по официальной ссылке. Android предупреждает обо всех приложениях не из Google Play — это стандартное сообщение."},{"q":"Как обновлять приложение?","a":"Приложение само сообщит о новой версии и предложит скачать обновление."},{"q":"Сколько места нужно?","a":"Около 74 МБ на Android 7.0 и новее."},{"q":"С какого возраста можно пользоваться?","a":"С 21 года, как требует закон Республики Казахстан. Возраст проверяется при регистрации."}]`
+7. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+   - `title`: "Другие разделы"
+8. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+9. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+10. **Sticky CTA** — block `sx/sticky-cta`, variant `app-banner`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `android-appstore-features.html`
+
+- Title tag: Возможности приложения Nyxa
+- Meta description: Линия и лайв, вывод на Kaspi, Face ID и лимиты в профиле: что умеет приложение Nyxa. 21+.
+- The only H1: Что умеет приложение Nyxa
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `android-appstore-index.html`, `android-appstore-android.html`, `android-appstore-features.html`, `android-appstore-whats-new.html`, `android-appstore-help.html`
+
+### Sections, in order
+
+1. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: true
+2. **Page title** — block `sx/page-hero`, variant `compact`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Что умеет приложение Nyxa"
+   - `answer`: "Ставки и лайв, вывод на Kaspi, вход по Face ID и лимиты в профиле — всё в одном приложении."
+   - `show_cta`: false
+3. **Screenshots** — block `sx/screenshots`, variant `carousel`, role `content`
+   Purpose: Phone screens with one-line captions. Real screenshots via image URLs; CSS-drawn screens otherwise.
+   - `eyebrow`: "В приложении"
+   - `title`: "Всё под рукой"
+   - `screens`: `[{"kind":"home","caption":"Линия на сегодня"},{"kind":"live","caption":"Лайв и счёт матча"},{"kind":"wallet","caption":"Вывод на Kaspi за ~5 минут"}]`
+4. **Text block** — block `sx/prose`, variant `article`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<h2>Ставки и лайв</h2><p>В приложении та же линия, что и на сайте: футбол, хоккей, теннис, баскетбол и киберспорт. В лайве коэффициенты обновляются в реальном времени, а над купоном показывается счёт и статистика матча. Быстрый купон позволяет сделать ставку в два касания.</p><h2>Деньги</h2><p>Пополнение и вывод через Kaspi, Halyk и банковские карты. Статус заявки на вывод виден в разделе «Кошелёк…` (HTML)
+   - `toc`: true
+5. **Features** — block `sx/features`, variant `grid`, role `content`
+   Purpose: 3-4 product reasons to join, each with an icon, a short title and one sentence.
+   - `eyebrow`: "Почему приложение"
+   - `title`: "Удобнее, чем сайт"
+   - `items`: `[{"icon":"bolt","title":"Быстрее сайта","text":"Открывается мгновенно и работает даже при слабом мобильном интернете."},{"icon":"chart","title":"Уведомления","text":"Сообщим о начале матча и об изменении коэффициентов по вашим ставкам."},{"icon":"mobile","title":"Вход по Face ID","text":"Вход по отпечатку пальца или Face ID вместо пароля."},{"icon":"gauge","title":"Лимиты в профиле","text":"Лимиты депозита и пауза в игре — в разделе «Профиль»."}]`
+6. **Download panel** — block `sx/download-panel`, variant `panel`, role `content`
+   Purpose: Final install section: all install buttons, a QR code for desktop visitors, key app facts.
+   - `title`: "Скачайте Nyxa"
+   - `text`: "Бесплатно для iPhone и Android. 21+."
+7. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+   - `title`: "Другие разделы"
+8. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+9. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+10. **Sticky CTA** — block `sx/sticky-cta`, variant `app-banner`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `android-appstore-whats-new.html`
+
+- Title tag: Что нового в приложении Nyxa: история версий
+- Meta description: Последние версии приложения Nyxa для iPhone и Android и что в них изменилось. 21+.
+- The only H1: Что нового в Nyxa
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `android-appstore-index.html`, `android-appstore-android.html`, `android-appstore-features.html`, `android-appstore-whats-new.html`, `android-appstore-help.html`
+
+### Sections, in order
+
+1. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: true
+2. **Page title** — block `sx/page-hero`, variant `compact`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Что нового в Nyxa"
+   - `answer`: "Последняя версия — 3.4.1 от 24 октября 2026 года: вход по Face ID, быстрый купон и статус вывода на Kaspi."
+   - `show_cta`: false
+3. **What's new** — block `sx/changelog`, variant `list`, role `content`
+   Purpose: Latest app release notes from the brand's app data. Shows the app is maintained.
+   - `title`: "История версий"
+   - `limit`: "0"
+4. **Text block** — block `sx/prose`, variant `article`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<h2>Как обновлять приложение</h2><p>На iPhone обновления приходят через App Store автоматически, если они включены в настройках. На Android приложение само сообщит о новой версии и предложит скачать обновлённый APK с официального сайта — устанавливать его можно поверх текущей версии, данные и вход сохраняются.</p><p>Если что-то перестало работать после обновления, сначала перезапустите приложение.…` (HTML)
+   - `toc`: true
+5. **Download panel** — block `sx/download-panel`, variant `panel`, role `content`
+   Purpose: Final install section: all install buttons, a QR code for desktop visitors, key app facts.
+   - `title`: "Скачайте Nyxa"
+   - `text`: "Бесплатно для iPhone и Android. 21+."
+6. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+   - `title`: "Другие разделы"
+7. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+8. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+9. **Sticky CTA** — block `sx/sticky-cta`, variant `app-banner`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `android-appstore-help.html`
+
+- Title tag: Помощь по приложению Nyxa: установка, вход, обновления
+- Meta description: Ответы на частые вопросы о приложении Nyxa: не устанавливается, не входит, как обновить, как задать лимиты. 21+.
+- The only H1: Помощь по приложению
+- Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
+- Links to: `android-appstore-index.html`, `android-appstore-android.html`, `android-appstore-features.html`, `android-appstore-whats-new.html`, `android-appstore-help.html`
+
+### Sections, in order
+
+1. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: true
+2. **Page title** — block `sx/page-hero`, variant `answer`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Помощь по приложению"
+   - `answer`: "Большинство проблем решается обновлением приложения или повторной установкой по официальной ссылке."
+   - `show_cta`: true
+3. **FAQ** — block `sx/faq`, variant `accordion`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: [6 items, see the review page]
+4. **Text block** — block `sx/prose`, variant `toc-side`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<h2>Если приложение работает медленно</h2><p>Закройте его полностью и откройте снова, проверьте подключение к интернету и установите последнюю версию. На старых устройствах помогает очистка кэша в настройках приложения.</p><h2>Связаться с поддержкой</h2><p>Чат поддержки доступен круглосуточно в разделе «Помощь» внутри приложения. Опишите проблему, укажите модель телефона и версию приложения — так …` (HTML)
+   - `toc`: true
+5. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+   - `title`: "Другие разделы"
+6. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+7. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+8. **Sticky CTA** — block `sx/sticky-cta`, variant `app-banner`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+_Long text and lists are shortened here (…, "[n items]"). For the full text run `php build/ai-brief.php sites/demos/<config>.json`._

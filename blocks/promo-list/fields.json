@@ -18,6 +18,27 @@
       "label": "Section title",
       "default": "",
       "instructions": "Empty = 'More promotions'."
+    },
+    {
+      "name": "include_lead",
+      "type": "true_false",
+      "label": "Include the lead offer",
+      "default": false,
+      "instructions": "For pages without a lead-offer section (e.g. a landing)."
+    },
+    {
+      "name": "types",
+      "type": "text",
+      "label": "Only these promotion types",
+      "default": "",
+      "instructions": "Comma-separated, e.g. odds_boost,cashback. Empty = all."
+    },
+    {
+      "name": "show_codes",
+      "type": "true_false",
+      "label": "Show promo codes (banners)",
+      "default": true,
+      "instructions": "Off: banners show the offer and the CTA only."
     }
   ]
 }

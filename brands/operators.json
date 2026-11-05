@@ -203,7 +203,38 @@
       },
       "age_rating": "18+",
       "app_store_id": "6400000003",
-      "changelog": []
+      "changelog": [
+        {
+          "version": "2.8.0",
+          "date": "2026-10-18",
+          "items": {
+            "pt": [
+              "Mesas ao vivo em português com nova grade de estúdios.",
+              "Status do saque via PIX em tempo real.",
+              "Login por Face ID e digital."
+            ],
+            "en": [
+              "Live tables in Portuguese with a new studio grid.",
+              "Real-time PIX withdrawal status.",
+              "Face ID and fingerprint log-in."
+            ]
+          }
+        },
+        {
+          "version": "2.7.2",
+          "date": "2026-09-22",
+          "items": {
+            "pt": [
+              "Limites de depósito por semana e por mês.",
+              "Correções de erros."
+            ],
+            "en": [
+              "Deposit limits per week and per month.",
+              "Bug fixes."
+            ]
+          }
+        }
+      ]
     }
   },
   "nyxa": {

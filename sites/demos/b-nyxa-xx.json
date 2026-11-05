@@ -31,7 +31,8 @@
     "final": "split",
     "sticky-cta": "pill",
     "showcase": "odds-board",
-    "games": "game-strip"
+    "games": "game-strip",
+    "offers": "banners"
   },
   "order": [
     "steps",
@@ -43,7 +44,8 @@
   "sections": {
     "showcase": true,
     "games": true,
-    "payments": true
+    "payments": true,
+    "offers": true
   },
   "content": {
     "hero": {
@@ -307,6 +309,11 @@
     "final": {
       "title": "Начните с Nyxa",
       "text": "Регистрация за пару минут. Играйте ответственно."
+    },
+    "offers": {
+      "title": "Акции Nyxa",
+      "types": "",
+      "show_codes": false
     }
   },
   "variations": {
@@ -390,6 +397,9 @@
           "final": {
             "title": "Займите место за столом",
             "text": "Регистрация за пару минут. Играйте ответственно."
+          },
+          "offers": {
+            "types": "cashback,tournaments"
           }
         }
       },
@@ -476,6 +486,9 @@
           "final": {
             "title": "Сделайте первую ставку",
             "text": "Регистрация за пару минут. Играйте ответственно."
+          },
+          "offers": {
+            "types": "odds_boost"
           }
         }
       }
@@ -504,7 +517,7 @@
       "ru": "Объём"
     },
     "full": {
-      "ru": "Полный"
+      "ru": "Полный (+ акции)"
     },
     "compact": {
       "ru": "Компактный"

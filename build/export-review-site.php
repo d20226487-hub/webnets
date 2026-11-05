@@ -103,7 +103,8 @@ $bar = function (array $current, string $page) use ($axes, $L, $sets, $prefix): 
         . '.vbar a{flex:none;padding:5px 10px;border-radius:999px;color:#E8EAF0;text-decoration:none;background:#1F232C;white-space:nowrap}.vbar a:hover{background:#2C3240}'
         . '.vbar a[aria-current]{background:#E8EAF0;color:#111318}'
         . '@media(max-width:640px){.vbar{gap:6px;padding:8px 12px}.vbar b{display:none}.vbar-row{width:100%}.vbar-row>span{flex:none;width:84px}}</style>'
-        . '<div class="vbar" role="region" aria-label="' . htmlspecialchars($L['_title']) . '"><b>' . htmlspecialchars($L['_title']) . '</b>' . $rows . '</div>';
+        . sx_review_phone_guard() . '<div class="vbar" role="region" aria-label="' . htmlspecialchars($L['_title']) . '"><b>' . htmlspecialchars($L['_title']) . '</b>'
+        . sx_review_vbar_toggle($L['_title'], implode(' · ', array_map(fn($o) => $L[$o] ?? $o, $current))) . $rows . '</div>';
 };
 
 require_once "$root/lib/aibrief.php";
@@ -111,7 +112,7 @@ foreach ($sets as [$c, $pages]) {
     $brief = null;
     if (count($pages) > 1) { // AI brief for the whole site in this combination, next to its pages
         $brief = $prefix($c) . 'ai-brief.txt';
-        file_put_contents("$dir/$brief", sx_ai_brief($pages));
+        file_put_contents("$dir/$brief", sx_ai_brief($pages, null, false, true));
     }
     foreach ($pages as $page => $p) {
         $html = str_replace('</body>', sx_review_nav_script() . sx_review_device_toggle($p['file'], $locale) . sx_review_devspec($p, $pages, $locale, $p['prefix'], $brief) . '</body>', $p['html']);

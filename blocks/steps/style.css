@@ -4,7 +4,8 @@
 .sx-steps__list { display: grid; gap: var(--sp-5); counter-reset: none; }
 .sx-steps__item { display: grid; gap: var(--sp-3); align-content: start; }
 .sx-steps__n { display: grid; place-items: center; width: 56px; height: 56px; border-radius: var(--r-btn); border: calc(var(--bw) * 2) solid var(--c-accent); color: var(--c-text); font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-3); }
-.sx-steps__copy { display: grid; gap: var(--sp-2); }
+.sx-steps__copy { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-2); min-width: 0; }
+.sx-steps__copy > * { overflow-wrap: break-word; hyphens: auto; } /* long words (e.g. Russian) wrap instead of widening the column */
 .sx-steps h3 { font-size: var(--fs-2); }
 .sx-steps p { color: var(--c-muted); }
 /* row: three columns joined by a rule */

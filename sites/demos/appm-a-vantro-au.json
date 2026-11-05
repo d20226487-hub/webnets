@@ -1,0 +1,473 @@
+{
+  "_demo": "Multi-page app demo built from app-a-vantro-au (home = the one-page app). Copy is placeholder; app facts are fictional (brands/operators.json).",
+  "id": "appm-a-vantro-au",
+  "type": "app-multi",
+  "angle": "official-app",
+  "brand": "vantro",
+  "market": "au",
+  "preset": "fresh-minimal",
+  "seed": "vantro-au-appm-a",
+  "prefix": "auto",
+  "urls": "pretty",
+  "links": {
+    "go": "https://vantro.example/au/app?src=appm-a",
+    "ios": "https://vantro.example/au/app/ios?src=app-a",
+    "android": "https://vantro.example/au/app/android?src=app-a",
+    "qr": "https://vantro.example/au/app?src=app-a-qr"
+  },
+  "cta_label": "Get the app",
+  "site": {
+    "name": "Vantro App Australia",
+    "url": "https://app.vantro-au.example"
+  },
+  "meta": {
+    "ios": {
+      "title": "Vantro on iPhone: install from the App Store",
+      "description": "How to install the Vantro app on iPhone: App Store link, iOS 15 or later, Face ID log-in. Free. 18+."
+    },
+    "android": {
+      "title": "Vantro on Android: install from Google Play",
+      "description": "Install the official Vantro app from Google Play on Android 8.0 or later. Free. 18+."
+    },
+    "features": {
+      "title": "What the Vantro app does",
+      "description": "Live odds and streaming, same-game multis, PayID withdrawals and limits in two taps. 18+."
+    },
+    "updates": {
+      "title": "What's new in the Vantro app",
+      "description": "Recent Vantro app versions for iPhone and Android and what changed. 18+."
+    },
+    "help": {
+      "title": "Vantro app help: install, log-in and updates",
+      "description": "Fixes for install, log-in and update problems in the Vantro app, and where to set limits. 18+."
+    },
+    "responsible": {
+      "title": "Safer gambling in the Vantro app",
+      "description": "Deposit limits, breaks and BetStop, the national self-exclusion register, from the Vantro app. 18+."
+    },
+    "home": {
+      "title": "Vantro Sports app for iPhone and Android",
+      "description": "Download the official Vantro app. Live odds, same-game multis and PayID withdrawals. Free. 18+."
+    }
+  },
+  "variants": {
+    "header": "centered",
+    "footer": "columns",
+    "sticky-cta": "app-banner",
+    "ios": {
+      "hero": "compact",
+      "download": "panel",
+      "steps": "row",
+      "info": "chips",
+      "faq": "columns",
+      "related": "cards"
+    },
+    "android": {
+      "hero": "compact",
+      "download": "panel",
+      "steps": "row",
+      "info": "chips",
+      "faq": "columns",
+      "related": "cards"
+    },
+    "features": {
+      "hero": "answer",
+      "screens": "grid",
+      "features": "bento",
+      "text": "toc-side",
+      "final": "panel",
+      "related": "list"
+    },
+    "updates": {
+      "hero": "answer",
+      "whatsnew": "list",
+      "text": "article",
+      "final": "panel",
+      "related": "cards"
+    },
+    "help": {
+      "hero": "compact",
+      "faq": "columns",
+      "text": "article",
+      "related": "list"
+    },
+    "responsible": {
+      "hero": "compact",
+      "text": "article",
+      "faq": "accordion",
+      "related": "list"
+    },
+    "home": {
+      "hero": "listing",
+      "trust": "badges",
+      "screens": "carousel",
+      "features": "grid",
+      "info": "table",
+      "whatsnew": "list",
+      "faq": "accordion",
+      "final": "panel",
+      "guides": "list"
+    }
+  },
+  "order": {
+    "home": [
+      "features",
+      "guides",
+      "info",
+      "whatsnew"
+    ]
+  },
+  "content": {
+    "ios": {
+      "hero": {
+        "title": "Vantro on iPhone",
+        "answer": "Free on the App Store. You need an iPhone with iOS 15 or later and about 142 MB of space."
+      },
+      "download": {
+        "title": "Download on the App Store",
+        "text": "Free. 18+. On a computer, scan the code with your iPhone camera."
+      },
+      "steps": {
+        "eyebrow": "Install",
+        "title": "Install on iPhone in three steps",
+        "items": [
+          {
+            "title": "Open the App Store",
+            "text": "Tap the button on this page. The publisher is Vantro Digital Pty Ltd."
+          },
+          {
+            "title": "Tap Get",
+            "text": "Confirm with Face ID or your Apple ID password. The app is free."
+          },
+          {
+            "title": "Log in",
+            "text": "Use your Vantro account and turn on Face ID log-in under Account."
+          }
+        ]
+      },
+      "info": {
+        "title": "iPhone version"
+      },
+      "faq": {
+        "items": [
+          {
+            "q": "Is the iPhone app free?",
+            "a": "Yes, it is free on the App Store."
+          },
+          {
+            "q": "Which iPhones are supported?",
+            "a": "Any iPhone with iOS 15 or later."
+          },
+          {
+            "q": "How do I know it is the official app?",
+            "a": "Use the App Store link on this page. The publisher is Vantro Digital Pty Ltd."
+          },
+          {
+            "q": "Can I use my existing account?",
+            "a": "Yes. Log in with the account you opened on the website, or create one in the app."
+          }
+        ]
+      },
+      "related": {
+        "title": "More about the app"
+      }
+    },
+    "android": {
+      "hero": {
+        "title": "Vantro on Android",
+        "answer": "Free on Google Play. You need Android 8.0 or later and about 96 MB of space."
+      },
+      "download": {
+        "title": "Get it on Google Play",
+        "text": "Free. 18+. On a computer, scan the code with your phone camera."
+      },
+      "steps": {
+        "eyebrow": "Install",
+        "title": "Install on Android in three steps",
+        "items": [
+          {
+            "title": "Open Google Play",
+            "text": "Tap the button on this page to open the official Vantro listing."
+          },
+          {
+            "title": "Tap Install",
+            "text": "The app downloads and installs automatically."
+          },
+          {
+            "title": "Log in",
+            "text": "Use your Vantro account and turn on fingerprint log-in under Account."
+          }
+        ]
+      },
+      "info": {
+        "title": "Android version"
+      },
+      "faq": {
+        "items": [
+          {
+            "q": "Is there an APK download?",
+            "a": "No. In Australia the Vantro app is only available from Google Play."
+          },
+          {
+            "q": "Which phones are supported?",
+            "a": "Android phones with Android 8.0 or later."
+          },
+          {
+            "q": "How do updates work?",
+            "a": "Google Play updates the app automatically if auto-update is on."
+          },
+          {
+            "q": "Can I use my existing account?",
+            "a": "Yes. Log in with the account you opened on the website, or create one in the app."
+          }
+        ]
+      },
+      "related": {
+        "title": "More about the app"
+      }
+    },
+    "features": {
+      "hero": {
+        "title": "What the Vantro app does",
+        "answer": "Live odds and streaming, same-game multis, PayID withdrawals in about an hour and limits in two taps."
+      },
+      "text": {
+        "html": "<h2>Betting and live</h2><p>The app has the full Vantro market: AFL, NRL, cricket, racing, basketball and more. In-play odds update in real time, selected matches stream in the app, and you can build a same-game multi from one match in a few taps.</p><h2>Money</h2><p>Deposit with PayID, BPAY or a debit card; credit cards cannot be used for online wagering in Australia. Most PayID withdrawals land in about an hour, and the Wallet tab shows the status of every request.</p><h2>Control</h2><p>Log in with Face ID or a fingerprint. Deposit limits, activity statements and breaks are under Account, then Responsible gambling, and BetStop, the national self-exclusion register, is linked from the same screen.</p>",
+        "toc": true
+      },
+      "final": {
+        "title": "Get the Vantro app",
+        "text": "Free on the App Store and Google Play. 18+."
+      },
+      "related": {
+        "title": "More about the app"
+      },
+      "screens": {
+        "eyebrow": "Inside the app",
+        "title": "Built for your phone",
+        "screens": [
+          {
+            "kind": "home",
+            "caption": "All of tonight's markets"
+          },
+          {
+            "kind": "live",
+            "caption": "Live scores and odds"
+          },
+          {
+            "kind": "slip",
+            "caption": "Multis in a few taps"
+          },
+          {
+            "kind": "wallet",
+            "caption": "PayID withdrawals in about an hour"
+          }
+        ]
+      },
+      "features": {
+        "eyebrow": "Why the app",
+        "title": "Everything from the website, faster",
+        "items": [
+          {
+            "icon": "bolt",
+            "title": "Instant odds updates",
+            "text": "Prices refresh in real time during play, with alerts when they move."
+          },
+          {
+            "icon": "play",
+            "title": "Live streaming",
+            "text": "Watch selected matches in the app while you bet in-play."
+          },
+          {
+            "icon": "mobile",
+            "title": "Face ID log-in",
+            "text": "Log in with Face ID or your fingerprint instead of a password."
+          },
+          {
+            "icon": "gauge",
+            "title": "Limits in two taps",
+            "text": "Set deposit limits or take a break from the account screen."
+          }
+        ]
+      }
+    },
+    "updates": {
+      "hero": {
+        "title": "What's new in Vantro",
+        "answer": "The latest version is 5.12.0, released on 20 October 2026."
+      },
+      "whatsnew": {
+        "title": "Version history"
+      },
+      "text": {
+        "html": "<h2>Keeping the app up to date</h2><p>Both stores update the app automatically when auto-update is on. To check your version, open Account and scroll to the bottom. If something stops working after an update, close the app completely and open it again; if that does not help, contact support from the Help screen and quote your version number.</p>"
+      },
+      "final": {
+        "title": "Get the Vantro app",
+        "text": "Free on the App Store and Google Play. 18+."
+      },
+      "related": {
+        "title": "More about the app"
+      }
+    },
+    "help": {
+      "hero": {
+        "title": "Vantro app help",
+        "answer": "Most problems are fixed by updating the app or reinstalling it from the official store link."
+      },
+      "faq": {
+        "items": [
+          {
+            "q": "The app will not install.",
+            "a": "Check you have enough space and a supported system version: iOS 15 or Android 8.0 or later."
+          },
+          {
+            "q": "I cannot log in.",
+            "a": "Reset your password from the log-in screen. Face ID and fingerprint log-in turn on after your first log-in with a password."
+          },
+          {
+            "q": "How do I update the app?",
+            "a": "Through the App Store or Google Play. Turn on auto-update to get new versions automatically."
+          },
+          {
+            "q": "Where do I set limits?",
+            "a": "Account, then Responsible gambling: deposit limits, breaks and a link to BetStop."
+          },
+          {
+            "q": "Who can use the app?",
+            "a": "Only people aged 18 or over in Australia."
+          }
+        ]
+      },
+      "text": {
+        "html": "<h2>If the app is slow</h2><p>Close it completely and reopen it, check your connection and install the latest version. Clearing the app cache in your phone settings helps on older devices.</p><h2>Contact support</h2><p>Live chat is in the app under Help, 24 hours a day. Tell us your phone model and app version so we can help faster.</p><h2>Gambling help</h2><p>If gambling is no longer fun, set a limit or take a break. Free and confidential support is available 24/7 from Gambling Help Online.</p>"
+      },
+      "related": {
+        "title": "More about the app"
+      }
+    },
+    "responsible": {
+      "hero": {
+        "title": "Safer gambling in the app",
+        "answer": "Limits, breaks and self-exclusion are in the app under Account, then Responsible gambling. BetStop covers every licensed provider at once."
+      },
+      "text": {
+        "html": "<p>Set deposit limits, take a break or self-exclude from Account, then Responsible gambling. BetStop, the national self-exclusion register, blocks you from all licensed Australian wagering providers at once.</p>"
+      },
+      "faq": {
+        "items": [
+          {
+            "q": "How do I take a break?",
+            "a": "Account, then Responsible gambling, then Take a break. Choose from 24 hours to six weeks."
+          },
+          {
+            "q": "Can I lower my deposit limit straight away?",
+            "a": "Yes. Lower limits apply immediately; raising a limit takes effect after seven days."
+          },
+          {
+            "q": "What is BetStop?",
+            "a": "The national self-exclusion register. Registering blocks you from all licensed Australian online and phone wagering providers."
+          },
+          {
+            "q": "Where can I get help?",
+            "a": "Gambling Help Online offers free, confidential support 24/7 by phone, chat and email."
+          }
+        ]
+      },
+      "related": {
+        "title": "More about the app"
+      }
+    },
+    "home": {
+      "hero": {
+        "title": "The official Vantro app for Australia",
+        "subtitle": "Bet on footy, cricket and racing, build same-game multis and withdraw to PayID, all from your phone.",
+        "screen": "home"
+      },
+      "screens": {
+        "eyebrow": "Inside the app",
+        "title": "Built for your phone",
+        "screens": [
+          {
+            "kind": "home",
+            "caption": "All of tonight's markets"
+          },
+          {
+            "kind": "live",
+            "caption": "Live scores and odds"
+          },
+          {
+            "kind": "slip",
+            "caption": "Multis in a few taps"
+          },
+          {
+            "kind": "wallet",
+            "caption": "PayID withdrawals in about an hour"
+          }
+        ]
+      },
+      "features": {
+        "eyebrow": "Why the app",
+        "title": "Everything from the website, faster",
+        "items": [
+          {
+            "icon": "bolt",
+            "title": "Instant odds updates",
+            "text": "Prices refresh in real time during play, with alerts when they move."
+          },
+          {
+            "icon": "play",
+            "title": "Live streaming",
+            "text": "Watch selected matches in the app while you bet in-play."
+          },
+          {
+            "icon": "mobile",
+            "title": "Face ID log-in",
+            "text": "Log in with Face ID or your fingerprint instead of a password."
+          },
+          {
+            "icon": "gauge",
+            "title": "Limits in two taps",
+            "text": "Set deposit limits or take a break from the account screen."
+          }
+        ]
+      },
+      "faq": {
+        "items": [
+          {
+            "q": "Is the Vantro app free?",
+            "a": "Yes. The app is free to download from the App Store and Google Play."
+          },
+          {
+            "q": "Which phones are supported?",
+            "a": "iPhone with iOS 15 or later, and Android phones with Android 8.0 or later."
+          },
+          {
+            "q": "How do I know I have the official app?",
+            "a": "Use the App Store and Google Play links on this page. The app is published by Vantro Digital Pty Ltd, the licensed operator."
+          },
+          {
+            "q": "Do I need a new account for the app?",
+            "a": "No. Log in with your existing Vantro account, or create one in the app."
+          },
+          {
+            "q": "How do I set limits in the app?",
+            "a": "Open Account, then Responsible gambling, to set deposit limits or take a break. You can also use BetStop at betstop.gov.au."
+          }
+        ]
+      },
+      "final": {
+        "title": "Get the Vantro app",
+        "text": "Free on iPhone and Android. 18+ only."
+      },
+      "guides": {
+        "title": "More about the app"
+      }
+    }
+  },
+  "sections": {
+    "android": {
+      "steps": true
+    }
+  }
+}

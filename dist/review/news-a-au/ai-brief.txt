@@ -1,16 +1,63 @@
+You are rebuilding every page of the **Paddock Wire** template, a news site (angle: newsroom). Keep the section order, the content and every rule in the brief. Write the page text exactly as given (it is in English); write code and comments in English. If something in the brief is missing or unclear, ask instead of guessing, and never invent claims, figures, offers or reviews.
+
+**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section with the listed fields as props.
+
+## Acceptance checklist
+
+- [ ] Sections appear in the order given, with the same layout variant (or an equivalent layout).
+- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
+- [ ] One H1 per page; headings do not skip levels.
+- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
+- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
+- [ ] The structured data listed for each page is present and valid.
+- [ ] Every internal link opens an existing page.
+- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
+- [ ] Every rule in the market guidance and the block rules holds on every page.
+
+---
+
 # Rebuild brief: Paddock Wire
 
-You are rebuilding every page of the **Paddock Wire** template, a news site (angle: newsroom). Keep the section order, the content and every rule below. Write the page text exactly as given (it is in English); write code and comments in English.
+_Follow the system prompt (role, target stack, acceptance checklist) together with this brief._
 
-**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section below with the listed fields as props.
+## Site type guidance
+
+- Purpose: industry or brand news and guides, with paid articles clearly labelled.
+- Paid (PR) articles show the advertising label in every list and above the headline, name the sponsor and carry a disclosure box; their brand links are rel="sponsored nofollow".
+- Sponsors cannot pay for or edit news and guides, or remove the advertising label.
+- Articles show author, date and, when corrected, the update date.
+- Article pages are generated from the article files; lists paginate instead of growing without limit.
+
+## Market guidance
+
+### Market context
+
+- Market: Australia (`au`), languages en, currency AUD
+- Minimum age: 18+
+- Products allowed: sports; not allowed: casino
+- Promotions allowed: none; restricted: welcome_bonus, deposit_bonus, free_bets, promo_code
+- Payment methods: payid, bpay, visa-debit, mastercard-debit, apple-pay
+- App install paths: iOS app-store, Android play
+- Notes: Online casino is prohibited under the Interactive Gambling Act. Credit cards cannot be used for online wagering (from June 2024). Inducement advertising is restricted in several states.
+
+### Mandated texts (from the market settings)
+
+- Age notice: Gambling is for adults 18+ only.
+- Self-exclusion: Exclude yourself from all licensed online wagering with BetStop, the National Self-Exclusion Register: betstop.gov.au
+- Helpline: For free and confidential support call 1800 858 858 or visit gamblinghelponline.org.au
+
+### Rules you must not break
+
+- Every page opens with an age gate (18+) before any gambling content.
+- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- Every page links BetStop, the national self-exclusion register, and the helpline.
+- Credit cards are never shown as a payment method.
+- No online casino content anywhere (Interactive Gambling Act).
 
 ## Site context
 
 - Site: Paddock Wire (https://paddockwire.example)
-- Market: Australia (`au`), language `en`, text direction `ltr`, currency AUD
-- Minimum age: 18+
-- Products allowed: sports betting yes, online casino **no**
-- Market note: Online casino is prohibited under the Interactive Gambling Act. Credit cards cannot be used for online wagering (from June 2024). Inducement advertising is restricted in several states.
+- Site type: news, angle newsroom; language `en`, text direction `ltr`
 - Pages (17):
   - `index.html` — Paddock Wire: Australian betting news and guides
   - `news-credit-card-ban-what-changed.html` — Credit card ban: what changed for online betting accounts | Paddock Wire
@@ -96,11 +143,8 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
 
 Layout is mobile-first: it must work from 375px to 1440px wide.
 
-## Rules you must not break
+## Block rules
 
-- Every page opens with an age gate (18+) before any gambling content.
-- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
-- No casino content anywhere: online casino is not allowed in this market.
 - Responsible gambling: All copy comes from markets/<id>.json; never type compliance text into a page.
 - Responsible gambling: Every page renders a 'panel' (usually inside the footer). 'strip' is an optional top-of-page addition.
 - Responsible gambling: Where a market lists several mandated taglines, one is chosen per site by seed.
@@ -743,17 +787,5 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `preview`: false
 9. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
    Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
-
-## Acceptance checklist
-
-- [ ] Sections appear in the order above, with the same layout variant (or an equivalent layout).
-- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
-- [ ] One H1 per page; headings do not skip levels.
-- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
-- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
-- [ ] The structured data listed for each page is present and valid.
-- [ ] Every internal link opens an existing page.
-- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
-- [ ] Every rule in "Rules you must not break" holds on every page.
 
 _Long text and lists are shortened here (…, "[n items]"). For the full text run `php build/ai-brief.php sites/demos/<config>.json`._

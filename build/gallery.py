@@ -41,7 +41,7 @@ TYPES = [
   ('promo', 3, ('One-page bonuses and promo codes', 'Бонусы и промокоды (лендинг)'), ('Current offers with codes and the terms in plain words.', 'Актуальные предложения с кодами и условиями простыми словами.'), 'demo_market'),
   ('vendor', 4, ('One-page vendor overview', 'Обзор провайдера (лендинг)'), ('One game studio as a brand carries it: new and popular games, honest RTP.', 'Одна игровая студия у конкретного бренда: новые и популярные игры, честный RTP.'), 'ready'),
   ('satellite', 5, ('Multi-page brand satellite', 'Многостраничный сателлит бренда'), ('Home plus service pages for sign-up, payments, app and safer gambling.', 'Главная и сервисные страницы: регистрация, платежи, приложение, ответственная игра.'), 'ready'),
-  ('app-multi', 6, ('Multi-page app download', 'Многостраничный сайт приложения'), ('Skipped for now. Would combine the app blocks with the multi-page plumbing.', 'Пока пропущен. Объединит блоки приложения и многостраничную основу.'), 'none'),
+  ('app-multi', 6, ('Multi-page app download', 'Многостраничный сайт приложения'), ('The app page as home, plus iPhone, Android, features, "what is new" and help pages. Same store looks as the one-page app.', 'Страница приложения как главная, плюс разделы iPhone, Android, возможности, что нового и помощь. Те же стили магазинов, что у одностраничной версии.'), 'ready'),
   ('reviews', 7, ('Brand review site', 'Сайт отзывов о бренде'), ('Player reviews of one brand, with computed scores and topic filters.', 'Отзывы игроков об одном бренде с рассчитанными оценками и фильтрами по темам.'), 'ready'),
   ('casinos', 8, ('Multi-brand casino reviews', 'Обзоры нескольких казино'), ('Ranked, scored reviews of licensed casinos, with a comparison table.', 'Рейтинг и обзоры лицензированных казино с таблицей сравнения.'), 'ready'),
   ('news', 9, ('Gambling news with PR', 'Новости гемблинга и PR-статьи'), ('Industry news and guides, with paid articles labelled Sponsored.', 'Новости отрасли и гайды; платные статьи помечены как реклама.'), 'ready'),
@@ -54,6 +54,9 @@ def t(en, ru):
     """Both languages in the page; CSS shows the one chosen by the language switch."""
     if en == ru: return esc(en)
     return f'<span data-l="en">{esc(en)}</span><span data-l="ru">{esc(ru)}</span>'
+
+# local gallery only: link to the AI brief settings page (build/settings.php via build/local-router.php)
+SETTINGS_LINK = f'<p class="lede"><a href="/settings/" style="font-weight:600">{t("AI brief settings", "Настройки брифа для ИИ")} →</a></p>' if LOCAL else ''
 
 demos = []
 skipped = []
@@ -243,6 +246,7 @@ footer p {{ color: var(--muted); font-size: 13px; max-width: 72ch; }}
     <h1>{t("Every site type, every demo", "Все типы сайтов, все демо")}</h1>
     <p class="lede">{t("Home pages of all demo sites built from the shared block library, shown at desktop and phone width. Brands, numbers and reviews are fictional. Open a demo to click through its pages.",
                        "Главные страницы всех демо-сайтов, собранных из общей библиотеки блоков, на компьютере и на телефоне. Бренды, цифры и отзывы вымышлены. Откройте демо, чтобы пройтись по его страницам.")}</p>
+    {SETTINGS_LINK}
     <ul class="stats">
       <li><b>{n_built}</b><span>{t(f"of {n_types} site types built", f"из {n_types} типов сайтов готово")}</span></li>
       <li><b>{n_demos}</b><span>{t("demo sites", ru_plural(n_demos, "демо-сайт", "демо-сайта", "демо-сайтов"))}</span></li>

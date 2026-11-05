@@ -43,6 +43,15 @@
   },
   "sections": [
     {
+      "id": "offers",
+      "block": "promo-list",
+      "zone": "top",
+      "rule": "optional",
+      "props": {
+        "include_lead": true
+      }
+    },
+    {
       "id": "hero",
       "block": "hero",
       "zone": "top",

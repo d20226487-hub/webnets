@@ -2055,5 +2055,65 @@
     "ru": "~{n} ч",
     "pt": "~{n} h",
     "kk": "~{n} сағ"
+  },
+  "nav.ios": {
+    "en": "iPhone",
+    "ru": "iPhone",
+    "kk": "iPhone",
+    "pt": "iPhone"
+  },
+  "nav.android": {
+    "en": "Android",
+    "ru": "Android",
+    "kk": "Android",
+    "pt": "Android"
+  },
+  "nav.features": {
+    "en": "Features",
+    "ru": "Возможности",
+    "kk": "Мүмкіндіктер",
+    "pt": "Recursos"
+  },
+  "nav.updates": {
+    "en": "What's new",
+    "ru": "Что нового",
+    "kk": "Не жаңа",
+    "pt": "Novidades"
+  },
+  "nav.help": {
+    "en": "Help",
+    "ru": "Помощь",
+    "kk": "Көмек",
+    "pt": "Ajuda"
+  },
+  "page.blurb.ios": {
+    "en": "Install from the App Store and what your iPhone needs.",
+    "ru": "Установка из App Store и требования к iPhone.",
+    "kk": "App Store-дан орнату және iPhone талаптары.",
+    "pt": "Instale pela App Store e veja o que o iPhone precisa."
+  },
+  "page.blurb.android": {
+    "en": "Install on Android step by step, safely.",
+    "ru": "Безопасная установка на Android по шагам.",
+    "kk": "Android-ға қадам бойынша қауіпсіз орнату.",
+    "pt": "Instale no Android passo a passo, com segurança."
+  },
+  "page.blurb.features": {
+    "en": "What you can do in the app, screen by screen.",
+    "ru": "Что умеет приложение — экран за экраном.",
+    "kk": "Қосымша не істей алады — экран бойынша.",
+    "pt": "O que dá para fazer no app, tela a tela."
+  },
+  "page.blurb.updates": {
+    "en": "Recent versions and what changed in each.",
+    "ru": "Последние версии и что в них изменилось.",
+    "kk": "Соңғы нұсқалар және өзгерістер.",
+    "pt": "Versões recentes e o que mudou em cada uma."
+  },
+  "page.blurb.help": {
+    "en": "Answers to install, log-in and update problems.",
+    "ru": "Ответы на вопросы об установке, входе и обновлениях.",
+    "kk": "Орнату, кіру және жаңарту туралы жауаптар.",
+    "pt": "Respostas sobre instalação, login e atualizações."
   }
 }
