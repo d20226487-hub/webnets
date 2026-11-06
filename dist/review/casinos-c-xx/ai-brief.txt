@@ -78,23 +78,23 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
 
 ```css
 :root {
-  --c-bg: #FFF7E6;
-  --c-surface: #FFFFFF;
-  --c-surface-2: #FFEFCC;
-  --c-text: #1F1A0E;
-  --c-muted: #6B5E3E;
-  --c-border: #F0DFB5;
-  --c-accent: #007A40;
-  --c-on-accent: #FFFFFF;
-  --c-accent-2: #FFB800;
-  --c-success: #1F9D55;
-  --c-warning: #D98B00;
-  --c-danger: #D93636;
-  --c-hero-text: #1F1A0E;
-  --c-hero-muted: #5E5236;
-  --c-hero-accent: #007A40;
-  --c-hero-on-accent: #FFFFFF;
-  --hero-bg: linear-gradient(135deg,#FFE38A 0%,#FFF7E6 55%);
+  --c-bg: #fff7e6;
+  --c-surface: #ffffff;
+  --c-surface-2: #ffefcc;
+  --c-text: #1f1a0e;
+  --c-muted: #6b5e3e;
+  --c-border: #f0dfb5;
+  --c-accent: #007a40;
+  --c-on-accent: #ffffff;
+  --c-accent-2: #ffb800;
+  --c-success: #1f9d55;
+  --c-warning: #d98b00;
+  --c-danger: #d93636;
+  --c-hero-text: #1f1a0e;
+  --c-hero-muted: #5e5236;
+  --c-hero-accent: #007a40;
+  --c-hero-on-accent: #ffffff;
+  --hero-bg: linear-gradient(135deg,#ffe38a 0%,#fff7e6 55%);
   --f-display: "Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --f-body: "Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --f-mono: "Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
@@ -127,9 +127,9 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
   --sp-7: 48px;
   --sp-8: 64px;
   --sp-9: 96px;
-  --card-bg: #FFFFFF;
+  --card-bg: #ffffff;
   --card-border: transparent;
-  --card-shadow: 0 8px 24px rgba(120,80,0,.12);
+  --card-shadow: 0 8px 24px rgba(120,80,0,0.12);
   --surface-style: elevated;
 }
 ```
@@ -170,14 +170,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `index.html`
 
 - Title tag: Best online casinos in Demoland: 2026 ranking
-- Meta description: Five licensed casinos tested for payouts, games, live tables, app, support and bonus terms. Every score has a written reason. 18+.
 - The only H1: Best online casinos, every score explained
 - Structured data (JSON-LD): WebPage, FAQPage, WebSite
 - Links to: `index.html`, `compare.html`, `fast-withdrawals.html`, `live-casino.html`, `how-we-rate.html`, `reviews-marlowe.html`, `reviews-nyxa.html`, `reviews-verazul.html`, `reviews-lunaro.html`, `reviews-cobaltio.html`
 
 ### Sections, in order
 
-1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
 2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
@@ -209,7 +208,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-9. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+9. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -219,14 +218,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `reviews-marlowe.html`
 
 - Title tag: Marlowe Club review: scores, bonus terms and payouts
-- Meta description: Our Marlowe Club review: a score per criterion with the reason, pros and cons, payout times and key facts. 18+.
 - The only H1: Marlowe Club review
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `index.html`, `compare.html`, `fast-withdrawals.html`, `live-casino.html`, `how-we-rate.html`, `reviews-nyxa.html`, `reviews-verazul.html`, `reviews-lunaro.html`, `reviews-cobaltio.html`
 
 ### Sections, in order
 
-1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
 2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
@@ -261,7 +259,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-11. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+11. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -271,14 +269,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `reviews-nyxa.html`
 
 - Title tag: Nyxa review: scores, bonus terms and payouts
-- Meta description: Our Nyxa review: a score per criterion with the reason, pros and cons, payout times and key facts. 18+.
 - The only H1: Nyxa review
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `index.html`, `compare.html`, `fast-withdrawals.html`, `live-casino.html`, `how-we-rate.html`, `reviews-marlowe.html`, `reviews-verazul.html`, `reviews-lunaro.html`, `reviews-cobaltio.html`
 
 ### Sections, in order
 
-1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
 2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
@@ -313,7 +310,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-11. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+11. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -323,14 +320,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `reviews-verazul.html`
 
 - Title tag: Verazul review: scores, bonus terms and payouts
-- Meta description: Our Verazul review: a score per criterion with the reason, pros and cons, payout times and key facts. 18+.
 - The only H1: Verazul review
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `index.html`, `compare.html`, `fast-withdrawals.html`, `live-casino.html`, `how-we-rate.html`, `reviews-marlowe.html`, `reviews-nyxa.html`, `reviews-lunaro.html`, `reviews-cobaltio.html`
 
 ### Sections, in order
 
-1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
 2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
@@ -365,7 +361,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-11. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+11. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -375,14 +371,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `reviews-lunaro.html`
 
 - Title tag: Lunaro review: scores, bonus terms and payouts
-- Meta description: Our Lunaro review: a score per criterion with the reason, pros and cons, payout times and key facts. 18+.
 - The only H1: Lunaro review
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `index.html`, `compare.html`, `fast-withdrawals.html`, `live-casino.html`, `how-we-rate.html`, `reviews-marlowe.html`, `reviews-nyxa.html`, `reviews-verazul.html`, `reviews-cobaltio.html`
 
 ### Sections, in order
 
-1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
 2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
@@ -417,7 +412,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-11. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+11. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -427,14 +422,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `reviews-cobaltio.html`
 
 - Title tag: Cobaltio review: scores, bonus terms and payouts
-- Meta description: Our Cobaltio review: a score per criterion with the reason, pros and cons, payout times and key facts. 18+.
 - The only H1: Cobaltio review
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `index.html`, `compare.html`, `fast-withdrawals.html`, `live-casino.html`, `how-we-rate.html`, `reviews-marlowe.html`, `reviews-nyxa.html`, `reviews-verazul.html`, `reviews-lunaro.html`
 
 ### Sections, in order
 
-1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
 2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
@@ -469,7 +463,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-11. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+11. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -479,14 +473,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `compare.html`
 
 - Title tag: Compare online casinos in Demoland
-- Meta description: Five casinos side by side: overall score, payouts, games, live casino, app, support and bonuses. 18+.
 - The only H1: Compare casinos in Demoland
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `index.html`, `compare.html`, `fast-withdrawals.html`, `live-casino.html`, `how-we-rate.html`, `reviews-marlowe.html`, `reviews-nyxa.html`, `reviews-verazul.html`, `reviews-lunaro.html`, `reviews-cobaltio.html`
 
 ### Sections, in order
 
-1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
 2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
@@ -506,7 +499,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-7. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+7. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -516,14 +509,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `fast-withdrawals.html`
 
 - Title tag: Fastest-paying casinos in Demoland
-- Meta description: Casinos ranked by payout score, from the real times of our test withdrawals. 18+.
 - The only H1: Fastest-paying casinos
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `index.html`, `compare.html`, `fast-withdrawals.html`, `live-casino.html`, `how-we-rate.html`, `reviews-nyxa.html`, `reviews-verazul.html`, `reviews-lunaro.html`, `reviews-marlowe.html`, `reviews-cobaltio.html`
 
 ### Sections, in order
 
-1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
 2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
@@ -552,7 +544,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-8. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+8. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -562,14 +554,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `live-casino.html`
 
 - Title tag: Best live casinos in Demoland
-- Meta description: Casinos ranked by live-casino score: tables open across the day, dealers and stream quality. 18+.
 - The only H1: Best live casinos
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `index.html`, `compare.html`, `fast-withdrawals.html`, `live-casino.html`, `how-we-rate.html`, `reviews-lunaro.html`, `reviews-verazul.html`, `reviews-marlowe.html`, `reviews-nyxa.html`, `reviews-cobaltio.html`
 
 ### Sections, in order
 
-1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
 2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
@@ -598,7 +589,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-8. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+8. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -608,14 +599,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `how-we-rate.html`
 
 - Title tag: How we score casinos
-- Meta description: Our seven criteria and weights, how we test, how often, and how Casino Scout makes money.
 - The only H1: How we score casinos
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `index.html`, `compare.html`, `fast-withdrawals.html`, `live-casino.html`, `how-we-rate.html`
 
 ### Sections, in order
 
-1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
 2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
@@ -643,7 +633,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-9. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+9. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false

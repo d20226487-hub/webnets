@@ -45,6 +45,7 @@ function sx_review_devspec(array $page, array $pages, string $locale, string $pr
         'l' => $locale,
         'file' => $page['file'],
         'prefix' => $prefix,
+        'dialect' => $page['dialect'] ?? null, // code dialect of this site (lib/dialect.php)
         'blocks' => $blocks,
         'items' => array_map(fn($d) => ['p' => array_map('sx_dev_trim', $d['p'])] + $d, $page['dev'] ?? []),
         'brief' => sx_ai_brief($pages, $page['file']),

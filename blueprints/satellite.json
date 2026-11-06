@@ -9,9 +9,7 @@
     "top": [
       {
         "block": "compliance-bar",
-        "props": {
-          "variant": "strip"
-        },
+        "variants": ["strip", "ribbon"],
         "when": "market.strip"
       }
     ],
@@ -29,7 +27,8 @@
       "block": "footer",
       "variants": [
         "compact",
-        "columns"
+        "columns",
+        "centered"
       ]
     },
     "overlay": [

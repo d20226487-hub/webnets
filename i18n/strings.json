@@ -1516,6 +1516,12 @@
     "kk": "{brand}-ға біздің сілтемелер арқылы тіркелсеңіз, біз комиссия аламыз. Бұл қандай пікірлер жарияланатынына әсер етпейді.",
     "pt": "Recebemos comissão se você se cadastrar na {brand} pelos nossos links. Isso nunca muda quais avaliações publicamos."
   },
+  "disclosure.tag": {
+    "en": "Partner links",
+    "ru": "Партнёрские ссылки",
+    "kk": "Серіктес сілтемелері",
+    "pt": "Links de parceiros"
+  },
   "reviews.policy_link": {
     "en": "How we moderate",
     "ru": "Как мы модерируем",

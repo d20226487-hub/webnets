@@ -6,9 +6,9 @@
   "requires_provider": true,
   "defaults": { "cta_label": "vendor.lobby", "cta_short": "vendor.play" },
   "frame": {
-    "top": [{ "block": "compliance-bar", "props": { "variant": "strip" }, "when": "market.strip" }],
+    "top": [{ "block": "compliance-bar", "variants": ["strip", "ribbon"], "when": "market.strip" }],
     "header": { "block": "header", "variants": ["minimal", "minimal-split"], "props": { "sticky": false } },
-    "footer": { "block": "footer", "variants": ["compact"] },
+    "footer": { "block": "footer", "variants": ["compact", "centered"] },
     "overlay": [{ "block": "age-gate" }, { "block": "sticky-cta", "variants": ["bar", "pill"] }]
   },
   "sections": [

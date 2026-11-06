@@ -1,0 +1,8 @@
+/* centered: one centred column; legal links and rights at the bottom */
+.sx-footer--centered .sx-footer__inner { justify-items: center; gap: var(--sp-5); padding-block: var(--sp-7) var(--sp-5); text-align: center; }
+.sx-footer__brand { display: grid; justify-items: center; gap: var(--sp-2); }
+.sx-footer--centered .sx-footer__about { max-width: 48ch; }
+.sx-footer--centered .sx-footer__site ul, .sx-footer--centered .sx-footer__links { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--sp-2) var(--sp-5); }
+.sx-footer--centered .sx-footer__pay { justify-content: center; margin: 0; }
+.sx-footer--centered .sx-compliance { width: 100%; text-align: start; }
+.sx-footer__base { display: grid; justify-items: center; gap: var(--sp-3); width: 100%; padding-block-start: var(--sp-4); border-block-start: var(--bw) solid var(--c-border); }

@@ -7,9 +7,11 @@ For every site type it compares
 Measures per pair (0% = identical, 100% = nothing in common):
   visual     share of the desktop first screen (1280x800) that visibly changes: the screenshot is cut into 8x8 px
              cells (at half scale) and a cell counts when its average colour moves by more than 40 (RGB distance)
-  code       mean of css and markup, with the per-site class prefix normalised (renamed classes alone do not count)
+  code       mean of css and markup, normalised so trivial rewrites do not count: per-site class prefix, whitespace,
+             declaration order inside a rule, attribute order inside a tag
     css      share of the page's CSS rules that differ (one rule = one item)
     markup   share of 6-tag sequences of the HTML (tags and attributes, text removed) that differ
+  skeleton   share of 6-tag sequences of tag names only (no attributes): the DOM tree, which code dialects do not change
   structure  share of blocks (block:layout, from the developer-panel data) that differ
   text       share of 3-word sequences of the visible text that differ
 Review-only additions (switcher bar, developer panel, phone toggle) and the age gate are left out.
@@ -37,7 +39,7 @@ only = set(args)
 work = os.path.join(root, 'dist', 'qa', 'variation-diff')
 os.makedirs(work, exist_ok=True)
 profiles = tempfile.mkdtemp(prefix='sxvd-')  # throwaway Chrome profiles, short path
-HIDE = ('<style>.vbar,#sx-devtoggle,#sx-skeltoggle,#sx-devview,[class*="agegate"],[class*="age-gate"]{display:none!important}'
+HIDE = ('<style>.vbar,#sx-devtoggle,#sx-skeltoggle,#sx-devview,[class*="agegate"],[class*="age-gate"],[role="dialog"][id^="age-"]{display:none!important}'
         'html,body{overflow:visible!important}</style>')
 PARALLEL = 6
 
@@ -147,10 +149,17 @@ def page_parts(path):
     if dev.get('prefix'):
         c = c.replace(dev['prefix'], 'P-')
     css = ' '.join(re.findall(r'<style[^>]*>(.*?)</style>', c, re.S))
-    rules = set(r.strip() for r in re.findall(r'[^{}]+\{[^{}]*\}', re.sub(r'@media[^{]+\{', '', css)) if r.strip())
-    toks = [re.sub(r'"[^"]{40,}"', '"…"', x) for x in re.findall(r'<[^>]+>', re.sub(r'<style.*?</style>|<script.*?</script>', ' ', c, flags=re.S))]
+    rules = set()
+    for sel, body in re.findall(r'([^{}]+)\{([^{}]*)\}', re.sub(r'@media[^{]+\{', '', css)):
+        decls = sorted(x.strip() for x in re.split(r';(?![^(]*\))', body) if x.strip())  # declaration order does not count
+        rules.add(re.sub(r'\s+', ' ', sel.strip()) + '{' + ';'.join(decls) + '}')
+    tags = re.findall(r'<(/?)([a-zA-Z][\w:-]*)([^>]*)>', re.sub(r'<style.*?</style>|<script.*?</script>', ' ', c, flags=re.S))
+    toks = ['<' + sl + n + ' ' + ' '.join(sorted(re.sub(r'"[^"]{40,}"', '"…"', a) for a in re.findall(r'[^\s=]+(?:="[^"]*")?', at))) + '>'
+            for sl, n, at in tags]  # attribute order does not count
     markup = set(tuple(toks[i:i + 6]) for i in range(max(0, len(toks) - 5)))
-    return blocks, text, rules, markup
+    names = [sl + n.lower() for sl, n, _ in tags]
+    skeleton = set(tuple(names[i:i + 6]) for i in range(max(0, len(names) - 5)))
+    return blocks, text, rules, markup, skeleton
 
 
 def chrome_cmd(png, src, prof):
@@ -199,12 +208,12 @@ def dist_sets(a, b):
 
 
 def compare(x, y):
-    (ca, ba, ta, ra, ma), (cb, bb, tb, rb, mb) = x, y
+    (ca, ba, ta, ra, ma, ka), (cb, bb, tb, rb, mb, kb) = x, y
     vis = sum(1 for p, q in zip(ca, cb) if sum((p[i] - q[i]) ** 2 for i in range(3)) ** .5 > 40) / max(1, min(len(ca), len(cb)))
     A, B = Counter(ba), Counter(bb)
     st = 1 - (sum((A & B).values()) / sum((A | B).values()) if A | B else 1)
     css, mk = dist_sets(ra, rb), dist_sets(ma, mb)
-    return {'visual': vis, 'code': (css + mk) / 2, 'css': css, 'markup': mk, 'structure': st, 'text': dist_sets(ta, tb)}
+    return {'visual': vis, 'code': (css + mk) / 2, 'css': css, 'markup': mk, 'skeleton': dist_sets(ka, kb), 'structure': st, 'text': dist_sets(ta, tb)}
 
 
 def distinct(n, ok):
@@ -218,7 +227,7 @@ def distinct(n, ok):
     return len(best)
 
 
-KEYS = ('visual', 'code', 'css', 'markup', 'structure', 'text')
+KEYS = ('visual', 'code', 'css', 'markup', 'skeleton', 'structure', 'text')
 pct = lambda v: round(100 * v)
 report = {'threshold': threshold, 'types': {}}
 rows = []
@@ -250,16 +259,16 @@ for t, ids in demos_by_type().items():
             r[f'distinct_{k}'] = distinct(len(hs), lambda a, b, k=k: M[(min(a, b), max(a, b))][k] * 100 >= threshold)
         rec['demos'][d] = r
         s = rec['sites'] or {}
-        rows.append(f"| {t} | {s.get('visual', '–')}% · {s.get('code', '–')}% | {d} | {r['versions']} | "
+        rows.append(f"| {t} | {s.get('visual', '–')}% · {s.get('code', '–')}% · {s.get('skeleton', '–')}% | {d} | {r['versions']} | "
                     f"{r['mean']['visual']}% · {r['mean']['code']}% | {r['range']['visual'][0]}–{r['range']['visual'][1]}% · "
                     f"{r['range']['code'][0]}–{r['range']['code'][1]}% | {r['distinct_visual']} · {r['distinct_code']} |")
     report['types'][t] = rec
 
 json.dump(report, open(os.path.join(root, 'dist', 'qa', 'variation-diff.json'), 'w', encoding='utf-8'), indent=1)
 md = ['# Variation difference', '',
-      'Visual = share of the desktop first screen that visibly changes. Code = HTML markup and CSS rules that differ (class prefix normalised).',
+      'Visual = share of the desktop first screen that visibly changes. Code = HTML markup and CSS rules that differ (class prefix, whitespace, declaration and attribute order normalised). Skeleton = DOM tree (tag names only).',
       f'Distinct = largest set of versions in which every pair differs by at least {threshold}%.', '',
-      '| Type | Separate sites: visual · code | Switcher demo | Versions | Mean: visual · code | Range: visual · code | Distinct: visual · code |',
+      '| Type | Separate sites: visual · code · skeleton | Switcher demo | Versions | Mean: visual · code | Range: visual · code | Distinct: visual · code |',
       '|---|---|---|---|---|---|---|'] + rows
 open(os.path.join(root, 'dist', 'qa', 'variation-diff.md'), 'w', encoding='utf-8', newline='\n').write('\n'.join(md) + '\n')
 print('\n'.join(md))

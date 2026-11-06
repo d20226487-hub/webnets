@@ -81,59 +81,59 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
 
 ```css
 :root {
-  --c-bg: #071210;
-  --c-surface: #0C1C19;
-  --c-surface-2: #12271F;
-  --c-text: #DFF7EF;
-  --c-muted: #86A99D;
-  --c-border: #1D3A33;
-  --c-accent: #2BF5C4;
-  --c-on-accent: #04201A;
-  --c-accent-2: #F5D02B;
-  --c-success: #1F9D55;
-  --c-warning: #D98B00;
-  --c-danger: #D93636;
-  --c-hero-text: #DFF7EF;
-  --c-hero-muted: #9CC2B5;
-  --c-hero-accent: #2BF5C4;
-  --c-hero-on-accent: #04201A;
-  --hero-bg: linear-gradient(rgba(43,245,196,.07) 1px,transparent 1px) 0 0 / 28px 28px,linear-gradient(90deg,rgba(43,245,196,.07) 1px,transparent 1px) 0 0 / 28px 28px,#071210;
-  --f-display: "Tektur",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-body: "Geologica",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-mono: "JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
-  --fw-heading: 700;
-  --fw-body: 400;
-  --fw-strong: 500;
-  --tt-heading: uppercase;
-  --ls-heading: 0.02em;
-  --lh-body: 1.55;
-  --lh-heading: 1.08;
-  --r-sm: 2px;
-  --r: 6px;
-  --r-lg: 10px;
-  --r-btn: 6px;
-  --bw: 1px;
-  --density: 0.95;
-  --fs-0: 12px;
-  --fs-1: 15px;
-  --fs-2: 23.44px;
-  --fs-3: clamp(19.92px,15.9px + 1.116vw,29.3px);
-  --fs-4: clamp(24.9px,19.88px + 1.395vw,36.62px);
-  --fs-5: clamp(31.13px,24.85px + 1.744vw,45.78px);
-  --fs-6: clamp(38.91px,31.06px + 2.18vw,57.22px);
-  --sp-1: 3.8px;
-  --sp-2: 7.6px;
-  --sp-3: 11.4px;
-  --sp-4: 15.2px;
-  --sp-5: 22.8px;
-  --sp-6: 30.4px;
-  --sp-7: 45.6px;
-  --sp-8: 60.8px;
-  --sp-9: 91.2px;
-  --card-bg: #0C1C19;
-  --card-border: #1D3A33;
-  --card-shadow: none;
   --surface-style: outlined;
+  --card-shadow: none;
+  --card-border: rgb(29 58 51);
+  --card-bg: rgb(12 28 25);
+  --sp-9: 91.2px;
+  --sp-8: 60.8px;
+  --sp-7: 45.6px;
+  --sp-6: 30.4px;
+  --sp-5: 22.8px;
+  --sp-4: 15.2px;
+  --sp-3: 11.4px;
+  --sp-2: 7.6px;
+  --sp-1: 3.8px;
+  --fs-6: clamp(38.91px,31.06px + 2.18vw,57.22px);
+  --fs-5: clamp(31.13px,24.85px + 1.744vw,45.78px);
+  --fs-4: clamp(24.9px,19.88px + 1.395vw,36.62px);
+  --fs-3: clamp(19.92px,15.9px + 1.116vw,29.3px);
+  --fs-2: 23.44px;
+  --fs-1: 15px;
+  --fs-0: 12px;
+  --density: .95;
+  --bw: 1px;
+  --r-btn: 6px;
+  --r-lg: 10px;
+  --r: 6px;
+  --r-sm: 2px;
+  --lh-heading: 1.08;
+  --lh-body: 1.55;
+  --ls-heading: .02em;
+  --tt-heading: uppercase;
+  --fw-strong: 500;
+  --fw-body: 400;
+  --fw-heading: 700;
+  --f-mono: "JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+  --f-body: "Geologica",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-display: "Tektur",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --hero-bg: linear-gradient(rgba(43,245,196,.07) 1px,transparent 1px) 0 0 / 28px 28px,linear-gradient(90deg,rgba(43,245,196,.07) 1px,transparent 1px) 0 0 / 28px 28px,rgb(7 18 16);
+  --c-hero-on-accent: rgb(4 32 26);
+  --c-hero-accent: rgb(43 245 196);
+  --c-hero-muted: rgb(156 194 181);
+  --c-hero-text: rgb(223 247 239);
+  --c-danger: rgb(217 54 54);
+  --c-warning: rgb(217 139 0);
+  --c-success: rgb(31 157 85);
+  --c-accent-2: rgb(245 208 43);
+  --c-on-accent: rgb(4 32 26);
+  --c-accent: rgb(43 245 196);
+  --c-border: rgb(29 58 51);
+  --c-muted: rgb(134 169 157);
+  --c-text: rgb(223 247 239);
+  --c-surface-2: rgb(18 39 31);
+  --c-surface: rgb(12 28 25);
+  --c-bg: rgb(7 18 16);
 }
 ```
 
@@ -195,7 +195,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+6. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -225,7 +225,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-5. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+5. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -255,7 +255,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-5. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+5. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -285,7 +285,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-5. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+5. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -315,7 +315,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-5. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+5. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -345,7 +345,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-5. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+5. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -375,7 +375,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-5. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+5. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -405,7 +405,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-5. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+5. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -435,7 +435,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-5. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+5. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -472,7 +472,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-5. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+5. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -509,7 +509,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-5. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+5. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -547,7 +547,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-5. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+5. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -586,7 +586,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-7. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+7. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false

@@ -75,59 +75,59 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
 
 ```css
 :root {
-  --c-bg: #FFFFFF;
-  --c-surface: #F5F7FB;
-  --c-surface-2: #EBEFF7;
-  --c-text: #0E1525;
-  --c-muted: #556079;
-  --c-border: #E2E7F0;
-  --c-accent: #2457FF;
-  --c-on-accent: #FFFFFF;
-  --c-accent-2: #00C2A8;
-  --c-success: #1F9D55;
-  --c-warning: #D98B00;
-  --c-danger: #D93636;
-  --c-hero-text: #0E1525;
-  --c-hero-muted: #556079;
-  --c-hero-accent: #2457FF;
-  --c-hero-on-accent: #FFFFFF;
-  --hero-bg: linear-gradient(180deg,#EEF2FF 0%,#FFFFFF 100%);
-  --f-display: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-body: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-mono: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --fw-heading: 800;
-  --fw-body: 400;
-  --fw-strong: 500;
-  --tt-heading: none;
-  --ls-heading: -0.03em;
-  --lh-body: 1.6;
-  --lh-heading: 1.15;
-  --r-sm: 8px;
-  --r: 12px;
-  --r-lg: 20px;
-  --r-btn: 12px;
-  --bw: 1px;
-  --density: 1.15;
-  --fs-0: 12.8px;
-  --fs-1: 16px;
-  --fs-2: 25px;
-  --fs-3: clamp(21.25px,16.96px + 1.19vw,31.25px);
-  --fs-4: clamp(26.56px,21.21px + 1.488vw,39.06px);
-  --fs-5: clamp(33.2px,26.51px + 1.86vw,48.83px);
-  --fs-6: clamp(41.5px,33.13px + 2.325vw,61.04px);
-  --sp-1: 4.6px;
-  --sp-2: 9.2px;
-  --sp-3: 13.8px;
-  --sp-4: 18.4px;
-  --sp-5: 27.6px;
-  --sp-6: 36.8px;
-  --sp-7: 55.2px;
-  --sp-8: 73.6px;
-  --sp-9: 110.4px;
-  --card-bg: #F5F7FB;
-  --card-border: transparent;
-  --card-shadow: none;
-  --surface-style: flat;
+  --mxw: #FFFFFF;
+  --fyb: #F5F7FB;
+  --mov: #EBEFF7;
+  --rwz: #0E1525;
+  --snv: #556079;
+  --ijq: #E2E7F0;
+  --ttg: #2457FF;
+  --xvk: #FFFFFF;
+  --cjb: #00C2A8;
+  --qkm: #1F9D55;
+  --sbm: #D98B00;
+  --lom: #D93636;
+  --yjy: #0E1525;
+  --shr: #556079;
+  --hra: #2457FF;
+  --olw: #FFFFFF;
+  --rjt: linear-gradient(180deg,#EEF2FF 0%,#FFFFFF 100%);
+  --qdd: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --gkw: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --nnl: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --seb: 800;
+  --rao: 400;
+  --pxh: 500;
+  --grt: none;
+  --pnd: -0.03em;
+  --fsv: 1.6;
+  --dgy: 1.15;
+  --mib: 8px;
+  --fll: 12px;
+  --smk: 20px;
+  --pjb: 12px;
+  --mfh: 1px;
+  --eoi: 1.15;
+  --nkf: 12.8px;
+  --cln: 16px;
+  --gln: 25px;
+  --uff: clamp(21.25px,16.96px + 1.19vw,31.25px);
+  --evs: clamp(26.56px,21.21px + 1.488vw,39.06px);
+  --imx: clamp(33.2px,26.51px + 1.86vw,48.83px);
+  --uke: clamp(41.5px,33.13px + 2.325vw,61.04px);
+  --lsm: 4.6px;
+  --kzd: 9.2px;
+  --ggw: 13.8px;
+  --eij: 18.4px;
+  --nle: 27.6px;
+  --zld: 36.8px;
+  --lpn: 55.2px;
+  --who: 73.6px;
+  --vzj: 110.4px;
+  --zur: #F5F7FB;
+  --cvk: transparent;
+  --jtj: none;
+  --maw: flat;
 }
 ```
 
@@ -178,7 +178,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -234,7 +234,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -282,7 +282,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -330,7 +330,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -384,7 +384,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -427,7 +427,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.

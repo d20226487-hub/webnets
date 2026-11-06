@@ -85,59 +85,59 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
 
 ```css
 :root {
-  --c-bg: #F6F6F3;
-  --c-surface: #FFFFFF;
-  --c-surface-2: #ECECE7;
-  --c-text: #1B1B18;
-  --c-muted: #5A5A52;
-  --c-border: #D6D6CF;
-  --c-accent: #C8102E;
-  --c-on-accent: #FFFFFF;
-  --c-accent-2: #1B1B18;
-  --c-success: #1F9D55;
-  --c-warning: #D98B00;
-  --c-danger: #D93636;
-  --c-hero-text: #1B1B18;
-  --c-hero-muted: #5A5A52;
-  --c-hero-accent: #C8102E;
-  --c-hero-on-accent: #FFFFFF;
-  --hero-bg: #F6F6F3;
-  --f-display: "Lora",Georgia,"Times New Roman",serif;
-  --f-body: "Fira Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-mono: "Fira Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --fw-heading: 700;
-  --fw-body: 400;
-  --fw-strong: 500;
-  --tt-heading: none;
-  --ls-heading: -0.01em;
-  --lh-body: 1.65;
-  --lh-heading: 1.15;
-  --r-sm: 0px;
-  --r: 0px;
-  --r-lg: 2px;
-  --r-btn: 2px;
-  --bw: 1px;
-  --density: 1.05;
-  --fs-0: 13.6px;
-  --fs-1: 17px;
-  --fs-2: 26.56px;
-  --fs-3: clamp(22.58px,18.02px + 1.265vw,33.2px);
-  --fs-4: clamp(28.22px,22.53px + 1.581vw,41.5px);
-  --fs-5: clamp(35.28px,28.16px + 1.976vw,51.88px);
-  --fs-6: clamp(44.1px,35.2px + 2.47vw,64.85px);
-  --sp-1: 4.2px;
-  --sp-2: 8.4px;
-  --sp-3: 12.6px;
-  --sp-4: 16.8px;
-  --sp-5: 25.2px;
-  --sp-6: 33.6px;
-  --sp-7: 50.4px;
-  --sp-8: 67.2px;
-  --sp-9: 100.8px;
-  --card-bg: #FFFFFF;
-  --card-border: transparent;
-  --card-shadow: none;
-  --surface-style: flat;
+  --arg: #FFFFFF;
+  --avc: 700;
+  --awx: -0.01em;
+  --axa: #5A5A52;
+  --bsv: 0px;
+  --cvs: none;
+  --dyf: 500;
+  --ept: 2px;
+  --eth: #D6D6CF;
+  --fff: #1F9D55;
+  --fou: 400;
+  --gjt: 4.2px;
+  --hrq: #ECECE7;
+  --hyc: #C8102E;
+  --ird: #F6F6F3;
+  --iuu: #1B1B18;
+  --iwl: 2px;
+  --jku: flat;
+  --jkx: 0px;
+  --kae: #1B1B18;
+  --kum: none;
+  --lxc: 1.05;
+  --mwn: 12.6px;
+  --pgt: "Lora",Georgia,"Times New Roman",serif;
+  --qpm: #FFFFFF;
+  --qxw: 1.15;
+  --rnp: 8.4px;
+  --sab: 26.56px;
+  --shh: 25.2px;
+  --sld: 67.2px;
+  --snz: #D98B00;
+  --soa: 16.8px;
+  --sol: 100.8px;
+  --sqb: 50.4px;
+  --tpd: 33.6px;
+  --tqh: "Fira Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --ubx: 13.6px;
+  --ucz: #1B1B18;
+  --uhf: #D93636;
+  --ujj: #F6F6F3;
+  --uqx: #FFFFFF;
+  --ura: #5A5A52;
+  --uul: clamp(22.58px,18.02px + 1.265vw,33.2px);
+  --vsu: 17px;
+  --vun: transparent;
+  --wbh: #C8102E;
+  --wei: clamp(35.28px,28.16px + 1.976vw,51.88px);
+  --wsg: clamp(28.22px,22.53px + 1.581vw,41.5px);
+  --xnj: clamp(44.1px,35.2px + 2.47vw,64.85px);
+  --xrs: "Fira Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --xva: #FFFFFF;
+  --yft: 1px;
+  --zhk: 1.65;
 }
 ```
 
@@ -179,7 +179,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
-2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 3. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -220,9 +220,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 8. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-9. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+9. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -242,7 +242,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
-2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 3. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -253,9 +253,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+6. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -275,7 +275,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
-2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 3. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -286,9 +286,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+6. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -308,7 +308,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
-2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 3. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -319,9 +319,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+6. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -341,7 +341,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
-2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 3. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -352,9 +352,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+6. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -374,7 +374,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
-2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 3. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -385,9 +385,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+6. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -407,7 +407,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
-2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 3. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -418,9 +418,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+6. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -440,7 +440,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
-2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 3. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -451,9 +451,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+6. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -473,7 +473,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
-2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 3. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -484,9 +484,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+6. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -506,7 +506,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
-2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 3. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -517,9 +517,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+6. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -539,7 +539,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
-2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 3. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -550,9 +550,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+6. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -572,7 +572,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
-2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 3. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -583,9 +583,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+6. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -605,7 +605,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
-2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 3. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -616,9 +616,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+6. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -638,7 +638,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
-2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 3. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -656,9 +656,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+6. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -678,7 +678,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
-2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 3. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -696,9 +696,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+6. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -718,7 +718,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
-2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 3. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -737,9 +737,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 5. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-6. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+6. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -759,7 +759,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
-2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+2. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 3. **Header** — block `sx/header`, variant `inline`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -779,9 +779,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 7. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-8. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+8. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false

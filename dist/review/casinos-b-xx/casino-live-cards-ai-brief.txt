@@ -78,39 +78,30 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
 
 ```css
 :root {
-  --c-bg: #0B0E14;
-  --c-surface: #141924;
-  --c-surface-2: #1C2331;
-  --c-text: #EEF1F6;
-  --c-muted: #9BA5B7;
-  --c-border: #273042;
-  --c-accent: #C6FF3D;
-  --c-on-accent: #0B0E14;
-  --c-accent-2: #7B61FF;
-  --c-success: #1F9D55;
-  --c-warning: #D98B00;
-  --c-danger: #D93636;
-  --c-hero-text: #EEF1F6;
-  --c-hero-muted: #B4BCCB;
-  --c-hero-accent: #C6FF3D;
-  --c-hero-on-accent: #0B0E14;
-  --hero-bg: radial-gradient(120% 80% at 85% 0%,rgba(123,97,255,.35),transparent 60%),radial-gradient(80% 60% at 0% 100%,rgba(198,255,61,.12),transparent 60%),#0B0E14;
-  --f-display: "Unbounded",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-body: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-mono: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --fw-heading: 800;
-  --fw-body: 400;
-  --fw-strong: 600;
-  --tt-heading: none;
-  --ls-heading: -0.02em;
-  --lh-body: 1.55;
-  --lh-heading: 1.15;
-  --r-sm: 10px;
-  --r: 14px;
-  --r-lg: 22px;
-  --r-btn: 999px;
   --bw: 1px;
+  --c-accent-2: #7B61FF;
+  --c-accent: #C6FF3D;
+  --c-bg: #0B0E14;
+  --c-border: #273042;
+  --c-danger: #D93636;
+  --c-hero-accent: #C6FF3D;
+  --c-hero-muted: #B4BCCB;
+  --c-hero-on-accent: #0B0E14;
+  --c-hero-text: #EEF1F6;
+  --c-muted: #9BA5B7;
+  --c-on-accent: #0B0E14;
+  --c-success: #1F9D55;
+  --c-surface-2: #1C2331;
+  --c-surface: #141924;
+  --c-text: #EEF1F6;
+  --c-warning: #D98B00;
+  --card-bg: #141924;
+  --card-border: transparent;
+  --card-shadow: 0 12px 32px rgba(0,0,0,.45);
   --density: 1;
+  --f-body: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-display: "Unbounded",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --fs-0: 12.8px;
   --fs-1: 16px;
   --fs-2: 25px;
@@ -118,6 +109,17 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
   --fs-4: clamp(26.56px,21.21px + 1.488vw,39.06px);
   --fs-5: clamp(33.2px,26.51px + 1.86vw,48.83px);
   --fs-6: clamp(41.5px,33.13px + 2.325vw,61.04px);
+  --fw-body: 400;
+  --fw-heading: 800;
+  --fw-strong: 600;
+  --hero-bg: radial-gradient(120% 80% at 85% 0%,rgba(123,97,255,.35),transparent 60%),radial-gradient(80% 60% at 0% 100%,rgba(198,255,61,.12),transparent 60%),#0B0E14;
+  --lh-body: 1.55;
+  --lh-heading: 1.15;
+  --ls-heading: -0.02em;
+  --r-btn: 999px;
+  --r-lg: 22px;
+  --r-sm: 10px;
+  --r: 14px;
   --sp-1: 4px;
   --sp-2: 8px;
   --sp-3: 12px;
@@ -127,10 +129,8 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
   --sp-7: 48px;
   --sp-8: 64px;
   --sp-9: 96px;
-  --card-bg: #141924;
-  --card-border: transparent;
-  --card-shadow: 0 12px 32px rgba(0,0,0,.45);
   --surface-style: elevated;
+  --tt-heading: none;
 }
 ```
 
@@ -170,7 +170,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `casino-live-cards-index.html`
 
 - Title tag: Лучшие live-казино: рейтинг 2026 по живым столам
-- Meta description: Считаем открытые столы, проверяем дилеров и трансляцию по 4G в пяти лицензированных казино. Рейтинг с объяснением каждой оценки. 18+.
 - The only H1: Лучшие live-казино: рейтинг по живым столам
 - Structured data (JSON-LD): WebPage, FAQPage, WebSite
 - Links to: `casino-live-cards-sravnenie.html`, `casino-live-cards-bystryj-vyvod.html`, `casino-live-cards-prilozheniya.html`, `casino-live-cards-kak-my-ocenivaem.html`, `casino-live-cards-index.html`, `casino-live-cards-obzor-verazul.html`, `casino-live-cards-obzor-lunaro.html`, `casino-live-cards-obzor-marlowe.html`, `casino-live-cards-obzor-nyxa.html`, `casino-live-cards-obzor-cobaltio.html`
@@ -219,7 +218,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `casino-live-cards-obzor-marlowe.html`
 
 - Title tag: Marlowe Club: обзор live-казино — столы, трансляция и вывод
-- Meta description: Обзор Marlowe Club с упором на live-казино: оценка по каждому критерию с причиной, сильные и слабые стороны, число столов и сроки вывода. 18+.
 - The only H1: Marlowe Club: обзор live-казино
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `casino-live-cards-sravnenie.html`, `casino-live-cards-bystryj-vyvod.html`, `casino-live-cards-prilozheniya.html`, `casino-live-cards-kak-my-ocenivaem.html`, `casino-live-cards-index.html`, `casino-live-cards-obzor-lunaro.html`, `casino-live-cards-obzor-verazul.html`, `casino-live-cards-obzor-nyxa.html`, `casino-live-cards-obzor-cobaltio.html`
@@ -271,7 +269,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `casino-live-cards-obzor-nyxa.html`
 
 - Title tag: Nyxa: обзор live-казино — столы, трансляция и вывод
-- Meta description: Обзор Nyxa с упором на live-казино: оценка по каждому критерию с причиной, сильные и слабые стороны, число столов и сроки вывода. 18+.
 - The only H1: Nyxa: обзор live-казино
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `casino-live-cards-sravnenie.html`, `casino-live-cards-bystryj-vyvod.html`, `casino-live-cards-prilozheniya.html`, `casino-live-cards-kak-my-ocenivaem.html`, `casino-live-cards-index.html`, `casino-live-cards-obzor-lunaro.html`, `casino-live-cards-obzor-verazul.html`, `casino-live-cards-obzor-marlowe.html`, `casino-live-cards-obzor-cobaltio.html`
@@ -323,7 +320,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `casino-live-cards-obzor-verazul.html`
 
 - Title tag: Verazul: обзор live-казино — столы, трансляция и вывод
-- Meta description: Обзор Verazul с упором на live-казино: оценка по каждому критерию с причиной, сильные и слабые стороны, число столов и сроки вывода. 18+.
 - The only H1: Verazul: обзор live-казино
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `casino-live-cards-sravnenie.html`, `casino-live-cards-bystryj-vyvod.html`, `casino-live-cards-prilozheniya.html`, `casino-live-cards-kak-my-ocenivaem.html`, `casino-live-cards-index.html`, `casino-live-cards-obzor-lunaro.html`, `casino-live-cards-obzor-marlowe.html`, `casino-live-cards-obzor-nyxa.html`, `casino-live-cards-obzor-cobaltio.html`
@@ -375,7 +371,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `casino-live-cards-obzor-lunaro.html`
 
 - Title tag: Lunaro: обзор live-казино — столы, трансляция и вывод
-- Meta description: Обзор Lunaro с упором на live-казино: оценка по каждому критерию с причиной, сильные и слабые стороны, число столов и сроки вывода. 18+.
 - The only H1: Lunaro: обзор live-казино
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `casino-live-cards-sravnenie.html`, `casino-live-cards-bystryj-vyvod.html`, `casino-live-cards-prilozheniya.html`, `casino-live-cards-kak-my-ocenivaem.html`, `casino-live-cards-index.html`, `casino-live-cards-obzor-verazul.html`, `casino-live-cards-obzor-marlowe.html`, `casino-live-cards-obzor-nyxa.html`, `casino-live-cards-obzor-cobaltio.html`
@@ -427,7 +422,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `casino-live-cards-obzor-cobaltio.html`
 
 - Title tag: Cobaltio: обзор live-казино — столы, трансляция и вывод
-- Meta description: Обзор Cobaltio с упором на live-казино: оценка по каждому критерию с причиной, сильные и слабые стороны, число столов и сроки вывода. 18+.
 - The only H1: Cobaltio: обзор live-казино
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `casino-live-cards-sravnenie.html`, `casino-live-cards-bystryj-vyvod.html`, `casino-live-cards-prilozheniya.html`, `casino-live-cards-kak-my-ocenivaem.html`, `casino-live-cards-index.html`, `casino-live-cards-obzor-lunaro.html`, `casino-live-cards-obzor-verazul.html`, `casino-live-cards-obzor-marlowe.html`, `casino-live-cards-obzor-nyxa.html`
@@ -479,7 +473,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `casino-live-cards-sravnenie.html`
 
 - Title tag: Сравнение live-казино с лицензией
-- Meta description: Пять казино рядом: live-столы, вывод, игры, приложение и поддержка, с общей оценкой. 18+.
 - The only H1: Сравнение live-казино
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `casino-live-cards-sravnenie.html`, `casino-live-cards-bystryj-vyvod.html`, `casino-live-cards-prilozheniya.html`, `casino-live-cards-kak-my-ocenivaem.html`, `casino-live-cards-index.html`, `casino-live-cards-obzor-marlowe.html`, `casino-live-cards-obzor-nyxa.html`, `casino-live-cards-obzor-verazul.html`, `casino-live-cards-obzor-lunaro.html`, `casino-live-cards-obzor-cobaltio.html`
@@ -516,7 +509,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `casino-live-cards-bystryj-vyvod.html`
 
 - Title tag: Live-казино с быстрым выводом выигрыша
-- Meta description: Те же казино по оценке вывода: реальное время наших тестовых выводов. 18+.
 - The only H1: Live-казино с быстрым выводом
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `casino-live-cards-sravnenie.html`, `casino-live-cards-bystryj-vyvod.html`, `casino-live-cards-prilozheniya.html`, `casino-live-cards-kak-my-ocenivaem.html`, `casino-live-cards-index.html`, `casino-live-cards-obzor-nyxa.html`, `casino-live-cards-obzor-verazul.html`, `casino-live-cards-obzor-lunaro.html`, `casino-live-cards-obzor-marlowe.html`, `casino-live-cards-obzor-cobaltio.html`
@@ -562,7 +554,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `casino-live-cards-prilozheniya.html`
 
 - Title tag: Приложения для live-казино на телефоне
-- Meta description: Казино по оценке приложения: трансляция по 4G, депозит и лимиты с телефона. 18+.
 - The only H1: Лучшие приложения для live-казино
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `casino-live-cards-sravnenie.html`, `casino-live-cards-bystryj-vyvod.html`, `casino-live-cards-prilozheniya.html`, `casino-live-cards-kak-my-ocenivaem.html`, `casino-live-cards-index.html`, `casino-live-cards-obzor-nyxa.html`, `casino-live-cards-obzor-marlowe.html`, `casino-live-cards-obzor-verazul.html`, `casino-live-cards-obzor-lunaro.html`, `casino-live-cards-obzor-cobaltio.html`
@@ -608,7 +599,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `casino-live-cards-kak-my-ocenivaem.html`
 
 - Title tag: Как мы оцениваем live-казино
-- Meta description: Критерии, веса, как мы считаем столы и проверяем трансляцию, и как зарабатывает «Живой стол».
 - The only H1: Как мы оцениваем live-казино
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `casino-live-cards-sravnenie.html`, `casino-live-cards-bystryj-vyvod.html`, `casino-live-cards-prilozheniya.html`, `casino-live-cards-kak-my-ocenivaem.html`, `casino-live-cards-index.html`

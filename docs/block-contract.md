@@ -76,6 +76,10 @@ a content pipeline will fill.
   except neutral overlays such as `rgba(0,0,0,.7)` behind modals.
 - Use logical properties (`margin-inline`, `inset-inline-start`, `border-block-end`) so RTL works later.
 - Author selectors with `.sx-`. The build rewrites `.sx-` to the site prefix and strips comments.
+- Code dialects (`lib/dialect.php`) then rewrite class names (BEM, camelCase, flat or hashed), custom property
+  names, colour formats, units and declaration order per site. So: scripts find elements by `data-*` attributes or
+  ids, never by class name; never build a class name from pieces in CSS or JS (`'sx-' + name`); class-substring
+  selectors (`[class*="__card"]`) are allowed only in looks, where the dialect expands them to the matching classes.
 - Mobile first in spirit: every layout must work at 360px with no horizontal scroll.
 
 ## 6. Roles and required blocks
@@ -101,6 +105,8 @@ the builder adds a missing block and prints a warning.
 2. Block variants: structural layouts chosen per site by seed.
 3. Composition: which optional blocks a site type uses, and in what order (blueprints, from Phase 1).
 4. Class prefix (`"prefix": "auto"`) and comment-free CSS: no shared class names or comments across sites.
+4a. Code dialect (`"dialect"`, seeded per site, `lib/dialect.php`): the same design written differently, so sibling
+   sites share almost no CSS or markup text. Pin choices with `"dialect": {"classes": "short"}`; `"dialect": false` turns it off.
 5. Token overrides per site (`"tokens": {"color": {"accent": "#..."}}`) for brand colour.
 
 ## 9. Adding a block (checklist)

@@ -1,0 +1,10 @@
+/* ribbon: top bar in reversed colours, items separated by dots */
+.sx-compliance--ribbon { background: var(--c-text); color: var(--c-bg); font-size: var(--fs-0); }
+.sx-compliance__items { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--sp-1) var(--sp-3); padding-block: var(--sp-2); text-align: center; }
+.sx-compliance__items > li + li::before { content: "•"; margin-inline-end: var(--sp-3); opacity: .55; }
+.sx-compliance--ribbon .sx-age { width: 2em; height: 2em; font-size: .78em; color: inherit; border-color: currentColor; }
+.sx-compliance__tag { font-weight: var(--fw-strong); letter-spacing: .02em; }
+.sx-compliance--ribbon .sx-compliance__help { color: inherit; opacity: .8; }
+@media (max-width: 640px) {
+  .sx-compliance--ribbon .sx-compliance__help { display: none; }
+}

@@ -1,0 +1,4 @@
+/* box: a note with an info icon, left-aligned */
+.sx-disclose--box { padding: 0; text-align: start; background: var(--c-bg); border-block-end: 0; }
+.sx-disclose--box .sx-disclose__inner { display: flex; align-items: flex-start; gap: var(--sp-3); margin-block: var(--sp-3); padding: var(--sp-3) var(--sp-4); background: var(--c-surface-2); border: var(--bw) solid var(--c-border); border-radius: var(--r); }
+.sx-disclose--box .sx-icon { flex: none; margin-block-start: .1em; color: var(--c-text); }

@@ -73,39 +73,30 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
 
 ```css
 :root {
-  --c-bg: #FFFFFF;
-  --c-surface: #F5F5F7;
-  --c-surface-2: #E8E8ED;
-  --c-text: #1D1D1F;
-  --c-muted: #6E6E73;
-  --c-border: #D2D2D7;
-  --c-accent: #0071E3;
-  --c-on-accent: #FFFFFF;
-  --c-accent-2: #0071E3;
-  --c-success: #1F9D55;
-  --c-warning: #D98B00;
-  --c-danger: #D93636;
-  --c-hero-text: #1D1D1F;
-  --c-hero-muted: #6E6E73;
-  --c-hero-accent: #0071E3;
-  --c-hero-on-accent: #FFFFFF;
-  --hero-bg: linear-gradient(180deg,#F5F5F7 0%,#FFFFFF 100%);
-  --f-display: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-body: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-mono: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --fw-heading: 700;
-  --fw-body: 400;
-  --fw-strong: 500;
-  --tt-heading: none;
-  --ls-heading: -0.025em;
-  --lh-body: 1.55;
-  --lh-heading: 1.15;
-  --r-sm: 10px;
-  --r: 18px;
-  --r-lg: 28px;
-  --r-btn: 980px;
   --bw: 1px;
+  --c-accent-2: #0071e3;
+  --c-accent: #0071e3;
+  --c-bg: #ffffff;
+  --c-border: #d2d2d7;
+  --c-danger: #d93636;
+  --c-hero-accent: #0071e3;
+  --c-hero-muted: #6e6e73;
+  --c-hero-on-accent: #ffffff;
+  --c-hero-text: #1d1d1f;
+  --c-muted: #6e6e73;
+  --c-on-accent: #ffffff;
+  --c-success: #1f9d55;
+  --c-surface-2: #e8e8ed;
+  --c-surface: #f5f5f7;
+  --c-text: #1d1d1f;
+  --c-warning: #d98b00;
+  --card-bg: #f5f5f7;
+  --card-border: transparent;
+  --card-shadow: none;
   --density: 1;
+  --f-body: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-display: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --fs-0: 12.8px;
   --fs-1: 16px;
   --fs-2: 25px;
@@ -113,6 +104,17 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
   --fs-4: clamp(26.56px,21.21px + 1.488vw,39.06px);
   --fs-5: clamp(33.2px,26.51px + 1.86vw,48.83px);
   --fs-6: clamp(41.5px,33.13px + 2.325vw,61.04px);
+  --fw-body: 400;
+  --fw-heading: 700;
+  --fw-strong: 500;
+  --hero-bg: linear-gradient(180deg,#f5f5f7 0%,#ffffff 100%);
+  --lh-body: 1.55;
+  --lh-heading: 1.15;
+  --ls-heading: -0.025em;
+  --r-btn: 980px;
+  --r-lg: 28px;
+  --r-sm: 10px;
+  --r: 18px;
   --sp-1: 4px;
   --sp-2: 8px;
   --sp-3: 12px;
@@ -122,10 +124,8 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
   --sp-7: 48px;
   --sp-8: 64px;
   --sp-9: 96px;
-  --card-bg: #F5F5F7;
-  --card-border: transparent;
-  --card-shadow: none;
   --surface-style: flat;
+  --tt-heading: none;
 }
 ```
 
@@ -171,7 +171,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `android-appstore-index.html`
 
 - Title tag: Nyxa для Android: скачать официальный APK
-- Meta description: Официальное приложение Nyxa для Android (APK): ставки на спорт, лайв и вывод на Kaspi. 21+.
 - The only H1: Nyxa
 - Structured data (JSON-LD): WebPage, MobileApplication, FAQPage, WebSite
 - Links to: `android-appstore-index.html`, `android-appstore-android.html`, `android-appstore-features.html`, `android-appstore-whats-new.html`, `android-appstore-help.html`
@@ -227,7 +226,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `android-appstore-android.html`
 
 - Title tag: Nyxa для Android: как безопасно установить APK
-- Meta description: Пошаговая установка официального APK Nyxa на Android: разрешения, проверка файла, обновления. 21+.
 - The only H1: Nyxa для Android
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
 - Links to: `android-appstore-index.html`, `android-appstore-android.html`, `android-appstore-features.html`, `android-appstore-whats-new.html`, `android-appstore-help.html`
@@ -275,7 +273,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `android-appstore-features.html`
 
 - Title tag: Возможности приложения Nyxa
-- Meta description: Линия и лайв, вывод на Kaspi, Face ID и лимиты в профиле: что умеет приложение Nyxa. 21+.
 - The only H1: Что умеет приложение Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `android-appstore-index.html`, `android-appstore-android.html`, `android-appstore-features.html`, `android-appstore-whats-new.html`, `android-appstore-help.html`
@@ -327,7 +324,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `android-appstore-whats-new.html`
 
 - Title tag: Что нового в приложении Nyxa: история версий
-- Meta description: Последние версии приложения Nyxa для iPhone и Android и что в них изменилось. 21+.
 - The only H1: Что нового в Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `android-appstore-index.html`, `android-appstore-android.html`, `android-appstore-features.html`, `android-appstore-whats-new.html`, `android-appstore-help.html`
@@ -373,7 +369,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `android-appstore-help.html`
 
 - Title tag: Помощь по приложению Nyxa: установка, вход, обновления
-- Meta description: Ответы на частые вопросы о приложении Nyxa: не устанавливается, не входит, как обновить, как задать лимиты. 21+.
 - The only H1: Помощь по приложению
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
 - Links to: `android-appstore-index.html`, `android-appstore-android.html`, `android-appstore-features.html`, `android-appstore-whats-new.html`, `android-appstore-help.html`

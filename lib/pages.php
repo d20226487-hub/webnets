@@ -110,7 +110,7 @@ function sx_site_checks(array &$out, string $style, string $base, bool $ctaCheck
             $out[$i]['warnings'][] = "Page {$p['file']} has no CTA.";
         }
         // generated cover art stands in for image files, which would not count towards the HTML budget
-        $kb = strlen(preg_replace('#<svg class="[^"]*-art"[^>]*>.*?</svg>#s', '', $p['html'])) / 1024;
+        $kb = strlen(preg_replace('#<svg [^>]*data-cover[^>]*>.*?</svg>#s', '', $p['html'])) / 1024;
         if ($kb > SX_PAGE_BUDGET_KB) {
             $out[$i]['warnings'][] = sprintf('Page %s is %.1f KB (budget %d KB).', $p['file'], $kb, SX_PAGE_BUDGET_KB);
         }

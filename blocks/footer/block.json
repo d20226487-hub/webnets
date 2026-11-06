@@ -9,7 +9,7 @@
   "supports": { "align": false, "html": false, "multiple": false },
   "sx": {
     "role": "footer",
-    "variants": ["columns", "compact"],
+    "variants": ["columns", "compact", "centered"],
     "default_variant": "columns",
     "includes": ["compliance-bar"],
     "guardrails": [

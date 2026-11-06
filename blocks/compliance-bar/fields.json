@@ -1,6 +1,6 @@
 {
   "fields": [
-    { "name": "variant", "type": "select", "label": "Layout", "choices": ["auto", "strip", "panel"], "default": "panel" },
+    { "name": "variant", "type": "select", "label": "Layout", "choices": ["auto", "strip", "panel", "ribbon", "cards"], "default": "panel" },
     { "name": "regulator", "type": "text", "label": "Regulator name override", "default": "", "instructions": "Empty = market default." },
     { "name": "license_no", "type": "text", "label": "Licence number override", "default": "", "instructions": "Empty = brand licence number." },
     { "name": "show_verify", "type": "true_false", "label": "Show 'placeholder copy' marker", "default": false }

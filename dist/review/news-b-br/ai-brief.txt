@@ -80,59 +80,59 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
 
 ```css
 :root {
-  --c-bg: #FFFFFF;
-  --c-surface: #F5F7FB;
-  --c-surface-2: #EBEFF7;
-  --c-text: #0E1525;
-  --c-muted: #556079;
-  --c-border: #E2E7F0;
-  --c-accent: #2457FF;
-  --c-on-accent: #FFFFFF;
-  --c-accent-2: #00C2A8;
-  --c-success: #1F9D55;
-  --c-warning: #D98B00;
-  --c-danger: #D93636;
-  --c-hero-text: #0E1525;
-  --c-hero-muted: #556079;
-  --c-hero-accent: #2457FF;
-  --c-hero-on-accent: #FFFFFF;
-  --hero-bg: linear-gradient(180deg,#EEF2FF 0%,#FFFFFF 100%);
-  --f-display: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-body: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-mono: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --fw-heading: 800;
-  --fw-body: 400;
-  --fw-strong: 500;
-  --tt-heading: none;
-  --ls-heading: -0.03em;
-  --lh-body: 1.6;
-  --lh-heading: 1.15;
-  --r-sm: 8px;
-  --r: 12px;
-  --r-lg: 20px;
-  --r-btn: 12px;
-  --bw: 1px;
-  --density: 1.15;
-  --fs-0: 12.8px;
-  --fs-1: 16px;
-  --fs-2: 25px;
-  --fs-3: clamp(21.25px,16.96px + 1.19vw,31.25px);
-  --fs-4: clamp(26.56px,21.21px + 1.488vw,39.06px);
-  --fs-5: clamp(33.2px,26.51px + 1.86vw,48.83px);
-  --fs-6: clamp(41.5px,33.13px + 2.325vw,61.04px);
-  --sp-1: 4.6px;
-  --sp-2: 9.2px;
-  --sp-3: 13.8px;
-  --sp-4: 18.4px;
-  --sp-5: 27.6px;
-  --sp-6: 36.8px;
-  --sp-7: 55.2px;
-  --sp-8: 73.6px;
-  --sp-9: 110.4px;
-  --card-bg: #F5F7FB;
-  --card-border: transparent;
-  --card-shadow: none;
-  --surface-style: flat;
+  --ujk: rgb(255 255 255);
+  --cuq: rgb(245 247 251);
+  --oal: rgb(235 239 247);
+  --qpy: rgb(14 21 37);
+  --osv: rgb(85 96 121);
+  --xou: rgb(226 231 240);
+  --ymq: rgb(36 87 255);
+  --esf: rgb(255 255 255);
+  --ldx: rgb(0 194 168);
+  --atf: rgb(31 157 85);
+  --mrz: rgb(217 139 0);
+  --tfk: rgb(217 54 54);
+  --ngd: rgb(14 21 37);
+  --emj: rgb(85 96 121);
+  --kfi: rgb(36 87 255);
+  --wpa: rgb(255 255 255);
+  --jrd: linear-gradient(180deg,rgb(238 242 255) 0%,rgb(255 255 255) 100%);
+  --now: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --oqy: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --qme: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --bjn: 800;
+  --oxh: 400;
+  --bre: 500;
+  --lmx: none;
+  --pcr: -0.03em;
+  --lmq: 1.6;
+  --ets: 1.15;
+  --svg: 8px;
+  --rqs: 12px;
+  --agx: 20px;
+  --wnm: 12px;
+  --jep: 1px;
+  --rei: 1.15;
+  --qkn: 12.8px;
+  --rzh: 16px;
+  --tao: 25px;
+  --aty: clamp(21.25px,16.96px + 1.19vw,31.25px);
+  --phb: clamp(26.56px,21.21px + 1.488vw,39.06px);
+  --dgx: clamp(33.2px,26.51px + 1.86vw,48.83px);
+  --ytj: clamp(41.5px,33.13px + 2.325vw,61.04px);
+  --qfk: 4.6px;
+  --cvt: 9.2px;
+  --yax: 13.8px;
+  --anw: 18.4px;
+  --kiz: 27.6px;
+  --ryi: 36.8px;
+  --owr: 55.2px;
+  --lta: 73.6px;
+  --kfu: 110.4px;
+  --jzk: rgb(245 247 251);
+  --hxm: transparent;
+  --hfq: none;
+  --zvn: flat;
 }
 ```
 
@@ -164,14 +164,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `index.html`
 
 - Title tag: Placar Aberto: notícias e guias de apostas no Brasil
-- Meta description: Guias práticos sobre saque PIX, odds e limites, notícias do mercado regulado e conteúdo de parceiros sempre identificado. 18+.
 - The only H1: Notícias e guias de apostas no Brasil
 - Structured data (JSON-LD): WebPage, WebSite
 - Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `guides-como-funciona-o-saque-pix.html`, `news-o-que-muda-com-bet-br.html`, `guides-limites-de-deposito-guia.html`, `guides-odds-decimais-explicadas.html`, `news-brasileirao-reta-final.html`, `news-publicidade-de-apostas-novas-regras.html`, `partner-content-nyxa-app-pix-tempo-real.html`, `partner-content-marlowe-mesas-ao-vivo-portugues.html`
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `centered`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -212,9 +211,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 7. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-8. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+8. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -224,14 +223,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `guides-como-funciona-o-saque-pix.html`
 
 - Title tag: Saque via PIX em casas de apostas: prazos, limites e o que pode atrasar | Placar Aberto
-- Meta description: Saque via PIX em casas de apostas: prazos, limites e o que pode atrasar. Placar Aberto, notícias de apostas no Brasil.
 - The only H1: Saque via PIX em casas de apostas: prazos, limites e o que pode atrasar
 - Structured data (JSON-LD): WebPage, Article, BreadcrumbList
 - Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `guides-limites-de-deposito-guia.html`, `guides-odds-decimais-explicadas.html`
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `centered`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -242,9 +240,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-5. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+5. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -254,14 +252,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `news-o-que-muda-com-bet-br.html`
 
 - Title tag: Domínio .bet.br: como saber se o site é autorizado | Placar Aberto
-- Meta description: Domínio .bet.br: como saber se o site é autorizado. Placar Aberto, notícias de apostas no Brasil.
 - The only H1: Domínio .bet.br: como saber se o site é autorizado
 - Structured data (JSON-LD): WebPage, NewsArticle, BreadcrumbList
 - Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `news-brasileirao-reta-final.html`, `news-publicidade-de-apostas-novas-regras.html`
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `centered`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -272,9 +269,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-5. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+5. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -284,14 +281,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `guides-limites-de-deposito-guia.html`
 
 - Title tag: Como definir limites de depósito e de tempo na sua conta | Placar Aberto
-- Meta description: Como definir limites de depósito e de tempo na sua conta. Placar Aberto, notícias de apostas no Brasil.
 - The only H1: Como definir limites de depósito e de tempo na sua conta
 - Structured data (JSON-LD): WebPage, Article, BreadcrumbList
 - Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `guides-como-funciona-o-saque-pix.html`, `guides-odds-decimais-explicadas.html`
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `centered`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -302,9 +298,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-5. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+5. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -314,14 +310,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `partner-content-nyxa-app-pix-tempo-real.html`
 
 - Title tag: Nyxa passa a mostrar o status do saque PIX em tempo real no app | Placar Aberto
-- Meta description: Nyxa passa a mostrar o status do saque PIX em tempo real no app. Placar Aberto, notícias de apostas no Brasil.
 - The only H1: Nyxa passa a mostrar o status do saque PIX em tempo real no app
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `partner-content-marlowe-mesas-ao-vivo-portugues.html`
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `centered`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -332,9 +327,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-5. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+5. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -344,14 +339,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `guides-odds-decimais-explicadas.html`
 
 - Title tag: Odds decimais: como ler e calcular o retorno de uma aposta | Placar Aberto
-- Meta description: Odds decimais: como ler e calcular o retorno de uma aposta. Placar Aberto, notícias de apostas no Brasil.
 - The only H1: Odds decimais: como ler e calcular o retorno de uma aposta
 - Structured data (JSON-LD): WebPage, Article, BreadcrumbList
 - Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `guides-como-funciona-o-saque-pix.html`, `guides-limites-de-deposito-guia.html`
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `centered`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -362,9 +356,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-5. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+5. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -374,14 +368,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `news-brasileirao-reta-final.html`
 
 - Title tag: Reta final do Brasileirão concentra o maior volume de apostas do ano | Placar Aberto
-- Meta description: Reta final do Brasileirão concentra o maior volume de apostas do ano. Placar Aberto, notícias de apostas no Brasil.
 - The only H1: Reta final do Brasileirão concentra o maior volume de apostas do ano
 - Structured data (JSON-LD): WebPage, NewsArticle, BreadcrumbList
 - Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `news-o-que-muda-com-bet-br.html`, `news-publicidade-de-apostas-novas-regras.html`
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `centered`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -392,9 +385,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-5. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+5. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -404,14 +397,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `partner-content-marlowe-mesas-ao-vivo-portugues.html`
 
 - Title tag: Marlowe Club abre novas mesas ao vivo com crupiês em português | Placar Aberto
-- Meta description: Marlowe Club abre novas mesas ao vivo com crupiês em português. Placar Aberto, notícias de apostas no Brasil.
 - The only H1: Marlowe Club abre novas mesas ao vivo com crupiês em português
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `partner-content-nyxa-app-pix-tempo-real.html`
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `centered`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -422,9 +414,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-5. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+5. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -434,14 +426,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `news-publicidade-de-apostas-novas-regras.html`
 
 - Title tag: Publicidade de apostas: o que as regras proíbem | Placar Aberto
-- Meta description: Publicidade de apostas: o que as regras proíbem. Placar Aberto, notícias de apostas no Brasil.
 - The only H1: Publicidade de apostas: o que as regras proíbem
 - Structured data (JSON-LD): WebPage, NewsArticle, BreadcrumbList
 - Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `news-o-que-muda-com-bet-br.html`, `news-brasileirao-reta-final.html`
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `centered`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -452,9 +443,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-5. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+5. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -464,14 +455,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `news.html`
 
 - Title tag: Notícias do mercado de apostas | Placar Aberto
-- Meta description: O que muda no mercado regulado de apostas no Brasil, em linguagem direta.
 - The only H1: Notícias
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `news-o-que-muda-com-bet-br.html`, `news-brasileirao-reta-final.html`, `news-publicidade-de-apostas-novas-regras.html`
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `centered`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -489,9 +479,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-5. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+5. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -501,14 +491,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `guides.html`
 
 - Title tag: Guias de apostas | Placar Aberto
-- Meta description: Saque PIX, odds decimais, limites e .bet.br explicados passo a passo.
 - The only H1: Guias
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `guides-como-funciona-o-saque-pix.html`, `guides-limites-de-deposito-guia.html`, `guides-odds-decimais-explicadas.html`
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `centered`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -526,9 +515,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-5. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+5. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -538,14 +527,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `partner-content.html`
 
 - Title tag: Conteúdo de parceiros | Placar Aberto
-- Meta description: Artigos pagos por marcas de apostas. Todos marcados como Publicidade.
 - The only H1: Publicidade Conteúdo de parceiros
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `partner-content-nyxa-app-pix-tempo-real.html`, `partner-content-marlowe-mesas-ao-vivo-portugues.html`
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `centered`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -564,9 +552,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-5. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+5. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -576,14 +564,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `about.html`
 
 - Title tag: Sobre o Placar Aberto e o conteúdo pago
-- Meta description: Quem somos, como identificamos publicidade, nossa política de correções e jogo responsável.
 - The only H1: Sobre o Placar Aberto
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `centered`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -603,9 +590,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 6. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-7. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+7. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false

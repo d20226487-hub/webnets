@@ -46,6 +46,10 @@ for ($i = 0; $i < count($ids); $i++) {
         $fail += $ok ? 0 : 1;
         printf("%s  %s vs %s  overlap %d%%%s%s\n", $ok ? 'ok  ' : 'FAIL', $ids[$i], $ids[$j], $overlap,
             $same ? '  same: ' . implode(', ', $same) : '', $overlap > 60 ? '  (high overlap: pin different variants)' : '');
+        foreach ($d['hints'] ?? [] as $h) {
+            echo "      hint: $h
+";
+        }
     }
 }
 echo "\nOverlap = share of sections using the same variant. Lower is more diverse.\n";

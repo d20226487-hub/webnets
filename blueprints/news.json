@@ -8,13 +8,12 @@
     "top": [
       {
         "block": "compliance-bar",
-        "props": {
-          "variant": "strip"
-        },
+        "variants": ["strip", "ribbon"],
         "when": "market.strip"
       },
       {
         "block": "disclosure",
+        "variants": ["line", "box", "chip"],
         "props": {
           "text": "news.disclosure",
           "link_page": "about",
@@ -37,7 +36,8 @@
       "block": "footer",
       "variants": [
         "columns",
-        "compact"
+        "compact",
+        "centered"
       ]
     },
     "overlay": [

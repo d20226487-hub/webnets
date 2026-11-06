@@ -74,59 +74,59 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
 
 ```css
 :root {
-  --c-bg: #F3F5F4;
-  --c-surface: #FFFFFF;
-  --c-surface-2: #E9EEEC;
-  --c-text: #10201A;
-  --c-muted: #52645C;
-  --c-border: #D5DDD9;
-  --c-accent: #0A7A4B;
-  --c-on-accent: #FFFFFF;
-  --c-accent-2: #FFD23F;
-  --c-success: #1F9D55;
-  --c-warning: #D98B00;
-  --c-danger: #D93636;
-  --c-hero-text: #FFFFFF;
-  --c-hero-muted: #CFE7DC;
-  --c-hero-accent: #FFD23F;
-  --c-hero-on-accent: #10201A;
-  --hero-bg: linear-gradient(180deg,#0A7A4B 0%,#075C39 100%);
-  --f-display: "Rubik",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-body: "Rubik",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-mono: "Rubik",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --fw-heading: 700;
-  --fw-body: 400;
-  --fw-strong: 500;
-  --tt-heading: none;
-  --ls-heading: -0.01em;
-  --lh-body: 1.5;
-  --lh-heading: 1.15;
-  --r-sm: 4px;
-  --r: 8px;
-  --r-lg: 12px;
-  --r-btn: 6px;
-  --bw: 1px;
-  --density: 0.85;
-  --fs-0: 12.5px;
-  --fs-1: 15px;
-  --fs-2: 21.6px;
-  --fs-3: clamp(17.63px,14.07px + 0.987vw,25.92px);
-  --fs-4: clamp(21.15px,16.89px + 1.185vw,31.1px);
-  --fs-5: clamp(25.38px,20.26px + 1.422vw,37.32px);
-  --fs-6: clamp(30.46px,24.31px + 1.706vw,44.79px);
-  --sp-1: 3.4px;
-  --sp-2: 6.8px;
-  --sp-3: 10.2px;
-  --sp-4: 13.6px;
-  --sp-5: 20.4px;
-  --sp-6: 27.2px;
-  --sp-7: 40.8px;
-  --sp-8: 54.4px;
-  --sp-9: 81.6px;
-  --card-bg: #FFFFFF;
-  --card-border: #D5DDD9;
-  --card-shadow: none;
-  --surface-style: outlined;
+  --acg: #FFFFFF;
+  --adg: 400;
+  --aqt: .85;
+  --atw: #F3F5F4;
+  --bgb: 12px;
+  --bzu: #CFE7DC;
+  --cdu: 8px;
+  --cir: 1.5;
+  --cmq: 27.2px;
+  --cmx: none;
+  --djo: "Rubik",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --drf: -0.01em;
+  --eal: #10201A;
+  --eqy: #FFFFFF;
+  --ewd: 13.6px;
+  --fqo: #10201A;
+  --fyo: 10.2px;
+  --gda: 700;
+  --hcd: #FFFFFF;
+  --icp: #FFFFFF;
+  --jai: 500;
+  --jjr: clamp(25.38px,20.26px + 1.422vw,37.32px);
+  --jkd: #FFD23F;
+  --klc: 1.15;
+  --kts: clamp(21.15px,16.89px + 1.185vw,31.1px);
+  --lja: 12.5px;
+  --lmi: linear-gradient(180deg,#0A7A4B 0%,#075C39 100%);
+  --lom: 6px;
+  --mdb: 81.6px;
+  --nel: 3.4px;
+  --nie: 15px;
+  --nlk: 21.6px;
+  --oyn: #FFD23F;
+  --pqi: outlined;
+  --qou: #52645C;
+  --sao: #D5DDD9;
+  --sba: #E9EEEC;
+  --tht: #D93636;
+  --unz: 6.8px;
+  --vhk: "Rubik",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --vko: 40.8px;
+  --vub: none;
+  --wij: #1F9D55;
+  --wmj: clamp(17.63px,14.07px + .987vw,25.92px);
+  --wql: 20.4px;
+  --wqs: #D98B00;
+  --wty: #D5DDD9;
+  --xqo: 1px;
+  --xwq: 54.4px;
+  --yju: 4px;
+  --ysw: "Rubik",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --zhh: clamp(30.46px,24.31px + 1.706vw,44.79px);
+  --zuh: #0A7A4B;
 }
 ```
 
@@ -170,14 +170,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `index.html`
 
 - Title tag: Vantro reviews: what Australian punters say, good and bad
-- Meta description: Player reviews of Vantro in Australia: PayID withdrawals, ID checks, the app, odds and support. Every rating is published, high or low. 18+.
 - The only H1: Vantro reviews from Australian punters
 - Structured data (JSON-LD): WebPage, FAQPage, WebSite
 - Links to: `how-we-moderate.html`, `index.html`, `reviews.html`, `write-a-review.html`
 
 ### Sections, in order
 
-1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
 2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
@@ -219,7 +218,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 12. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
 13. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
@@ -231,14 +230,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `reviews.html`
 
 - Title tag: All Vantro reviews, filter by topic
-- Meta description: Every published Vantro review, newest first. Filter by withdrawals, verification, support, app, odds or deposits. 18+.
 - The only H1: All Vantro reviews
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `how-we-moderate.html`, `index.html`, `reviews.html`, `write-a-review.html`, `reviews-2.html`
 
 ### Sections, in order
 
-1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
 2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
@@ -270,7 +268,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 9. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
 10. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
@@ -282,14 +280,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `reviews-2.html`
 
 - Title tag: All Vantro reviews, filter by topic · page 2
-- Meta description: Every published Vantro review, newest first. Filter by withdrawals, verification, support, app, odds or deposits. 18+. · page 2
 - The only H1: All Vantro reviews
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `how-we-moderate.html`, `index.html`, `reviews.html`, `write-a-review.html`
 
 ### Sections, in order
 
-1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
 2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
@@ -321,7 +318,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 9. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
 10. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
@@ -333,14 +330,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `write-a-review.html`
 
 - Title tag: Write a Vantro review
-- Meta description: Tell other punters how Vantro worked for you. We publish positive and negative reviews after moderation.
 - The only H1: Write a Vantro review
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `how-we-moderate.html`, `index.html`, `reviews.html`, `write-a-review.html`
 
 ### Sections, in order
 
-1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
 2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
@@ -369,7 +365,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 8. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
 9. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
@@ -379,14 +375,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `how-we-moderate.html`
 
 - Title tag: How we moderate Vantro reviews
-- Meta description: What we remove, what we never remove, where Vantro's replies come from and how this site makes money.
 - The only H1: How we moderate reviews
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `how-we-moderate.html`, `index.html`, `reviews.html`, `write-a-review.html`
 
 ### Sections, in order
 
-1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
 2. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
@@ -413,7 +408,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 8. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
 9. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.

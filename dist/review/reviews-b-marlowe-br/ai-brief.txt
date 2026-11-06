@@ -75,59 +75,59 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
 
 ```css
 :root {
-  --c-bg: #0F0D0B;
-  --c-surface: #18150F;
-  --c-surface-2: #221D16;
-  --c-text: #F3ECDF;
-  --c-muted: #B3A68F;
-  --c-border: #3A3226;
-  --c-accent: #D4AF6A;
-  --c-on-accent: #1A140A;
-  --c-accent-2: #8C6B3F;
-  --c-success: #1F9D55;
-  --c-warning: #D98B00;
-  --c-danger: #D93636;
-  --c-hero-text: #F3ECDF;
-  --c-hero-muted: #C4B79F;
-  --c-hero-accent: #D4AF6A;
-  --c-hero-on-accent: #1A140A;
-  --hero-bg: radial-gradient(70% 90% at 50% 0%,rgba(212,175,106,.18),transparent 70%),#0F0D0B;
-  --f-display: "Cormorant Garamond",Georgia,"Times New Roman",serif;
-  --f-body: "Montserrat",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-mono: "Montserrat",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --fw-heading: 600;
-  --fw-body: 400;
-  --fw-strong: 500;
-  --tt-heading: none;
-  --ls-heading: 0.005em;
-  --lh-body: 1.65;
-  --lh-heading: 1.15;
-  --r-sm: 0px;
-  --r: 2px;
-  --r-lg: 4px;
-  --r-btn: 0px;
-  --bw: 1px;
-  --density: 1.15;
-  --fs-0: 12px;
-  --fs-1: 16px;
-  --fs-2: 28.43px;
-  --fs-3: clamp(25.77px,20.57px + 1.444vw,37.9px);
-  --fs-4: clamp(34.35px,27.42px + 1.924vw,50.52px);
-  --fs-5: clamp(45.79px,36.56px + 2.565vw,67.34px);
-  --fs-6: clamp(61.04px,48.73px + 3.42vw,89.76px);
-  --sp-1: 4.6px;
-  --sp-2: 9.2px;
-  --sp-3: 13.8px;
-  --sp-4: 18.4px;
-  --sp-5: 27.6px;
-  --sp-6: 36.8px;
-  --sp-7: 55.2px;
-  --sp-8: 73.6px;
-  --sp-9: 110.4px;
-  --card-bg: #18150F;
-  --card-border: #3A3226;
-  --card-shadow: none;
-  --surface-style: outlined;
+  --aao: 36.8px;
+  --bxn: rgb(15 13 11);
+  --chg: rgb(179 166 143);
+  --cpl: 110.4px;
+  --cwb: .005em;
+  --czg: rgb(217 54 54);
+  --dpp: 73.6px;
+  --dru: 500;
+  --etr: "Montserrat",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --eya: 0px;
+  --fdg: 1px;
+  --fhf: rgb(196 183 159);
+  --fsz: none;
+  --gbs: radial-gradient(70% 90% at 50% 0%,rgba(212,175,106,.18),transparent 70%),rgb(15 13 11);
+  --gev: rgb(212 175 106);
+  --ggf: clamp(61.04px,48.73px + 3.42vw,89.76px);
+  --ghb: clamp(45.79px,36.56px + 2.565vw,67.34px);
+  --hbn: 18.4px;
+  --ibd: 400;
+  --ixg: rgb(140 107 63);
+  --ixv: 55.2px;
+  --jjh: rgb(243 236 223);
+  --jlv: rgb(31 157 85);
+  --jwc: 4px;
+  --kak: 9.2px;
+  --kcj: 28.43px;
+  --kmg: clamp(25.77px,20.57px + 1.444vw,37.9px);
+  --mbb: rgb(58 50 38);
+  --nfe: 0px;
+  --orj: 13.8px;
+  --pzz: rgb(26 20 10);
+  --qzp: rgb(24 21 15);
+  --rik: "Montserrat",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --rpn: 1.15;
+  --rus: "Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --sol: rgb(24 21 15);
+  --tfv: 27.6px;
+  --ucs: rgb(26 20 10);
+  --ucu: 12px;
+  --vev: 600;
+  --vge: outlined;
+  --vuq: rgb(58 50 38);
+  --vyc: rgb(217 139 0);
+  --wnd: none;
+  --xbb: 1.65;
+  --xcu: 4.6px;
+  --xhe: 2px;
+  --xol: rgb(34 29 22);
+  --ymo: rgb(212 175 106);
+  --ypq: 1.15;
+  --zbp: clamp(34.35px,27.42px + 1.924vw,50.52px);
+  --zhf: 16px;
+  --zyd: rgb(243 236 223);
 }
 ```
 
@@ -171,14 +171,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `index.html`
 
 - Title tag: Marlowe Club é confiável? Opiniões de jogadores e atendimento
-- Meta description: O que jogadores dizem do Marlowe Club no Brasil: atendimento no chat, saques PIX, verificação e app. Publicamos opiniões boas e ruins. 18+.
 - The only H1: Opiniões de jogadores sobre o Marlowe Club
 - Structured data (JSON-LD): WebPage, FAQPage, WebSite
 - Links to: `how-we-moderate.html`, `reviews.html`, `support-reviews.html`, `write-a-review.html`, `index.html`
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `centered`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -215,7 +214,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 10. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
 11. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
@@ -227,14 +226,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `reviews.html`
 
 - Title tag: Todas as opiniões sobre o Marlowe Club
-- Meta description: Todas as opiniões publicadas sobre o Marlowe Club, das mais novas às mais antigas, com filtro por tema: atendimento, saques, verificação e app. 18+.
 - The only H1: Todas as opiniões sobre o Marlowe Club
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `how-we-moderate.html`, `reviews.html`, `support-reviews.html`, `write-a-review.html`, `index.html`, `reviews-2.html`
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `centered`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -263,7 +261,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 8. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
 9. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
@@ -275,14 +273,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `reviews-2.html`
 
 - Title tag: Todas as opiniões sobre o Marlowe Club · página 2
-- Meta description: Todas as opiniões publicadas sobre o Marlowe Club, das mais novas às mais antigas, com filtro por tema: atendimento, saques, verificação e app. 18+. · página 2
 - The only H1: Todas as opiniões sobre o Marlowe Club
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `how-we-moderate.html`, `reviews.html`, `support-reviews.html`, `write-a-review.html`, `index.html`
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `centered`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -311,7 +308,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 8. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
 9. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
@@ -323,14 +320,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `support-reviews.html`
 
 - Title tag: Atendimento do Marlowe Club: opiniões sobre chat e e-mail
-- Meta description: Como é o suporte do Marlowe Club: tempo de resposta no chat, e-mail e ajuda com verificação e saques, segundo os jogadores, com respostas da casa. 18+.
 - The only H1: Opiniões sobre o atendimento do Marlowe Club
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `how-we-moderate.html`, `reviews.html`, `support-reviews.html`, `write-a-review.html`, `index.html`, `support-reviews-2.html`
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `centered`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -365,7 +361,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 9. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
 10. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
@@ -377,14 +373,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `support-reviews-2.html`
 
 - Title tag: Atendimento do Marlowe Club: opiniões sobre chat e e-mail · página 2
-- Meta description: Como é o suporte do Marlowe Club: tempo de resposta no chat, e-mail e ajuda com verificação e saques, segundo os jogadores, com respostas da casa. 18+. · página 2
 - The only H1: Opiniões sobre o atendimento do Marlowe Club
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `how-we-moderate.html`, `reviews.html`, `support-reviews.html`, `write-a-review.html`, `index.html`
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `centered`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -419,7 +414,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 9. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
 10. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
@@ -431,14 +426,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `write-a-review.html`
 
 - Title tag: Escrever uma opinião sobre o Marlowe Club
-- Meta description: Conte sua experiência com o Marlowe Club. Publicamos opiniões positivas e negativas depois da moderação.
 - The only H1: Escreva sua opinião sobre o Marlowe Club
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `how-we-moderate.html`, `reviews.html`, `support-reviews.html`, `write-a-review.html`, `index.html`
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `centered`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -464,7 +458,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 7. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
 8. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
@@ -474,14 +468,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `how-we-moderate.html`
 
 - Title tag: Como moderamos as opiniões sobre o Marlowe Club
-- Meta description: Quais opiniões removemos, quais nunca removemos, de onde vêm as respostas do Marlowe Club e como ganhamos dinheiro.
 - The only H1: Como moderamos as opiniões
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `how-we-moderate.html`, `reviews.html`, `support-reviews.html`, `write-a-review.html`, `index.html`
 
 ### Sections, in order
 
-1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
    Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
 2. **Header** — block `sx/header`, variant `centered`, role `header`
    Purpose: Site header with logo, navigation and primary CTA.
@@ -505,7 +498,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 7. **Footer** — block `sx/footer`, variant `columns`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
 8. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.

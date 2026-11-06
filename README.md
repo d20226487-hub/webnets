@@ -128,7 +128,19 @@ blocks/<name>/ ────────┘
 }
 ```
 
-Omit `variant` (or use `"auto"`) to let the seed choose. The builder warns, and the command exits 1, when:
+Omit `variant` (or use `"auto"`) to let the seed choose. On blueprint sites, the seed also picks, and these keys pin:
+
+| Key | Values | What it changes |
+|---|---|---|
+| `"icons"` | `outline`, `filled`, `rounded` | Icon family on every page (19 icons, each family drawn separately) |
+| `"variants": {"age-gate": …}` | `modal`, `fullscreen`, `sheet`, `split` | Age gate layout |
+| `"variants": {"compliance-bar": …}` | `strip`, `ribbon` | Compliance bar at the top of the page (where the market shows one) |
+| `"variants": {"compliance": …}` | `panel`, `cards` | Compliance block inside the footer |
+| `"variants": {"disclosure": …}` | `line`, `box`, `chip` | Affiliate disclosure (review, comparison and news sites) |
+| `"variants": {"footer": …}` | `columns`, `compact`, `centered` | Footer layout (within what the site type allows) |
+| `"dialect"` | see Code dialects below | How the code is written |
+
+The builder warns, and the command exits 1, when:
 
 - the brand is not licensed in the market, or none of its verticals are allowed there
 - a page asks for an offer in a market that restricts offers (it renders a feature card instead)
@@ -185,6 +197,47 @@ publish `<prefix>ai-brief.txt` with the brief for every page of that switcher co
 Text is shortened in the review copy; `php build/ai-brief.php sites/demos/<id>.json` writes the full-text brief to `dist/ai/<id>.md`.
 Code: `lib/aibrief.php`, `build/ai-brief.php`.
 
+## Code dialects (`lib/dialect.php`)
+
+Every site writes the same design in its own code dialect, picked from its seed, so sites built from one template
+share almost no CSS or markup text while looking exactly the same. It is a final transform of each rendered page:
+
+| Choice | Options |
+|---|---|
+| `classes` | `bem` (`hero__title--x`), `camel` (`heroTitle_x`), `flat` (`hero-title-x`), `short` (hashed, `qkzvt`) |
+| `vars` | `keep`, `short` (CSS custom properties renamed, `--c-bg` → `--qvd`) |
+| `colors` | `hex`, `HEX`, `rgb` (`rgb(31 122 224)`), `rgb-comma` |
+| `units` | `px`, `rem` (spacing, type and radius; 1–3px stay px) |
+| `numbers` | `lead` (`0.5`), `bare` (`.5`) |
+| `breakpoints` | 0, 8, 16 or 24px added to every `@media` width |
+| `order` | `keep`, `reverse`, `sorted` (declarations, only where order cannot matter) |
+| `attrs` | `keep`, `sorted`, `reverse` (attribute order in tags) |
+
+Pin any choice in the site config, e.g. `"dialect": {"classes": "short"}`, or turn it off with `"dialect": false`.
+The class prefix stays in front of renamed classes and ids; text, URLs, `data-*` values and JSON-LD are never touched;
+class-substring selectors in looks (`[class*="__card"]`) are expanded to the classes they matched. The developer
+panel's Styles tab shows each site's dialect, and `php build/diversity.php` hints when two sites of a type share a
+class style. Block authors: find elements by `data-*` or id, never by class name (docs/block-contract.md).
+
+Effect, measured with `build/variation-diff.py` (separate demo sites of the same type, before → after):
+
+| Type | Code | CSS | Markup | Visual | DOM skeleton |
+|---|---|---|---|---|---|
+| landing | 53% → 95% | 39% → 95% | 68% → 95% | 60% (same) | 47% (same) |
+| app | 54% → 95% | 37% → 95% | 70% → 95% | 78% (same) | 39% (same) |
+| app-multi | 55% → 95% | 39% → 95% | 71% → 95% | 79% (same) | 46% (same) |
+| promo | 49% → 94% | 32% → 95% | 66% → 93% | 83% (same) | 43% (same) |
+| vendor | 53% → 93% | 39% → 93% | 67% → 94% | 94% (same) | 44% (same) |
+| satellite | 59% → 95% | 49% → 95% | 68% → 94% | 90% (same) | 53% (same) |
+| casinos | 59% → 96% | 35% → 94% | 83% → 97% | 76% (same) | 54% (same) |
+| news | 52% → 93% | 27% → 93% | 77% → 94% | 87% (same) | 45% (same) |
+| reviews | 50% → 95% | 29% → 95% | 71% → 95% | 82% (same) | 37% (same) |
+
+Checked: all nine types render pixel-identical with dialects on and off (four dialects covering every option,
+full page at 1280 and 520px, app-store looks included); age gate, FAQ, code copy and review filters work.
+The DOM skeleton (which tags nest how) does not change: that needs different block layouts, not a dialect. The frame
+layouts and icon families above do change it (they are on every page), so sibling sites differ there too.
+
 ## How different are the variations? (`build/variation-diff.py`)
 
 Measures, in %, how much the home-page versions of each switcher demo differ from each other, visually and in code,
@@ -199,7 +252,8 @@ python build/variation-diff.py --threshold 30   # what "distinct" means (default
 | Measure | What it counts |
 |---|---|
 | Visual | Share of the desktop first screen (1280×800) that visibly changes: 8×8 px cells whose average colour moves |
-| Code | Mean of CSS (share of CSS rules that differ) and markup (share of 6-tag HTML sequences that differ); the class prefix is normalised |
+| Code | Mean of CSS (share of CSS rules that differ) and markup (share of 6-tag HTML sequences that differ). Trivial rewrites do not count: the class prefix, whitespace, declaration order and attribute order are normalised |
+| Skeleton | Share of 6-tag sequences of tag names only: the DOM tree. Code dialects do not change it; different block layouts do |
 | Structure, text (in the JSON) | Share of blocks (block:layout) and of 3-word text sequences that differ |
 | Distinct versions | Largest set of versions in which every pair differs by at least the threshold |
 

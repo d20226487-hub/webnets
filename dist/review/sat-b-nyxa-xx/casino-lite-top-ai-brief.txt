@@ -71,23 +71,23 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
 
 ```css
 :root {
-  --c-bg: #FFFFFF;
-  --c-surface: #F5F7FB;
-  --c-surface-2: #EBEFF7;
-  --c-text: #0E1525;
-  --c-muted: #556079;
-  --c-border: #E2E7F0;
-  --c-accent: #2457FF;
-  --c-on-accent: #FFFFFF;
-  --c-accent-2: #00C2A8;
-  --c-success: #1F9D55;
-  --c-warning: #D98B00;
-  --c-danger: #D93636;
-  --c-hero-text: #0E1525;
-  --c-hero-muted: #556079;
-  --c-hero-accent: #2457FF;
-  --c-hero-on-accent: #FFFFFF;
-  --hero-bg: linear-gradient(180deg,#EEF2FF 0%,#FFFFFF 100%);
+  --c-bg: rgb(255 255 255);
+  --c-surface: rgb(245 247 251);
+  --c-surface-2: rgb(235 239 247);
+  --c-text: rgb(14 21 37);
+  --c-muted: rgb(85 96 121);
+  --c-border: rgb(226 231 240);
+  --c-accent: rgb(36 87 255);
+  --c-on-accent: rgb(255 255 255);
+  --c-accent-2: rgb(0 194 168);
+  --c-success: rgb(31 157 85);
+  --c-warning: rgb(217 139 0);
+  --c-danger: rgb(217 54 54);
+  --c-hero-text: rgb(14 21 37);
+  --c-hero-muted: rgb(85 96 121);
+  --c-hero-accent: rgb(36 87 255);
+  --c-hero-on-accent: rgb(255 255 255);
+  --hero-bg: linear-gradient(180deg,rgb(238 242 255) 0%,rgb(255 255 255) 100%);
   --f-display: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --f-body: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --f-mono: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
@@ -120,7 +120,7 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
   --sp-7: 55.2px;
   --sp-8: 73.6px;
   --sp-9: 110.4px;
-  --card-bg: #F5F7FB;
+  --card-bg: rgb(245 247 251);
   --card-border: transparent;
   --card-shadow: none;
   --surface-style: flat;
@@ -171,14 +171,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `casino-lite-top-index.html`
 
 - Title tag: Nyxa Казино: вывод выигрыша за 15 минут
-- Meta description: Живое казино Nyxa: как быстро вывести выигрыш через Apple Pay и на карту, сроки, лимиты и регистрация. 18+.
 - The only H1: Живое казино с выводом за 15 минут
 - Structured data (JSON-LD): WebPage, WebSite
 - Links to: `casino-lite-top-sign-up.html`, `casino-lite-top-payments.html`, `casino-lite-top-casino.html`, `casino-lite-top-index.html`
 
 ### Sections, in order
 
-1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
 2. **Header** — block `sx/header`, variant `centered`, role `header`
@@ -222,7 +221,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-9. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+9. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -232,14 +231,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `casino-lite-top-sign-up.html`
 
 - Title tag: Регистрация в Nyxa: что нужно и сколько занимает
-- Meta description: Как открыть счёт в Nyxa за несколько минут: данные, проверка документа и первое пополнение. Только для игроков 18+.
 - The only H1: Регистрация в Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
 - Links to: `casino-lite-top-sign-up.html`, `casino-lite-top-payments.html`, `casino-lite-top-casino.html`, `casino-lite-top-index.html`
 
 ### Sections, in order
 
-1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
 2. **Header** — block `sx/header`, variant `centered`, role `header`
@@ -282,7 +280,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-11. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+11. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -292,14 +290,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `casino-lite-top-payments.html`
 
 - Title tag: Пополнение и вывод в Nyxa: Apple Pay, Visa, Mastercard
-- Meta description: Все способы оплаты Nyxa: минимальные суммы, сроки зачисления и вывода. Apple Pay — в среднем 15 минут. Без комиссий. 18+.
 - The only H1: Пополнение и вывод в Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
 - Links to: `casino-lite-top-sign-up.html`, `casino-lite-top-payments.html`, `casino-lite-top-casino.html`, `casino-lite-top-index.html`
 
 ### Sections, in order
 
-1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
 2. **Header** — block `sx/header`, variant `centered`, role `header`
@@ -337,7 +334,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-10. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+10. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -347,14 +344,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `casino-lite-top-casino.html`
 
 - Title tag: Казино Nyxa: живые столы и слоты
-- Meta description: Рулетка, блэкджек и баккара с живыми дилерами в Nyxa, слоты с честным RTP. 18+.
 - The only H1: Казино Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
 - Links to: `casino-lite-top-sign-up.html`, `casino-lite-top-payments.html`, `casino-lite-top-casino.html`, `casino-lite-top-index.html`
 
 ### Sections, in order
 
-1. **Responsible gambling** — block `sx/compliance-bar`, variant `strip`, role `compliance`
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
    Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
    - `show_verify`: false
 2. **Header** — block `sx/header`, variant `centered`, role `header`
@@ -393,7 +389,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `show_verify`: false
   - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
      - `show_verify`: false
-10. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+10. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false

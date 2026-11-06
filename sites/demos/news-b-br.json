@@ -11,6 +11,9 @@
   "preset": "fresh-minimal",
   "seed": "placaraberto-br-news-b",
   "prefix": "auto",
+  "dialect": {
+    "classes": "flat"
+  },
   "urls": "pretty",
   "articles": "content/placar-aberto-br/articles",
   "links": {

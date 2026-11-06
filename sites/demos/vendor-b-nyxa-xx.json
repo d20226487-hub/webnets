@@ -12,6 +12,9 @@
   "preset": "candy-pop",
   "seed": "nyxa-xx-vendor-b",
   "prefix": "auto",
+  "dialect": {
+    "classes": "short"
+  },
   "links": {
     "go": "https://nyxa.example/casino/studio/tidewell?src=vendor-b",
     "game": "https://nyxa.example/casino/play/{game}?src=vendor-b"

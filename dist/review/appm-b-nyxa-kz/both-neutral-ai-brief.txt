@@ -74,39 +74,30 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
 
 ```css
 :root {
-  --c-bg: #FFFFFF;
-  --c-surface: #F4F4F5;
-  --c-surface-2: #E4E4E7;
-  --c-text: #18181B;
-  --c-muted: #52525B;
-  --c-border: #E4E4E7;
-  --c-accent: #18181B;
-  --c-on-accent: #FFFFFF;
-  --c-accent-2: #71717A;
-  --c-success: #1F9D55;
-  --c-warning: #D98B00;
-  --c-danger: #D93636;
-  --c-hero-text: #18181B;
-  --c-hero-muted: #52525B;
-  --c-hero-accent: #18181B;
-  --c-hero-on-accent: #FFFFFF;
-  --hero-bg: #FAFAFA;
-  --f-display: "DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-body: "DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-mono: "DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --fw-heading: 700;
-  --fw-body: 400;
-  --fw-strong: 500;
-  --tt-heading: none;
-  --ls-heading: -0.02em;
-  --lh-body: 1.55;
-  --lh-heading: 1.15;
-  --r-sm: 6px;
-  --r: 10px;
-  --r-lg: 16px;
-  --r-btn: 10px;
   --bw: 1px;
+  --c-accent-2: #71717a;
+  --c-accent: #18181b;
+  --c-bg: #ffffff;
+  --c-border: #e4e4e7;
+  --c-danger: #d93636;
+  --c-hero-accent: #18181b;
+  --c-hero-muted: #52525b;
+  --c-hero-on-accent: #ffffff;
+  --c-hero-text: #18181b;
+  --c-muted: #52525b;
+  --c-on-accent: #ffffff;
+  --c-success: #1f9d55;
+  --c-surface-2: #e4e4e7;
+  --c-surface: #f4f4f5;
+  --c-text: #18181b;
+  --c-warning: #d98b00;
+  --card-bg: #f4f4f5;
+  --card-border: transparent;
+  --card-shadow: none;
   --density: 1;
+  --f-body: "DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-display: "DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono: "DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --fs-0: 12.8px;
   --fs-1: 16px;
   --fs-2: 25px;
@@ -114,6 +105,17 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
   --fs-4: clamp(26.56px,21.21px + 1.488vw,39.06px);
   --fs-5: clamp(33.2px,26.51px + 1.86vw,48.83px);
   --fs-6: clamp(41.5px,33.13px + 2.325vw,61.04px);
+  --fw-body: 400;
+  --fw-heading: 700;
+  --fw-strong: 500;
+  --hero-bg: #fafafa;
+  --lh-body: 1.55;
+  --lh-heading: 1.15;
+  --ls-heading: -0.02em;
+  --r-btn: 10px;
+  --r-lg: 16px;
+  --r-sm: 6px;
+  --r: 10px;
   --sp-1: 4px;
   --sp-2: 8px;
   --sp-3: 12px;
@@ -123,10 +125,8 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
   --sp-7: 48px;
   --sp-8: 64px;
   --sp-9: 96px;
-  --card-bg: #F4F4F5;
-  --card-border: transparent;
-  --card-shadow: none;
   --surface-style: flat;
+  --tt-heading: none;
 }
 ```
 
@@ -175,7 +175,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `both-neutral-index.html`
 
 - Title tag: Скачать приложение Nyxa для Android (APK) и iPhone
-- Meta description: Официальное приложение Nyxa: ставки на спорт, лайв и вывод на Kaspi. APK для Android и App Store. 21+.
 - The only H1: Nyxa на Android и iPhone
 - Structured data (JSON-LD): WebPage, MobileApplication, FAQPage, WebSite
 - Links to: `both-neutral-index.html`, `both-neutral-iphone.html`, `both-neutral-android.html`, `both-neutral-features.html`, `both-neutral-whats-new.html`, `both-neutral-help.html`
@@ -235,7 +234,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `both-neutral-iphone.html`
 
 - Title tag: Nyxa для iPhone: установка из App Store
-- Meta description: Как установить приложение Nyxa на iPhone: App Store, требования к iOS, вход по Face ID. Бесплатно, 21+.
 - The only H1: Nyxa для iPhone
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
 - Links to: `both-neutral-index.html`, `both-neutral-iphone.html`, `both-neutral-android.html`, `both-neutral-features.html`, `both-neutral-whats-new.html`, `both-neutral-help.html`
@@ -285,7 +283,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `both-neutral-android.html`
 
 - Title tag: Nyxa для Android: как безопасно установить APK
-- Meta description: Пошаговая установка официального APK Nyxa на Android: разрешения, проверка файла, обновления. 21+.
 - The only H1: Nyxa для Android
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
 - Links to: `both-neutral-index.html`, `both-neutral-iphone.html`, `both-neutral-android.html`, `both-neutral-features.html`, `both-neutral-whats-new.html`, `both-neutral-help.html`
@@ -333,7 +330,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `both-neutral-features.html`
 
 - Title tag: Возможности приложения Nyxa
-- Meta description: Линия и лайв, вывод на Kaspi, Face ID и лимиты в профиле: что умеет приложение Nyxa. 21+.
 - The only H1: Что умеет приложение Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `both-neutral-index.html`, `both-neutral-iphone.html`, `both-neutral-android.html`, `both-neutral-features.html`, `both-neutral-whats-new.html`, `both-neutral-help.html`
@@ -385,7 +381,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `both-neutral-whats-new.html`
 
 - Title tag: Что нового в приложении Nyxa: история версий
-- Meta description: Последние версии приложения Nyxa для iPhone и Android и что в них изменилось. 21+.
 - The only H1: Что нового в Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `both-neutral-index.html`, `both-neutral-iphone.html`, `both-neutral-android.html`, `both-neutral-features.html`, `both-neutral-whats-new.html`, `both-neutral-help.html`
@@ -431,7 +426,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `both-neutral-help.html`
 
 - Title tag: Помощь по приложению Nyxa: установка, вход, обновления
-- Meta description: Ответы на частые вопросы о приложении Nyxa: не устанавливается, не входит, как обновить, как задать лимиты. 21+.
 - The only H1: Помощь по приложению
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
 - Links to: `both-neutral-index.html`, `both-neutral-iphone.html`, `both-neutral-android.html`, `both-neutral-features.html`, `both-neutral-whats-new.html`, `both-neutral-help.html`

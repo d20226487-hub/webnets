@@ -73,39 +73,30 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
 
 ```css
 :root {
-  --c-bg: #FFFFFF;
-  --c-surface: #F8F9FA;
-  --c-surface-2: #F1F3F4;
-  --c-text: #202124;
-  --c-muted: #5F6368;
-  --c-border: #DADCE0;
-  --c-accent: #01875F;
-  --c-on-accent: #FFFFFF;
-  --c-accent-2: #1A73E8;
-  --c-success: #1F9D55;
-  --c-warning: #D98B00;
-  --c-danger: #D93636;
-  --c-hero-text: #202124;
-  --c-hero-muted: #5F6368;
-  --c-hero-accent: #01875F;
-  --c-hero-on-accent: #FFFFFF;
-  --hero-bg: #FFFFFF;
-  --f-display: "Roboto",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-body: "Roboto",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-mono: "Roboto",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --fw-heading: 500;
-  --fw-body: 400;
-  --fw-strong: 500;
-  --tt-heading: none;
-  --ls-heading: 0;
-  --lh-body: 1.55;
-  --lh-heading: 1.15;
-  --r-sm: 8px;
-  --r: 12px;
-  --r-lg: 20px;
-  --r-btn: 8px;
   --bw: 1px;
+  --c-accent-2: #1a73e8;
+  --c-accent: #01875f;
+  --c-bg: #ffffff;
+  --c-border: #dadce0;
+  --c-danger: #d93636;
+  --c-hero-accent: #01875f;
+  --c-hero-muted: #5f6368;
+  --c-hero-on-accent: #ffffff;
+  --c-hero-text: #202124;
+  --c-muted: #5f6368;
+  --c-on-accent: #ffffff;
+  --c-success: #1f9d55;
+  --c-surface-2: #f1f3f4;
+  --c-surface: #f8f9fa;
+  --c-text: #202124;
+  --c-warning: #d98b00;
+  --card-bg: #f8f9fa;
+  --card-border: transparent;
+  --card-shadow: none;
   --density: 1;
+  --f-body: "Roboto",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-display: "Roboto",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono: "Roboto",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --fs-0: 12.8px;
   --fs-1: 16px;
   --fs-2: 25px;
@@ -113,6 +104,17 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
   --fs-4: clamp(26.56px,21.21px + 1.488vw,39.06px);
   --fs-5: clamp(33.2px,26.51px + 1.86vw,48.83px);
   --fs-6: clamp(41.5px,33.13px + 2.325vw,61.04px);
+  --fw-body: 400;
+  --fw-heading: 500;
+  --fw-strong: 500;
+  --hero-bg: #ffffff;
+  --lh-body: 1.55;
+  --lh-heading: 1.15;
+  --ls-heading: 0;
+  --r-btn: 8px;
+  --r-lg: 20px;
+  --r-sm: 8px;
+  --r: 12px;
   --sp-1: 4px;
   --sp-2: 8px;
   --sp-3: 12px;
@@ -122,10 +124,8 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
   --sp-7: 48px;
   --sp-8: 64px;
   --sp-9: 96px;
-  --card-bg: #F8F9FA;
-  --card-border: transparent;
-  --card-shadow: none;
   --surface-style: flat;
+  --tt-heading: none;
 }
 ```
 
@@ -170,7 +170,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `ios-play-index.html`
 
 - Title tag: Nyxa для iPhone: официальное приложение в App Store
-- Meta description: Официальное приложение Nyxa для iPhone: ставки на спорт, лайв и вывод на Kaspi. Бесплатно в App Store. 21+.
 - The only H1: Nyxa
 - Structured data (JSON-LD): WebPage, MobileApplication, FAQPage, WebSite
 - Links to: `ios-play-index.html`, `ios-play-iphone.html`, `ios-play-features.html`, `ios-play-whats-new.html`, `ios-play-help.html`
@@ -224,7 +223,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `ios-play-iphone.html`
 
 - Title tag: Nyxa для iPhone: установка из App Store
-- Meta description: Как установить приложение Nyxa на iPhone: App Store, требования к iOS, вход по Face ID. Бесплатно, 21+.
 - The only H1: Nyxa для iPhone
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
 - Links to: `ios-play-index.html`, `ios-play-iphone.html`, `ios-play-features.html`, `ios-play-whats-new.html`, `ios-play-help.html`
@@ -274,7 +272,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `ios-play-features.html`
 
 - Title tag: Возможности приложения Nyxa
-- Meta description: Линия и лайв, вывод на Kaspi, Face ID и лимиты в профиле: что умеет приложение Nyxa. 21+.
 - The only H1: Что умеет приложение Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `ios-play-index.html`, `ios-play-iphone.html`, `ios-play-features.html`, `ios-play-whats-new.html`, `ios-play-help.html`
@@ -326,7 +323,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `ios-play-whats-new.html`
 
 - Title tag: Что нового в приложении Nyxa: история версий
-- Meta description: Последние версии приложения Nyxa для iPhone и Android и что в них изменилось. 21+.
 - The only H1: Что нового в Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `ios-play-index.html`, `ios-play-iphone.html`, `ios-play-features.html`, `ios-play-whats-new.html`, `ios-play-help.html`
@@ -372,7 +368,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `ios-play-help.html`
 
 - Title tag: Помощь по приложению Nyxa: установка, вход, обновления
-- Meta description: Ответы на частые вопросы о приложении Nyxa: не устанавливается, не входит, как обновить, как задать лимиты. 21+.
 - The only H1: Помощь по приложению
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
 - Links to: `ios-play-index.html`, `ios-play-iphone.html`, `ios-play-features.html`, `ios-play-whats-new.html`, `ios-play-help.html`

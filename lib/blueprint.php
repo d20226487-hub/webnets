@@ -257,7 +257,14 @@ function sx_expand_blueprint(array $cfg, string $root, ?array $bp = null, string
         if (($f['when'] ?? '') === 'market.strip' && ($market['compliance']['strip'] ?? 'optional') !== 'required' && empty($cfg['sections']['strip'])) {
             continue;
         }
-        $blocks[] = ['block' => $f['block'], 'props' => $f['props'] ?? []];
+        $props = $f['props'] ?? [];
+        if (!empty($f['variants'])) { // e.g. compliance strip / ribbon, disclosure line / box / chip
+            $tv = sx_choose_variant('top.' . $f['block'], $f['block'], $f['variants'], $pins[$f['block']] ?? null);
+            SX::$trace[$pageId]['frame'][$f['block']] = ['block' => $f['block'], 'variant' => $tv, 'allowed' => sx_allowed_variants($f['block'], $f['variants']), 'picked' => ($pins[$f['block']] ?? null) === $tv ? 'pinned' : 'seed'];
+            $props = ['variant' => $tv] + $props;
+            $summary['sections'][] = "{$f['block']}:$tv";
+        }
+        $blocks[] = ['block' => $f['block'], 'props' => $props];
     }
     $h = $bp['frame']['header'];
     $hv = sx_choose_variant('header', $h['block'], $h['variants'] ?? null, $pins['header'] ?? null);

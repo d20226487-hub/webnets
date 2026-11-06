@@ -83,7 +83,7 @@ function sx_cover_art(string $seed, string $theme, string $label = '', bool $gly
     $gx = $glyphRight ? 540 : $r(6, 200, 440); // right: keeps the pictogram clear of text laid over the picture
     $glyph = '<g transform="translate(' . ($gx - 70) . ' 110) scale(1.4)" opacity=".95">' . sx_art_glyph($theme) . '</g>';
     $tag = $label !== '' ? '<g transform="translate(28 300)"><rect width="' . (16 + mb_strlen($label) * 11) . '" height="34" rx="17" fill="#fff" fill-opacity=".92"/><text x="16" y="23" font-size="15" font-weight="700" font-family="system-ui,sans-serif" letter-spacing="1" style="fill:var(--c-accent)">' . e(mb_strtoupper($label)) . '</text></g>' : '';
-    return '<svg class="' . cls('art') . '" viewBox="0 0 640 360" preserveAspectRatio="xMidYMid slice" role="presentation" aria-hidden="true">'
+    return '<svg class="' . cls('art') . '" data-cover viewBox="0 0 640 360" preserveAspectRatio="xMidYMid slice" role="presentation" aria-hidden="true">'
         . '<defs><linearGradient id="' . $id . '" gradientTransform="rotate(' . $angle . ' .5 .5)"><stop offset="0" style="stop-color:var(--c-accent)"/>'
         . '<stop offset="1" style="stop-color:var(--c-accent-2, var(--c-accent))"/></linearGradient></defs>'
         . '<rect width="640" height="360" fill="url(#' . $id . ')"/><rect width="640" height="360" fill="#000" fill-opacity=".12"/>' . $deco . $glyph . $tag . '</svg>';

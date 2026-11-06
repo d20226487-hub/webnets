@@ -1,0 +1,16 @@
+/* split: brand panel with the age as a big number beside the question */
+.sx-agegate--split { background: rgba(0,0,0,.78); }
+.sx-agegate__card { display: grid; width: min(100%, 680px); overflow: hidden; background: var(--c-surface); color: var(--c-text); border: var(--bw) solid var(--c-border); border-radius: var(--r-lg); }
+.sx-agegate__side { display: grid; align-content: space-between; justify-items: start; gap: var(--sp-5); padding: var(--sp-6); background: var(--hero-bg); color: var(--c-hero-text); }
+.sx-agegate__big { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: clamp(3rem, 12vw, 5.5rem); line-height: .9; letter-spacing: -.03em; }
+.sx-agegate__side .sx-logo { color: var(--c-hero-text); font-size: var(--fs-1); }
+.sx-agegate__main { display: grid; align-content: center; gap: var(--sp-4); padding: var(--sp-6); }
+.sx-agegate__main > p { color: var(--c-muted); font-size: var(--fs-0); }
+.sx-agegate--split .sx-agegate__actions { display: grid; gap: var(--sp-3); justify-items: center; }
+.sx-agegate__leave { color: var(--c-muted); font-size: var(--fs-0); }
+@media (min-width: 600px) {
+  .sx-agegate__card { grid-template-columns: 0.9fr 1.1fr; }
+}
+@media (max-width: 599px) {
+  .sx-agegate__side { grid-auto-flow: column; align-items: center; justify-content: space-between; padding: var(--sp-5); }
+}

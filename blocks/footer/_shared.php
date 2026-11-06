@@ -16,7 +16,9 @@ $legal = array_merge($props['links'] ?? [], [
 ]);
 
 $about = $props['about'] ?: tm($brand['tagline']);
-$compliance = sx_block('compliance-bar', ['variant' => 'panel', 'show_verify' => !empty($props['show_verify'])]);
+// compliance inside the footer: panel or cards, per site (seed; pin with "variants": {"compliance": "cards"})
+$cv = in_array(sx_ctx('compliance_footer'), ['panel', 'cards'], true) ? sx_ctx('compliance_footer') : sx_pick(['panel', 'cards'], 'compliance-footer');
+$compliance = sx_block('compliance-bar', ['variant' => $cv, 'show_verify' => !empty($props['show_verify'])]);
 $rights = '© ' . e($site['year']) . ' ' . e($site['name']) . '. ' . e(t('footer.rights'));
 
 // Multi-page sites: every page (home included) in the footer, so no page depends on the header menu alone.

@@ -11,6 +11,9 @@
   "preset": "sunburst",
   "seed": "casinoscout-xx-casinos-c",
   "prefix": "auto",
+  "dialect": {
+    "classes": "camel"
+  },
   "urls": "pretty",
   "brands": [
     "marlowe",

@@ -73,59 +73,59 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
 
 ```css
 :root {
-  --c-bg: #0E241D;
-  --c-surface: #143128;
-  --c-surface-2: #1A3D32;
-  --c-text: #F3EEDF;
-  --c-muted: #B5BFA9;
-  --c-border: #2A4F42;
-  --c-accent: #C9A45C;
-  --c-on-accent: #1A1206;
-  --c-accent-2: #8E2B3A;
-  --c-success: #1F9D55;
-  --c-warning: #D98B00;
-  --c-danger: #D93636;
-  --c-hero-text: #F3EEDF;
-  --c-hero-muted: #C3CCB6;
-  --c-hero-accent: #C9A45C;
-  --c-hero-on-accent: #1A1206;
-  --hero-bg: radial-gradient(90% 70% at 50% 0%,#1C4A3B,#0E241D 70%);
-  --f-display: "PT Serif",Georgia,"Times New Roman",serif;
-  --f-body: "PT Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-mono: "PT Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --fw-heading: 700;
-  --fw-body: 400;
-  --fw-strong: 700;
-  --tt-heading: none;
-  --ls-heading: 0;
-  --lh-body: 1.6;
-  --lh-heading: 1.15;
-  --r-sm: 6px;
-  --r: 10px;
-  --r-lg: 14px;
-  --r-btn: 6px;
-  --bw: 1px;
-  --density: 1.05;
-  --fs-0: 12.8px;
-  --fs-1: 16px;
-  --fs-2: 25px;
-  --fs-3: clamp(21.25px,16.96px + 1.19vw,31.25px);
-  --fs-4: clamp(26.56px,21.21px + 1.488vw,39.06px);
-  --fs-5: clamp(33.2px,26.51px + 1.86vw,48.83px);
-  --fs-6: clamp(41.5px,33.13px + 2.325vw,61.04px);
-  --sp-1: 4.2px;
-  --sp-2: 8.4px;
-  --sp-3: 12.6px;
-  --sp-4: 16.8px;
-  --sp-5: 25.2px;
-  --sp-6: 33.6px;
-  --sp-7: 50.4px;
-  --sp-8: 67.2px;
-  --sp-9: 100.8px;
-  --card-bg: #143128;
-  --card-border: transparent;
-  --card-shadow: 0 10px 28px rgba(0,0,0,.35);
-  --surface-style: elevated;
+  --ajp: elevated;
+  --agi: 0 10px 28px rgba(0,0,0,.35);
+  --djo: transparent;
+  --szl: rgb(20 49 40);
+  --niw: 100.8px;
+  --vnr: 67.2px;
+  --wmp: 50.4px;
+  --sxt: 33.6px;
+  --ziv: 25.2px;
+  --ytu: 16.8px;
+  --qsb: 12.6px;
+  --mcp: 8.4px;
+  --mvi: 4.2px;
+  --ykf: clamp(41.5px,33.13px + 2.325vw,61.04px);
+  --jul: clamp(33.2px,26.51px + 1.86vw,48.83px);
+  --nhj: clamp(26.56px,21.21px + 1.488vw,39.06px);
+  --lwq: clamp(21.25px,16.96px + 1.19vw,31.25px);
+  --xdc: 25px;
+  --gua: 16px;
+  --qxo: 12.8px;
+  --kcw: 1.05;
+  --dsw: 1px;
+  --jti: 6px;
+  --iry: 14px;
+  --ttn: 10px;
+  --iov: 6px;
+  --wao: 1.15;
+  --voz: 1.6;
+  --olr: 0;
+  --ejx: none;
+  --adn: 700;
+  --sdy: 400;
+  --syk: 700;
+  --icy: "PT Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --vhm: "PT Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --zpa: "PT Serif",Georgia,"Times New Roman",serif;
+  --rqv: radial-gradient(90% 70% at 50% 0%,rgb(28 74 59),rgb(14 36 29) 70%);
+  --xjn: rgb(26 18 6);
+  --bxc: rgb(201 164 92);
+  --gub: rgb(195 204 182);
+  --mrc: rgb(243 238 223);
+  --dqi: rgb(217 54 54);
+  --dim: rgb(217 139 0);
+  --wmh: rgb(31 157 85);
+  --xot: rgb(142 43 58);
+  --htp: rgb(26 18 6);
+  --pla: rgb(201 164 92);
+  --qlm: rgb(42 79 66);
+  --htb: rgb(181 191 169);
+  --dvk: rgb(243 238 223);
+  --flh: rgb(26 61 50);
+  --abb: rgb(20 49 40);
+  --tyh: rgb(14 36 29);
 }
 ```
 
@@ -174,7 +174,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `index.html`
 
 - Title tag: Baixe o app Marlowe Club para iPhone e Android
-- Meta description: App oficial da Marlowe Club: mesas ao vivo e saques via PIX em até 30 minutos. App Store, Google Play e APK. 18+.
 - The only H1: Baixe o app Marlowe Club
 - Structured data (JSON-LD): WebPage, MobileApplication, FAQPage, WebSite
 - Links to: `index.html`, `iphone.html`, `android.html`, `features.html`, `whats-new.html`, `help.html`
@@ -219,7 +218,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 10. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
 11. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
@@ -231,7 +230,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `iphone.html`
 
 - Title tag: Marlowe Club no iPhone: instale pela App Store
-- Meta description: Como instalar o app Marlowe Club no iPhone: App Store, iOS 15 ou superior, login por Face ID. Grátis. 18+.
 - The only H1: Marlowe Club no iPhone
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
 - Links to: `index.html`, `iphone.html`, `android.html`, `features.html`, `whats-new.html`, `help.html`
@@ -269,7 +267,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 8. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
 9. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
@@ -281,7 +279,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `android.html`
 
 - Title tag: Marlowe Club no Android: Google Play ou APK
-- Meta description: Instale o app oficial Marlowe Club pela Google Play ou pelo APK oficial, passo a passo e com segurança. 18+.
 - The only H1: Marlowe Club no Android
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
 - Links to: `index.html`, `iphone.html`, `android.html`, `features.html`, `whats-new.html`, `help.html`
@@ -317,7 +314,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 8. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
 9. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
@@ -329,7 +326,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `features.html`
 
 - Title tag: Recursos do app Marlowe Club
-- Meta description: Mesas ao vivo em português, saques via PIX em até 30 minutos e limites no perfil. 18+.
 - The only H1: O que o app Marlowe Club faz
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `index.html`, `iphone.html`, `android.html`, `features.html`, `whats-new.html`, `help.html`
@@ -369,7 +365,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 8. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
 9. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
@@ -381,7 +377,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `whats-new.html`
 
 - Title tag: Novidades do app Marlowe Club
-- Meta description: Versões recentes do app Marlowe Club para iPhone e Android e o que mudou. 18+.
 - The only H1: Novidades do Marlowe Club
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `index.html`, `iphone.html`, `android.html`, `features.html`, `whats-new.html`, `help.html`
@@ -415,7 +410,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 7. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
 8. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
@@ -427,7 +422,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `help.html`
 
 - Title tag: Ajuda do app Marlowe Club: instalação, login e atualizações
-- Meta description: Soluções para problemas de instalação, login e atualização do app Marlowe Club. 18+.
 - The only H1: Ajuda do app
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
 - Links to: `index.html`, `iphone.html`, `android.html`, `features.html`, `whats-new.html`, `help.html`
@@ -456,7 +450,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 6. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
 7. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.

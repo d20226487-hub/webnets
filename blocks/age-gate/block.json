@@ -9,7 +9,7 @@
   "supports": { "align": false, "html": false, "multiple": false },
   "sx": {
     "role": "age-gate",
-    "variants": ["modal", "fullscreen"],
+    "variants": ["modal", "fullscreen", "sheet", "split"],
     "default_variant": "modal",
     "required": true,
     "guardrails": [

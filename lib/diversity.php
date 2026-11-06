@@ -32,7 +32,10 @@ function sx_site_parts(array $cfg, string $root): array
             $parts[$id] = $v;
         }
     }
-    return ['id' => $cfg['id'], 'type' => $cfg['type'], 'preset' => $cfg['preset'], 'angle' => $summary['angle'], 'prefix' => $ctx['prefix'], 'parts' => $parts];
+    require_once __DIR__ . '/dialect.php';
+    sx_context($ctx);
+    $dialect = sx_dialect_resolve($cfg['dialect'] ?? true);
+    return ['id' => $cfg['id'], 'type' => $cfg['type'], 'preset' => $cfg['preset'], 'angle' => $summary['angle'], 'prefix' => $ctx['prefix'], 'parts' => $parts, 'dialect' => $dialect];
 }
 
 /** Compare two resolved sites: ['same' => [...], 'overlap' => %, 'ok' => bool, 'comparable' => same type]. */
@@ -55,5 +58,10 @@ function sx_diversity_pair(array $a, array $b): array
     }
     $common = array_diff_key(array_intersect_key($a['parts'], $b['parts']), array_flip(['footer', 'age-gate']));
     $identical = count(array_filter(array_keys($common), fn($k) => $a['parts'][$k] === $b['parts'][$k]));
-    return ['same' => $same, 'overlap' => $common ? (int)round(100 * $identical / count($common)) : 0, 'ok' => !$same, 'comparable' => true];
+    // Code dialects (lib/dialect.php): a shared class-name style is the biggest remaining code overlap. A hint, not a failure.
+    $hints = [];
+    if (($a['dialect']['classes'] ?? 'off') === ($b['dialect']['classes'] ?? 'off')) {
+        $hints[] = 'same class style (' . ($a['dialect']['classes'] ?? 'no dialect') . '): pin "dialect": {"classes": …} on one of them';
+    }
+    return ['same' => $same, 'overlap' => $common ? (int)round(100 * $identical / count($common)) : 0, 'ok' => !$same, 'comparable' => true, 'hints' => $hints];
 }

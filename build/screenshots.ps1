@@ -8,7 +8,7 @@ $chrome = "C:\Program Files\Google\Chrome\Application\chrome.exe"
 New-Item -ItemType Directory -Force $src, $shots | Out-Null
 $enc = New-Object System.Text.UTF8Encoding $false
 # Age gate hidden for the picture; everything else is the shipped page.
-$inject = '<style>[class*="agegate"],[class*="age-gate"]{display:none!important}html,body{overflow:visible!important}</style>'
+$inject = '<style>[class*="agegate"],[class*="age-gate"],[role="dialog"][id^="age-"]{display:none!important}html,body{overflow:visible!important}</style>'
 foreach ($id in (Get-ChildItem "$root\sites\demos\*.json" | ForEach-Object { $_.BaseName } | Where-Object { -not $Only -or $Only -contains $_ })) {
   [IO.File]::WriteAllText("$src\$id.html", [IO.File]::ReadAllText("$root\dist\sites\$id\index.html", $enc).Replace('</head>', "$inject</head>"), $enc)
   # Headless Chrome will not make a window under ~500px, so the phone view renders in a 375px iframe.

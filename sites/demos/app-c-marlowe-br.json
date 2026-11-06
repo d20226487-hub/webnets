@@ -8,6 +8,7 @@
   "preset": "velvet-club",
   "seed": "marlowe-br-app-c",
   "prefix": "auto",
+  "dialect": { "classes": "flat" },
   "links": {
     "go": "https://marlowe.bet.br/cadastro?src=app-c",
     "ios": "https://marlowe.bet.br/app/ios?src=app-c",

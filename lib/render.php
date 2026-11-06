@@ -448,9 +448,69 @@ function sx_jsonld(array $data): void
     SX::$jsonld[] = ['@context' => 'https://schema.org'] + $data;
 }
 
-/** Small inline icon set (stroke icons, currentColor). */
+/** Icon families a site can use: picked per site by seed, or "icons" in the site config. */
+const SX_ICON_FAMILIES = ['outline', 'filled', 'rounded'];
+
+/**
+ * Small inline icon set (currentColor), in the site's icon family:
+ *   outline  thin strokes (1.8), round caps
+ *   filled   solid glyphs with cut-outs (evenodd), square-capped heavy lines where a glyph is a line
+ *   rounded  thick soft strokes (2.2) with tinted fills, softer and partly redrawn shapes
+ */
 function sx_icon(string $name): string
 {
+    $family = SX::$ctx['icons'] ?? 'outline';
+    if ($family === 'filled') {
+        $line = fn($d) => '<path d="' . $d . '" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/>';
+        $paths = [
+            'star' => '<path d="m12 2.6 2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5-4.7-4.6 6.5-.9z"/>',
+            'shield' => '<path fill-rule="evenodd" d="M12 2.5 20 5.7v5.8c0 5-3.4 9.1-8 10.3-4.6-1.2-8-5.3-8-10.3V5.7zM8.1 12.6l1.4-1.4 1.6 1.6 3.8-3.9 1.4 1.4-5.2 5.3z"/>',
+            'bolt' => '<path d="M13.6 1.8 4 14.2h6.6L9.6 22.2l10-12.9h-6.8z"/>',
+            'chat' => '<path d="M5 3.5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9.2L3 21.6V5.5a2 2 0 0 1 2-2z"/>',
+            'user' => '<circle cx="12" cy="7.8" r="4.6"/><path d="M3.4 21.5a8.6 8.6 0 0 1 17.2 0z"/>',
+            'clock' => '<path fill-rule="evenodd" d="M12 2.8a9.2 9.2 0 1 0 0 18.4 9.2 9.2 0 0 0 0-18.4zM10.9 6.5h2.2v5l3.4 2.1-1.1 1.8-4.5-2.8z"/>',
+            'arrow' => $line('M4 12h15m-5.6-6 6 6-6 6'),
+            'menu' => '<rect x="3" y="4.8" width="18" height="2.8" rx="1.4"/><rect x="3" y="10.6" width="18" height="2.8" rx="1.4"/><rect x="3" y="16.4" width="18" height="2.8" rx="1.4"/>',
+            'phone' => '<path d="M6.2 2.8h3.6l1.8 4.6-2.3 1.7a10.6 10.6 0 0 0 5.6 5.6l1.7-2.3 4.6 1.8v3.6a2.4 2.4 0 0 1-2.4 2.4A17.4 17.4 0 0 1 3.8 5.2a2.4 2.4 0 0 1 2.4-2.4z"/>',
+            'info' => '<path fill-rule="evenodd" d="M12 2.8a9.2 9.2 0 1 0 0 18.4 9.2 9.2 0 0 0 0-18.4zm-1.2 7.6h2.4v7.2h-2.4zm0-3.8h2.4V9h-2.4z"/>',
+            'layers' => '<path d="m12 2.4 9.6 5.3L12 13 2.4 7.7z"/><path d="M4.3 12.5 12 16.8l7.7-4.3 1.9 1.1L12 19 2.4 13.6z"/>',
+            'play' => '<path fill-rule="evenodd" d="M5 4.4h14a2.6 2.6 0 0 1 2.6 2.6v10a2.6 2.6 0 0 1-2.6 2.6H5A2.6 2.6 0 0 1 2.4 17V7A2.6 2.6 0 0 1 5 4.4zm4.9 4.5v6.2l5.3-3.1z"/>',
+            'wallet' => '<path fill-rule="evenodd" d="M5.2 4.6h12.6v2.6H6.1a.8.8 0 0 0 0 1.6h13a1.6 1.6 0 0 1 1.6 1.6v7.4a2.2 2.2 0 0 1-2.2 2.2H5.2A2.2 2.2 0 0 1 3 17.8V6.8a2.2 2.2 0 0 1 2.2-2.2zm10.9 8.5a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6z"/>',
+            'gauge' => '<path fill-rule="evenodd" d="M2.8 17a9.2 9.2 0 0 1 18.4 0zm8.4-1.4 1.5 1.3 3.7-4.9-1.3-1z"/><rect x="3" y="18.8" width="18" height="2" rx="1"/>',
+            'chart' => '<rect x="3.6" y="12" width="4" height="8.8" rx="1"/><rect x="10" y="7" width="4" height="13.8" rx="1"/><rect x="16.4" y="3" width="4" height="17.8" rx="1"/>',
+            'mobile' => '<path fill-rule="evenodd" d="M8.6 1.8h6.8a2.7 2.7 0 0 1 2.7 2.7v15a2.7 2.7 0 0 1-2.7 2.7H8.6a2.7 2.7 0 0 1-2.7-2.7v-15a2.7 2.7 0 0 1 2.7-2.7zm2.3 16.2v1.6h2.2V18z"/>',
+            'chevron' => '<path d="M5.2 8.2 12 15l6.8-6.8 1.5 1.5-8.3 8.3-8.3-8.3z"/>',
+            'check' => '<path d="m3.8 12.2 1.7-1.7 4 4 9-9 1.7 1.7L9.5 17.9z"/>',
+            'download' => '<path d="M10.8 3h2.4v9l3.2-3.2 1.7 1.7L12 16.6l-6.1-6.1 1.7-1.7 3.2 3.2zM4.4 18.4h15.2v2.4H4.4z"/>',
+        ];
+        return sx_use('i-' . $name, fn() => '<svg viewBox="0 0 24 24"><g fill="currentColor" stroke="none">' . ($paths[$name] ?? '') . '</g></svg>', cls('icon'));
+    }
+    if ($family === 'rounded') {
+        $tint = ' fill="currentColor" fill-opacity=".18"';
+        $paths = [
+            'star' => '<path d="m12 3.5 2.6 5.3 5.8.8-4.2 4.1 1 5.8L12 16.8l-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z" fill="currentColor"/>',
+            'shield' => '<path d="M12 3.2c2.6 1.6 5 2.3 7.5 2.5v5.6c0 4.6-3 8.3-7.5 9.5-4.5-1.2-7.5-4.9-7.5-9.5V5.7c2.5-.2 4.9-.9 7.5-2.5z"' . $tint . '/><path d="m8.8 12 2.3 2.3 4.1-4.3"/>',
+            'bolt' => '<path d="M13.2 2.8 5.4 13h6.1l-.8 8.2 7.9-10.6h-6z"' . $tint . '/>',
+            'chat' => '<path d="M6 4.5h12a2.5 2.5 0 0 1 2.5 2.5v7a2.5 2.5 0 0 1-2.5 2.5h-6.5L7 20v-3.5H6A2.5 2.5 0 0 1 3.5 14V7A2.5 2.5 0 0 1 6 4.5z"' . $tint . '/>',
+            'user' => '<circle cx="12" cy="8" r="3.8"' . $tint . '/><path d="M4.8 20.2c.9-3.6 3.8-5.7 7.2-5.7s6.3 2.1 7.2 5.7"/>',
+            'clock' => '<circle cx="12" cy="12" r="8.8"' . $tint . '/><path d="M12 7.2V12l3.2 2.1"/>',
+            'arrow' => '<circle cx="12" cy="12" r="9.2" fill="currentColor" fill-opacity=".16" stroke="none"/><path d="M8 12h8m-3.4-3.6L16.2 12l-3.6 3.6"/>',
+            'menu' => '<path d="M4.5 7h15M4.5 12h10M4.5 17h15"/>',
+            'phone' => '<path d="M7 3.8h2.6l1.6 4.1-2 1.6a11 11 0 0 0 5.3 5.3l1.6-2 4.1 1.6V17a2.6 2.6 0 0 1-2.8 2.6A16 16 0 0 1 4.4 6.6 2.6 2.6 0 0 1 7 3.8z"' . $tint . '/>',
+            'info' => '<circle cx="12" cy="12" r="8.8"' . $tint . '/><path d="M12 11.2v5M12 7.8v.1"/>',
+            'layers' => '<path d="m12 3.5 8.5 4.6L12 12.7 3.5 8.1z"' . $tint . '/><path d="m3.5 12.4 8.5 4.6 8.5-4.6M3.5 16.4 12 21l8.5-4.6"/>',
+            'play' => '<rect x="2.8" y="4.8" width="18.4" height="14.4" rx="4"' . $tint . '/><path d="M10.2 9.3v5.4l4.6-2.7z" fill="currentColor"/>',
+            'wallet' => '<rect x="3.5" y="6" width="17" height="13.5" rx="3.5"' . $tint . '/><path d="M7 6v-.8A1.7 1.7 0 0 1 9 3.5l8 1.6"/><path d="M16 12.8h.1"/>',
+            'gauge' => '<path d="M4 16.5a8 8 0 0 1 16 0"' . $tint . '/><path d="m12 16.5 3-4"/><circle cx="12" cy="16.5" r="1.2" fill="currentColor"/>',
+            'chart' => '<rect x="4" y="11" width="4" height="9" rx="1.6"' . $tint . '/><rect x="10" y="7" width="4" height="13" rx="1.6"' . $tint . '/><rect x="16" y="4" width="4" height="16" rx="1.6"' . $tint . '/>',
+            'mobile' => '<rect x="6.5" y="2.5" width="11" height="19" rx="3.2"' . $tint . '/><path d="M10.8 18.2h2.4"/>',
+            'chevron' => '<path d="m7 9.5 5 5 5-5"/>',
+            'check' => '<circle cx="12" cy="12" r="9.2" fill="currentColor" fill-opacity=".16" stroke="none"/><path d="m8 12.3 2.8 2.8 5.4-5.5"/>',
+            'download' => '<path d="M12 4.5v10m-4-4 4 4 4-4"/><rect x="4.5" y="17.5" width="15" height="3" rx="1.5"' . $tint . '/>',
+        ];
+        return sx_use('i-' . $name, fn() => '<svg viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">'
+            . ($paths[$name] ?? '') . '</g></svg>', cls('icon'));
+    }
     $paths = [
         'star' => '<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z" fill="currentColor" stroke="none"/>',
         'shield' => '<path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6z"/><path d="m8.8 12.2 2.3 2.3 4.2-4.5"/>',

@@ -72,59 +72,59 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
 
 ```css
 :root {
-  --c-bg: #0C1726;
-  --c-surface: #13223A;
-  --c-surface-2: #1A2D4A;
-  --c-text: #F4F7FB;
-  --c-muted: #9FB0C8;
-  --c-border: #24395A;
-  --c-accent: #FF6A13;
-  --c-on-accent: #0C1726;
-  --c-accent-2: #2EC5FF;
-  --c-success: #1F9D55;
-  --c-warning: #D98B00;
-  --c-danger: #D93636;
-  --c-hero-text: #F4F7FB;
-  --c-hero-muted: #B5C3D6;
-  --c-hero-accent: #FF6A13;
-  --c-hero-on-accent: #0C1726;
-  --hero-bg: linear-gradient(115deg,#0C1726 45%,#16325A 100%);
-  --f-display: "Oswald",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-body: "Roboto Condensed",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-mono: "Roboto Condensed",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --fw-heading: 700;
-  --fw-body: 400;
-  --fw-strong: 500;
-  --tt-heading: uppercase;
-  --ls-heading: 0.01em;
-  --lh-body: 1.5;
-  --lh-heading: 1.08;
-  --r-sm: 2px;
-  --r: 4px;
-  --r-lg: 8px;
-  --r-btn: 4px;
-  --bw: 2px;
-  --density: 0.95;
-  --fs-0: 12.31px;
-  --fs-1: 16px;
-  --fs-2: 27.04px;
-  --fs-3: clamp(23.9px,19.08px + 1.339vw,35.15px);
-  --fs-4: clamp(31.07px,24.81px + 1.741vw,45.7px);
-  --fs-5: clamp(40.4px,32.25px + 2.263vw,59.41px);
-  --fs-6: clamp(52.52px,41.92px + 2.942vw,77.23px);
-  --sp-1: 3.8px;
-  --sp-2: 7.6px;
-  --sp-3: 11.4px;
-  --sp-4: 15.2px;
-  --sp-5: 22.8px;
-  --sp-6: 30.4px;
-  --sp-7: 45.6px;
-  --sp-8: 60.8px;
-  --sp-9: 91.2px;
-  --card-bg: #13223A;
-  --card-border: transparent;
-  --card-shadow: 0 8px 0 rgba(0,0,0,.35);
   --surface-style: elevated;
+  --card-shadow: 0 8px 0 rgba(0,0,0,.35);
+  --card-border: transparent;
+  --card-bg: rgb(19 34 58);
+  --sp-9: 91.2px;
+  --sp-8: 60.8px;
+  --sp-7: 45.6px;
+  --sp-6: 30.4px;
+  --sp-5: 22.8px;
+  --sp-4: 15.2px;
+  --sp-3: 11.4px;
+  --sp-2: 7.6px;
+  --sp-1: 3.8px;
+  --fs-6: clamp(52.52px,41.92px + 2.942vw,77.23px);
+  --fs-5: clamp(40.4px,32.25px + 2.263vw,59.41px);
+  --fs-4: clamp(31.07px,24.81px + 1.741vw,45.7px);
+  --fs-3: clamp(23.9px,19.08px + 1.339vw,35.15px);
+  --fs-2: 27.04px;
+  --fs-1: 16px;
+  --fs-0: 12.31px;
+  --density: .95;
+  --bw: 2px;
+  --r-btn: 4px;
+  --r-lg: 8px;
+  --r: 4px;
+  --r-sm: 2px;
+  --lh-heading: 1.08;
+  --lh-body: 1.5;
+  --ls-heading: .01em;
+  --tt-heading: uppercase;
+  --fw-strong: 500;
+  --fw-body: 400;
+  --fw-heading: 700;
+  --f-mono: "Roboto Condensed",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-body: "Roboto Condensed",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-display: "Oswald",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --hero-bg: linear-gradient(115deg,rgb(12 23 38) 45%,rgb(22 50 90) 100%);
+  --c-hero-on-accent: rgb(12 23 38);
+  --c-hero-accent: rgb(255 106 19);
+  --c-hero-muted: rgb(181 195 214);
+  --c-hero-text: rgb(244 247 251);
+  --c-danger: rgb(217 54 54);
+  --c-warning: rgb(217 139 0);
+  --c-success: rgb(31 157 85);
+  --c-accent-2: rgb(46 197 255);
+  --c-on-accent: rgb(12 23 38);
+  --c-accent: rgb(255 106 19);
+  --c-border: rgb(36 57 90);
+  --c-muted: rgb(159 176 200);
+  --c-text: rgb(244 247 251);
+  --c-surface-2: rgb(26 45 74);
+  --c-surface: rgb(19 34 58);
+  --c-bg: rgb(12 23 38);
 }
 ```
 
@@ -170,7 +170,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `index.html`
 
 - Title tag: Vantro: apostas em futebol, vôlei e basquete ao vivo
-- Meta description: Guia da Vantro no Brasil: mercados ao vivo do Brasileirão, cadastro com CPF, depósitos e saques via PIX e ferramentas de jogo responsável. 18+.
 - The only H1: Futebol, vôlei e basquete com odds ao vivo
 - Structured data (JSON-LD): WebPage, FAQPage, WebSite
 - Links to: `index.html`, `sign-up.html`, `payments.html`, `betting.html`, `responsible-gambling.html`
@@ -218,9 +217,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 9. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-10. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+10. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -230,7 +229,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `sign-up.html`
 
 - Title tag: Cadastro na Vantro: CPF, reconhecimento facial e prazo
-- Meta description: Como abrir sua conta na Vantro em poucos minutos: dados, CPF, verificação facial exigida pela regulamentação e primeiro depósito via PIX. 18+.
 - The only H1: Como se cadastrar na Vantro
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
 - Links to: `index.html`, `sign-up.html`, `payments.html`, `betting.html`, `responsible-gambling.html`
@@ -275,9 +273,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 9. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-10. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+10. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -287,7 +285,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `payments.html`
 
 - Title tag: Depósito e saque na Vantro: PIX, TED e cartão de débito
-- Meta description: Todas as formas de pagamento da Vantro no Brasil, com valores mínimos e prazos. Saque via PIX em cerca de 1 hora, sem cartão de crédito. 18+.
 - The only H1: Depósito e saque na Vantro
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
 - Links to: `index.html`, `sign-up.html`, `payments.html`, `betting.html`, `responsible-gambling.html`
@@ -327,9 +324,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 8. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-9. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+9. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -339,7 +336,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `betting.html`
 
 - Title tag: Mercados da Vantro: futebol, vôlei, basquete e mais
-- Meta description: Quais esportes e mercados a Vantro oferece: resultado, handicap, gols, escanteios e criar aposta no mesmo jogo, com estatísticas ao vivo. 18+.
 - The only H1: Mercados de apostas da Vantro
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
 - Links to: `index.html`, `sign-up.html`, `payments.html`, `betting.html`, `responsible-gambling.html`
@@ -382,9 +378,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 8. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-9. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+9. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false
@@ -394,7 +390,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `responsible-gambling.html`
 
 - Title tag: Jogo responsável na Vantro: limites, pausas e autoexclusão
-- Meta description: Limites de depósito, pausas e autoexclusão: como usar cada ferramenta de jogo responsável na Vantro e onde buscar ajuda.
 - The only H1: Jogo responsável na Vantro
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
 - Links to: `index.html`, `sign-up.html`, `payments.html`, `betting.html`, `responsible-gambling.html`
@@ -423,9 +418,9 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 6. **Footer** — block `sx/footer`, variant `compact`, role `footer`
    Purpose: Footer with links, payment methods, the compliance panel and copyright.
    - `show_verify`: false
-  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
      - `show_verify`: false
-7. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+7. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
    Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
    - `leave_url`: "https://www.google.com"
    - `preview`: false

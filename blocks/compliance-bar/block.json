@@ -9,7 +9,7 @@
   "supports": { "align": false, "html": false, "multiple": true },
   "sx": {
     "role": "compliance",
-    "variants": ["strip", "panel"],
+    "variants": ["strip", "panel", "ribbon", "cards"],
     "default_variant": "panel",
     "required": true,
     "guardrails": [

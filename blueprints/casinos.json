@@ -164,13 +164,12 @@
     "top": [
       {
         "block": "compliance-bar",
-        "props": {
-          "variant": "strip"
-        },
+        "variants": ["strip", "ribbon"],
         "when": "market.strip"
       },
       {
-        "block": "disclosure"
+        "block": "disclosure",
+        "variants": ["line", "box", "chip"]
       }
     ],
     "header": {
@@ -187,7 +186,8 @@
       "block": "footer",
       "variants": [
         "columns",
-        "compact"
+        "compact",
+        "centered"
       ]
     },
     "overlay": [

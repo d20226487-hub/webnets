@@ -1,0 +1,9 @@
+/* cards: the footer's compliance information as a row of small cards */
+.sx-compliance--cards { display: grid; gap: var(--sp-4); font-size: var(--fs-0); color: var(--c-muted); }
+.sx-compliance__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--sp-3); }
+.sx-compliance__card { display: grid; align-content: start; gap: var(--sp-2); padding: var(--sp-4); background: var(--c-surface); border: var(--bw) solid var(--c-border); border-radius: var(--r); }
+.sx-compliance__card > .sx-icon, .sx-compliance__card > .sx-age { color: var(--c-text); }
+.sx-compliance--cards .sx-compliance__card > .sx-icon { width: 1.4em; height: 1.4em; }
+.sx-compliance--cards .sx-compliance__title { font-size: var(--fs-0); text-transform: uppercase; letter-spacing: .08em; color: var(--c-muted); }
+.sx-compliance--cards .sx-compliance__tagline { font-size: var(--fs-1); }
+.sx-footer--centered .sx-compliance--cards > .sx-compliance__title, .sx-footer--centered .sx-compliance--cards > .sx-compliance__tagline { text-align: center; }

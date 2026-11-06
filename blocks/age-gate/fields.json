@@ -1,6 +1,6 @@
 {
   "fields": [
-    { "name": "variant", "type": "select", "label": "Layout", "choices": ["auto", "modal", "fullscreen"], "default": "auto" },
+    { "name": "variant", "type": "select", "label": "Layout", "choices": ["auto", "modal", "fullscreen", "sheet", "split"], "default": "auto" },
     { "name": "leave_url", "type": "url", "label": "Where 'No' sends the visitor", "default": "https://www.google.com" },
     { "name": "preview", "type": "true_false", "label": "Render inline (editor / style-tile preview)", "default": false }
   ]

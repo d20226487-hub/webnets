@@ -48,6 +48,8 @@
 
 - [ ] `"prefix": "auto"` with a unique seed; no `sx-` classes in the output (`grep -c "sx-" index.html` returns 0).
 - [ ] Preset, header, hero and footer variants differ from the project's other sites of the same type.
+- [ ] Code dialects differ from sibling sites: `php build/diversity.php` prints no "same class style" hint
+      (pin `"dialect": {"classes": …}` where it does); `python build/variation-diff.py` shows about 80–95% code difference between sites.
 - [ ] Different hosting, analytics IDs and asset filenames from sibling sites (outside this system's scope; tracked per project).
 
 ## SEO basics

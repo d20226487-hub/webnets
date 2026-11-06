@@ -1,0 +1,4 @@
+/* chip: a small label in front of the text */
+.sx-disclose--chip { background: transparent; border-block-end: var(--bw) solid var(--c-border); }
+.sx-disclose--chip .sx-disclose__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--sp-1) var(--sp-3); }
+.sx-disclose__tag { padding: .15em .6em; border: 1px solid currentColor; border-radius: 999px; font-size: .9em; font-weight: var(--fw-strong); text-transform: uppercase; letter-spacing: .06em; color: var(--c-text); }

@@ -6,9 +6,7 @@
     "top": [
       {
         "block": "compliance-bar",
-        "props": {
-          "variant": "strip"
-        },
+        "variants": ["strip", "ribbon"],
         "when": "market.strip"
       }
     ],
@@ -25,7 +23,8 @@
     "footer": {
       "block": "footer",
       "variants": [
-        "compact"
+        "compact",
+        "centered"
       ]
     },
     "overlay": [

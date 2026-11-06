@@ -77,39 +77,30 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
 
 ```css
 :root {
-  --c-bg: #0B0E14;
-  --c-surface: #141924;
-  --c-surface-2: #1C2331;
-  --c-text: #EEF1F6;
-  --c-muted: #9BA5B7;
-  --c-border: #273042;
-  --c-accent: #C6FF3D;
-  --c-on-accent: #0B0E14;
-  --c-accent-2: #7B61FF;
-  --c-success: #1F9D55;
-  --c-warning: #D98B00;
-  --c-danger: #D93636;
-  --c-hero-text: #EEF1F6;
-  --c-hero-muted: #B4BCCB;
-  --c-hero-accent: #C6FF3D;
-  --c-hero-on-accent: #0B0E14;
-  --hero-bg: radial-gradient(120% 80% at 85% 0%,rgba(123,97,255,.35),transparent 60%),radial-gradient(80% 60% at 0% 100%,rgba(198,255,61,.12),transparent 60%),#0B0E14;
-  --f-display: "Unbounded",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-body: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-mono: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --fw-heading: 800;
-  --fw-body: 400;
-  --fw-strong: 600;
-  --tt-heading: none;
-  --ls-heading: -0.02em;
-  --lh-body: 1.55;
-  --lh-heading: 1.15;
-  --r-sm: 10px;
-  --r: 14px;
-  --r-lg: 22px;
-  --r-btn: 999px;
   --bw: 1px;
+  --c-accent-2: #7B61FF;
+  --c-accent: #C6FF3D;
+  --c-bg: #0B0E14;
+  --c-border: #273042;
+  --c-danger: #D93636;
+  --c-hero-accent: #C6FF3D;
+  --c-hero-muted: #B4BCCB;
+  --c-hero-on-accent: #0B0E14;
+  --c-hero-text: #EEF1F6;
+  --c-muted: #9BA5B7;
+  --c-on-accent: #0B0E14;
+  --c-success: #1F9D55;
+  --c-surface-2: #1C2331;
+  --c-surface: #141924;
+  --c-text: #EEF1F6;
+  --c-warning: #D98B00;
+  --card-bg: #141924;
+  --card-border: transparent;
+  --card-shadow: 0 12px 32px rgba(0,0,0,.45);
   --density: 1;
+  --f-body: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-display: "Unbounded",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --fs-0: 12.8px;
   --fs-1: 16px;
   --fs-2: 25px;
@@ -117,6 +108,17 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
   --fs-4: clamp(26.56px,21.21px + 1.488vw,39.06px);
   --fs-5: clamp(33.2px,26.51px + 1.86vw,48.83px);
   --fs-6: clamp(41.5px,33.13px + 2.325vw,61.04px);
+  --fw-body: 400;
+  --fw-heading: 800;
+  --fw-strong: 600;
+  --hero-bg: radial-gradient(120% 80% at 85% 0%,rgba(123,97,255,.35),transparent 60%),radial-gradient(80% 60% at 0% 100%,rgba(198,255,61,.12),transparent 60%),#0B0E14;
+  --lh-body: 1.55;
+  --lh-heading: 1.15;
+  --ls-heading: -0.02em;
+  --r-btn: 999px;
+  --r-lg: 22px;
+  --r-sm: 10px;
+  --r: 14px;
   --sp-1: 4px;
   --sp-2: 8px;
   --sp-3: 12px;
@@ -126,10 +128,8 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
   --sp-7: 48px;
   --sp-8: 64px;
   --sp-9: 96px;
-  --card-bg: #141924;
-  --card-border: transparent;
-  --card-shadow: 0 12px 32px rgba(0,0,0,.45);
   --surface-style: elevated;
+  --tt-heading: none;
 }
 ```
 
@@ -169,7 +169,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `sports-app-podium-index.html`
 
 - Title tag: Лучшие приложения букмекеров 2026
-- Meta description: Считаем live-события, проверяем скорость принятия ставки и трансляции у четырёх лицензированных букмекеров. Рейтинг с объяснением каждой оценки. 18+.
 - The only H1: Лучшие приложения букмекеров
 - Structured data (JSON-LD): WebPage, FAQPage, WebSite
 - Links to: `sports-app-podium-sravnenie.html`, `sports-app-podium-bystryj-vyvod.html`, `sports-app-podium-prilozheniya.html`, `sports-app-podium-kak-my-ocenivaem.html`, `sports-app-podium-index.html`, `sports-app-podium-obzor-vantro.html`, `sports-app-podium-obzor-verazul.html`, `sports-app-podium-obzor-nyxa.html`, `sports-app-podium-obzor-cobaltio.html`
@@ -219,7 +218,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `sports-app-podium-obzor-vantro.html`
 
 - Title tag: Vantro: обзор букмекера — live-ставки, коэффициенты и вывод
-- Meta description: Обзор Vantro для ставок на спорт: оценка по каждому критерию с причиной, сильные и слабые стороны, маржа, линия и сроки вывода. 18+.
 - The only H1: Vantro: обзор букмекера
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `sports-app-podium-sravnenie.html`, `sports-app-podium-bystryj-vyvod.html`, `sports-app-podium-prilozheniya.html`, `sports-app-podium-kak-my-ocenivaem.html`, `sports-app-podium-index.html`, `sports-app-podium-obzor-nyxa.html`, `sports-app-podium-obzor-cobaltio.html`, `sports-app-podium-obzor-verazul.html`
@@ -271,7 +269,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `sports-app-podium-obzor-nyxa.html`
 
 - Title tag: Nyxa: обзор букмекера — live-ставки, коэффициенты и вывод
-- Meta description: Обзор Nyxa для ставок на спорт: оценка по каждому критерию с причиной, сильные и слабые стороны, маржа, линия и сроки вывода. 18+.
 - The only H1: Nyxa: обзор букмекера
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `sports-app-podium-sravnenie.html`, `sports-app-podium-bystryj-vyvod.html`, `sports-app-podium-prilozheniya.html`, `sports-app-podium-kak-my-ocenivaem.html`, `sports-app-podium-index.html`, `sports-app-podium-obzor-vantro.html`, `sports-app-podium-obzor-cobaltio.html`, `sports-app-podium-obzor-verazul.html`
@@ -323,7 +320,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `sports-app-podium-obzor-verazul.html`
 
 - Title tag: Verazul: обзор букмекера — live-ставки, коэффициенты и вывод
-- Meta description: Обзор Verazul для ставок на спорт: оценка по каждому критерию с причиной, сильные и слабые стороны, маржа, линия и сроки вывода. 18+.
 - The only H1: Verazul: обзор букмекера
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `sports-app-podium-sravnenie.html`, `sports-app-podium-bystryj-vyvod.html`, `sports-app-podium-prilozheniya.html`, `sports-app-podium-kak-my-ocenivaem.html`, `sports-app-podium-index.html`, `sports-app-podium-obzor-vantro.html`, `sports-app-podium-obzor-nyxa.html`, `sports-app-podium-obzor-cobaltio.html`
@@ -375,7 +371,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `sports-app-podium-obzor-cobaltio.html`
 
 - Title tag: Cobaltio: обзор букмекера — live-ставки, коэффициенты и вывод
-- Meta description: Обзор Cobaltio для ставок на спорт: оценка по каждому критерию с причиной, сильные и слабые стороны, маржа, линия и сроки вывода. 18+.
 - The only H1: Cobaltio: обзор букмекера
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `sports-app-podium-sravnenie.html`, `sports-app-podium-bystryj-vyvod.html`, `sports-app-podium-prilozheniya.html`, `sports-app-podium-kak-my-ocenivaem.html`, `sports-app-podium-index.html`, `sports-app-podium-obzor-vantro.html`, `sports-app-podium-obzor-nyxa.html`, `sports-app-podium-obzor-verazul.html`
@@ -427,7 +422,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `sports-app-podium-sravnenie.html`
 
 - Title tag: Сравнение букмекеров с лицензией
-- Meta description: Четыре букмекера рядом: коэффициенты, линия, live-ставки, вывод, приложение и поддержка, с общей оценкой. 18+.
 - The only H1: Сравнение букмекеров
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `sports-app-podium-sravnenie.html`, `sports-app-podium-bystryj-vyvod.html`, `sports-app-podium-prilozheniya.html`, `sports-app-podium-kak-my-ocenivaem.html`, `sports-app-podium-index.html`, `sports-app-podium-obzor-vantro.html`, `sports-app-podium-obzor-nyxa.html`, `sports-app-podium-obzor-verazul.html`, `sports-app-podium-obzor-cobaltio.html`
@@ -464,7 +458,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `sports-app-podium-bystryj-vyvod.html`
 
 - Title tag: Букмекеры с быстрым выводом выигрыша
-- Meta description: Те же букмекеры по оценке вывода: реальное время наших тестовых выводов. 18+.
 - The only H1: Букмекеры с быстрым выводом
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `sports-app-podium-sravnenie.html`, `sports-app-podium-bystryj-vyvod.html`, `sports-app-podium-prilozheniya.html`, `sports-app-podium-kak-my-ocenivaem.html`, `sports-app-podium-index.html`, `sports-app-podium-obzor-nyxa.html`, `sports-app-podium-obzor-vantro.html`, `sports-app-podium-obzor-verazul.html`, `sports-app-podium-obzor-cobaltio.html`
@@ -510,7 +503,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `sports-app-podium-prilozheniya.html`
 
 - Title tag: Приложения для ставок на спорт
-- Meta description: Букмекеры по оценке приложения: ставка в live, депозит и лимиты с телефона. 18+.
 - The only H1: Лучшие приложения для ставок
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `sports-app-podium-sravnenie.html`, `sports-app-podium-bystryj-vyvod.html`, `sports-app-podium-prilozheniya.html`, `sports-app-podium-kak-my-ocenivaem.html`, `sports-app-podium-index.html`, `sports-app-podium-obzor-vantro.html`, `sports-app-podium-obzor-nyxa.html`, `sports-app-podium-obzor-verazul.html`, `sports-app-podium-obzor-cobaltio.html`
@@ -556,7 +548,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `sports-app-podium-kak-my-ocenivaem.html`
 
 - Title tag: Как мы оцениваем букмекеров
-- Meta description: Критерии, веса, как мы считаем маржу и live-события, и как зарабатывает «Живой стол».
 - The only H1: Как мы оцениваем букмекеров
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `sports-app-podium-sravnenie.html`, `sports-app-podium-bystryj-vyvod.html`, `sports-app-podium-prilozheniya.html`, `sports-app-podium-kak-my-ocenivaem.html`, `sports-app-podium-index.html`

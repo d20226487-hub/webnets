@@ -73,59 +73,59 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
 
 ```css
 :root {
-  --c-bg: #F3F5F4;
-  --c-surface: #FFFFFF;
-  --c-surface-2: #E9EEEC;
-  --c-text: #10201A;
-  --c-muted: #52645C;
-  --c-border: #D5DDD9;
-  --c-accent: #0A7A4B;
-  --c-on-accent: #FFFFFF;
-  --c-accent-2: #FFD23F;
-  --c-success: #1F9D55;
-  --c-warning: #D98B00;
-  --c-danger: #D93636;
-  --c-hero-text: #FFFFFF;
-  --c-hero-muted: #CFE7DC;
-  --c-hero-accent: #FFD23F;
-  --c-hero-on-accent: #10201A;
-  --hero-bg: linear-gradient(180deg,#0A7A4B 0%,#075C39 100%);
-  --f-display: "Rubik",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-body: "Rubik",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-mono: "Rubik",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --fw-heading: 700;
-  --fw-body: 400;
-  --fw-strong: 500;
+  --buw: #f3f5f4;
+  --mqf: #ffffff;
+  --zaj: #e9eeec;
+  --qbv: #10201a;
+  --ozq: #52645c;
+  --usm: #d5ddd9;
+  --akl: #0a7a4b;
+  --ihy: #ffffff;
+  --ead: #ffd23f;
+  --whv: #1f9d55;
+  --qyh: #d98b00;
+  --lpa: #d93636;
+  --hjk: #ffffff;
+  --ctg: #cfe7dc;
+  --rhx: #ffd23f;
+  --jja: #10201a;
+  --yjp: linear-gradient(180deg,#0a7a4b 0%,#075c39 100%);
+  --kyb: "Rubik",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --wfl: "Rubik",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --zic: "Rubik",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --iea: 700;
+  --bax: 400;
+  --jez: 500;
   --tt-heading: none;
-  --ls-heading: -0.01em;
-  --lh-body: 1.5;
-  --lh-heading: 1.15;
-  --r-sm: 4px;
-  --r: 8px;
-  --r-lg: 12px;
-  --r-btn: 6px;
-  --bw: 1px;
-  --density: 0.85;
-  --fs-0: 12.5px;
-  --fs-1: 15px;
-  --fs-2: 21.6px;
-  --fs-3: clamp(17.63px,14.07px + 0.987vw,25.92px);
-  --fs-4: clamp(21.15px,16.89px + 1.185vw,31.1px);
-  --fs-5: clamp(25.38px,20.26px + 1.422vw,37.32px);
-  --fs-6: clamp(30.46px,24.31px + 1.706vw,44.79px);
-  --sp-1: 3.4px;
-  --sp-2: 6.8px;
-  --sp-3: 10.2px;
-  --sp-4: 13.6px;
-  --sp-5: 20.4px;
-  --sp-6: 27.2px;
-  --sp-7: 40.8px;
-  --sp-8: 54.4px;
-  --sp-9: 81.6px;
-  --card-bg: #FFFFFF;
-  --card-border: #D5DDD9;
-  --card-shadow: none;
-  --surface-style: outlined;
+  --ugv: -0.01em;
+  --wda: 1.5;
+  --tsl: 1.15;
+  --edf: 4px;
+  --sbz: 8px;
+  --nbp: 12px;
+  --qhh: 6px;
+  --wgl: 1px;
+  --zxc: 0.85;
+  --ecp: 12.5px;
+  --ypf: 15px;
+  --bjn: 21.6px;
+  --ezq: clamp(17.63px,14.07px + 0.987vw,25.92px);
+  --tri: clamp(21.15px,16.89px + 1.185vw,31.1px);
+  --gvc: clamp(25.38px,20.26px + 1.422vw,37.32px);
+  --gql: clamp(30.46px,24.31px + 1.706vw,44.79px);
+  --ars: 3.4px;
+  --kzi: 6.8px;
+  --cpw: 10.2px;
+  --byd: 13.6px;
+  --scn: 20.4px;
+  --wvh: 27.2px;
+  --cwv: 40.8px;
+  --tvt: 54.4px;
+  --vdy: 81.6px;
+  --ntw: #ffffff;
+  --zmd: #d5ddd9;
+  --zzx: none;
+  --odu: outlined;
 }
 ```
 
@@ -172,7 +172,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `index.html`
 
 - Title tag: Vantro guide: sign up, deposit and bet in three steps
-- Meta description: How to start with Vantro in Australia: opening an account, PayID deposits and withdrawals, the app and the limits you can set. 18+.
 - The only H1: From sign-up to your first bet with Vantro
 - Structured data (JSON-LD): WebPage, FAQPage, WebSite
 - Links to: `index.html`, `sign-up.html`, `payments.html`, `app.html`, `responsible-gambling.html`
@@ -234,7 +233,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `sign-up.html`
 
 - Title tag: Vantro sign up: what you need and how long it takes
-- Meta description: Open a Vantro account in about five minutes. The details you need, how ID verification works and when you can place your first bet. 18+.
 - The only H1: How to sign up with Vantro
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
 - Links to: `index.html`, `sign-up.html`, `payments.html`, `app.html`, `responsible-gambling.html`
@@ -294,7 +292,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `payments.html`
 
 - Title tag: Vantro deposits and withdrawals: PayID, BPAY, debit cards
-- Meta description: Every Vantro payment method in Australia with minimums and speeds. PayID withdrawals in about an hour. No credit cards for wagering. 18+.
 - The only H1: Vantro deposits and withdrawals
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
 - Links to: `index.html`, `sign-up.html`, `payments.html`, `app.html`, `responsible-gambling.html`
@@ -349,7 +346,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `app.html`
 
 - Title tag: Vantro app for iPhone and Android
-- Meta description: Get the Vantro app from the App Store or Google Play: live streaming, same-game multis, fast withdrawals and deposit limits in two taps. 18+.
 - The only H1: The Vantro app
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
 - Links to: `index.html`, `sign-up.html`, `payments.html`, `app.html`, `responsible-gambling.html`
@@ -398,7 +394,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `responsible-gambling.html`
 
 - Title tag: Safer gambling with Vantro: limits, time-outs and BetStop
-- Meta description: Deposit limits, time-outs, self-exclusion through BetStop and free confidential help: how to use each one at Vantro.
 - The only H1: Safer gambling at Vantro
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
 - Links to: `index.html`, `sign-up.html`, `payments.html`, `app.html`, `responsible-gambling.html`

@@ -6,6 +6,7 @@
 
 require_once __DIR__ . '/site.php';
 require_once __DIR__ . '/blueprint.php';
+require_once __DIR__ . '/dialect.php';
 
 /**
  * Render every page of a site config.
@@ -18,6 +19,13 @@ function sx_build_site(array $cfg, string $root): array
     $bp = isset($cfg['type']) ? sx_blueprint($cfg['type'], $root) : [];
     $cfg += $bp['defaults'] ?? []; // e.g. promo pages: cta_label = "Claim offer"
     [$ctx, $preset, $warn] = sx_site_context($cfg, $root);
+    sx_context($ctx);
+    $ctx['dialect'] = sx_dialect_resolve($cfg['dialect'] ?? true); // seeded code dialect (lib/dialect.php); "dialect": false = off
+    $ctx['icons'] = $cfg['icons'] ?? sx_pick(SX_ICON_FAMILIES, 'icons'); // icon family (sx_icon)
+    $ctx['compliance_footer'] = $cfg['variants']['compliance'] ?? null; // footer compliance layout pin (panel / cards)
+    if (!in_array($ctx['icons'], SX_ICON_FAMILIES, true)) {
+        throw new RuntimeException('icons must be one of: ' . implode(', ', SX_ICON_FAMILIES) . '.');
+    }
 
     $summary = null;
     $map = null;
@@ -83,7 +91,7 @@ function sx_build_site(array $cfg, string $root): array
         SX::$jsonld = [];
         sx_context(array_merge($ctx, $map ? ['page_id' => $page['id']] : [], array_key_exists('cta_brand', $page) && $page['item'] !== null ? ['cta_brand' => $page['cta_brand']] : [], $page['ctx'] ?? []));
         sx_reset_used();
-        $html = sx_render_page($page, $preset, $ctx);
+        $html = sx_dialect_apply(sx_render_page($page, $preset, $ctx), $ctx['dialect'], $ctx['prefix']);
         $out[] = [
             'id' => $page['id'] ?? null,
             'slug' => $page['slug'] ?? 'index',
@@ -92,6 +100,7 @@ function sx_build_site(array $cfg, string $root): array
             'warnings' => array_values(array_unique(SX::$warnings)),
             'summary' => $summary,
             'prefix' => $ctx['prefix'],
+            'dialect' => $ctx['dialect'],
             'weights' => SX::$weights,
             'jsonld' => SX::$jsonld,
             'dev' => SX::$dev,
@@ -122,7 +131,7 @@ function sx_render_page(array $page, array $preset, array $ctx): string
     foreach ($page['blocks'] as $b) {
         $role = sx_block_meta($b['block'])['block']['sx']['role'] ?? 'content';
         $props = $b['props'] ?? [];
-        if ($b['block'] === 'compliance-bar' && ($props['variant'] ?? '') === 'strip') {
+        if ($b['block'] === 'compliance-bar' && in_array($props['variant'] ?? '', ['strip', 'ribbon'], true)) { // top-of-page layouts
             $role = 'top';
         }
         $roles[] = $role;

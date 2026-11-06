@@ -76,39 +76,30 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
 
 ```css
 :root {
-  --c-bg: #0B0E14;
-  --c-surface: #141924;
-  --c-surface-2: #1C2331;
-  --c-text: #EEF1F6;
-  --c-muted: #9BA5B7;
-  --c-border: #273042;
-  --c-accent: #C6FF3D;
-  --c-on-accent: #0B0E14;
-  --c-accent-2: #7B61FF;
-  --c-success: #1F9D55;
-  --c-warning: #D98B00;
-  --c-danger: #D93636;
-  --c-hero-text: #EEF1F6;
-  --c-hero-muted: #B4BCCB;
-  --c-hero-accent: #C6FF3D;
-  --c-hero-on-accent: #0B0E14;
-  --hero-bg: radial-gradient(120% 80% at 85% 0%,rgba(123,97,255,.35),transparent 60%),radial-gradient(80% 60% at 0% 100%,rgba(198,255,61,.12),transparent 60%),#0B0E14;
-  --f-display: "Unbounded",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-body: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-mono: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --fw-heading: 800;
-  --fw-body: 400;
-  --fw-strong: 600;
-  --tt-heading: none;
-  --ls-heading: -0.02em;
-  --lh-body: 1.55;
-  --lh-heading: 1.15;
-  --r-sm: 10px;
-  --r: 14px;
-  --r-lg: 22px;
-  --r-btn: 999px;
   --bw: 1px;
+  --c-accent-2: #7B61FF;
+  --c-accent: #C6FF3D;
+  --c-bg: #0B0E14;
+  --c-border: #273042;
+  --c-danger: #D93636;
+  --c-hero-accent: #C6FF3D;
+  --c-hero-muted: #B4BCCB;
+  --c-hero-on-accent: #0B0E14;
+  --c-hero-text: #EEF1F6;
+  --c-muted: #9BA5B7;
+  --c-on-accent: #0B0E14;
+  --c-success: #1F9D55;
+  --c-surface-2: #1C2331;
+  --c-surface: #141924;
+  --c-text: #EEF1F6;
+  --c-warning: #D98B00;
+  --card-bg: #141924;
+  --card-border: transparent;
+  --card-shadow: 0 12px 32px rgba(0,0,0,.45);
   --density: 1;
+  --f-body: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-display: "Unbounded",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --fs-0: 12.8px;
   --fs-1: 16px;
   --fs-2: 25px;
@@ -116,6 +107,17 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
   --fs-4: clamp(26.56px,21.21px + 1.488vw,39.06px);
   --fs-5: clamp(33.2px,26.51px + 1.86vw,48.83px);
   --fs-6: clamp(41.5px,33.13px + 2.325vw,61.04px);
+  --fw-body: 400;
+  --fw-heading: 800;
+  --fw-strong: 600;
+  --hero-bg: radial-gradient(120% 80% at 85% 0%,rgba(123,97,255,.35),transparent 60%),radial-gradient(80% 60% at 0% 100%,rgba(198,255,61,.12),transparent 60%),#0B0E14;
+  --lh-body: 1.55;
+  --lh-heading: 1.15;
+  --ls-heading: -0.02em;
+  --r-btn: 999px;
+  --r-lg: 22px;
+  --r-sm: 10px;
+  --r: 14px;
   --sp-1: 4px;
   --sp-2: 8px;
   --sp-3: 12px;
@@ -125,10 +127,8 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
   --sp-7: 48px;
   --sp-8: 64px;
   --sp-9: 96px;
-  --card-bg: #141924;
-  --card-border: transparent;
-  --card-shadow: 0 12px 32px rgba(0,0,0,.45);
   --surface-style: elevated;
+  --tt-heading: none;
 }
 ```
 
@@ -168,7 +168,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `both-app-podium-index.html`
 
 - Title tag: Лучшие приложения казино и букмекеров 2026
-- Meta description: Проверяем live-столы и live-ставки у операторов, где казино и ставки в одном аккаунте. Рейтинг с объяснением каждой оценки. 18+.
 - The only H1: Лучшие приложения казино и ставок
 - Structured data (JSON-LD): WebPage, FAQPage, WebSite
 - Links to: `both-app-podium-sravnenie.html`, `both-app-podium-bystryj-vyvod.html`, `both-app-podium-prilozheniya.html`, `both-app-podium-kak-my-ocenivaem.html`, `both-app-podium-index.html`, `both-app-podium-obzor-nyxa.html`, `both-app-podium-obzor-verazul.html`, `both-app-podium-obzor-cobaltio.html`
@@ -218,7 +217,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `both-app-podium-obzor-nyxa.html`
 
 - Title tag: Nyxa: обзор казино и ставок — live, вывод и приложение
-- Meta description: Обзор Nyxa как казино и букмекера: оценка по каждому критерию с причиной, сильные и слабые стороны, live-столы, линия и сроки вывода. 18+.
 - The only H1: Nyxa: обзор казино и ставок
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `both-app-podium-sravnenie.html`, `both-app-podium-bystryj-vyvod.html`, `both-app-podium-prilozheniya.html`, `both-app-podium-kak-my-ocenivaem.html`, `both-app-podium-index.html`, `both-app-podium-obzor-verazul.html`, `both-app-podium-obzor-cobaltio.html`
@@ -270,7 +268,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `both-app-podium-obzor-verazul.html`
 
 - Title tag: Verazul: обзор казино и ставок — live, вывод и приложение
-- Meta description: Обзор Verazul как казино и букмекера: оценка по каждому критерию с причиной, сильные и слабые стороны, live-столы, линия и сроки вывода. 18+.
 - The only H1: Verazul: обзор казино и ставок
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `both-app-podium-sravnenie.html`, `both-app-podium-bystryj-vyvod.html`, `both-app-podium-prilozheniya.html`, `both-app-podium-kak-my-ocenivaem.html`, `both-app-podium-index.html`, `both-app-podium-obzor-nyxa.html`, `both-app-podium-obzor-cobaltio.html`
@@ -322,7 +319,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `both-app-podium-obzor-cobaltio.html`
 
 - Title tag: Cobaltio: обзор казино и ставок — live, вывод и приложение
-- Meta description: Обзор Cobaltio как казино и букмекера: оценка по каждому критерию с причиной, сильные и слабые стороны, live-столы, линия и сроки вывода. 18+.
 - The only H1: Cobaltio: обзор казино и ставок
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `both-app-podium-sravnenie.html`, `both-app-podium-bystryj-vyvod.html`, `both-app-podium-prilozheniya.html`, `both-app-podium-kak-my-ocenivaem.html`, `both-app-podium-index.html`, `both-app-podium-obzor-verazul.html`, `both-app-podium-obzor-nyxa.html`
@@ -374,7 +370,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `both-app-podium-sravnenie.html`
 
 - Title tag: Сравнение операторов казино и ставок
-- Meta description: Три оператора рядом: live-казино, live-ставки, игры, коэффициенты, вывод и поддержка, с общей оценкой. 18+.
 - The only H1: Сравнение казино и букмекеров
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `both-app-podium-sravnenie.html`, `both-app-podium-bystryj-vyvod.html`, `both-app-podium-prilozheniya.html`, `both-app-podium-kak-my-ocenivaem.html`, `both-app-podium-index.html`, `both-app-podium-obzor-nyxa.html`, `both-app-podium-obzor-verazul.html`, `both-app-podium-obzor-cobaltio.html`
@@ -411,7 +406,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `both-app-podium-bystryj-vyvod.html`
 
 - Title tag: Казино и букмекеры с быстрым выводом
-- Meta description: Те же операторы по оценке вывода: реальное время наших тестовых выводов. 18+.
 - The only H1: Казино и букмекеры с быстрым выводом
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `both-app-podium-sravnenie.html`, `both-app-podium-bystryj-vyvod.html`, `both-app-podium-prilozheniya.html`, `both-app-podium-kak-my-ocenivaem.html`, `both-app-podium-index.html`, `both-app-podium-obzor-nyxa.html`, `both-app-podium-obzor-verazul.html`, `both-app-podium-obzor-cobaltio.html`
@@ -457,7 +451,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `both-app-podium-prilozheniya.html`
 
 - Title tag: Приложения для казино и ставок
-- Meta description: Операторы по оценке приложения: live-столы и live-ставки с телефона. 18+.
 - The only H1: Лучшие приложения для казино и ставок
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `both-app-podium-sravnenie.html`, `both-app-podium-bystryj-vyvod.html`, `both-app-podium-prilozheniya.html`, `both-app-podium-kak-my-ocenivaem.html`, `both-app-podium-index.html`, `both-app-podium-obzor-nyxa.html`, `both-app-podium-obzor-verazul.html`, `both-app-podium-obzor-cobaltio.html`
@@ -503,7 +496,6 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 ## Page `both-app-podium-kak-my-ocenivaem.html`
 
 - Title tag: Как мы оцениваем казино и букмекеров
-- Meta description: Критерии, веса, как мы проверяем live-столы и live-ставки, и как зарабатывает «Живой стол».
 - The only H1: Как мы оцениваем казино и букмекеров
 - Structured data (JSON-LD): WebPage, BreadcrumbList
 - Links to: `both-app-podium-sravnenie.html`, `both-app-podium-bystryj-vyvod.html`, `both-app-podium-prilozheniya.html`, `both-app-podium-kak-my-ocenivaem.html`, `both-app-podium-index.html`

@@ -1,6 +1,6 @@
 {
   "fields": [
-    { "name": "variant", "type": "select", "label": "Layout", "choices": ["auto", "columns", "compact"], "default": "auto" },
+    { "name": "variant", "type": "select", "label": "Layout", "choices": ["auto", "columns", "compact", "centered"], "default": "auto" },
     { "name": "about", "type": "textarea", "label": "Short site description", "default": "" },
     { "name": "links", "type": "repeater", "label": "Extra links", "max": 8, "default": [],
       "fields": [
