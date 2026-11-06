@@ -1,0 +1,4 @@
+/* list: compact "other brands" rows */
+.sx-rank--short .sx-rank__entry { padding: var(--sp-3) var(--sp-4); }
+.sx-rank--short .sx-rank__name { font-size: var(--fs-1); }
+.sx-rank--short .sx-rank__score data { font-size: var(--fs-3); }

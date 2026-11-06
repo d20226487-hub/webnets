@@ -1,0 +1,16 @@
+/* accordion: flex column of rows; the open mark is drawn in CSS */
+.sx-qa--fold .sx-qa__head, .sx-qa--fold .sx-qa__rows { max-width: 860px; }
+.sx-qa--fold .sx-qa__head { margin-block-end: var(--sp-6); }
+.sx-qa__rows { display: flex; flex-direction: column; gap: var(--sp-2); }
+.sx-qa__row { background: var(--c-surface); border: var(--bw) solid var(--c-border); border-radius: var(--r); }
+.sx-qa__q { display: grid; grid-template-columns: minmax(0, 1fr) 1.25rem; align-items: center; column-gap: var(--sp-4); min-height: 56px; padding: var(--sp-4) var(--sp-5); cursor: pointer; list-style: none; }
+.sx-qa__q::-webkit-details-marker { display: none; }
+.sx-qa__mark { position: relative; width: 1.25rem; height: 1.25rem; color: var(--c-muted); }
+.sx-qa__mark::before, .sx-qa__mark::after { content: ""; position: absolute; inset: 50% 15% auto; height: 2px; margin-top: -1px; background: currentColor; border-radius: 2px; transition: transform .2s ease; }
+.sx-qa__mark::after { transform: rotate(90deg); }
+.sx-qa__row[open] .sx-qa__mark::after { transform: rotate(0deg); }
+.sx-qa__a { padding: 0 var(--sp-5) var(--sp-5); }
+@media (max-width: 760px) {
+  .sx-qa__q { padding-inline: var(--sp-4); }
+  .sx-qa__a { padding-inline: var(--sp-4); }
+}

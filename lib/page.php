@@ -23,6 +23,7 @@ function sx_build_site(array $cfg, string $root): array
     $ctx['dialect'] = sx_dialect_resolve($cfg['dialect'] ?? true); // seeded code dialect (lib/dialect.php); "dialect": false = off
     $ctx['icons'] = $cfg['icons'] ?? sx_pick(SX_ICON_FAMILIES, 'icons'); // icon family (sx_icon)
     $ctx['compliance_footer'] = $cfg['variants']['compliance'] ?? null; // footer compliance layout pin (panel / cards)
+    $ctx['impl'] = is_string($cfg['impl'] ?? null) ? ['*' => $cfg['impl']] : ($cfg['impl'] ?? []); // block implementations (sx_impl_file)
     if (!in_array($ctx['icons'], SX_ICON_FAMILIES, true)) {
         throw new RuntimeException('icons must be one of: ' . implode(', ', SX_ICON_FAMILIES) . '.');
     }

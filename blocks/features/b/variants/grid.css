@@ -1,0 +1,11 @@
+/* grid: wrapping flex cards, four across on wide screens */
+.sx-perk__wrap { display: flex; flex-wrap: wrap; gap: var(--sp-4); }
+.sx-perk__wrap > .sx-perk__card { flex: 1 1 calc((100% - 3 * var(--sp-4)) / 4); min-width: min(100%, 13rem); }
+@media (max-width: 1000px) {
+  .sx-perk__wrap > .sx-perk__card { flex-basis: calc((100% - var(--sp-4)) / 2); }
+}
+@media (max-width: 640px) {
+  .sx-perk__wrap { gap: var(--sp-3); }
+  .sx-perk__wrap > .sx-perk__card { flex-basis: 100%; display: grid; grid-template-columns: 48px minmax(0, 1fr); column-gap: var(--sp-4); row-gap: var(--sp-1); padding: var(--sp-4); }
+  .sx-perk__wrap .sx-perk__ico { grid-row: span 2; }
+}

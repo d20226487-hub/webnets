@@ -1,0 +1,37 @@
+/* Toplist, implementation B: grid-area entries */
+.sx-rank__wrap { display: flex; flex-direction: column; gap: var(--sp-5); padding-block: var(--sp-6) var(--sp-7); }
+.sx-rank__crumbs ol { display: flex; flex-wrap: wrap; gap: var(--sp-2); font-size: var(--fs-0); color: var(--c-muted); }
+.sx-rank__crumbs li + li::before { content: "/"; margin-inline-end: var(--sp-2); opacity: .6; }
+.sx-rank__crumbs a { color: inherit; }
+.sx-rank__head { display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-2); }
+h1.sx-rank__title { font-size: var(--fs-5); max-width: 24ch; }
+h2.sx-rank__title { font-size: var(--fs-4); }
+.sx-rank__intro { margin: 0; color: var(--c-muted); max-width: 60ch; }
+.sx-rank__how { display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 32px; font-size: var(--fs-0); color: var(--c-muted); }
+.sx-rank__how .sx-icon { width: 16px; height: 16px; flex: none; }
+.sx-rank__list { display: flex; flex-direction: column; gap: var(--sp-3); }
+.sx-rank__entry { display: grid; grid-template-areas: "pos logo who score go"; grid-template-columns: auto auto minmax(0, 1fr) auto auto; align-items: center; gap: var(--sp-3) var(--sp-4); padding: var(--sp-4); border-radius: var(--r); background: var(--c-surface); border: var(--bw) solid var(--c-border); }
+.sx-rank__pos { grid-area: pos; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: var(--c-surface-2); font-weight: var(--fw-strong); }
+.sx-rank__logo { grid-area: logo; }
+.sx-rank__logo svg { display: block; width: 44px; height: 44px; }
+.sx-rank__who { grid-area: who; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.sx-rank__name { margin: 0; font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-2); }
+.sx-rank__sum { margin: 0; color: var(--c-muted); font-size: var(--fs-0); }
+.sx-rank__key { margin: 0; display: inline-flex; align-items: center; gap: 6px; font-size: var(--fs-0); font-weight: var(--fw-strong); color: var(--c-accent); }
+.sx-rank__key .sx-icon { width: 14px; height: 14px; }
+.sx-rank__score { grid-area: score; margin: 0; text-align: center; line-height: 1; }
+.sx-rank__score data { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-4); }
+.sx-rank__score small { color: var(--c-muted); }
+.sx-rank__go { grid-area: go; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.sx-rank__more { font-size: var(--fs-0); color: var(--c-muted); }
+.sx-rank__slot--paid .sx-rank__entry { border-color: var(--c-accent); border-style: dashed; }
+.sx-rank__paidnote { margin: 0 0 6px; font-size: .75rem; font-weight: var(--fw-strong); text-transform: uppercase; letter-spacing: .05em; color: var(--c-muted); }
+@media (max-width: 760px) {
+  .sx-rank__wrap { padding-block: var(--sp-4) var(--sp-6); gap: var(--sp-4); }
+  h1.sx-rank__title { font-size: var(--fs-4); }
+  .sx-rank__intro, .sx-rank__sum { display: none; }
+  .sx-rank__entry { grid-template-areas: "pos logo who score" "go go go go"; grid-template-columns: auto auto minmax(0, 1fr) auto; padding: var(--sp-3); gap: var(--sp-2) var(--sp-3); }
+  .sx-rank__logo svg { width: 36px; height: 36px; }
+  .sx-rank__go { flex-direction: row; justify-content: space-between; align-items: center; gap: var(--sp-3); }
+  .sx-rank__go .sx-rank__cta { flex: 1 1 auto; min-height: 44px; }
+}

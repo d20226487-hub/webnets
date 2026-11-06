@@ -1,0 +1,9 @@
+/* answer: the key fact and the CTA in a card, like a featured snippet */
+.sx-intro__card { display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-4); align-self: stretch; max-width: 640px; padding: var(--sp-5); border-radius: var(--r-lg); background: var(--c-surface); color: var(--c-text); border: var(--bw) solid var(--c-border); box-shadow: var(--card-shadow); }
+.sx-intro__fact { display: flex; gap: var(--sp-3); align-items: flex-start; font-size: var(--fs-2); font-weight: var(--fw-strong); }
+.sx-intro__fact p { margin: 0; }
+.sx-intro__fact .sx-icon { flex: none; width: 24px; height: 24px; margin-block-start: 2px; color: var(--c-accent); }
+@media (max-width: 760px) {
+  .sx-intro__card { padding: var(--sp-4); }
+  .sx-intro__fact { font-size: var(--fs-1); }
+}

@@ -23,6 +23,8 @@ final class SX
     public static array $used = [];
     /** [block => [variant => true]] so only CSS for rendered variants ships. */
     public static array $variantsUsed = [];
+    /** Implementation rendered per block: [block => ['a' => [variant => true], 'b' => [...]]] (see sx_impl_file). */
+    public static array $implUsed = [];
     public static array $warnings = [];
     /** JSON-LD objects blocks want in <head> (e.g. FAQPage). */
     public static array $jsonld = [];
@@ -225,9 +227,14 @@ function sx_block(string $name, array $props = []): string
     if (!is_file($file)) {
         $file = "$m[dir]/render.php";
     }
+    $impl = 'a';
+    if ($b = sx_impl_file($name, $variant, $m['dir'])) {
+        [$file, $impl] = [$b, 'b'];
+    }
+    SX::$implUsed[$name][$impl][$variant] = true;
     $dev = !empty(SX::$ctx['devspec']) ? count(SX::$dev) : null;
     if ($dev !== null) {
-        SX::$dev[] = ['b' => $name, 'v' => $variant, 'n' => SX::$devDepth++, 'p' => ['variant' => $variant] + sx_dev_props($m['fields'], $props)];
+        SX::$dev[] = ['b' => $name, 'v' => $variant, 'i' => $impl, 'n' => SX::$devDepth++, 'p' => ['variant' => $variant] + sx_dev_props($m['fields'], $props)];
     }
     ob_start();
     (static function (string $__file, array $props, string $variant) {
@@ -239,6 +246,23 @@ function sx_block(string $name, array $props = []): string
     }
     SX::$devDepth--;
     return trim($html) === '' ? $html : "<!--sx:$dev-->" . $html; // the skeleton view finds the block's element after this marker
+}
+
+/**
+ * Implementation B of a block variant, if this site uses it: blocks/<name>/b/variants/<variant>.php.
+ * B is the same design built independently (other element structure, other CSS technique), with its own class
+ * roots and CSS in blocks/<name>/b/. Per site and block by seed; "impl" in the site config pins it:
+ * "impl": "b" (every block that has a B), "impl": {"hero": "a", "faq": "b"}.
+ */
+function sx_impl_file(string $name, string $variant, string $dir): ?string
+{
+    $f = "$dir/b/variants/$variant.php";
+    if (!is_file($f)) {
+        return null;
+    }
+    $pin = SX::$ctx['impl'][$name] ?? SX::$ctx['impl']['*'] ?? null;
+    $use = in_array($pin, ['a', 'b'], true) ? $pin : sx_pick(['a', 'b'], "impl|$name");
+    return $use === 'b' ? $f : null;
 }
 
 /** Field values a block was rendered with (non-empty), for the developer skeleton view and the AI brief. */
@@ -267,14 +291,20 @@ function sx_collect_css(array $extraBlocks = []): string
     $names = array_unique(array_merge(array_keys(SX::$used), $extraBlocks));
     sort($names);
     foreach ($names as $n) {
-        $f = "$root/blocks/$n/style.css";
-        if (is_file($f)) {
-            $css .= "\n" . file_get_contents($f);
-        }
         $all = in_array($n, $extraBlocks, true);
-        foreach (glob("$root/blocks/$n/variants/*.css") as $vf) {
-            if ($all || isset(SX::$variantsUsed[$n][basename($vf, '.css')])) {
-                $css .= "\n" . file_get_contents($vf);
+        $used = SX::$implUsed[$n] ?? null; // null: not rendered through sx_block (e.g. _sitenav): implementation A only
+        foreach (['a' => "$root/blocks/$n", 'b' => "$root/blocks/$n/b"] as $impl => $dir) {
+            if (!$all && ($used === null ? $impl === 'b' : empty($used[$impl]))) {
+                continue;
+            }
+            if (is_file("$dir/style.css")) {
+                $css .= "\n" . file_get_contents("$dir/style.css");
+            }
+            foreach (glob("$dir/variants/*.css") as $vf) {
+                $v = basename($vf, '.css');
+                if ($all || ($used === null ? isset(SX::$variantsUsed[$n][$v]) : isset($used[$impl][$v]))) {
+                    $css .= "\n" . file_get_contents($vf);
+                }
             }
         }
     }
@@ -308,6 +338,7 @@ function sx_reset_used(): void
 {
     SX::$used = [];
     SX::$variantsUsed = [];
+    SX::$implUsed = [];
     SX::$symbols = [];
     SX::$once = [];
     SX::$dev = [];

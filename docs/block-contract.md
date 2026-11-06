@@ -86,6 +86,18 @@ a content pipeline will fill.
   selectors (`.x__item`) over `.x > li` or `.x div` so the dialect has room to work.
 - Mobile first in spirit: every layout must work at 360px with no horizontal scroll.
 
+## 5a. Second implementation (B)
+
+A block may have an implementation B in `blocks/<name>/b/`: `variants/<layout>.php` for each layout it covers (others
+fall back to A), `style.css` and `variants/<layout>.css`. Sites pick A or B per block by seed, or `"impl"` pins it.
+- Same design, content, fields and guardrails as A: B is a different build of the same section, not a new layout.
+- Different structure and technique: other elements (`dl`, `article`, `nav`, `figure`), flex where A uses grid or the
+  other way round, counters instead of number spans, and so on.
+- Its own class root (e.g. `hero` → `opener`), so A and B can share a page. Keep ids other blocks link to (`#how`,
+  `#faq`, `#ranking`, `#guides`) and the `data-*` hooks scripts use.
+- Reuse A's data prep (`_shared.php`, `_prep.php`) instead of copying logic.
+- Same mobile rules: no horizontal scroll at 360px, primary CTA position unchanged.
+
 ## 6. Roles and required blocks
 
 `block.json` → `sx.role` tells the builder where a block goes: `header` before `<main>`, `footer` after,

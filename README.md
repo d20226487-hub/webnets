@@ -139,6 +139,7 @@ Omit `variant` (or use `"auto"`) to let the seed choose. On blueprint sites, the
 | `"variants": {"disclosure": …}` | `line`, `box`, `chip` | Affiliate disclosure (review, comparison and news sites) |
 | `"variants": {"footer": …}` | `columns`, `compact`, `centered` | Footer layout (within what the site type allows) |
 | `"dialect"` | see Code dialects below | How the code is written |
+| `"impl"` | `a`, `b`, or per block `{"hero": "b", "faq": "a"}` | Which implementation of a block (see Block implementations below) |
 
 The builder warns, and the command exits 1, when:
 
@@ -196,6 +197,31 @@ for variants on the page), every section in order with its field values, and an 
 publish `<prefix>ai-brief.txt` with the brief for every page of that switcher combination; the tab loads it into a second box.
 Text is shortened in the review copy; `php build/ai-brief.php sites/demos/<id>.json` writes the full-text brief to `dist/ai/<id>.md`.
 Code: `lib/aibrief.php`, `build/ai-brief.php`.
+
+## Block implementations (A and B)
+
+The nine most-used blocks also exist as a second, independent implementation: the same design and content, built with
+another element structure and another CSS technique. Each site picks A or B per block by seed (`"impl"` pins it), so two
+sites with the same layouts still ship different HTML and CSS.
+
+| Block | Layouts with a B | How B differs from A |
+|---|---|---|
+| hero | split, centered, stat-led | flex `<header>` copy, CTAs in their own group, trust facts as inline notes, offer card in an `<aside>`; the big number is a `<figure>` with `<data>` |
+| toplist | cards, list | each casino an `<article>` with its name as a heading, placed with grid areas; score as `<data>` (table and podium stay A: a real table is the right element) |
+| faq | accordion, columns | questions as `<h3>` in a grid summary with a CSS-drawn plus/minus; columns via CSS multi-column instead of grid |
+| cta-band | solid, split | flexbox rows, proof points as inline notes |
+| trust-bar | strip, badges | a `<dl>` of label/value cells; the strip flows as grid columns, the badges are inline pills |
+| features | grid, rows, bento | flex cards; rows in an auto-fit grid; bento as a lead tile beside a nested grid |
+| steps | row, timeline | `<article>` steps numbered by a CSS counter; one continuous rail on the timeline |
+| page-links | cards, list | a labelled `<nav>` of plain links in flex rows or cards |
+| page-hero | compact, answer | a flex-column `<header>`, picture as its own column |
+
+B lives in `blocks/<name>/b/` (`variants/<layout>.php`, `style.css`, `variants/<layout>.css`) with its own class roots,
+and reuses A's data preparation (for example `blocks/toplist/_prep.php`), so content logic exists once. Checked: A and
+B pages differ only by spacing details (0–4% of the screen on most pages; more where one block is a little taller and
+shifts the rest), no sideways scrolling at 375px, the hero CTA sits at the same height (within the first 667px) in A and
+B. The developer panel shows "B" next to the layout. Adding a B: copy the variant's fields and data, change the markup
+and CSS, never the content or the rules (docs/block-contract.md).
 
 ## Code dialects (`lib/dialect.php`)
 

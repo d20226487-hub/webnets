@@ -1,0 +1,26 @@
+/* Hero, implementation B: flexbox throughout */
+.sx-opener { background: var(--hero-bg); color: var(--c-hero-text); }
+.sx-opener__frame { display: flex; align-items: center; gap: var(--sp-7); padding-block: var(--sp-8); }
+.sx-opener__copy { display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-5); flex: 1.35 1 0; min-width: 0; }
+.sx-opener__tag { display: inline-flex; align-items: center; gap: var(--sp-2); padding: var(--sp-1) var(--sp-3); border: var(--bw) solid currentColor; border-radius: var(--r-btn); font-size: var(--fs-0); font-weight: var(--fw-strong); letter-spacing: .06em; text-transform: uppercase; color: var(--c-hero-muted); }
+.sx-opener__title { font-size: var(--fs-6); max-width: 16ch; }
+.sx-opener__sub { margin: 0; font-size: var(--fs-2); color: var(--c-hero-muted); max-width: 46ch; line-height: 1.45; }
+.sx-opener__go { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3) var(--sp-5); }
+.sx-opener__cta { background: var(--c-hero-accent); color: var(--c-hero-on-accent); min-height: 56px; padding-inline: var(--sp-7); font-size: var(--fs-2); }
+.sx-opener__alt { display: inline-flex; align-items: center; min-height: 44px; color: var(--c-hero-text); font-weight: var(--fw-strong); text-underline-offset: 4px; }
+.sx-opener__facts { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-5); margin: 0; font-size: var(--fs-0); color: var(--c-hero-muted); }
+.sx-opener__fact { display: inline-flex; align-items: center; gap: var(--sp-2); }
+.sx-opener__fact .sx-icon { color: var(--c-hero-accent); }
+.sx-opener__fact b { color: var(--c-hero-text); }
+.sx-opener__side { flex: 1 1 0; min-width: 280px; }
+@media (max-width: 860px) {
+  .sx-opener__frame { flex-direction: column; align-items: stretch; gap: var(--sp-6); padding-block: var(--sp-5) var(--sp-7); }
+  .sx-opener__copy { gap: var(--sp-4); }
+  .sx-opener__side { min-width: 0; }
+  .sx-opener__go, .sx-opener__cta { width: 100%; }
+}
+/* Phones: keep the primary CTA above the fold at 375x667 (guardrail). */
+@media (max-width: 640px) {
+  .sx-opener__title { font-size: var(--fs-5); }
+  .sx-opener__sub { font-size: var(--fs-1); }
+}

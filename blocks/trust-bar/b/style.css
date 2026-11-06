@@ -1,0 +1,8 @@
+/* Trust bar, implementation B: <dl> cells; the icon spans both rows */
+.sx-proof dl, .sx-proof dd { margin: 0; }
+.sx-proof__cell { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: var(--sp-3); align-items: center; min-width: 0; }
+.sx-proof__cell > .sx-icon { grid-row: span 2; width: 28px; height: 28px; color: var(--c-accent); }
+.sx-proof__v { font-family: var(--f-display); font-weight: var(--fw-heading); text-transform: var(--tt-heading); letter-spacing: var(--ls-heading); line-height: 1.2; overflow-wrap: anywhere; }
+.sx-proof__k { font-size: var(--fs-0); color: var(--c-muted); }
+.sx-proof__cell--value-first .sx-proof__v { grid-row: 1; grid-column: 2; }
+.sx-proof__cell--value-first .sx-proof__k { grid-row: 2; grid-column: 2; }

@@ -1,0 +1,12 @@
+/* Page links, implementation B: flex links */
+.sx-more { padding-block: var(--sp-7); }
+.sx-more__title { font-size: var(--fs-4); margin-block-end: var(--sp-5); }
+.sx-more__link { display: flex; align-items: center; gap: var(--sp-4); color: var(--c-text); text-decoration: none; min-width: 0; }
+.sx-more__txt { display: flex; flex-direction: column; gap: 4px; flex: 1 1 auto; min-width: 0; }
+.sx-more__name { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-2); }
+.sx-more__txt small { color: var(--c-muted); font-size: var(--fs-0); }
+.sx-more__link > .sx-icon { flex: none; width: 18px; height: 18px; color: var(--c-accent); }
+.sx-more__pic { flex: none; width: 112px; border-radius: var(--r-sm); aspect-ratio: 16 / 10 !important; }
+@media (max-width: 640px) {
+  .sx-more__pic { width: 80px; }
+}

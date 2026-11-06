@@ -10,11 +10,13 @@
 .sx-btn { border-radius: 8px; font-weight: 500; letter-spacing: .01em; }
 [class*="__card"], [class*="__item"] { box-shadow: none; }
 .sx-trust__item, [class*="trust__"] { border-radius: 8px; }
+.sx-proof__cell { border-radius: 8px; } /* trust bar, implementation B */
 
 /* store layout: one left-aligned column with even spacing, the way store listings read */
 .sx-changes__inner { max-width: 1200px; padding-block: var(--sp-6); }
 .sx-changes__inner > * { max-width: 860px; }
 .sx-faq__inner, .sx-appinfo__inner { padding-block: var(--sp-6); }
+.sx-qa { padding-block: var(--sp-6); } /* FAQ, implementation B */
 .sx-shots__head { margin-block-end: var(--sp-2); }
 .sx-shots__eyebrow, [class*="shots__eyebrow"] { display: none; }
 .sx-shots__title { font-size: var(--fs-3); }

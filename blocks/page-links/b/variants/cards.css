@@ -1,0 +1,11 @@
+/* cards: wrapping flex cards, arrow at the end of each */
+.sx-more--cards .sx-more__set { display: flex; flex-wrap: wrap; gap: var(--sp-4); }
+.sx-more--cards .sx-more__link { flex: 1 1 220px; align-items: flex-start; padding: var(--sp-5) var(--sp-4) var(--sp-5) var(--sp-5); border-radius: var(--r); background: var(--c-surface); border: var(--bw) solid var(--c-border); box-shadow: var(--card-shadow); }
+.sx-more--cards .sx-more__link:hover { border-color: var(--c-accent); }
+.sx-more--cards .sx-more__link--pic { flex-direction: column; align-items: stretch; }
+.sx-more--cards .sx-more__link--pic .sx-more__pic { width: 100%; aspect-ratio: 16 / 9 !important; }
+.sx-more--cards .sx-more__link--pic > .sx-icon { align-self: flex-end; }
+@media (max-width: 640px) {
+  .sx-more--cards .sx-more__set { flex-direction: column; gap: var(--sp-3); }
+  .sx-more--cards .sx-more__link { flex: none; align-items: center; padding: var(--sp-4); }
+}

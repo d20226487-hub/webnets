@@ -1,0 +1,15 @@
+/* bento: lead tile beside a nested two-column grid; an odd last tile spans the row */
+.sx-perk__mosaic { display: flex; gap: var(--sp-4); align-items: stretch; }
+.sx-perk__mosaic > .sx-perk__card--lead { flex: 1 1 0; justify-content: flex-end; padding: var(--sp-6); background: var(--hero-bg); color: var(--c-hero-text); border-color: transparent; }
+.sx-perk__card--lead h3 { font-size: var(--fs-4); }
+.sx-perk__card--lead p { color: var(--c-hero-muted); font-size: var(--fs-1); max-width: 34ch; }
+.sx-perk__card--lead .sx-perk__ico { width: 64px; height: 64px; margin-block-end: auto; background: var(--c-hero-accent); color: var(--c-hero-on-accent); }
+.sx-perk__rest { flex: 2 1 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: minmax(150px, auto); gap: var(--sp-4); }
+.sx-perk__rest > .sx-perk__card { justify-content: flex-end; }
+.sx-perk__rest > .sx-perk__card .sx-perk__ico { margin-block-end: auto; }
+.sx-perk__rest > .sx-perk__card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+@media (max-width: 860px) {
+  .sx-perk__mosaic { flex-direction: column; }
+  .sx-perk__rest { grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; }
+  .sx-perk__card--lead .sx-perk__ico, .sx-perk__rest > .sx-perk__card .sx-perk__ico { margin-block-end: var(--sp-2); }
+}

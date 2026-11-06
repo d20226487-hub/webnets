@@ -1,0 +1,6 @@
+/* centered: one column, centred text and actions */
+.sx-opener--mid .sx-opener__frame { flex-direction: column; text-align: center; }
+.sx-opener--mid .sx-opener__copy { align-items: center; flex: none; width: 100%; }
+.sx-opener--mid .sx-opener__title { max-width: 20ch; }
+.sx-opener--mid .sx-opener__go, .sx-opener--mid .sx-opener__facts { justify-content: center; }
+.sx-opener--mid .sx-opener__side { flex: none; width: min(100%, 440px); min-width: 0; text-align: start; }

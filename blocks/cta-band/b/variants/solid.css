@@ -1,0 +1,8 @@
+/* solid: hero treatment, full width */
+.sx-close--full { background: var(--hero-bg); color: var(--c-hero-text); }
+.sx-close--full .sx-close__row { padding-block: var(--sp-8); }
+.sx-close--full .sx-close__cta { background: var(--c-hero-accent); color: var(--c-hero-on-accent); }
+.sx-close--full .sx-close__notes { color: var(--c-hero-muted); }
+@media (max-width: 760px) {
+  .sx-close--full .sx-close__row { padding-block: var(--sp-7); }
+}

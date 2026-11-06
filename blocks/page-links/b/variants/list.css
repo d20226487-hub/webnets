@@ -1,0 +1,4 @@
+/* list: a flex column of rows with dividers */
+.sx-more--rows .sx-more__set { display: flex; flex-direction: column; border-block-start: 1px solid var(--c-border); }
+.sx-more--rows .sx-more__link { padding-block: var(--sp-4); border-block-end: 1px solid var(--c-border); }
+.sx-more--rows .sx-more__link:hover .sx-more__name { color: var(--c-accent); }

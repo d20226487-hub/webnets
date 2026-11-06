@@ -1,0 +1,15 @@
+/* Steps, implementation B: flex track, numbers from a counter */
+.sx-how { padding-block: var(--sp-8); }
+.sx-how__head { display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-3); margin-block-end: var(--sp-6); }
+.sx-how__title { font-size: var(--fs-5); }
+.sx-how__track { counter-reset: how; }
+.sx-how__step { counter-increment: how; display: flex; flex-direction: column; gap: var(--sp-2); min-width: 0; }
+.sx-how__step::before { content: counter(how); display: flex; align-items: center; justify-content: center; flex: none; width: 56px; height: 56px; margin-block-end: var(--sp-1); border-radius: var(--r-btn); border: calc(var(--bw) * 2) solid var(--c-accent); color: var(--c-text); font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-3); font-variant-numeric: tabular-nums; }
+.sx-how__step > * { overflow-wrap: break-word; hyphens: auto; }
+.sx-how h3 { font-size: var(--fs-2); }
+.sx-how p { margin: 0; color: var(--c-muted); }
+.sx-how__foot { display: flex; margin-block-start: var(--sp-6); }
+@media (max-width: 760px) {
+  .sx-how { padding-block: var(--sp-7); }
+  .sx-how__cta { width: 100%; }
+}

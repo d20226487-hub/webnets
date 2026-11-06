@@ -1,0 +1,9 @@
+/* rows: auto-fitting two-column grid; each row is an icon tile beside the copy (flex) */
+.sx-perk__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--sp-6) var(--sp-7); }
+.sx-perk__line { display: flex; gap: var(--sp-4); align-items: flex-start; padding-block-start: var(--sp-5); border-block-start: var(--bw) solid var(--c-border); }
+.sx-perk__line > div { display: flex; flex-direction: column; gap: var(--sp-2); min-width: 0; }
+.sx-perk__tile { display: inline-flex; align-items: center; justify-content: center; flex: none; width: 72px; height: 72px; border-radius: var(--r-lg); background: var(--c-accent); color: var(--c-on-accent); font-style: normal; }
+.sx-perk__tile .sx-icon { width: 34px; height: 34px; }
+@media (max-width: 640px) {
+  .sx-perk__tile { width: 56px; height: 56px; }
+}

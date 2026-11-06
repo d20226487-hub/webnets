@@ -1,0 +1,11 @@
+/* timeline: heading beside a vertical track with one continuous rail */
+.sx-how__split { display: flex; gap: var(--sp-6); align-items: flex-start; }
+.sx-how--rail .sx-how__head { flex: 1 1 0; position: sticky; top: 96px; margin: 0; }
+.sx-how--rail .sx-how__track { flex: 1.3 1 0; display: flex; flex-direction: column; gap: var(--sp-5); position: relative; isolation: isolate; }
+.sx-how--rail .sx-how__track::after { content: ""; position: absolute; inset-inline-start: 27px; inset-block: 64px 64px; border-inline-start: 2px solid var(--c-border); z-index: -1; }
+.sx-how--rail .sx-how__step { display: grid; grid-template-columns: 56px minmax(0, 1fr); column-gap: var(--sp-4); row-gap: var(--sp-2); }
+.sx-how--rail .sx-how__step::before { grid-row: span 2; margin: 0; background: var(--c-bg); }
+@media (max-width: 760px) {
+  .sx-how__split { flex-direction: column; }
+  .sx-how--rail .sx-how__head { position: static; }
+}

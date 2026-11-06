@@ -1,0 +1,9 @@
+/* FAQ, implementation B */
+.sx-qa { padding-block: var(--sp-8); }
+.sx-qa__title { font-size: var(--fs-5); }
+.sx-qa h3 { margin: 0; font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-2); text-transform: var(--tt-heading); letter-spacing: var(--ls-heading); line-height: 1.25; }
+.sx-qa p { margin: 0; color: var(--c-muted); max-width: 70ch; }
+@media (max-width: 760px) {
+  .sx-qa { padding-block: var(--sp-7); }
+  .sx-qa h3 { font-size: var(--fs-1); }
+}

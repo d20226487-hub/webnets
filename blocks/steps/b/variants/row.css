@@ -1,0 +1,11 @@
+/* row: equal flex columns joined by a dashed line behind the numbers */
+.sx-how--cols .sx-how__track { display: flex; gap: var(--sp-5); position: relative; isolation: isolate; }
+.sx-how--cols .sx-how__track::after { content: ""; position: absolute; inset-inline: 28px; top: 28px; border-block-start: 2px dashed var(--c-border); z-index: -1; }
+.sx-how--cols .sx-how__step { flex: 1 1 0; }
+.sx-how--cols .sx-how__step::before { background: var(--c-bg); }
+@media (max-width: 760px) {
+  .sx-how--cols .sx-how__track { flex-direction: column; }
+  .sx-how--cols .sx-how__track::after { display: none; }
+  .sx-how--cols .sx-how__step { display: grid; grid-template-columns: 56px minmax(0, 1fr); column-gap: var(--sp-4); row-gap: var(--sp-2); }
+  .sx-how--cols .sx-how__step::before { grid-row: span 2; margin: 0; }
+}

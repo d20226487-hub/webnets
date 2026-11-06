@@ -1,0 +1,12 @@
+/* Features, implementation B */
+.sx-perk { padding-block: var(--sp-8); }
+.sx-perk__head { display: flex; flex-direction: column; gap: var(--sp-2); max-width: 40ch; margin-block-end: var(--sp-6); }
+.sx-perk__title { font-size: var(--fs-5); }
+.sx-perk h3 { font-size: var(--fs-2); }
+.sx-perk p { margin: 0; color: var(--c-muted); }
+.sx-perk__card { display: flex; flex-direction: column; gap: var(--sp-3); padding: var(--sp-5); min-width: 0; }
+.sx-perk__ico { display: inline-flex; align-items: center; justify-content: center; align-self: flex-start; width: 48px; height: 48px; border-radius: var(--r); background: var(--c-surface-2); color: var(--c-accent); font-style: normal; }
+.sx-perk__ico .sx-icon { width: 26px; height: 26px; }
+@media (max-width: 640px) {
+  .sx-perk { padding-block: var(--sp-7); }
+}
