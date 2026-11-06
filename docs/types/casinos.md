@@ -4,11 +4,28 @@ Status: **Phase 8: Demos A, B, C.** Brief: [docs/briefs/08-multi-brand-casino-re
 Blueprint: [blueprints/casinos.json](../../blueprints/casinos.json) · Schema: `dist/schemas/casinos.schema.json`
 
 > **Casino markets only** (BR, demo market). KZ and AU fail the build: casino is not legal there.
+> With `"product": "sports"` the site needs the sports vertical instead (see Products below).
+
+## Products: casino, sports, or both
+
+`"product"` in the site config (optional) picks `products.<product>` in the blueprint:
+
+| Product | Brands must offer | Criteria (weights) | "Live" ranking means | Headline facts |
+|---|---|---|---|---|
+| `casino` (= no product) | casino | safety 25, payouts 25, games 15, live 10, app 10, support 15, bonuses 10 | live casino | withdrawal, live tables, games, support |
+| `sports` | sports | safety 20, payouts 20, odds 20, markets 10, live_bet 10, app 10, support 10, bonuses 10 | live betting (`live_bet`) | withdrawal, live events a day, markets per match, margin, support |
+| `both` | casino **and** sports | safety 20, payouts 20, games 10, live 10, odds 10, live_bet 10, app 10, support 10, bonuses 10 | mean of live casino and live betting (`live_any`, blueprint `composite`) | withdrawal, live tables + events, games, markets, support |
+
+- `rank_by: live` keeps working in every product (blueprint `alias`), so a rank switcher stays valid when the product changes.
+- Sportsbook data: `sports` in `brands/facts/<market>.json` (`count`, `markets_per_match`, `live_events`, `margin`) and
+  `odds`, `markets`, `live_bet` scores in the ratings. A hybrid brand's review text per product goes in `products.sports` /
+  `products.both` of its rating (summary, verdict, pros, cons).
+- UI strings can have product wording: `key@sports`, `key@both` (e.g. the toplist column "Букмекер" / "Оператор").
 
 | Demo | Config | Review link (all pages clickable) |
 |---|---|---|
 | A · Cassino em Foco · BR · PT · fast-payouts · 5 brands · 10 pages | [sites/demos/casinos-a-br.json](../../sites/demos/casinos-a-br.json) | https://claude.ai/artifact/HFpVi7eExxJ5unqxdf2uzZ |
-| B · Живой стол · demo market · RU · live-casino · comparison-table toplist · featured Verazul · Russian slugs · 9 pages | [sites/demos/casinos-b-xx.json](../../sites/demos/casinos-b-xx.json) | https://claude.ai/artifact/SgmodicpPGcZvK5gjjYDFE |
+| B · Живой стол · demo market · RU · live-casino · product switcher (казино + спорт / казино / спорт) · comparison-table toplist · featured Verazul · Russian slugs · 8–10 pages per product | [sites/demos/casinos-b-xx.json](../../sites/demos/casinos-b-xx.json) | https://claude.ai/artifact/SgmodicpPGcZvK5gjjYDFE |
 | C · Casino Scout · demo market · EN · overall · podium toplist · no featured slot · English slugs · 10 pages | [sites/demos/casinos-c-xx.json](../../sites/demos/casinos-c-xx.json) | https://claude.ai/artifact/7MqksxBRowFv4oZkVRwNuy |
 
 ## 1. What the site is for
@@ -89,7 +106,7 @@ CTA is hidden; the ranked list carries the buttons.
 
 - Demos B and C; one review-page layout (`split`) so far.
 - Who tests and how often (brief question 2); real facts source (question 4).
-- A sportsbook-comparison variant for KZ/AU (question 1).
+- A sportsbook-comparison variant for KZ/AU (question 1): the engine supports `"product": "sports"`; KZ/AU still need sportsbook facts and ratings and a sports-only angle.
 - On phones the featured slot plus the #1 brand fill the first screen; the #2 brand is just below the fold.
 
-**Variation demo (Russian, demo market):** `php build/export-review-site.php sites/demos/casinos-b-xx.json` builds rank by (live / overall / payouts / app; `rank_by: overall` uses the overall score) × toplist (table / cards / podium). Review link: https://claude.ai/artifact/SgmodicpPGcZvK5gjjYDFE.
+**Variation demo (Russian, demo market):** `php build/export-review-site.php sites/demos/casinos-b-xx.json` builds product (казино + спорт: Nyxa, Verazul, Cobaltio / казино: 5 casinos / спорт: Vantro, Nyxa, Verazul, Cobaltio) × rank by (live / overall / payouts / app; `rank_by: overall` uses the overall score) × toplist (table / cards / podium): 36 combinations. The plain config is казино + спорт. Product-specific titles per ranking use `_with` (cross-axis overrides, see build/export-review-site.php). Review link: https://claude.ai/artifact/SgmodicpPGcZvK5gjjYDFE.

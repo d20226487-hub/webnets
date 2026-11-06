@@ -12,6 +12,9 @@
  * Usage: php build/variations.php sites/demos/<id>.json
  * Writes dist/review/<id>.html (main variation, wrapper stripped) and dist/review/<id>/<option>-<option>.html.
  * Publish <id>.html as the Artifact page and the other files through `files`.
+ *
+ * An option may carry "_with": {"<other axis>": {"<option>": {overrides}}}, applied when both options are chosen
+ * (after every axis), e.g. rank "payouts" + product "sports" gets sportsbook titles.
  */
 
 $root = dirname(__DIR__);
@@ -95,7 +98,16 @@ foreach (glob("$dir/*.html") as $old) {
 foreach ($combos as $c) {
     $cfg = $base;
     foreach ($c as $axis => $o) {
-        $cfg = sx_var_merge($cfg, $axes[$axis][$o]);
+        $cfg = sx_var_merge($cfg, array_diff_key($axes[$axis][$o], ['_with' => 1]));
+    }
+    // Cross-axis overrides: an option's "_with": {"<axis>": {"<option>": {...}}} applies when that option is chosen too
+    // (e.g. rank "payouts" + product "sports" gets sportsbook titles). Applied after every axis, so they win.
+    foreach ($c as $axis => $o) {
+        foreach ($axes[$axis][$o]['_with'] ?? [] as $other => $byOption) {
+            if (isset($c[$other], $byOption[$c[$other]])) {
+                $cfg = sx_var_merge($cfg, $byOption[$c[$other]]);
+            }
+        }
     }
     $page = array_values(array_filter(sx_build_site($cfg, $root), fn($p) => empty($p['asset'])))[0];
     if (SX::$warnings) {

@@ -1050,6 +1050,21 @@
     "pt": "{n} mesas ao vivo",
     "ru": "{n} live-столов"
   },
+  "casinos.kf.live_bet": {
+    "en": "{n} live events a day",
+    "ru": "{n} live-событий в день",
+    "pt": "{n} eventos ao vivo por dia"
+  },
+  "casinos.kf.odds": {
+    "en": "Margin ~{m}%",
+    "ru": "Маржа ~{m}%",
+    "pt": "Margem ~{m}%"
+  },
+  "casinos.kf.markets": {
+    "en": "{n} markets per match",
+    "ru": "{n} рынков на матч",
+    "pt": "{n} mercados por jogo"
+  },
   "casinos.kf.games": {
     "en": "{n} games",
     "pt": "{n} jogos",
@@ -1110,6 +1125,31 @@
     "pt": "Mesas ao vivo",
     "ru": "Live-столы"
   },
+  "casinos.f.sports": {
+    "en": "Sports",
+    "ru": "Виды спорта",
+    "pt": "Esportes"
+  },
+  "casinos.f.markets": {
+    "en": "Markets per match",
+    "ru": "Рынков на матч",
+    "pt": "Mercados por jogo"
+  },
+  "casinos.f.live_events": {
+    "en": "Live events a day",
+    "ru": "Live-событий в день",
+    "pt": "Eventos ao vivo por dia"
+  },
+  "casinos.f.margin": {
+    "en": "Margin",
+    "ru": "Маржа",
+    "pt": "Margem"
+  },
+  "casinos.f.live_any": {
+    "en": "Live tables and events",
+    "ru": "Live-столы и события",
+    "pt": "Mesas e eventos ao vivo"
+  },
   "casinos.f.app": {
     "en": "App",
     "pt": "App",
@@ -1160,6 +1200,26 @@
     "pt": "Bônus",
     "ru": "Бонусы"
   },
+  "casinos.crit.odds": {
+    "en": "Odds",
+    "ru": "Коэффициенты",
+    "pt": "Odds"
+  },
+  "casinos.crit.markets": {
+    "en": "Markets",
+    "ru": "Линия",
+    "pt": "Mercados"
+  },
+  "casinos.crit.live_bet": {
+    "en": "Live betting",
+    "ru": "Live-ставки",
+    "pt": "Apostas ao vivo"
+  },
+  "casinos.crit.live_any": {
+    "en": "Live casino and betting",
+    "ru": "Live-казино и ставки",
+    "pt": "Cassino e apostas ao vivo"
+  },
   "casinos.crit_desc.safety": {
     "en": "Licence, identity checks, responsible-gambling tools and clear terms.",
     "pt": "Autorização, verificação de identidade, ferramentas de jogo responsável e termos claros.",
@@ -1195,6 +1255,21 @@
     "pt": "Valor e justiça das regras de bônus, onde o mercado permite bônus.",
     "ru": "Ценность и честность условий бонусов там, где рынок их разрешает."
   },
+  "casinos.crit_desc.odds": {
+    "en": "Bookmaker margin on top football and tennis markets, measured on the same matches for every brand.",
+    "ru": "Маржа букмекера на топ-рынках футбола и тенниса, измеренная на одних и тех же матчах у всех брендов.",
+    "pt": "Margem da casa nos principais mercados de futebol e tênis, medida nos mesmos jogos em todas as marcas."
+  },
+  "casinos.crit_desc.markets": {
+    "en": "Number of sports and markets per match, player and stats bets, esports.",
+    "ru": "Число видов спорта и рынков на матч, ставки на игроков и статистику, киберспорт.",
+    "pt": "Número de esportes e mercados por jogo, apostas em jogadores e estatísticas, eSports."
+  },
+  "casinos.crit_desc.live_bet": {
+    "en": "Live events a day, how fast in-play bets are accepted, streams and cash-out.",
+    "ru": "Live-события в день, скорость принятия ставки в live, трансляции и кэшаут.",
+    "pt": "Eventos ao vivo por dia, rapidez na aceitação de apostas ao vivo, transmissões e cash-out."
+  },
   "nav.compare": {
     "en": "Compare",
     "pt": "Comparar",
@@ -1224,6 +1299,16 @@
     "en": "Every casino we tested, side by side.",
     "pt": "Todos os cassinos testados, lado a lado.",
     "ru": "Все проверенные казино рядом."
+  },
+  "page.blurb.compare@sports": {
+    "en": "Every bookmaker we tested, side by side.",
+    "ru": "Все проверенные букмекеры рядом.",
+    "pt": "Todas as casas de apostas que testamos, lado a lado."
+  },
+  "page.blurb.compare@both": {
+    "en": "Every operator we tested, side by side.",
+    "ru": "Все проверенные операторы рядом.",
+    "pt": "Todos os operadores que testamos, lado a lado."
   },
   "page.blurb.method": {
     "en": "Criteria, weights and how we test.",
@@ -1766,6 +1851,16 @@
     "pt": "Cassino",
     "ru": "Казино",
     "kk": "Казино"
+  },
+  "casinos.col_casino@sports": {
+    "en": "Bookmaker",
+    "ru": "Букмекер",
+    "pt": "Casa de apostas"
+  },
+  "casinos.col_casino@both": {
+    "en": "Operator",
+    "ru": "Оператор",
+    "pt": "Operador"
   },
   "casinos.col_score": {
     "en": "Score",

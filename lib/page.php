@@ -27,14 +27,23 @@ function sx_build_site(array $cfg, string $root): array
     if ($bp) {
         SX::$warnings = [];
         sx_context($ctx);
-        if (!empty($bp['requires_vertical']) && empty($ctx['market']['verticals'][$bp['requires_vertical']])) {
-            throw new RuntimeException("Site type '{$cfg['type']}' needs the '{$bp['requires_vertical']}' vertical, which market '{$ctx['market']['id']}' does not allow. "
-                . 'This is a legal block, not a setting: use another site type there.');
+        $verticals = sx_bp_verticals($bp, $cfg);
+        foreach ($verticals as $v) {
+            if (empty($ctx['market']['verticals'][$v])) {
+                throw new RuntimeException("Site type '{$cfg['type']}' needs the '$v' vertical, which market '{$ctx['market']['id']}' does not allow. "
+                    . 'This is a legal block, not a setting: use another site type there.');
+            }
         }
         if (!empty($bp['compares_brands'])) {
-            $ctx['criteria'] = $bp['criteria'];
+            // "product" (casino / sports / both) picks the criteria and what "live" means; no product = the blueprint default
+            $prod = isset($cfg['product']) ? $bp['products'][$cfg['product']] : [];
+            $ctx['product'] = $cfg['product'] ?? null;
+            $ctx['criteria'] = $prod['criteria'] ?? $bp['criteria'];
+            $ctx['crit_alias'] = $prod['alias'] ?? [];
+            $ctx['crit_composite'] = $bp['composite'] ?? [];
+            $ctx['fact_cols'] = $prod['facts'] ?? $bp['facts'] ?? ['payouts', 'live', 'games', 'support'];
             sx_context($ctx);
-            sx_casinos_gate($bp['requires_vertical'] ?? null); // throws when a brand cannot be listed
+            sx_casinos_gate($verticals); // throws when a brand cannot be listed
         }
         if (!empty($bp['requires_reviews'])) {
             $ctx['sample_reviews'] = sx_reviews_gate($cfg); // throws if seeded reviews would ship outside a demo
@@ -54,7 +63,7 @@ function sx_build_site(array $cfg, string $root): array
             if (!empty($bp['compares_brands'])) {
                 // Generic CTAs go to the top brand for the angle; review pages override with their own brand.
                 $ctx['rank_by'] = $bp['angles'][$summary['angle']]['rank_by'] ?? null;
-                $ctx['cta_brand'] = sx_casino_rank($ctx['rank_by'])[0];
+                $ctx['cta_brand'] = sx_casino_rank(sx_crit($ctx['rank_by']))[0];
             }
             if (empty($ctx['site']['url'])) {
                 SX::$warnings[] = 'site.url is required on multi-page sites (canonical links, sitemap).';

@@ -27,6 +27,7 @@ _Follow the system prompt (role, target stack, acceptance checklist) together wi
 - Every listed brand must be licensed in the market; the build refuses unlicensed ones.
 - Each review page explains how the score was computed and links the method page.
 - Comparison values come from brand facts with a checked date; never type them by hand.
+- The site config's "product" (casino, sports or both) decides which brands can be listed, the criteria and weights, and what "live" means; wording follows it ("казино", "букмекер", "оператор").
 
 ## Market guidance
 

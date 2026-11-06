@@ -4,7 +4,9 @@
  * with its own tracked link (links.brands.<id>). Per brand: identity (brands/operators.json), per-market facts
  * (brands/facts/<market>.json) and editorial ratings (brands/ratings/<market>.json).
  *
- * Criteria and weights come from the blueprint ("criteria"); the overall score is always computed here.
+ * Criteria and weights come from the blueprint ("criteria", or "products.<product>.criteria" when the site config sets
+ * "product": casino / sports / both); the overall score is always computed here. Criteria ids may be aliased per
+ * product ("live" = live casino, live betting, or both) and composite (blueprint "composite": the mean of several).
  */
 
 const SX_RATING_MAX_AGE_DAYS = 90;
@@ -29,10 +31,16 @@ function sx_casino(string $id): array
     $rf = "$root/brands/ratings/$m." . (SX::$ctx['locale'] ?? '') . '.json'; // editorial text in the site's language, when the market has several
     $rf = is_file($rf) ? $rf : "$root/brands/ratings/$m.json";
     $ratings = SX::$once['ratings'] ??= (is_file($rf) ? sx_json($rf)['brands'] : []);
+    $r = $ratings[$id] ?? null;
+    // Per-product review text (summary, verdict, pros, cons): a hybrid brand reviewed as a sportsbook reads differently.
+    if ($r && ($p = SX::$ctx['product'] ?? null) && isset($r['products'][$p])) {
+        $r = array_merge($r, $r['products'][$p]);
+    }
+    unset($r['products']);
     return SX::$once['casino'][$id] = ($ops[$id] ?? []) + [
         'id' => $id,
         'f' => $facts[$id] ?? null,
-        'r' => $ratings[$id] ?? null,
+        'r' => $r,
         'link' => SX::$ctx['links']['brands'][$id] ?? null,
     ];
 }
@@ -53,11 +61,20 @@ function sx_criteria(): array
     return $out;
 }
 
-/** Overall score (0-10, one decimal) or one criterion's score. */
+/** A ranking choice as this site's product means it ("live" -> "live_bet" on a sports site). Only for rank_by, not criteria. */
+function sx_crit(?string $criterion): ?string
+{
+    return $criterion === null ? null : (SX::$ctx['crit_alias'][$criterion] ?? $criterion);
+}
+
+/** Overall score (0-10, one decimal) or one criterion's score (composite criteria: the mean of their parts). */
 function sx_casino_score(string $id, ?string $criterion = null): float
 {
     $s = sx_casino($id)['r']['scores'] ?? [];
     if ($criterion) {
+        if ($parts = SX::$ctx['crit_composite'][$criterion] ?? null) {
+            return round(array_sum(array_map(fn($c) => (float)($s[$c]['score'] ?? 0), $parts)) / count($parts), 1);
+        }
         return (float)($s[$criterion]['score'] ?? 0);
     }
     $w = sx_criteria();
@@ -85,7 +102,7 @@ function sx_score10(float $v): string
  * Build-time checks (sx_build_site for types with "compares_brands"). Throws when a brand cannot legally or
  * honestly be listed; warns on stale data or copy-paste verdicts.
  */
-function sx_casinos_gate(?string $vertical = null): void
+function sx_casinos_gate(array $verticals = []): void
 {
     $ids = sx_casino_ids();
     $m = SX::$ctx['market'];
@@ -103,8 +120,10 @@ function sx_casinos_gate(?string $vertical = null): void
         if (!in_array($m['id'], $b['markets'], true) || empty($b['license_no'])) {
             throw new RuntimeException("Brand '$id' is not licensed in market '{$m['id']}' (markets + license_no in brands/operators.json); it cannot be listed.");
         }
-        if ($vertical && !in_array($vertical, $b['verticals'], true)) {
-            throw new RuntimeException("Brand '$id' does not offer $vertical; it cannot be listed on a $vertical comparison site.");
+        foreach ($verticals as $vertical) {
+            if (!in_array($vertical, $b['verticals'], true)) {
+                throw new RuntimeException("Brand '$id' does not offer $vertical; it cannot be listed on a " . implode(' + ', $verticals) . ' comparison site.');
+            }
         }
         if (!$b['link']) {
             throw new RuntimeException("No tracked link for brand '$id' (links.brands.$id).");
@@ -119,8 +138,10 @@ function sx_casinos_gate(?string $vertical = null): void
             throw new RuntimeException("The review of '$id' has no cons. Every review lists at least one weakness.");
         }
         foreach (array_keys(sx_criteria()) as $c) {
+            foreach (SX::$ctx['crit_composite'][$c] ?? [$c] as $c) {
             if (!isset($b['r']['scores'][$c]['score']) || empty($b['r']['scores'][$c]['reason'])) {
                 SX::$warnings[] = "Rating of '$id' has no score or reason for criterion '$c'.";
+            }
             }
         }
         if (($today - strtotime($b['r']['tested_at'])) / 86400 > SX_RATING_MAX_AGE_DAYS) {
@@ -200,9 +221,39 @@ function sx_key_fact(string $id, string $criterion): string
     return match ($criterion) {
         'payouts' => $payout,
         'live' => t('casinos.kf.live', ['n' => sx_number($f['live_tables'])]),
+        'live_bet' => t('casinos.kf.live_bet', ['n' => sx_number($f['sports']['live_events'])]),
+        'live_any' => t('casinos.kf.live', ['n' => sx_number($f['live_tables'])]) . ' · ' . t('casinos.kf.live_bet', ['n' => sx_number($f['sports']['live_events'])]),
+        'odds' => t('casinos.kf.odds', ['m' => sx_number($f['sports']['margin'], 1)]),
+        'markets' => t('casinos.kf.markets', ['n' => sx_number($f['sports']['markets_per_match'])]),
         'games' => t('casinos.kf.games', ['n' => sx_number($f['games'])]),
         'app' => $f['app'] ? t('casinos.app_yes') : t('casinos.app_no'),
         'support' => t('casinos.kf.support', ['h' => $f['support']['chat']]),
         default => $payout,
     };
 }
+
+/**
+ * Headline facts (compare table, facts table, toplist columns) for this site's product, as [criterion-ish key => [label, value fn]].
+ * Keys: payouts, live, games, support, sports, markets, live_bet, odds, live_any.
+ */
+function sx_fact_defs(): array
+{
+    $f = fn($id) => sx_casino($id)['f'];
+    $all = [
+        'payouts' => [t('casinos.f.withdrawal'), fn($id) => sx_duration(min($f($id)['withdrawal_minutes']))],
+        'live' => [t('casinos.f.live'), fn($id) => sx_number($f($id)['live_tables'])],
+        'games' => [t('casinos.f.games'), fn($id) => sx_number($f($id)['games'])],
+        'support' => [t('casinos.f.support'), fn($id) => t('casinos.chat', ['h' => $f($id)['support']['chat']])],
+        'sports' => [t('casinos.f.sports'), fn($id) => sx_number($f($id)['sports']['count'])],
+        'markets' => [t('casinos.f.markets'), fn($id) => sx_number($f($id)['sports']['markets_per_match'])],
+        'live_bet' => [t('casinos.f.live_events'), fn($id) => sx_number($f($id)['sports']['live_events'])],
+        'odds' => [t('casinos.f.margin'), fn($id) => sx_number($f($id)['sports']['margin'], 1) . '%'],
+        'live_any' => [t('casinos.f.live_any'), fn($id) => sx_key_fact($id, 'live_any')],
+    ];
+    $out = [];
+    foreach (SX::$ctx['fact_cols'] ?? ['payouts', 'live', 'games', 'support'] as $k) {
+        $out[$k] = $all[$k];
+    }
+    return $out;
+}
+

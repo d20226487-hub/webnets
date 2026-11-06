@@ -1,5 +1,7 @@
 # Screenshots of every demo home page for the gallery (desktop 1280x800 at half size, phone 375px inside a frame).
 # Needs Chrome. Usage (from the satellite-system folder): powershell -File build/screenshots.ps1, then python build/gallery.py
+# One or a few demos only: powershell -File build/screenshots.ps1 -Only casinos-b-xx,b-nyxa-xx
+param([string[]]$Only = @())
 $root = Split-Path -Parent $PSScriptRoot
 $src = "$root\dist\gallery\src"; $shots = "$root\dist\gallery\shots"
 $chrome = "C:\Program Files\Google\Chrome\Application\chrome.exe"
@@ -7,7 +9,7 @@ New-Item -ItemType Directory -Force $src, $shots | Out-Null
 $enc = New-Object System.Text.UTF8Encoding $false
 # Age gate hidden for the picture; everything else is the shipped page.
 $inject = '<style>[class*="agegate"],[class*="age-gate"]{display:none!important}html,body{overflow:visible!important}</style>'
-foreach ($id in (Get-ChildItem "$root\sites\demos\*.json" | ForEach-Object { $_.BaseName })) {
+foreach ($id in (Get-ChildItem "$root\sites\demos\*.json" | ForEach-Object { $_.BaseName } | Where-Object { -not $Only -or $Only -contains $_ })) {
   [IO.File]::WriteAllText("$src\$id.html", [IO.File]::ReadAllText("$root\dist\sites\$id\index.html", $enc).Replace('</head>', "$inject</head>"), $enc)
   # Headless Chrome will not make a window under ~500px, so the phone view renders in a 375px iframe.
   [IO.File]::WriteAllText("$src\$id-phone.html", "<!doctype html><html><head><meta charset=`"utf-8`"><style>html,body{margin:0;background:#fff}iframe{display:block;width:375px;height:780px;border:0}</style></head><body><iframe src=`"$id.html`"></iframe></body></html>", $enc)

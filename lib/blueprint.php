@@ -318,8 +318,10 @@ function sx_expand_site(array $cfg, string $root): array
         $bp['pages'][$pid]['slug'] = $slug;
     }
     $market = sx_ctx('market');
-    if (!empty($bp['requires_vertical']) && empty($market['verticals'][$bp['requires_vertical']])) {
-        throw new RuntimeException("Site type '{$cfg['type']}' needs the '{$bp['requires_vertical']}' vertical, which market '{$market['id']}' does not allow.");
+    foreach (sx_bp_verticals($bp, $cfg) as $v) {
+        if (empty($market['verticals'][$v])) {
+            throw new RuntimeException("Site type '{$cfg['type']}' needs the '$v' vertical, which market '{$market['id']}' does not allow.");
+        }
     }
 
     $angles = array_filter($bp['angles'], fn($a) => empty($a['requires_vertical']) || !empty($market['verticals'][$a['requires_vertical']]));
@@ -563,3 +565,17 @@ function sx_paginate_count(array $section, array $props): int
         default => throw new RuntimeException("Block '{$section['block']}' cannot be paginated."),
     };
 }
+
+/**
+ * Verticals a site needs: the product's (blueprint "products", picked by "product" in the site config, e.g. casino
+ * reviews as casino / sports / both) or the blueprint's single "requires_vertical".
+ */
+function sx_bp_verticals(array $bp, array $cfg): array
+{
+    if (isset($cfg['product'], $bp['products'])) {
+        return $bp['products'][$cfg['product']]['verticals']
+            ?? throw new RuntimeException("Unknown product '{$cfg['product']}' for type '{$cfg['type']}' (" . implode(', ', array_keys($bp['products'])) . ').');
+    }
+    return empty($bp['requires_vertical']) ? [] : [$bp['requires_vertical']];
+}
+

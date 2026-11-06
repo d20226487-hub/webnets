@@ -76,7 +76,9 @@ function sx_fill(string $s, array $vars = []): string
 /** UI string from i18n/strings.json in the current locale (falls back to English). */
 function t(string $key, array $vars = []): string
 {
-    $row = SX::$ctx['strings'][$key] ?? null;
+    // Product-specific wording ("key@sports", "key@both") wins on sites with a "product" (casino reviews).
+    $row = (!empty(SX::$ctx['product']) ? SX::$ctx['strings']["$key@" . SX::$ctx['product']] ?? null : null)
+        ?? SX::$ctx['strings'][$key] ?? null;
     if ($row === null) {
         SX::$warnings[] = "Missing string '$key'";
         return $key;

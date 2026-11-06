@@ -1,5 +1,5 @@
 {
-  "_note": "Editorial scores for the demo market xx (fictional). Each criterion 0-10 with a one-line reason; the overall score is computed from the blueprint weights. Bonuses are scored here because the demo market allows promotions. Every review needs at least one con.",
+  "_note": "Editorial scores for the demo market xx (fictional). Each criterion 0-10 with a one-line reason; the overall score is computed from the blueprint weights. Bonuses are scored here because the demo market allows promotions. Every review needs at least one con. Sportsbooks also carry odds, markets and live_bet scores; \"products\" holds the review text for sports-only and casino + sport sites (casino-review product switcher).",
   "brands": {
     "marlowe": {
       "tested_at": "2026-10-24",
@@ -77,6 +77,18 @@
         "bonuses": {
           "score": 7,
           "reason": "Generous welcome offer but 30× wagering on bonus funds."
+        },
+        "odds": {
+          "score": 8,
+          "reason": "Around 5% margin on top football, higher on tennis."
+        },
+        "markets": {
+          "score": 8,
+          "reason": "About 900 markets on a big match, with player stats."
+        },
+        "live_bet": {
+          "score": 8.5,
+          "reason": "About 2,600 live events a day; bets accepted in a couple of seconds."
         }
       },
       "pros": [
@@ -88,7 +100,36 @@
         "Small live casino",
         "No phone support",
         "High wagering on the bonus"
-      ]
+      ],
+      "products": {
+        "sports": {
+          "summary": "Fast payouts and a strong football book; tennis margins are above average.",
+          "verdict": "Nyxa suits football bettors who want their winnings fast: Apple Pay withdrawals took about 15 minutes. Tennis odds are worse than at Vantro.",
+          "pros": [
+            "Apple Pay withdrawals in minutes",
+            "About 2,600 live events a day",
+            "Player stats in the markets"
+          ],
+          "cons": [
+            "Above-average tennis margin",
+            "No phone support"
+          ]
+        },
+        "both": {
+          "summary": "Casino and betting in one wallet, the fastest payouts; a small live casino.",
+          "verdict": "Nyxa pairs a big slot library with a solid football book and paid out fastest in our tests. The live casino is modest and tennis margins are above average.",
+          "pros": [
+            "One balance for casino and bets",
+            "Apple Pay withdrawals in minutes",
+            "Big slot library"
+          ],
+          "cons": [
+            "Small live casino",
+            "Above-average tennis margin",
+            "No phone support"
+          ]
+        }
+      }
     },
     "verazul": {
       "tested_at": "2026-10-22",
@@ -122,6 +163,18 @@
         "bonuses": {
           "score": 7.5,
           "reason": "Cashback on live losses with no wagering, small welcome offer."
+        },
+        "odds": {
+          "score": 6.5,
+          "reason": "Around 6% margin, the priciest in the list."
+        },
+        "markets": {
+          "score": 6,
+          "reason": "About 450 markets per match, few player bets."
+        },
+        "live_bet": {
+          "score": 6,
+          "reason": "About 900 live events a day, almost no streams."
         }
       },
       "pros": [
@@ -132,7 +185,35 @@
       "cons": [
         "No chat after midnight",
         "Fewer new slots"
-      ]
+      ],
+      "products": {
+        "sports": {
+          "summary": "A sportsbook added to a live casino: few markets and a high margin.",
+          "verdict": "Betting at Verazul is an add-on to the casino: about 450 markets per match and a margin around 6%. Bettors are better off with Vantro or Nyxa, but card withdrawals are quick.",
+          "pros": [
+            "Card withdrawals in about 90 minutes",
+            "Phone support"
+          ],
+          "cons": [
+            "Margin around 6%",
+            "Few markets, almost no streams",
+            "Chat closed after midnight"
+          ]
+        },
+        "both": {
+          "summary": "One of the best live casinos; betting is there, but the book is thin.",
+          "verdict": "Choose Verazul for the live casino: 150 tables and fast card withdrawals. The sportsbook is thin and its margin is higher than the rest of the list.",
+          "pros": [
+            "150 live tables",
+            "Card withdrawals in about 90 minutes",
+            "Phone support"
+          ],
+          "cons": [
+            "Thin sportsbook, margin around 6%",
+            "Chat closed after midnight"
+          ]
+        }
+      }
     },
     "lunaro": {
       "tested_at": "2026-10-23",
@@ -211,6 +292,18 @@
         "bonuses": {
           "score": 8.5,
           "reason": "Weekly free spins with no wagering on winnings."
+        },
+        "odds": {
+          "score": 7.5,
+          "reason": "Around 5.6% margin, noticeably lower on ice hockey."
+        },
+        "markets": {
+          "score": 7.5,
+          "reason": "About 700 markets per match, good esports coverage."
+        },
+        "live_bet": {
+          "score": 8,
+          "reason": "About 1,800 live events a day and streams of major leagues."
         }
       },
       "pros": [
@@ -222,6 +315,84 @@
         "Bank-only withdrawals, about 2 days",
         "No app",
         "Small live casino"
+      ],
+      "products": {
+        "sports": {
+          "summary": "Streams of major leagues and strong esports, but withdrawals take two days.",
+          "verdict": "Cobaltio streams major leagues and covers esports well. The catch is the same as its casino: bank-only withdrawals of about two days and no app.",
+          "pros": [
+            "Streams of major leagues",
+            "Strong esports markets",
+            "24/7 chat"
+          ],
+          "cons": [
+            "Bank-only withdrawals, about 2 days",
+            "No app"
+          ]
+        },
+        "both": {
+          "summary": "A huge game catalogue and good live betting; slow withdrawals and no app.",
+          "verdict": "Cobaltio is for players who want lots of slots and streamed live betting in one place. Bank-only withdrawals take about two days and there is no app.",
+          "pros": [
+            "Over 4,500 games",
+            "Live betting with streams",
+            "24/7 chat"
+          ],
+          "cons": [
+            "Bank-only withdrawals, about 2 days",
+            "No app",
+            "Small live casino"
+          ]
+        }
+      }
+    },
+    "vantro": {
+      "tested_at": "2026-10-27",
+      "summary": "The best odds and the widest book we tested; no casino.",
+      "verdict": "Vantro is the sportsbook for bettors who compare odds: a margin around 4% and up to 1,400 markets per match. There is no casino and the welcome offer is small.",
+      "scores": {
+        "safety": {
+          "score": 9,
+          "reason": "Licence in plain sight; bet limits set in two steps."
+        },
+        "payouts": {
+          "score": 9,
+          "reason": "Card withdrawals in about an hour, bank transfers up to 12 hours."
+        },
+        "odds": {
+          "score": 9.5,
+          "reason": "Around 4% margin on football and tennis, the best we tested."
+        },
+        "markets": {
+          "score": 9.5,
+          "reason": "Up to 1,400 markets on a big match, 38 sports."
+        },
+        "live_bet": {
+          "score": 9,
+          "reason": "About 4,200 live events a day; cash-out works in play."
+        },
+        "app": {
+          "score": 9,
+          "reason": "Fast app, one tap to bet in play."
+        },
+        "support": {
+          "score": 8.5,
+          "reason": "Chat and phone 24/7; chat answered within a minute."
+        },
+        "bonuses": {
+          "score": 7,
+          "reason": "The first-bet free bet is small, with fair terms."
+        }
+      },
+      "pros": [
+        "Margin around 4%",
+        "Up to 1,400 markets per match",
+        "24/7 phone support"
+      ],
+      "cons": [
+        "No casino",
+        "Small welcome offer",
+        "Bank withdrawals take up to 12 hours"
       ]
     }
   }

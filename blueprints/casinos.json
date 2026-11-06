@@ -28,6 +28,138 @@
       "requires_promo": true
     }
   },
+  "products": {
+    "_note": "Picked by \"product\" in the site config. Each product sets the verticals every listed brand must offer, the criteria and weights, what \"live\" means (alias) and the headline facts (compare/facts tables, toplist columns). No product = criteria above, casino only.",
+    "casino": {
+      "verticals": [
+        "casino"
+      ],
+      "criteria": {
+        "safety": {
+          "weight": 25
+        },
+        "payouts": {
+          "weight": 25
+        },
+        "games": {
+          "weight": 15
+        },
+        "live": {
+          "weight": 10
+        },
+        "app": {
+          "weight": 10
+        },
+        "support": {
+          "weight": 15
+        },
+        "bonuses": {
+          "weight": 10,
+          "requires_promo": true
+        }
+      },
+      "facts": [
+        "payouts",
+        "live",
+        "games",
+        "support"
+      ]
+    },
+    "sports": {
+      "verticals": [
+        "sports"
+      ],
+      "criteria": {
+        "safety": {
+          "weight": 20
+        },
+        "payouts": {
+          "weight": 20
+        },
+        "odds": {
+          "weight": 20
+        },
+        "markets": {
+          "weight": 10
+        },
+        "live_bet": {
+          "weight": 10
+        },
+        "app": {
+          "weight": 10
+        },
+        "support": {
+          "weight": 10
+        },
+        "bonuses": {
+          "weight": 10,
+          "requires_promo": true
+        }
+      },
+      "alias": {
+        "live": "live_bet"
+      },
+      "facts": [
+        "payouts",
+        "live_bet",
+        "markets",
+        "odds",
+        "support"
+      ]
+    },
+    "both": {
+      "verticals": [
+        "casino",
+        "sports"
+      ],
+      "criteria": {
+        "safety": {
+          "weight": 20
+        },
+        "payouts": {
+          "weight": 20
+        },
+        "games": {
+          "weight": 10
+        },
+        "live": {
+          "weight": 10
+        },
+        "odds": {
+          "weight": 10
+        },
+        "live_bet": {
+          "weight": 10
+        },
+        "app": {
+          "weight": 10
+        },
+        "support": {
+          "weight": 10
+        },
+        "bonuses": {
+          "weight": 10,
+          "requires_promo": true
+        }
+      },
+      "alias": {
+        "live": "live_any"
+      },
+      "facts": [
+        "payouts",
+        "live_any",
+        "games",
+        "markets",
+        "support"
+      ]
+    }
+  },
+  "composite": {
+    "live_any": [
+      "live",
+      "live_bet"
+    ]
+  },
   "frame": {
     "top": [
       {

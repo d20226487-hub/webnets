@@ -158,7 +158,10 @@ function sx_safe_html(string $html, array &$toc = []): string
     }, $html);
     return preg_replace_callback('#<h2>(.*?)</h2>#s', function ($m) use (&$toc) {
         $text = trim(strip_tags($m[1]));
-        $id = trim(preg_replace('/[^a-z0-9]+/', '-', strtolower(iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $text) ?: '')), '-') ?: 's' . (count($toc) + 1);
+        // Windows iconv spells accents as marks ("~a", "'a"): drop them so anchors match glibc ("nao", not "n-ao").
+        // Real apostrophes become separators first, as glibc keeps them ("vantro-s-replies").
+        $ascii = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', preg_replace("/['’]/u", ' ', $text)) ?: '';
+        $id = trim(preg_replace('/[^a-z0-9]+/', '-', strtolower(preg_replace('/[\'"`^~]/', '', $ascii))), '-') ?: 's' . (count($toc) + 1);
         $id = isset($toc[$id]) ? $id . '-' . (count($toc) + 1) : $id;
         $toc[$id] = $text;
         return '<h2 id="' . e($id) . '">' . $m[1] . '</h2>';

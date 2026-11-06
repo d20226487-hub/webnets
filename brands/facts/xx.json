@@ -44,7 +44,13 @@
       "live_tables": 70,
       "app": true,
       "domain": "nyxa.example",
-      "checked_at": "2026-10-28"
+      "checked_at": "2026-10-28",
+      "sports": {
+        "count": 30,
+        "markets_per_match": 900,
+        "live_events": 2600,
+        "margin": 5.1
+      }
     },
     "verazul": {
       "min_deposit": 15,
@@ -66,7 +72,13 @@
       "live_tables": 150,
       "app": true,
       "domain": "verazul.example",
-      "checked_at": "2026-10-25"
+      "checked_at": "2026-10-25",
+      "sports": {
+        "count": 18,
+        "markets_per_match": 450,
+        "live_events": 900,
+        "margin": 6.3
+      }
     },
     "cobaltio": {
       "min_deposit": 10,
@@ -86,7 +98,13 @@
       "live_tables": 55,
       "app": false,
       "domain": "cobaltio.example",
-      "checked_at": "2026-10-23"
+      "checked_at": "2026-10-23",
+      "sports": {
+        "count": 25,
+        "markets_per_match": 700,
+        "live_events": 1800,
+        "margin": 5.6
+      }
     },
     "lunaro": {
       "min_deposit": 25,
@@ -110,6 +128,33 @@
       "app": true,
       "domain": "lunaro.example",
       "checked_at": "2026-10-26"
+    },
+    "vantro": {
+      "min_deposit": 10,
+      "withdrawal_minutes": {
+        "visa-debit": 60,
+        "bank": 720
+      },
+      "payments": [
+        "visa-debit",
+        "mastercard-debit",
+        "apple-pay",
+        "bank"
+      ],
+      "support": {
+        "chat": "24h",
+        "email": true,
+        "phone": true
+      },
+      "app": true,
+      "domain": "vantro.example",
+      "checked_at": "2026-10-28",
+      "sports": {
+        "count": 38,
+        "markets_per_match": 1400,
+        "live_events": 4200,
+        "margin": 4.2
+      }
     }
   }
 }

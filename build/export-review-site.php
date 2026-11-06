@@ -8,6 +8,9 @@
  * Every page gets a demo bar on top that opens the same page in another combination (or that combination's home
  * when it has no such page, e.g. a smaller page set).
  *
+ * An option may carry "_with": {"<other axis>": {"<option>": {overrides}}}, applied when both options are chosen
+ * (after every axis), e.g. rank "payouts" + product "sports" gets sportsbook titles.
+ *
  * Usage: php build/export-review-site.php sites/demos/<id>.json
  * Writes dist/review/<id>.html (home, wrapper stripped) and dist/review/<id>/*.html (every page as a full document).
  * Publish <id>.html as the Artifact page and the other pages (not index.html) through `files`: the Artifact
@@ -65,7 +68,16 @@ $sets = [];
 foreach ($combos as $c) {
     $cfg = $base;
     foreach ($c as $axis => $o) {
-        $cfg = sx_var_merge($cfg, $axes[$axis][$o]);
+        $cfg = sx_var_merge($cfg, array_diff_key($axes[$axis][$o], ['_with' => 1]));
+    }
+    // Cross-axis overrides: an option's "_with": {"<axis>": {"<option>": {...}}} applies when that option is chosen too
+    // (e.g. rank "payouts" + product "sports" gets sportsbook titles). Applied after every axis, so they win.
+    foreach ($c as $axis => $o) {
+        foreach ($axes[$axis][$o]['_with'] ?? [] as $other => $byOption) {
+            if (isset($c[$other], $byOption[$c[$other]])) {
+                $cfg = sx_var_merge($cfg, $byOption[$c[$other]]);
+            }
+        }
     }
     $cfg['file_prefix'] = $prefix($c);
     $pages = [];

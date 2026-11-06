@@ -11,6 +11,13 @@ $facts = [
     'casinos.f.app' => fn($id) => sx_casino($id)['f']['app'] ? t('casinos.app_yes') : t('casinos.app_no'),
     'casinos.f.support' => fn($id) => t('casinos.chat', ['h' => sx_casino($id)['f']['support']['chat']]),
 ];
+if (!empty(SX::$ctx['product'])) { // product sites (casino / sports / both): the product's headline facts replace games + live tables
+    $mid = [];
+    foreach (array_diff_key(sx_fact_defs(), ['payouts' => 1, 'support' => 1]) as [$label, $fn]) {
+        $mid[$label] = $fn;
+    }
+    $facts = array_slice($facts, 0, 2, true) + $mid + array_slice($facts, 4, null, true);
+}
 ?>
 <section class="<?= cx('ctable', ['ctable', null, $variant]) ?>" id="compare">
   <div class="<?= cx('container', ['ctable', 'inner']) ?>">
@@ -25,7 +32,7 @@ $facts = [
             <tr><th scope="row"><?= e(t("casinos.crit.$crit")) ?></th><?php foreach ($ids as $id): ?><td><?= e(sx_score10(sx_casino_score($id, $crit))) ?></td><?php endforeach; ?></tr>
           <?php endforeach; ?>
           <?php foreach ($facts as $k => $fn): ?>
-            <tr><th scope="row"><?= e(t($k)) ?></th><?php foreach ($ids as $id): ?><td><?= e($fn($id)) ?></td><?php endforeach; ?></tr>
+            <tr><th scope="row"><?= e(isset(SX::$ctx['strings'][$k]) ? t($k) : $k) ?></th><?php foreach ($ids as $id): ?><td><?= e($fn($id)) ?></td><?php endforeach; ?></tr>
           <?php endforeach; ?>
           <tr class="<?= $c('ctas') ?>"><th scope="row"></th><?php foreach ($ids as $id): $rv = sx_review_url($id); ?><td><?= sx_brand_cta($id, 'compare', cx('btn', ['btn', null, 'primary'], ['btn', null, 'small'])) ?><?php if ($rv): ?><a href="<?= sx_url($rv) ?>"><?= e(t('casinos.read')) ?></a><?php endif; ?></td><?php endforeach; ?></tr>
         </tbody>

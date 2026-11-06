@@ -383,11 +383,13 @@
   },
   "verazul": {
     "name": "Verazul",
-    "kind": "casino",
+    "kind": "hybrid",
     "personality": "Fictional casino brand added for the Phase 8 comparison demo.",
     "verticals": [
       "casino",
-      "live-casino"
+      "live-casino",
+      "sports",
+      "live"
     ],
     "markets": [
       "br",
@@ -417,11 +419,13 @@
   },
   "cobaltio": {
     "name": "Cobaltio",
-    "kind": "casino",
+    "kind": "hybrid",
     "personality": "Fictional casino brand added for the Phase 8 comparison demo.",
     "verticals": [
       "casino",
-      "live-casino"
+      "live-casino",
+      "sports",
+      "live"
     ],
     "markets": [
       "br",
