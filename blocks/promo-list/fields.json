@@ -39,6 +39,17 @@
       "label": "Show promo codes (banners)",
       "default": true,
       "instructions": "Off: banners show the offer and the CTA only."
+    },
+    {
+      "name": "mobile",
+      "type": "select",
+      "label": "Phones (banners layout)",
+      "choices": [
+        "stack",
+        "strip"
+      ],
+      "default": "stack",
+      "instructions": "strip: one compact row you swipe through, for offers above the hero, so the hero CTA stays on the first screen."
     }
   ]
 }

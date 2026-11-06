@@ -47,7 +47,8 @@
       "zone": "top",
       "rule": "optional",
       "props": {
-        "include_lead": true
+        "include_lead": true,
+        "mobile": "strip"
       }
     },
     {

@@ -7,7 +7,7 @@ if (!$others) {
     return;
 }
 ?>
-<section class="<?= cx('plist', ['plist', null, 'banners']) ?>" id="promotions">
+<section class="<?= cx('plist', ['plist', null, 'banners']) ?><?= ($props['mobile'] ?? 'stack') === 'strip' ? ' ' . cls('plist', null, 'strip') : '' ?>" id="promotions">
   <div class="<?= cx('container', ['plist', 'inner']) ?>">
     <h2 class="<?= cls('plist', 'title') ?>"><?= e($props['title'] ?: t('promo.more')) ?></h2>
     <ul class="<?= cls('plist', 'items') ?>">
