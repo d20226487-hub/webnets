@@ -17,3 +17,7 @@ Thumbs.db
 # leftovers no gallery card uses
 dist/review/b-nyxa-kz/
 dist/gallery/shots/b-nyxa-kz-*
+
+# Traefik deploy: secrets and the internal self-signed cert
+.env
+caddy-certs/

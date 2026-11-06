@@ -1,0 +1,26 @@
+# Snippet to add to your existing Traefik dynamic config file (the one that already defines
+# allow-vpn-only, insecure-backend, drop-sherlock, acm).
+#
+# Reuses the existing `allow-vpn-only` middleware (IP allow-list) and `insecure-backend` transport
+# (skip TLS verification for self-signed backends). Only the router + service entries are new.
+#
+# Subdomain placeholder: website-gallery.mrba-stage1.xyz. Swap for the real hostname and point DNS at the VPS.
+
+http:
+  routers:
+    website-gallery:
+      rule: Host(`website-gallery.mrba-stage1.xyz`)
+      entryPoints:
+        - websecure
+      tls: {}
+      middlewares:
+        - allow-vpn-only
+      service: website-gallery
+
+  services:
+    website-gallery:
+      loadBalancer:
+        servers:
+          # container_name from docker-compose.traefik.yml; must be on the external `traefik_proxy` network.
+          - url: "https://website-gallery-caddy:443"
+        serversTransport: insecure-backend

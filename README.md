@@ -44,6 +44,7 @@ budget (`SX_PAGE_BUDGET_KB`), so it can be hosted anywhere or dropped into WordP
 | Docs and AI settings | **Markdown** | Type docs, briefs, AI brief settings (`ai/`), generated AI briefs (`dist/ai/`) |
 | Local server | **PHP built-in server** (`php -S`) | Local gallery + settings (`build/local-router.php`), Site Builder (`builder/router.php`) |
 | Container | **Docker + Docker Compose** | One-command local gallery (`start-gallery.bat` / `start-gallery.sh`, PHP 8.3 + Python 3 image) |
+| Deploy proxy | **Traefik + Caddy 2** | VPS deploy behind the shared Traefik (`docker-compose.traefik.yml`, `Caddyfile.traefik`, `deploy/traefik/`) |
 | Version control | **Git / GitHub** | Repository |
 | Sharing | **claude.ai Artifacts** | Published gallery and review links |
 
@@ -204,6 +205,10 @@ start the gallery is simply there. Stop it with `docker compose down`; pick anot
 - Settings → "Rebuild review pages" re-syncs the code first, so edits to blocks, blueprints or configs are picked up
   (27 demos in ~40 s). After editing code without rebuilding, `docker compose restart` (about 3 s) picks it up too.
 - Output is identical to a native build (files are written with LF line endings).
+
+**Behind the shared Traefik proxy (VPS):** `docker compose -f docker-compose.yml -f docker-compose.traefik.yml up -d --build`.
+No host ports; Traefik (TLS + `allow-vpn-only`) → Caddy (basic auth + headers, `website-gallery-caddy:443`) → gallery.
+Same pattern as Drop Sherlock. Steps, cert script and router snippet: [deploy/traefik/README.md](deploy/traefik/README.md).
 
 ### AI brief settings (local)
 

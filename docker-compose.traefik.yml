@@ -1,0 +1,58 @@
+# Traefik-fronted deploy overrides (same pattern as Drop Sherlock).
+#
+# Use alongside the base docker-compose.yml when the gallery lives behind the shared Traefik proxy on the host.
+# Traefik terminates public TLS and applies the VPN allow-list, then routes to Caddy on the `traefik_proxy`
+# Docker network. Caddy adds basic auth + security headers and proxies to the gallery container.
+# Net effect: no host ports are exposed by this stack; only Traefik is reachable from the outside.
+#
+#   client -> Traefik (TLS + allow-vpn-only) -> Caddy (basicauth + headers) -> gallery (php -S :8080)
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.traefik.yml up -d --build
+#
+# Before first up: create .env (copy .env.example) and the self-signed cert pair (sh deploy/traefik/gen-cert.sh).
+# Full steps: deploy/traefik/README.md
+
+services:
+  gallery:
+    # Only Caddy talks to the gallery, over the stack's internal network.
+    ports: !reset []
+    expose:
+      - "8080"
+    networks:
+      - default
+
+  caddy:
+    image: caddy:2-alpine
+    # Stable name so Traefik's loadBalancer can target https://website-gallery-caddy:443
+    container_name: website-gallery-caddy
+    restart: unless-stopped
+    env_file: .env
+    expose:
+      - "443"
+    volumes:
+      - ./Caddyfile.traefik:/etc/caddy/Caddyfile:ro
+      - ./caddy-certs:/certs:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - gallery
+    networks:
+      # `default` reaches the gallery by service name; `traefik_proxy` is the shared network Traefik discovers.
+      - default
+      - traefik_proxy
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+networks:
+  default:
+  # Create once on the host: docker network create traefik_proxy
+  traefik_proxy:
+    external: true

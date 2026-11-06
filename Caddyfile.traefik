@@ -1,0 +1,36 @@
+# Caddy config when the gallery is fronted by Traefik (docker-compose.traefik.yml).
+#
+#   - Listens on a fixed internal :443 for any Host: Traefik already routed by Host(`website-gallery.<domain>`).
+#   - auto_https off: Traefik owns public TLS. The self-signed pair in /certs is only for the Traefik -> Caddy hop
+#     (Traefik uses the `insecure-backend` serversTransport, insecureSkipVerify: true).
+#   - Basic auth on everything: defense in depth on top of Traefik's allow-vpn-only. It matters here because
+#     /settings/ edits ai/*.md and starts rebuilds.
+
+{
+  auto_https off
+}
+
+:443 {
+  tls /certs/selfsigned.crt /certs/selfsigned.key
+
+  encode zstd gzip
+
+  header {
+    # SAMEORIGIN, not DENY: the phone preview loads review pages in a same-origin iframe.
+    X-Frame-Options "SAMEORIGIN"
+    X-Content-Type-Options "nosniff"
+    Referrer-Policy "strict-origin-when-cross-origin"
+    # Pages are static HTML with inline CSS/JS and Google Fonts.
+    Content-Security-Policy "default-src 'self'; img-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self'; frame-src 'self'; frame-ancestors 'self'"
+    Strict-Transport-Security "max-age=31536000"
+    # Demo sites with fictional brands: keep them out of search engines.
+    X-Robots-Tag "noindex, nofollow"
+    -Server
+  }
+
+  basicauth {
+    {$BASIC_AUTH_USERNAME} {$BASIC_AUTH_PASSWORD_HASH}
+  }
+
+  reverse_proxy gallery:8080
+}
