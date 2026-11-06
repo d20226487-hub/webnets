@@ -39,8 +39,8 @@ budget (`SX_PAGE_BUDGET_KB`), so it can be hosted anywhere or dropped into WordP
 | SEO | **schema.org JSON-LD** | WebPage, WebSite, FAQPage, Review and more, generated per page; `sitemap.xml`, `robots.txt` |
 | Content and config | **JSON** | Site configs (`sites/`), blueprints, markets, brands, promotions, block definitions and fields, UI strings (`i18n/`, RU/EN/PT/KK) |
 | CMS | **WordPress + ACF PRO** | `block.json` per block, generated ACF field groups (`wp/generate-acf-json.php`), ACF blocks and page template (`wp/`) |
-| Tooling | **Python 3** | Gallery generator (`build/gallery.py`), rebuild-all (`build/rebuild-reviews.py`), QA scripts |
-| Screenshots | **PowerShell + headless Chrome** | Desktop and phone gallery thumbnails (`build/screenshots.ps1`) |
+| Tooling | **Python 3** | Gallery generator (`build/gallery.py`), rebuild-all (`build/rebuild-reviews.py`), variation difference in % (`build/variation-diff.py`), QA scripts |
+| Screenshots | **PowerShell + headless Chrome** | Desktop and phone gallery thumbnails (`build/screenshots.ps1`); first-screen captures for `build/variation-diff.py` |
 | Docs and AI settings | **Markdown** | Type docs, briefs, AI brief settings (`ai/`), generated AI briefs (`dist/ai/`) |
 | Local server | **PHP built-in server** (`php -S`) | Local gallery + settings (`build/local-router.php`), Site Builder (`builder/router.php`) |
 | Container | **Docker + Docker Compose** | One-command local gallery (`start-gallery.bat` / `start-gallery.sh`, PHP 8.3 + Python 3 image) |
@@ -184,6 +184,31 @@ for variants on the page), every section in order with its field values, and an 
 publish `<prefix>ai-brief.txt` with the brief for every page of that switcher combination; the tab loads it into a second box.
 Text is shortened in the review copy; `php build/ai-brief.php sites/demos/<id>.json` writes the full-text brief to `dist/ai/<id>.md`.
 Code: `lib/aibrief.php`, `build/ai-brief.php`.
+
+## How different are the variations? (`build/variation-diff.py`)
+
+Measures, in %, how much the home-page versions of each switcher demo differ from each other, visually and in code,
+next to the separate demo sites A, B and C of the same type as the yardstick for "a different site".
+
+```bash
+python build/variation-diff.py                  # every site type (a few minutes the first time)
+python build/variation-diff.py casinos landing  # some types, or demo ids such as casinos-b-xx
+python build/variation-diff.py --threshold 30   # what "distinct" means (default 20%)
+```
+
+| Measure | What it counts |
+|---|---|
+| Visual | Share of the desktop first screen (1280×800) that visibly changes: 8×8 px cells whose average colour moves |
+| Code | Mean of CSS (share of CSS rules that differ) and markup (share of 6-tag HTML sequences that differ); the class prefix is normalised |
+| Structure, text (in the JSON) | Share of blocks (block:layout) and of 3-word text sequences that differ |
+| Distinct versions | Largest set of versions in which every pair differs by at least the threshold |
+
+Review-only parts (switcher bar, developer panel, phone toggle) and the age gate are left out. Rebuild the review pages
+first (`python build/rebuild-reviews.py`). Needs Google Chrome or Chromium (`CHROME=/path` to override) and no Python
+packages. Output: `dist/qa/variation-diff.md` (table) and `dist/qa/variation-diff.json`; screenshots are cached in
+`dist/qa/variation-diff/` and re-taken only for pages that changed. Rough guide: separate sites differ by 60–90% visually
+and about 50–60% in code; 20% or more on either is clearly noticeable. Visual covers the first screen only, so a switcher
+that changes content further down shows 0% visual and still shows up in code.
 
 ## Local gallery (no publishing)
 
