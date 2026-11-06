@@ -80,6 +80,10 @@ a content pipeline will fill.
   names, colour formats, units and declaration order per site. So: scripts find elements by `data-*` attributes or
   ids, never by class name; never build a class name from pieces in CSS or JS (`'sx-' + name`); class-substring
   selectors (`[class*="__card"]`) are allowed only in looks, where the dialect expands them to the matching classes.
+- The structural dialect adds `display: contents` wrappers and turns component lists into `div role="list"`. It reads
+  the CSS and stays away from anything that depends on exact structure, so nothing breaks; but every `>` selector,
+  and every rule on bare `div`/`*` that sets inherited properties, keeps wrappers out of that scope. Prefer class
+  selectors (`.x__item`) over `.x > li` or `.x div` so the dialect has room to work.
 - Mobile first in spirit: every layout must work at 360px with no horizontal scroll.
 
 ## 6. Roles and required blocks

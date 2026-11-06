@@ -212,6 +212,8 @@ share almost no CSS or markup text while looking exactly the same. It is a final
 | `breakpoints` | 0, 8, 16 or 24px added to every `@media` width |
 | `order` | `keep`, `reverse`, `sorted` (declarations, only where order cannot matter) |
 | `attrs` | `keep`, `sorted`, `reverse` (attribute order in tags) |
+| `wrappers` | `none`, `some`, `many`: neutral `<div>` wrappers (`display: contents`) inside containers where no CSS rule depends on the exact parent/child structure, so the DOM tree changes and the layout does not |
+| `lists` | `keep`, `aria`: component lists as `<div role="list">` / `<div role="listitem">`; `ul`/`li` selectors are rewritten at the same specificity |
 
 Pin any choice in the site config, e.g. `"dialect": {"classes": "short"}`, or turn it off with `"dialect": false`.
 The class prefix stays in front of renamed classes and ids; text, URLs, `data-*` values and JSON-LD are never touched;
@@ -219,24 +221,25 @@ class-substring selectors in looks (`[class*="__card"]`) are expanded to the cla
 panel's Styles tab shows each site's dialect, and `php build/diversity.php` hints when two sites of a type share a
 class style. Block authors: find elements by `data-*` or id, never by class name (docs/block-contract.md).
 
-Effect, measured with `build/variation-diff.py` (separate demo sites of the same type, before → after):
+Effect, measured with `build/variation-diff.py` (separate demo sites of the same type, originally → with dialects,
+frame layouts, icon families and the structural dialect):
 
-| Type | Code | CSS | Markup | Visual | DOM skeleton |
-|---|---|---|---|---|---|
-| landing | 53% → 95% | 39% → 95% | 68% → 95% | 60% (same) | 47% (same) |
-| app | 54% → 95% | 37% → 95% | 70% → 95% | 78% (same) | 39% (same) |
-| app-multi | 55% → 95% | 39% → 95% | 71% → 95% | 79% (same) | 46% (same) |
-| promo | 49% → 94% | 32% → 95% | 66% → 93% | 83% (same) | 43% (same) |
-| vendor | 53% → 93% | 39% → 93% | 67% → 94% | 94% (same) | 44% (same) |
-| satellite | 59% → 95% | 49% → 95% | 68% → 94% | 90% (same) | 53% (same) |
-| casinos | 59% → 96% | 35% → 94% | 83% → 97% | 76% (same) | 54% (same) |
-| news | 52% → 93% | 27% → 93% | 77% → 94% | 87% (same) | 45% (same) |
-| reviews | 50% → 95% | 29% → 95% | 71% → 95% | 82% (same) | 37% (same) |
+| Type | Code | DOM skeleton | Structure | Visual |
+|---|---|---|---|---|
+| landing | 53% → 97% | 47% → 77% | 69% → 80% | 60% (same) |
+| app | 54% → 96% | 39% → 67% | 69% → 73% | 78% → 77% |
+| app-multi | 55% → 96% | 46% → 64% | 73% → 76% | 79% (same) |
+| promo | 49% → 96% | 43% → 72% | 64% → 75% | 83% → 82% |
+| vendor | 53% → 94% | 44% → 72% | 77% → 83% | 94% (same) |
+| satellite | 59% → 96% | 53% → 79% | 82% → 88% | 90% → 91% |
+| casinos | 59% → 96% | 54% → 70% | 66% → 74% | 76% → 77% |
+| news | 52% → 94% | 45% → 71% | 60% → 72% | 87% (same) |
+| reviews | 50% → 96% | 37% → 67% | 71% → 78% | 82% → 84% |
 
-Checked: all nine types render pixel-identical with dialects on and off (four dialects covering every option,
-full page at 1280 and 520px, app-store looks included); age gate, FAQ, code copy and review filters work.
-The DOM skeleton (which tags nest how) does not change: that needs different block layouts, not a dialect. The frame
-layouts and icon families above do change it (they are on every page), so sibling sites differ there too.
+The code and structural dialects change no pixel: all nine types render identically with them on and off (dialects
+covering every option, full page at 1280 and 520px, app-store looks included); the accessibility tree (roles, names,
+order) is the same node for node; age gate, FAQ, code copy and review filters work. Near the 64 KB page budget the
+structural dialect uses fewer wrappers. The visual and structure changes come from the frame layouts and icon families.
 
 ## How different are the variations? (`build/variation-diff.py`)
 
