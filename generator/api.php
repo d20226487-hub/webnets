@@ -107,6 +107,7 @@ try {
             gen_remove_files($r['id']);
         }
         $db->prepare('DELETE FROM projects WHERE id = ?')->execute([(int)$seg[1]]);
+        gen_purge_deleted_jobs(); // its jobs' brands, articles and logs
         gen_json(['ok' => true]);
     } elseif ($path === 'jobs' && $method === 'POST') {
         $b = gen_body();
@@ -257,6 +258,7 @@ try {
             gen_remove_files($row['id']);
         }
         $db->prepare('DELETE FROM jobs WHERE id = ?')->execute([(int)$seg[1]]);
+        gen_purge_deleted_jobs(); // its brands, articles and logs
         gen_json(['ok' => true]);
     } elseif ($seg[0] === 'sites' && ($seg[2] ?? '') === 'mobile' && $method === 'POST') {
         $b = gen_body();

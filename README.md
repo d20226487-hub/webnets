@@ -255,6 +255,7 @@ otherwise, and with "Placeholder text", copy is placeholder text of the same len
 **Market data stays consistent:** what a site and its AI brief say comes from the market file.
 - *Currency:* amounts in another market's currency ("€25", "R$ 50") are converted to the market's at rough demo rates, rounded and formatted the market's way ("14 000 ₸").
 - *Payment methods:* generated brands' facts (payment list, withdrawal times) and demo copy use the market's own methods: the same card where it has it, else its main local method (Apple Pay → Kaspi in Kazakhstan).
+- *Products:* a site's Product follows its brands. In the job form, products the brands do not all offer are struck out; a site planned with one (for example "Casino + sport" for a casino-only brand) is built, and shown, as the product the brands do offer.
 - *Ratings language:* generated brands' editorial ratings are written in the site's language (Russian sites get the Russian demo ratings, not the English ones).
 - *AI market notes:* the market part of every brief (age, products, promotions, payments, currency, mandated texts and the rules that follow) is written from the market file each time; `ai/markets/<id>.md` holds only the rules the settings cannot express (eGov, BetStop, .bet.br). The Markets tab shows the generated part above that text.
 
@@ -448,6 +449,14 @@ Files: `generator/lib.php` (catalog, planning, placeholders, build, fingerprints
 `generator/run.php` (background worker), `generator/visual.py` (screenshots and visual prints), `generator/probe.php`
 (market checks), `generator/index.php` (the app). `lib/nocomments.php` strips comments from every build. The Docker
 image includes Chromium for the visual check (`docker compose build` after pulling this change).
+
+### Running on a small VPS
+
+`docker-compose.vps.yml` caps the container (1.5 GB RAM, 2 CPUs) and limits the heavy steps: test builds run 4 at a time
+(`GEN_PROBE_PARALLEL`), screenshots 2 browsers at a time (`GEN_SHOT_PARALLEL`), all at lowered priority. nginx on the host
+serves the built files from `dist/` and passes only `/generator` and `/settings` to the container
+(`deploy/nginx/webnets.conf`, steps and measurements in `deploy/nginx/README.md`). Deleting a job or project also removes
+its brands, articles and logs.
 
 ### Site types (`generator/types.php`, `generator/types.js`)
 

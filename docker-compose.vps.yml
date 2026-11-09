@@ -1,0 +1,21 @@
+# Small-VPS overrides (e.g. 8 GB shared with other tools), with nginx on the host in front (deploy/nginx/README.md).
+#
+#   docker compose -f docker-compose.yml -f docker-compose.vps.yml up -d --build
+#
+# The container only runs the generator and the settings page; nginx serves the built sites, the gallery and the
+# review pages straight from ./dist. Measured peaks with these settings: market check ~60 MB (4 test builds at once,
+# ~10 s), screenshots ~0.6 GB (2 browsers at once), one job builds at a time at lowered CPU priority.
+services:
+  gallery:
+    environment:
+      - GEN_PROBE_PARALLEL=4        # test builds at once (market check, site type saves); all 96 at once needed ~2.5 GB
+      - GEN_SHOT_PARALLEL=2         # headless Chromium screenshots at once; 6 needed ~1.3 GB
+      - PHP_CLI_SERVER_WORKERS=3    # nginx serves the files, PHP only answers the generator
+      - SX_JIT_BUFFER=32M
+    mem_limit: 1536m                # a hard ceiling: a runaway build cannot starve the other tools on the box
+    memswap_limit: 2g
+    cpus: 2
+    pids_limit: 512
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }

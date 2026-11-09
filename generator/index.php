@@ -56,7 +56,7 @@ input[type=text],input[type=number],select{font:14px system-ui,sans-serif;paddin
 form .field{display:grid;gap:6px;margin-bottom:16px}form label.lbl{font-weight:600}
 table{border-collapse:collapse;width:100%}th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}th{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
 .types td{padding:10px}.wn{display:block;margin-top:4px;padding:6px 8px;border-radius:8px;background:var(--warnbg);color:var(--warn);font-size:12px;max-width:300px}
-.axis label.blk{color:var(--warn)}.axis label.blk::after{content:"⚠";font-size:12px}
+.axis label.blk{color:var(--warn)}.axis label.off{opacity:.45;text-decoration:line-through;cursor:not-allowed}.axis label.blk::after{content:"⚠";font-size:12px}
 .brows{display:grid;gap:8px}.brow{display:grid;grid-template-columns:minmax(140px,1.4fr) minmax(140px,1.4fr) auto minmax(120px,1fr) auto;gap:8px;align-items:center}
 .brow .cl{display:inline-flex;align-items:center;gap:6px;font-size:13px;white-space:nowrap}
 @media (max-width:720px){.types table,.types tbody,.types tr,.types td{display:block;width:auto}.types thead{display:none}.types tr{border-top:1px solid var(--line);padding:6px 0}.types td{padding:6px 4px}.wn{max-width:none}}
@@ -262,6 +262,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     'Bonuses and promo codes': 'Бонусы и промокоды', 'Game provider overview': 'Обзор провайдера игр', 'Multi-page satellite': 'Многостраничный сателлит',
     'Casino reviews (several brands)': 'Обзоры казино (несколько брендов)', 'Casino reviews, one page (several brands)': 'Обзоры нескольких казино, одна страница', 'Gambling news': 'Новости гемблинга', 'Brand reviews (user reviews)': 'Отзывы о бренде (пользовательские)',
     'Product': 'Продукт', 'Platform': 'Платформа', 'Design': 'Дизайн', 'Offers': 'Предложения', 'Providers': 'Провайдеры', 'News': 'Новости', 'Paid articles': 'Платные статьи',
+    'Your brands do not offer this product': 'Ваши бренды не предлагают этот продукт',
     'Casino + sport': 'Казино + спорт', 'Casino': 'Казино', 'Sport': 'Спорт', 'Live betting': 'Лайв-ставки', 'iOS + Android': 'iOS + Android',
     'Site style': 'Стиль сайта', 'Random style': 'Случайный стиль', 'Neutral': 'Нейтральный', 'Brand colours': 'Цвета бренда', 'Google Play look': 'Как Google Play', 'App Store look': 'Как App Store', 'Provider colours': 'Цвета провайдера',
     'Banners + promo codes': 'Баннеры + промокоды', 'Bonus banners': 'Бонусные баннеры', 'Promo codes': 'Промокоды', 'One provider': 'Один провайдер', 'Several providers': 'Несколько провайдеров',
@@ -465,8 +466,31 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
           }).join('') + '</tbody></table></div>';
         [].forEach.call(document.querySelectorAll('.ton,.tcount'), function (x) { x.oninput = x.onchange = totals; });
         if (keep) prefillTypes(keep, true);
+        fitProducts();
         totals();
       }
+      // Product options the job's brands do not all offer are switched off: a casino-only brand gets no "Casino + sport" site
+      function fitProducts() {
+        var bs = brandsValue(), offer = { casino: true, sports: true };
+        bs.forEach(function (b) { if (b.products === 'casino') offer.sports = false; if (b.products === 'sports') offer.casino = false; });
+        var needs = { both: ['casino', 'sports'], casino: ['casino'], sports: ['sports'], live: ['sports'] };
+        var why = bs.length ? L('Your brands do not offer this product') : '';
+        [].forEach.call(document.querySelectorAll('.opt[data-a=product]'), function (o) {
+          var ok = !bs.length || (needs[o.value] || []).every(function (n) { return offer[n]; }), lab = o.closest('label');
+          o.disabled = !ok;
+          if (!ok) o.checked = false;
+          lab.classList.toggle('off', !ok);
+          lab.title = ok ? '' : why;
+        });
+        [].forEach.call(document.querySelectorAll('.ton'), function (cb) { // keep one product ticked per type
+          var row = cb.closest('tr'), opts = row.querySelectorAll('.opt[data-a=product]');
+          if (opts.length && !row.querySelector('.opt[data-a=product]:checked')) {
+            var first = [].filter.call(opts, function (o) { return !o.disabled; })[0];
+            if (first) first.checked = true;
+          }
+        });
+      }
+      document.getElementById('brows').addEventListener('change', fitProducts);
       var asked = 0;
       function loadMarket() {
         var n = ++asked, m = mk.value;
@@ -485,6 +509,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
           row.querySelector('.tcount').value = sp.types[t].count;
           [].forEach.call(row.querySelectorAll('.opt'), function (o) { if (v[o.dataset.a]) o.checked = v[o.dataset.a].indexOf(o.value) > -1; });
         });
+        fitProducts();
         totals();
       }
       if (ed) {

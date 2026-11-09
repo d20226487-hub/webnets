@@ -15,4 +15,4 @@ fi
 echo "Gallery ready: http://localhost:${SX_PORT:-8090}/  (settings: /settings)"
 # opcache for the built-in server: without it every request parses the whole library again (~0.4 s each);
 # timestamps stay validated, so code synced in by docker-sync.sh is picked up within a second
-exec php -d opcache.enable_cli=1 -d opcache.revalidate_freq=1 -d opcache.jit_buffer_size=64M -d opcache.jit=tracing -S 0.0.0.0:8080 -t dist build/local-router.php
+exec php -d opcache.enable_cli=1 -d opcache.revalidate_freq=1 -d opcache.jit_buffer_size="${SX_JIT_BUFFER:-64M}" -d opcache.jit=tracing -S 0.0.0.0:8080 -t dist build/local-router.php

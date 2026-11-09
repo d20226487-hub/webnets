@@ -14,7 +14,7 @@ root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HIDE = ('<style>[class*="agegate"],[class*="age-gate"],[role="dialog"][id^="age-"],#sx-devtoggle,#sx-skeltoggle,#sx-devview'
         '{display:none!important}html,body{overflow:visible!important}</style>')
 SIZES = {'d': (1280, 800), 'p': (375, 667)}
-PARALLEL = 6
+PARALLEL = max(1, int(os.environ.get('GEN_SHOT_PARALLEL') or 2))  # browsers at once: 2 ~0.6 GB, 6 ~1.3 GB
 CELL = 8
 
 

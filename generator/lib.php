@@ -329,17 +329,9 @@ function gen_availability(string $market): array
                 }
             }
         }
-        $procs = [];
-        foreach ($runs as $k => [$type, $axis, $o]) {
-            $procs[$k] = [proc_open([PHP_BINARY, __DIR__ . '/probe.php', $market, $type, implode(',', $probe), $axis, $o], [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes), $pipes];
-        }
+        $ran = gen_run_probes(array_map(fn($r) => [$market, $r[0], implode(',', $probe), $r[1], $r[2]], $runs));
         $res = [];
-        foreach ($procs as $k => [$p, $pipes]) {
-            $out = stream_get_contents($pipes[1]);
-            $err = stream_get_contents($pipes[2]);
-            fclose($pipes[1]);
-            fclose($pipes[2]);
-            proc_close($p);
+        foreach ($ran as $k => [$out, $err]) {
             $r = json_decode($out, true);
             if (!is_array($r)) {
                 throw new RuntimeException("Probe of '{$runs[$k][0]}' in '$market' failed: " . trim($err ?: $out));
@@ -363,6 +355,48 @@ function gen_availability(string $market): array
         flock($lock, LOCK_UN);
         fclose($lock);
     }
+}
+
+/** How many test builds (generator/probe.php) run at once: GEN_PROBE_PARALLEL, default 4 (each needs ~25 MB; all at once ~2.5 GB). */
+function gen_probe_parallel(): int
+{
+    return max(1, (int)(getenv('GEN_PROBE_PARALLEL') ?: 4));
+}
+
+/**
+ * Run generator/probe.php once per argument list, at most gen_probe_parallel() at a time.
+ * Returns [stdout, stderr] per run, in the order given.
+ */
+function gen_run_probes(array $argLists): array
+{
+    $tmp = sys_get_temp_dir();
+    $queue = array_keys($argLists);
+    $live = $res = [];
+    while ($queue || $live) {
+        while ($queue && count($live) < gen_probe_parallel()) {
+            $k = array_shift($queue);
+            $o = tempnam($tmp, 'gpo');
+            $e = tempnam($tmp, 'gpe');
+            $cmd = array_merge([PHP_BINARY, __DIR__ . '/probe.php'], array_map('strval', $argLists[$k]));
+            if (PHP_OS_FAMILY !== 'Windows' && is_executable('/usr/bin/nice')) { // below the web server and other tools on the box
+                array_unshift($cmd, '/usr/bin/nice', '-n', '10');
+            }
+            $p = proc_open($cmd, [1 => ['file', $o, 'w'], 2 => ['file', $e, 'w']], $pipes);
+            $live[$k] = [$p, $o, $e];
+        }
+        usleep(20000);
+        foreach ($live as $k => [$p, $o, $e]) {
+            if (!proc_get_status($p)['running']) {
+                proc_close($p);
+                $res[$k] = [(string)file_get_contents($o), (string)file_get_contents($e)];
+                @unlink($o);
+                @unlink($e);
+                unset($live[$k]);
+            }
+        }
+    }
+    ksort($res);
+    return $res;
 }
 
 /** What a market's cached availability depends on: brand data, the engine, blueprints, the market and the generator. */
@@ -438,6 +472,44 @@ function gen_merge(array $a, array $b): array
  * $choice: [axis => option] for the meaningful and the automatic axes. $plan: seed, preset, colours.
  * $brand: the user brand of a single-brand site; $brands: all the job's user brands (listed by comparison and news sites).
  */
+/**
+ * A site's Product option fitted to its brands: a product the brand (or, on a comparison site, every listed brand)
+ * does not offer is narrowed to one it does ("Casino + sport" for casino-only brands -> "Casino"), so a site never
+ * promises betting its brands do not have. Choices without a product, or already fitting, come back unchanged.
+ */
+function gen_fit_product(string $type, array $choice, ?string $brand, array $brands): array
+{
+    global $GEN_ROOT;
+    if (!isset($choice['product'])) {
+        return $choice;
+    }
+    $ids = gen_multi_brand($type) ? $brands : array_filter([$brand]);
+    if (!$ids) {
+        return $choice;
+    }
+    $ops = sx_brand_data($GEN_ROOT, 'operators.json');
+    $offer = ['casino' => true, 'sports' => true];
+    foreach ($ids as $id) {
+        $v = $ops[$id]['verticals'] ?? ['casino', 'sports'];
+        $offer['casino'] = $offer['casino'] && in_array('casino', $v, true);
+        $offer['sports'] = $offer['sports'] && in_array('sports', $v, true);
+    }
+    $needs = fn(string $o) => ['both' => ['casino', 'sports'], 'casino' => ['casino'], 'sports' => ['sports'], 'live' => ['sports']][$o] ?? [];
+    $fits = fn(string $o) => !array_filter($needs($o), fn($n) => !$offer[$n]);
+    if ($fits($choice['product'])) {
+        return $choice;
+    }
+    $cat = gen_catalog()[$type] ?? null;
+    $opts = $cat ? array_keys(gen_demo_axes(sx_json("$GEN_ROOT/sites/demos/{$cat['source']}.json"))['product'] ?? []) : [];
+    foreach ($opts as $o) {
+        if ($o !== 'both' && $fits($o)) {
+            $choice['product'] = $o;
+            return $choice;
+        }
+    }
+    return $choice;
+}
+
 function gen_site_config(string $type, string $market, ?string $brand, array $choice, string $id, string $seed, ?string $preset, array $colors, array $brands = [], ?int $slot = null, string $copy = 'demo', int $level = 0, ?int $palette = null, ?string $nav = null, array $style = [], array $menu = []): array
 {
     global $GEN_ROOT;
@@ -997,7 +1069,13 @@ function gen_build_site(array $site, string $market, array $brands = []): array
     if (!empty(sx_json("$GEN_ROOT/blueprints/{$site['type']}.json")['compares_brands'])) { // rankings list the sample rivals too
         $brands = array_values(array_unique(array_merge($brands, $spec['sample_ids'] ?? [])));
     }
-    $cfg = gen_site_config($site['type'], $market, $site['brand'], json_decode($site['choice'], true), $site['id'], $plan['seed'], $plan['preset'], $plan['colors'] ?? [], $brands, $plan['slot'] ?? $site['n'] - 1 + (int)$site['job_id'], $plan['copy'] ?? 'demo', (int)($plan['level'] ?? 0), isset($plan['palette']) ? (int)$plan['palette'] : null, $plan['nav'] ?? null, ['hue' => (int)($plan['hue'] ?? 0), 'flip' => !empty($plan['flip'])], $plan['menu'] ?? []);
+    $choice = json_decode($site['choice'], true);
+    $fitted = gen_fit_product($site['type'], $choice, $site['brand'], $brands);
+    if ($fitted !== $choice) { // the brands do not offer the planned product: build and show the one they do
+        gen_db()->prepare('UPDATE sites SET choice = ? WHERE id = ?')->execute([json_encode($fitted), $site['id']]);
+        $choice = $fitted;
+    }
+    $cfg = gen_site_config($site['type'], $market, $site['brand'], $choice, $site['id'], $plan['seed'], $plan['preset'], $plan['colors'] ?? [], $brands, $plan['slot'] ?? $site['n'] - 1 + (int)$site['job_id'], $plan['copy'] ?? 'demo', (int)($plan['level'] ?? 0), isset($plan['palette']) ? (int)$plan['palette'] : null, $plan['nav'] ?? null, ['hue' => (int)($plan['hue'] ?? 0), 'flip' => !empty($plan['flip'])], $plan['menu'] ?? []);
     if (gen_type_base($site['type']) === 'satellite') { // bonuses before the hero on some satellites, like the full-length landings (older plans: from the site id)
         $cfg['sections']['home']['offers'] = (bool)($plan['offers'] ?? crc32($site['id'] . '|offers') % 3 === 0);
     }

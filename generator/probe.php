@@ -2,7 +2,7 @@
 /**
  * Availability probes, run by the generator app.
  *   php generator/probe.php <market> <type> <probe brand ids> [<axis> <option>]   one probe build, as JSON {error}
- *                                                               (run in parallel, one per type and option)
+ *                                                               (a few at a time: gen_run_probes(), one per type and option)
  *   php generator/probe.php warm                                every out-of-date market, in turn
  */
 require __DIR__ . '/lib.php';

@@ -46,6 +46,68 @@ function gen_overlay_dir(): string
 }
 
 /** Read-modify-write one overlay JSON file under a lock. */
+/**
+ * Remove what deleted jobs leave behind: their brands in the overlay (operators, facts, ratings, promotions, catalog,
+ * reviews, logos; ids u<job>-...), their sites' articles (data/content/j<job>-...) and their logs. Brands of job 0 (the
+ * market checks' probe brands) stay. Returns how many items were removed.
+ */
+function gen_purge_deleted_jobs(): int
+{
+    global $GEN_ROOT;
+    $live = array_flip(array_map('intval', array_column(gen_db()->query('SELECT id FROM jobs')->fetchAll(), 'id')));
+    $gone = fn(string $name, string $p = 'u') => preg_match('/^' . $p . '(\d+)-/', $name, $m) && (int)$m[1] !== 0 && !isset($live[(int)$m[1]]);
+    $n = 0;
+    $dir = gen_overlay_dir();
+    foreach (array_merge(['operators.json'], array_map(fn($f) => substr($f, strlen($dir) + 1), array_merge(glob("$dir/facts/*.json"), glob("$dir/ratings/*.json")))) as $rel) {
+        if (!is_file("$dir/$rel")) {
+            continue;
+        }
+        gen_overlay_update($rel, function ($d) use ($gone, &$n) {
+            $list = $d['brands'] ?? null;
+            foreach (array_keys(is_array($list) ? $list : $d) as $id) {
+                if ($gone((string)$id)) {
+                    $n++;
+                    if (is_array($list)) {
+                        unset($d['brands'][$id]);
+                    } else {
+                        unset($d[$id]);
+                    }
+                }
+            }
+            return $d;
+        });
+    }
+    foreach (['promotions', 'catalog', 'reviews', 'logos'] as $sub) {
+        foreach (glob("$dir/$sub/u*") as $f) {
+            if ($gone(basename($f))) {
+                @unlink($f);
+                $n++;
+            }
+        }
+    }
+    foreach (glob("$GEN_ROOT/data/content/j*", GLOB_ONLYDIR) as $d) {
+        if ($gone(basename($d), 'j')) {
+            gen_rmtree($d);
+            $n++;
+        }
+    }
+    foreach (glob("$GEN_ROOT/data/logs/job-*.log") as $f) {
+        if (preg_match('/job-(\d+)\.log$/', $f, $m) && !isset($live[(int)$m[1]])) {
+            @unlink($f);
+            $n++;
+        }
+    }
+    return $n;
+}
+
+function gen_rmtree(string $dir): void
+{
+    foreach (glob("$dir/{,.}[!.,!..]*", GLOB_BRACE) ?: [] as $f) {
+        is_dir($f) && !is_link($f) ? gen_rmtree($f) : @unlink($f);
+    }
+    @rmdir($dir);
+}
+
 function gen_overlay_update(string $rel, callable $fn): void
 {
     $file = gen_overlay_dir() . "/$rel";

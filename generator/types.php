@@ -167,7 +167,7 @@ function gen_type_validate_angle(array &$e, string $at, array $x, array $ids, ar
     }
 }
 
-/** Test builds of a type in the demo market: the plain build and each option of its axes (in parallel). */
+/** Test builds of a type in the demo market: the plain build and each option of its axes (a few at a time: gen_run_probes()). */
 function gen_type_probe(string $t): array
 {
     global $GEN_ROOT;
@@ -179,17 +179,9 @@ function gen_type_probe(string $t): array
             $runs[] = [$axis, (string)$o];
         }
     }
-    $procs = [];
-    foreach ($runs as $k => [$axis, $o]) {
-        $procs[$k] = [proc_open([PHP_BINARY, __DIR__ . '/probe.php', GEN_TYPE_PROBE_MARKET, $t, implode(',', GEN_TYPE_PROBE_IDS), $axis, $o], [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes), $pipes];
-    }
+    $ran = gen_run_probes(array_map(fn($r) => [GEN_TYPE_PROBE_MARKET, $t, implode(',', GEN_TYPE_PROBE_IDS), $r[0], $r[1]], $runs));
     $out = ['base' => null, 'options' => []];
-    foreach ($procs as $k => [$p, $pipes]) {
-        $res = stream_get_contents($pipes[1]);
-        $err = stream_get_contents($pipes[2]);
-        fclose($pipes[1]);
-        fclose($pipes[2]);
-        proc_close($p);
+    foreach ($ran as $k => [$res, $err]) {
         $r = json_decode($res, true);
         $msg = is_array($r) ? $r['error'] : trim($err ?: $res ?: 'The test build crashed.');
         if ($runs[$k][0] === '') {
