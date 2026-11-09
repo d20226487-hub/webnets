@@ -1,0 +1,42 @@
+/* download hub: header and description on the start side; install buttons over a stacked specifications box on the end side */
+.sx-apphero--hub { background: var(--c-bg); color: var(--c-text); }
+.sx-apphero--hub .sx-apphero__inner { grid-template-columns: minmax(0, 1.75fr) minmax(280px, 1fr); align-items: start; gap: var(--sp-6); padding-block: var(--sp-5) var(--sp-6); }
+.sx-apphero--hub .sx-apphero__copy { gap: var(--sp-4); }
+.sx-apphero--hub .sx-apphero__id { align-items: flex-start; padding-block-end: var(--sp-4); border-block-end: 1px solid var(--c-border); }
+.sx-apphero--hub .sx-apphero__icon { width: 112px; }
+.sx-apphero__idtext { display: grid; gap: 6px; min-width: 0; }
+.sx-apphero--hub .sx-apphero__title { font-size: calc((var(--fs-5)) * var(--fit, 1)); max-width: none; color: var(--c-text); }
+.sx-apphero__meta { display: flex; flex-wrap: wrap; gap: var(--sp-3); font-size: var(--fs-1); color: var(--c-muted); }
+.sx-apphero__free { color: var(--c-success); font-weight: var(--fw-strong); }
+.sx-apphero__chips { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3); }
+.sx-apphero__chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: var(--r-sm); border: 1px solid var(--c-border); background: var(--c-surface); font-size: var(--fs-0); font-weight: var(--fw-strong); }
+.sx-apphero__chip .sx-icon { width: 16px; height: 16px; color: var(--c-success); }
+.sx-apphero__v { font-size: var(--fs-0); color: var(--c-muted); text-decoration: underline dotted; }
+.sx-apphero--hub .sx-apphero__desc { max-width: 64ch; font-size: var(--fs-1); line-height: 1.7; color: var(--c-text); }
+.sx-apphero--hub .sx-apphero__official { font-size: var(--fs-0); color: var(--c-muted); }
+.sx-apphero__side { display: grid; gap: var(--sp-4); min-width: 0; }
+.sx-apphero--hub .sx-installs { display: grid; gap: var(--sp-2); }
+.sx-apphero--hub .sx-installs > .sx-install { width: 100%; flex-direction: row-reverse; justify-content: space-between; border-radius: var(--r-sm); }
+.sx-apphero--hub .sx-installs > .sx-install:first-child { min-height: 84px; padding-inline: var(--sp-5); background: var(--c-success); color: #FFFFFF; }
+.sx-apphero--hub .sx-installs > .sx-install:first-child .sx-install__text strong { font-size: 1.35rem; }
+.sx-apphero--hub .sx-installs > .sx-install:not(:first-child) { min-height: 48px; background: var(--c-surface); color: var(--c-text); border-color: var(--c-border); }
+.sx-apphero__specs { padding: var(--sp-4); border-radius: var(--r-sm); background: var(--c-surface-2); }
+.sx-apphero__shot { display: grid; place-items: start center; height: 180px; margin-block-end: var(--sp-3); overflow: hidden; border-radius: var(--r-sm); background: linear-gradient(160deg, var(--c-accent), var(--c-accent-2)); }
+.sx-apphero__shot .sx-phone { width: 170px; margin-block-start: var(--sp-4); }
+.sx-apphero__specstitle { margin-block-end: var(--sp-2); font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-2); }
+.sx-apphero__specs dl { display: grid; gap: var(--sp-3); }
+.sx-apphero__specs dl div { display: grid; gap: 2px; font-size: var(--fs-0); }
+.sx-apphero__specs dt { color: var(--c-muted); }
+.sx-apphero__specs dd { margin: 0; font-weight: var(--fw-strong); font-size: var(--fs-1); }
+@media (max-width: 860px) {
+  .sx-apphero--hub .sx-apphero__inner { grid-template-columns: minmax(0, 1fr); gap: var(--sp-4); padding-block: var(--sp-4) var(--sp-6); }
+  .sx-apphero--hub .sx-apphero__icon { width: 72px; }
+  .sx-apphero--hub .sx-apphero__title { font-size: calc((var(--fs-4)) * var(--fit, 1)); }
+  .sx-apphero--hub .sx-apphero__copy { display: contents; }
+  .sx-apphero--hub .sx-apphero__id { order: 1; }
+  .sx-apphero__side { order: 2; }
+  .sx-apphero--hub .sx-apphero__desc { order: 3; }
+  .sx-apphero--hub .sx-apphero__official { order: 4; }
+  .sx-apphero--hub .sx-installs > .sx-install:first-child { min-height: 68px; }
+  .sx-apphero__shot { height: 140px; }
+}

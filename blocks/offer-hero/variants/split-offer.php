@@ -11,12 +11,12 @@ if (!(include __DIR__ . '/../_shared.php')) {
   <div class="<?= cx('container', ['offerhero', 'inner']) ?>">
     <div class="<?= cls('offerhero', 'head') ?>">
       <p class="<?= cls('offerhero', 'eyebrow') ?>"><?= e(sx_promo_type_label($p['type'])) ?> · <?= e(sx_ctx('brand')['name']) ?></p>
-      <h1 class="<?= cls('offerhero', 'title') ?>"><?= e($title) ?></h1>
+      <h1 class="<?= cls('offerhero', 'title') ?>"<?= sx_fit((string)$title) ?>><?= e($title) ?></h1>
       <?php if ($props['subtitle']): ?><p class="<?= cls('offerhero', 'subtitle') ?>"><?= e($props['subtitle']) ?></p><?php endif; ?>
     </div>
     <aside class="<?= cx('card', ['offerhero', 'valuecard']) ?>">
       <p class="<?= cls('offerhero', 'kind') ?>"><?= e(sx_promo_type_label($p['type'])) ?></p>
-      <p class="<?= cls('offerhero', 'big') ?>"><?= e($value) ?></p>
+      <p class="<?= cls('offerhero', 'big') ?>"<?= sx_fit((string)$value, 'value') ?>><?= e($value) ?></p>
       <dl class="<?= cls('offerhero', 'cardterms') ?>">
         <?php foreach ($keyTerms as $label => $val): ?><div><dt><?= e($label) ?></dt><dd><?= e($val) ?></dd></div><?php endforeach; ?>
       </dl>

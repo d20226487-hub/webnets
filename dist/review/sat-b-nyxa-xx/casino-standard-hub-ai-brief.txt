@@ -178,7 +178,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Nyxa Казино: вывод выигрыша за 15 минут
 - The only H1: Живое казино с выводом за 15 минут
 - Structured data (JSON-LD): WebPage, FAQPage, WebSite
-- Links to: `casino-standard-hub-index.html`, `casino-standard-hub-sign-up.html`, `casino-standard-hub-payments.html`, `casino-standard-hub-app.html`, `casino-standard-hub-casino.html`, `casino-standard-hub-responsible-gambling.html`
+- Links to: `casino-standard-hub-index.html`, `casino-standard-hub-payments.html`, `casino-standard-hub-sign-up.html`, `casino-standard-hub-app.html`, `casino-standard-hub-casino.html`, `casino-standard-hub-responsible-gambling.html`
 
 ### Sections, in order
 

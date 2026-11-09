@@ -4,9 +4,60 @@
 .sx-header__brand { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; flex: none; }
 .sx-header__brand .sx-logo { font-size: var(--fs-2); }
 .sx-header__cta { flex: none; }
+.sx-header__menu { position: relative; display: none; flex: none; }
+.sx-header__menu summary { position: relative; z-index: 3; list-style: none; cursor: pointer; display: grid; place-items: center; width: 44px; height: 44px; border-radius: var(--r-sm); }
+.sx-header__menu summary::-webkit-details-marker { display: none; }
+.sx-header__menu summary .sx-icon { width: 24px; height: 24px; }
+.sx-header__close { display: none; position: relative; width: 22px; height: 22px; }
+.sx-header__close::before, .sx-header__close::after { content: ""; position: absolute; left: 0; top: 10px; width: 22px; height: 2px; border-radius: 2px; background: currentColor; rotate: 45deg; }
+.sx-header__close::after { rotate: -45deg; }
+.sx-header__menu[open] summary .sx-icon { display: none; }
+.sx-header__menu[open] .sx-header__close { display: block; }
+.sx-header__panel {
+  position: absolute; z-index: 2; inset-block-start: calc(100% + var(--sp-2)); inset-inline-start: 0; min-width: 240px; max-width: calc(100vw - 32px);
+  display: grid; align-content: start; gap: var(--sp-1); padding: var(--sp-2); background: var(--c-surface); border: var(--bw) solid var(--c-border);
+  border-radius: var(--r); box-shadow: 0 16px 40px rgba(0,0,0,.18); color: var(--c-text);
+}
+.sx-header__menu--right .sx-header__panel { inset-inline-start: auto; inset-inline-end: 0; }
+.sx-header__panel ul { display: grid; }
+.sx-header__paneltitle { padding: var(--sp-2) var(--sp-4) 0; font-size: .72rem; font-weight: var(--fw-strong); text-transform: uppercase; letter-spacing: .08em; color: var(--c-muted); }
+.sx-header__menu a { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); padding: var(--sp-3) var(--sp-4); text-decoration: none; border-radius: var(--r-sm); color: var(--c-text); }
+.sx-header__menu a .sx-icon { width: 16px; height: 16px; opacity: .55; rotate: -90deg; }
+.sx-header__menu a:hover { background: var(--c-surface-2); }
+.sx-header__menu a[aria-current] { background: var(--c-accent); color: var(--c-on-accent); }
+.sx-header__backdrop { display: none; }
+/* drawer: a full-height panel sliding in from the menu's side; sheet: full width, right under the header; full: the whole screen */
+.sx-header__menu--drawer .sx-header__panel, .sx-header__menu--full .sx-header__panel { position: fixed; max-width: none; border-radius: 0; box-shadow: 0 0 60px rgba(0,0,0,.35); }
+.sx-header__menu--drawer .sx-header__panel { inset: 0 auto 0 0; width: min(86vw, 340px); padding: 76px var(--sp-3) var(--sp-5); animation: sx-menu-left .28s ease-out; }
+.sx-header__menu--drawer.sx-header__menu--right .sx-header__panel { inset: 0 0 0 auto; animation-name: sx-menu-right; }
+.sx-header__menu--sheet { position: static; }
+.sx-header__menu--sheet .sx-header__panel { inset: 100% 0 auto 0; width: 100%; max-width: none; max-height: 75vh; overflow-y: auto; padding: var(--sp-3) var(--sp-3) var(--sp-5); border: 0; border-block-start: var(--bw) solid var(--c-border); border-radius: 0 0 var(--r-lg) var(--r-lg); box-shadow: 0 24px 40px rgba(0,0,0,.25); animation: sx-menu-down .24s ease-out; }
+.sx-header__menu--full .sx-header__panel { inset: 0; width: 100%; padding: 84px var(--sp-5) var(--sp-6); animation: sx-menu-fade .22s ease-out; }
+.sx-header__menu--full a { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-3); padding-block: var(--sp-3); border-block-end: 1px solid var(--c-border); border-radius: 0; }
+.sx-header__menu--drawer a, .sx-header__menu--sheet a { font-size: var(--fs-1); font-weight: var(--fw-strong); }
+.sx-header__menu[open] .sx-header__backdrop { display: block; position: fixed; inset: 0; z-index: 1; background: rgba(0,0,0,.45); animation: sx-menu-fade .2s ease-out; }
+.sx-header__menu--sheet[open] .sx-header__backdrop { position: absolute; inset: 100% 0 auto 0; height: 100vh; }
+.sx-header:has(.sx-header__menu[open]) { z-index: 1000; }
+/* drawer and full screen: the ✕ sits in the panel's top corner, on the menu's side */
+.sx-header__menu--drawer[open] summary, .sx-header__menu--full[open] summary { position: fixed; top: var(--sp-3); inset-inline-start: var(--sp-3); }
+.sx-header__menu--drawer.sx-header__menu--right[open] summary, .sx-header__menu--full.sx-header__menu--right[open] summary { inset-inline-start: auto; inset-inline-end: var(--sp-3); }
+.sx-header__menu--drawer[open] summary, .sx-header__menu--full[open] summary { color: var(--c-text); }
+@keyframes sx-menu-left { from { transform: translateX(-100%); } }
+@keyframes sx-menu-right { from { transform: translateX(100%); } }
+@keyframes sx-menu-down { from { opacity: 0; transform: translateY(-12px); } }
+@keyframes sx-menu-fade { from { opacity: 0; } }
 .sx-header__note { display: inline-flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-0); color: var(--c-muted); }
 @media (max-width: 860px) {
   .sx-header__note { display: none; }
+  .sx-header__menu { display: block; order: -1; margin-inline-end: calc(var(--sp-3) * -1); }
+  .sx-header__menu--right { order: 99; margin-inline-end: 0; margin-inline-start: calc(var(--sp-3) * -1); }
+  .sx-header__inner:has(.sx-header__menu--right) > .sx-header__brand { margin-inline-end: auto; } /* logo left; button and ☰ right, with or without the button */
+  .sx-header__inner:has(.sx-header__menu--right) > .sx-header__cta, .sx-header__inner:has(.sx-header__menu--right) > .sx-header__aside { margin-inline-start: 0; }
+  .sx-header__menu ~ .sx-header__cta { flex: none; } /* the button keeps its label; the brand name shortens instead */
+  .sx-header__inner { gap: var(--sp-3); }
+  .sx-header__menu--side ~ .sx-header__cta, .sx-header__menu--side ~ .sx-header__aside { margin-inline-start: auto; }
+  .sx-header__menu--side ~ .sx-header__brand { flex: 0 1 auto; min-width: 0; overflow: hidden; }
+  .sx-header__menu--side ~ .sx-header__brand .sx-logo { font-size: var(--fs-1); }
 }
 /* Multi-brand sites: the header CTA names a brand; on phones the ranked list carries the CTAs instead. */
 @media (max-width: 640px) { .sx-header__cta { flex: 0 1 auto; min-width: 0; } .sx-header__cta[data-brand] { display: none; } }

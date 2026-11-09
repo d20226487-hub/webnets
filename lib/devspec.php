@@ -8,7 +8,7 @@
  *   - Styles: design tokens (CSS custom properties) and fonts;
  *   - AI brief: lib/aibrief.php's prompt for rebuilding this page, and a link to the one for the whole site;
  *   - WordPress: block markup for the page (ACF blocks from wp/sx-blocks.php) and the full spec as JSON.
- * Needs a build with ctx devspec (cfg "_devspec": true), which puts <!--sx:N--> before each block. Not part of the site.
+ * Needs a build with ctx devspec (cfg "_devspec": true), which marks each block's element with data-sxdev="N". Not part of the site.
  */
 
 /**
@@ -53,6 +53,7 @@ function sx_review_devspec(array $page, array $pages, string $locale, string $pr
         'siteBrief' => $siteBrief, // published file with the brief for every page of this build
         'pages' => array_map(fn($p) => [
             'f' => $p['file'],
+            'i' => $p['id'] ?? null,
             't' => $p['title'] ?? '',
             'b' => array_values(array_map(fn($d) => $d['b'] . ':' . $d['v'], array_filter($p['dev'] ?? [], fn($d) => $d['n'] === 0))),
         ], array_values($pages)),

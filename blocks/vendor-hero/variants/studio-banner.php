@@ -7,7 +7,7 @@ $games = sx_vendor_games();
   <div class="<?= cx('container', ['vhero', 'inner']) ?>">
     <p class="<?= cls('vhero', 'mark') ?>" aria-hidden="true"><?= e($v['name']) ?></p>
     <div class="<?= cls('vhero', 'copy') ?>">
-      <h1 class="<?= cls('vhero', 'title') ?>"><?= e($props['title']) ?></h1>
+      <h1 class="<?= cls('vhero', 'title') ?>"<?= sx_fit((string)$props['title']) ?>><?= e($props['title']) ?></h1>
       <?php if ($props['subtitle']): ?><p class="<?= cls('vhero', 'subtitle') ?>"><?= e($props['subtitle']) ?></p><?php endif; ?>
       <ul class="<?= cls('vhero', 'line') ?>">
         <li><strong class="<?= cls('num') ?>"><?= e(t('vendor.games_count', ['n' => count($games)])) ?></strong></li>

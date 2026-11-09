@@ -1,0 +1,23 @@
+/* banner: an accent band, copy centred, the phone cut off by the band's bottom edge */
+.sx-apphero--banner { background: var(--c-accent); color: var(--c-on-accent); }
+.sx-apphero--banner .sx-apphero__inner { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; gap: var(--sp-6); padding-block: var(--sp-7) 0; }
+.sx-apphero--banner .sx-apphero__copy { justify-items: center; max-width: 760px; }
+.sx-apphero--banner .sx-apphero__id { justify-content: center; text-align: start; }
+.sx-apphero--banner .sx-apphero__icon { width: 64px; }
+.sx-apphero--banner .sx-apphero__name { font-size: var(--fs-2); }
+.sx-apphero--banner .sx-apphero__official { color: inherit; opacity: .85; }
+.sx-apphero--banner .sx-apphero__title { max-width: 18ch; font-size: calc((var(--fs-6)) * var(--fit, 1)); color: inherit; }
+.sx-apphero--banner .sx-apphero__desc { color: inherit; opacity: .85; margin-inline: auto; }
+.sx-apphero--banner .sx-apphero__factline { color: inherit; opacity: .75; }
+.sx-apphero--banner .sx-installs { justify-content: center; }
+.sx-apphero--banner .sx-installs > .sx-install { background: transparent; color: var(--c-on-accent); border-color: var(--c-on-accent); }
+.sx-apphero--banner .sx-installs > .sx-install:first-child { background: var(--c-on-accent); color: var(--c-accent); }
+.sx-apphero--banner .sx-apphero__device { height: 300px; overflow: hidden; align-items: start; }
+.sx-apphero--banner .sx-apphero__device .sx-phone { width: 300px; }
+@media (max-width: 860px) {
+  .sx-apphero--banner .sx-apphero__inner { padding-block: var(--sp-5) 0; gap: var(--sp-5); }
+  .sx-apphero--banner .sx-apphero__title { font-size: calc((var(--fs-5)) * var(--fit, 1)); }
+  .sx-apphero--banner .sx-apphero__icon { width: 52px; }
+  .sx-apphero--banner .sx-apphero__device { height: 200px; }
+  .sx-apphero--banner .sx-apphero__device .sx-phone { width: 220px; }
+}

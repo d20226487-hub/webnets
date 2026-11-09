@@ -204,13 +204,34 @@
         }
       }
     },
-    "look": {
+    "palette": {
       "preset": {},
       "neutral": {
         "look": "neutral"
       },
       "brand": {
         "look": "brand"
+      }
+    },
+    "look": {
+      "auto": {},
+      "catalog": {
+        "variants": {
+          "hero": "catalog"
+        },
+        "first_screen": "catalog"
+      },
+      "apk-page": {
+        "variants": {
+          "hero": "apk-page"
+        },
+        "first_screen": "apk-page"
+      },
+      "hub": {
+        "variants": {
+          "hero": "hub"
+        },
+        "first_screen": "hub"
       },
       "play": {
         "look": "play",
@@ -254,6 +275,21 @@
     },
     "appstore": {
       "ru": "Стиль App Store"
+    },
+    "catalog": {
+      "ru": "Каталог загрузок"
+    },
+    "apk-page": {
+      "ru": "Страница APK"
+    },
+    "hub": {
+      "ru": "Центр загрузок"
+    },
+    "palette": {
+      "ru": "Цвета"
+    },
+    "auto": {
+      "ru": "По умолчанию"
     }
   }
 }

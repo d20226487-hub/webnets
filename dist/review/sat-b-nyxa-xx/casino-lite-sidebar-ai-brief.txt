@@ -173,7 +173,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Nyxa Казино: вывод выигрыша за 15 минут
 - The only H1: Живое казино с выводом за 15 минут
 - Structured data (JSON-LD): WebPage, WebSite
-- Links to: `casino-lite-sidebar-index.html`, `casino-lite-sidebar-sign-up.html`, `casino-lite-sidebar-payments.html`, `casino-lite-sidebar-casino.html`
+- Links to: `casino-lite-sidebar-sign-up.html`, `casino-lite-sidebar-payments.html`, `casino-lite-sidebar-casino.html`, `casino-lite-sidebar-index.html`
 
 ### Sections, in order
 
@@ -233,7 +233,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Регистрация в Nyxa: что нужно и сколько занимает
 - The only H1: Регистрация в Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
-- Links to: `casino-lite-sidebar-index.html`, `casino-lite-sidebar-sign-up.html`, `casino-lite-sidebar-payments.html`, `casino-lite-sidebar-casino.html`
+- Links to: `casino-lite-sidebar-sign-up.html`, `casino-lite-sidebar-payments.html`, `casino-lite-sidebar-casino.html`, `casino-lite-sidebar-index.html`
 
 ### Sections, in order
 
@@ -292,7 +292,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Пополнение и вывод в Nyxa: Apple Pay, Visa, Mastercard
 - The only H1: Пополнение и вывод в Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
-- Links to: `casino-lite-sidebar-index.html`, `casino-lite-sidebar-sign-up.html`, `casino-lite-sidebar-payments.html`, `casino-lite-sidebar-casino.html`
+- Links to: `casino-lite-sidebar-sign-up.html`, `casino-lite-sidebar-payments.html`, `casino-lite-sidebar-casino.html`, `casino-lite-sidebar-index.html`
 
 ### Sections, in order
 
@@ -346,7 +346,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Казино Nyxa: живые столы и слоты
 - The only H1: Казино Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
-- Links to: `casino-lite-sidebar-index.html`, `casino-lite-sidebar-sign-up.html`, `casino-lite-sidebar-payments.html`, `casino-lite-sidebar-casino.html`
+- Links to: `casino-lite-sidebar-sign-up.html`, `casino-lite-sidebar-payments.html`, `casino-lite-sidebar-casino.html`, `casino-lite-sidebar-index.html`
 
 ### Sections, in order
 

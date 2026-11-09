@@ -54,7 +54,7 @@ function sx_articles_gate(array $cfg): bool
     if (count($arts) < 3) {
         throw new RuntimeException("Only " . count($arts) . " published articles in $dir (minimum 3; future-dated articles are scheduled, not published).");
     }
-    $ops = sx_json(SX::$ctx['root'] . '/brands/operators.json');
+    $ops = sx_brand_data(SX::$ctx['root'], 'operators.json');
     $restricted = !sx_promo_allowed_types();
     $suffix = $m['compliance']['brand_domain_suffix'] ?? null;
     $sample = false;
@@ -84,11 +84,11 @@ function sx_articles_gate(array $cfg): bool
             $b = $ops[$id] ?? throw new RuntimeException("PR article $slug: unknown brand '$id'.");
             $verticals = array_filter($b['verticals'], fn($v) => !empty($m['verticals'][['live' => 'sports', 'live-casino' => 'casino'][$v] ?? $v]));
             if (!in_array($m['id'], $b['markets'], true) || empty($b['license_no']) || !$verticals) {
-                throw new RuntimeException("PR article $slug promotes '$id', which is not licensed for an allowed vertical in market '{$m['id']}'.");
+                sx_legal_block("PR article $slug promotes '$id', which is not licensed for an allowed vertical in market '{$m['id']}'.");
             }
             $link = SX::$ctx['links']['brands'][$id] ?? throw new RuntimeException("PR article $slug: no tracked link for '$id' (links.brands.$id).");
             if ($suffix && !str_ends_with((string)parse_url($link, PHP_URL_HOST), $suffix)) {
-                throw new RuntimeException("Link for brand '$id' must point to a $suffix domain in market '{$m['id']}'.");
+                sx_legal_block("Link for brand '$id' must point to a $suffix domain in market '{$m['id']}'.");
             }
         }
         if ($restricted) {
@@ -149,8 +149,8 @@ function sx_safe_html(string $html, array &$toc = []): string
         }
         if ($tag === 'a') {
             $href = preg_match('/href\s*=\s*"([^"]*)"/i', $attrs, $h) ? html_entity_decode($h[1]) : '';
-            if (str_starts_with($href, 'page:')) {
-                return '<a href="' . sx_url(sx_page_url(substr($href, 5))) . '">';
+            if (str_starts_with($href, 'page:')) { // a page the site does not have: the words stay, the link goes
+                return isset(sx_pages()[substr($href, 5)]) ? '<a href="' . sx_url(sx_page_url(substr($href, 5))) . '">' : '<a>';
             }
             return preg_match('#^(https://|\#)#', $href) ? '<a href="' . e($href) . '"' . ($href[0] === '#' ? '' : ' rel="noopener" target="_blank"') . '>' : '<a>';
         }

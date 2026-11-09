@@ -3,12 +3,12 @@
 .sx-phero__crumbs ol, .sx-rsum__crumbs ol { display: flex; flex-wrap: wrap; gap: var(--sp-2); font-size: var(--fs-0); color: var(--c-hero-muted); }
 .sx-phero__crumbs li + li::before, .sx-rsum__crumbs li + li::before { content: "/"; margin-inline-end: var(--sp-2); opacity: .6; }
 .sx-phero__crumbs a, .sx-rsum__crumbs a { color: inherit; }
-.sx-phero__title { font-size: var(--fs-5); max-width: 22ch; }
+.sx-phero__title { font-size: calc((var(--fs-5)) * var(--fit, 1)); max-width: 22ch; }
 .sx-phero__answer { font-size: var(--fs-2); max-width: 46ch; color: var(--c-hero-text); }
 .sx-phero__cta { min-height: 52px; }
 @media (max-width: 760px) {
   .sx-phero__inner { padding-block: var(--sp-4) var(--sp-6); gap: var(--sp-3); }
-  .sx-phero__title { font-size: var(--fs-4); }
+  .sx-phero__title { font-size: calc((var(--fs-4)) * var(--fit, 1)); }
   .sx-phero__answer { font-size: var(--fs-1); }
   .sx-phero__cta { width: 100%; }
 }

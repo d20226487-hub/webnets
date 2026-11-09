@@ -1,0 +1,14 @@
+/* spotlight: the heading in an accent panel on the start side, the ranked list beside it */
+.sx-toplist--spotlight .sx-toplist__inner { grid-template-columns: minmax(260px, .75fr) minmax(0, 1.4fr); align-items: start; gap: var(--sp-6); }
+.sx-toplist--spotlight .sx-toplist__crumbs { grid-column: 1 / -1; }
+.sx-toplist--spotlight .sx-toplist__head { position: sticky; top: var(--sp-5); gap: var(--sp-3); padding: var(--sp-6) var(--sp-5); border-radius: var(--r-lg); background: var(--c-accent); color: var(--c-on-accent); }
+.sx-toplist--spotlight .sx-toplist__title { color: inherit; }
+.sx-toplist--spotlight h1.sx-toplist__title { font-size: var(--fs-4); }
+.sx-toplist--spotlight .sx-toplist__intro, .sx-toplist--spotlight .sx-toplist__method { color: inherit; opacity: .85; }
+.sx-toplist--spotlight .sx-toplist__item { grid-template-columns: auto auto minmax(0, 1fr) auto; }
+.sx-toplist--spotlight .sx-toplist__actions { grid-column: 3 / -1; grid-template-columns: auto auto; justify-content: start; align-items: center; gap: var(--sp-4); }
+@media (max-width: 760px) {
+  .sx-toplist--spotlight .sx-toplist__inner { grid-template-columns: minmax(0, 1fr); gap: var(--sp-4); }
+  .sx-toplist--spotlight .sx-toplist__head { position: static; padding: var(--sp-5) var(--sp-4); border-radius: var(--r); }
+  .sx-toplist--spotlight .sx-toplist__actions { grid-column: 1 / -1; grid-template-columns: 1fr auto; }
+}

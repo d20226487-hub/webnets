@@ -5,7 +5,9 @@
 set -e
 SRC="${SX_SRC:-/src}"
 mkdir -p /app
-rsync -a --delete --exclude /dist --exclude /ai --exclude /.git --exclude /node_modules "$SRC"/ /app/
+rsync -a --delete --exclude /dist --exclude /ai --exclude /data --exclude /.git --exclude /node_modules "$SRC"/ /app/
 mkdir -p "$SRC/dist"
 [ -L /app/dist ] || { rm -rf /app/dist; ln -s "$SRC/dist" /app/dist; }
 [ -L /app/ai ]   || { rm -rf /app/ai;   ln -s "$SRC/ai"   /app/ai; }
+mkdir -p "$SRC/data"
+[ -L /app/data ] || { rm -rf /app/data; ln -s "$SRC/data" /app/data; } # generator database and site configs

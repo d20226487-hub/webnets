@@ -19,7 +19,12 @@
         "variants": [
             "listing",
             "device",
-            "qr-first"
+            "qr-first",
+            "banner",
+            "stage",
+            "catalog",
+            "apk-page",
+            "hub"
         ],
         "default_variant": "listing",
         "guardrails": [

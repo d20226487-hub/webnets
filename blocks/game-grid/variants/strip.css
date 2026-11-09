@@ -1,7 +1,9 @@
 /* strip: horizontal scroll row on a tinted band */
 .sx-ggrid--strip { background: var(--c-surface-2); }
-.sx-ggrid--strip .sx-ggrid__list { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(230px, 260px); gap: var(--sp-4); overflow-x: auto; scroll-snap-type: x mandatory; padding-block-end: var(--sp-3); scrollbar-width: thin; }
-.sx-ggrid--strip .sx-ggrid__list > li { scroll-snap-align: start; padding: var(--sp-3); border-radius: var(--r); background: var(--c-surface); border: var(--bw) solid var(--c-border); }
+.sx-ggrid--strip .sx-ggrid__list { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(230px, 260px); gap: var(--sp-4); }
+.sx-ggrid--strip .sx-ggrid__list > li { padding: var(--sp-3); border-radius: var(--r); background: var(--c-surface); border: var(--bw) solid var(--c-border); }
 @media (max-width: 640px) {
   .sx-ggrid--strip .sx-ggrid__list { grid-auto-columns: 78%; }
 }
+[data-rows=stack] .sx-ggrid--strip .sx-ggrid__list { grid-auto-flow: row; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); overflow: visible; margin-inline: 0; padding-inline: 0; }
+@media (max-width: 640px) { [data-rows=stack] .sx-ggrid--strip .sx-ggrid__list { grid-template-columns: minmax(0, 1fr); } }

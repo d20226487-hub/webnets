@@ -48,7 +48,8 @@
       "rule": "optional",
       "props": {
         "include_lead": true,
-        "mobile": "strip"
+        "mobile": "strip",
+        "limit": 3
       }
     },
     {

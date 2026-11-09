@@ -173,7 +173,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Nyxa: ставки на спорт с выводом за 15 минут
 - The only H1: Ставки на спорт с выводом за 15 минут
 - Structured data (JSON-LD): WebPage, WebSite
-- Links to: `sports-lite-sidebar-index.html`, `sports-lite-sidebar-sign-up.html`, `sports-lite-sidebar-payments.html`, `sports-lite-sidebar-betting.html`
+- Links to: `sports-lite-sidebar-sign-up.html`, `sports-lite-sidebar-payments.html`, `sports-lite-sidebar-betting.html`, `sports-lite-sidebar-index.html`
 
 ### Sections, in order
 
@@ -235,7 +235,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Регистрация в Nyxa: что нужно и сколько занимает
 - The only H1: Регистрация в Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
-- Links to: `sports-lite-sidebar-index.html`, `sports-lite-sidebar-sign-up.html`, `sports-lite-sidebar-payments.html`, `sports-lite-sidebar-betting.html`
+- Links to: `sports-lite-sidebar-sign-up.html`, `sports-lite-sidebar-payments.html`, `sports-lite-sidebar-betting.html`, `sports-lite-sidebar-index.html`
 
 ### Sections, in order
 
@@ -294,7 +294,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Пополнение и вывод в Nyxa: Apple Pay, Visa, Mastercard
 - The only H1: Пополнение и вывод в Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
-- Links to: `sports-lite-sidebar-index.html`, `sports-lite-sidebar-sign-up.html`, `sports-lite-sidebar-payments.html`, `sports-lite-sidebar-betting.html`
+- Links to: `sports-lite-sidebar-sign-up.html`, `sports-lite-sidebar-payments.html`, `sports-lite-sidebar-betting.html`, `sports-lite-sidebar-index.html`
 
 ### Sections, in order
 
@@ -348,7 +348,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Ставки на спорт в Nyxa: линия и лайв
 - The only H1: Ставки на спорт в Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
-- Links to: `sports-lite-sidebar-index.html`, `sports-lite-sidebar-sign-up.html`, `sports-lite-sidebar-payments.html`, `sports-lite-sidebar-betting.html`
+- Links to: `sports-lite-sidebar-sign-up.html`, `sports-lite-sidebar-payments.html`, `sports-lite-sidebar-betting.html`, `sports-lite-sidebar-index.html`
 
 ### Sections, in order
 

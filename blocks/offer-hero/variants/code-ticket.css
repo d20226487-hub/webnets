@@ -5,6 +5,6 @@
 .sx-offerhero--ticket .sx-offerhero__meta { grid-area: meta; }
 @media (max-width: 860px) {
   .sx-offerhero--ticket .sx-offerhero__inner { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "ticket" "meta"; padding-block: var(--sp-5) var(--sp-7); }
-  .sx-offerhero__title { font-size: var(--fs-4); }
+  .sx-offerhero__title { font-size: calc((var(--fs-4)) * var(--fit, 1)); }
   .sx-offerhero__subtitle { display: none; }
 }

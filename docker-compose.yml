@@ -2,6 +2,8 @@
 # Stop:   docker compose down
 # Port:   SX_PORT=9000 docker compose up -d
 # Code edits on the host are picked up by every rebuild (Settings -> Rebuild) or by: docker compose restart
+# The generator's database and caches live on the generator-db volume (Docker's own disk: fast), not in data/.
+#   Back up:  docker compose cp gallery:/db/generator.sqlite ./generator-backup.sqlite
 services:
   gallery:
     build: .
@@ -11,6 +13,13 @@ services:
       - "127.0.0.1:${SX_PORT:-8090}:8080"
     volumes:
       - ./:/src
+      - generator-db:/db
     environment:
       - SX_PORT=${SX_PORT:-8090}
+      - SX_GEN_DB=/db/generator.sqlite
+      - SX_GEN_CACHE=/db/cache
     restart: unless-stopped
+    init: true  # reaps finished child processes (headless Chromium leaves many; without it the container runs out of PIDs)
+
+volumes:
+  generator-db:

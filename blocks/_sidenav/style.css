@@ -1,22 +1,47 @@
-/* sidebar guide: numbered page list on the left, content on the right; on phones the list becomes a scrollable row */
-.sx-sidenav__grid { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: var(--sp-6); align-items: start; padding-block-start: var(--sp-5); }
-.sx-sidenav { position: sticky; top: var(--sp-4); display: grid; gap: var(--sp-3); padding: var(--sp-4); border-radius: var(--r-lg); background: var(--c-surface); border: var(--bw) solid var(--c-border); }
-.sx-sidenav__title { font-size: .72rem; font-weight: var(--fw-strong); text-transform: uppercase; letter-spacing: .08em; color: var(--c-muted); }
-.sx-sidenav ol { display: grid; gap: 2px; counter-reset: sn; }
-.sx-sidenav li { counter-increment: sn; }
-.sx-sidenav a { display: grid; grid-template-columns: 1.6rem minmax(0, 1fr); align-items: center; padding: 8px 10px; border-radius: var(--r-sm); color: var(--c-text); text-decoration: none; font-size: var(--fs-0); font-weight: var(--fw-strong); }
-.sx-sidenav a::before { content: counter(sn, decimal-leading-zero); font-size: .72rem; color: var(--c-muted); }
-.sx-sidenav a:hover { background: var(--c-surface-2); }
-.sx-sidenav a[aria-current] { background: var(--c-accent); color: var(--c-on-accent); }
-.sx-sidenav a[aria-current]::before { color: inherit; opacity: .8; }
+/* sidebar navigation beside the content (on the left, or the right with --right), in one of three looks:
+   panel: a solid box, its title on an accent band, large items with an arrow;
+   rail: no box, big display-type items with an accent bar on the current one;
+   cards: every item its own card. */
+.sx-sidenav__grid { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: var(--sp-6); align-items: start; padding-block-start: var(--sp-5); }
+.sx-sidenav__grid--right { grid-template-columns: minmax(0, 1fr) 260px; }
+.sx-sidenav__grid--right > .sx-sidenav { order: 2; }
+.sx-sidenav { position: sticky; top: var(--sp-4); display: grid; gap: var(--sp-3); }
+.sx-sidenav__title { font-size: .75rem; font-weight: var(--fw-strong); text-transform: uppercase; letter-spacing: .08em; color: var(--c-muted); }
+.sx-sidenav ol { display: grid; gap: var(--sp-1); margin: 0; padding: 0; list-style: none; }
+.sx-sidenav nav a { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); min-height: 48px; padding: var(--sp-3) var(--sp-4); color: var(--c-text); text-decoration: none; font-size: var(--fs-1); font-weight: var(--fw-strong); transition: background .15s, color .15s, transform .15s; }
+.sx-sidenav nav a .sx-icon { flex: none; width: 18px; height: 18px; opacity: .5; rotate: -90deg; transition: transform .15s, opacity .15s; }
+.sx-sidenav nav a:hover .sx-icon, .sx-sidenav nav a[aria-current] .sx-icon { opacity: 1; transform: translateY(3px); }
+.sx-sidenav .sx-sidenav__cta { justify-content: center; width: 100%; }
+
+.sx-sidenav--panel { overflow: hidden; padding: 0 0 var(--sp-4); border-radius: var(--r-lg); background: var(--c-surface); border: var(--bw) solid var(--c-border); box-shadow: 0 14px 34px rgba(0,0,0,.12); }
+.sx-sidenav--panel .sx-sidenav__title { margin: 0; padding: var(--sp-4) var(--sp-5); background: var(--c-accent); color: var(--c-on-accent); font-size: var(--fs-0); }
+.sx-sidenav--panel nav { padding: 0 var(--sp-2); }
+.sx-sidenav--panel nav a { border-radius: var(--r-sm); }
+.sx-sidenav--panel nav a:hover { background: var(--c-surface-2); }
+.sx-sidenav--panel nav a[aria-current] { background: color-mix(in srgb, var(--c-accent) 14%, transparent); color: var(--c-accent); }
+.sx-sidenav--panel .sx-sidenav__cta { width: auto; margin-inline: var(--sp-4); }
+
+.sx-sidenav--rail { padding-block: var(--sp-2); }
+.sx-sidenav--rail nav a { padding-inline: var(--sp-4) 0; border-inline-start: 3px solid var(--c-border); font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-2); }
+.sx-sidenav--rail nav a:hover { border-inline-start-color: var(--c-accent); color: var(--c-accent); }
+.sx-sidenav--rail nav a[aria-current] { border-inline-start-color: var(--c-accent); color: var(--c-accent); }
+.sx-sidenav--rail .sx-sidenav__title { padding-inline-start: calc(var(--sp-4) + 3px); }
+
+.sx-sidenav--cards ol { gap: var(--sp-2); }
+.sx-sidenav--cards nav a { border-radius: var(--r); background: var(--c-surface); border: var(--bw) solid var(--c-border); box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+.sx-sidenav--cards nav a:hover { transform: translateY(-2px); border-color: var(--c-accent); }
+.sx-sidenav--cards nav a[aria-current] { background: var(--c-accent); border-color: var(--c-accent); color: var(--c-on-accent); }
+
 .sx-sidenav__main { min-width: 0; }
-.sx-sidenav__main .sx-container { max-width: none; padding-inline: 0; }
+.sx-sidenav__main .sx-container { max-width: none; padding-inline: clamp(16px, 3vw, 36px); } /* text never touches the edge of a coloured section */
 .sx-sidenav__main > section:first-child, .sx-sidenav__main > section:first-child > * { border-radius: var(--r-lg); }
-@media (max-width: 900px) {
-  .sx-sidenav__grid { grid-template-columns: minmax(0, 1fr); gap: var(--sp-3); padding-block-start: var(--sp-3); }
-  .sx-sidenav { position: static; padding: var(--sp-2); grid-template-columns: minmax(0, 1fr); } /* the row scrolls instead of widening the page */
-  .sx-sidenav > nav { min-width: 0; }
-  .sx-sidenav__title { display: none; }
-  .sx-sidenav ol { display: flex; overflow-x: auto; scrollbar-width: none; gap: var(--sp-1); }
-  .sx-sidenav a { white-space: nowrap; }
+/* phones: the header's menu (☰) holds the sidebar, so the content gets the full width; a one-page site without a
+   phone menu (--inline) shows the sidebar as a panel under the content instead, links in two columns */
+@media (max-width: 860px) {
+  .sx-sidenav__grid, .sx-sidenav__grid--right { grid-template-columns: minmax(0, 1fr); gap: 0; padding-block-start: 0; }
+  .sx-sidenav { display: none; }
+  .sx-sidenav__grid--inline { gap: var(--sp-5); }
+  .sx-sidenav__grid--inline > .sx-sidenav { display: grid; position: static; order: 2; margin-block-end: var(--sp-5); }
+  .sx-sidenav__grid--inline .sx-sidenav ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sx-sidenav__grid--inline .sx-sidenav nav a { font-size: var(--fs-0); }
 }

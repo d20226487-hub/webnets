@@ -21,7 +21,8 @@
   .sx-shead--appstore .sx-shead__icon { width: 96px; height: 96px; }
   .sx-shead--appstore .sx-shead__name { font-size: var(--fs-3); }
   .sx-shead--appstore .sx-shead__sub { font-size: var(--fs-0); }
-  .sx-shead--appstore .sx-shead__strip { display: flex; overflow-x: auto; scrollbar-width: none; }
+  .sx-shead--appstore .sx-shead__strip { display: flex; }
   .sx-shead--appstore .sx-shead__strip li { flex: 0 0 104px; }
+  [data-rows=stack] .sx-shead--appstore .sx-shead__strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); overflow: visible; margin-inline: 0; padding-inline: 0; }
   .sx-shead--appstore .sx-installs { grid-column: 1 / -1; }
 }

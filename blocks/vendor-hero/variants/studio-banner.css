@@ -11,7 +11,7 @@
   font-family: var(--f-display); font-weight: var(--fw-heading); font-size: clamp(2.6rem, 9vw, 7rem); line-height: .95;
   letter-spacing: -.02em; color: var(--p1); max-width: 12ch;
 }
-.sx-vhero--studio-banner .sx-vhero__title { font-size: var(--fs-4); max-width: 26ch; color: #fff; }
+.sx-vhero--studio-banner .sx-vhero__title { font-size: calc((var(--fs-4)) * var(--fit, 1)); max-width: 26ch; color: #fff; }
 .sx-vhero--studio-banner .sx-vhero__subtitle { color: rgba(255, 255, 255, .78); }
 .sx-vhero__line { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-4); font-size: var(--fs-0); color: rgba(255, 255, 255, .78); }
 .sx-vhero__line li + li::before { content: "·"; margin-inline-end: var(--sp-4); }
@@ -20,6 +20,6 @@
 @media (max-width: 760px) {
   .sx-vhero--studio-banner .sx-vhero__inner { padding-block: var(--sp-6) var(--sp-7); gap: var(--sp-3); }
   .sx-vhero--studio-banner .sx-vhero__subtitle { display: none; }
-  .sx-vhero--studio-banner .sx-vhero__title { font-size: var(--fs-3); }
+  .sx-vhero--studio-banner .sx-vhero__title { font-size: calc((var(--fs-3)) * var(--fit, 1)); }
   .sx-vhero--studio-banner .sx-vhero__cta { width: 100%; font-size: var(--fs-1); }
 }

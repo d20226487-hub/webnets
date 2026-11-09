@@ -40,7 +40,7 @@ sx_jsonld(['@type' => 'MobileApplication', 'name' => $app['name'] ?? $brand['nam
           <?= sx_install_group('hero') ?>
         </div>
       </div>
-      <ul class="<?= $c('strip') ?>">
+      <ul class="<?= $c('strip') ?> <?= cls('swipe') ?>">
         <?php if ($st): ?><li><span><?= e(t('store.ratings_n', ['n' => sx_compact($st['count'])])) ?></span><strong><?= e(sx_number($st['rating'], 1)) ?></strong><?= sx_stars($st['rating']) ?></li><?php endif; ?>
         <li><span><?= e(t('app.age')) ?></span><strong><?= e($app['age_rating'] ?? '18+') ?></strong><small><?= e(t('store.years')) ?></small></li>
         <?php if ($cat): ?><li><span><?= e(t('store.category')) ?></span><strong><?= sx_icon('bolt') ?></strong><small><?= e($cat) ?></small></li><?php endif; ?>

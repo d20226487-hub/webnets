@@ -33,7 +33,7 @@ $initial = fn($n) => mb_strtoupper(mb_substr($n, 0, 1));
     <?php endif; ?>
     <?php if ($pick): ?>
       <?php if ($seeded && sx_ctx('show_sample_notice')): ?><p class="<?= $c('sample') ?>"><?= sx_icon('info') ?><?= e(t('store.sample_reviews')) ?></p><?php endif; ?>
-      <div class="<?= $c('list') ?>">
+      <div class="<?= $c('list') ?><?= $variant === 'appstore' ? ' ' . cls('swipe') : '' ?>">
         <?php foreach ($pick as $r): ?>
           <article class="<?= $c('card') ?>">
             <?php if ($variant === 'play'): ?>

@@ -7,6 +7,7 @@
 require_once __DIR__ . '/site.php';
 require_once __DIR__ . '/blueprint.php';
 require_once __DIR__ . '/dialect.php';
+require_once __DIR__ . '/nocomments.php';
 
 /**
  * Render every page of a site config.
@@ -39,7 +40,7 @@ function sx_build_site(array $cfg, string $root): array
         $verticals = sx_bp_verticals($bp, $cfg);
         foreach ($verticals as $v) {
             if (empty($ctx['market']['verticals'][$v])) {
-                throw new RuntimeException("Site type '{$cfg['type']}' needs the '$v' vertical, which market '{$ctx['market']['id']}' does not allow. "
+                sx_legal_block("Site type '{$cfg['type']}' needs the '$v' vertical, which market '{$ctx['market']['id']}' does not allow. "
                     . 'This is a legal block, not a setting: use another site type there.');
             }
         }
@@ -80,6 +81,10 @@ function sx_build_site(array $cfg, string $root): array
             $cfg['pages'] = $pages;
         } else {
             [$page, $summary] = sx_expand_blueprint($cfg, $root);
+            if (!empty($bp['compares_brands'])) { // one-page brand comparisons: generic CTAs go to the top brand for the angle
+                $ctx['rank_by'] = $bp['angles'][$summary['angle']]['rank_by'] ?? null;
+                $ctx['cta_brand'] = sx_casino_rank(sx_crit($ctx['rank_by']))[0];
+            }
             $cfg['pages'] = [$page];
         }
         $warn = array_merge($warn, SX::$warnings);
@@ -92,7 +97,7 @@ function sx_build_site(array $cfg, string $root): array
         SX::$jsonld = [];
         sx_context(array_merge($ctx, $map ? ['page_id' => $page['id']] : [], array_key_exists('cta_brand', $page) && $page['item'] !== null ? ['cta_brand' => $page['cta_brand']] : [], $page['ctx'] ?? []));
         sx_reset_used();
-        $html = sx_dialect_apply(sx_render_page($page, $preset, $ctx), $ctx['dialect'], $ctx['prefix']);
+        $html = sx_dialect_apply(sx_drop_gone_links(sx_strip_comments(sx_render_page($page, $preset, $ctx))), $ctx['dialect'], $ctx['prefix']);
         $out[] = [
             'id' => $page['id'] ?? null,
             'slug' => $page['slug'] ?? 'index',
@@ -121,6 +126,51 @@ function sx_build_site(array $cfg, string $root): array
 }
 
 /** One page as a complete HTML document. Blocks are placed by their block.json role. */
+/**
+ * The sidebar's content ("nav_style": "sidebar"), or [] for other sites: multi-page sites list their pages; one-page
+ * sites list the brand's sections, each a tracked link to the brand (the one CTA destination), with the CTA.
+ * Returns ['title' => string, 'items' => [['label', 'url', 'current', 'cta']], 'cta' => bool].
+ */
+function sx_side_menu(): array
+{
+    $ctx = SX::$ctx;
+    if (($ctx['nav_style'] ?? 'top') !== 'sidebar') {
+        return [];
+    }
+    if (sx_pages()) {
+        return ['title' => t('sidenav.title'), 'cta' => false, 'items' => array_map(fn($it) => ['label' => $it['label'], 'url' => $it['url'], 'current' => !empty($it['current']), 'cta' => false], sx_page_nav())];
+    }
+    if (!empty($ctx['criteria']) && function_exists('sx_casino_rank')) { // a one-page brand comparison: the ranked brands, each to its own site
+        $items = [];
+        foreach (array_slice(sx_casino_rank(sx_crit($ctx['rank_by'] ?? null)), 0, 6) as $n => $bid) {
+            $b = sx_casino($bid);
+            $items[] = ['label' => ($n + 1) . '. ' . $b['name'], 'url' => $b['link'], 'current' => false, 'cta' => true];
+        }
+        return ['title' => t('sidenav.top'), 'cta' => true, 'items' => $items];
+    }
+    $keys = [];
+    foreach ($ctx['brand']['verticals'] ?? [] as $v) {
+        $gate = $v === 'live-casino' ? 'casino' : ($v === 'live' ? 'sports' : $v);
+        if (in_array($v, ['sports', 'live', 'casino'], true) && !empty($ctx['market']['verticals'][$gate])) {
+            $keys[] = "nav.$v";
+        }
+    }
+    $href = $ctx['links']['go'] ?? '#go';
+    return ['title' => t('sidenav.links'), 'cta' => true, 'items' => array_map(fn($k) => ['label' => t($k), 'url' => $href, 'current' => false, 'cta' => true],
+        array_merge($keys, ['nav.promotions', 'nav.app', 'nav.payments']))];
+}
+
+/** The sidebar's items as <li> links; tracked brand links carry data-cta and the sponsored rel. */
+function sx_side_menu_items(array $side, string $pos = 'sidenav'): string
+{
+    $out = '';
+    foreach ($side['items'] as $it) {
+        $ext = $it['cta'] && preg_match('#^https?://#', $it['url']) === 1 ? ' rel="nofollow sponsored noopener" target="_blank"' : '';
+        $out .= '<li><a href="' . sx_url($it['url']) . '"' . ($it['current'] ? ' aria-current="page"' : '') . ($it['cta'] ? ' data-cta="' . e($pos) . '"' : '') . $ext . '><span>' . e($it['label']) . '</span>' . sx_icon('chevron') . '</a></li>';
+    }
+    return $out;
+}
+
 function sx_render_page(array $page, array $preset, array $ctx): string
 {
     if (!empty($page['lead'])) {
@@ -157,14 +207,13 @@ function sx_render_page(array $page, array $preset, array $ctx): string
         }
     }
 
-    if (($ctx['nav_style'] ?? 'top') === 'sidebar' && sx_pages()) { // guide layout: page list in a sticky sidebar beside the content
+    if ($side = sx_side_menu()) { // sidebar layout: a sticky list beside the content (left, or right with nav_side); on phones the header's menu holds it
         SX::$used['_sidenav'] = 1;
-        $items = '';
-        foreach (sx_page_nav() as $it) {
-            $items .= '<li><a href="' . sx_url($it['url']) . '"' . ($it['current'] ? ' aria-current="page"' : '') . '>' . e($it['label']) . '</a></li>';
-        }
-        $slots['main'] = '<div class="' . cx('container', ['sidenav', 'grid']) . '"><aside class="' . cls('sidenav') . '"><p class="' . cls('sidenav', 'title') . '">' . e(t('sidenav.title'))
-            . '</p><nav aria-label="' . e(t('sidenav.title')) . '"><ol>' . $items . '</ol></nav></aside><div class="' . cls('sidenav', 'main') . '">' . $slots['main'] . '</div></div>';
+        $cta = $side['cta'] ? sx_cta('sidenav', cx('btn', ['btn', null, 'primary'], ['sidenav', 'cta'])) : '';
+        $inline = !empty($ctx['menu']['skip']) && !sx_pages(); // no phone menu: the sidebar shows under the content on phones
+        $slots['main'] = '<div class="' . cx('container', ['sidenav', 'grid']) . ($ctx['nav_side'] === 'right' ? ' ' . cls('sidenav', 'grid', 'right') : '') . ($inline ? ' ' . cls('sidenav', 'grid', 'inline') : '')
+            . '"><aside class="' . cx('sidenav', ['sidenav', null, $ctx['sidebar_look'] ?? 'panel']) . '"><p class="' . cls('sidenav', 'title') . '">' . e($side['title'])
+            . '</p><nav aria-label="' . e($side['title']) . '"><ol>' . sx_side_menu_items($side) . '</ol></nav>' . $cta . '</aside><div class="' . cls('sidenav', 'main') . '">' . $slots['main'] . '</div></div>';
     }
     if (!empty($ctx['sample_notice']) && !empty($ctx['show_sample_notice'])) { // banner is opt-in ("sample_notice": true); the demo gate still applies
         // Sample (made-up) reviews or articles: a banner on every page, not removable by config (briefs 07, 09).
@@ -195,6 +244,7 @@ function sx_render_page(array $page, array $preset, array $ctx): string
     $canonical = $pid ? sx_abs_url($pid) : ($ctx['site']['url'] ?? null);
     $canonicalTag = $canonical ? '<link rel="canonical" href="' . e($canonical) . '">' : '';
     $bodyAttr = $pid ? ' data-page="' . e($pid) . '"' : ''; // analytics: which page a data-cta click came from
+    $bodyAttr .= ($ctx['rows'] ?? 'swipe') === 'stack' ? ' data-rows="stack"' : ''; // rows of cards stack instead of scrolling sideways
     $skip = '<a class="' . cls('skip') . '" href="#main">' . e(t('skip_link')) . '</a>';
     $webPage = ['@context' => 'https://schema.org', '@type' => 'WebPage', 'name' => $page['title'] ?? $ctx['site']['name'], 'inLanguage' => $lang] + ($canonical ? ['url' => $canonical] : []);
     $ld = array_merge([$webPage], SX::$jsonld);

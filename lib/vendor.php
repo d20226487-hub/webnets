@@ -38,7 +38,7 @@ function sx_catalog(): array
     if (isset(SX::$once['catalog'])) {
         return SX::$once['catalog'];
     }
-    $file = SX::$ctx['root'] . '/brands/catalog/' . (SX::$ctx['brand']['id'] ?? '') . '.json';
+    $file = sx_brand_file(SX::$ctx['root'], 'catalog/' . (SX::$ctx['brand']['id'] ?? '') . '.json');
     $cat = is_file($file) ? json_decode(file_get_contents($file), true) : [];
     return SX::$once['catalog'] = $cat['markets'][SX::$ctx['market']['id']]['providers'] ?? [];
 }

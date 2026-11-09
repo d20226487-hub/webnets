@@ -1,0 +1,23 @@
+/* claim cards: a dark logo band over a light panel with the offer, a large pill, a dark review pill and the age line */
+.sx-toplist--claim-cards { background: color-mix(in srgb, var(--c-text) 92%, var(--c-bg)); color: var(--c-bg); }
+.sx-toplist--claim-cards .sx-toplist__head { justify-items: center; text-align: center; }
+.sx-toplist--claim-cards .sx-toplist__title, .sx-toplist--claim-cards .sx-toplist__intro, .sx-toplist--claim-cards .sx-toplist__method, .sx-toplist--claim-cards .sx-toplist__crumbs { color: inherit; }
+.sx-toplist--claim-cards .sx-toplist__intro { opacity: .8; margin-inline: auto; }
+.sx-toplist__ccards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-5); }
+.sx-toplist__ccard { display: grid; grid-template-rows: auto 1fr; overflow: hidden; border-radius: var(--r-sm); background: var(--c-surface); color: var(--c-text); }
+.sx-toplist__band { position: relative; display: grid; justify-items: center; align-content: center; gap: 6px; min-height: 132px; padding: var(--sp-4); color: #FFFFFF;
+  background: linear-gradient(160deg, color-mix(in srgb, var(--brand) 55%, black 45%), color-mix(in srgb, var(--brand) 20%, black 80%)); }
+.sx-toplist__band .sx-bmark { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 12px; background: #FFFFFF; }
+.sx-toplist__band .sx-bmark svg { width: 36px; height: 36px; }
+.sx-toplist__band .sx-toplist__name { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-2); color: inherit; }
+.sx-toplist--claim-cards .sx-toplist__tag { position: absolute; inset-block-start: 10px; inset-inline-start: 10px; padding: 4px 10px; border-radius: var(--r-sm); background: var(--c-bg); color: var(--c-text); font-size: .72rem; font-weight: var(--fw-strong); }
+.sx-toplist__bscore { display: inline-flex; align-items: center; gap: 6px; font-size: var(--fs-0); }
+.sx-toplist__cbody { display: grid; align-content: start; justify-items: center; gap: var(--sp-2); padding: var(--sp-4) var(--sp-4) var(--sp-3); text-align: center; }
+.sx-toplist--claim-cards .sx-toplist__flabel { margin: 0; color: var(--c-muted); }
+.sx-toplist--claim-cards .sx-toplist__offer { font-size: var(--fs-3); line-height: 1.2; font-weight: 400; color: var(--c-text); }
+.sx-toplist--claim-cards .sx-toplist__fact { justify-content: center; color: var(--c-muted); font-weight: 400; }
+.sx-toplist__claim { width: 100%; justify-content: center; min-height: 52px; border-radius: 999px; background: var(--c-accent); border-color: var(--c-accent); color: var(--c-on-accent); font-size: var(--fs-1); }
+.sx-toplist__rpill { display: grid; place-items: center; width: 90%; min-height: 34px; border-radius: 999px; background: var(--c-text); color: var(--c-bg); font-size: var(--fs-0); text-decoration: none; }
+.sx-toplist__age { font-size: .75rem; color: var(--c-muted); }
+@media (max-width: 960px) { .sx-toplist__ccards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .sx-toplist__ccards { grid-template-columns: minmax(0, 1fr); gap: var(--sp-4); } .sx-toplist__band { min-height: 112px; } }

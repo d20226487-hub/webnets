@@ -1,4 +1,4 @@
-<title>Satellite System Gallery</title>
+<title>WebNets Gallery</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -76,6 +76,24 @@ h1 { font: 700 clamp(2rem, 4.6vw, 3.4rem)/1.04 var(--f-display); letter-spacing:
 .note { color: var(--muted); font-size: 14px; }
 .none-msg { color: var(--muted); }
 footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
+.viewbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+#secview { display: grid; gap: 36px; }
+.ssel { font: 500 14px/1.2 var(--f-body); color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; min-height: 36px; max-width: 100%; }
+.sshare { font: 500 12px/1 var(--f-body); color: var(--muted); padding: 5px 9px; border: 1px solid var(--line); border-radius: 999px; }
+.sshare.many { color: var(--accent); border-color: var(--accent); }
+.shead h3 { margin-right: auto; }
+#sshown { margin-left: auto; }
+.sgroup { display: grid; gap: 20px; scroll-margin-top: 60px; }
+.scard { display: grid; gap: 12px; padding: 18px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; }
+.shead { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; }
+.shead h3 { font: 700 1.25rem/1.2 var(--f-display); color: var(--ink); }
+.scount { font: 500 12px/1 var(--f-mono); color: var(--muted); }
+.dgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 16px; }
+.dtile { margin: 0; display: grid; gap: 8px; }
+.dtile .shots { display: block; border: 1px solid var(--line); border-radius: 10px; }
+.dtile figcaption { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 14px; }
+.dtile figcaption b { text-transform: capitalize; }
+.dtile figcaption a { color: var(--accent); font-weight: 600; text-decoration: none; white-space: nowrap; }
 @media (max-width: 560px) {
   .wrap { padding-block: 20px 48px; gap: 28px; }
   .type-head { grid-template-columns: minmax(0, 1fr) auto; }
@@ -87,7 +105,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
 
 <div class="wrap">
   <div class="bar">
-    <p class="kicker">Satellite System · <span data-l="en">Demo gallery</span><span data-l="ru">Галерея демо</span></p>
+    <p class="kicker">WebNets · <span data-l="en">Demo gallery</span><span data-l="ru">Галерея демо</span></p>
     <div class="toggles">
       <div class="seg" role="group" aria-label="Language / Язык">
         <button type="button" data-set-lang="en" aria-pressed="true" lang="en">EN</button>
@@ -106,20 +124,21 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
     <p class="lede"><span data-l="en">Home pages of all demo sites built from the shared block library, shown at desktop and phone width. Brands, numbers and reviews are fictional. Open a demo to click through its pages.</span><span data-l="ru">Главные страницы всех демо-сайтов, собранных из общей библиотеки блоков, на компьютере и на телефоне. Бренды, цифры и отзывы вымышлены. Откройте демо, чтобы пройтись по его страницам.</span></p>
     <p class="lede"><a href="/settings/" style="font-weight:600"><span data-l="en">AI brief settings</span><span data-l="ru">Настройки брифа для ИИ</span> →</a></p>
     <ul class="stats">
-      <li><b>8</b><span><span data-l="en">of 9 site types built</span><span data-l="ru">из 9 типов сайтов готово</span></span></li>
-      <li><b>27</b><span><span data-l="en">demo sites</span><span data-l="ru">демо-сайтов</span></span></li>
-      <li><b>139</b><span><span data-l="en">pages in total</span><span data-l="ru">страниц всего</span></span></li>
+      <li><b>10</b><span><span data-l="en">of 10 site types built</span><span data-l="ru">из 10 типов сайтов готово</span></span></li>
+      <li><b>28</b><span><span data-l="en">demo sites</span><span data-l="ru">демо-сайтов</span></span></li>
+      <li><b>140</b><span><span data-l="en">pages in total</span><span data-l="ru">страниц всего</span></span></li>
       <li><b>4</b><span><span data-l="en">markets: AU, KZ, BR, demo</span><span data-l="ru">рынка: AU, KZ, BR, демо</span></span></li>
       <li><b>3</b><span><span data-l="en">languages</span><span data-l="ru">языка</span></span></li>
     </ul>
   </header>
 
+  <div class="viewbar"><div class="seg" role="group" aria-label="View / Вид"><button type="button" data-view="sites" aria-pressed="true"><span data-l="en">By site</span><span data-l="ru">По сайтам</span></button><button type="button" data-view="sections" aria-pressed="false"><span data-l="en">By section (106)</span><span data-l="ru">По секциям (106)</span></button></div></div>
   <div class="filters" role="group" aria-label="Filter demos / Фильтр демо">
-    <div class="frow"><span class="lbl"><span data-l="en">Type</span><span data-l="ru">Тип</span></span><button type="button" class="chip" data-filter="type" data-value="landing" aria-pressed="false"><span data-l="en">One-page branded landing</span><span data-l="ru">Брендовый лендинг</span></button><button type="button" class="chip" data-filter="type" data-value="app" aria-pressed="false"><span data-l="en">One-page app download</span><span data-l="ru">Страница приложения (лендинг)</span></button><button type="button" class="chip" data-filter="type" data-value="promo" aria-pressed="false"><span data-l="en">One-page bonuses and promo codes</span><span data-l="ru">Бонусы и промокоды (лендинг)</span></button><button type="button" class="chip" data-filter="type" data-value="vendor" aria-pressed="false"><span data-l="en">One-page vendor overview</span><span data-l="ru">Обзор провайдера (лендинг)</span></button><button type="button" class="chip" data-filter="type" data-value="satellite" aria-pressed="false"><span data-l="en">Multi-page brand satellite</span><span data-l="ru">Многостраничный сателлит бренда</span></button><button type="button" class="chip" data-filter="type" data-value="app-multi" aria-pressed="false"><span data-l="en">Multi-page app download</span><span data-l="ru">Многостраничный сайт приложения</span></button><button type="button" class="chip" data-filter="type" data-value="reviews" aria-pressed="false"><span data-l="en">Brand review site</span><span data-l="ru">Сайт отзывов о бренде</span></button><button type="button" class="chip" data-filter="type" data-value="casinos" aria-pressed="false"><span data-l="en">Multi-brand casino reviews</span><span data-l="ru">Обзоры нескольких казино</span></button><button type="button" class="chip" data-filter="type" data-value="news" aria-pressed="false"><span data-l="en">Gambling news with PR</span><span data-l="ru">Новости гемблинга и PR-статьи</span></button></div>
+    <div class="frow"><span class="lbl"><span data-l="en">Type</span><span data-l="ru">Тип</span></span><button type="button" class="chip" data-filter="type" data-value="landing" aria-pressed="false"><span data-l="en">One-page branded landing</span><span data-l="ru">Брендовый лендинг</span></button><button type="button" class="chip" data-filter="type" data-value="app" aria-pressed="false"><span data-l="en">One-page app download</span><span data-l="ru">Страница приложения (лендинг)</span></button><button type="button" class="chip" data-filter="type" data-value="promo" aria-pressed="false"><span data-l="en">One-page bonuses and promo codes</span><span data-l="ru">Бонусы и промокоды (лендинг)</span></button><button type="button" class="chip" data-filter="type" data-value="vendor" aria-pressed="false"><span data-l="en">One-page vendor overview</span><span data-l="ru">Обзор провайдера (лендинг)</span></button><button type="button" class="chip" data-filter="type" data-value="satellite" aria-pressed="false"><span data-l="en">Multi-page brand satellite</span><span data-l="ru">Многостраничный сателлит бренда</span></button><button type="button" class="chip" data-filter="type" data-value="app-multi" aria-pressed="false"><span data-l="en">Multi-page app download</span><span data-l="ru">Многостраничный сайт приложения</span></button><button type="button" class="chip" data-filter="type" data-value="reviews" aria-pressed="false"><span data-l="en">Brand review site</span><span data-l="ru">Сайт отзывов о бренде</span></button><button type="button" class="chip" data-filter="type" data-value="casinos" aria-pressed="false"><span data-l="en">Multi-brand casino reviews</span><span data-l="ru">Обзоры нескольких казино</span></button><button type="button" class="chip" data-filter="type" data-value="news" aria-pressed="false"><span data-l="en">Gambling news with PR</span><span data-l="ru">Новости гемблинга и PR-статьи</span></button><button type="button" class="chip" data-filter="type" data-value="casinos-one" aria-pressed="false"><span data-l="en">One-page multi-brand casino reviews</span><span data-l="ru">Обзоры нескольких казино (лендинг)</span></button></div>
     <div class="frow"><span class="lbl"><span data-l="en">Market</span><span data-l="ru">Рынок</span></span><button type="button" class="chip" data-filter="market" data-value="au" aria-pressed="false"><span data-l="en">Australia</span><span data-l="ru">Австралия</span></button><button type="button" class="chip" data-filter="market" data-value="kz" aria-pressed="false"><span data-l="en">Kazakhstan</span><span data-l="ru">Казахстан</span></button><button type="button" class="chip" data-filter="market" data-value="br" aria-pressed="false"><span data-l="en">Brazil</span><span data-l="ru">Бразилия</span></button><button type="button" class="chip" data-filter="market" data-value="xx" aria-pressed="false"><span data-l="en">Demo market</span><span data-l="ru">Демо-рынок</span></button><button type="button" class="clear" id="clear" hidden><span data-l="en">Show all</span><span data-l="ru">Показать все</span></button></div>
   </div>
   <p class="none-msg" id="none" hidden><span data-l="en">No demo matches these filters.</span><span data-l="ru">Нет демо под эти фильтры.</span> <button type="button" class="clear" id="clear2"><span data-l="en">Show all</span><span data-l="ru">Показать все</span></button></p>
-  
+  <div id="siteview">
     <section class="type" id="landing" data-type="landing">
       <header class="type-head">
         <span class="phase">01</span>
@@ -136,7 +155,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">B</span>Nyxa <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
           <h3>Nyxa: ставки на спорт и онлайн-казино с быстрым выводом</h3>
           <ul class="meta"><li><span data-l="en">Demo market</span><span data-l="ru">Демо-рынок</span></li><li><span data-l="en">Russian</span><span data-l="ru">Русский</span></li><li>Terminal</li><li><span data-l="en">Trusted</span><span data-l="ru">Надёжность</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 61.6 KB</span><span data-l="ru">макс. 61,6 КБ</span></span><a class="open" href="review/b-nyxa-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 70.5 KB</span><span data-l="ru">макс. 70,5 КБ</span></span><a class="open" href="review/b-nyxa-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       <article class="card" data-type="landing" data-market="au">
@@ -148,7 +167,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">A</span>Vantro</p>
           <h3>Vantro: live footy, cricket and basketball odds</h3>
           <ul class="meta"><li><span data-l="en">Australia</span><span data-l="ru">Австралия</span></li><li><span data-l="en">English</span><span data-l="ru">Английский</span></li><li>Arena</li><li><span data-l="en">Matchday</span><span data-l="ru">День матча</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 48.4 KB</span><span data-l="ru">макс. 48,4 КБ</span></span><a class="open" href="review/a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 53.6 KB</span><span data-l="ru">макс. 53,6 КБ</span></span><a class="open" href="review/a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       <article class="card" data-type="landing" data-market="br">
@@ -160,7 +179,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">C</span>Marlowe Club</p>
           <h3>Marlowe Club: cassino ao vivo com saque via PIX</h3>
           <ul class="meta"><li><span data-l="en">Brazil</span><span data-l="ru">Бразилия</span></li><li><span data-l="en">Portuguese</span><span data-l="ru">Португальский</span></li><li>Luxury Gold</li><li><span data-l="en">Live casino</span><span data-l="ru">Живое казино</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 50.7 KB</span><span data-l="ru">макс. 50,7 КБ</span></span><a class="open" href="review/c-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 56.8 KB</span><span data-l="ru">макс. 56,8 КБ</span></span><a class="open" href="review/c-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       </div>
@@ -181,7 +200,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">B</span>Nyxa</p>
           <h3>Скачать приложение Nyxa для Android (APK) и iPhone</h3>
           <ul class="meta"><li><span data-l="en">Kazakhstan</span><span data-l="ru">Казахстан</span></li><li><span data-l="en">Russian</span><span data-l="ru">Русский</span></li><li>Midnight Neon</li><li><span data-l="en">Apk easy</span><span data-l="ru">Простой APK</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 55.6 KB</span><span data-l="ru">макс. 55,6 КБ</span></span><a class="open" href="review/app-b-nyxa-kz/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 60.8 KB</span><span data-l="ru">макс. 60,8 КБ</span></span><a class="open" href="review/app-b-nyxa-kz/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       <article class="card" data-type="app" data-market="au">
@@ -193,7 +212,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">A</span>Vantro</p>
           <h3>Vantro Sports app for iPhone and Android</h3>
           <ul class="meta"><li><span data-l="en">Australia</span><span data-l="ru">Австралия</span></li><li><span data-l="en">English</span><span data-l="ru">Английский</span></li><li>Fresh Minimal</li><li><span data-l="en">Official app</span><span data-l="ru">Официальное приложение</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 58.3 KB</span><span data-l="ru">макс. 58,3 КБ</span></span><a class="open" href="review/app-a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 62.7 KB</span><span data-l="ru">макс. 62,7 КБ</span></span><a class="open" href="review/app-a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       <article class="card" data-type="app" data-market="br">
@@ -205,7 +224,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">C</span>Marlowe Club</p>
           <h3>Baixe o app Marlowe Club para iPhone e Android</h3>
           <ul class="meta"><li><span data-l="en">Brazil</span><span data-l="ru">Бразилия</span></li><li><span data-l="en">Portuguese</span><span data-l="ru">Португальский</span></li><li>Velvet Club</li><li><span data-l="en">Fast app</span><span data-l="ru">Быстрое приложение</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 60.0 KB</span><span data-l="ru">макс. 60,0 КБ</span></span><a class="open" href="review/app-c-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 65.8 KB</span><span data-l="ru">макс. 65,8 КБ</span></span><a class="open" href="review/app-c-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       </div>
@@ -226,7 +245,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">B</span>Nyxa <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
           <h3>Акции Nyxa: повышенные коэффициенты, кешбэк и турниры</h3>
           <ul class="meta"><li><span data-l="en">Demo market</span><span data-l="ru">Демо-рынок</span></li><li><span data-l="en">Russian</span><span data-l="ru">Русский</span></li><li>Candy Pop</li><li><span data-l="en">Everyday</span><span data-l="ru">Каждый день</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 44.6 KB</span><span data-l="ru">макс. 44,6 КБ</span></span><a class="open" href="review/promo-b-nyxa-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 50.3 KB</span><span data-l="ru">макс. 50,3 КБ</span></span><a class="open" href="review/promo-b-nyxa-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       <article class="card" data-type="promo" data-market="xx">
@@ -238,7 +257,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">A</span>Vantro <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
           <h3>Vantro promo code VANTRO100: 100% up to €100</h3>
           <ul class="meta"><li><span data-l="en">Demo market</span><span data-l="ru">Демо-рынок</span></li><li><span data-l="en">English</span><span data-l="ru">Английский</span></li><li>Sunburst</li><li><span data-l="en">Welcome</span><span data-l="ru">Приветственный бонус</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 43.4 KB</span><span data-l="ru">макс. 43,4 КБ</span></span><a class="open" href="review/promo-a-vantro-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 49.4 KB</span><span data-l="ru">макс. 49,4 КБ</span></span><a class="open" href="review/promo-a-vantro-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       <article class="card" data-type="promo" data-market="xx">
@@ -250,7 +269,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">C</span>Marlowe Club <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
           <h3>Código promocional Marlowe Club MARLOWE50: 50% até €200</h3>
           <ul class="meta"><li><span data-l="en">Demo market</span><span data-l="ru">Демо-рынок</span></li><li><span data-l="en">Portuguese</span><span data-l="ru">Португальский</span></li><li>Velvet Club</li><li><span data-l="en">Code first</span><span data-l="ru">Сначала код</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 43.9 KB</span><span data-l="ru">макс. 43,9 КБ</span></span><a class="open" href="review/promo-c-marlowe-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 50.0 KB</span><span data-l="ru">макс. 50,0 КБ</span></span><a class="open" href="review/promo-c-marlowe-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       </div>
@@ -271,7 +290,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">B</span>Nyxa <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
           <h3>Слоты Tidewell в Nyxa: самые популярные, с RTP и волатильностью</h3>
           <ul class="meta"><li><span data-l="en">Demo market</span><span data-l="ru">Демо-рынок</span></li><li><span data-l="en">Russian</span><span data-l="ru">Русский</span></li><li>Candy Pop</li><li><span data-l="en">Popular</span><span data-l="ru">Популярное</span></li><li>Tidewell Studios</li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 47.4 KB</span><span data-l="ru">макс. 47,4 КБ</span></span><a class="open" href="review/vendor-b-nyxa-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 52.7 KB</span><span data-l="ru">макс. 52,7 КБ</span></span><a class="open" href="review/vendor-b-nyxa-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       <article class="card" data-type="vendor" data-market="xx">
@@ -283,7 +302,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">C</span>Marlowe Club <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
           <h3>Paper Lantern Games at Marlowe Club: the studio and its slots</h3>
           <ul class="meta"><li><span data-l="en">Demo market</span><span data-l="ru">Демо-рынок</span></li><li><span data-l="en">English</span><span data-l="ru">Английский</span></li><li>Editorial</li><li><span data-l="en">Studio</span><span data-l="ru">Студия</span></li><li>Paper Lantern Games</li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 49.0 KB</span><span data-l="ru">макс. 49,0 КБ</span></span><a class="open" href="review/vendor-c-marlowe-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 54.9 KB</span><span data-l="ru">макс. 54,9 КБ</span></span><a class="open" href="review/vendor-c-marlowe-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       <article class="card" data-type="vendor" data-market="br">
@@ -295,7 +314,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">A</span>Marlowe Club</p>
           <h3>Emberforge na Marlowe Club: novos slots e os mais jogados</h3>
           <ul class="meta"><li><span data-l="en">Brazil</span><span data-l="ru">Бразилия</span></li><li><span data-l="en">Portuguese</span><span data-l="ru">Португальский</span></li><li>Luxury Gold</li><li><span data-l="en">New releases</span><span data-l="ru">Новинки</span></li><li>Emberforge</li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 50.0 KB</span><span data-l="ru">макс. 50,0 КБ</span></span><a class="open" href="review/vendor-a-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 56.2 KB</span><span data-l="ru">макс. 56,2 КБ</span></span><a class="open" href="review/vendor-a-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       </div>
@@ -316,7 +335,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">B</span>Nyxa <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
           <h3>Nyxa: спорт и казино с выводом за 15 минут</h3>
           <ul class="meta"><li><span data-l="en">Demo market</span><span data-l="ru">Демо-рынок</span></li><li><span data-l="en">Russian</span><span data-l="ru">Русский</span></li><li>Fresh Minimal</li><li><span data-l="en">Fast payouts</span><span data-l="ru">Быстрые выплаты</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">7 pages</span><span data-l="ru">7 страниц</span> · <span data-l="en">max 53.9 KB</span><span data-l="ru">макс. 53,9 КБ</span></span><a class="open" href="review/sat-b-nyxa-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">7 pages</span><span data-l="ru">7 страниц</span> · <span data-l="en">max 59.4 KB</span><span data-l="ru">макс. 59,4 КБ</span></span><a class="open" href="review/sat-b-nyxa-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       <article class="card" data-type="satellite" data-market="au">
@@ -328,7 +347,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">A</span>Vantro</p>
           <h3>Vantro guide: sign up, deposit and bet in three steps</h3>
           <ul class="meta"><li><span data-l="en">Australia</span><span data-l="ru">Австралия</span></li><li><span data-l="en">English</span><span data-l="ru">Английский</span></li><li>Clean Sportsbook</li><li><span data-l="en">Starter guide</span><span data-l="ru">Гайд для новичка</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">5 pages</span><span data-l="ru">5 страниц</span> · <span data-l="en">max 43.1 KB</span><span data-l="ru">макс. 43,1 КБ</span></span><a class="open" href="review/sat-a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">5 pages</span><span data-l="ru">5 страниц</span> · <span data-l="en">max 48.9 KB</span><span data-l="ru">макс. 48,9 КБ</span></span><a class="open" href="review/sat-a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       <article class="card" data-type="satellite" data-market="br">
@@ -340,7 +359,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">C</span>Vantro</p>
           <h3>Vantro: apostas em futebol, vôlei e basquete ao vivo</h3>
           <ul class="meta"><li><span data-l="en">Brazil</span><span data-l="ru">Бразилия</span></li><li><span data-l="en">Portuguese</span><span data-l="ru">Португальский</span></li><li>Arena</li><li><span data-l="en">Sports depth</span><span data-l="ru">Глубина линии</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">5 pages</span><span data-l="ru">5 страниц</span> · <span data-l="en">max 46.8 KB</span><span data-l="ru">макс. 46,8 КБ</span></span><a class="open" href="review/sat-c-vantro-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">5 pages</span><span data-l="ru">5 страниц</span> · <span data-l="en">max 52.4 KB</span><span data-l="ru">макс. 52,4 КБ</span></span><a class="open" href="review/sat-c-vantro-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       </div>
@@ -361,7 +380,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">B</span>Nyxa</p>
           <h3>Скачать приложение Nyxa для Android (APK) и iPhone</h3>
           <ul class="meta"><li><span data-l="en">Kazakhstan</span><span data-l="ru">Казахстан</span></li><li><span data-l="en">Russian</span><span data-l="ru">Русский</span></li><li>Midnight Neon</li><li><span data-l="en">Apk easy</span><span data-l="ru">Простой APK</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">6 pages</span><span data-l="ru">6 страниц</span> · <span data-l="en">max 63.4 KB</span><span data-l="ru">макс. 63,4 КБ</span></span><a class="open" href="review/appm-b-nyxa-kz/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">6 pages</span><span data-l="ru">6 страниц</span> · <span data-l="en">max 68.8 KB</span><span data-l="ru">макс. 68,8 КБ</span></span><a class="open" href="review/appm-b-nyxa-kz/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       <article class="card" data-type="app-multi" data-market="au">
@@ -373,7 +392,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">A</span>Vantro</p>
           <h3>Vantro Sports app for iPhone and Android</h3>
           <ul class="meta"><li><span data-l="en">Australia</span><span data-l="ru">Австралия</span></li><li><span data-l="en">English</span><span data-l="ru">Английский</span></li><li>Fresh Minimal</li><li><span data-l="en">Official app</span><span data-l="ru">Официальное приложение</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">7 pages</span><span data-l="ru">7 страниц</span> · <span data-l="en">max 62.9 KB</span><span data-l="ru">макс. 62,9 КБ</span></span><a class="open" href="review/appm-a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">7 pages</span><span data-l="ru">7 страниц</span> · <span data-l="en">max 69.4 KB</span><span data-l="ru">макс. 69,4 КБ</span></span><a class="open" href="review/appm-a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       <article class="card" data-type="app-multi" data-market="br">
@@ -385,7 +404,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">C</span>Marlowe Club</p>
           <h3>Baixe o app Marlowe Club para iPhone e Android</h3>
           <ul class="meta"><li><span data-l="en">Brazil</span><span data-l="ru">Бразилия</span></li><li><span data-l="en">Portuguese</span><span data-l="ru">Португальский</span></li><li>Velvet Club</li><li><span data-l="en">Fast app</span><span data-l="ru">Быстрое приложение</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">6 pages</span><span data-l="ru">6 страниц</span> · <span data-l="en">max 58.9 KB</span><span data-l="ru">макс. 58,9 КБ</span></span><a class="open" href="review/appm-c-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">6 pages</span><span data-l="ru">6 страниц</span> · <span data-l="en">max 63.6 KB</span><span data-l="ru">макс. 63,6 КБ</span></span><a class="open" href="review/appm-c-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       </div>
@@ -406,7 +425,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">A</span>Nyxa <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
           <h3>Отзывы о Nyxa: оценки игроков, выплаты и поддержка</h3>
           <ul class="meta"><li><span data-l="en">Kazakhstan</span><span data-l="ru">Казахстан</span></li><li><span data-l="en">Russian</span><span data-l="ru">Русский</span></li><li>Fresh Minimal</li><li><span data-l="en">Payout focus</span><span data-l="ru">Акцент на выплаты</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">6 pages</span><span data-l="ru">6 страниц</span> · <span data-l="en">max 59.5 KB</span><span data-l="ru">макс. 59,5 КБ</span></span><a class="open" href="review/reviews-a-nyxa-kz/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">6 pages</span><span data-l="ru">6 страниц</span> · <span data-l="en">max 64.6 KB</span><span data-l="ru">макс. 64,6 КБ</span></span><a class="open" href="review/reviews-a-nyxa-kz/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       <article class="card" data-type="reviews" data-market="au">
@@ -418,7 +437,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">C</span>Vantro <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
           <h3>Vantro reviews: what Australian punters say, good and bad</h3>
           <ul class="meta"><li><span data-l="en">Australia</span><span data-l="ru">Австралия</span></li><li><span data-l="en">English</span><span data-l="ru">Английский</span></li><li>Clean Sportsbook</li><li><span data-l="en">Balanced</span><span data-l="ru">Сбалансированный</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">5 pages</span><span data-l="ru">5 страниц</span> · <span data-l="en">max 53.8 KB</span><span data-l="ru">макс. 53,8 КБ</span></span><a class="open" href="review/reviews-c-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">5 pages</span><span data-l="ru">5 страниц</span> · <span data-l="en">max 59.0 KB</span><span data-l="ru">макс. 59,0 КБ</span></span><a class="open" href="review/reviews-c-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       <article class="card" data-type="reviews" data-market="br">
@@ -430,7 +449,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">B</span>Marlowe Club <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
           <h3>Marlowe Club é confiável? Opiniões de jogadores e atendimento</h3>
           <ul class="meta"><li><span data-l="en">Brazil</span><span data-l="ru">Бразилия</span></li><li><span data-l="en">Portuguese</span><span data-l="ru">Португальский</span></li><li>Luxury Gold</li><li><span data-l="en">Support focus</span><span data-l="ru">Акцент на поддержку</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">7 pages</span><span data-l="ru">7 страниц</span> · <span data-l="en">max 55.2 KB</span><span data-l="ru">макс. 55,2 КБ</span></span><a class="open" href="review/reviews-b-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">7 pages</span><span data-l="ru">7 страниц</span> · <span data-l="en">max 61.2 KB</span><span data-l="ru">макс. 61,2 КБ</span></span><a class="open" href="review/reviews-b-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       </div>
@@ -451,7 +470,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">B</span>Живой стол <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
           <h3>Лучшие казино и букмекеры для live: рейтинг 2026</h3>
           <ul class="meta"><li><span data-l="en">Demo market</span><span data-l="ru">Демо-рынок</span></li><li><span data-l="en">Russian</span><span data-l="ru">Русский</span></li><li>Midnight Neon</li><li><span data-l="en">Live casino</span><span data-l="ru">Живое казино</span></li><li><span data-l="en">3 brands</span><span data-l="ru">3 бренда</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">10 pages</span><span data-l="ru">10 страниц</span> · <span data-l="en">max 45.8 KB</span><span data-l="ru">макс. 45,8 КБ</span></span><a class="open" href="review/casinos-b-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">10 pages</span><span data-l="ru">10 страниц</span> · <span data-l="en">max 48.1 KB</span><span data-l="ru">макс. 48,1 КБ</span></span><a class="open" href="review/casinos-b-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       <article class="card" data-type="casinos" data-market="xx">
@@ -463,7 +482,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">C</span>Casino Scout <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
           <h3>Best online casinos in Demoland: 2026 ranking</h3>
           <ul class="meta"><li><span data-l="en">Demo market</span><span data-l="ru">Демо-рынок</span></li><li><span data-l="en">English</span><span data-l="ru">Английский</span></li><li>Sunburst</li><li><span data-l="en">Overall</span><span data-l="ru">Общий рейтинг</span></li><li><span data-l="en">5 brands</span><span data-l="ru">5 брендов</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">10 pages</span><span data-l="ru">10 страниц</span> · <span data-l="en">max 44.3 KB</span><span data-l="ru">макс. 44,3 КБ</span></span><a class="open" href="review/casinos-c-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">10 pages</span><span data-l="ru">10 страниц</span> · <span data-l="en">max 50.7 KB</span><span data-l="ru">макс. 50,7 КБ</span></span><a class="open" href="review/casinos-c-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       <article class="card" data-type="casinos" data-market="br">
@@ -475,7 +494,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">A</span>Cassino em Foco</p>
           <h3>Cassinos online com saque rápido no Brasil: ranking 2026</h3>
           <ul class="meta"><li><span data-l="en">Brazil</span><span data-l="ru">Бразилия</span></li><li><span data-l="en">Portuguese</span><span data-l="ru">Португальский</span></li><li>Editorial</li><li><span data-l="en">Fast payouts</span><span data-l="ru">Быстрые выплаты</span></li><li><span data-l="en">5 brands</span><span data-l="ru">5 брендов</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">10 pages</span><span data-l="ru">10 страниц</span> · <span data-l="en">max 41.1 KB</span><span data-l="ru">макс. 41,1 КБ</span></span><a class="open" href="review/casinos-a-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">10 pages</span><span data-l="ru">10 страниц</span> · <span data-l="en">max 46.8 KB</span><span data-l="ru">макс. 46,8 КБ</span></span><a class="open" href="review/casinos-a-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       </div>
@@ -496,7 +515,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">C</span>Ставки Дня <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
           <h3>Ставки Дня: новости букмекеров Казахстана</h3>
           <ul class="meta"><li><span data-l="en">Kazakhstan</span><span data-l="ru">Казахстан</span></li><li><span data-l="en">Russian</span><span data-l="ru">Русский</span></li><li>Terminal</li><li><span data-l="en">Brand watch</span><span data-l="ru">brand-watch</span></li><li><span data-l="en">8 articles</span><span data-l="ru">8 статей</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">13 pages</span><span data-l="ru">13 страниц</span> · <span data-l="en">max 45.3 KB</span><span data-l="ru">макс. 45,3 КБ</span></span><a class="open" href="review/news-c-kz/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">13 pages</span><span data-l="ru">13 страниц</span> · <span data-l="en">max 50.2 KB</span><span data-l="ru">макс. 50,2 КБ</span></span><a class="open" href="review/news-c-kz/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       <article class="card" data-type="news" data-market="au">
@@ -508,7 +527,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">A</span>Paddock Wire <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
           <h3>Paddock Wire: Australian betting news and guides</h3>
           <ul class="meta"><li><span data-l="en">Australia</span><span data-l="ru">Австралия</span></li><li><span data-l="en">English</span><span data-l="ru">Английский</span></li><li>Editorial</li><li><span data-l="en">Newsroom</span><span data-l="ru">Редакция</span></li><li><span data-l="en">13 articles</span><span data-l="ru">13 статей</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">17 pages</span><span data-l="ru">17 страниц</span> · <span data-l="en">max 43.8 KB</span><span data-l="ru">макс. 43,8 КБ</span></span><a class="open" href="review/news-a-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">17 pages</span><span data-l="ru">17 страниц</span> · <span data-l="en">max 49.2 KB</span><span data-l="ru">макс. 49,2 КБ</span></span><a class="open" href="review/news-a-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       <article class="card" data-type="news" data-market="br">
@@ -520,12 +539,1072 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
           <p class="eyebrow"><span class="letter">B</span>Placar Aberto <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
           <h3>Placar Aberto: notícias e guias de apostas no Brasil</h3>
           <ul class="meta"><li><span data-l="en">Brazil</span><span data-l="ru">Бразилия</span></li><li><span data-l="en">Portuguese</span><span data-l="ru">Португальский</span></li><li>Fresh Minimal</li><li><span data-l="en">Guides first</span><span data-l="ru">Сначала гайды</span></li><li><span data-l="en">8 articles</span><span data-l="ru">8 статей</span></li></ul>
-          <div class="foot"><span class="stat"><span data-l="en">13 pages</span><span data-l="ru">13 страниц</span> · <span data-l="en">max 43.2 KB</span><span data-l="ru">макс. 43,2 КБ</span></span><a class="open" href="review/news-b-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
+          <div class="foot"><span class="stat"><span data-l="en">13 pages</span><span data-l="ru">13 страниц</span> · <span data-l="en">max 49.1 KB</span><span data-l="ru">макс. 49,1 КБ</span></span><a class="open" href="review/news-b-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open site</span><span data-l="ru">Открыть сайт</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </article>
       </div>
     </section>
-  <footer><p><span data-l="en">Screenshots and review links show the current builds as of 30 Oct 2026.</span><span data-l="ru">Скриншоты и ссылки показывают текущие сборки на 30 октября 2026 года.</span></p></footer>
+    <section class="type" id="casinos-one" data-type="casinos-one">
+      <header class="type-head">
+        <span class="phase">10</span>
+        <div><h2><span data-l="en">One-page multi-brand casino reviews</span><span data-l="ru">Обзоры нескольких казино (лендинг)</span></h2><p><span data-l="en">The ranking, comparison and how we rate on one page, with every design of the ranking.</span><span data-l="ru">Рейтинг, сравнение и методика на одной странице, со всеми видами рейтинга.</span></p></div>
+        <span class="status ok"><span data-l="en">Ready</span><span data-l="ru">Готово</span></span>
+      </header>
+      <div class="grid">
+      <article class="card" data-type="casinos-one" data-market="xx">
+        <div class="shots">
+          <img class="desk" src="gallery/shots/casinos1-b-xx-d.png" data-alt-en="Desktop view of Живой стол demo B" data-alt-ru="Вид на компьютере: Живой стол, демо B" alt="Desktop view of Живой стол demo B" width="640" height="400" loading="lazy">
+          <div class="phone"><img src="gallery/shots/casinos1-b-xx-m.png" data-alt-en="Phone view" data-alt-ru="Вид на телефоне" alt="Phone view" width="416" height="624" loading="lazy"></div>
+        </div>
+        <div class="body">
+          <p class="eyebrow"><span class="letter">B</span>Живой стол <span class="sample"><span data-l="en">Sample content</span><span data-l="ru">Пример контента</span></span></p>
+          <h3>Лучшие казино и букмекеры для live: рейтинг 2026</h3>
+          <ul class="meta"><li><span data-l="en">Demo market</span><span data-l="ru">Демо-рынок</span></li><li><span data-l="en">Russian</span><span data-l="ru">Русский</span></li><li>Midnight Neon</li><li><span data-l="en">Live casino</span><span data-l="ru">Живое казино</span></li><li><span data-l="en">3 brands</span><span data-l="ru">3 бренда</span></li></ul>
+          <div class="foot"><span class="stat"><span data-l="en">1 page</span><span data-l="ru">1 страница</span> · <span data-l="en">max 54.1 KB</span><span data-l="ru">макс. 54,1 КБ</span></span><a class="open" href="review/casinos1-b-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      </div>
+    </section></div>
+  
+  <div id="secview" hidden>
+    <div class="filters sfilters" role="group" aria-label="Filter sections / Фильтр секций">
+      <div class="frow"><span class="lbl"><span data-l="en">Site type</span><span data-l="ru">Тип сайта</span></span><button type="button" class="chip" data-sfilter="type" data-value="landing" aria-pressed="false"><span data-l="en">One-page branded landing</span><span data-l="ru">Брендовый лендинг</span></button><button type="button" class="chip" data-sfilter="type" data-value="app" aria-pressed="false"><span data-l="en">One-page app download</span><span data-l="ru">Страница приложения (лендинг)</span></button><button type="button" class="chip" data-sfilter="type" data-value="promo" aria-pressed="false"><span data-l="en">One-page bonuses and promo codes</span><span data-l="ru">Бонусы и промокоды (лендинг)</span></button><button type="button" class="chip" data-sfilter="type" data-value="vendor" aria-pressed="false"><span data-l="en">One-page vendor overview</span><span data-l="ru">Обзор провайдера (лендинг)</span></button><button type="button" class="chip" data-sfilter="type" data-value="satellite" aria-pressed="false"><span data-l="en">Multi-page brand satellite</span><span data-l="ru">Многостраничный сателлит бренда</span></button><button type="button" class="chip" data-sfilter="type" data-value="app-multi" aria-pressed="false"><span data-l="en">Multi-page app download</span><span data-l="ru">Многостраничный сайт приложения</span></button><button type="button" class="chip" data-sfilter="type" data-value="reviews" aria-pressed="false"><span data-l="en">Brand review site</span><span data-l="ru">Сайт отзывов о бренде</span></button><button type="button" class="chip" data-sfilter="type" data-value="casinos" aria-pressed="false"><span data-l="en">Multi-brand casino reviews</span><span data-l="ru">Обзоры нескольких казино</span></button><button type="button" class="chip" data-sfilter="type" data-value="news" aria-pressed="false"><span data-l="en">Gambling news with PR</span><span data-l="ru">Новости гемблинга и PR-статьи</span></button><button type="button" class="chip" data-sfilter="type" data-value="casinos-one" aria-pressed="false"><span data-l="en">One-page multi-brand casino reviews</span><span data-l="ru">Обзоры нескольких казино (лендинг)</span></button></div>
+      <div class="frow"><span class="lbl"><span data-l="en">Section type</span><span data-l="ru">Тип секции</span></span><button type="button" class="chip" data-sfilter="group" data-value="first" aria-pressed="false"><span data-l="en">First screens</span><span data-l="ru">Первые экраны</span></button><button type="button" class="chip" data-sfilter="group" data-value="conversion" aria-pressed="false"><span data-l="en">Conversion</span><span data-l="ru">Конверсия</span></button><button type="button" class="chip" data-sfilter="group" data-value="trust" aria-pressed="false"><span data-l="en">Trust and scoring</span><span data-l="ru">Доверие и оценки</span></button><button type="button" class="chip" data-sfilter="group" data-value="product" aria-pressed="false"><span data-l="en">Product</span><span data-l="ru">Продукт</span></button><button type="button" class="chip" data-sfilter="group" data-value="guidance" aria-pressed="false"><span data-l="en">Guidance</span><span data-l="ru">Помощь</span></button><button type="button" class="chip" data-sfilter="group" data-value="lists" aria-pressed="false"><span data-l="en">Lists and navigation</span><span data-l="ru">Списки и навигация</span></button><button type="button" class="chip" data-sfilter="group" data-value="articles" aria-pressed="false"><span data-l="en">Articles</span><span data-l="ru">Статьи</span></button></div>
+      <div class="frow"><span class="lbl"><span data-l="en">Section</span><span data-l="ru">Секция</span></span><select id="sblock" class="ssel" aria-label="Section / Секция"><option value="" data-en="All sections" data-ru="Все секции">All sections</option><option value="hero" data-group="first" data-en="Hero" data-ru="Первый экран">Hero</option><option value="app-hero" data-group="first" data-en="App Hero" data-ru="Первый экран приложения">App Hero</option><option value="offer-hero" data-group="first" data-en="Offer Hero" data-ru="Первый экран с бонусом">Offer Hero</option><option value="vendor-hero" data-group="first" data-en="Vendor Hero" data-ru="Первый экран провайдера">Vendor Hero</option><option value="toplist" data-group="first" data-en="Brand Ranking" data-ru="Рейтинг брендов">Brand Ranking</option><option value="page-hero" data-group="first" data-en="Page Hero (inner pages)" data-ru="Заголовок страницы">Page Hero (inner pages)</option><option value="article-lead" data-group="first" data-en="Lead Stories" data-ru="Главная новость">Lead Stories</option><option value="brand-header" data-group="first" data-en="Brand Review Header" data-ru="Шапка обзора бренда">Brand Review Header</option><option value="store-header" data-group="first" data-en="Store Header" data-ru="Карточка в стиле магазина">Store Header</option><option value="rating-summary" data-group="first" data-en="Rating Summary" data-ru="Сводка оценок">Rating Summary</option><option value="cta-band" data-group="conversion" data-en="Final CTA" data-ru="Финальный призыв">Final CTA</option><option value="promo-list" data-group="conversion" data-en="More Promotions" data-ru="Список акций">More Promotions</option><option value="promo-terms" data-group="conversion" data-en="Offer Terms" data-ru="Условия акции">Offer Terms</option><option value="download-panel" data-group="conversion" data-en="Download Panel" data-ru="Панель загрузки">Download Panel</option><option value="trust-bar" data-group="trust" data-en="Trust Bar" data-ru="Полоса доверия">Trust Bar</option><option value="criteria" data-group="trust" data-en="Scoring Criteria" data-ru="Критерии оценки">Scoring Criteria</option><option value="compare-table" data-group="trust" data-en="Comparison Table" data-ru="Таблица сравнения">Comparison Table</option><option value="score-box" data-group="trust" data-en="Score Breakdown" data-ru="Разбор оценки">Score Breakdown</option><option value="pros-cons" data-group="trust" data-en="Pros and Cons" data-ru="Плюсы и минусы">Pros and Cons</option><option value="facts-table" data-group="trust" data-en="Brand Facts" data-ru="Факты о бренде">Brand Facts</option><option value="topic-scores" data-group="trust" data-en="Topic Scores" data-ru="Оценки по темам">Topic Scores</option><option value="editor-box" data-group="trust" data-en="Editor Box" data-ru="Блок редакции">Editor Box</option><option value="features" data-group="product" data-en="Features" data-ru="Возможности">Features</option><option value="showcase" data-group="product" data-en="Product Showcase" data-ru="Витрина продукта">Product Showcase</option><option value="game-grid" data-group="product" data-en="Game Grid" data-ru="Сетка игр">Game Grid</option><option value="rtp-explainer" data-group="product" data-en="RTP &amp; Volatility Explainer" data-ru="Пояснение RTP">RTP &amp; Volatility Explainer</option><option value="provider-links" data-group="product" data-en="More Providers" data-ru="Другие провайдеры">More Providers</option><option value="screenshots" data-group="product" data-en="App Screenshots" data-ru="Скриншоты">App Screenshots</option><option value="app-info" data-group="product" data-en="App Information" data-ru="Информация о приложении">App Information</option><option value="changelog" data-group="product" data-en="What&#x27;s New" data-ru="Что нового">What&#x27;s New</option><option value="install-guide" data-group="product" data-en="Install Guide" data-ru="Инструкция по установке">Install Guide</option><option value="payments" data-group="product" data-en="Payments" data-ru="Платежи">Payments</option><option value="store-about" data-group="product" data-en="Store About" data-ru="Описание (магазин)">Store About</option><option value="store-reviews" data-group="product" data-en="Store Reviews" data-ru="Отзывы (магазин)">Store Reviews</option><option value="app-privacy" data-group="product" data-en="App Privacy" data-ru="Конфиденциальность">App Privacy</option><option value="steps" data-group="guidance" data-en="How To Start" data-ru="Как начать">How To Start</option><option value="faq" data-group="guidance" data-en="FAQ" data-ru="Вопросы и ответы">FAQ</option><option value="prose" data-group="guidance" data-en="Prose (page text)" data-ru="Текст страницы">Prose (page text)</option><option value="page-links" data-group="lists" data-en="Page Links" data-ru="Ссылки на страницы">Page Links</option><option value="review-list" data-group="lists" data-en="Review List" data-ru="Список отзывов">Review List</option><option value="review-form" data-group="lists" data-en="Review Form" data-ru="Форма отзыва">Review Form</option><option value="article-body" data-group="articles" data-en="Article" data-ru="Статья">Article</option><option value="article-list" data-group="articles" data-en="Article List" data-ru="Список статей">Article List</option></select></div>
+      <div class="frow"><span class="lbl"><span data-l="en">Use</span><span data-l="ru">Где</span></span><button type="button" class="chip" data-sfilter="share" data-value="many" aria-pressed="false"><span data-l="en">Shared by several types</span><span data-l="ru">Общие для нескольких типов</span></button><button type="button" class="chip" data-sfilter="share" data-value="one" aria-pressed="false"><span data-l="en">One type only</span><span data-l="ru">Только у одного типа</span></button><span class="scount" id="sshown"></span><button type="button" class="clear" id="sclear" hidden><span data-l="en">Show all</span><span data-l="ru">Показать все</span></button></div>
+    </div>
+    <p class="none-msg" id="snone" hidden><span data-l="en">No section matches these filters.</span><span data-l="ru">Нет секций под эти фильтры.</span></p>
+    
+    <section class="sgroup" id="s-first">
+      <header class="type-head"><span class="phase" data-gcount>10</span><div><h2><span data-l="en">First screens</span><span data-l="ru">Первые экраны</span></h2></div></header>
+      
+      <article class="scard" data-group="first" data-block="hero" data-types=" landing satellite " data-share="many">
+        <header class="shead"><h3><span data-l="en">Hero</span><span data-l="ru">Первый экран</span></h3><span class="sshare many"><span data-l="en">Shared by 2 site types</span><span data-l="ru">Общая для 2 типов сайтов</span></span><span class="scount"><span data-l="en">5 of 5 designs</span><span data-l="ru">5 из 5 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page branded landing, Multi-page brand satellite</span><span data-l="ru">Главные: Брендовый лендинг, Многостраничный сателлит бренда</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="generated/j42-landing-05/index.html" target="_blank" rel="noopener" title="generated/j42-landing-05/index.html">
+              <img class="desk" src="gallery/sections/hero--centered-d.png" alt="Hero: centered" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/hero--centered-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>centered</b><a href="generated/j42-landing-05/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/c-marlowe-br/index.html" target="_blank" rel="noopener" title="review/c-marlowe-br/index.html">
+              <img class="desk" src="gallery/sections/hero--full-bleed-d.png" alt="Hero: full-bleed" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/hero--full-bleed-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>full bleed</b><a href="review/c-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/a-vantro-au/index.html" target="_blank" rel="noopener" title="review/a-vantro-au/index.html">
+              <img class="desk" src="gallery/sections/hero--scoreboard-d.png" alt="Hero: scoreboard" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/hero--scoreboard-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>scoreboard</b><a href="review/a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/b-nyxa-xx/index.html" target="_blank" rel="noopener" title="review/b-nyxa-xx/index.html">
+              <img class="desk" src="gallery/sections/hero--split-d.png" alt="Hero: split" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/hero--split-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>split</b><a href="review/b-nyxa-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/sat-a-vantro-au/index.html" target="_blank" rel="noopener" title="review/sat-a-vantro-au/index.html">
+              <img class="desk" src="gallery/sections/hero--stat-led-d.png" alt="Hero: stat-led" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/hero--stat-led-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>stat led</b><a href="review/sat-a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="first" data-block="app-hero" data-types=" app app-multi " data-share="many">
+        <header class="shead"><h3><span data-l="en">App Hero</span><span data-l="ru">Первый экран приложения</span></h3><span class="sshare many"><span data-l="en">Shared by 2 site types</span><span data-l="ru">Общая для 2 типов сайтов</span></span><span class="scount"><span data-l="en">8 of 8 designs</span><span data-l="ru">8 из 8 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page app download, Multi-page app download</span><span data-l="ru">Главные: Страница приложения (лендинг), Многостраничный сайт приложения</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/app-b-nyxa-kz/android-brand-apk-page.html" target="_blank" rel="noopener" title="review/app-b-nyxa-kz/android-brand-apk-page.html">
+              <img class="desk" src="gallery/sections/app-hero--apk-page-d.png" alt="App Hero: apk-page" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/app-hero--apk-page-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>apk page</b><a href="review/app-b-nyxa-kz/android-brand-apk-page.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="generated/j40-app-multi-49/index.html" target="_blank" rel="noopener" title="generated/j40-app-multi-49/index.html">
+              <img class="desk" src="gallery/sections/app-hero--banner-d.png" alt="App Hero: banner" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/app-hero--banner-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>banner</b><a href="generated/j40-app-multi-49/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/app-b-nyxa-kz/android-brand-catalog.html" target="_blank" rel="noopener" title="review/app-b-nyxa-kz/android-brand-catalog.html">
+              <img class="desk" src="gallery/sections/app-hero--catalog-d.png" alt="App Hero: catalog" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/app-hero--catalog-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>catalog</b><a href="review/app-b-nyxa-kz/android-brand-catalog.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/app-b-nyxa-kz/index.html" target="_blank" rel="noopener" title="review/app-b-nyxa-kz/index.html">
+              <img class="desk" src="gallery/sections/app-hero--device-d.png" alt="App Hero: device" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/app-hero--device-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>device</b><a href="review/app-b-nyxa-kz/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/app-b-nyxa-kz/android-brand-hub.html" target="_blank" rel="noopener" title="review/app-b-nyxa-kz/android-brand-hub.html">
+              <img class="desk" src="gallery/sections/app-hero--hub-d.png" alt="App Hero: hub" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/app-hero--hub-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>hub</b><a href="review/app-b-nyxa-kz/android-brand-hub.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/app-a-vantro-au/index.html" target="_blank" rel="noopener" title="review/app-a-vantro-au/index.html">
+              <img class="desk" src="gallery/sections/app-hero--listing-d.png" alt="App Hero: listing" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/app-hero--listing-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>listing</b><a href="review/app-a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/app-c-marlowe-br/index.html" target="_blank" rel="noopener" title="review/app-c-marlowe-br/index.html">
+              <img class="desk" src="gallery/sections/app-hero--qr-first-d.png" alt="App Hero: qr-first" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/app-hero--qr-first-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>qr first</b><a href="review/app-c-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="generated/j42-app-03/index.html" target="_blank" rel="noopener" title="generated/j42-app-03/index.html">
+              <img class="desk" src="gallery/sections/app-hero--stage-d.png" alt="App Hero: stage" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/app-hero--stage-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>stage</b><a href="generated/j42-app-03/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="first" data-block="offer-hero" data-types=" promo " data-share="one">
+        <header class="shead"><h3><span data-l="en">Offer Hero</span><span data-l="ru">Первый экран с бонусом</span></h3><span class="sshare"><span data-l="en">Only One-page bonuses and promo codes</span><span data-l="ru">Только Бонусы и промокоды (лендинг)</span></span><span class="scount"><span data-l="en">4 of 4 designs</span><span data-l="ru">4 из 4 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page bonuses and promo codes</span><span data-l="ru">Главные: Бонусы и промокоды (лендинг)</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/promo-b-nyxa-xx/banners.html" target="_blank" rel="noopener" title="review/promo-b-nyxa-xx/banners.html">
+              <img class="desk" src="gallery/sections/offer-hero--banner-d.png" alt="Offer Hero: banner" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/offer-hero--banner-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>banner</b><a href="review/promo-b-nyxa-xx/banners.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/promo-c-marlowe-xx/index.html" target="_blank" rel="noopener" title="review/promo-c-marlowe-xx/index.html">
+              <img class="desk" src="gallery/sections/offer-hero--centered-code-d.png" alt="Offer Hero: centered-code" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/offer-hero--centered-code-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>centered code</b><a href="review/promo-c-marlowe-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/promo-a-vantro-xx/index.html" target="_blank" rel="noopener" title="review/promo-a-vantro-xx/index.html">
+              <img class="desk" src="gallery/sections/offer-hero--code-ticket-d.png" alt="Offer Hero: code-ticket" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/offer-hero--code-ticket-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>code ticket</b><a href="review/promo-a-vantro-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/promo-b-nyxa-xx/index.html" target="_blank" rel="noopener" title="review/promo-b-nyxa-xx/index.html">
+              <img class="desk" src="gallery/sections/offer-hero--split-offer-d.png" alt="Offer Hero: split-offer" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/offer-hero--split-offer-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>split offer</b><a href="review/promo-b-nyxa-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="first" data-block="vendor-hero" data-types=" vendor " data-share="one">
+        <header class="shead"><h3><span data-l="en">Vendor Hero</span><span data-l="ru">Первый экран провайдера</span></h3><span class="sshare"><span data-l="en">Only One-page vendor overview</span><span data-l="ru">Только Обзор провайдера (лендинг)</span></span><span class="scount"><span data-l="en">3 of 3 designs</span><span data-l="ru">3 из 3 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page vendor overview</span><span data-l="ru">Главные: Обзор провайдера (лендинг)</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/vendor-a-marlowe-br/index.html" target="_blank" rel="noopener" title="review/vendor-a-marlowe-br/index.html">
+              <img class="desk" src="gallery/sections/vendor-hero--spotlight-d.png" alt="Vendor Hero: spotlight" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/vendor-hero--spotlight-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>spotlight</b><a href="review/vendor-a-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/vendor-b-nyxa-xx/index.html" target="_blank" rel="noopener" title="review/vendor-b-nyxa-xx/index.html">
+              <img class="desk" src="gallery/sections/vendor-hero--stats-d.png" alt="Vendor Hero: stats" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/vendor-hero--stats-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>stats</b><a href="review/vendor-b-nyxa-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/vendor-c-marlowe-xx/index.html" target="_blank" rel="noopener" title="review/vendor-c-marlowe-xx/index.html">
+              <img class="desk" src="gallery/sections/vendor-hero--studio-banner-d.png" alt="Vendor Hero: studio-banner" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/vendor-hero--studio-banner-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>studio banner</b><a href="review/vendor-c-marlowe-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="first" data-block="toplist" data-types=" casinos casinos-one " data-share="many">
+        <header class="shead"><h3><span data-l="en">Brand Ranking</span><span data-l="ru">Рейтинг брендов</span></h3><span class="sshare many"><span data-l="en">Shared by 2 site types</span><span data-l="ru">Общая для 2 типов сайтов</span></span><span class="scount"><span data-l="en">10 of 10 designs</span><span data-l="ru">10 из 10 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: Multi-brand casino reviews, One-page multi-brand casino reviews</span><span data-l="ru">Главные: Обзоры нескольких казино, Обзоры нескольких казино (лендинг)</span></li><li><span data-l="en">Inner pages: Multi-brand casino reviews</span><span data-l="ru">Внутренние: Обзоры нескольких казино</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/casinos-a-br/index.html" target="_blank" rel="noopener" title="review/casinos-a-br/index.html">
+              <img class="desk" src="gallery/sections/toplist--cards-d.png" alt="Brand Ranking: cards" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/toplist--cards-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>cards</b><a href="review/casinos-a-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/casinos-b-xx/both-app-claim-cards-index.html" target="_blank" rel="noopener" title="review/casinos-b-xx/both-app-claim-cards-index.html">
+              <img class="desk" src="gallery/sections/toplist--claim-cards-d.png" alt="Brand Ranking: claim-cards" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/toplist--claim-cards-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>claim cards</b><a href="review/casinos-b-xx/both-app-claim-cards-index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="generated/j40-casinos-one-35/index.html" target="_blank" rel="noopener" title="generated/j40-casinos-one-35/index.html">
+              <img class="desk" src="gallery/sections/toplist--grid-d.png" alt="Brand Ranking: grid" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/toplist--grid-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>grid</b><a href="generated/j40-casinos-one-35/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/casinos-a-br/analise-cobaltio.html" target="_blank" rel="noopener" title="review/casinos-a-br/analise-cobaltio.html">
+              <img class="desk" src="gallery/sections/toplist--list-d.png" alt="Brand Ranking: list" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/toplist--list-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>list</b><a href="review/casinos-a-br/analise-cobaltio.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/casinos-b-xx/both-app-logo-grid-index.html" target="_blank" rel="noopener" title="review/casinos-b-xx/both-app-logo-grid-index.html">
+              <img class="desk" src="gallery/sections/toplist--logo-grid-d.png" alt="Brand Ranking: logo-grid" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/toplist--logo-grid-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>logo grid</b><a href="review/casinos-b-xx/both-app-logo-grid-index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/casinos-b-xx/both-app-offer-cards-index.html" target="_blank" rel="noopener" title="review/casinos-b-xx/both-app-offer-cards-index.html">
+              <img class="desk" src="gallery/sections/toplist--offer-cards-d.png" alt="Brand Ranking: offer-cards" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/toplist--offer-cards-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>offer cards</b><a href="review/casinos-b-xx/both-app-offer-cards-index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/casinos-c-xx/index.html" target="_blank" rel="noopener" title="review/casinos-c-xx/index.html">
+              <img class="desk" src="gallery/sections/toplist--podium-d.png" alt="Brand Ranking: podium" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/toplist--podium-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>podium</b><a href="review/casinos-c-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/casinos-b-xx/both-app-portal-index.html" target="_blank" rel="noopener" title="review/casinos-b-xx/both-app-portal-index.html">
+              <img class="desk" src="gallery/sections/toplist--portal-d.png" alt="Brand Ranking: portal" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/toplist--portal-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>portal</b><a href="review/casinos-b-xx/both-app-portal-index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="generated/j42-casinos-03/bystryj-vyvod.html" target="_blank" rel="noopener" title="generated/j42-casinos-03/bystryj-vyvod.html">
+              <img class="desk" src="gallery/sections/toplist--spotlight-d.png" alt="Brand Ranking: spotlight" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/toplist--spotlight-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>spotlight</b><a href="generated/j42-casinos-03/bystryj-vyvod.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/casinos-b-xx/index.html" target="_blank" rel="noopener" title="review/casinos-b-xx/index.html">
+              <img class="desk" src="gallery/sections/toplist--table-d.png" alt="Brand Ranking: table" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/toplist--table-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>table</b><a href="review/casinos-b-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="first" data-block="page-hero" data-types=" satellite app-multi reviews casinos news " data-share="many">
+        <header class="shead"><h3><span data-l="en">Page Hero (inner pages)</span><span data-l="ru">Заголовок страницы</span></h3><span class="sshare many"><span data-l="en">Shared by 5 site types</span><span data-l="ru">Общая для 5 типов сайтов</span></span><span class="scount"><span data-l="en">2 of 2 designs</span><span data-l="ru">2 из 2 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Inner pages: Multi-page app download, Multi-brand casino reviews, Gambling news with PR, Brand review site, Multi-page brand satellite</span><span data-l="ru">Внутренние: Многостраничный сайт приложения, Обзоры нескольких казино, Новости гемблинга и PR-статьи, Сайт отзывов о бренде, Многостраничный сателлит бренда</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/appm-a-vantro-au/features.html" target="_blank" rel="noopener" title="review/appm-a-vantro-au/features.html">
+              <img class="desk" src="gallery/sections/page-hero--answer-d.png" alt="Page Hero (inner pages): answer" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/page-hero--answer-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>answer</b><a href="review/appm-a-vantro-au/features.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/appm-a-vantro-au/android.html" target="_blank" rel="noopener" title="review/appm-a-vantro-au/android.html">
+              <img class="desk" src="gallery/sections/page-hero--compact-d.png" alt="Page Hero (inner pages): compact" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/page-hero--compact-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>compact</b><a href="review/appm-a-vantro-au/android.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="first" data-block="article-lead" data-types=" news " data-share="one">
+        <header class="shead"><h3><span data-l="en">Lead Stories</span><span data-l="ru">Главная новость</span></h3><span class="sshare"><span data-l="en">Only Gambling news with PR</span><span data-l="ru">Только Новости гемблинга и PR-статьи</span></span><span class="scount"><span data-l="en">3 of 3 designs</span><span data-l="ru">3 из 3 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: Gambling news with PR</span><span data-l="ru">Главные: Новости гемблинга и PR-статьи</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/news-c-kz/index.html" target="_blank" rel="noopener" title="review/news-c-kz/index.html">
+              <img class="desk" src="gallery/sections/article-lead--list-d.png" alt="Lead Stories: list" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/article-lead--list-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>list</b><a href="review/news-c-kz/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/news-a-au/index.html" target="_blank" rel="noopener" title="review/news-a-au/index.html">
+              <img class="desk" src="gallery/sections/article-lead--split-d.png" alt="Lead Stories: split" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/article-lead--split-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>split</b><a href="review/news-a-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/news-b-br/index.html" target="_blank" rel="noopener" title="review/news-b-br/index.html">
+              <img class="desk" src="gallery/sections/article-lead--stack-d.png" alt="Lead Stories: stack" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/article-lead--stack-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>stack</b><a href="review/news-b-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="first" data-block="brand-header" data-types=" casinos " data-share="one">
+        <header class="shead"><h3><span data-l="en">Brand Review Header</span><span data-l="ru">Шапка обзора бренда</span></h3><span class="sshare"><span data-l="en">Only Multi-brand casino reviews</span><span data-l="ru">Только Обзоры нескольких казино</span></span><span class="scount"><span data-l="en">1 of 1 designs</span><span data-l="ru">1 из 1 дизайна</span></span></header>
+        <ul class="meta"><li><span data-l="en">Inner pages: Multi-brand casino reviews</span><span data-l="ru">Внутренние: Обзоры нескольких казино</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/casinos-a-br/analise-cobaltio.html" target="_blank" rel="noopener" title="review/casinos-a-br/analise-cobaltio.html">
+              <img class="desk" src="gallery/sections/brand-header--split-d.png" alt="Brand Review Header: split" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/brand-header--split-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>split</b><a href="review/casinos-a-br/analise-cobaltio.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="first" data-block="store-header" data-types=" app app-multi " data-share="many">
+        <header class="shead"><h3><span data-l="en">Store Header</span><span data-l="ru">Карточка в стиле магазина</span></h3><span class="sshare many"><span data-l="en">Shared by 2 site types</span><span data-l="ru">Общая для 2 типов сайтов</span></span><span class="scount"><span data-l="en">2 of 2 designs</span><span data-l="ru">2 из 2 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page app download, Multi-page app download</span><span data-l="ru">Главные: Страница приложения (лендинг), Многостраничный сайт приложения</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/app-b-nyxa-kz/android-brand-appstore.html" target="_blank" rel="noopener" title="review/app-b-nyxa-kz/android-brand-appstore.html">
+              <img class="desk" src="gallery/sections/store-header--appstore-d.png" alt="Store Header: appstore" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/store-header--appstore-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>appstore</b><a href="review/app-b-nyxa-kz/android-brand-appstore.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/app-b-nyxa-kz/android-brand-play.html" target="_blank" rel="noopener" title="review/app-b-nyxa-kz/android-brand-play.html">
+              <img class="desk" src="gallery/sections/store-header--play-d.png" alt="Store Header: play" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/store-header--play-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>play</b><a href="review/app-b-nyxa-kz/android-brand-play.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="first" data-block="rating-summary" data-types=" reviews " data-share="one">
+        <header class="shead"><h3><span data-l="en">Rating Summary</span><span data-l="ru">Сводка оценок</span></h3><span class="sshare"><span data-l="en">Only Brand review site</span><span data-l="ru">Только Сайт отзывов о бренде</span></span><span class="scount"><span data-l="en">4 of 4 designs</span><span data-l="ru">4 из 4 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: Brand review site</span><span data-l="ru">Главные: Сайт отзывов о бренде</span></li><li><span data-l="en">Inner pages: Brand review site</span><span data-l="ru">Внутренние: Сайт отзывов о бренде</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/reviews-b-marlowe-br/index.html" target="_blank" rel="noopener" title="review/reviews-b-marlowe-br/index.html">
+              <img class="desk" src="gallery/sections/rating-summary--band-d.png" alt="Rating Summary: band" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/rating-summary--band-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>band</b><a href="review/reviews-b-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/reviews-a-nyxa-kz/index.html" target="_blank" rel="noopener" title="review/reviews-a-nyxa-kz/index.html">
+              <img class="desk" src="gallery/sections/rating-summary--board-d.png" alt="Rating Summary: board" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/rating-summary--board-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>board</b><a href="review/reviews-a-nyxa-kz/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/reviews-c-vantro-au/index.html" target="_blank" rel="noopener" title="review/reviews-c-vantro-au/index.html">
+              <img class="desk" src="gallery/sections/rating-summary--quotes-d.png" alt="Rating Summary: quotes" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/rating-summary--quotes-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>quotes</b><a href="review/reviews-c-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/reviews-a-nyxa-kz/off-compact-payout-reviews.html" target="_blank" rel="noopener" title="review/reviews-a-nyxa-kz/off-compact-payout-reviews.html">
+              <img class="desk" src="gallery/sections/rating-summary--strip-d.png" alt="Rating Summary: strip" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/rating-summary--strip-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>strip</b><a href="review/reviews-a-nyxa-kz/off-compact-payout-reviews.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+    </section>
+    <section class="sgroup" id="s-conversion">
+      <header class="type-head"><span class="phase" data-gcount>04</span><div><h2><span data-l="en">Conversion</span><span data-l="ru">Конверсия</span></h2></div></header>
+      
+      <article class="scard" data-group="conversion" data-block="cta-band" data-types=" landing promo vendor satellite reviews casinos casinos-one " data-share="many">
+        <header class="shead"><h3><span data-l="en">Final CTA</span><span data-l="ru">Финальный призыв</span></h3><span class="sshare many"><span data-l="en">Shared by 7 site types</span><span data-l="ru">Общая для 7 типов сайтов</span></span><span class="scount"><span data-l="en">2 of 2 designs</span><span data-l="ru">2 из 2 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: Multi-brand casino reviews, One-page multi-brand casino reviews, One-page branded landing, One-page bonuses and promo codes, Brand review site, Multi-page brand satellite, One-page vendor overview</span><span data-l="ru">Главные: Обзоры нескольких казино, Обзоры нескольких казино (лендинг), Брендовый лендинг, Бонусы и промокоды (лендинг), Сайт отзывов о бренде, Многостраничный сателлит бренда, Обзор провайдера (лендинг)</span></li><li><span data-l="en">Inner pages: Multi-brand casino reviews, Brand review site, Multi-page brand satellite</span><span data-l="ru">Внутренние: Обзоры нескольких казино, Сайт отзывов о бренде, Многостраничный сателлит бренда</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/a-vantro-au/index.html" target="_blank" rel="noopener" title="review/a-vantro-au/index.html">
+              <img class="desk" src="gallery/sections/cta-band--solid-d.png" alt="Final CTA: solid" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/cta-band--solid-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>solid</b><a href="review/a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/b-nyxa-xx/index.html" target="_blank" rel="noopener" title="review/b-nyxa-xx/index.html">
+              <img class="desk" src="gallery/sections/cta-band--split-d.png" alt="Final CTA: split" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/cta-band--split-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>split</b><a href="review/b-nyxa-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="conversion" data-block="promo-list" data-types=" landing promo satellite " data-share="many">
+        <header class="shead"><h3><span data-l="en">More Promotions</span><span data-l="ru">Список акций</span></h3><span class="sshare many"><span data-l="en">Shared by 3 site types</span><span data-l="ru">Общая для 3 типов сайтов</span></span><span class="scount"><span data-l="en">3 of 3 designs</span><span data-l="ru">3 из 3 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page branded landing, One-page bonuses and promo codes, Multi-page brand satellite</span><span data-l="ru">Главные: Брендовый лендинг, Бонусы и промокоды (лендинг), Многостраничный сателлит бренда</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/b-nyxa-xx/index.html" target="_blank" rel="noopener" title="review/b-nyxa-xx/index.html">
+              <img class="desk" src="gallery/sections/promo-list--banners-d.png" alt="More Promotions: banners" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/promo-list--banners-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>banners</b><a href="review/b-nyxa-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/promo-a-vantro-xx/index.html" target="_blank" rel="noopener" title="review/promo-a-vantro-xx/index.html">
+              <img class="desk" src="gallery/sections/promo-list--cards-d.png" alt="More Promotions: cards" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/promo-list--cards-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>cards</b><a href="review/promo-a-vantro-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="generated/j42-landing-05/index.html" target="_blank" rel="noopener" title="generated/j42-landing-05/index.html">
+              <img class="desk" src="gallery/sections/promo-list--list-d.png" alt="More Promotions: list" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/promo-list--list-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>list</b><a href="generated/j42-landing-05/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="conversion" data-block="promo-terms" data-types=" promo satellite " data-share="many">
+        <header class="shead"><h3><span data-l="en">Offer Terms</span><span data-l="ru">Условия акции</span></h3><span class="sshare many"><span data-l="en">Shared by 2 site types</span><span data-l="ru">Общая для 2 типов сайтов</span></span><span class="scount"><span data-l="en">2 of 2 designs</span><span data-l="ru">2 из 2 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page bonuses and promo codes</span><span data-l="ru">Главные: Бонусы и промокоды (лендинг)</span></li><li><span data-l="en">Inner pages: Multi-page brand satellite</span><span data-l="ru">Внутренние: Многостраничный сателлит бренда</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/promo-b-nyxa-xx/index.html" target="_blank" rel="noopener" title="review/promo-b-nyxa-xx/index.html">
+              <img class="desk" src="gallery/sections/promo-terms--checklist-d.png" alt="Offer Terms: checklist" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/promo-terms--checklist-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>checklist</b><a href="review/promo-b-nyxa-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/promo-a-vantro-xx/index.html" target="_blank" rel="noopener" title="review/promo-a-vantro-xx/index.html">
+              <img class="desk" src="gallery/sections/promo-terms--table-d.png" alt="Offer Terms: table" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/promo-terms--table-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>table</b><a href="review/promo-a-vantro-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="conversion" data-block="download-panel" data-types=" app satellite app-multi " data-share="many">
+        <header class="shead"><h3><span data-l="en">Download Panel</span><span data-l="ru">Панель загрузки</span></h3><span class="sshare many"><span data-l="en">Shared by 3 site types</span><span data-l="ru">Общая для 3 типов сайтов</span></span><span class="scount"><span data-l="en">1 of 1 designs</span><span data-l="ru">1 из 1 дизайна</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page app download, Multi-page app download</span><span data-l="ru">Главные: Страница приложения (лендинг), Многостраничный сайт приложения</span></li><li><span data-l="en">Inner pages: Multi-page app download, Multi-page brand satellite</span><span data-l="ru">Внутренние: Многостраничный сайт приложения, Многостраничный сателлит бренда</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/app-a-vantro-au/index.html" target="_blank" rel="noopener" title="review/app-a-vantro-au/index.html">
+              <img class="desk" src="gallery/sections/download-panel--panel-d.png" alt="Download Panel: panel" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/download-panel--panel-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>panel</b><a href="review/app-a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+    </section>
+    <section class="sgroup" id="s-trust">
+      <header class="type-head"><span class="phase" data-gcount>08</span><div><h2><span data-l="en">Trust and scoring</span><span data-l="ru">Доверие и оценки</span></h2></div></header>
+      
+      <article class="scard" data-group="trust" data-block="trust-bar" data-types=" landing app promo vendor satellite app-multi reviews " data-share="many">
+        <header class="shead"><h3><span data-l="en">Trust Bar</span><span data-l="ru">Полоса доверия</span></h3><span class="sshare many"><span data-l="en">Shared by 7 site types</span><span data-l="ru">Общая для 7 типов сайтов</span></span><span class="scount"><span data-l="en">2 of 2 designs</span><span data-l="ru">2 из 2 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page app download, Multi-page app download, One-page branded landing, One-page bonuses and promo codes, Brand review site, Multi-page brand satellite, One-page vendor overview</span><span data-l="ru">Главные: Страница приложения (лендинг), Многостраничный сайт приложения, Брендовый лендинг, Бонусы и промокоды (лендинг), Сайт отзывов о бренде, Многостраничный сателлит бренда, Обзор провайдера (лендинг)</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/app-a-vantro-au/index.html" target="_blank" rel="noopener" title="review/app-a-vantro-au/index.html">
+              <img class="desk" src="gallery/sections/trust-bar--badges-d.png" alt="Trust Bar: badges" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/trust-bar--badges-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>badges</b><a href="review/app-a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/a-vantro-au/index.html" target="_blank" rel="noopener" title="review/a-vantro-au/index.html">
+              <img class="desk" src="gallery/sections/trust-bar--strip-d.png" alt="Trust Bar: strip" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/trust-bar--strip-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>strip</b><a href="review/a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="trust" data-block="criteria" data-types=" casinos casinos-one " data-share="many">
+        <header class="shead"><h3><span data-l="en">Scoring Criteria</span><span data-l="ru">Критерии оценки</span></h3><span class="sshare many"><span data-l="en">Shared by 2 site types</span><span data-l="ru">Общая для 2 типов сайтов</span></span><span class="scount"><span data-l="en">1 of 1 designs</span><span data-l="ru">1 из 1 дизайна</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page multi-brand casino reviews</span><span data-l="ru">Главные: Обзоры нескольких казино (лендинг)</span></li><li><span data-l="en">Inner pages: Multi-brand casino reviews</span><span data-l="ru">Внутренние: Обзоры нескольких казино</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/casinos1-b-xx/index.html" target="_blank" rel="noopener" title="review/casinos1-b-xx/index.html">
+              <img class="desk" src="gallery/sections/criteria--list-d.png" alt="Scoring Criteria: list" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/criteria--list-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>list</b><a href="review/casinos1-b-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="trust" data-block="compare-table" data-types=" casinos casinos-one " data-share="many">
+        <header class="shead"><h3><span data-l="en">Comparison Table</span><span data-l="ru">Таблица сравнения</span></h3><span class="sshare many"><span data-l="en">Shared by 2 site types</span><span data-l="ru">Общая для 2 типов сайтов</span></span><span class="scount"><span data-l="en">1 of 1 designs</span><span data-l="ru">1 из 1 дизайна</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page multi-brand casino reviews</span><span data-l="ru">Главные: Обзоры нескольких казино (лендинг)</span></li><li><span data-l="en">Inner pages: Multi-brand casino reviews</span><span data-l="ru">Внутренние: Обзоры нескольких казино</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/casinos1-b-xx/index.html" target="_blank" rel="noopener" title="review/casinos1-b-xx/index.html">
+              <img class="desk" src="gallery/sections/compare-table--table-d.png" alt="Comparison Table: table" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/compare-table--table-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>table</b><a href="review/casinos1-b-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="trust" data-block="score-box" data-types=" casinos " data-share="one">
+        <header class="shead"><h3><span data-l="en">Score Breakdown</span><span data-l="ru">Разбор оценки</span></h3><span class="sshare"><span data-l="en">Only Multi-brand casino reviews</span><span data-l="ru">Только Обзоры нескольких казино</span></span><span class="scount"><span data-l="en">1 of 1 designs</span><span data-l="ru">1 из 1 дизайна</span></span></header>
+        <ul class="meta"><li><span data-l="en">Inner pages: Multi-brand casino reviews</span><span data-l="ru">Внутренние: Обзоры нескольких казино</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/casinos-a-br/analise-cobaltio.html" target="_blank" rel="noopener" title="review/casinos-a-br/analise-cobaltio.html">
+              <img class="desk" src="gallery/sections/score-box--rows-d.png" alt="Score Breakdown: rows" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/score-box--rows-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>rows</b><a href="review/casinos-a-br/analise-cobaltio.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="trust" data-block="pros-cons" data-types=" casinos " data-share="one">
+        <header class="shead"><h3><span data-l="en">Pros and Cons</span><span data-l="ru">Плюсы и минусы</span></h3><span class="sshare"><span data-l="en">Only Multi-brand casino reviews</span><span data-l="ru">Только Обзоры нескольких казино</span></span><span class="scount"><span data-l="en">1 of 1 designs</span><span data-l="ru">1 из 1 дизайна</span></span></header>
+        <ul class="meta"><li><span data-l="en">Inner pages: Multi-brand casino reviews</span><span data-l="ru">Внутренние: Обзоры нескольких казино</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/casinos-a-br/analise-cobaltio.html" target="_blank" rel="noopener" title="review/casinos-a-br/analise-cobaltio.html">
+              <img class="desk" src="gallery/sections/pros-cons--columns-d.png" alt="Pros and Cons: columns" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/pros-cons--columns-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>columns</b><a href="review/casinos-a-br/analise-cobaltio.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="trust" data-block="facts-table" data-types=" casinos " data-share="one">
+        <header class="shead"><h3><span data-l="en">Brand Facts</span><span data-l="ru">Факты о бренде</span></h3><span class="sshare"><span data-l="en">Only Multi-brand casino reviews</span><span data-l="ru">Только Обзоры нескольких казино</span></span><span class="scount"><span data-l="en">1 of 1 designs</span><span data-l="ru">1 из 1 дизайна</span></span></header>
+        <ul class="meta"><li><span data-l="en">Inner pages: Multi-brand casino reviews</span><span data-l="ru">Внутренние: Обзоры нескольких казино</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/casinos-a-br/analise-cobaltio.html" target="_blank" rel="noopener" title="review/casinos-a-br/analise-cobaltio.html">
+              <img class="desk" src="gallery/sections/facts-table--table-d.png" alt="Brand Facts: table" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/facts-table--table-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>table</b><a href="review/casinos-a-br/analise-cobaltio.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="trust" data-block="topic-scores" data-types=" reviews " data-share="one">
+        <header class="shead"><h3><span data-l="en">Topic Scores</span><span data-l="ru">Оценки по темам</span></h3><span class="sshare"><span data-l="en">Only Brand review site</span><span data-l="ru">Только Сайт отзывов о бренде</span></span><span class="scount"><span data-l="en">2 of 2 designs</span><span data-l="ru">2 из 2 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: Brand review site</span><span data-l="ru">Главные: Сайт отзывов о бренде</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/reviews-a-nyxa-kz/index.html" target="_blank" rel="noopener" title="review/reviews-a-nyxa-kz/index.html">
+              <img class="desk" src="gallery/sections/topic-scores--bars-d.png" alt="Topic Scores: bars" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/topic-scores--bars-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>bars</b><a href="review/reviews-a-nyxa-kz/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/reviews-b-marlowe-br/index.html" target="_blank" rel="noopener" title="review/reviews-b-marlowe-br/index.html">
+              <img class="desk" src="gallery/sections/topic-scores--grid-d.png" alt="Topic Scores: grid" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/topic-scores--grid-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>grid</b><a href="review/reviews-b-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="trust" data-block="editor-box" data-types=" reviews " data-share="one">
+        <header class="shead"><h3><span data-l="en">Editor Box</span><span data-l="ru">Блок редакции</span></h3><span class="sshare"><span data-l="en">Only Brand review site</span><span data-l="ru">Только Сайт отзывов о бренде</span></span><span class="scount"><span data-l="en">1 of 1 designs</span><span data-l="ru">1 из 1 дизайна</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: Brand review site</span><span data-l="ru">Главные: Сайт отзывов о бренде</span></li><li><span data-l="en">Inner pages: Brand review site</span><span data-l="ru">Внутренние: Сайт отзывов о бренде</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/reviews-a-nyxa-kz/index.html" target="_blank" rel="noopener" title="review/reviews-a-nyxa-kz/index.html">
+              <img class="desk" src="gallery/sections/editor-box--card-d.png" alt="Editor Box: card" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/editor-box--card-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>card</b><a href="review/reviews-a-nyxa-kz/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+    </section>
+    <section class="sgroup" id="s-product">
+      <header class="type-head"><span class="phase" data-gcount>13</span><div><h2><span data-l="en">Product</span><span data-l="ru">Продукт</span></h2></div></header>
+      
+      <article class="scard" data-group="product" data-block="features" data-types=" landing app vendor satellite app-multi " data-share="many">
+        <header class="shead"><h3><span data-l="en">Features</span><span data-l="ru">Возможности</span></h3><span class="sshare many"><span data-l="en">Shared by 5 site types</span><span data-l="ru">Общая для 5 типов сайтов</span></span><span class="scount"><span data-l="en">3 of 3 designs</span><span data-l="ru">3 из 3 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page app download, Multi-page app download, One-page branded landing, Multi-page brand satellite, One-page vendor overview</span><span data-l="ru">Главные: Страница приложения (лендинг), Многостраничный сайт приложения, Брендовый лендинг, Многостраничный сателлит бренда, Обзор провайдера (лендинг)</span></li><li><span data-l="en">Inner pages: Multi-page app download, Multi-page brand satellite</span><span data-l="ru">Внутренние: Многостраничный сайт приложения, Многостраничный сателлит бренда</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/app-c-marlowe-br/index.html" target="_blank" rel="noopener" title="review/app-c-marlowe-br/index.html">
+              <img class="desk" src="gallery/sections/features--bento-d.png" alt="Features: bento" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/features--bento-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>bento</b><a href="review/app-c-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/a-vantro-au/index.html" target="_blank" rel="noopener" title="review/a-vantro-au/index.html">
+              <img class="desk" src="gallery/sections/features--grid-d.png" alt="Features: grid" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/features--grid-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>grid</b><a href="review/a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/app-b-nyxa-kz/index.html" target="_blank" rel="noopener" title="review/app-b-nyxa-kz/index.html">
+              <img class="desk" src="gallery/sections/features--rows-d.png" alt="Features: rows" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/features--rows-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>rows</b><a href="review/app-b-nyxa-kz/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="product" data-block="showcase" data-types=" landing satellite " data-share="many">
+        <header class="shead"><h3><span data-l="en">Product Showcase</span><span data-l="ru">Витрина продукта</span></h3><span class="sshare many"><span data-l="en">Shared by 2 site types</span><span data-l="ru">Общая для 2 типов сайтов</span></span><span class="scount"><span data-l="en">2 of 2 designs</span><span data-l="ru">2 из 2 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page branded landing, Multi-page brand satellite</span><span data-l="ru">Главные: Брендовый лендинг, Многостраничный сателлит бренда</span></li><li><span data-l="en">Inner pages: Multi-page brand satellite</span><span data-l="ru">Внутренние: Многостраничный сателлит бренда</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/b-nyxa-xx/index.html" target="_blank" rel="noopener" title="review/b-nyxa-xx/index.html">
+              <img class="desk" src="gallery/sections/showcase--game-strip-d.png" alt="Product Showcase: game-strip" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/showcase--game-strip-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>game strip</b><a href="review/b-nyxa-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/a-vantro-au/index.html" target="_blank" rel="noopener" title="review/a-vantro-au/index.html">
+              <img class="desk" src="gallery/sections/showcase--odds-board-d.png" alt="Product Showcase: odds-board" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/showcase--odds-board-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>odds board</b><a href="review/a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="product" data-block="game-grid" data-types=" vendor " data-share="one">
+        <header class="shead"><h3><span data-l="en">Game Grid</span><span data-l="ru">Сетка игр</span></h3><span class="sshare"><span data-l="en">Only One-page vendor overview</span><span data-l="ru">Только Обзор провайдера (лендинг)</span></span><span class="scount"><span data-l="en">3 of 3 designs</span><span data-l="ru">3 из 3 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page vendor overview</span><span data-l="ru">Главные: Обзор провайдера (лендинг)</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/vendor-a-marlowe-br/index.html" target="_blank" rel="noopener" title="review/vendor-a-marlowe-br/index.html">
+              <img class="desk" src="gallery/sections/game-grid--grid-d.png" alt="Game Grid: grid" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/game-grid--grid-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>grid</b><a href="review/vendor-a-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/vendor-a-marlowe-br/index.html" target="_blank" rel="noopener" title="review/vendor-a-marlowe-br/index.html">
+              <img class="desk" src="gallery/sections/game-grid--strip-d.png" alt="Game Grid: strip" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/game-grid--strip-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>strip</b><a href="review/vendor-a-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/vendor-b-nyxa-xx/index.html" target="_blank" rel="noopener" title="review/vendor-b-nyxa-xx/index.html">
+              <img class="desk" src="gallery/sections/game-grid--table-d.png" alt="Game Grid: table" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/game-grid--table-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>table</b><a href="review/vendor-b-nyxa-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="product" data-block="rtp-explainer" data-types=" vendor " data-share="one">
+        <header class="shead"><h3><span data-l="en">RTP &amp; Volatility Explainer</span><span data-l="ru">Пояснение RTP</span></h3><span class="sshare"><span data-l="en">Only One-page vendor overview</span><span data-l="ru">Только Обзор провайдера (лендинг)</span></span><span class="scount"><span data-l="en">2 of 2 designs</span><span data-l="ru">2 из 2 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page vendor overview</span><span data-l="ru">Главные: Обзор провайдера (лендинг)</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/vendor-b-nyxa-xx/index.html" target="_blank" rel="noopener" title="review/vendor-b-nyxa-xx/index.html">
+              <img class="desk" src="gallery/sections/rtp-explainer--card-d.png" alt="RTP &amp; Volatility Explainer: card" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/rtp-explainer--card-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>card</b><a href="review/vendor-b-nyxa-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/vendor-a-marlowe-br/index.html" target="_blank" rel="noopener" title="review/vendor-a-marlowe-br/index.html">
+              <img class="desk" src="gallery/sections/rtp-explainer--inline-d.png" alt="RTP &amp; Volatility Explainer: inline" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/rtp-explainer--inline-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>inline</b><a href="review/vendor-a-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="product" data-block="provider-links" data-types=" vendor " data-share="one">
+        <header class="shead"><h3><span data-l="en">More Providers</span><span data-l="ru">Другие провайдеры</span></h3><span class="sshare"><span data-l="en">Only One-page vendor overview</span><span data-l="ru">Только Обзор провайдера (лендинг)</span></span><span class="scount"><span data-l="en">2 of 2 designs</span><span data-l="ru">2 из 2 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page vendor overview</span><span data-l="ru">Главные: Обзор провайдера (лендинг)</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/vendor-a-marlowe-br/index.html" target="_blank" rel="noopener" title="review/vendor-a-marlowe-br/index.html">
+              <img class="desk" src="gallery/sections/provider-links--chips-d.png" alt="More Providers: chips" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/provider-links--chips-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>chips</b><a href="review/vendor-a-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/vendor-c-marlowe-xx/index.html" target="_blank" rel="noopener" title="review/vendor-c-marlowe-xx/index.html">
+              <img class="desk" src="gallery/sections/provider-links--logos-text-d.png" alt="More Providers: logos-text" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/provider-links--logos-text-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>logos text</b><a href="review/vendor-c-marlowe-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="product" data-block="screenshots" data-types=" app app-multi " data-share="many">
+        <header class="shead"><h3><span data-l="en">App Screenshots</span><span data-l="ru">Скриншоты</span></h3><span class="sshare many"><span data-l="en">Shared by 2 site types</span><span data-l="ru">Общая для 2 типов сайтов</span></span><span class="scount"><span data-l="en">3 of 3 designs</span><span data-l="ru">3 из 3 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page app download, Multi-page app download</span><span data-l="ru">Главные: Страница приложения (лендинг), Многостраничный сайт приложения</span></li><li><span data-l="en">Inner pages: Multi-page app download</span><span data-l="ru">Внутренние: Многостраничный сайт приложения</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/app-a-vantro-au/index.html" target="_blank" rel="noopener" title="review/app-a-vantro-au/index.html">
+              <img class="desk" src="gallery/sections/screenshots--carousel-d.png" alt="App Screenshots: carousel" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/screenshots--carousel-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>carousel</b><a href="review/app-a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/app-b-nyxa-kz/index.html" target="_blank" rel="noopener" title="review/app-b-nyxa-kz/index.html">
+              <img class="desk" src="gallery/sections/screenshots--fan-d.png" alt="App Screenshots: fan" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/screenshots--fan-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>fan</b><a href="review/app-b-nyxa-kz/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/app-c-marlowe-br/index.html" target="_blank" rel="noopener" title="review/app-c-marlowe-br/index.html">
+              <img class="desk" src="gallery/sections/screenshots--grid-d.png" alt="App Screenshots: grid" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/screenshots--grid-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>grid</b><a href="review/app-c-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="product" data-block="app-info" data-types=" app app-multi " data-share="many">
+        <header class="shead"><h3><span data-l="en">App Information</span><span data-l="ru">Информация о приложении</span></h3><span class="sshare many"><span data-l="en">Shared by 2 site types</span><span data-l="ru">Общая для 2 типов сайтов</span></span><span class="scount"><span data-l="en">2 of 2 designs</span><span data-l="ru">2 из 2 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page app download, Multi-page app download</span><span data-l="ru">Главные: Страница приложения (лендинг), Многостраничный сайт приложения</span></li><li><span data-l="en">Inner pages: Multi-page app download</span><span data-l="ru">Внутренние: Многостраничный сайт приложения</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/app-c-marlowe-br/index.html" target="_blank" rel="noopener" title="review/app-c-marlowe-br/index.html">
+              <img class="desk" src="gallery/sections/app-info--chips-d.png" alt="App Information: chips" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/app-info--chips-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>chips</b><a href="review/app-c-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/app-a-vantro-au/index.html" target="_blank" rel="noopener" title="review/app-a-vantro-au/index.html">
+              <img class="desk" src="gallery/sections/app-info--table-d.png" alt="App Information: table" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/app-info--table-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>table</b><a href="review/app-a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="product" data-block="changelog" data-types=" app app-multi " data-share="many">
+        <header class="shead"><h3><span data-l="en">What&#x27;s New</span><span data-l="ru">Что нового</span></h3><span class="sshare many"><span data-l="en">Shared by 2 site types</span><span data-l="ru">Общая для 2 типов сайтов</span></span><span class="scount"><span data-l="en">1 of 1 designs</span><span data-l="ru">1 из 1 дизайна</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page app download, Multi-page app download</span><span data-l="ru">Главные: Страница приложения (лендинг), Многостраничный сайт приложения</span></li><li><span data-l="en">Inner pages: Multi-page app download</span><span data-l="ru">Внутренние: Многостраничный сайт приложения</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/app-a-vantro-au/index.html" target="_blank" rel="noopener" title="review/app-a-vantro-au/index.html">
+              <img class="desk" src="gallery/sections/changelog--list-d.png" alt="What&#x27;s New: list" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/changelog--list-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>list</b><a href="review/app-a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="product" data-block="install-guide" data-types=" app app-multi " data-share="many">
+        <header class="shead"><h3><span data-l="en">Install Guide</span><span data-l="ru">Инструкция по установке</span></h3><span class="sshare many"><span data-l="en">Shared by 2 site types</span><span data-l="ru">Общая для 2 типов сайтов</span></span><span class="scount"><span data-l="en">2 of 2 designs</span><span data-l="ru">2 из 2 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page app download, Multi-page app download</span><span data-l="ru">Главные: Страница приложения (лендинг), Многостраничный сайт приложения</span></li><li><span data-l="en">Inner pages: Multi-page app download</span><span data-l="ru">Внутренние: Многостраничный сайт приложения</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/app-b-nyxa-kz/index.html" target="_blank" rel="noopener" title="review/app-b-nyxa-kz/index.html">
+              <img class="desk" src="gallery/sections/install-guide--side-by-side-d.png" alt="Install Guide: side-by-side" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/install-guide--side-by-side-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>side by side</b><a href="review/app-b-nyxa-kz/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/app-c-marlowe-br/index.html" target="_blank" rel="noopener" title="review/app-c-marlowe-br/index.html">
+              <img class="desk" src="gallery/sections/install-guide--tabs-d.png" alt="Install Guide: tabs" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/install-guide--tabs-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>tabs</b><a href="review/app-c-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="product" data-block="payments" data-types=" landing satellite " data-share="many">
+        <header class="shead"><h3><span data-l="en">Payments</span><span data-l="ru">Платежи</span></h3><span class="sshare many"><span data-l="en">Shared by 2 site types</span><span data-l="ru">Общая для 2 типов сайтов</span></span><span class="scount"><span data-l="en">2 of 2 designs</span><span data-l="ru">2 из 2 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page branded landing</span><span data-l="ru">Главные: Брендовый лендинг</span></li><li><span data-l="en">Inner pages: Multi-page brand satellite</span><span data-l="ru">Внутренние: Многостраничный сателлит бренда</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/b-nyxa-xx/index.html" target="_blank" rel="noopener" title="review/b-nyxa-xx/index.html">
+              <img class="desk" src="gallery/sections/payments--table-d.png" alt="Payments: table" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/payments--table-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>table</b><a href="review/b-nyxa-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/sat-b-nyxa-xx/both-full-hub-payments.html" target="_blank" rel="noopener" title="review/sat-b-nyxa-xx/both-full-hub-payments.html">
+              <img class="desk" src="gallery/sections/payments--tiles-d.png" alt="Payments: tiles" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/payments--tiles-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>tiles</b><a href="review/sat-b-nyxa-xx/both-full-hub-payments.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="product" data-block="store-about" data-types=" app app-multi " data-share="many">
+        <header class="shead"><h3><span data-l="en">Store About</span><span data-l="ru">Описание (магазин)</span></h3><span class="sshare many"><span data-l="en">Shared by 2 site types</span><span data-l="ru">Общая для 2 типов сайтов</span></span><span class="scount"><span data-l="en">2 of 2 designs</span><span data-l="ru">2 из 2 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page app download, Multi-page app download</span><span data-l="ru">Главные: Страница приложения (лендинг), Многостраничный сайт приложения</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/app-b-nyxa-kz/android-brand-appstore.html" target="_blank" rel="noopener" title="review/app-b-nyxa-kz/android-brand-appstore.html">
+              <img class="desk" src="gallery/sections/store-about--appstore-d.png" alt="Store About: appstore" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/store-about--appstore-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>appstore</b><a href="review/app-b-nyxa-kz/android-brand-appstore.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/app-b-nyxa-kz/android-brand-play.html" target="_blank" rel="noopener" title="review/app-b-nyxa-kz/android-brand-play.html">
+              <img class="desk" src="gallery/sections/store-about--play-d.png" alt="Store About: play" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/store-about--play-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>play</b><a href="review/app-b-nyxa-kz/android-brand-play.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="product" data-block="store-reviews" data-types=" app app-multi " data-share="many">
+        <header class="shead"><h3><span data-l="en">Store Reviews</span><span data-l="ru">Отзывы (магазин)</span></h3><span class="sshare many"><span data-l="en">Shared by 2 site types</span><span data-l="ru">Общая для 2 типов сайтов</span></span><span class="scount"><span data-l="en">2 of 2 designs</span><span data-l="ru">2 из 2 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page app download, Multi-page app download</span><span data-l="ru">Главные: Страница приложения (лендинг), Многостраничный сайт приложения</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/app-b-nyxa-kz/android-brand-appstore.html" target="_blank" rel="noopener" title="review/app-b-nyxa-kz/android-brand-appstore.html">
+              <img class="desk" src="gallery/sections/store-reviews--appstore-d.png" alt="Store Reviews: appstore" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/store-reviews--appstore-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>appstore</b><a href="review/app-b-nyxa-kz/android-brand-appstore.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/app-b-nyxa-kz/android-brand-play.html" target="_blank" rel="noopener" title="review/app-b-nyxa-kz/android-brand-play.html">
+              <img class="desk" src="gallery/sections/store-reviews--play-d.png" alt="Store Reviews: play" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/store-reviews--play-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>play</b><a href="review/app-b-nyxa-kz/android-brand-play.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="product" data-block="app-privacy" data-types=" app app-multi " data-share="many">
+        <header class="shead"><h3><span data-l="en">App Privacy</span><span data-l="ru">Конфиденциальность</span></h3><span class="sshare many"><span data-l="en">Shared by 2 site types</span><span data-l="ru">Общая для 2 типов сайтов</span></span><span class="scount"><span data-l="en">2 of 2 designs</span><span data-l="ru">2 из 2 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page app download, Multi-page app download</span><span data-l="ru">Главные: Страница приложения (лендинг), Многостраничный сайт приложения</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/app-b-nyxa-kz/android-brand-appstore.html" target="_blank" rel="noopener" title="review/app-b-nyxa-kz/android-brand-appstore.html">
+              <img class="desk" src="gallery/sections/app-privacy--appstore-d.png" alt="App Privacy: appstore" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/app-privacy--appstore-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>appstore</b><a href="review/app-b-nyxa-kz/android-brand-appstore.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/app-b-nyxa-kz/android-brand-play.html" target="_blank" rel="noopener" title="review/app-b-nyxa-kz/android-brand-play.html">
+              <img class="desk" src="gallery/sections/app-privacy--play-d.png" alt="App Privacy: play" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/app-privacy--play-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>play</b><a href="review/app-b-nyxa-kz/android-brand-play.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+    </section>
+    <section class="sgroup" id="s-guidance">
+      <header class="type-head"><span class="phase" data-gcount>03</span><div><h2><span data-l="en">Guidance</span><span data-l="ru">Помощь</span></h2></div></header>
+      
+      <article class="scard" data-group="guidance" data-block="steps" data-types=" landing promo satellite app-multi reviews " data-share="many">
+        <header class="shead"><h3><span data-l="en">How To Start</span><span data-l="ru">Как начать</span></h3><span class="sshare many"><span data-l="en">Shared by 5 site types</span><span data-l="ru">Общая для 5 типов сайтов</span></span><span class="scount"><span data-l="en">2 of 2 designs</span><span data-l="ru">2 из 2 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page branded landing, One-page bonuses and promo codes, Multi-page brand satellite</span><span data-l="ru">Главные: Брендовый лендинг, Бонусы и промокоды (лендинг), Многостраничный сателлит бренда</span></li><li><span data-l="en">Inner pages: Multi-page app download, Brand review site, Multi-page brand satellite</span><span data-l="ru">Внутренние: Многостраничный сайт приложения, Сайт отзывов о бренде, Многостраничный сателлит бренда</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/a-vantro-au/index.html" target="_blank" rel="noopener" title="review/a-vantro-au/index.html">
+              <img class="desk" src="gallery/sections/steps--row-d.png" alt="How To Start: row" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/steps--row-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>row</b><a href="review/a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/b-nyxa-xx/index.html" target="_blank" rel="noopener" title="review/b-nyxa-xx/index.html">
+              <img class="desk" src="gallery/sections/steps--timeline-d.png" alt="How To Start: timeline" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/steps--timeline-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>timeline</b><a href="review/b-nyxa-xx/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="guidance" data-block="faq" data-types=" landing app promo vendor satellite app-multi reviews casinos casinos-one " data-share="many">
+        <header class="shead"><h3><span data-l="en">FAQ</span><span data-l="ru">Вопросы и ответы</span></h3><span class="sshare many"><span data-l="en">Shared by 9 site types</span><span data-l="ru">Общая для 9 типов сайтов</span></span><span class="scount"><span data-l="en">2 of 2 designs</span><span data-l="ru">2 из 2 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: One-page app download, Multi-page app download, Multi-brand casino reviews, One-page multi-brand casino reviews, One-page branded landing, One-page bonuses and promo codes, Brand review site, Multi-page brand satellite, One-page vendor overview</span><span data-l="ru">Главные: Страница приложения (лендинг), Многостраничный сайт приложения, Обзоры нескольких казино, Обзоры нескольких казино (лендинг), Брендовый лендинг, Бонусы и промокоды (лендинг), Сайт отзывов о бренде, Многостраничный сателлит бренда, Обзор провайдера (лендинг)</span></li><li><span data-l="en">Inner pages: Multi-page app download, Multi-page brand satellite</span><span data-l="ru">Внутренние: Многостраничный сайт приложения, Многостраничный сателлит бренда</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/a-vantro-au/index.html" target="_blank" rel="noopener" title="review/a-vantro-au/index.html">
+              <img class="desk" src="gallery/sections/faq--accordion-d.png" alt="FAQ: accordion" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/faq--accordion-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>accordion</b><a href="review/a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/app-b-nyxa-kz/index.html" target="_blank" rel="noopener" title="review/app-b-nyxa-kz/index.html">
+              <img class="desk" src="gallery/sections/faq--columns-d.png" alt="FAQ: columns" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/faq--columns-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>columns</b><a href="review/app-b-nyxa-kz/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="guidance" data-block="prose" data-types=" satellite app-multi reviews casinos news casinos-one " data-share="many">
+        <header class="shead"><h3><span data-l="en">Prose (page text)</span><span data-l="ru">Текст страницы</span></h3><span class="sshare many"><span data-l="en">Shared by 6 site types</span><span data-l="ru">Общая для 6 типов сайтов</span></span><span class="scount"><span data-l="en">2 of 2 designs</span><span data-l="ru">2 из 2 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: Multi-brand casino reviews, One-page multi-brand casino reviews</span><span data-l="ru">Главные: Обзоры нескольких казино, Обзоры нескольких казино (лендинг)</span></li><li><span data-l="en">Inner pages: Multi-page app download, Multi-brand casino reviews, Gambling news with PR, Brand review site, Multi-page brand satellite</span><span data-l="ru">Внутренние: Многостраничный сайт приложения, Обзоры нескольких казино, Новости гемблинга и PR-статьи, Сайт отзывов о бренде, Многостраничный сателлит бренда</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/appm-a-vantro-au/help.html" target="_blank" rel="noopener" title="review/appm-a-vantro-au/help.html">
+              <img class="desk" src="gallery/sections/prose--article-d.png" alt="Prose (page text): article" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/prose--article-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>article</b><a href="review/appm-a-vantro-au/help.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/appm-a-vantro-au/features.html" target="_blank" rel="noopener" title="review/appm-a-vantro-au/features.html">
+              <img class="desk" src="gallery/sections/prose--toc-side-d.png" alt="Prose (page text): toc-side" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/prose--toc-side-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>toc side</b><a href="review/appm-a-vantro-au/features.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+    </section>
+    <section class="sgroup" id="s-lists">
+      <header class="type-head"><span class="phase" data-gcount>03</span><div><h2><span data-l="en">Lists and navigation</span><span data-l="ru">Списки и навигация</span></h2></div></header>
+      
+      <article class="scard" data-group="lists" data-block="page-links" data-types=" satellite app-multi reviews casinos news " data-share="many">
+        <header class="shead"><h3><span data-l="en">Page Links</span><span data-l="ru">Ссылки на страницы</span></h3><span class="sshare many"><span data-l="en">Shared by 5 site types</span><span data-l="ru">Общая для 5 типов сайтов</span></span><span class="scount"><span data-l="en">2 of 2 designs</span><span data-l="ru">2 из 2 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: Multi-page app download, Multi-brand casino reviews, Brand review site, Multi-page brand satellite</span><span data-l="ru">Главные: Многостраничный сайт приложения, Обзоры нескольких казино, Сайт отзывов о бренде, Многостраничный сателлит бренда</span></li><li><span data-l="en">Inner pages: Multi-page app download, Multi-brand casino reviews, Gambling news with PR, Brand review site, Multi-page brand satellite</span><span data-l="ru">Внутренние: Многостраничный сайт приложения, Обзоры нескольких казино, Новости гемблинга и PR-статьи, Сайт отзывов о бренде, Многостраничный сателлит бренда</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/casinos-a-br/index.html" target="_blank" rel="noopener" title="review/casinos-a-br/index.html">
+              <img class="desk" src="gallery/sections/page-links--cards-d.png" alt="Page Links: cards" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/page-links--cards-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>cards</b><a href="review/casinos-a-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/appm-a-vantro-au/index.html" target="_blank" rel="noopener" title="review/appm-a-vantro-au/index.html">
+              <img class="desk" src="gallery/sections/page-links--list-d.png" alt="Page Links: list" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/page-links--list-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>list</b><a href="review/appm-a-vantro-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="lists" data-block="review-list" data-types=" reviews " data-share="one">
+        <header class="shead"><h3><span data-l="en">Review List</span><span data-l="ru">Список отзывов</span></h3><span class="sshare"><span data-l="en">Only Brand review site</span><span data-l="ru">Только Сайт отзывов о бренде</span></span><span class="scount"><span data-l="en">3 of 3 designs</span><span data-l="ru">3 из 3 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: Brand review site</span><span data-l="ru">Главные: Сайт отзывов о бренде</span></li><li><span data-l="en">Inner pages: Brand review site</span><span data-l="ru">Внутренние: Сайт отзывов о бренде</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/reviews-a-nyxa-kz/index.html" target="_blank" rel="noopener" title="review/reviews-a-nyxa-kz/index.html">
+              <img class="desk" src="gallery/sections/review-list--cards-d.png" alt="Review List: cards" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/review-list--cards-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>cards</b><a href="review/reviews-a-nyxa-kz/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/reviews-b-marlowe-br/index.html" target="_blank" rel="noopener" title="review/reviews-b-marlowe-br/index.html">
+              <img class="desk" src="gallery/sections/review-list--compact-d.png" alt="Review List: compact" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/review-list--compact-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>compact</b><a href="review/reviews-b-marlowe-br/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/reviews-a-nyxa-kz/off-verified-index.html" target="_blank" rel="noopener" title="review/reviews-a-nyxa-kz/off-verified-index.html">
+              <img class="desk" src="gallery/sections/review-list--verified-d.png" alt="Review List: verified" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/review-list--verified-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>verified</b><a href="review/reviews-a-nyxa-kz/off-verified-index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="lists" data-block="review-form" data-types=" reviews " data-share="one">
+        <header class="shead"><h3><span data-l="en">Review Form</span><span data-l="ru">Форма отзыва</span></h3><span class="sshare"><span data-l="en">Only Brand review site</span><span data-l="ru">Только Сайт отзывов о бренде</span></span><span class="scount"><span data-l="en">1 of 1 designs</span><span data-l="ru">1 из 1 дизайна</span></span></header>
+        <ul class="meta"><li><span data-l="en">Inner pages: Brand review site</span><span data-l="ru">Внутренние: Сайт отзывов о бренде</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/reviews-a-nyxa-kz/off-compact-write-a-review.html" target="_blank" rel="noopener" title="review/reviews-a-nyxa-kz/off-compact-write-a-review.html">
+              <img class="desk" src="gallery/sections/review-form--card-d.png" alt="Review Form: card" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/review-form--card-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>card</b><a href="review/reviews-a-nyxa-kz/off-compact-write-a-review.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+    </section>
+    <section class="sgroup" id="s-articles">
+      <header class="type-head"><span class="phase" data-gcount>02</span><div><h2><span data-l="en">Articles</span><span data-l="ru">Статьи</span></h2></div></header>
+      
+      <article class="scard" data-group="articles" data-block="article-body" data-types=" news " data-share="one">
+        <header class="shead"><h3><span data-l="en">Article</span><span data-l="ru">Статья</span></h3><span class="sshare"><span data-l="en">Only Gambling news with PR</span><span data-l="ru">Только Новости гемблинга и PR-статьи</span></span><span class="scount"><span data-l="en">3 of 4 designs</span><span data-l="ru">3 из 4 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Inner pages: Gambling news with PR</span><span data-l="ru">Внутренние: Новости гемблинга и PR-статьи</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="generated/j42-news-04/guides-boostwin-limity-i-pauza.html" target="_blank" rel="noopener" title="generated/j42-news-04/guides-boostwin-limity-i-pauza.html">
+              <img class="desk" src="gallery/sections/article-body--banner-d.png" alt="Article: banner" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/article-body--banner-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>banner</b><a href="generated/j42-news-04/guides-boostwin-limity-i-pauza.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/news-a-au/guides-activity-statements.html" target="_blank" rel="noopener" title="review/news-a-au/guides-activity-statements.html">
+              <img class="desk" src="gallery/sections/article-body--standard-d.png" alt="Article: standard" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/article-body--standard-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>standard</b><a href="review/news-a-au/guides-activity-statements.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="generated/j42-news-05/guides-kak-chitat-koefficienty.html" target="_blank" rel="noopener" title="generated/j42-news-05/guides-kak-chitat-koefficienty.html">
+              <img class="desk" src="gallery/sections/article-body--toc-side-d.png" alt="Article: toc-side" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/article-body--toc-side-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>toc side</b><a href="generated/j42-news-05/guides-kak-chitat-koefficienty.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="scard" data-group="articles" data-block="article-list" data-types=" news " data-share="one">
+        <header class="shead"><h3><span data-l="en">Article List</span><span data-l="ru">Список статей</span></h3><span class="sshare"><span data-l="en">Only Gambling news with PR</span><span data-l="ru">Только Новости гемблинга и PR-статьи</span></span><span class="scount"><span data-l="en">3 of 3 designs</span><span data-l="ru">3 из 3 дизайнов</span></span></header>
+        <ul class="meta"><li><span data-l="en">Home: Gambling news with PR</span><span data-l="ru">Главные: Новости гемблинга и PR-статьи</span></li><li><span data-l="en">Inner pages: Gambling news with PR</span><span data-l="ru">Внутренние: Новости гемблинга и PR-статьи</span></li></ul>
+        <div class="dgrid">
+          <figure class="dtile">
+            <a class="shots" href="review/news-a-au/index.html" target="_blank" rel="noopener" title="review/news-a-au/index.html">
+              <img class="desk" src="gallery/sections/article-list--cards-d.png" alt="Article List: cards" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/article-list--cards-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>cards</b><a href="review/news-a-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/news-a-au/index.html" target="_blank" rel="noopener" title="review/news-a-au/index.html">
+              <img class="desk" src="gallery/sections/article-list--list-d.png" alt="Article List: list" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/article-list--list-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>list</b><a href="review/news-a-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+          <figure class="dtile">
+            <a class="shots" href="review/news-a-au/index.html" target="_blank" rel="noopener" title="review/news-a-au/index.html">
+              <img class="desk" src="gallery/sections/article-list--rail-d.png" alt="Article List: rail" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="gallery/sections/article-list--rail-m.png" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>rail</b><a href="review/news-a-au/index.html" target="_blank" rel="noopener"><span data-l="en">Open page</span><span data-l="ru">Открыть страницу</span> ↗</a></figcaption>
+          </figure>
+        </div>
+      </article>
+    </section>
+  </div>
+  <footer><p><span data-l="en">Screenshots and review links show the current builds as of 7 Nov 2026.</span><span data-l="ru">Скриншоты и ссылки показывают текущие сборки на 7 ноября 2026 года.</span></p></footer>
 </div>
 
 <script>
@@ -538,9 +1617,11 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
   function setLang(l, save) {
     docEl.setAttribute('data-lang', l);
     docEl.lang = l;
-    document.title = l === 'ru' ? 'Галерея Satellite System' : 'Satellite System Gallery';
+    document.title = l === 'ru' ? 'Галерея WebNets' : 'WebNets Gallery';
     document.querySelectorAll('img[data-alt-en]').forEach(function (img) { img.alt = img.getAttribute('data-alt-' + l); });
     document.querySelectorAll('[data-set-lang]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.setLang === l)); });
+    document.querySelectorAll('option[data-en]').forEach(function (o) { o.textContent = o.getAttribute('data-' + l); });
+    if (window.sxgCount) window.sxgCount();
     if (save) keep('sxg-lang', l);
   }
   var hashLang = (location.hash.match(/^#(ru|en)$/) || [])[1];
@@ -558,7 +1639,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
   document.querySelectorAll('[data-set-theme]').forEach(function (b) { b.addEventListener('click', function () { setTheme(b.dataset.setTheme, true); }); });
 
   var state = { type: null, market: null };
-  var chips = document.querySelectorAll('.chip');
+  var chips = document.querySelectorAll('.chip[data-filter]');
   var cards = document.querySelectorAll('.card');
   var sections = document.querySelectorAll('.type');
   var clear = document.getElementById('clear');
@@ -582,7 +1663,60 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
     });
   });
   function reset() { state = { type: null, market: null }; apply(); }
+  var filters = document.querySelector('.filters'), siteview = document.getElementById('siteview'), secview = document.getElementById('secview');
+  function setView(v, save) {
+    if (!secview) return;
+    var sec = v === 'sections';
+    secview.hidden = !sec; siteview.hidden = sec; filters.hidden = sec; none.hidden = true;
+    document.querySelectorAll('[data-view]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.view === v)); });
+    if (save) keep('sxg-view', v);
+    if (!sec) apply();
+  }
+  document.querySelectorAll('[data-view]').forEach(function (b) { b.addEventListener('click', function () { setView(b.dataset.view, true); }); });
+  setView(/^#(sections|s-)/.test(location.hash) ? 'sections' : (load('sxg-view') || 'sites'), false);
   clear.addEventListener('click', reset);
+  // "By section" filters: site type, section type (group), one section, shared or one type only
+  var sst = { type: null, group: null, share: null, block: '' }, sel = document.getElementById('sblock');
+  function fits(c, skipBlock) {
+    return (!sst.type || c.dataset.types.indexOf(' ' + sst.type + ' ') >= 0) && (!sst.group || c.dataset.group === sst.group)
+      && (!sst.share || c.dataset.share === sst.share) && (skipBlock || !sst.block || c.dataset.block === sst.block);
+  }
+  function sapply() {
+    var shown = 0, designs = 0;
+    document.querySelectorAll('.scard').forEach(function (c) {
+      var ok = fits(c, false);
+      c.hidden = !ok; if (ok) { shown++; designs += c.querySelectorAll('.dtile').length; }
+    });
+    document.querySelectorAll('.sgroup').forEach(function (g) {
+      var n = g.querySelectorAll('.scard:not([hidden])').length;
+      g.hidden = !n; g.querySelector('[data-gcount]').textContent = (n < 10 ? '0' : '') + n;
+    });
+    Array.prototype.forEach.call(sel.options, function (o) {
+      if (o.value) o.hidden = !fits(document.querySelector('.scard[data-block="' + o.value + '"]'), true);
+    });
+    document.querySelectorAll('[data-sfilter]').forEach(function (b) { b.setAttribute('aria-pressed', String(sst[b.dataset.sfilter] === b.dataset.value)); });
+    document.getElementById('snone').hidden = shown > 0;
+    document.getElementById('sclear').hidden = !sst.type && !sst.group && !sst.share && !sst.block;
+    window.sxgShown = [shown, designs]; window.sxgCount();
+  }
+  window.sxgCount = function () {
+    var s = window.sxgShown, el = document.getElementById('sshown');
+    if (!s || !el) return;
+    el.textContent = docEl.lang === 'ru' ? 'Секций: ' + s[0] + ', дизайнов: ' + s[1] : s[0] + ' sections, ' + s[1] + ' designs';
+  };
+  if (sel) {
+    document.querySelectorAll('[data-sfilter]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var k = b.dataset.sfilter;
+        sst[k] = sst[k] === b.dataset.value ? null : b.dataset.value;
+        if (sst.block && !fits(document.querySelector('.scard[data-block="' + sst.block + '"]'), true)) { sst.block = ''; sel.value = ''; }
+        sapply();
+      });
+    });
+    sel.addEventListener('change', function () { sst.block = sel.value; sapply(); });
+    document.getElementById('sclear').addEventListener('click', function () { sst = { type: null, group: null, share: null, block: '' }; sel.value = ''; sapply(); });
+    sapply();
+  }
   document.getElementById('clear2').addEventListener('click', reset);
 })();
 </script>

@@ -1,0 +1,17 @@
+/* magazine: a large centred title, the author as a chip with initials, a wide picture, a narrow text column, related as a list */
+.sx-article--magazine .sx-article__inner { justify-items: center; }
+.sx-article--magazine .sx-article__inner > * { max-width: 660px; }
+.sx-article--magazine .sx-article__head { max-width: 860px; justify-items: center; text-align: center; }
+.sx-article--magazine .sx-article__kicker { justify-content: center; }
+.sx-article--magazine .sx-article__title { font-size: calc(var(--fs-5) * 1.12); letter-spacing: -.02em; }
+.sx-article--magazine .sx-article__byline { display: inline-flex; align-items: center; gap: var(--sp-2); padding: 6px 14px 6px 6px; border: var(--bw) solid var(--c-border); border-radius: 999px; }
+.sx-article__avatar { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--c-accent); color: var(--c-on-accent); font-size: .75rem; font-weight: var(--fw-strong); }
+.sx-article--magazine .sx-article__hero { max-width: 1000px; }
+.sx-article--magazine .sx-article__body { font-size: 1.1rem; line-height: 1.75; }
+.sx-article--magazine .sx-article__related { border-block-start-width: 1px; }
+.sx-article--magazine .sx-article__related ul { gap: 0; }
+.sx-article--magazine .sx-article__related li + li { border-block-start: 1px solid var(--c-border); }
+@media (max-width: 640px) {
+  .sx-article--magazine .sx-article__title { font-size: var(--fs-4); }
+  .sx-article--magazine .sx-article__byline { border-radius: var(--r); text-align: start; }
+}

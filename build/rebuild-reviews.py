@@ -6,7 +6,7 @@ import glob, json, os, re, subprocess, sys, html, time
 
 root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(root)
-ONE_PAGE = {'landing', 'app', 'promo', 'vendor'}
+ONE_PAGE = {'landing', 'app', 'promo', 'vendor', 'casinos-one'}
 php = os.environ.get('PHP', 'php')
 if os.environ.get('SX_SRC') and os.path.isfile('build/docker-sync.sh'):
     subprocess.run(['sh', 'build/docker-sync.sh'], check=True)  # Docker: pick up code edited on the host
@@ -39,6 +39,9 @@ for i, d in enumerate(demos, 1):
         failed.append(d)
     print(f'[{i}/{len(demos)}] {d}: ' + ('ok' if ok else 'FAILED ' + r.stderr.strip()[-300:]), flush=True)
 
+if not want and os.environ.get('SX_SKIP_SECTIONS') != '1':  # the gallery's "By section" pictures (needs Chromium)
+    r = subprocess.run([sys.executable, 'build/sections.py'], capture_output=True, text=True, encoding='utf-8')
+    print('sections: ' + ((r.stdout.strip().splitlines() or [r.stderr.strip()[-200:]])[-1]), flush=True)
 r = subprocess.run([sys.executable, 'build/gallery.py', '--local'], capture_output=True, text=True, encoding='utf-8')
 print('local gallery: ' + (r.stdout.strip().splitlines() or ['?'])[-1], flush=True)
 print(f'DONE in {time.time() - start:.0f}s' + (f', failed: {", ".join(failed)}' if failed else ''), flush=True)

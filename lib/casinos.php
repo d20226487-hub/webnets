@@ -26,11 +26,11 @@ function sx_casino(string $id): array
     }
     $root = SX::$ctx['root'];
     $m = SX::$ctx['market']['id'];
-    $ops = SX::$once['operators'] ??= sx_json("$root/brands/operators.json");
-    $facts = SX::$once['facts'] ??= (is_file("$root/brands/facts/$m.json") ? sx_json("$root/brands/facts/$m.json")['brands'] : []);
-    $rf = "$root/brands/ratings/$m." . (SX::$ctx['locale'] ?? '') . '.json'; // editorial text in the site's language, when the market has several
-    $rf = is_file($rf) ? $rf : "$root/brands/ratings/$m.json";
-    $ratings = SX::$once['ratings'] ??= (is_file($rf) ? sx_json($rf)['brands'] : []);
+    $ops = SX::$once['operators'] ??= sx_brand_data($root, 'operators.json');
+    $facts = SX::$once['facts'] ??= (sx_brand_data($root, "facts/$m.json")['brands'] ?? []);
+    $rf = "ratings/$m." . (SX::$ctx['locale'] ?? '') . '.json'; // editorial text in the site's language, when the market has several
+    $rf = is_file(sx_brand_file($root, $rf)) ? $rf : "ratings/$m.json";
+    $ratings = SX::$once['ratings'] ??= (sx_brand_data($root, $rf)['brands'] ?? []);
     $r = $ratings[$id] ?? null;
     // Per-product review text (summary, verdict, pros, cons): a hybrid brand reviewed as a sportsbook reads differently.
     if ($r && ($p = SX::$ctx['product'] ?? null) && isset($r['products'][$p])) {
@@ -107,7 +107,7 @@ function sx_casinos_gate(array $verticals = []): void
     $ids = sx_casino_ids();
     $m = SX::$ctx['market'];
     if (count($ids) < 3) {
-        throw new RuntimeException('A comparison site needs at least 3 brands ("brands" in the site config).');
+        sx_legal_block('A comparison site needs at least 3 brands ("brands" in the site config).');
     }
     $suffix = $m['compliance']['brand_domain_suffix'] ?? null;
     $today = strtotime(SX::$ctx['today']);
@@ -118,18 +118,18 @@ function sx_casinos_gate(array $verticals = []): void
             throw new RuntimeException("Unknown brand '$id' (brands/operators.json).");
         }
         if (!in_array($m['id'], $b['markets'], true) || empty($b['license_no'])) {
-            throw new RuntimeException("Brand '$id' is not licensed in market '{$m['id']}' (markets + license_no in brands/operators.json); it cannot be listed.");
+            sx_legal_block("Brand '$id' is not licensed in market '{$m['id']}' (markets + license_no in brands/operators.json); it cannot be listed.");
         }
         foreach ($verticals as $vertical) {
             if (!in_array($vertical, $b['verticals'], true)) {
-                throw new RuntimeException("Brand '$id' does not offer $vertical; it cannot be listed on a " . implode(' + ', $verticals) . ' comparison site.');
+                sx_legal_block("Brand '$id' does not offer $vertical; it cannot be listed on a " . implode(' + ', $verticals) . ' comparison site.');
             }
         }
         if (!$b['link']) {
             throw new RuntimeException("No tracked link for brand '$id' (links.brands.$id).");
         }
         if ($suffix && !str_ends_with((string)parse_url($b['link'], PHP_URL_HOST), $suffix)) {
-            throw new RuntimeException("Link for brand '$id' must point to a $suffix domain in market '{$m['id']}'.");
+            sx_legal_block("Link for brand '$id' must point to a $suffix domain in market '{$m['id']}'.");
         }
         if (!$b['f'] || !$b['r']) {
             throw new RuntimeException("Brand '$id' needs facts (brands/facts/{$m['id']}.json) and a rating (brands/ratings/{$m['id']}.json).");
@@ -168,7 +168,7 @@ function sx_casinos_gate(array $verticals = []): void
 function sx_brand_mark(string $id, string $class = ''): string
 {
     $b = sx_casino($id);
-    $file = SX::$ctx['root'] . '/brands/' . $b['logo'];
+    $file = sx_brand_file(SX::$ctx['root'], $b['logo']);
     return '<span class="' . e(trim(cls('bmark') . ' ' . $class)) . '" style="color:' . e($b['brand_color']) . '">'
         . sx_use('l-' . $id, fn() => file_get_contents($file)) . '</span>';
 }

@@ -3,14 +3,18 @@
 $lead = empty($props['include_lead']) ? sx_lead_promo() : null; // pages without a lead-offer section list every offer
 $types = array_filter(array_map('trim', explode(',', $props['types'] ?? '')));
 $others = array_values(array_filter(sx_promos(), fn($p) => (!$lead || $p['id'] !== $lead['id']) && (!$types || in_array($p['type'], $types, true))));
+if (!empty($props['limit'])) {
+    $others = array_slice($others, 0, (int)$props['limit']);
+}
 if (!$others) {
     return;
 }
 ?>
-<section class="<?= cx('plist', ['plist', null, 'banners']) ?><?= ($props['mobile'] ?? 'stack') === 'strip' ? ' ' . cls('plist', null, 'strip') : '' ?>" id="promotions">
+<?php $strip = ($props['mobile'] ?? 'stack') === 'strip' && sx_ctx('rows') !== 'stack'; ?>
+<section class="<?= cx('plist', ['plist', null, 'banners']) ?><?= $strip ? ' ' . cls('plist', null, 'strip') : '' ?>" id="promotions">
   <div class="<?= cx('container', ['plist', 'inner']) ?>">
-    <h2 class="<?= cls('plist', 'title') ?>"><?= e($props['title'] ?: t('promo.more')) ?></h2>
-    <ul class="<?= cls('plist', 'items') ?>">
+    <h2 class="<?= cls('plist', 'title') ?>"><?= e($props['title'] ?: (!empty($props['include_lead']) ? t('promo.brand_offers', ['brand' => sx_ctx('brand')['name'] ?? '']) : t('promo.more'))) ?></h2>
+    <ul class="<?= cls('plist', 'items') ?><?= $strip ? ' ' . cls('swipe') : '' ?>">
       <?php foreach ($others as $p): ?>
         <li class="<?= cls('plist', 'bitem') ?>">
           <div class="<?= cls('plist', 'banner') ?>">

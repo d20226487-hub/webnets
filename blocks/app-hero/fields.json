@@ -8,7 +8,12 @@
                 "auto",
                 "listing",
                 "device",
-                "qr-first"
+                "qr-first",
+                "banner",
+                "stage",
+                "catalog",
+                "apk-page",
+                "hub"
             ],
             "default": "auto"
         },

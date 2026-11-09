@@ -16,7 +16,7 @@ function sx_reviews(): array
     if (isset(SX::$once['reviews'])) {
         return SX::$once['reviews'];
     }
-    $file = SX::$ctx['root'] . '/brands/reviews/' . (SX::$ctx['brand']['id'] ?? '') . '.json';
+    $file = sx_brand_file(SX::$ctx['root'], 'reviews/' . (SX::$ctx['brand']['id'] ?? '') . '.json');
     $all = is_file($file) ? json_decode(file_get_contents($file), true)['reviews'] ?? [] : [];
     $out = array_values(array_filter($all, fn($r) => ($r['status'] ?? '') === 'published' && ($r['market'] ?? '') === SX::$ctx['market']['id']));
     usort($out, fn($a, $b) => strcmp($b['date'], $a['date']));

@@ -1,0 +1,14 @@
+/* banner: the title and lead on a tinted band with the picture beside the lead, a contents box above the text */
+.sx-article--banner .sx-article__head { max-width: none; padding: var(--sp-6); border-radius: var(--r-lg); background: linear-gradient(150deg, color-mix(in srgb, var(--c-accent) 14%, var(--c-surface)), var(--c-surface-2)); }
+.sx-article--banner .sx-article__title { max-width: 26ch; }
+.sx-article--banner .sx-article__lead { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: var(--sp-5); align-items: center; }
+.sx-article--banner .sx-article__lead .sx-article__hero { margin: 0; }
+.sx-article--banner .sx-article__byline { border: 0; padding: 0; }
+.sx-article--banner .sx-article__toc { display: grid; gap: var(--sp-2); padding: var(--sp-4) var(--sp-5); border-radius: var(--r); border: var(--bw) solid var(--c-border); background: var(--c-surface); }
+.sx-article--banner .sx-article__toc ol { display: grid; gap: 6px; padding-inline-start: 1.2em; }
+.sx-article--banner .sx-article__toc a { color: var(--c-text); }
+.sx-article--banner .sx-article__related ul { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+@media (max-width: 760px) {
+  .sx-article--banner .sx-article__head { padding: var(--sp-4); }
+  .sx-article--banner .sx-article__lead { grid-template-columns: minmax(0, 1fr); gap: var(--sp-3); }
+}

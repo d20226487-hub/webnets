@@ -7,7 +7,7 @@ $m = $props['match'] ?? null;
   <div class="<?= cx('container', ['hero', 'inner']) ?>">
     <div class="<?= cls('hero', 'copy') ?>">
       <?php if ($props['eyebrow']): ?><p class="<?= cls('hero', 'eyebrow') ?>"><span class="<?= cls('hero', 'pulse') ?>" aria-hidden="true"></span><?= e($props['eyebrow']) ?></p><?php endif; ?>
-      <h1 class="<?= cls('hero', 'title') ?>"><?= e($props['title']) ?></h1>
+      <h1 class="<?= cls('hero', 'title') ?>"<?= sx_fit((string)$props['title']) ?>><?= e($props['title']) ?></h1>
       <?php if ($props['subtitle']): ?><p class="<?= cls('hero', 'subtitle') ?>"><?= e($props['subtitle']) ?></p><?php endif; ?>
       <div class="<?= cls('hero', 'actions') ?>">
         <?= sx_cta('hero', cx('btn', ['btn', null, 'primary'], ['hero', 'cta']), true) ?>

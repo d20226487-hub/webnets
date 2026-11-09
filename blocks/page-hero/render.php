@@ -9,7 +9,7 @@ $cta = $showCta ? sx_cta('hero', cx('btn', ['btn', null, 'primary'], ['phero', '
   <div class="<?= cx('container', ['phero', 'inner']) ?>">
     <?= $pic ?>
     <?= $crumbs ?>
-    <h1 class="<?= cls('phero', 'title') ?>"><?= e($props['title']) ?></h1>
+    <h1 class="<?= cls('phero', 'title') ?>"<?= sx_fit((string)$props['title']) ?>><?= e($props['title']) ?></h1>
     <?php if ($variant === 'answer'): ?>
       <div class="<?= cls('phero', 'box') ?>">
         <p class="<?= cls('phero', 'answer') ?>"><?= sx_icon('check') ?><span><?= e($props['answer']) ?></span></p>

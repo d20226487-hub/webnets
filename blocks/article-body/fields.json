@@ -6,7 +6,10 @@
       "label": "Layout",
       "choices": [
         "auto",
-        "standard"
+        "standard",
+        "toc-side",
+        "banner",
+        "magazine"
       ],
       "default": "auto"
     },

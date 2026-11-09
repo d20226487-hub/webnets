@@ -3,6 +3,9 @@
 $toc = [];
 $html = sx_safe_html((string)$props['html'], $toc);
 $showToc = !empty($props['toc']) && count($toc) >= 3;
+if ($variant === 'toc-side' && sx_ctx('nav_style') === 'sidebar') { // the site already has a sidebar on every page: contents as a box above
+    $variant = 'article';
+}
 ?>
 <section class="<?= cx('prose', ['prose', null, $variant]) ?>">
   <div class="<?= cx('container', ['prose', 'inner']) ?>">

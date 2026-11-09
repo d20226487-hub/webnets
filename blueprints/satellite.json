@@ -50,6 +50,14 @@
       "nav": "nav.home",
       "sections": [
         {
+          "id": "offers",
+          "block": "promo-list",
+          "zone": "top",
+          "rule": "optional",
+          "variants": ["banners"],
+          "props": { "include_lead": true, "mobile": "strip", "show_codes": false, "limit": 2 }
+        },
+        {
           "id": "hero",
           "block": "hero",
           "zone": "top",

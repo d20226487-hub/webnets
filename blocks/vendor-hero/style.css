@@ -3,7 +3,7 @@
 .sx-vhero__copy { display: grid; gap: var(--sp-4); justify-items: start; min-width: 0; }
 .sx-vhero__studio { display: inline-flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-0); font-weight: var(--fw-strong); letter-spacing: .08em; text-transform: uppercase; color: var(--c-hero-muted); }
 .sx-vhero__studio span { width: 12px; height: 12px; border-radius: 3px; background: var(--p1); }
-.sx-vhero__title { font-size: var(--fs-5); max-width: 18ch; }
+.sx-vhero__title { font-size: calc((var(--fs-5)) * var(--fit, 1)); max-width: 18ch; }
 .sx-vhero__subtitle { color: var(--c-hero-muted); max-width: 48ch; }
 .sx-vhero__facts { display: flex; flex-wrap: wrap; gap: var(--sp-3) var(--sp-6); }
 .sx-vhero__facts li { display: grid; gap: 2px; }

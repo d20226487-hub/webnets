@@ -52,8 +52,8 @@ content field can set a score or a rank.
 
 | Page | Slug | Rule | Sections |
 |---|---|---|---|
-| home | `/` | required | toplist (H1, ranked by the angle's criterion, featured slot; `cards` rows, `table` real comparison table with the ranked column tinted, or `podium` winner spotlight with criterion bars beside the runners-up), page links, faq, final |
-| review | `/analise/{brand}/` | **generated: one per brand** | brand-header (score, rank, verdict, facts, CTA, tested date), score-box (every criterion + reason), pros-cons, facts-table, other brands (toplist list), final |
+| home | `/` | required | toplist (H1, ranked by the angle's criterion, featured slot; `cards` rows, `table` real comparison table with the ranked column tinted, `podium` winner spotlight with criterion bars beside the runners-up, `list` compact rows, `spotlight` the heading in an accent panel beside the list, `grid` brand tiles with a large score on a tinted band, `logo-grid` the heading with ranking tabs beside it and a dense grid of logo tiles with the offer and a play button, `offer-cards` the top three as tall cards with offer, promo code, strengths and terms then wide rows, `portal` a large colour tile for #1, two tiles and a "top" sidebar, or `claim-cards` a three-column grid of cards with a dark logo band, the offer in large type, a claim pill, a review pill and the age line; the job form's Design option picks one, "Any" spreads them all), page links, faq, final |
+| review | `/analise/{brand}/` (pt; ru `/obzor/`, kk `/sholu/`, en `/reviews/`, from `slug_locales` in the blueprint) | **generated: one per brand** | brand-header (score, rank, verdict, facts, CTA, tested date), score-box (every criterion + reason), pros-cons, facts-table, other brands (toplist list), final |
 | compare | `/comparar/` | required | compare-table (H1; brands by overall score, sticky label column), related |
 | fast / live / app | `/saque-rapido/`, `/cassino-ao-vivo/`, `/melhores-apps/` | angle | toplist (H1, ranked by that criterion), prose, related |
 | method | `/como-avaliamos/` | required | page-hero, criteria (weights from the blueprint), prose, related; no sticky CTA |

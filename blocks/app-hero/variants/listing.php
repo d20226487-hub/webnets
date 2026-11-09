@@ -14,7 +14,7 @@ include __DIR__ . '/../_shared.php';
           <p class="<?= cls('apphero', 'official') ?>"><?= sx_icon('shield') ?><?= e(t('app.official')) ?></p>
         </div>
       </div>
-      <h1 class="<?= cls('apphero', 'title') ?>"><?= e($props['title']) ?></h1>
+      <h1 class="<?= cls('apphero', 'title') ?>"<?= sx_fit((string)$props['title']) ?>><?= e($props['title']) ?></h1>
       <ul class="<?= cls('apphero', 'facts') ?>">
         <?php foreach ($facts as [$value, $label]): ?>
           <li><strong><?= e($value) ?></strong><span><?= e($label) ?></span></li>

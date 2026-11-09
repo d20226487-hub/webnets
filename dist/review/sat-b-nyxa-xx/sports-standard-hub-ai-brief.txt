@@ -178,7 +178,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Nyxa: ставки на спорт с выводом за 15 минут
 - The only H1: Ставки на спорт с выводом за 15 минут
 - Structured data (JSON-LD): WebPage, FAQPage, WebSite
-- Links to: `sports-standard-hub-index.html`, `sports-standard-hub-sign-up.html`, `sports-standard-hub-payments.html`, `sports-standard-hub-app.html`, `sports-standard-hub-betting.html`, `sports-standard-hub-responsible-gambling.html`
+- Links to: `sports-standard-hub-index.html`, `sports-standard-hub-payments.html`, `sports-standard-hub-sign-up.html`, `sports-standard-hub-app.html`, `sports-standard-hub-betting.html`, `sports-standard-hub-responsible-gambling.html`
 
 ### Sections, in order
 

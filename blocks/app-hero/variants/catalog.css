@@ -1,0 +1,35 @@
+/* download catalog: app card, stats row, headline, a large download panel, screenshot thumbnails */
+.sx-apphero--catalog { background: var(--c-bg); color: var(--c-text); }
+.sx-apphero--catalog .sx-apphero__inner { grid-template-columns: minmax(0, 1fr); justify-items: start; gap: var(--sp-4); padding-block: var(--sp-5) var(--sp-6); }
+.sx-apphero__card { display: flex; align-items: center; gap: var(--sp-4); }
+.sx-apphero--catalog .sx-apphero__icon { width: 104px; }
+.sx-apphero--catalog .sx-apphero__name { font-size: var(--fs-4); }
+.sx-apphero__ver { color: var(--c-muted); font-variant-numeric: tabular-nums; }
+.sx-apphero--catalog .sx-apphero__dev { color: var(--c-accent); font-size: var(--fs-1); }
+.sx-apphero__stats { display: flex; flex-wrap: wrap; }
+.sx-apphero__stats li { display: grid; justify-items: center; gap: 2px; padding: var(--sp-2) var(--sp-5); text-align: center; }
+.sx-apphero__stats li:first-child { padding-inline-start: 0; }
+.sx-apphero__stats li + li { border-inline-start: 1px solid var(--c-border); }
+.sx-apphero__stats strong { font-family: var(--f-display); font-size: var(--fs-2); line-height: 1.2; }
+.sx-apphero__stats strong .sx-icon { width: 22px; height: 22px; color: var(--c-success); }
+.sx-apphero__stats span { max-width: 16ch; font-size: var(--fs-0); color: var(--c-muted); }
+.sx-apphero--catalog .sx-apphero__title { font-size: calc((var(--fs-3)) * var(--fit, 1)); max-width: 32ch; color: var(--c-text); }
+.sx-apphero__get { display: grid; gap: var(--sp-2); }
+.sx-apphero--catalog .sx-installs > .sx-install:first-child { min-width: 280px; min-height: 72px; padding-inline: var(--sp-5); border-radius: var(--r); }
+.sx-apphero--catalog .sx-installs > .sx-install:not(:first-child) { align-self: center; min-height: 44px; background: transparent; color: var(--c-accent); border-color: var(--c-accent); }
+.sx-apphero__latest { font-size: var(--fs-0); color: var(--c-muted); font-variant-numeric: tabular-nums; }
+.sx-apphero__thumbs { display: grid; grid-auto-flow: column; grid-auto-columns: 132px; gap: var(--sp-3); max-width: 100%; }
+.sx-apphero__thumbs li { padding: var(--sp-2); border-radius: var(--r-sm); border: 1px solid var(--c-border); background: var(--c-surface); }
+.sx-apphero__thumbs .sx-phone { width: 100%; }
+@media (max-width: 860px) {
+  .sx-apphero--catalog .sx-apphero__icon { width: 76px; }
+  .sx-apphero--catalog .sx-apphero__name { font-size: var(--fs-3); }
+  .sx-apphero__stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
+  .sx-apphero__stats li, .sx-apphero__stats li:first-child { padding: var(--sp-2); }
+  .sx-apphero__stats li:nth-child(odd) { border-inline-start: 0; }
+  .sx-apphero__stats li:nth-child(n+3) { border-block-start: 1px solid var(--c-border); }
+  .sx-apphero__get { width: 100%; }
+  .sx-apphero--catalog .sx-installs > .sx-install:first-child { min-width: 0; }
+  .sx-apphero__thumbs { grid-auto-columns: 40%; }
+  [data-rows=stack] .sx-apphero__thumbs { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: visible; margin-inline: 0; padding-inline: 0; }
+}

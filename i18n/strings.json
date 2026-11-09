@@ -588,6 +588,12 @@
     "kk": "Басқа акциялар",
     "pt": "Outras promoções"
   },
+  "promo.brand_offers": {
+    "en": "{brand} offers",
+    "ru": "Акции {brand}",
+    "kk": "{brand} акциялары",
+    "pt": "Promoções {brand}"
+  },
   "promo.v.match": {
     "en": "{percent}% up to {max}",
     "ru": "{percent}% до {max}",
@@ -2146,6 +2152,30 @@
     "ru": "В этом гиде",
     "pt": "Neste guia"
   },
+  "nav.ranking": {
+    "en": "Ranking",
+    "ru": "Рейтинг",
+    "kk": "Рейтинг",
+    "pt": "Ranking"
+  },
+  "nav.faq": {
+    "en": "Questions",
+    "ru": "Вопросы",
+    "kk": "Сұрақтар",
+    "pt": "Perguntas"
+  },
+  "sidenav.top": {
+    "en": "Top casinos",
+    "ru": "Топ казино",
+    "kk": "Үздік казинолар",
+    "pt": "Melhores cassinos"
+  },
+  "sidenav.links": {
+    "en": "On the brand's site",
+    "ru": "На сайте бренда",
+    "kk": "Бренд сайтында",
+    "pt": "No site da marca"
+  },
   "reviews.verified": {
     "en": "Verified player",
     "ru": "Проверенный игрок",
@@ -2216,5 +2246,41 @@
     "ru": "Ответы на вопросы об установке, входе и обновлениях.",
     "kk": "Орнату, кіру және жаңарту туралы жауаптар.",
     "pt": "Respostas sobre instalação, login e atualizações."
+  },
+  "app.official_file": {
+    "en": "Official file from {dev}",
+    "ru": "Официальный файл от {dev}",
+    "pt": "Arquivo oficial de {dev}",
+    "kk": "{dev} ресми файлы"
+  },
+  "app.latest": {
+    "en": "Latest version {v}",
+    "ru": "Последняя версия {v}",
+    "pt": "Versão mais recente {v}",
+    "kk": "Соңғы нұсқа {v}"
+  },
+  "app.license": {
+    "en": "Licence",
+    "ru": "Лицензия",
+    "pt": "Licença",
+    "kk": "Лицензия"
+  },
+  "app.specs": {
+    "en": "Specifications",
+    "ru": "Характеристики",
+    "pt": "Especificações",
+    "kk": "Сипаттамалар"
+  },
+  "app.platform": {
+    "en": "Platform",
+    "ru": "Платформа",
+    "pt": "Plataforma",
+    "kk": "Платформа"
+  },
+  "app.official_short": {
+    "en": "Official version",
+    "ru": "Официальная версия",
+    "pt": "Versão oficial",
+    "kk": "Ресми нұсқа"
   }
 }

@@ -10,34 +10,36 @@
 .sx-plist--banners .sx-plist__name { font-size: var(--fs-1); color: #fff; }
 .sx-plist__bcta { margin-block-start: var(--sp-2); }
 .sx-plist--banners .sx-plist__foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--sp-2); font-size: var(--fs-0); color: var(--c-muted); }
+/* offers above the hero (mobile "strip"): lower banners on desktop too, so the hero follows close behind */
+.sx-plist--strip .sx-plist__banner { min-height: 180px; padding: var(--sp-4) var(--sp-5); }
+.sx-plist--strip .sx-plist__inner { padding-block: var(--sp-5); }
 /* strip (mobile: "strip", e.g. offers above the hero): on phones one compact row you swipe through, so the hero CTA
    stays on the first screen. Each offer card: thumbnail, value and title on top; its terms line and Claim below. */
 @media (max-width: 640px) {
   .sx-plist--strip .sx-plist__inner { padding-block: var(--sp-2); gap: 0; }
   .sx-plist--strip .sx-plist__title { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   /* a visible thin track under the cards shows the row scrolls (and gives mouse users a handle); the next card peeks in */
-  .sx-plist--strip .sx-plist__items { display: flex; gap: var(--sp-3); overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory;
-    scrollbar-width: thin; scrollbar-color: var(--c-accent) color-mix(in srgb, var(--c-text) 12%, transparent);
-    margin-inline: calc(-1 * max(16px, var(--sp-5))); padding: 0 max(16px, var(--sp-5)) var(--sp-2); scroll-padding-inline: max(16px, var(--sp-5)); }
-  .sx-plist--strip .sx-plist__items::-webkit-scrollbar { height: 4px; }
-  .sx-plist--strip .sx-plist__items::-webkit-scrollbar-track { margin-inline: max(16px, var(--sp-5)); border-radius: 4px; background: color-mix(in srgb, var(--c-text) 12%, transparent); }
-  .sx-plist--strip .sx-plist__items::-webkit-scrollbar-thumb { border-radius: 4px; background: var(--c-accent); }
-  .sx-plist--strip .sx-plist__bitem { flex: 0 0 90%; scroll-snap-align: start; display: grid; grid-template-columns: 48px minmax(0, 1fr) auto;
-    grid-template-areas: "art value value" "art name cta" "foot foot foot"; align-items: center; align-content: start; gap: 2px var(--sp-3);
+  .sx-plist--strip .sx-plist__items { display: flex; gap: var(--sp-3); padding-block-end: var(--sp-2); }
+  .sx-plist--strip .sx-plist__bitem { flex: 0 0 88%; display: grid; grid-template-columns: 48px minmax(0, 1fr) auto;
+    grid-template-areas: "art value value" "art name name" "foot foot cta"; align-items: center; align-content: start; gap: 2px var(--sp-3);
     padding: var(--sp-3); border: var(--bw) solid var(--c-border); border-radius: var(--r); background: var(--c-surface); }
   .sx-plist--strip .sx-plist__items > .sx-plist__bitem:only-child { flex-basis: 100%; }
   .sx-plist--strip .sx-plist__banner, .sx-plist--strip .sx-plist__bcopy { display: contents; color: var(--c-text); }
   .sx-plist--strip .sx-plist__banner::before { display: none; }
   .sx-plist--strip .sx-art { grid-area: art; align-self: start; position: static; z-index: auto; width: 48px; height: 48px; border-radius: var(--r-sm); }
   .sx-plist--strip .sx-plist__kind { display: none; }
-  .sx-plist--strip .sx-plist__value { grid-area: value; font-size: var(--fs-2); line-height: 1.15; color: var(--c-text); }
+  .sx-plist--strip .sx-plist__value { grid-area: value; font-size: 1.15rem; line-height: 1.2; color: var(--c-text); display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
   .sx-plist--strip .sx-plist__name { grid-area: name; font-size: var(--fs-0); color: var(--c-muted); }
-  .sx-plist--strip .sx-plist__value, .sx-plist--strip .sx-plist__name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .sx-plist--strip .sx-plist__bcta { grid-area: cta; margin: 0; min-height: 36px; padding-inline: var(--sp-3); font-size: var(--fs-0); white-space: nowrap; }
+  .sx-plist--strip .sx-plist__value { min-width: 0; }
+  .sx-plist--strip .sx-plist__name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .sx-plist--strip .sx-plist__bcta { grid-area: cta; align-self: end; margin: var(--sp-2) 0 0; min-height: 36px; padding-inline: var(--sp-3); font-size: var(--fs-0); white-space: nowrap; }
   .sx-plist--strip .sx-plist__foot { grid-area: foot; display: block; margin-block-start: var(--sp-2); font-size: .7rem; line-height: 1.35; }
   .sx-plist--strip .sx-plist__foot a { display: inline; min-height: 0; margin-inline-start: var(--sp-1); }
   /* the hero right below: drop the small eyebrow label and shrink a lead number, so its CTA stays on screen */
   .sx-plist--strip + .sx-hero .sx-hero__eyebrow, .sx-plist--strip + .sx-opener .sx-opener__tag { display: none; }
   .sx-plist--strip + .sx-hero .sx-hero__value, .sx-plist--strip + .sx-opener .sx-opener__big data { font-size: 64px; }
   .sx-plist--strip + .sx-hero .sx-hero__caption, .sx-plist--strip + .sx-opener .sx-opener__stat figcaption { font-size: var(--fs-0); }
+  /* and a smaller headline with less space above it: large display fonts otherwise wrap to four lines */
+  .sx-plist--strip + .sx-hero .sx-hero__title, .sx-plist--strip + .sx-opener .sx-opener__title { font-size: calc((var(--fs-4)) * var(--fit, 1)); }
+  .sx-plist--strip + .sx-hero .sx-hero__inner, .sx-plist--strip + .sx-opener .sx-opener__frame { padding-block-start: var(--sp-3); gap: var(--sp-4); }
 }

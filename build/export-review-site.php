@@ -33,7 +33,9 @@ $axes = $base['variations'] ?? [];
 $extraLabels = $base['variation_labels'] ?? [];
 unset($base['variations'], $base['variation_labels']);
 $locale = $base['locale'] ?? 'en';
-$dir = "$root/dist/review/{$base['id']}";
+// SX_REVIEW_OUT=dist/generated (the network generator): pages go to <out>/<id>/, without the gallery wrapper copy
+$out = getenv('SX_REVIEW_OUT') ?: '';
+$dir = $out ? "$root/" . trim($out, '/') . "/{$base['id']}" : "$root/dist/review/{$base['id']}";
 @mkdir($dir, 0777, true);
 foreach (glob("$dir/*.{html,txt}", GLOB_BRACE) as $old) {
     unlink($old);
@@ -89,17 +91,30 @@ foreach ($combos as $c) {
             }
         }
     }
-    $sets[] = [$c, $pages];
+    // Colours in the browser (a demo whose switchers already change colours keeps those): the same pages with the
+    // neutral and brand looks, kept as colour overrides only
+    $pal = [];
+    if (!isset($axes['palette']) && !isset($axes['look']) && empty($cfg['look'])) {
+        foreach (['neutral', 'brand'] as $look) {
+            foreach (sx_build_site(['look' => $look] + $cfg, $root) as $ap) {
+                $k = substr($ap['file'], strlen($cfg['file_prefix']));
+                if (empty($ap['asset']) && isset($pages[$k])) {
+                    $pal[$k][$look] = sx_review_palette($pages[$k]['html'], $ap['html']);
+                }
+            }
+        }
+    }
+    $sets[] = [$c, $pages, $pal];
 }
 
-$bar = function (array $current, string $page) use ($axes, $L, $sets, $prefix): string {
+$bar = function (array $current, string $page, string $live = '') use ($axes, $L, $sets, $prefix): string {
     $rows = '';
     foreach ($axes as $axis => $options) {
         $links = '';
         foreach (array_keys($options) as $o) {
             $target = array_merge($current, [$axis => $o]);
             $has = false;
-            foreach ($sets as [$c, $pages]) {
+            foreach ($sets as [$c, $pages, $pal]) {
                 if ($c === $target) {
                     $has = isset($pages[$page]);
                 }
@@ -116,24 +131,25 @@ $bar = function (array $current, string $page) use ($axes, $L, $sets, $prefix): 
         . '.vbar a[aria-current]{background:#E8EAF0;color:#111318}'
         . '@media(max-width:640px){.vbar{gap:6px;padding:8px 12px}.vbar b{display:none}.vbar-row{width:100%}.vbar-row>span{flex:none;width:84px}}</style>'
         . sx_review_phone_guard() . '<div class="vbar" role="region" aria-label="' . htmlspecialchars($L['_title']) . '"><b>' . htmlspecialchars($L['_title']) . '</b>'
-        . sx_review_vbar_toggle($L['_title'], implode(' · ', array_map(fn($o) => $L[$o] ?? $o, $current))) . $rows . '</div>';
+        . sx_review_vbar_toggle($L['_title'], implode(' · ', array_map(fn($o) => $L[$o] ?? $o, $current))) . $rows . $live . '</div>';
 };
 
 require_once "$root/lib/aibrief.php";
-foreach ($sets as [$c, $pages]) {
-    $brief = null;
-    if (count($pages) > 1) { // AI brief for the whole site in this combination, next to its pages
-        $brief = $prefix($c) . 'ai-brief.txt';
-        file_put_contents("$dir/$brief", sx_ai_brief($pages, null, false, true));
-    }
+foreach ($sets as [$c, $pages, $pal]) {
+    // AI brief for the whole site in this combination, next to its pages (one-page sites too: it is what gets downloaded);
+    // the developer panel links it only when there are several pages, a one-page site's page brief being the same thing
+    $briefFile = $prefix($c) . 'ai-brief.txt';
+    file_put_contents("$dir/$briefFile", sx_ai_brief($pages, null, false, true));
+    $brief = count($pages) > 1 ? $briefFile : null;
     foreach ($pages as $page => $p) {
         $html = str_replace('</body>', sx_review_nav_script() . sx_review_device_toggle($p['file'], $locale) . sx_review_devspec($p, $pages, $locale, $p['prefix'], $brief) . '</body>', $p['html']);
-        if ($axes) {
-            $html = preg_replace('#<body([^>]*)>#', '<body$1>' . $bar($c, $page), $html, 1);
-        }
-        file_put_contents("$dir/{$p['file']}", $html);
+        $html = preg_replace('#<body([^>]*)>#', '<body$1>' . $bar($c, $page, sx_review_live_switches($pal[$page] ?? [], $locale)), $html, 1);
+        file_put_contents("$dir/{$p['file']}", sx_strip_comments($html)); // review additions too (panel, phone view)
         echo "dist/review/{$base['id']}/{$p['file']}\n";
     }
+}
+if ($out) {
+    exit(0);
 }
 passthru(PHP_BINARY . ' ' . escapeshellarg("$root/build/export-review.php") . ' ' . escapeshellarg("$dir/index.html") . ' '
     . escapeshellarg("$root/dist/review/{$base['id']}.html") . ' ' . escapeshellarg($argv[2] ?? $base['site']['name'] ?? $base['id']));

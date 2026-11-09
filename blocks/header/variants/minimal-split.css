@@ -5,4 +5,7 @@
 @media (max-width: 860px) {
   .sx-header--split .sx-header__inner { grid-template-columns: auto 1fr; }
   .sx-header--split .sx-header__note { display: none; }
+  .sx-header--split .sx-header__menu--side ~ .sx-header__brand { justify-self: start; }
+  .sx-header--split .sx-header__inner:has(.sx-header__menu--side) { grid-template-columns: auto minmax(0, 1fr) auto; }
+  .sx-header--split .sx-header__inner:has(.sx-header__menu--right) { grid-template-columns: minmax(0, 1fr) auto auto; }
 }

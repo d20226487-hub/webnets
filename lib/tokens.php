@@ -31,7 +31,7 @@ function sx_all_presets(string $root): array
  * A look: named token overrides on top of the preset (tokens/looks.json), or "brand", built from the brand colour.
  * Same layout and blocks; colour, type and shape change.
  */
-function sx_look_tokens(?string $look, array $brand, string $root, ?array $provider = null): array
+function sx_look_tokens(?string $look, array $brand, string $root, ?array $provider = null, int $variant = 0): array
 {
     if (!$look || $look === 'preset') {
         return [];
@@ -45,6 +45,9 @@ function sx_look_tokens(?string $look, array $brand, string $root, ?array $provi
         $dark = '#' . implode('', array_map(fn($i) => str_pad(dechex((int) (hexdec(substr($hex, $i, 2)) * 0.55)), 2, '0', STR_PAD_LEFT), [0, 2, 4]));
         $on = sx_luminance_hex($hex) > 0.55 ? '#111111' : '#FFFFFF';
         $deep = fn(float $f) => '#' . implode('', array_map(fn($i) => str_pad(dechex((int) (hexdec(substr($hex, $i, 2)) * $f)), 2, '0', STR_PAD_LEFT), [0, 2, 4]));
+        if ($variant % 5) {
+            return sx_look_palette($c, $variant % 5);
+        }
         // hero in a deep shade of the brand so the brand-coloured install button stands out on it
         return ['theme' => 'light', 'color' => ['accent' => $c, 'onAccent' => $on, 'accent2' => $dark, 'heroText' => '#FFFFFF', 'heroMuted' => 'rgba(255,255,255,.78)'],
             'decor' => ['heroBg' => 'radial-gradient(120% 90% at 85% 10%, ' . $deep(0.62) . ' 0%, ' . $deep(0.3) . ' 55%, ' . $deep(0.18) . ' 100%)']];
@@ -270,4 +273,155 @@ function sx_contrast_report(array $p): array
         $out[] = ['pair' => $label, 'ratio' => $ratio, 'min' => $min, 'pass' => $ratio >= $min];
     }
     return $out;
+}
+
+/**
+ * Palettes built around one colour (look "brand" / "provider", "look_variant" 1-4): the colour stays the accent, so
+ * the site still looks like the brand, while background, surfaces, second colour and hero change.
+ *   1 night: dark theme tinted with the colour, hero a deep gradient towards a hue 60° away
+ *   2 pastel: light theme, light tinted hero with dark text
+ *   3 contrast: light theme, complementary second colour, hero in the complementary hues
+ *   4 dusk: dark theme, neutral surfaces, hero a glow in a hue 120° away
+ */
+function sx_look_palette(string $c, int $variant): array
+{
+    [$h, $s, $l] = sx_hex_hsl($c);
+    $on = sx_hsl_luminance($c) > 0.55 ? '#111111' : '#FFFFFF';
+    $hx = fn(float $hh, float $ss, float $ll) => sx_hsl_hex($hh, $ss, $ll);
+    return match ($variant) {
+        1 => ['theme' => 'dark', 'color' => ['bg' => $hx($h, min($s, .35), .07), 'surface' => $hx($h, min($s, .3), .11), 'surface2' => $hx($h, min($s, .28), .15),
+            'text' => '#F3F4F8', 'muted' => $hx($h, .12, .72), 'border' => $hx($h, .25, .21), 'accent' => $c, 'onAccent' => $on, 'accent2' => $hx($h + 30, max($s, .5), .64),
+            'heroText' => '#FFFFFF', 'heroMuted' => 'rgba(255,255,255,.76)'],
+            'decor' => ['heroBg' => 'linear-gradient(160deg, ' . $hx($h, .45, .1) . ' 0%, ' . $hx($h + 60, .55, .22) . ' 100%)']],
+        2 => ['theme' => 'light', 'color' => ['bg' => '#FFFFFF', 'surface' => $hx($h, .4, .97), 'surface2' => $hx($h, .35, .93), 'text' => $hx($h, .3, .1),
+            'muted' => $hx($h, .12, .38), 'border' => $hx($h, .25, .87), 'accent' => $c, 'onAccent' => $on, 'accent2' => $hx($h - 30, max($s, .5), .42),
+            'heroText' => $hx($h, .4, .12), 'heroMuted' => $hx($h, .15, .34)],
+            'decor' => ['heroBg' => 'linear-gradient(180deg, ' . $hx($h, .7, .93) . ' 0%, ' . $hx($h, .6, .985) . ' 100%)']],
+        3 => ['theme' => 'light', 'color' => ['bg' => '#FFFFFF', 'surface' => '#F6F7F9', 'surface2' => '#ECEEF2', 'text' => '#14161B', 'muted' => '#555B66',
+            'border' => '#E2E5EA', 'accent' => $c, 'onAccent' => $on, 'accent2' => $hx($h + 180, max($s, .55), .45), 'heroText' => '#FFFFFF', 'heroMuted' => 'rgba(255,255,255,.8)'],
+            'decor' => ['heroBg' => 'linear-gradient(120deg, ' . $hx($h + 165, .55, .2) . ' 0%, ' . $hx($h + 200, .6, .3) . ' 100%)']],
+        default => ['theme' => 'dark', 'color' => ['bg' => '#101114', 'surface' => '#17191E', 'surface2' => '#1F2229', 'text' => '#F2F3F5', 'muted' => '#A0A5B0',
+            'border' => '#2A2E37', 'accent' => $c, 'onAccent' => $on, 'accent2' => $hx($h - 150, max($s, .55), .62), 'heroText' => '#FFFFFF', 'heroMuted' => 'rgba(255,255,255,.75)'],
+            'decor' => ['heroBg' => 'radial-gradient(120% 100% at 85% 0%, ' . $hx($h - 120, .6, .3) . ' 0%, #101114 75%)']],
+    };
+}
+
+/** '#RRGGBB' -> [hue 0-360, saturation 0-1, lightness 0-1]. */
+function sx_hex_hsl(string $hex): array
+{
+    [$r, $g, $b] = array_map(fn($i) => hexdec(substr(ltrim($hex, '#'), $i, 2)) / 255, [0, 2, 4]);
+    $max = max($r, $g, $b);
+    $min = min($r, $g, $b);
+    $l = ($max + $min) / 2;
+    $d = $max - $min;
+    if ($d == 0) {
+        return [0.0, 0.0, $l];
+    }
+    $s = $d / (1 - abs(2 * $l - 1));
+    $h = match ($max) {
+        $r => 60 * fmod(($g - $b) / $d + 6, 6),
+        $g => 60 * (($b - $r) / $d + 2),
+        default => 60 * (($r - $g) / $d + 4),
+    };
+    return [$h, $s, $l];
+}
+
+function sx_hsl_hex(float $h, float $s, float $l): string
+{
+    $h = fmod(fmod($h, 360) + 360, 360);
+    $s = max(0, min(1, $s));
+    $l = max(0, min(1, $l));
+    $c = (1 - abs(2 * $l - 1)) * $s;
+    $x = $c * (1 - abs(fmod($h / 60, 2) - 1));
+    $m = $l - $c / 2;
+    [$r, $g, $b] = match (intdiv((int)$h, 60)) {
+        0 => [$c, $x, 0], 1 => [$x, $c, 0], 2 => [0, $c, $x], 3 => [0, $x, $c], 4 => [$x, 0, $c], default => [$c, 0, $x],
+    };
+    return sprintf('#%02X%02X%02X', (int)round(($r + $m) * 255), (int)round(($g + $m) * 255), (int)round(($b + $m) * 255));
+}
+
+function sx_hsl_luminance(string $hex): float
+{
+    $rgb = array_map(fn($i) => hexdec(substr(ltrim($hex, '#'), $i, 2)) / 255, [0, 2, 4]);
+    return 0.2126 * $rgb[0] + 0.7152 * $rgb[1] + 0.0722 * $rgb[2];
+}
+
+/**
+ * A style variant of a preset (site config "style": {"hue": 0-359, "flip": bool}): every colour turned by "hue" degrees
+ * around the colour wheel, and with "flip" the theme swapped by role: backgrounds, surfaces, borders and text trade light
+ * for dark while the accents keep their lightness. Contrast is restored afterwards (text 4.5:1 and more, button labels
+ * 4.5:1, links and accents 3:1 on the background), so every variant passes the same checks as the presets.
+ */
+function sx_style_variant(array $p, int $hue = 0, bool $flip = false): array
+{
+    if (!$hue && !$flip) {
+        return $p;
+    }
+    $neutral = ['bg', 'surface', 'surface2', 'border', 'text', 'muted', 'heroText', 'heroMuted'];
+    $turn = fn(string $hex) => sx_style_turn($hex, $hue, false);
+    foreach ($p['color'] as $k => $v) {
+        if (is_string($v) && preg_match('/^#[0-9a-fA-F]{6}$/', $v)) {
+            $p['color'][$k] = sx_style_turn($v, $hue, $flip && in_array($k, $neutral, true));
+        }
+    }
+    foreach ($p['decor'] ?? [] as $k => $v) {
+        if (is_string($v)) {
+            $p['decor'][$k] = sx_style_each_hex($v, $k === 'heroBg' ? fn($h) => sx_style_turn($h, $hue, $flip) : $turn);
+        }
+    }
+    if ($flip) {
+        $p['theme'] = ($p['theme'] ?? 'light') === 'dark' ? 'light' : 'dark';
+    }
+    $c = &$p['color'];
+    preg_match('/#[0-9a-fA-F]{6}/', $p['decor']['heroBg'] ?? '', $m);
+    $hero = $m[0] ?? $c['bg'];
+    $c['text'] = sx_style_contrast(sx_style_contrast($c['text'], $c['bg'], 7), $c['surface'], 4.5);
+    $c['muted'] = sx_style_contrast(sx_style_contrast($c['muted'], $c['bg'], 4.5), $c['surface'], 4.5);
+    $c['heroText'] = sx_style_contrast($c['heroText'] ?? $c['text'], $hero, 7);
+    $c['heroMuted'] = sx_style_contrast($c['heroMuted'] ?? $c['muted'], $hero, 4.5);
+    $c['accent'] = sx_style_contrast($c['accent'], $c['bg'], 3);
+    $c['accent2'] = sx_style_contrast($c['accent2'], $c['bg'], 3);
+    $on = fn(string $bg) => sx_contrast('#FFFFFF', $bg) >= sx_contrast('#111111', $bg) ? '#FFFFFF' : '#111111';
+    $c['onAccent'] = $on($c['accent']);
+    $c['accent'] = sx_style_contrast($c['accent'], $c['onAccent'], 4.5); // a mid-tone button: its colour moves until the label passes
+    if (isset($p['decor']['heroAccent'])) {
+        $p['decor']['heroOnAccent'] = $on($p['decor']['heroAccent']);
+        $p['decor']['heroAccent'] = sx_style_contrast($p['decor']['heroAccent'], $p['decor']['heroOnAccent'], 4.5);
+    }
+    unset($c);
+    return $p;
+}
+
+/** One colour of a variant: turned by $hue degrees; with $flip its lightness mirrored (light <-> dark). */
+function sx_style_turn(string $hex, int $hue, bool $flip): string
+{
+    [$h, $s, $l] = sx_hex_hsl($hex);
+    if ($flip) {
+        $l = 1 - $l;
+        $l = $l > 0.5 ? 0.88 + ($l - 0.5) * 0.24 : 0.04 + $l * 0.4;
+        $s = min($s, 0.6);
+    }
+    return sx_hsl_hex($h + $hue, $s, $l);
+}
+
+/** Apply $f to every #RRGGBB and rgba() colour inside a CSS value (gradients included). */
+function sx_style_each_hex(string $v, callable $f): string
+{
+    $v = preg_replace_callback('/#([0-9a-fA-F]{6})\b/', fn($m) => $f('#' . $m[1]), $v);
+    return preg_replace_callback('/rgba\((\d+),\s*(\d+),\s*(\d+),/', function ($m) use ($f) {
+        $hx = $f(sprintf('#%02X%02X%02X', $m[1], $m[2], $m[3]));
+        return 'rgba(' . hexdec(substr($hx, 1, 2)) . ',' . hexdec(substr($hx, 3, 2)) . ',' . hexdec(substr($hx, 5, 2)) . ',';
+    }, $v);
+}
+
+/** Move $fg's lightness away from $bg until their contrast reaches $min. */
+function sx_style_contrast(string $fg, string $bg, float $min): string
+{
+    [$h, $s, $l] = sx_hex_hsl($fg);
+    $up = sx_luminance($bg) < 0.18;
+    for ($i = 0; $i < 40 && sx_contrast($fg, $bg) < $min; $i++) {
+        $l = max(0, min(1, $l + ($up ? 0.03 : -0.03)));
+        $fg = sx_hsl_hex($h, $s, $l);
+    }
+    return $fg;
 }

@@ -33,12 +33,12 @@ $title = $props['title'] ?: t($isNew ? 'vendor.new_on' : ($hasRanks ? 'vendor.po
     <?php elseif (!$isNew && sx_vendor_multi()): ?>
       <?php foreach (sx_vendor_ids() as $sid): $sg = array_values(array_filter($games, fn($g) => ($g['studio_id'] ?? '') === $sid)); if (!$sg) { continue; } $sp = sx_ctx('providers')[$sid]; ?>
         <h3 class="<?= cls('ggrid', 'studio') ?>" style="--p1: <?= e($sp['colors'][0]) ?>"><span aria-hidden="true"></span><?= e($sp['name']) ?> <small><?= e(sx_n_games(count($sg))) ?></small></h3>
-        <ul class="<?= cls('ggrid', 'list') ?>">
+        <ul class="<?= cls('ggrid', 'list') ?><?= $variant === 'strip' ? ' ' . cls('swipe') : '' ?>">
           <?php foreach ($sg as $g): ?><li><?= sx_game_card(array_diff_key($g, ['studio' => 1]), 'game') ?></li><?php endforeach; ?>
         </ul>
       <?php endforeach; ?>
     <?php else: ?>
-      <ul class="<?= cls('ggrid', 'list') ?>">
+      <ul class="<?= cls('ggrid', 'list') ?><?= $variant === 'strip' ? ' ' . cls('swipe') : '' ?>">
         <?php foreach ($games as $g): ?><li><?= sx_game_card($g, $isNew ? 'game-new' : 'game') ?></li><?php endforeach; ?>
       </ul>
     <?php endif; ?>

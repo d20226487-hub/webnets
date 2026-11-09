@@ -8,13 +8,13 @@ if (!(include __DIR__ . '/../_shared.php')) {
   <div class="<?= cx('container', ['offerhero', 'inner']) ?>">
     <div class="<?= cls('offerhero', 'head') ?>">
       <p class="<?= cls('offerhero', 'eyebrow') ?>"><?= e(sx_promo_type_label($p['type'])) ?> · <?= e(sx_ctx('brand')['name']) ?></p>
-      <h1 class="<?= cls('offerhero', 'title') ?>"><?= e($title) ?></h1>
+      <h1 class="<?= cls('offerhero', 'title') ?>"<?= sx_fit((string)$title) ?>><?= e($title) ?></h1>
       <?php if ($props['subtitle']): ?><p class="<?= cls('offerhero', 'subtitle') ?>"><?= e($props['subtitle']) ?></p><?php endif; ?>
     </div>
     <article class="<?= cx('card', ['offerhero', 'ticket']) ?>">
       <div class="<?= cls('offerhero', 'top') ?>">
         <p class="<?= cls('offerhero', 'kind') ?>"><?= e(sx_promo_type_label($p['type'])) ?></p>
-        <p class="<?= cls('offerhero', 'value') ?>"><?= e($value) ?></p>
+        <p class="<?= cls('offerhero', 'value') ?>"<?= sx_fit((string)$value, 'value') ?>><?= e($value) ?></p>
         <p class="<?= cls('offerhero', 'mini') ?>"><?= e(implode(' · ', array_map(fn($l, $v) => "$l: $v", array_keys($keyTerms), $keyTerms))) ?></p>
       </div>
       <div class="<?= cls('offerhero', 'stub') ?>">

@@ -7,8 +7,8 @@ if (!(include __DIR__ . '/../_shared.php')) {
 <section class="<?= cx('offerhero', ['offerhero', null, 'centered']) ?>">
   <div class="<?= cx('container', ['offerhero', 'inner']) ?>">
     <p class="<?= cls('offerhero', 'eyebrow') ?>"><?= e(sx_promo_type_label($p['type'])) ?> · <?= e(sx_ctx('brand')['name']) ?></p>
-    <h1 class="<?= cls('offerhero', 'title') ?>"><?= e($title) ?></h1>
-    <p class="<?= cls('offerhero', 'value') ?>"><?= e($value) ?></p>
+    <h1 class="<?= cls('offerhero', 'title') ?>"<?= sx_fit((string)$title) ?>><?= e($title) ?></h1>
+    <p class="<?= cls('offerhero', 'value') ?>"<?= sx_fit((string)$value, 'value') ?>><?= e($value) ?></p>
     <div class="<?= cls('offerhero', 'codewrap') ?>"><?= sx_code_box($p, 'hero') ?></div>
     <?= sx_cta('hero', cx('btn', ['btn', null, 'primary'], ['offerhero', 'cta']), true) ?>
     <dl class="<?= cls('offerhero', 'keyterms') ?>">

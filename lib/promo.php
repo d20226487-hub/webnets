@@ -14,7 +14,7 @@ const SX_PROMO_STALE_DAYS = 14;
 
 function sx_promo_allowed(string $type): bool
 {
-    return (SX::$ctx['market']['promotions'][$type] ?? 'unknown') === 'allowed';
+    return (SX::$ctx['market']['promotions'][$type] ?? 'unknown') === 'allowed' || !empty(SX::$ctx['promo_override']);
 }
 
 /** Promotion types the current market allows. */
@@ -31,11 +31,19 @@ function sx_today(): string
 /** Active, allowed promotions for the current brand and market, in feed order. */
 function sx_promos(): array
 {
-    if (isset(SX::$once['promos'])) {
-        return SX::$once['promos'];
-    }
-    $brandId = SX::$ctx['brand']['id'] ?? '';
-    $file = SX::$ctx['root'] . "/brands/promotions/$brandId.json";
+    return SX::$once['promos'] ??= sx_brand_promos(SX::$ctx['brand']['id'] ?? '');
+}
+
+/** The lead offer of any brand (ranking designs show each casino's offer): its first active, allowed promotion. */
+function sx_brand_lead_offer(string $brandId): ?array
+{
+    return (SX::$once['brand_promos'][$brandId] ??= sx_brand_promos($brandId))[0] ?? null;
+}
+
+/** Active, allowed promotions of one brand in this market, in feed order (policy wins over the feed). */
+function sx_brand_promos(string $brandId): array
+{
+    $file = sx_brand_file(SX::$ctx['root'], "promotions/$brandId.json");
     $feed = is_file($file) ? (json_decode(file_get_contents($file), true)['promotions'] ?? []) : [];
     $market = SX::$ctx['market']['id'];
     $today = sx_today();
@@ -46,6 +54,9 @@ function sx_promos(): array
         }
         if (!sx_promo_allowed($p['type'])) {
             continue; // policy wins over the feed, silently
+        }
+        if (($pol = SX::$ctx['market']['promotions'][$p['type']] ?? 'unknown') !== 'allowed') {
+            sx_legal_block("Promotion type '{$p['type']}' is $pol in market '$market'; '{$p['id']}' is shown anyway.");
         }
         if (($p['valid_to'] ?? '9999-12-31') < $today) {
             SX::$warnings[] = "ERROR: promotion '{$p['id']}' expired on {$p['valid_to']}; it was removed from the page. Update the feed.";
@@ -65,7 +76,7 @@ function sx_promos(): array
     } elseif ((SX::$ctx['offer_mode'] ?? 'mixed') === 'banners') {
         $out = array_values(array_filter($out, fn($p) => empty($p['code']) || !empty($p['code_via_link']))); // a banner can only carry a code the link applies
     }
-    return SX::$once['promos'] = $out;
+    return $out;
 }
 
 /**

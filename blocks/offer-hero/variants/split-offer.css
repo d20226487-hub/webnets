@@ -1,11 +1,11 @@
 /* split-offer: head + action left, value card right; phones: head, card, action */
-.sx-offerhero--split .sx-offerhero__inner { grid-template-columns: minmax(0, 1.1fr) minmax(300px, 1fr); grid-template-areas: "head card" "action card"; }
+.sx-offerhero--split .sx-offerhero__inner { grid-template-columns: minmax(0, 1.1fr) minmax(min(300px, 100%), 1fr); grid-template-areas: "head card" "action card"; }
 .sx-offerhero--split .sx-offerhero__head { grid-area: head; }
 .sx-offerhero--split .sx-offerhero__valuecard { grid-area: card; }
 .sx-offerhero--split .sx-offerhero__action { grid-area: action; display: grid; gap: var(--sp-3); max-width: 460px; }
 .sx-offerhero--split .sx-offerhero__action .sx-offerhero__fine { text-align: start; color: var(--c-hero-muted); }
-.sx-offerhero__valuecard { display: grid; gap: var(--sp-4); padding: var(--sp-6); color: var(--c-text); border-radius: var(--r-lg); }
-.sx-offerhero__big { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-5); line-height: 1; letter-spacing: var(--ls-heading); color: var(--c-accent); }
+.sx-offerhero__valuecard { display: grid; gap: var(--sp-4); padding: var(--sp-6); min-width: 0; color: var(--c-text); border-radius: var(--r-lg); }
+.sx-offerhero__big { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: calc((var(--fs-5)) * var(--fit, 1)); line-height: 1; letter-spacing: var(--ls-heading); color: var(--c-accent); }
 .sx-offerhero__cardterms { margin: 0; display: grid; gap: var(--sp-2); }
 .sx-offerhero__cardterms div { display: flex; justify-content: space-between; gap: var(--sp-3); padding-block: var(--sp-2); border-block-start: 1px solid var(--c-border); }
 .sx-offerhero__cardterms dt { color: var(--c-muted); }
@@ -15,11 +15,16 @@
 @media (max-width: 860px) {
   .sx-offerhero--split .sx-offerhero__inner { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "card" "action"; padding-block: var(--sp-5) var(--sp-7); gap: var(--sp-4); }
   .sx-offerhero--split .sx-offerhero__subtitle { display: none; }
-  .sx-offerhero--split .sx-offerhero__title { font-size: var(--fs-4); }
+  .sx-offerhero--split .sx-offerhero__title { font-size: calc((var(--fs-4)) * var(--fit, 1)); }
   .sx-offerhero__valuecard { padding: var(--sp-4) var(--sp-5); gap: var(--sp-3); }
-  .sx-offerhero__big { font-size: var(--fs-4); }
+  .sx-offerhero__big { font-size: calc((var(--fs-4)) * var(--fit, 1)); }
   .sx-offerhero--split .sx-offerhero__valuecard .sx-offerhero__verified { display: none; }
   .sx-offerhero--split .sx-offerhero__eyebrow { display: none; }
   .sx-offerhero__cardterms div { padding-block: var(--sp-1); }
   .sx-offerhero--split .sx-offerhero__action { max-width: none; }
+}
+/* phones: tighter, so the CTA stays on the first screen at 375x667 */
+@media (max-width: 640px) {
+  .sx-offerhero--split .sx-offerhero__inner { padding-block-start: var(--sp-5); gap: var(--sp-3); }
+  .sx-offerhero--split .sx-offerhero__title { font-size: calc((var(--fs-3)) * var(--fit, 1)); }
 }

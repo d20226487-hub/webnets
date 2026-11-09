@@ -178,7 +178,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Nyxa Казино: вывод выигрыша за 15 минут
 - The only H1: Живое казино с выводом за 15 минут
 - Structured data (JSON-LD): WebPage, FAQPage, WebSite
-- Links to: `casino-standard-sidebar-index.html`, `casino-standard-sidebar-sign-up.html`, `casino-standard-sidebar-payments.html`, `casino-standard-sidebar-app.html`, `casino-standard-sidebar-casino.html`, `casino-standard-sidebar-responsible-gambling.html`
+- Links to: `casino-standard-sidebar-sign-up.html`, `casino-standard-sidebar-payments.html`, `casino-standard-sidebar-app.html`, `casino-standard-sidebar-casino.html`, `casino-standard-sidebar-responsible-gambling.html`, `casino-standard-sidebar-index.html`
 
 ### Sections, in order
 
@@ -246,7 +246,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Регистрация в Nyxa: что нужно и сколько занимает
 - The only H1: Регистрация в Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
-- Links to: `casino-standard-sidebar-index.html`, `casino-standard-sidebar-sign-up.html`, `casino-standard-sidebar-payments.html`, `casino-standard-sidebar-app.html`, `casino-standard-sidebar-casino.html`, `casino-standard-sidebar-responsible-gambling.html`
+- Links to: `casino-standard-sidebar-sign-up.html`, `casino-standard-sidebar-payments.html`, `casino-standard-sidebar-app.html`, `casino-standard-sidebar-casino.html`, `casino-standard-sidebar-responsible-gambling.html`, `casino-standard-sidebar-index.html`
 
 ### Sections, in order
 
@@ -305,7 +305,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Пополнение и вывод в Nyxa: Apple Pay, Visa, Mastercard
 - The only H1: Пополнение и вывод в Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
-- Links to: `casino-standard-sidebar-index.html`, `casino-standard-sidebar-sign-up.html`, `casino-standard-sidebar-payments.html`, `casino-standard-sidebar-app.html`, `casino-standard-sidebar-casino.html`, `casino-standard-sidebar-responsible-gambling.html`
+- Links to: `casino-standard-sidebar-sign-up.html`, `casino-standard-sidebar-payments.html`, `casino-standard-sidebar-app.html`, `casino-standard-sidebar-casino.html`, `casino-standard-sidebar-responsible-gambling.html`, `casino-standard-sidebar-index.html`
 
 ### Sections, in order
 
@@ -359,7 +359,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Приложение Nyxa для iPhone и Android
 - The only H1: Приложение Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
-- Links to: `casino-standard-sidebar-index.html`, `casino-standard-sidebar-sign-up.html`, `casino-standard-sidebar-payments.html`, `casino-standard-sidebar-app.html`, `casino-standard-sidebar-casino.html`, `casino-standard-sidebar-responsible-gambling.html`
+- Links to: `casino-standard-sidebar-sign-up.html`, `casino-standard-sidebar-payments.html`, `casino-standard-sidebar-app.html`, `casino-standard-sidebar-casino.html`, `casino-standard-sidebar-responsible-gambling.html`, `casino-standard-sidebar-index.html`
 
 ### Sections, in order
 
@@ -407,7 +407,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Казино Nyxa: живые столы и слоты
 - The only H1: Казино Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
-- Links to: `casino-standard-sidebar-index.html`, `casino-standard-sidebar-sign-up.html`, `casino-standard-sidebar-payments.html`, `casino-standard-sidebar-app.html`, `casino-standard-sidebar-casino.html`, `casino-standard-sidebar-responsible-gambling.html`
+- Links to: `casino-standard-sidebar-sign-up.html`, `casino-standard-sidebar-payments.html`, `casino-standard-sidebar-app.html`, `casino-standard-sidebar-casino.html`, `casino-standard-sidebar-responsible-gambling.html`, `casino-standard-sidebar-index.html`
 
 ### Sections, in order
 
@@ -462,7 +462,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Ответственная игра в Nyxa: лимиты, паузы и самоисключение
 - The only H1: Ответственная игра в Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
-- Links to: `casino-standard-sidebar-index.html`, `casino-standard-sidebar-sign-up.html`, `casino-standard-sidebar-payments.html`, `casino-standard-sidebar-app.html`, `casino-standard-sidebar-casino.html`, `casino-standard-sidebar-responsible-gambling.html`
+- Links to: `casino-standard-sidebar-sign-up.html`, `casino-standard-sidebar-payments.html`, `casino-standard-sidebar-app.html`, `casino-standard-sidebar-casino.html`, `casino-standard-sidebar-responsible-gambling.html`, `casino-standard-sidebar-index.html`
 
 ### Sections, in order
 

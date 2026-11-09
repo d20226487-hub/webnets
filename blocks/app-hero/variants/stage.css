@@ -1,0 +1,17 @@
+/* stage: a tinted panel with the phone on the start side, copy on the end side; the section on the page background */
+.sx-apphero--stage { background: var(--c-bg); color: var(--c-text); }
+.sx-apphero--stage .sx-apphero__inner { grid-template-columns: minmax(300px, 1fr) minmax(0, 1.15fr); gap: var(--sp-8); padding-block: var(--sp-6); }
+.sx-apphero--stage .sx-apphero__device { align-self: stretch; padding: var(--sp-7) var(--sp-5); border-radius: var(--r-lg); background: linear-gradient(160deg, var(--c-accent), var(--c-accent-2)); }
+.sx-apphero--stage .sx-apphero__device .sx-phone { width: 250px; rotate: -4deg; }
+.sx-apphero--stage .sx-apphero__title { font-size: calc((var(--fs-5)) * var(--fit, 1)); max-width: 16ch; color: var(--c-text); }
+.sx-apphero--stage .sx-apphero__desc { color: var(--c-muted); }
+.sx-apphero__chips { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.sx-apphero__chips li { padding: 6px var(--sp-3); border-radius: 999px; background: var(--c-surface-2); font-size: var(--fs-0); color: var(--c-muted); }
+.sx-apphero__chips strong { color: var(--c-text); }
+@media (max-width: 860px) {
+  .sx-apphero--stage .sx-apphero__inner { grid-template-columns: minmax(0, 1fr); gap: var(--sp-5); padding-block: var(--sp-4) var(--sp-6); }
+  .sx-apphero--stage .sx-apphero__copy { order: -1; }
+  .sx-apphero--stage .sx-apphero__device { padding: var(--sp-5); }
+  .sx-apphero--stage .sx-apphero__device .sx-phone { width: 190px; }
+  .sx-apphero--stage .sx-apphero__title { font-size: calc((var(--fs-4)) * var(--fit, 1)); }
+}

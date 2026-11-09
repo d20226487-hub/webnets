@@ -5,7 +5,7 @@
   justify-self: start; padding: var(--sp-1) var(--sp-3); border: var(--bw) solid currentColor; border-radius: var(--r-btn);
   font-size: var(--fs-0); font-weight: var(--fw-strong); letter-spacing: .06em; text-transform: uppercase; color: var(--c-hero-muted);
 }
-.sx-hero__title { font-size: var(--fs-6); max-width: 16ch; }
+.sx-hero__title { font-size: calc((var(--fs-6)) * var(--fit, 1)); max-width: 16ch; }
 .sx-hero__subtitle { font-size: var(--fs-2); color: var(--c-hero-muted); max-width: 46ch; line-height: 1.45; }
 .sx-hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3) var(--sp-5); }
 .sx-hero__cta { background: var(--c-hero-accent); color: var(--c-hero-on-accent); min-height: 56px; padding-inline: var(--sp-7); font-size: var(--fs-2); }
@@ -34,7 +34,8 @@
 }
 /* Phones: keep the primary CTA above the fold at 375x667 (guardrail). */
 @media (max-width: 640px) {
-  .sx-hero__title { font-size: var(--fs-5); }
+  .sx-hero__title { font-size: calc((var(--fs-5)) * var(--fit, 1)); }
   .sx-hero__subtitle { font-size: var(--fs-1); }
+  .sx-hero__cta { padding-inline: var(--sp-4); font-size: min(var(--fs-2), 20px); }
 }
 .sx-hero__eyebrow { display: inline-flex; align-items: center; gap: var(--sp-2); }

@@ -17,7 +17,10 @@
   "sx": {
     "role": "hero",
     "variants": [
-      "standard"
+      "standard",
+      "toc-side",
+      "banner",
+      "magazine"
     ],
     "default_variant": "standard",
     "guardrails": [

@@ -33,6 +33,7 @@ links = {}
 for f in glob.glob(os.path.join(root, 'docs/types/*.md')):
     for m in re.finditer(r'sites/demos/([a-z0-9-]+)\.json\)[^\n]*?(https://claude\.ai/artifact/[A-Za-z0-9]+)', open(f, encoding='utf-8').read()):
         links[m.group(1)] = m.group(2)
+DOC_IDS = {m.group(1) for f in glob.glob(os.path.join(root, 'docs/types/*.md')) for m in re.finditer(r'sites/demos/([a-z0-9-]+)\.json\)', open(f, encoding='utf-8').read())}
 
 # (id, phase, (name en, ru), (description en, ru), status key)
 TYPES = [
@@ -45,9 +46,17 @@ TYPES = [
   ('reviews', 7, ('Brand review site', 'Сайт отзывов о бренде'), ('Player reviews of one brand, with computed scores and topic filters.', 'Отзывы игроков об одном бренде с рассчитанными оценками и фильтрами по темам.'), 'ready'),
   ('casinos', 8, ('Multi-brand casino reviews', 'Обзоры нескольких казино'), ('Ranked, scored reviews of licensed casinos, with a comparison table.', 'Рейтинг и обзоры лицензированных казино с таблицей сравнения.'), 'ready'),
   ('news', 9, ('Gambling news with PR', 'Новости гемблинга и PR-статьи'), ('Industry news and guides, with paid articles labelled Sponsored.', 'Новости отрасли и гайды; платные статьи помечены как реклама.'), 'ready'),
+  ('casinos-one', 10, ('One-page multi-brand casino reviews', 'Обзоры нескольких казино (лендинг)'), ('The ranking, comparison and how we rate on one page, with every design of the ranking.', 'Рейтинг, сравнение и методика на одной странице, со всеми видами рейтинга.'), 'ready'),
 ]
 STATUS = {'ready': ('Ready', 'Готово', 'ok'), 'demo_a': ('Demo A only', 'Только демо A', 'part'),
           'demo_market': ('Demo market only', 'Только демо-рынок', 'part'), 'none': ('Not built', 'Не сделано', 'none')}
+
+# the date of the newest screenshot: when the gallery's builds were last taken
+import datetime
+_shots = glob.glob(os.path.join(root, 'dist/gallery/shots', '*-d.png'))
+_built = datetime.date.fromtimestamp(max(os.path.getmtime(f) for f in _shots)) if _shots else datetime.date.today()
+BUILT_EN = f"{_built.day} {_built.strftime('%b')} {_built.year}"
+BUILT_RU = f"{_built.day} " + ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'][_built.month - 1] + f" {_built.year} года"
 
 def esc(s): return html.escape(str(s), quote=True)
 def t(en, ru):
@@ -63,8 +72,10 @@ skipped = []
 for f in sorted(glob.glob(os.path.join(root, 'sites/demos/*.json'))):
     c = json.load(open(f, encoding='utf-8'))
     did = c['id']
-    # Only published demos: a review link in docs/types/*.md and screenshots from build/screenshots.ps1.
-    if did not in links or not os.path.isfile(os.path.join(root, 'dist/gallery/shots', did + '-d.png')):
+    # Only listed demos with screenshots (build/screenshots.ps1 or .sh): published ones have a review link in
+    # docs/types/*.md; the local gallery needs only the local review pages (dist/review/<id>/).
+    listed = did in links or (LOCAL and os.path.isfile(os.path.join(root, 'dist/review', did, 'index.html')) and did in DOC_IDS)
+    if not listed or not os.path.isfile(os.path.join(root, 'dist/gallery/shots', did + '-d.png')):
         skipped.append(did)
         continue
     who = pubs[c['publisher']]['name'] if c.get('publisher') else ops[c['brand']]['name']
@@ -132,14 +143,103 @@ for tid, phase, name, desc, status in TYPES:
       </div>
     </section>''')
 
+# "By section": every block design pictured on its own (build/sections.py), grouped by what the section does
+SEC_GROUPS = [
+    ('first', ('First screens', 'Первые экраны'), ['hero', 'app-hero', 'offer-hero', 'vendor-hero', 'toplist', 'page-hero', 'article-lead', 'brand-header', 'store-header', 'rating-summary']),
+    ('conversion', ('Conversion', 'Конверсия'), ['cta-band', 'promo-list', 'promo-terms', 'download-panel', 'bonus-card']),
+    ('trust', ('Trust and scoring', 'Доверие и оценки'), ['trust-bar', 'criteria', 'compare-table', 'score-box', 'pros-cons', 'facts-table', 'topic-scores', 'editor-box']),
+    ('product', ('Product', 'Продукт'), ['features', 'showcase', 'game-grid', 'rtp-explainer', 'provider-links', 'screenshots', 'app-info', 'changelog', 'install-guide', 'payments', 'store-about', 'store-reviews', 'app-privacy']),
+    ('guidance', ('Guidance', 'Помощь'), ['steps', 'faq', 'prose']),
+    ('lists', ('Lists and navigation', 'Списки и навигация'), ['page-links', 'review-list', 'review-form']),
+    ('articles', ('Articles', 'Статьи'), ['article-body', 'article-list']),
+]
+SEC_RU = {'hero': 'Первый экран', 'app-hero': 'Первый экран приложения', 'offer-hero': 'Первый экран с бонусом', 'vendor-hero': 'Первый экран провайдера',
+    'toplist': 'Рейтинг брендов', 'page-hero': 'Заголовок страницы', 'article-lead': 'Главная новость', 'brand-header': 'Шапка обзора бренда',
+    'store-header': 'Карточка в стиле магазина', 'rating-summary': 'Сводка оценок', 'cta-band': 'Финальный призыв', 'promo-list': 'Список акций',
+    'promo-terms': 'Условия акции', 'download-panel': 'Панель загрузки', 'bonus-card': 'Карточка бонуса', 'trust-bar': 'Полоса доверия',
+    'criteria': 'Критерии оценки', 'compare-table': 'Таблица сравнения', 'score-box': 'Разбор оценки', 'pros-cons': 'Плюсы и минусы',
+    'facts-table': 'Факты о бренде', 'topic-scores': 'Оценки по темам', 'editor-box': 'Блок редакции', 'features': 'Возможности',
+    'showcase': 'Витрина продукта', 'game-grid': 'Сетка игр', 'rtp-explainer': 'Пояснение RTP', 'provider-links': 'Другие провайдеры',
+    'screenshots': 'Скриншоты', 'app-info': 'Информация о приложении', 'changelog': 'Что нового', 'install-guide': 'Инструкция по установке',
+    'payments': 'Платежи', 'store-about': 'Описание (магазин)', 'store-reviews': 'Отзывы (магазин)', 'app-privacy': 'Конфиденциальность',
+    'steps': 'Как начать', 'faq': 'Вопросы и ответы', 'prose': 'Текст страницы', 'page-links': 'Ссылки на страницы', 'review-list': 'Список отзывов',
+    'review-form': 'Форма отзыва', 'article-body': 'Статья', 'article-list': 'Список статей'}
+TYPE_NAMES = {x[0]: x[2] for x in TYPES}
+used = {}  # block -> {'home': set(types), 'inner': set(types)}
+for f in glob.glob(os.path.join(root, 'blueprints/*.json')):
+    bp = json.load(open(f, encoding='utf-8'))
+    tname = os.path.basename(f)[:-5]
+    for pid, pg in (bp['pages'].items() if 'pages' in bp else [('home', bp)]):
+        lay = [s_ for k, v in (pg.get('layouts') or bp.get('layouts') or {}).items() if isinstance(v, list) for s_ in v] if pid == 'home' else []
+        for s_ in pg.get('sections', []) + lay:
+            used.setdefault(s_['block'], {'home': set(), 'inner': set()})['home' if pid == 'home' else 'inner'].add(tname)
+sec_file = os.path.join(root, 'dist/gallery/sections.json')
+sec_items = json.load(open(sec_file, encoding='utf-8')) if LOCAL and os.path.isfile(sec_file) else []
+sec_by = {}
+for x in sec_items:
+    sec_by.setdefault(x['block'], []).append(x)
+sec_groups_html = []
+sec_types, sec_blocks = set(), []
+n_sec_designs = len(sec_items)
+for gid, gname, blocks in SEC_GROUPS:
+    cards_ = []
+    for bl in blocks:
+        if bl not in sec_by:
+            continue
+        meta = json.load(open(os.path.join(root, 'blocks', bl, 'block.json'), encoding='utf-8'))
+        en = re.sub(r'^SX ', '', meta.get('title', bl))
+        u = used.get(bl, {'home': set(), 'inner': set()})
+        where = [t(f"Home: {', '.join(TYPE_NAMES.get(x, (x, x))[0] for x in sorted(u['home']))}", f"Главные: {', '.join(TYPE_NAMES.get(x, (x, x))[1] for x in sorted(u['home']))}")] if u['home'] else []
+        where += [t(f"Inner pages: {', '.join(TYPE_NAMES.get(x, (x, x))[0] for x in sorted(u['inner']))}", f"Внутренние: {', '.join(TYPE_NAMES.get(x, (x, x))[1] for x in sorted(u['inner']))}")] if u['inner'] else []
+        designs = sorted(sec_by[bl], key=lambda x: x['design'])
+        n = len(meta['sx'].get('variants') or [1])
+        types_ = sorted(u['home'] | u['inner'], key=lambda x: [y[0] for y in TYPES].index(x) if x in TYPE_NAMES else 99)
+        sec_types.update(types_)
+        share = (t(f"Shared by {len(types_)} site types", f"Общая для {len(types_)} " + ru_plural(len(types_), 'типа', 'типов', 'типов') + " сайтов") if len(types_) > 1
+                 else t(f"Only {TYPE_NAMES.get(types_[0], (types_[0],))[0]}", f"Только {TYPE_NAMES.get(types_[0], (types_[0], types_[0]))[1]}") if types_ else '')
+        sec_blocks.append((gid, bl, en, SEC_RU.get(bl, en)))
+        tiles = ''.join(f'''
+          <figure class="dtile">
+            <a class="shots" href="{esc(x['page'])}" target="_blank" rel="noopener" title="{esc(x['page'])}">
+              <img class="desk" src="{esc(x['desktop'])}" alt="{esc(en)}: {esc(x['design'])}" width="640" height="450" loading="lazy">
+              <span class="phone"><img src="{esc(x['phone'])}" alt="" width="416" height="624" loading="lazy"></span>
+            </a>
+            <figcaption><b>{esc(x['design'].replace('-', ' '))}</b><a href="{esc(x['page'])}" target="_blank" rel="noopener">{t("Open page", "Открыть страницу")} ↗</a></figcaption>
+          </figure>''' for x in designs)
+        cards_.append(f'''
+      <article class="scard" data-group="{gid}" data-block="{bl}" data-types=" {' '.join(types_)} " data-share="{'many' if len(types_) > 1 else 'one'}">
+        <header class="shead"><h3>{t(en, SEC_RU.get(bl, en))}</h3><span class="sshare{' many' if len(types_) > 1 else ''}">{share}</span><span class="scount">{t(f"{len(designs)} of {n} designs", f"{len(designs)} из {n} " + ru_plural(n, 'дизайна', 'дизайнов', 'дизайнов'))}</span></header>
+        <ul class="meta">{''.join(f'<li>{w}</li>' for w in where)}</ul>
+        <div class="dgrid">{tiles}
+        </div>
+      </article>''')
+    if cards_:
+        sec_groups_html.append(f'''
+    <section class="sgroup" id="s-{gid}">
+      <header class="type-head"><span class="phase" data-gcount>{len(cards_):02d}</span><div><h2>{t(*gname)}</h2></div></header>
+      {''.join(cards_)}
+    </section>''')
+SEC_VIEW = f'''
+  <div id="secview" hidden>
+    <div class="filters sfilters" role="group" aria-label="Filter sections / Фильтр секций">
+      <div class="frow"><span class="lbl">{t("Site type", "Тип сайта")}</span>{''.join(f'<button type="button" class="chip" data-sfilter="type" data-value="{x[0]}" aria-pressed="false">{t(*x[2])}</button>' for x in TYPES if x[0] in sec_types)}</div>
+      <div class="frow"><span class="lbl">{t("Section type", "Тип секции")}</span>{''.join(f'<button type="button" class="chip" data-sfilter="group" data-value="{g[0]}" aria-pressed="false">{t(*g[1])}</button>' for g in SEC_GROUPS if any(b in sec_by for b in g[2]))}</div>
+      <div class="frow"><span class="lbl">{t("Section", "Секция")}</span><select id="sblock" class="ssel" aria-label="Section / Секция"><option value="" data-en="All sections" data-ru="Все секции">All sections</option>{''.join(f'<option value="{b}" data-group="{g}" data-en="{esc(en_)}" data-ru="{esc(ru_)}">{esc(en_)}</option>' for g, b, en_, ru_ in sec_blocks)}</select></div>
+      <div class="frow"><span class="lbl">{t("Use", "Где")}</span><button type="button" class="chip" data-sfilter="share" data-value="many" aria-pressed="false">{t("Shared by several types", "Общие для нескольких типов")}</button><button type="button" class="chip" data-sfilter="share" data-value="one" aria-pressed="false">{t("One type only", "Только у одного типа")}</button><span class="scount" id="sshown"></span><button type="button" class="clear" id="sclear" hidden>{t("Show all", "Показать все")}</button></div>
+    </div>
+    <p class="none-msg" id="snone" hidden>{t("No section matches these filters.", "Нет секций под эти фильтры.")}</p>
+    {''.join(sec_groups_html)}
+  </div>''' if sec_groups_html else ''
+VIEW_SWITCH = f'''<div class="seg" role="group" aria-label="View / Вид"><button type="button" data-view="sites" aria-pressed="true">{t("By site", "По сайтам")}</button><button type="button" data-view="sections" aria-pressed="false">{t(f"By section ({n_sec_designs})", f"По секциям ({n_sec_designs})")}</button></div>''' if sec_groups_html else ''
+
 markets = sorted({d['market'] for d in demos}, key=lambda m: list(MARKET).index(m))
 chips_type = ''.join(f'<button type="button" class="chip" data-filter="type" data-value="{x[0]}" aria-pressed="false">{t(*x[2])}</button>' for x in TYPES)
 chips_market = ''.join(f'<button type="button" class="chip" data-filter="market" data-value="{m}" aria-pressed="false">{t(*MARKET[m])}</button>' for m in markets)
 n_pages = sum(d['pages'] for d in demos)
-n_types = len(TYPES); n_built = n_types - 1; n_demos = len(demos); n_langs = len({d['lang'] for d in demos})
+n_types = len(TYPES); n_built = len({d['type'] for d in demos}); n_demos = len(demos); n_langs = len({d['lang'] for d in demos})
 
 DARK = '--bg: #111417; --paper: #1A1E23; --ink: #E8ECEF; --muted: #9AA3AD; --line: #2C333A; --accent: #5CC4B2; --accent-soft: #163631; --warn: #F2C266; --warn-soft: #3A2E12; --off: #7D8690; color-scheme: dark;'
-page = f'''<title>Satellite System Gallery</title>
+page = f'''<title>WebNets Gallery</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -217,6 +317,24 @@ h1 {{ font: 700 clamp(2rem, 4.6vw, 3.4rem)/1.04 var(--f-display); letter-spacing
 .note {{ color: var(--muted); font-size: 14px; }}
 .none-msg {{ color: var(--muted); }}
 footer p {{ color: var(--muted); font-size: 13px; max-width: 72ch; }}
+.viewbar {{ display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }}
+#secview {{ display: grid; gap: 36px; }}
+.ssel {{ font: 500 14px/1.2 var(--f-body); color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; min-height: 36px; max-width: 100%; }}
+.sshare {{ font: 500 12px/1 var(--f-body); color: var(--muted); padding: 5px 9px; border: 1px solid var(--line); border-radius: 999px; }}
+.sshare.many {{ color: var(--accent); border-color: var(--accent); }}
+.shead h3 {{ margin-right: auto; }}
+#sshown {{ margin-left: auto; }}
+.sgroup {{ display: grid; gap: 20px; scroll-margin-top: 60px; }}
+.scard {{ display: grid; gap: 12px; padding: 18px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; }}
+.shead {{ display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; }}
+.shead h3 {{ font: 700 1.25rem/1.2 var(--f-display); color: var(--ink); }}
+.scount {{ font: 500 12px/1 var(--f-mono); color: var(--muted); }}
+.dgrid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 16px; }}
+.dtile {{ margin: 0; display: grid; gap: 8px; }}
+.dtile .shots {{ display: block; border: 1px solid var(--line); border-radius: 10px; }}
+.dtile figcaption {{ display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 14px; }}
+.dtile figcaption b {{ text-transform: capitalize; }}
+.dtile figcaption a {{ color: var(--accent); font-weight: 600; text-decoration: none; white-space: nowrap; }}
 @media (max-width: 560px) {{
   .wrap {{ padding-block: 20px 48px; gap: 28px; }}
   .type-head {{ grid-template-columns: minmax(0, 1fr) auto; }}
@@ -228,7 +346,7 @@ footer p {{ color: var(--muted); font-size: 13px; max-width: 72ch; }}
 
 <div class="wrap">
   <div class="bar">
-    <p class="kicker">Satellite System · {t("Demo gallery", "Галерея демо")}</p>
+    <p class="kicker">WebNets · {t("Demo gallery", "Галерея демо")}</p>
     <div class="toggles">
       <div class="seg" role="group" aria-label="Language / Язык">
         <button type="button" data-set-lang="en" aria-pressed="true" lang="en">EN</button>
@@ -256,13 +374,15 @@ footer p {{ color: var(--muted); font-size: 13px; max-width: 72ch; }}
     </ul>
   </header>
 
+  <div class="viewbar">{VIEW_SWITCH}</div>
   <div class="filters" role="group" aria-label="Filter demos / Фильтр демо">
     <div class="frow"><span class="lbl">{t("Type", "Тип")}</span>{chips_type}</div>
     <div class="frow"><span class="lbl">{t("Market", "Рынок")}</span>{chips_market}<button type="button" class="clear" id="clear" hidden>{t("Show all", "Показать все")}</button></div>
   </div>
   <p class="none-msg" id="none" hidden>{t("No demo matches these filters.", "Нет демо под эти фильтры.")} <button type="button" class="clear" id="clear2">{t("Show all", "Показать все")}</button></p>
-  {''.join(sections)}
-  <footer><p>{t("Screenshots and review links show the current builds as of 30 Oct 2026.", "Скриншоты и ссылки показывают текущие сборки на 30 октября 2026 года.")}</p></footer>
+  <div id="siteview">{''.join(sections)}</div>
+  {SEC_VIEW}
+  <footer><p>{t(f"Screenshots and review links show the current builds as of {BUILT_EN}.", f"Скриншоты и ссылки показывают текущие сборки на {BUILT_RU}.")}</p></footer>
 </div>
 
 <script>
@@ -275,9 +395,11 @@ footer p {{ color: var(--muted); font-size: 13px; max-width: 72ch; }}
   function setLang(l, save) {{
     docEl.setAttribute('data-lang', l);
     docEl.lang = l;
-    document.title = l === 'ru' ? 'Галерея Satellite System' : 'Satellite System Gallery';
+    document.title = l === 'ru' ? 'Галерея WebNets' : 'WebNets Gallery';
     document.querySelectorAll('img[data-alt-en]').forEach(function (img) {{ img.alt = img.getAttribute('data-alt-' + l); }});
     document.querySelectorAll('[data-set-lang]').forEach(function (b) {{ b.setAttribute('aria-pressed', String(b.dataset.setLang === l)); }});
+    document.querySelectorAll('option[data-en]').forEach(function (o) {{ o.textContent = o.getAttribute('data-' + l); }});
+    if (window.sxgCount) window.sxgCount();
     if (save) keep('sxg-lang', l);
   }}
   var hashLang = (location.hash.match(/^#(ru|en)$/) || [])[1];
@@ -295,7 +417,7 @@ footer p {{ color: var(--muted); font-size: 13px; max-width: 72ch; }}
   document.querySelectorAll('[data-set-theme]').forEach(function (b) {{ b.addEventListener('click', function () {{ setTheme(b.dataset.setTheme, true); }}); }});
 
   var state = {{ type: null, market: null }};
-  var chips = document.querySelectorAll('.chip');
+  var chips = document.querySelectorAll('.chip[data-filter]');
   var cards = document.querySelectorAll('.card');
   var sections = document.querySelectorAll('.type');
   var clear = document.getElementById('clear');
@@ -319,7 +441,60 @@ footer p {{ color: var(--muted); font-size: 13px; max-width: 72ch; }}
     }});
   }});
   function reset() {{ state = {{ type: null, market: null }}; apply(); }}
+  var filters = document.querySelector('.filters'), siteview = document.getElementById('siteview'), secview = document.getElementById('secview');
+  function setView(v, save) {{
+    if (!secview) return;
+    var sec = v === 'sections';
+    secview.hidden = !sec; siteview.hidden = sec; filters.hidden = sec; none.hidden = true;
+    document.querySelectorAll('[data-view]').forEach(function (b) {{ b.setAttribute('aria-pressed', String(b.dataset.view === v)); }});
+    if (save) keep('sxg-view', v);
+    if (!sec) apply();
+  }}
+  document.querySelectorAll('[data-view]').forEach(function (b) {{ b.addEventListener('click', function () {{ setView(b.dataset.view, true); }}); }});
+  setView(/^#(sections|s-)/.test(location.hash) ? 'sections' : (load('sxg-view') || 'sites'), false);
   clear.addEventListener('click', reset);
+  // "By section" filters: site type, section type (group), one section, shared or one type only
+  var sst = {{ type: null, group: null, share: null, block: '' }}, sel = document.getElementById('sblock');
+  function fits(c, skipBlock) {{
+    return (!sst.type || c.dataset.types.indexOf(' ' + sst.type + ' ') >= 0) && (!sst.group || c.dataset.group === sst.group)
+      && (!sst.share || c.dataset.share === sst.share) && (skipBlock || !sst.block || c.dataset.block === sst.block);
+  }}
+  function sapply() {{
+    var shown = 0, designs = 0;
+    document.querySelectorAll('.scard').forEach(function (c) {{
+      var ok = fits(c, false);
+      c.hidden = !ok; if (ok) {{ shown++; designs += c.querySelectorAll('.dtile').length; }}
+    }});
+    document.querySelectorAll('.sgroup').forEach(function (g) {{
+      var n = g.querySelectorAll('.scard:not([hidden])').length;
+      g.hidden = !n; g.querySelector('[data-gcount]').textContent = (n < 10 ? '0' : '') + n;
+    }});
+    Array.prototype.forEach.call(sel.options, function (o) {{
+      if (o.value) o.hidden = !fits(document.querySelector('.scard[data-block="' + o.value + '"]'), true);
+    }});
+    document.querySelectorAll('[data-sfilter]').forEach(function (b) {{ b.setAttribute('aria-pressed', String(sst[b.dataset.sfilter] === b.dataset.value)); }});
+    document.getElementById('snone').hidden = shown > 0;
+    document.getElementById('sclear').hidden = !sst.type && !sst.group && !sst.share && !sst.block;
+    window.sxgShown = [shown, designs]; window.sxgCount();
+  }}
+  window.sxgCount = function () {{
+    var s = window.sxgShown, el = document.getElementById('sshown');
+    if (!s || !el) return;
+    el.textContent = docEl.lang === 'ru' ? 'Секций: ' + s[0] + ', дизайнов: ' + s[1] : s[0] + ' sections, ' + s[1] + ' designs';
+  }};
+  if (sel) {{
+    document.querySelectorAll('[data-sfilter]').forEach(function (b) {{
+      b.addEventListener('click', function () {{
+        var k = b.dataset.sfilter;
+        sst[k] = sst[k] === b.dataset.value ? null : b.dataset.value;
+        if (sst.block && !fits(document.querySelector('.scard[data-block="' + sst.block + '"]'), true)) {{ sst.block = ''; sel.value = ''; }}
+        sapply();
+      }});
+    }});
+    sel.addEventListener('change', function () {{ sst.block = sel.value; sapply(); }});
+    document.getElementById('sclear').addEventListener('click', function () {{ sst = {{ type: null, group: null, share: null, block: '' }}; sel.value = ''; sapply(); }});
+    sapply();
+  }}
   document.getElementById('clear2').addEventListener('click', reset);
 }})();
 </script>

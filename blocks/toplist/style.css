@@ -30,7 +30,18 @@ h2.sx-toplist__title { font-size: var(--fs-4); }
   .sx-toplist__intro { display: none; }
   .sx-toplist__item { grid-template-columns: auto auto minmax(0, 1fr) auto; padding: var(--sp-3); gap: var(--sp-2) var(--sp-3); }
   .sx-toplist__mark svg { width: 36px; height: 36px; }
+  .sx-toplist__name { font-size: var(--fs-1); line-height: 1.2; }
   .sx-toplist__summary { display: none; }
   .sx-toplist__actions { grid-column: 1 / -1; grid-template-columns: 1fr auto; align-items: center; justify-items: stretch; gap: var(--sp-3); }
   .sx-toplist__cta { min-height: 44px; }
+}
+/* ranking tabs (rating rows, score cards): the pages ranked by another criterion */
+.sx-toplist__tabs { min-width: 0; }
+.sx-toplist__tabs ul { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.sx-toplist__tabs a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 var(--sp-4); border-radius: 999px; border: var(--bw) solid var(--c-border); background: var(--c-surface); color: var(--c-text); font-size: var(--fs-0); font-weight: var(--fw-strong); text-decoration: none; }
+.sx-toplist__tabs a[aria-current] { background: var(--c-accent); border-color: var(--c-accent); color: var(--c-on-accent); }
+@media (max-width: 760px) {
+  .sx-toplist__tabs ul { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(-1 * max(16px, var(--sp-5))); padding-inline: max(16px, var(--sp-5)); scrollbar-width: none; }
+  [data-rows=stack] .sx-toplist__tabs ul { flex-wrap: wrap; margin-inline: 0; padding-inline: 0; }
+  .sx-toplist__tabs a { white-space: nowrap; }
 }

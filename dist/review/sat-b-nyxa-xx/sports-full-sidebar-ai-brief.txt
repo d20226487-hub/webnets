@@ -180,7 +180,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Nyxa: ставки на спорт с выводом за 15 минут
 - The only H1: Ставки на спорт с выводом за 15 минут
 - Structured data (JSON-LD): WebPage, FAQPage, WebSite
-- Links to: `sports-full-sidebar-index.html`, `sports-full-sidebar-sign-up.html`, `sports-full-sidebar-payments.html`, `sports-full-sidebar-app.html`, `sports-full-sidebar-betting.html`, `sports-full-sidebar-bonus.html`, `sports-full-sidebar-responsible-gambling.html`
+- Links to: `sports-full-sidebar-sign-up.html`, `sports-full-sidebar-payments.html`, `sports-full-sidebar-app.html`, `sports-full-sidebar-betting.html`, `sports-full-sidebar-bonus.html`, `sports-full-sidebar-responsible-gambling.html`, `sports-full-sidebar-index.html`
 
 ### Sections, in order
 
@@ -259,7 +259,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Регистрация в Nyxa: что нужно и сколько занимает
 - The only H1: Регистрация в Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
-- Links to: `sports-full-sidebar-index.html`, `sports-full-sidebar-sign-up.html`, `sports-full-sidebar-payments.html`, `sports-full-sidebar-app.html`, `sports-full-sidebar-betting.html`, `sports-full-sidebar-bonus.html`, `sports-full-sidebar-responsible-gambling.html`
+- Links to: `sports-full-sidebar-sign-up.html`, `sports-full-sidebar-payments.html`, `sports-full-sidebar-app.html`, `sports-full-sidebar-betting.html`, `sports-full-sidebar-bonus.html`, `sports-full-sidebar-responsible-gambling.html`, `sports-full-sidebar-index.html`
 
 ### Sections, in order
 
@@ -318,7 +318,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Пополнение и вывод в Nyxa: Apple Pay, Visa, Mastercard
 - The only H1: Пополнение и вывод в Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
-- Links to: `sports-full-sidebar-index.html`, `sports-full-sidebar-sign-up.html`, `sports-full-sidebar-payments.html`, `sports-full-sidebar-app.html`, `sports-full-sidebar-betting.html`, `sports-full-sidebar-bonus.html`, `sports-full-sidebar-responsible-gambling.html`
+- Links to: `sports-full-sidebar-sign-up.html`, `sports-full-sidebar-payments.html`, `sports-full-sidebar-app.html`, `sports-full-sidebar-betting.html`, `sports-full-sidebar-bonus.html`, `sports-full-sidebar-responsible-gambling.html`, `sports-full-sidebar-index.html`
 
 ### Sections, in order
 
@@ -372,7 +372,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Приложение Nyxa для iPhone и Android
 - The only H1: Приложение Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
-- Links to: `sports-full-sidebar-index.html`, `sports-full-sidebar-sign-up.html`, `sports-full-sidebar-payments.html`, `sports-full-sidebar-app.html`, `sports-full-sidebar-betting.html`, `sports-full-sidebar-bonus.html`, `sports-full-sidebar-responsible-gambling.html`
+- Links to: `sports-full-sidebar-sign-up.html`, `sports-full-sidebar-payments.html`, `sports-full-sidebar-app.html`, `sports-full-sidebar-betting.html`, `sports-full-sidebar-bonus.html`, `sports-full-sidebar-responsible-gambling.html`, `sports-full-sidebar-index.html`
 
 ### Sections, in order
 
@@ -420,7 +420,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Ставки на спорт в Nyxa: линия и лайв
 - The only H1: Ставки на спорт в Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
-- Links to: `sports-full-sidebar-index.html`, `sports-full-sidebar-sign-up.html`, `sports-full-sidebar-payments.html`, `sports-full-sidebar-app.html`, `sports-full-sidebar-betting.html`, `sports-full-sidebar-bonus.html`, `sports-full-sidebar-responsible-gambling.html`
+- Links to: `sports-full-sidebar-sign-up.html`, `sports-full-sidebar-payments.html`, `sports-full-sidebar-app.html`, `sports-full-sidebar-betting.html`, `sports-full-sidebar-bonus.html`, `sports-full-sidebar-responsible-gambling.html`, `sports-full-sidebar-index.html`
 
 ### Sections, in order
 
@@ -477,7 +477,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Акции Nyxa: условия простыми словами
 - The only H1: Акции Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
-- Links to: `sports-full-sidebar-index.html`, `sports-full-sidebar-sign-up.html`, `sports-full-sidebar-payments.html`, `sports-full-sidebar-app.html`, `sports-full-sidebar-betting.html`, `sports-full-sidebar-bonus.html`, `sports-full-sidebar-responsible-gambling.html`
+- Links to: `sports-full-sidebar-sign-up.html`, `sports-full-sidebar-payments.html`, `sports-full-sidebar-app.html`, `sports-full-sidebar-betting.html`, `sports-full-sidebar-bonus.html`, `sports-full-sidebar-responsible-gambling.html`, `sports-full-sidebar-index.html`
 
 ### Sections, in order
 
@@ -523,7 +523,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Ответственная игра в Nyxa: лимиты, паузы и самоисключение
 - The only H1: Ответственная игра в Nyxa
 - Structured data (JSON-LD): WebPage, BreadcrumbList, FAQPage
-- Links to: `sports-full-sidebar-index.html`, `sports-full-sidebar-sign-up.html`, `sports-full-sidebar-payments.html`, `sports-full-sidebar-app.html`, `sports-full-sidebar-betting.html`, `sports-full-sidebar-bonus.html`, `sports-full-sidebar-responsible-gambling.html`
+- Links to: `sports-full-sidebar-sign-up.html`, `sports-full-sidebar-payments.html`, `sports-full-sidebar-app.html`, `sports-full-sidebar-betting.html`, `sports-full-sidebar-bonus.html`, `sports-full-sidebar-responsible-gambling.html`, `sports-full-sidebar-index.html`
 
 ### Sections, in order
 

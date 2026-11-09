@@ -21,3 +21,7 @@ dist/gallery/shots/b-nyxa-kz-*
 # Traefik deploy: secrets and the internal self-signed cert
 .env
 caddy-certs/
+
+# Network generator: database, site configs, generated sites
+data/
+dist/generated/

@@ -3,7 +3,7 @@ $id = sx_page_item() ?? sx_casino_ids()[0];
 $b = sx_casino($id);
 $f = $b['f'];
 // Studios the brand carries in this market (Phase 4 catalog), if any.
-$catFile = SX::$ctx['root'] . "/brands/catalog/$id.json";
+$catFile = sx_brand_file(SX::$ctx['root'], "catalog/$id.json");
 $studios = [];
 if (is_file($catFile)) {
     foreach (array_keys(sx_json($catFile)['markets'][SX::$ctx['market']['id']]['providers'] ?? []) as $pid) {

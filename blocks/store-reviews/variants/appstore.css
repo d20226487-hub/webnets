@@ -11,6 +11,7 @@
 .sx-sreviews--appstore .sx-sreviews__text { display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
 .sx-sreviews--appstore .sx-sreviews__reply { background: var(--c-bg); }
 @media (max-width: 760px) {
-  .sx-sreviews--appstore .sx-sreviews__list { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(-1 * var(--gutter, 16px)); padding-inline: var(--gutter, 16px); }
-  .sx-sreviews--appstore .sx-sreviews__card { flex: 0 0 82%; scroll-snap-align: start; }
+  .sx-sreviews--appstore .sx-sreviews__list { display: flex; gap: var(--sp-3); }
+  .sx-sreviews--appstore .sx-sreviews__card { flex: 0 0 82%; }
+  [data-rows=stack] .sx-sreviews--appstore .sx-sreviews__list { display: grid; overflow: visible; margin-inline: 0; padding-inline: 0; }
 }

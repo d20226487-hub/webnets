@@ -69,7 +69,7 @@ foreach ($extraLabels as $k => $v) { // per-demo labels: {"key": {"en": ..., "pt
 }
 
 /** The demo bar: not part of the site, so it carries its own scoped styles and stays out of the site's tokens. */
-$bar = function (array $current) use ($axes, $L, $file): string {
+$bar = function (array $current, string $live = '') use ($axes, $L, $file): string {
     $rows = '';
     foreach ($axes as $axis => $options) {
         $links = '';
@@ -87,7 +87,7 @@ $bar = function (array $current) use ($axes, $L, $file): string {
         . '.vbar a[aria-current]{background:#E8EAF0;color:#111318}'
         . '@media(max-width:640px){.vbar{gap:6px;padding:8px 12px}.vbar b{display:none}.vbar-row{width:100%}.vbar-row>span{flex:none;width:72px}}</style>'
         . sx_review_phone_guard() . '<div class="vbar" role="region" aria-label="' . htmlspecialchars($L['_title']) . '"><b>' . htmlspecialchars($L['_title']) . '</b>'
-        . sx_review_vbar_toggle($L['_title'], implode(' · ', array_map(fn($o) => $L[$o] ?? $o, $current))) . $rows . '</div>';
+        . sx_review_vbar_toggle($L['_title'], implode(' · ', array_map(fn($o) => $L[$o] ?? $o, $current))) . $rows . $live . '</div>';
 };
 
 $dir = "$root/dist/review/{$base['id']}";
@@ -114,8 +114,16 @@ foreach ($combos as $c) {
         fwrite(STDERR, implode('-', $c) . ': ' . implode(' | ', array_unique(SX::$warnings)) . "\n");
     }
     $page['file'] = $file($c);
-    $html = str_replace('</body>', sx_review_nav_script() . sx_review_device_toggle($file($c), $base['locale'] ?? 'en') . sx_review_devspec($page, [$page], $base['locale'] ?? 'en', $page['prefix']) . '</body>', preg_replace('#<body([^>]*)>#', '<body$1>' . $bar($c), $page['html'], 1));
-    file_put_contents("$dir/" . $file($c), $html);
+    // Colours in the browser (demos whose switchers already change colours keep those): neutral and brand overrides
+    $pal = [];
+    if (!isset($axes['palette']) && !isset($axes['look']) && empty($cfg['look'])) {
+        foreach (['neutral', 'brand'] as $look) {
+            $alt = array_values(array_filter(sx_build_site(['look' => $look] + $cfg, $root), fn($p) => empty($p['asset'])))[0];
+            $pal[$look] = sx_review_palette($page['html'], $alt['html']);
+        }
+    }
+    $html = str_replace('</body>', sx_review_nav_script() . sx_review_device_toggle($file($c), $base['locale'] ?? 'en') . sx_review_devspec($page, [$page], $base['locale'] ?? 'en', $page['prefix']) . '</body>', preg_replace('#<body([^>]*)>#', '<body$1>' . $bar($c, sx_review_live_switches($pal, $base['locale'] ?? 'en')), $page['html'], 1));
+    file_put_contents("$dir/" . $file($c), sx_strip_comments($html));
     echo "dist/review/{$base['id']}/" . $file($c) . "\n";
 }
 passthru(PHP_BINARY . ' ' . escapeshellarg("$root/build/export-review.php") . ' ' . escapeshellarg("$dir/index.html") . ' '

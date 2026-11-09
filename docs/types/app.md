@@ -53,7 +53,7 @@ compliance text or ratings.
 |---|---|---|---|---|
 | (strip) | compliance-bar | required in AU | strip | |
 | header | header | required | app-bar | App icon, name, one "Get" button pointed at the visitor's store |
-| hero | app-hero | required, first | listing, device, qr-first | Platform script lives here: reorders install buttons, sets `data-platform` |
+| hero | app-hero | required, first | listing, device, qr-first, banner, stage, catalog, apk-page, hub | Platform script lives here: reorders install buttons, sets `data-platform` |
 | trust | trust-bar | required | strip, badges | |
 | screens | screenshots | required | carousel, fan, grid | 3–6 screens; CSS-drawn until real screenshots exist (`image`) |
 | features | features | required, middle | grid, rows, bento | App-specific reasons, not brand marketing |

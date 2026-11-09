@@ -110,7 +110,7 @@ function sx_site_checks(array &$out, string $style, string $base, bool $ctaCheck
             $out[$i]['warnings'][] = "Page {$p['file']} has no CTA.";
         }
         // generated cover art stands in for image files, which would not count towards the HTML budget
-        $kb = strlen(preg_replace('#<svg [^>]*data-cover[^>]*>.*?</svg>#s', '', $p['html'])) / 1024;
+        $kb = strlen(preg_replace('#<svg [^>]*\bdata-cover\b[^>]*>.*?</svg>#s', '', $p['html'])) / 1024;
         if ($kb > SX_PAGE_BUDGET_KB) {
             $out[$i]['warnings'][] = sprintf('Page %s is %.1f KB (budget %d KB).', $p['file'], $kb, SX_PAGE_BUDGET_KB);
         }
@@ -245,3 +245,67 @@ function sx_review_device_toggle(string $file, string $locale = 'en'): string
         . 'document.addEventListener("keydown",function(e){if(e.key==="Escape")close();});})();</script>';
 }
 
+
+/**
+ * Review pages only: what a page looks like with another Colours option (the generator's "palette": "neutral" or
+ * "brand"), as the CSS to lay over the page's own: the alternative's colour tokens plus any rules its look adds, and its
+ * font stylesheet. $baseHtml and $altHtml are the same page built with and without the look.
+ */
+function sx_review_palette(string $baseHtml, string $altHtml): array
+{
+    $style = fn(string $h) => preg_match('#<style>(.*?)</style>#s', $h, $m) ? $m[1] : '';
+    $split = function (string $css): array {
+        preg_match('#^\s*((?::root\{[^}]*\}\s*)+)#', $css, $m);
+        return [$m[1] ?? '', substr($css, strlen($m[0] ?? ''))];
+    };
+    [, $baseRest] = $split($style($baseHtml));
+    [$tokens, $altRest] = $split($style($altHtml));
+    // the look's own rules sit inside the shared CSS (before its last rules): keep only the part the base page lacks
+    $pre = strspn($altRest ^ $baseRest, " ");
+    $max = min(strlen($altRest), strlen($baseRest)) - $pre;
+    $suf = 0;
+    while ($suf < $max && $altRest[strlen($altRest) - 1 - $suf] === $baseRest[strlen($baseRest) - 1 - $suf]) {
+        $suf++;
+    }
+    $extra = $pre + $suf >= strlen($baseRest) ? substr($altRest, $pre, strlen($altRest) - $pre - $suf) : $altRest;
+    $font = preg_match('#href="(https://fonts\.googleapis\.com/css[^"]*)"#', $altHtml, $f) ? html_entity_decode($f[1]) : null;
+    return ['css' => $tokens . $extra, 'fonts' => $font];
+}
+
+/**
+ * Review pages only: the switcher rows that work in the browser, with no page of their own. Colours (when $palettes has
+ * the page's "neutral" and "brand" versions from sx_review_palette()) and Rows of cards (swipe or stacked: the
+ * data-rows attribute). The choice is remembered while moving between the review's pages.
+ */
+function sx_review_live_switches(array $palettes, string $locale): string
+{
+    $tr = fn(array $m) => $m[$locale] ?? $m['en'];
+    $out = '';
+    if ($palettes) {
+        $links = '';
+        foreach (['' => ['en' => 'Site style', 'ru' => 'Стиль сайта', 'pt' => 'Estilo do site'], 'neutral' => ['en' => 'Neutral', 'ru' => 'Нейтральный', 'pt' => 'Neutro'],
+            'brand' => ['en' => 'Brand colours', 'ru' => 'Цвета бренда', 'pt' => 'Cores da marca']] as $k => $label) {
+            $links .= '<a href="#" role="button" data-sxpal="' . $k . '">' . htmlspecialchars($tr($label)) . '</a>';
+        }
+        $out .= '<div class="vbar-row"><span>' . htmlspecialchars($tr(['en' => 'Colours', 'ru' => 'Цвета', 'pt' => 'Cores'])) . '</span><nav>' . $links . '</nav></div>';
+        foreach ($palettes as $k => $p) {
+            $out .= '<template id="sx-pal-' . $k . '"' . ($p['fonts'] ? ' data-fonts="' . htmlspecialchars($p['fonts']) . '"' : '') . '>' . htmlspecialchars($p['css']) . '</template>';
+        }
+    }
+    $links = '';
+    foreach (['swipe' => ['en' => 'Swipe', 'ru' => 'Листаются', 'pt' => 'Deslizar'], 'stack' => ['en' => 'Stacked', 'ru' => 'Сеткой', 'pt' => 'Em grade']] as $k => $label) {
+        $links .= '<a href="#" role="button" data-sxrows="' . $k . '">' . htmlspecialchars($tr($label)) . '</a>';
+    }
+    $out .= '<div class="vbar-row"><span>' . htmlspecialchars($tr(['en' => 'Rows of cards', 'ru' => 'Ряды карточек', 'pt' => 'Fileiras de cartões'])) . '</span><nav>' . $links . '</nav></div>';
+    return $out . '<script>(function(){var K="sx-review-live",st={};try{st=JSON.parse(localStorage.getItem(K)||"{}")}catch(e){}'
+        . 'var rows0=document.body.getAttribute("data-rows")==="stack"?"stack":"swipe";'
+        . 'function save(){try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}}'
+        . 'function apply(){var p=st.pal||"",t=p&&document.getElementById("sx-pal-"+p),s=document.getElementById("sx-pal-css");'
+        . 'if(!s){s=document.createElement("style");s.id="sx-pal-css";document.head.appendChild(s);}s.textContent=t?t.content.textContent:"";'
+        . 'var f=document.getElementById("sx-pal-font"),fh=t&&t.getAttribute("data-fonts");if(fh){if(!f){f=document.createElement("link");f.id="sx-pal-font";f.rel="stylesheet";document.head.appendChild(f);}f.href=fh;}else if(f){f.remove();}'
+        . 'var r=st.rows||rows0;if(r==="stack")document.body.setAttribute("data-rows","stack");else document.body.removeAttribute("data-rows");'
+        . '[].forEach.call(document.querySelectorAll("[data-sxpal]"),function(a){if(a.getAttribute("data-sxpal")===p)a.setAttribute("aria-current","true");else a.removeAttribute("aria-current");});'
+        . '[].forEach.call(document.querySelectorAll("[data-sxrows]"),function(a){if(a.getAttribute("data-sxrows")===r)a.setAttribute("aria-current","true");else a.removeAttribute("aria-current");});}'
+        . 'document.addEventListener("click",function(e){var a=e.target.closest("[data-sxpal],[data-sxrows]");if(!a)return;e.preventDefault();'
+        . 'if(a.hasAttribute("data-sxpal"))st.pal=a.getAttribute("data-sxpal");else st.rows=a.getAttribute("data-sxrows");save();apply();});apply();})();</script>';
+}

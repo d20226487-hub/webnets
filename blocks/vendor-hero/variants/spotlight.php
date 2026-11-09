@@ -13,7 +13,7 @@ $spot = $new[0] ?? ($games[0] ?? null);
       <?php else: ?>
       <p class="<?= cls('vhero', 'studio') ?>" style="--p1: <?= e($v['colors'][0]) ?>"><span aria-hidden="true"></span><?= e($v['name']) ?></p>
       <?php endif; ?>
-      <h1 class="<?= cls('vhero', 'title') ?>"><?= e($props['title']) ?></h1>
+      <h1 class="<?= cls('vhero', 'title') ?>"<?= sx_fit((string)$props['title']) ?>><?= e($props['title']) ?></h1>
       <?php if ($props['subtitle']): ?><p class="<?= cls('vhero', 'subtitle') ?>"><?= e($props['subtitle']) ?></p><?php endif; ?>
       <ul class="<?= cls('vhero', 'facts') ?>">
         <li><strong class="<?= cls('num') ?>"><?= count($games) ?></strong><span><?= e(t('vendor.games_at')) ?></span></li>

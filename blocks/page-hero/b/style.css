@@ -5,7 +5,7 @@
 .sx-intro__crumbs ol { display: flex; flex-wrap: wrap; gap: var(--sp-2); font-size: var(--fs-0); color: var(--c-hero-muted); }
 .sx-intro__crumbs li + li::before { content: "/"; margin-inline-end: var(--sp-2); opacity: .6; }
 .sx-intro__crumbs a { color: inherit; }
-.sx-intro__title { font-size: var(--fs-5); max-width: 22ch; }
+.sx-intro__title { font-size: calc((var(--fs-5)) * var(--fit, 1)); max-width: 22ch; }
 .sx-intro__lede { margin: 0; font-size: var(--fs-2); max-width: 46ch; color: var(--c-hero-text); }
 .sx-intro__cta { min-height: 52px; }
 .sx-intro__fig { flex: 0 1 380px; min-width: 240px; margin: 0; }
@@ -13,7 +13,7 @@
 @media (max-width: 760px) {
   .sx-intro__bar { flex-direction: column-reverse; align-items: stretch; gap: var(--sp-3); padding-block: var(--sp-4) var(--sp-6); }
   .sx-intro__text { gap: var(--sp-3); }
-  .sx-intro__title { font-size: var(--fs-4); }
+  .sx-intro__title { font-size: calc((var(--fs-4)) * var(--fit, 1)); }
   .sx-intro__lede { font-size: var(--fs-1); }
   .sx-intro__cta { width: 100%; }
   .sx-intro__fig { flex: none; min-width: 0; }

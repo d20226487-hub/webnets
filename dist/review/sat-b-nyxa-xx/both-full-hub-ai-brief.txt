@@ -181,7 +181,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
 - Title tag: Nyxa: спорт и казино с выводом за 15 минут
 - The only H1: Спорт и казино с выводом за 15 минут
 - Structured data (JSON-LD): WebPage, FAQPage, WebSite
-- Links to: `both-full-hub-index.html`, `both-full-hub-sign-up.html`, `both-full-hub-payments.html`, `both-full-hub-app.html`, `both-full-hub-betting.html`, `both-full-hub-casino.html`, `both-full-hub-bonus.html`, `both-full-hub-responsible-gambling.html`
+- Links to: `both-full-hub-index.html`, `both-full-hub-payments.html`, `both-full-hub-sign-up.html`, `both-full-hub-app.html`, `both-full-hub-betting.html`, `both-full-hub-casino.html`, `both-full-hub-bonus.html`, `both-full-hub-responsible-gambling.html`
 
 ### Sections, in order
 

@@ -7,7 +7,7 @@
         <h2 class="<?= cls('showcase', 'title') ?>"><?= e($props['title']) ?></h2>
       </div>
     </header>
-    <ul class="<?= cls('showcase', 'strip') ?>">
+    <ul class="<?= cls('showcase', 'strip') ?> <?= cls('swipe') ?>">
       <?php foreach ($props['tiles'] as $i => $g): $c = $g['colors'] ?? ['#444', '#111']; ?>
         <li class="<?= cls('showcase', 'game') ?>">
           <span class="<?= cls('showcase', 'cover') ?>" style="--g1: <?= e($c[0]) ?>; --g2: <?= e($c[1]) ?>" data-motif="<?= e($g['motif'] ?? 'rings') ?>" aria-hidden="true">

@@ -39,3 +39,8 @@
   .sx-rlist__filters span { white-space: nowrap; }
   .sx-rlist__cta .sx-btn { width: 100%; }
 }
+@media (max-width: 640px) {
+  .sx-rlist__filters { scrollbar-width: thin; scrollbar-color: var(--c-accent) color-mix(in srgb, var(--c-text) 12%, transparent); }
+  [data-rows=stack] .sx-rlist__filters { overflow: visible; }
+  [data-rows=stack] .sx-rlist__filters fieldset { flex-wrap: wrap; }
+}

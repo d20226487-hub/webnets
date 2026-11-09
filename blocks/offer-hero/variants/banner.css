@@ -5,8 +5,8 @@
 .sx-offerhero__banner::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,0) 100%); }
 .sx-offerhero__bcopy { display: grid; gap: var(--sp-3); justify-items: start; max-width: 560px; }
 .sx-offerhero--banner .sx-offerhero__eyebrow { color: rgba(255,255,255,.82); }
-.sx-offerhero--banner .sx-offerhero__title { color: #fff; font-size: var(--fs-4); }
-.sx-offerhero--banner .sx-offerhero__value { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: calc(var(--fs-5) * 1.25); line-height: 1; color: #fff; }
+.sx-offerhero--banner .sx-offerhero__title { color: #fff; font-size: calc((var(--fs-4)) * var(--fit, 1)); }
+.sx-offerhero--banner .sx-offerhero__value { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: calc((calc(var(--fs-5) * 1.25)) * var(--fit, 1)); line-height: 1; color: #fff; }
 .sx-offerhero--banner .sx-offerhero__cta { min-height: 52px; padding-inline: var(--sp-6); }
 .sx-offerhero--banner .sx-offerhero__fine { font-size: var(--fs-0); color: rgba(255,255,255,.8); }
 .sx-offerhero--banner .sx-offerhero__meta { display: grid; gap: var(--sp-3); }
@@ -16,7 +16,7 @@
 @media (max-width: 640px) {
   .sx-offerhero__banner { min-height: 0; padding: var(--sp-6) var(--sp-5); }
   .sx-offerhero__banner::before { background: linear-gradient(0deg, rgba(0,0,0,.7) 0%, rgba(0,0,0,.35) 100%); }
-  .sx-offerhero--banner .sx-offerhero__title { font-size: var(--fs-3); }
-  .sx-offerhero--banner .sx-offerhero__value { font-size: var(--fs-5); }
+  .sx-offerhero--banner .sx-offerhero__title { font-size: calc((var(--fs-3)) * var(--fit, 1)); }
+  .sx-offerhero--banner .sx-offerhero__value { font-size: calc((var(--fs-5)) * var(--fit, 1)); }
   .sx-offerhero--banner .sx-offerhero__cta { width: 100%; }
 }

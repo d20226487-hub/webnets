@@ -76,7 +76,7 @@ All rules from brief 01 still apply: no offers in KZ, AU or BR; age gate and com
 |---|---|---|---|---|
 | – | Age gate, compliance strip | R / AU | as landing | existing |
 | 1 | Header | R, locked | App icon + name + one Get button | **app-bar** (new), minimal |
-| 2 | App hero | R, first | Icon, name, publisher, fact row, install buttons, phone | **listing** (store-page layout), **device** (big phone + copy), **qr-first** (desktop-led, QR beside phone) |
+| 2 | App hero | R, first | Icon, name, publisher, fact row, install buttons, phone | **listing** (store-page layout), **device** (big phone + copy), **qr-first** (desktop-led, QR beside phone), **banner** (accent band, copy centred, phone rising from the bottom edge), **stage** (phone on a gradient panel at the start, copy and fact chips beside it), **catalog** (download catalog: app card, stats row, big download panel, screenshot thumbnails), **apk-page** (header row with the download button on the end side, then a row of five figures), **hub** (header with an official-version chip and the version, the description; a large download button over a specifications box with a screenshot). The job form's Design option can pick catalog, apk-page or hub |
 | 3 | Screenshots | R | Show the app | **carousel** (scroll-snap), **fan** (3 phones overlapping), **grid** |
 | 4 | Features | R, middle, S | 3–4 app-specific reasons | existing: grid, rows, bento |
 | 5 | Install guide | R if APK, else O; middle, S | How to install, per platform | **tabs** (iOS / Android / APK), **side-by-side** |

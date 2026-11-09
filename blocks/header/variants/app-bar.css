@@ -6,3 +6,4 @@
 .sx-header__appname strong { font-family: var(--f-display); font-weight: var(--fw-heading); }
 .sx-header__appname small { font-size: .75rem; color: var(--c-muted); }
 .sx-header--app .sx-header__cta { margin-inline-start: auto; }
+.sx-header--app .sx-header__cta { flex: none; }

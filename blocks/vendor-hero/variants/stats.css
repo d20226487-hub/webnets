@@ -9,7 +9,7 @@
 .sx-vhero__mosaic > :nth-child(even) { transform: translateY(var(--sp-5)); }
 @media (max-width: 860px) {
   .sx-vhero--stats .sx-vhero__inner { grid-template-columns: minmax(0, 1fr); padding-block: var(--sp-5) var(--sp-7); }
-  .sx-vhero--stats .sx-vhero__title { font-size: var(--fs-4); }
+  .sx-vhero--stats .sx-vhero__title { font-size: calc((var(--fs-4)) * var(--fit, 1)); }
   .sx-vhero--stats .sx-vhero__subtitle { display: none; }
   .sx-vhero--stats .sx-vhero__cta { width: 100%; font-size: var(--fs-1); }
   .sx-vhero__stats { gap: var(--sp-2); }

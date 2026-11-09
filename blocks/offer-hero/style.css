@@ -2,7 +2,7 @@
 .sx-offerhero__inner { display: grid; gap: var(--sp-5) var(--sp-7); padding-block: var(--sp-7) var(--sp-8); align-items: start; }
 .sx-offerhero__head { display: grid; gap: var(--sp-4); min-width: 0; }
 .sx-offerhero__eyebrow { font-size: var(--fs-0); font-weight: var(--fw-strong); letter-spacing: .06em; text-transform: uppercase; color: var(--c-hero-muted); }
-.sx-offerhero__title { font-size: var(--fs-5); max-width: 18ch; }
+.sx-offerhero__title { font-size: calc((var(--fs-5)) * var(--fit, 1)); max-width: 18ch; }
 .sx-offerhero__subtitle { color: var(--c-hero-muted); max-width: 46ch; }
 .sx-offerhero__meta { display: grid; gap: var(--sp-4); min-width: 0; }
 .sx-offerhero__keyterms { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-block: 1px solid color-mix(in srgb, var(--c-hero-text) 16%, transparent); }
@@ -16,7 +16,7 @@
 .sx-offerhero__ticket { color: var(--c-text); overflow: hidden; border-radius: var(--r-lg); }
 .sx-offerhero__top { display: grid; gap: var(--sp-1); padding: var(--sp-5) var(--sp-5) var(--sp-4); }
 .sx-offerhero__kind { font-size: .75rem; font-weight: var(--fw-strong); letter-spacing: .08em; text-transform: uppercase; color: var(--c-accent); }
-.sx-offerhero__value { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: var(--fs-4); line-height: 1.05; letter-spacing: var(--ls-heading); }
+.sx-offerhero__value { font-family: var(--f-display); font-weight: var(--fw-heading); font-size: calc((var(--fs-4)) * var(--fit, 1)); line-height: 1.05; letter-spacing: var(--ls-heading); }
 .sx-offerhero__stub {
   display: grid; gap: var(--sp-3); padding: var(--sp-4) var(--sp-5) var(--sp-5); background: var(--c-surface-2);
   border-block-start: 2px dashed var(--c-border);
@@ -30,4 +30,9 @@
 @media (max-width: 860px) {
   .sx-offerhero__mini { display: block; }
   .sx-offerhero__keyterms { display: none; }
+}
+/* phones: the offer button keeps its label on one line (large display fonts otherwise wrap it) */
+@media (max-width: 640px) {
+  .sx-offerhero__cta { padding-inline: var(--sp-4); font-size: min(var(--fs-2), 20px); }
+  .sx-offerhero__title { max-width: none; }
 }

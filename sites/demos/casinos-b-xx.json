@@ -622,20 +622,62 @@
       }
     },
     "layout": {
-      "table": {},
+      "auto": {},
+      "table": {
+        "variants": {
+          "home": {
+            "hero": "table"
+          }
+        },
+        "first_screen": "table"
+      },
       "cards": {
         "variants": {
           "home": {
             "hero": "cards"
           }
-        }
+        },
+        "first_screen": "cards"
       },
       "podium": {
         "variants": {
           "home": {
             "hero": "podium"
           }
-        }
+        },
+        "first_screen": "podium"
+      },
+      "logo-grid": {
+        "variants": {
+          "home": {
+            "hero": "logo-grid"
+          }
+        },
+        "first_screen": "logo-grid"
+      },
+      "offer-cards": {
+        "variants": {
+          "home": {
+            "hero": "offer-cards"
+          }
+        },
+        "first_screen": "offer-cards"
+      },
+      "portal": {
+        "variants": {
+          "home": {
+            "hero": "portal"
+          }
+        },
+        "first_screen": "portal"
+      },
+      "claim-cards": {
+        "variants": {
+          "home": {
+            "hero": "claim-cards"
+          }
+        },
+        "first_screen": "claim-cards"
       }
     }
   },
@@ -678,6 +720,21 @@
     },
     "podium": {
       "ru": "Подиум"
+    },
+    "auto": {
+      "ru": "По умолчанию"
+    },
+    "offer-cards": {
+      "ru": "Карточки с бонусами"
+    },
+    "portal": {
+      "ru": "Портал"
+    },
+    "logo-grid": {
+      "ru": "Сетка логотипов"
+    },
+    "claim-cards": {
+      "ru": "Карточки «Получить бонус»"
     }
   }
 }

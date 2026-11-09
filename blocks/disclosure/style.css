@@ -1,2 +1,4 @@
 .sx-disclose { padding: var(--sp-2) var(--sp-4); font-size: .78rem; line-height: 1.4; text-align: center; color: var(--c-muted); background: var(--c-surface-2); border-block-end: 1px solid var(--c-border); }
 .sx-disclose a { color: inherit; font-weight: var(--fw-strong); white-space: nowrap; }
+/* in the footer (the site shows its affiliate disclosure there instead of a strip at the top): a plain line */
+.sx-footer .sx-disclose { padding: 0 0 var(--sp-3); background: none; border: 0; text-align: start; font-size: var(--fs-0); }

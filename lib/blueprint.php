@@ -23,6 +23,30 @@ function sx_blueprint(string $type, string $root): array
     return json_decode(file_get_contents($file), true, 512, JSON_THROW_ON_ERROR);
 }
 
+/** Blocks that ask the visitor to act (sign up, claim, install): never two of them next to each other on a page. */
+const SX_CONVERSION_BLOCKS = ['cta-band', 'promo-list', 'bonus-card', 'download-panel'];
+
+/**
+ * Section designs painted on a tinted or coloured band (block => its designs, '*' = every design): two of them next to
+ * each other read as one heavy slab, so the order avoids it. Kept in step with the blocks' CSS (section-level backgrounds).
+ */
+const SX_TONED_DESIGNS = ['changelog' => '*', 'showcase' => '*', 'promo-list' => ['cards', 'banners'], 'game-grid' => ['strip'],
+    'app-info' => ['chips'], 'rtp-explainer' => ['inline'], 'review-list' => ['verified'], 'article-list' => ['rail'], 'cta-band' => ['solid']];
+
+/** How many rhythm rules a page order breaks: adjacent conversion blocks, adjacent tinted bands. $seq: [[block, design], ...]. */
+function sx_rhythm_breaks(array $seq): int
+{
+    $toned = fn(array $x) => isset(SX_TONED_DESIGNS[$x[0]]) && (SX_TONED_DESIGNS[$x[0]] === '*' || in_array($x[1], SX_TONED_DESIGNS[$x[0]], true));
+    $n = 0;
+    for ($i = 1; $i < count($seq); $i++) {
+        $a = $seq[$i - 1];
+        $b = $seq[$i];
+        $n += in_array($a[0], SX_CONVERSION_BLOCKS, true) && in_array($b[0], SX_CONVERSION_BLOCKS, true) ? 1 : 0;
+        $n += $toned($a) && $toned($b) ? 1 : 0;
+    }
+    return $n;
+}
+
 function sx_permutations(array $items): array
 {
     if (count($items) <= 1) {
@@ -61,6 +85,13 @@ function sx_allowed_variants(string $block, ?array $list): array
         return $have;
     }
     $ok = array_values(array_intersect($list, $have));
+    $exist = array_values(array_intersect($list, sx_block_meta($block)['block']['sx']['variants'] ?? []));
+    if (!$ok && $exist) { // the section's variants all need a vertical the market does not allow
+        $need = implode(', ', array_unique(array_map(fn($v) => sx_block_meta($block)['block']['sx']['variant_requires'][$v] ?? '?', $exist)));
+        if (sx_soft_block("Section '$block' as " . implode(' / ', $exist) . " needs the '$need' vertical, which market '" . SX::$ctx['market']['id'] . "' does not allow.")) {
+            return $exist;
+        }
+    }
     if (!$ok) {
         SX::$warnings[] = "Block '$block': none of [" . implode(', ', $list) . "] exist yet; using any variant.";
         return $have;
@@ -68,17 +99,25 @@ function sx_allowed_variants(string $block, ?array $list): array
     return $ok;
 }
 
-function sx_choose_variant(string $id, string $block, ?array $list, ?string $pinned): string
+function sx_choose_variant(string $id, string $block, ?array $list, ?string $pinned, ?string $salt = null): string
 {
     $allowed = sx_allowed_variants($block, $list);
     if ($pinned && $pinned !== 'auto') {
+        $req = sx_block_meta($block)['block']['sx']['variant_requires'][$pinned] ?? null;
+        if (!in_array($pinned, $allowed, true) && $req && empty(SX::$ctx['market']['verticals'][$req])
+            && sx_soft_block("Section '$id' as '$pinned' needs the '$req' vertical, which market '" . SX::$ctx['market']['id'] . "' does not allow.")) {
+            return $pinned;
+        }
+        if (!in_array($pinned, $allowed, true) && !empty(SX::$ctx['pins_over_angle']) && in_array($pinned, sx_market_variants($block), true)) {
+            return $pinned; // generated sites: the generator spreads every layout the block has over a type's sites
+        }
         if (!in_array($pinned, $allowed, true)) {
             SX::$warnings[] = "Section '$id': variant '$pinned' is not allowed here (allowed: " . implode(', ', $allowed) . ').';
-            return sx_pick($allowed, "bp:$id");
+            return sx_pick($allowed, $salt ?? "bp:$id");
         }
         return $pinned;
     }
-    return sx_pick($allowed, "bp:$id");
+    return sx_pick($allowed, $salt ?? "bp:$id");
 }
 
 /**
@@ -147,7 +186,7 @@ function sx_expand_blueprint(array $cfg, string $root, ?array $bp = null, string
 
     // Type-level gates: legal facts (vertical) and required data (provider in the brand catalog) fail hard.
     if (!empty($bp['requires_vertical']) && empty($market['verticals'][$bp['requires_vertical']])) {
-        throw new RuntimeException("Site type '{$cfg['type']}' needs the '{$bp['requires_vertical']}' vertical, which market '{$market['id']}' does not allow. "
+        sx_legal_block("Site type '{$cfg['type']}' needs the '{$bp['requires_vertical']}' vertical, which market '{$market['id']}' does not allow. "
             . 'This is a legal block, not a setting: use another site type there.');
     }
     if (!empty($bp['requires_provider'])) {
@@ -164,13 +203,15 @@ function sx_expand_blueprint(array $cfg, string $root, ?array $bp = null, string
     $usesApk = (bool)array_filter($bp['sections'], fn($s) => $s['rule'] === 'apk')
         || (bool)array_filter($bp['angles'], fn($a) => !empty($a['requires_apk']));
     $hasApk = $usesApk && in_array('apk', sx_app_platforms(), true);
-    $angles = array_filter($bp['angles'], fn($a) => (empty($a['requires_vertical']) || !empty($market['verticals'][$a['requires_vertical']]))
+    $angles = array_filter($bp['angles'], fn($a) => (empty($a['requires_vertical']) || !empty($market['verticals'][$a['requires_vertical']]) || !empty(SX::$ctx['override_blocks']))
         && (empty($a['requires_apk']) || $hasApk)
         && (empty($a['requires_promo']) || array_intersect($a['requires_promo'], sx_promo_allowed_types())));
     // Offer-led types: a market that allows no promotion type cannot have this site type at all.
     if (!$angles && array_filter($bp['angles'], fn($a) => !empty($a['requires_promo']))) {
-        throw new RuntimeException("Site type '{$cfg['type']}' cannot be built in market '{$market['id']}': its promotion policy allows none of the "
+        sx_legal_block("Site type '{$cfg['type']}' cannot be built in market '{$market['id']}': its promotion policy allows none of the "
             . "promotion types this type needs. Use another site type there, or ask compliance to update markets/{$market['id']}.json.");
+        SX::$ctx['promo_override'] = true; // only offer-led types, and only when overriding: their offers are the page
+        $angles = array_filter($bp['angles'], fn($a) => empty($a['requires_apk']) || $hasApk);
     }
     $angleId = $cfg['angle'] ?? sx_pick(array_keys($angles), 'angle');
     if (!isset($bp['angles'][$angleId])) {
@@ -192,13 +233,14 @@ function sx_expand_blueprint(array $cfg, string $root, ?array $bp = null, string
 
     // Sections
     $force = $cfg['sections'] ?? [];
+    $removable = $cfg['removable'] ?? []; // required sections the site's editor removed (generator phase 3)
     $sections = [];
     foreach ($bp['sections'] as $s) {
         // "apk": required when the site offers a direct Android download, absent otherwise.
         $required = $s['rule'] === 'required' || ($s['rule'] === 'apk' && $hasApk);
         $on = $required || ($s['rule'] === 'optional' && in_array($s['id'], $angle['optional'], true));
         if (array_key_exists($s['id'], $force)) {
-            if ($required && !$force[$s['id']]) {
+            if ($required && !$force[$s['id']] && !in_array($s['id'], $removable, true)) {
                 SX::$warnings[] = "Section '{$s['id']}' is required and cannot be turned off.";
             } else {
                 $on = (bool)$force[$s['id']];
@@ -214,7 +256,7 @@ function sx_expand_blueprint(array $cfg, string $root, ?array $bp = null, string
             in_array($s['id'], $angle['optional'], true) => "optional; the '$angleId' angle turns it on",
             default => "optional; the '$angleId' angle leaves it off",
         };
-        if (array_key_exists($s['id'], $force) && !($required && !$force[$s['id']])) {
+        if (array_key_exists($s['id'], $force) && !($required && !$force[$s['id']] && !in_array($s['id'], $removable, true))) {
             $why = 'set ' . ($force[$s['id']] ? 'on' : 'off') . ' in the site config';
         }
         if (!is_dir("$root/blocks/{$s['block']}")) {
@@ -236,8 +278,39 @@ function sx_expand_blueprint(array $cfg, string $root, ?array $bp = null, string
         }
     }
     $orderPinned = !empty($order);
+    // Each section's design, before its place: below the first screen a section keeps one design across the site's pages
+    // (one site, one pattern), while two sections of one kind (three article lists) can differ; the first screen keeps a
+    // pick per page.
+    $pins = $cfg['variants'] ?? [];
+    $variantOf = [];
+    foreach ($sections as $id => $s) {
+        $variantOf[$id] = sx_choose_variant($pageId ? "$pageId.$id" : $id, $s['block'], $angle['variants'][$id] ?? $s['variants'] ?? null, $pins[$id] ?? null,
+            $s['zone'] === 'top' ? null : "site:$id:{$s['block']}"); // a section (FAQ, related links...) looks the same on every page
+    }
     if (empty($order)) {
         $valid = array_values(array_filter(sx_permutations($middle), fn($o) => sx_order_ok($o, $bp['order_rules'])));
+        if ($valid) {
+            // Rhythm: the fewest adjacent conversion blocks and adjacent tinted bands over the whole page.
+            $top = array_keys(array_filter($sections, fn($s) => $s['zone'] === 'top'));
+            $bottom = array_keys(array_filter($sections, fn($s) => $s['zone'] === 'bottom'));
+            $seq = fn(array $o) => array_map(fn($id) => [$sections[$id]['block'], $variantOf[$id]], array_merge($top, $o, $bottom));
+            $breaks = array_map(fn($o) => sx_rhythm_breaks($seq($o)), $valid);
+            $valid = array_values(array_intersect_key($valid, array_filter($breaks, fn($b) => $b === min($breaks))));
+            // One site, one pattern: each block kind has a seeded rank for the whole site; every page takes the allowed
+            // order closest to it (fewest pairs out of rank order), so the site's pages read alike while sites differ.
+            $rank = fn(string $id) => crc32(SX::$ctx['seed'] . '|rank|' . $sections[$id]['block']);
+            $inv = function (array $o) use ($rank): int {
+                $n = 0;
+                for ($i = 0; $i < count($o); $i++) {
+                    for ($j = $i + 1; $j < count($o); $j++) {
+                        $n += $rank($o[$i]) > $rank($o[$j]) ? 1 : 0;
+                    }
+                }
+                return $n;
+            };
+            $scores = array_map($inv, $valid);
+            $valid = array_values(array_intersect_key($valid, array_filter($scores, fn($x) => $x === min($scores))));
+        }
         $order = $valid ? sx_pick($valid, 'order') : $middle;
     }
     SX::$trace[$pageId]['order'] = ['ids' => $order, 'picked' => $orderPinned ? 'pinned' : 'seed', 'rules' => $bp['order_rules'] ?? []];
@@ -249,15 +322,23 @@ function sx_expand_blueprint(array $cfg, string $root, ?array $bp = null, string
 
     // Blocks
     $content = $cfg['content'] ?? [];
-    $pins = $cfg['variants'] ?? [];
     $blocks = [];
     $summary = ['angle' => $angleId, 'sections' => []];
 
+    $footerDisclosure = null; // the affiliate disclosure, when the site shows it in the footer
     foreach ($bp['frame']['top'] ?? [] as $f) {
         if (($f['when'] ?? '') === 'market.strip' && ($market['compliance']['strip'] ?? 'optional') !== 'required' && empty($cfg['sections']['strip'])) {
             continue;
         }
         $props = $f['props'] ?? [];
+        if ($f['block'] === 'disclosure' && (SX::$ctx['disclosure'] ?? 'top') === 'footer') { // the footer shows it instead (footer/_shared.php)
+            $footerDisclosure = $props;
+            continue;
+        }
+        if ($f['block'] === 'disclosure' && (SX::$ctx['disclosure'] ?? 'top') === 'off') {
+            SX::$warnings[] = 'No affiliate disclosure on this site: it earns from the brands it lists without saying so. Most gambling advertising rules require the disclosure.';
+            continue;
+        }
         if (!empty($f['variants'])) { // e.g. compliance strip / ribbon, disclosure line / box / chip
             $tv = sx_choose_variant('top.' . $f['block'], $f['block'], $f['variants'], $pins[$f['block']] ?? null);
             SX::$trace[$pageId]['frame'][$f['block']] = ['block' => $f['block'], 'variant' => $tv, 'allowed' => sx_allowed_variants($f['block'], $f['variants']), 'picked' => ($pins[$f['block']] ?? null) === $tv ? 'pinned' : 'seed'];
@@ -275,7 +356,7 @@ function sx_expand_blueprint(array $cfg, string $root, ?array $bp = null, string
     foreach ($ids as $id) {
         $s = $sections[$id];
         sx_validate_props($pageId ? "content.$pageId.$id" : "content.$id", sx_block_meta($s['block'])['fields'], $content[$id] ?? []);
-        $v = sx_choose_variant($pageId ? "$pageId.$id" : $id, $s['block'], $angle['variants'][$id] ?? null, $pins[$id] ?? null);
+        $v = $variantOf[$id]; // chosen above: the angle's list, else the section's own
         SX::$trace[$pageId]['sections'][$id] += ['variant' => $v, 'allowed' => sx_allowed_variants($s['block'], $angle['variants'][$id] ?? null),
             'picked' => !empty($pins[$id]) && $pins[$id] === $v ? 'pinned' : 'seed'];
         // Props: content first, then the angle's section props (e.g. a lead topic), then the blueprint's defaults.
@@ -286,7 +367,7 @@ function sx_expand_blueprint(array $cfg, string $root, ?array $bp = null, string
     $f = $bp['frame']['footer'];
     $fv = sx_choose_variant('footer', $f['block'], $f['variants'] ?? null, $pins['footer'] ?? null);
     SX::$trace[$pageId]['frame']['footer'] = ['block' => $f['block'], 'variant' => $fv, 'allowed' => sx_allowed_variants($f['block'], $f['variants'] ?? null), 'picked' => ($pins['footer'] ?? null) === $fv ? 'pinned' : 'seed'];
-    $blocks[] = ['block' => $f['block'], 'props' => ['variant' => $fv] + ($content['footer'] ?? [])];
+    $blocks[] = ['block' => $f['block'], 'props' => ['variant' => $fv] + ($footerDisclosure !== null ? ['disclosure' => $footerDisclosure] : []) + ($content['footer'] ?? [])];
     $summary['sections'][] = "footer:$fv";
 
     foreach ($bp['frame']['overlay'] ?? [] as $o) {
@@ -318,7 +399,8 @@ function sx_expand_blueprint(array $cfg, string $root, ?array $bp = null, string
 function sx_expand_site(array $cfg, string $root): array
 {
     $bp = sx_blueprint($cfg['type'], $root);
-    foreach ($cfg['slugs'] ?? [] as $pid => $slug) { // per-site slugs, e.g. English paths for a type whose blueprint uses Portuguese
+    $locSlugs = $bp['slug_locales'][$cfg['locale'] ?? ''] ?? $bp['slug_locales']['en'] ?? [];
+    foreach (($cfg['slugs'] ?? []) + $locSlugs as $pid => $slug) { // per-site slugs win, then the blueprint's slugs for the site's language
         if (!isset($bp['pages'][$pid])) {
             throw new RuntimeException("slugs: unknown page '$pid' for type '{$cfg['type']}'.");
         }
@@ -327,11 +409,11 @@ function sx_expand_site(array $cfg, string $root): array
     $market = sx_ctx('market');
     foreach (sx_bp_verticals($bp, $cfg) as $v) {
         if (empty($market['verticals'][$v])) {
-            throw new RuntimeException("Site type '{$cfg['type']}' needs the '$v' vertical, which market '{$market['id']}' does not allow.");
+            sx_legal_block("Site type '{$cfg['type']}' needs the '$v' vertical, which market '{$market['id']}' does not allow.");
         }
     }
 
-    $angles = array_filter($bp['angles'], fn($a) => empty($a['requires_vertical']) || !empty($market['verticals'][$a['requires_vertical']]));
+    $angles = array_filter($bp['angles'], fn($a) => empty($a['requires_vertical']) || !empty($market['verticals'][$a['requires_vertical']]) || !empty(SX::$ctx['override_blocks']));
     $angleId = $cfg['angle'] ?? sx_pick(array_keys($angles), 'angle');
     if (!isset($bp['angles'][$angleId])) {
         throw new RuntimeException("Unknown angle '$angleId' for type '{$cfg['type']}'");
@@ -351,7 +433,7 @@ function sx_expand_site(array $cfg, string $root): array
     $set = [];
     foreach ($bp['pages'] as $pid => $p) {
         $why = null;
-        if (!empty($p['requires_vertical']) && empty($market['verticals'][$p['requires_vertical']])) {
+        if (!empty($p['requires_vertical']) && empty($market['verticals'][$p['requires_vertical']]) && empty(SX::$ctx['override_blocks'])) {
             $why = "market '{$market['id']}' does not allow {$p['requires_vertical']}";
         } elseif (!empty($p['requires_app']) && !$hasApp) {
             $why = 'the brand has no app in this market';
@@ -364,7 +446,7 @@ function sx_expand_site(array $cfg, string $root): array
         $wanted = in_array($pid, $angle['pages'] ?? [], true);
         $on = $mandatory || $wanted;
         if (array_key_exists($pid, $force)) {
-            if ($mandatory && !$force[$pid]) {
+            if ($mandatory && !$force[$pid] && !($p['rule'] === 'required' && $pid !== 'home' && !in_array($market['id'], $p['required_in'] ?? [], true) && in_array($pid, $cfg['removable_pages'] ?? [], true))) {
                 SX::$warnings[] = "Page '$pid' is required here and cannot be turned off.";
             } else {
                 $on = (bool)$force[$pid];
@@ -378,7 +460,7 @@ function sx_expand_site(array $cfg, string $root): array
         }
         SX::$trace['_site']['pages'][$pid] = ['on' => $on, 'why' => match (true) {
             $why !== null => "off: $why",
-            array_key_exists($pid, $force) && !($mandatory && !$force[$pid]) => 'set ' . ($force[$pid] ? 'on' : 'off') . ' in the site config',
+            array_key_exists($pid, $force) && ($on || !$mandatory || in_array($pid, $cfg['removable_pages'] ?? [], true)) => 'set ' . ($force[$pid] ? 'on' : 'off') . ' in the site config',
             $p['rule'] === 'required' => 'required by the blueprint',
             $mandatory => "required in market '{$market['id']}'",
             $wanted => "the '$angleId' angle turns it on",
@@ -521,6 +603,7 @@ function sx_expand_site(array $cfg, string $root): array
             'content' => ($cfg['content'][$base] ?? []) + $sharedContent,
             'variants' => ($cfg['variants'][$base] ?? []) + $shared,
             'sections' => $cfg['sections'][$base] ?? [],
+            'removable' => $cfg['removable'][$base] ?? [],
             'order' => $cfg['order'][$base] ?? null,
             'page' => $cfg['meta'][$base] ?? [],
             'look' => $cfg['look'] ?? null,

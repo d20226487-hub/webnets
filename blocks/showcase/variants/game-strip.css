@@ -2,9 +2,8 @@
 .sx-showcase--games { background: var(--c-bg); }
 .sx-showcase__strip {
   display: grid; grid-auto-flow: column; grid-auto-columns: minmax(180px, 220px); gap: var(--sp-4);
-  overflow-x: auto; scroll-snap-type: x mandatory; padding-block-end: var(--sp-3); scrollbar-width: thin;
 }
-.sx-showcase__game { display: grid; gap: var(--sp-2); scroll-snap-align: start; min-width: 0; }
+.sx-showcase__game { display: grid; gap: var(--sp-2); min-width: 0; }
 .sx-showcase__cover {
   position: relative; display: block; aspect-ratio: 3 / 4; border-radius: var(--r); overflow: hidden;
   background: radial-gradient(120% 80% at 30% 15%, color-mix(in srgb, var(--g1) 90%, white 10%), var(--g2) 70%);
@@ -17,3 +16,5 @@
 .sx-showcase__tag { position: absolute; inset-block-start: var(--sp-2); inset-inline-start: var(--sp-2); padding: 2px var(--sp-2); border-radius: var(--r-sm); background: var(--c-danger); color: #fff; font-size: .7rem; font-weight: var(--fw-strong); text-transform: uppercase; letter-spacing: .06em; }
 .sx-showcase__gname { font-weight: var(--fw-strong); }
 .sx-showcase__gmeta { font-size: var(--fs-0); color: var(--c-muted); }
+[data-rows=stack] .sx-showcase__strip { grid-auto-flow: row; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); overflow: visible; margin-inline: 0; padding-inline: 0; }
+@media (max-width: 640px) { [data-rows=stack] .sx-showcase__strip { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-3); } }

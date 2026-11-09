@@ -20,7 +20,13 @@
       "cards",
       "table",
       "list",
-      "podium"
+      "podium",
+      "spotlight",
+      "grid",
+      "logo-grid",
+      "offer-cards",
+      "portal",
+      "claim-cards"
     ],
     "default_variant": "cards",
     "guardrails": [

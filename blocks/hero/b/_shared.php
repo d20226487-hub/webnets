@@ -11,7 +11,7 @@ if (!empty($props['show_trust'])) {
 }
 $copy = '<header class="' . cls('opener', 'copy') . '">'
     . ($props['eyebrow'] ? '<small class="' . cls('opener', 'tag') . '">' . e($props['eyebrow']) . '</small>' : '')
-    . '<h1 class="' . cls('opener', 'title') . '">' . e($props['title']) . '</h1>'
+    . '<h1 class="' . cls('opener', 'title') . '"' . sx_fit((string)$props['title']) . '>' . e($props['title']) . '</h1>'
     . ($props['subtitle'] ? '<p class="' . cls('opener', 'sub') . '">' . e($props['subtitle']) . '</p>' : '')
     . '<div class="' . cls('opener', 'go') . '">' . sx_cta('hero', cx('btn', ['btn', null, 'primary'], ['opener', 'cta']), true)
     . ($secondary ? '<a class="' . cls('opener', 'alt') . '" href="' . sx_url($secondary['url']) . '">' . e($secondary['label']) . '</a>' : '')

@@ -141,6 +141,27 @@ function cls(string $block, ?string $el = null, ?string $mod = null): string
     return $name;
 }
 
+/**
+ * Size factor for display text by its length (style="--fit:…"; hero titles and big values multiply their font size
+ * by var(--fit, 1)): short text keeps the full display size, long text steps down, and a long word steps it down once
+ * more, so a headline does not fill the hero and a word does not overflow its box. $kind: "title" or "value".
+ */
+function sx_fit(string $text, string $kind = 'title'): string
+{
+    $len = mb_strlen(trim($text));
+    $word = max(array_map('mb_strlen', preg_split('/\s+/u', trim($text)) ?: ['']));
+    $steps = $kind === 'value' ? [[8, 1], [14, .82], [22, .68], [PHP_INT_MAX, .58]] : [[30, 1], [48, .88], [70, .76], [PHP_INT_MAX, .66]];
+    foreach ($steps as [$max, $f]) {
+        if ($len <= $max) {
+            break;
+        }
+    }
+    if ($word >= ($kind === 'value' ? 10 : 12)) {
+        $f *= .88;
+    }
+    return $f < 1 ? ' style="--fit:' . round($f, 2) . '"' : '';
+}
+
 /** Several classes at once: cx('btn', ['btn', null, 'primary']) */
 function cx(...$parts): string
 {
@@ -203,16 +224,23 @@ function sx_block(string $name, array $props = []): string
     $props += sx_defaults($m['fields']);
 
     $vertical = $sx['requires']['vertical'] ?? null;
-    if ($vertical && empty(SX::$ctx['market']['verticals'][$vertical])) {
-        SX::$warnings[] = "Block '$name' skipped: '$vertical' not allowed in market " . SX::$ctx['market']['id'];
+    $mid = SX::$ctx['market']['id'];
+    if ($vertical && empty(SX::$ctx['market']['verticals'][$vertical])
+        && !sx_soft_block("Section '$name' needs the '$vertical' vertical, which market '$mid' does not allow.")) {
+        SX::$warnings[] = "Block '$name' skipped: '$vertical' not allowed in market $mid";
         return '';
     }
 
     $variants = sx_market_variants($name);
     $variant = $props['variant'] ?? 'auto';
     if ($variant !== 'auto' && in_array($variant, $sx['variants'] ?? [], true) && !in_array($variant, $variants, true)) {
-        SX::$warnings[] = "Block '$name': variant '$variant' needs a vertical this market does not allow; picking another.";
-        $variant = 'auto';
+        $need = $sx['variant_requires'][$variant] ?? 'another';
+        if (sx_soft_block("Section '$name' as '$variant' needs the '$need' vertical, which market '$mid' does not allow.")) {
+            $variants[] = $variant;
+        } else {
+            SX::$warnings[] = "Block '$name': variant '$variant' needs a vertical this market does not allow; picking another.";
+            $variant = 'auto';
+        }
     }
     if ($variant === 'auto' || !in_array($variant, $variants, true)) {
         if ($variant !== 'auto') {
@@ -245,7 +273,8 @@ function sx_block(string $name, array $props = []): string
         return $html;
     }
     SX::$devDepth--;
-    return trim($html) === '' ? $html : "<!--sx:$dev-->" . $html; // the skeleton view finds the block's element after this marker
+    // the skeleton view finds the block by this attribute on its first element (no comment markers in shipped code)
+    return trim($html) === '' ? $html : preg_replace('/<([a-zA-Z][\w-]*)/', '<$1 data-sxdev="' . $dev . '"', $html, 1);
 }
 
 /**
@@ -349,7 +378,7 @@ function sx_reset_used(): void
 function sx_logo(string $mode = 'brand'): string
 {
     $b = SX::$ctx['brand'];
-    $svg = file_get_contents(SX::$ctx['root'] . '/brands/' . $b['logo']);
+    $svg = file_get_contents(sx_brand_file(SX::$ctx['root'], $b['logo']));
     $style = $mode === 'brand' ? ' style="color:' . e($b['brand_color']) . '"' : '';
     return '<span class="' . cls('logo') . '"><span class="' . cls('logo', 'mark') . "\"$style>" . sx_logo_svg() . '</span>'
         . '<span class="' . cls('logo', 'word') . '">' . e($b['name']) . '</span></span>';
@@ -358,7 +387,7 @@ function sx_logo(string $mode = 'brand'): string
 /** Brand mark as a sprite reference (defined once per page). */
 function sx_logo_svg(): string
 {
-    $file = SX::$ctx['root'] . '/brands/' . SX::$ctx['brand']['logo'];
+    $file = sx_brand_file(SX::$ctx['root'], SX::$ctx['brand']['logo']);
     return sx_use('l-' . basename($file, '.svg'), fn() => file_get_contents($file));
 }
 
@@ -569,10 +598,20 @@ function sx_icon(string $name): string
 }
 
 /** Escaped URL; anything other than http(s), relative or fragment becomes "#". */
+/** Buttons and links to pages the site does not have (removed in the editor, or off for this market) are left out. */
+function sx_drop_gone_links(string $html): string
+{
+    return preg_replace('#<a\b[^>]*href="\#sx-gone"[^>]*>.*?</a>#s', '', $html);
+}
+
 function sx_url($url): string
 {
     $url = (string)$url;
-    return preg_match('#^(https?://|/|\#|\?)#', $url) || preg_match('#^[a-z0-9][a-z0-9/_.-]*$#i', $url) ? e($url) : '#';
+    if (str_starts_with($url, 'page:')) { // a page of this site; a page the site does not have drops the link (sx_drop_gone_links)
+        $pid = substr($url, 5);
+        return isset(sx_pages()[$pid]) ? e(sx_page_url($pid)) : '#sx-gone';
+    }
+    return preg_match('#^(https?://|/|\#|\?)#', $url) || preg_match('#^[a-z0-9][a-z0-9/_.-]*(\#[a-z0-9_-]+)?$#i', $url) ? e($url) : '#'; // a page file, with an optional #section
 }
 
 /**

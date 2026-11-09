@@ -98,3 +98,19 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   width: 2.4em; height: 2.4em; border-radius: 50%;
   border: 2px solid currentColor; font-weight: 700; font-size: var(--fs-0); line-height: 1;
 }
+/* display text: a long word wraps (with a hyphen where the browser knows the language) instead of leaving its box */
+h1, h2, h3, .sx-offerhero__value, .sx-offerhero__big, .sx-hero__value, .sx-opener__big { overflow-wrap: break-word; hyphens: auto; }
+/* swipe rows: cards in one row you scroll sideways. The row runs to the screen edges on phones, the next card peeks
+   in, cards snap to the start, and a thin accent track under the row shows it scrolls. [data-rows=stack] turns them off. */
+.sx-swipe { overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+  scrollbar-width: thin; scrollbar-color: var(--c-accent) color-mix(in srgb, var(--c-text) 12%, transparent); padding-block-end: var(--sp-3); }
+.sx-swipe > * { scroll-snap-align: start; }
+.sx-swipe::-webkit-scrollbar { height: 4px; }
+.sx-swipe::-webkit-scrollbar-track { border-radius: 4px; background: color-mix(in srgb, var(--c-text) 12%, transparent); }
+.sx-swipe::-webkit-scrollbar-thumb { border-radius: 4px; background: var(--c-accent); }
+@media (max-width: 640px) {
+  .sx-swipe { margin-inline: calc(-1 * max(16px, var(--sp-5))); padding-inline: max(16px, var(--sp-5)); scroll-padding-inline: max(16px, var(--sp-5)); }
+  .sx-swipe::-webkit-scrollbar-track { margin-inline: max(16px, var(--sp-5)); }
+}
+/* tables wider than the phone keep their sideways scroll, with the same quiet track */
+.sx-ctable__scroll, .sx-pay__wrap { scrollbar-width: thin; scrollbar-color: var(--c-accent) color-mix(in srgb, var(--c-text) 12%, transparent); }

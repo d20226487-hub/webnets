@@ -111,10 +111,7 @@
         "whatsnew"
       ],
       "variants": {
-        "hero": [
-          "listing",
-          "device"
-        ]
+        "hero": ["listing", "device", "banner", "stage", "catalog", "apk-page", "hub"]
       }
     },
     "live-in-pocket": {
@@ -122,20 +119,14 @@
         "whatsnew"
       ],
       "variants": {
-        "hero": [
-          "device",
-          "listing"
-        ]
+        "hero": ["device", "listing", "banner", "stage", "catalog", "apk-page", "hub"]
       },
       "requires_vertical": "sports"
     },
     "apk-easy": {
       "optional": [],
       "variants": {
-        "hero": [
-          "device",
-          "listing"
-        ],
+        "hero": ["device", "listing", "banner", "stage", "catalog", "apk-page", "hub"],
         "install": [
           "side-by-side",
           "tabs"
@@ -146,10 +137,7 @@
     "fast-app": {
       "optional": [],
       "variants": {
-        "hero": [
-          "qr-first",
-          "listing"
-        ]
+        "hero": ["qr-first", "listing", "banner", "stage", "catalog", "apk-page", "hub"]
       }
     }
   },

@@ -1,6 +1,7 @@
 <?php include __DIR__ . '/../_shared.php'; ?>
 <header class="<?= cx('header', ['header', null, 'minimal']) ?>"<?= $sticky ? ' data-sticky' : '' ?>>
   <div class="<?= cx('container', ['header', 'inner']) ?>">
+    <?= $sideMenu ?>
     <a class="<?= cls('header', 'brand') ?>" href="<?= sx_url(sx_home_url()) ?>"><?= sx_logo() ?></a>
     <div class="<?= cls('header', 'aside') ?>">
       <?php if (!empty($props['note'])): ?>
@@ -10,3 +11,4 @@
     </div>
   </div>
 </header>
+<?php if ($sideMenu !== '') include __DIR__ . '/../_menu.php'; ?>

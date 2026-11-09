@@ -4,6 +4,40 @@
   "brief": "docs/briefs/08-multi-brand-casino-reviews.md",
   "requires_vertical": "casino",
   "compares_brands": true,
+  "slug_locales": {
+    "pt": {
+      "review": "analise/{item}",
+      "compare": "comparar",
+      "fast": "saque-rapido",
+      "live": "cassino-ao-vivo",
+      "app": "melhores-apps",
+      "method": "como-avaliamos"
+    },
+    "ru": {
+      "review": "obzor/{item}",
+      "compare": "sravnenie",
+      "fast": "bystryj-vyvod",
+      "live": "live-kazino",
+      "app": "prilozheniya",
+      "method": "kak-my-ocenivaem"
+    },
+    "kk": {
+      "review": "sholu/{item}",
+      "compare": "salystyru",
+      "fast": "zhyldam-shygaru",
+      "live": "live-kazino",
+      "app": "kosymshalar",
+      "method": "kalai-bagalaimyz"
+    },
+    "en": {
+      "review": "reviews/{item}",
+      "compare": "compare",
+      "fast": "fast-withdrawals",
+      "live": "live-casino",
+      "app": "best-apps",
+      "method": "how-we-rate"
+    }
+  },
   "criteria": {
     "safety": {
       "weight": 25
@@ -164,12 +198,19 @@
     "top": [
       {
         "block": "compliance-bar",
-        "variants": ["strip", "ribbon"],
+        "variants": [
+          "strip",
+          "ribbon"
+        ],
         "when": "market.strip"
       },
       {
         "block": "disclosure",
-        "variants": ["line", "box", "chip"]
+        "variants": [
+          "line",
+          "box",
+          "chip"
+        ]
       }
     ],
     "header": {
@@ -250,7 +291,13 @@
             "hero": [
               "cards",
               "table",
-              "podium"
+              "podium",
+              "spotlight",
+              "grid",
+              "logo-grid",
+              "offer-cards",
+              "portal",
+              "claim-cards"
             ]
           }
         },
@@ -260,7 +307,13 @@
             "hero": [
               "cards",
               "table",
-              "podium"
+              "podium",
+              "spotlight",
+              "grid",
+              "logo-grid",
+              "offer-cards",
+              "portal",
+              "claim-cards"
             ]
           }
         },
@@ -270,7 +323,13 @@
             "hero": [
               "cards",
               "table",
-              "podium"
+              "podium",
+              "spotlight",
+              "grid",
+              "logo-grid",
+              "offer-cards",
+              "portal",
+              "claim-cards"
             ]
           }
         }

@@ -32,5 +32,6 @@
   .sx-toplist__wscore strong { font-size: var(--fs-5); }
   .sx-toplist__bars li { grid-template-columns: 7rem minmax(0, 1fr) 2rem; }
   .sx-toplist__wactions .sx-toplist__cta { width: 100%; }
+  .sx-toplist__wsum, .sx-toplist__bars { order: 1; } /* the winner's button before its summary and bars: it stays on the first screen */
   .sx-toplist--podium .sx-toplist__actions { grid-column: 1 / -1; grid-template-columns: 1fr; }
 }

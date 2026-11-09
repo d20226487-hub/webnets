@@ -34,3 +34,7 @@
 .sx-article__hero { margin: 0 0 var(--sp-2); }
 .sx-article__hero .sx-pic { border-radius: var(--r-lg); }
 @media (max-width: 640px) { .sx-article__hero .sx-pic { aspect-ratio: 16 / 10 !important; } }
+/* contents as a box above the text (standard layout on a site that already has a sidebar on every page) */
+.sx-article__toc { display: grid; gap: var(--sp-2); padding: var(--sp-4) var(--sp-5); border-radius: var(--r); background: var(--c-surface-2); font-size: var(--fs-0); }
+.sx-article__toc ol { display: grid; gap: 6px; padding-inline-start: 1.2em; }
+.sx-article__toc a { color: var(--c-text); }

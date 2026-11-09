@@ -149,7 +149,7 @@ $schema = [
         'id' => ['type' => 'string', 'pattern' => '^[a-z0-9-]+$'],
         'type' => ['const' => $type],
         'angle' => ['enum' => array_keys($bp['angles']), 'description' => 'Omit to let the seed pick one the market allows.'],
-        'brand' => ['enum' => array_keys(array_diff_key(sx_json("$root/brands/operators.json"), ['_note' => 1]))],
+        'brand' => ['enum' => array_keys(array_diff_key(sx_brand_data($root, 'operators.json'), ['_note' => 1]))],
         'market' => ['enum' => array_map(fn($f) => basename($f, '.json'), glob("$root/markets/*.json"))],
         'locale' => ['enum' => ['en', 'ru', 'kk', 'pt'], 'description' => 'Omit for the market default.'],
         'preset' => ['enum' => array_keys(sx_all_presets($root))],
@@ -172,8 +172,8 @@ if (!empty($bp['compares_brands'])) {
     $schema['required'] = array_values(array_diff($schema['required'], ['brand'])) + [99 => 'publisher', 100 => 'brands'];
     $schema['required'] = array_values($schema['required']);
     unset($schema['properties']['brand']);
-    $ops = array_keys(array_diff_key(sx_json("$root/brands/operators.json"), ['_note' => 1]));
-    $schema['properties']['publisher'] = ['enum' => array_keys(array_diff_key(sx_json("$root/brands/publishers.json"), ['_note' => 1]))];
+    $ops = array_keys(array_diff_key(sx_brand_data($root, 'operators.json'), ['_note' => 1]));
+    $schema['properties']['publisher'] = ['enum' => array_keys(array_diff_key(sx_brand_data($root, 'publishers.json'), ['_note' => 1]))];
     $schema['properties']['brands'] = ['type' => 'array', 'minItems' => 3, 'uniqueItems' => true, 'items' => ['enum' => $ops], 'description' => 'Compared operators; each needs facts and a rating for the market.'];
     $schema['properties']['featured'] = ['enum' => $ops, 'description' => 'One paid slot, shown labelled; never changes scores or ranks.'];
     $schema['properties']['links'] = ['type' => 'object', 'required' => ['brands'], 'properties' => ['brands' => ['type' => 'object', 'additionalProperties' => ['type' => 'string', 'format' => 'uri']]]];
@@ -182,7 +182,7 @@ if (!empty($bp['articles'])) {
     // News sites: branded as a publisher; articles live in their own files (docs/schemas/article.schema.json).
     $schema['required'] = array_values(array_merge(array_diff($schema['required'], ['brand']), ['publisher', 'articles']));
     unset($schema['properties']['brand']);
-    $schema['properties']['publisher'] = ['enum' => array_keys(array_diff_key(sx_json("$root/brands/publishers.json"), ['_note' => 1]))];
+    $schema['properties']['publisher'] = ['enum' => array_keys(array_diff_key(sx_brand_data($root, 'publishers.json'), ['_note' => 1]))];
     $schema['properties']['articles'] = ['type' => 'string', 'description' => 'Folder of article files, e.g. content/<site>/articles. Each file follows docs/schemas/article.schema.json.'];
     $schema['properties']['links'] = ['type' => 'object', 'properties' => ['brands' => ['type' => 'object', 'description' => 'Tracked link per brand that PR articles promote.', 'additionalProperties' => ['type' => 'string', 'format' => 'uri']]]];
 }

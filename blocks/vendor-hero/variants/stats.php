@@ -15,7 +15,7 @@ $newest = $newest[0] ?? null;
       <?php else: ?>
       <p class="<?= cls('vhero', 'studio') ?>" style="--p1: <?= e($v['colors'][0]) ?>"><span aria-hidden="true"></span><?= e($v['name']) ?></p>
       <?php endif; ?>
-      <h1 class="<?= cls('vhero', 'title') ?>"><?= e($props['title']) ?></h1>
+      <h1 class="<?= cls('vhero', 'title') ?>"<?= sx_fit((string)$props['title']) ?>><?= e($props['title']) ?></h1>
       <?php if ($props['subtitle']): ?><p class="<?= cls('vhero', 'subtitle') ?>"><?= e($props['subtitle']) ?></p><?php endif; ?>
       <dl class="<?= cls('vhero', 'stats') ?>">
         <div><dt><?= e(t('vendor.games_at')) ?></dt><dd class="<?= cls('num') ?>"><?= count($games) ?></dd></div>

@@ -19,7 +19,7 @@ $factLine = implode(' · ', array_map(fn($f) => $f[0], $facts));
           <p class="<?= cls('apphero', 'official') ?>"><?= sx_icon('shield') ?><?= e(t('app.official')) ?></p>
         </div>
       </div>
-      <h1 class="<?= cls('apphero', 'title') ?>"><?= e($props['title']) ?></h1>
+      <h1 class="<?= cls('apphero', 'title') ?>"<?= sx_fit((string)$props['title']) ?>><?= e($props['title']) ?></h1>
       <?php if ($props['subtitle']): ?><p class="<?= cls('apphero', 'desc') ?>"><?= e($props['subtitle']) ?></p><?php endif; ?>
       <?= sx_install_group('hero') ?>
       <p class="<?= cls('apphero', 'factline') ?>"><?= e($factLine) ?></p>

@@ -29,8 +29,13 @@ h2.sx-rank__title { font-size: var(--fs-4); }
 @media (max-width: 760px) {
   .sx-rank__wrap { padding-block: var(--sp-4) var(--sp-6); gap: var(--sp-4); }
   h1.sx-rank__title { font-size: var(--fs-4); }
-  .sx-rank__intro, .sx-rank__sum { display: none; }
-  .sx-rank__entry { grid-template-areas: "pos logo who score" "go go go go"; grid-template-columns: auto auto minmax(0, 1fr) auto; padding: var(--sp-3); gap: var(--sp-2) var(--sp-3); }
+  .sx-rank__intro { display: none; }
+  /* name and score, then the button, then the key fact and the summary: the first button stays on the first screen */
+  .sx-rank__entry { grid-template-areas: "pos logo who score" "go go go go" "key key key key" "sum sum sum sum"; grid-template-columns: auto auto minmax(0, 1fr) auto; padding: var(--sp-3); gap: var(--sp-2) var(--sp-3); }
+  .sx-rank__who { display: contents; }
+  .sx-rank__name { grid-area: who; align-self: center; min-width: 0; }
+  .sx-rank__key { grid-area: key; }
+  .sx-rank__sum { grid-area: sum; }
   .sx-rank__logo svg { width: 36px; height: 36px; }
   .sx-rank__go { flex-direction: row; justify-content: space-between; align-items: center; gap: var(--sp-3); }
   .sx-rank__go .sx-rank__cta { flex: 1 1 auto; min-height: 44px; }
