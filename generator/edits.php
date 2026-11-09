@@ -135,7 +135,7 @@ function gen_editor_schema(string $type): array
         }
         $keepPage = !$multi ? 'one page' : ($pid === 'home' ? 'home page' : (isset($p['generate']) ? 'one page per item' : (in_array($pid, GEN_KEEP_PAGES, true) ? 'policy' : null)));
         $pages[] = ['id' => (string)$pid, 'slug' => $p['slug'] ?? '', 'generated' => isset($p['generate']), 'rule' => $p['rule'] ?? 'required',
-            'required_in' => $p['required_in'] ?? [], 'keep' => $keepPage, 'sections' => $secs, 'order_rules' => $p['order_rules'] ?? []];
+            'required_in' => array_values(array_unique(array_merge($p['required_in'] ?? [], array_keys(array_filter(gen_market_files(), fn($m) => in_array((string)$pid, $m['required_pages'] ?? [], true)))))), 'keep' => $keepPage, 'sections' => $secs, 'order_rules' => $p['order_rules'] ?? []];
     }
     $navs = ['top', 'left', 'right'];
     if (in_array('nav', gen_catalog()[$type]['auto'] ?? [], true)) {

@@ -56,29 +56,46 @@ foreach ($axes as $axis => $options) {
 $file = fn(array $c) => $c === $combos[0] ? 'index.html' : implode('-', $c) . '.html';
 
 $labels = [
-    'en' => ['_title' => 'Template variations', 'platform' => 'Platform', 'look' => 'Look', 'both' => 'iOS + Android', 'ios' => 'iOS only', 'android' => 'Android only',
-        'preset' => 'Original', 'neutral' => 'Neutral', 'brand' => 'Brand colours', 'play' => 'Google Play style', 'appstore' => 'App Store style'],
-    'ru' => ['_title' => 'Вариации шаблона', 'platform' => 'Платформа', 'look' => 'Стиль', 'both' => 'iOS + Android', 'ios' => 'Только iOS', 'android' => 'Только Android',
-        'preset' => 'Исходный', 'neutral' => 'Нейтральный', 'brand' => 'Цвета бренда', 'play' => 'Под Google Play', 'appstore' => 'Под App Store'],
-    'pt' => ['_title' => 'Variações do modelo', 'platform' => 'Plataforma', 'look' => 'Estilo', 'both' => 'iOS + Android', 'ios' => 'Só iOS', 'android' => 'Só Android',
-        'preset' => 'Original', 'neutral' => 'Neutro', 'brand' => 'Cores da marca', 'play' => 'Estilo Google Play', 'appstore' => 'Estilo App Store'],
+    'en' => ['_title' => 'Template variations', 'platform' => 'Platform', 'look' => 'Page look', 'palette' => 'Colours', 'both' => 'iOS + Android', 'ios' => 'iOS only', 'android' => 'Android only',
+        'preset' => 'Site style', 'neutral' => 'Neutral', 'brand' => 'Brand colours', 'play' => 'Google Play style', 'appstore' => 'App Store style'],
+    'ru' => ['_title' => 'Вариации шаблона', 'platform' => 'Платформа', 'look' => 'Вид страницы', 'palette' => 'Цвета', 'both' => 'iOS + Android', 'ios' => 'Только iOS', 'android' => 'Только Android',
+        'preset' => 'Стиль сайта', 'neutral' => 'Нейтральный', 'brand' => 'Цвета бренда', 'play' => 'Стиль Google Play', 'appstore' => 'Стиль App Store'],
+    'pt' => ['_title' => 'Variações do modelo', 'platform' => 'Plataforma', 'look' => 'Visual da página', 'palette' => 'Cores', 'both' => 'iOS + Android', 'ios' => 'Só iOS', 'android' => 'Só Android',
+        'preset' => 'Estilo do site', 'neutral' => 'Neutro', 'brand' => 'Cores da marca', 'play' => 'Estilo Google Play', 'appstore' => 'Estilo App Store'],
 ];
 $L = $labels[$base['locale'] ?? 'en'] ?? $labels['en'];
 foreach ($extraLabels as $k => $v) { // per-demo labels: {"key": {"en": ..., "pt": ...}}
     $L[$k] = is_array($v) ? ($v[$base['locale'] ?? 'en'] ?? reset($v)) : $v;
 }
 
-/** The demo bar: not part of the site, so it carries its own scoped styles and stays out of the site's tokens. */
-$bar = function (array $current, string $live = '') use ($axes, $L, $file): string {
+// colour switchers (an axis offering neutral and brand colours) come after the content ones, as the live Colours row does
+$isColour = fn(array $options) => isset($options['neutral'], $options['brand']);
+$shownAxes = array_filter($axes, fn($o) => !$isColour($o)) + array_filter($axes, $isColour);
+$built = []; // file => page html, filled before the bars are made
+
+/**
+ * The demo bar: not part of the site, so it carries its own scoped styles and stays out of the site's tokens.
+ * A chip whose page is the same as the current one (the option changes nothing here) is left out, and so is a row
+ * with nothing left to switch to.
+ */
+$bar = function (array $current, string $live = '') use ($shownAxes, $L, $file, &$built): string {
     $rows = '';
-    foreach ($axes as $axis => $options) {
+    foreach ($shownAxes as $axis => $options) {
         $links = '';
+        $shown = 0;
         foreach (array_keys($options) as $o) {
             $target = array_merge($current, [$axis => $o]);
             $on = $current[$axis] === $o;
+            if (!$on && ($built[$file($target)] ?? null) === $built[$file($current)]) {
+                continue;
+            }
+            $shown++;
             $links .= '<a href="' . $file($target) . '"' . ($on ? ' aria-current="true"' : '') . '>' . htmlspecialchars($L[$o] ?? $o) . '</a>';
         }
-        $rows .= '<div class="vbar-row"><span>' . htmlspecialchars($L[$axis] ?? $axis) . '</span><nav>' . $links . '</nav></div>';
+        if ($shown < 2) {
+            continue;
+        }
+        $rows .='<div class="vbar-row"><span>' . htmlspecialchars($L[$axis] ?? $axis) . '</span><nav>' . $links . '</nav></div>';
     }
     return '<style>.vbar{position:relative;z-index:2147483000;display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;padding:8px 16px;background:#111318;color:#E8EAF0;font:500 13px/1.3 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}'
         . '.vbar b{font-weight:600;color:#9AA3B5;font-size:11px;text-transform:uppercase;letter-spacing:.08em}.vbar-row{display:flex;align-items:center;gap:8px;min-width:0}'
@@ -95,6 +112,7 @@ $dir = "$root/dist/review/{$base['id']}";
 foreach (glob("$dir/*.html") as $old) {
     unlink($old);
 }
+$made = [];
 foreach ($combos as $c) {
     $cfg = $base;
     foreach ($c as $axis => $o) {
@@ -122,7 +140,12 @@ foreach ($combos as $c) {
             $pal[$look] = sx_review_palette($page['html'], $alt['html']);
         }
     }
-    $html = str_replace('</body>', sx_review_nav_script() . sx_review_device_toggle($file($c), $base['locale'] ?? 'en') . sx_review_devspec($page, [$page], $base['locale'] ?? 'en', $page['prefix']) . '</body>', preg_replace('#<body([^>]*)>#', '<body$1>' . $bar($c, sx_review_live_switches($pal, $base['locale'] ?? 'en')), $page['html'], 1));
+    $built[$file($c)] = $page['html'];
+    $made[] = [$c, $page, $pal];
+}
+foreach ($made as [$c, $page, $pal]) {
+    $live = sx_review_live_switches($pal, $base['locale'] ?? 'en', sx_review_rows_scope($page['html']));
+    $html = str_replace('</body>', sx_review_nav_script() . sx_review_device_toggle($file($c), $base['locale'] ?? 'en') . sx_review_devspec($page, [$page], $base['locale'] ?? 'en', $page['prefix']) . '</body>', preg_replace('#<body([^>]*)>#', '<body$1>' . $bar($c, $live), $page['html'], 1));
     file_put_contents("$dir/" . $file($c), sx_strip_comments($html));
     echo "dist/review/{$base['id']}/" . $file($c) . "\n";
 }

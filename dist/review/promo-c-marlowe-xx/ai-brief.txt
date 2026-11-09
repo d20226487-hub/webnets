@@ -1,0 +1,217 @@
+You are rebuilding one page of the **Códigos Marlowe** template, a promo site (angle: code-first). Keep the section order, the content and every rule in the brief. Write the page text exactly as given (it is in Portuguese); write code and comments in English. If something in the brief is missing or unclear, ask instead of guessing, and never invent claims, figures, offers or reviews.
+
+**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section with the listed fields as props.
+
+## Acceptance checklist
+
+- [ ] Sections appear in the order given, with the same layout variant (or an equivalent layout).
+- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
+- [ ] One H1 per page; headings do not skip levels.
+- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
+- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
+- [ ] The structured data listed for each page is present and valid.
+- [ ] Every internal link opens an existing page.
+- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
+- [ ] Every rule in the market guidance and the block rules holds on every page.
+
+---
+
+# Rebuild brief: Códigos Marlowe
+
+_Follow the system prompt (role, target stack, acceptance checklist) together with this brief._
+
+## Site type guidance
+
+- Purpose: show the current offers and their terms in plain words; the lead offer comes first.
+- Every offer shows its value, its code (or "no code needed"), two key terms, the date it was verified and a link to the full terms.
+- Never show an expired offer or one that is not valid yet; the build refuses a page with no live offer.
+- Offer types the market restricts are not shown at all.
+- Code boxes copy the code with one tap and show feedback.
+
+## Market guidance
+
+### Market context (from the market settings)
+
+- Market: Demoland (demo only) (`xx`), languages en, ru, pt, currency EUR (€)
+- Minimum age: 18+
+- Products allowed: sports, casino
+- Promotions allowed: welcome_bonus, deposit_bonus, free_bets, promo_code, odds_boost, cashback, loyalty, tournaments
+- Payment methods: Visa Debit, Mastercard Debit, Apple Pay, Transferência bancária
+- App install paths: iOS app-store, Android play
+
+### Mandated texts (from the market settings)
+
+- Age notice: Apenas maiores de 18. Ofertas sujeitas a termos.
+- Licence: Licenciado
+- Self-exclusion: Autoexclusão e limites de depósito estão disponíveis em todas as contas.
+
+### Rules you must not break
+
+- Every page opens with an age gate (18+) before any gambling content.
+- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- Minimum age is 18: the age gate and every age line say 18+.
+- Show only these payment methods: Visa Debit, Mastercard Debit, Apple Pay, Transferência bancária.
+- Amounts are in EUR (€).
+
+### Market-specific rules
+
+- DEMO-ONLY market: never ship it to a real site; the build refuses it unless the config has "demo": true.
+
+## Site context
+
+- Site: Códigos Marlowe, brand or publisher: Marlowe Club
+- Site type: promo, angle code-first; language `pt`, text direction `ltr`
+
+## Design tokens
+
+Fonts (Google Fonts): PT Sans, PT Serif.
+
+Use these CSS custom properties (they are the whole palette, type scale and radius set):
+
+```css
+:root {
+  --gxv: elevated;
+  --bks: 0 10px 28px rgba(0,0,0,0.35);
+  --qsp: transparent;
+  --kui: #143128;
+  --tbs: 100.8px;
+  --lab: 67.2px;
+  --yyb: 50.4px;
+  --eou: 33.6px;
+  --mei: 25.2px;
+  --qyj: 16.8px;
+  --sqf: 12.6px;
+  --tqt: 8.4px;
+  --mft: 4.2px;
+  --vus: clamp(41.5px,33.13px + 2.325vw,61.04px);
+  --zhr: clamp(33.2px,26.51px + 1.86vw,48.83px);
+  --bnq: clamp(26.56px,21.21px + 1.488vw,39.06px);
+  --fox: clamp(21.25px,16.96px + 1.19vw,31.25px);
+  --gra: 25px;
+  --ilt: 16px;
+  --eja: 12.8px;
+  --rer: 1.05;
+  --jkb: 1px;
+  --nvk: 6px;
+  --saa: 14px;
+  --xxy: 10px;
+  --soh: 6px;
+  --hji: 1.15;
+  --ycg: 1.6;
+  --mgr: 0;
+  --hkb: none;
+  --xcs: 700;
+  --ggi: 400;
+  --cby: 700;
+  --ajh: "PT Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --jzy: "PT Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --vab: "PT Serif",Georgia,"Times New Roman",serif;
+  --jbi: radial-gradient(90% 70% at 50% 0%,#1c4a3b,#0e241d 70%);
+  --rnd: #1a1206;
+  --ooq: #c9a45c;
+  --eri: #c3ccb6;
+  --nko: #f3eedf;
+  --thh: #d93636;
+  --jdi: #d98b00;
+  --fav: #1f9d55;
+  --sbc: #8e2b3a;
+  --qua: #1a1206;
+  --vuz: #c9a45c;
+  --wqv: #2a4f42;
+  --nzq: #b5bfa9;
+  --ozy: #f3eedf;
+  --mhm: #1a3d32;
+  --lnk: #143128;
+  --dfw: #0e241d;
+}
+```
+
+Layout is mobile-first: it must work from 375px to 1440px wide.
+
+## Block rules
+
+- Responsible gambling: All copy comes from markets/<id>.json; never type compliance text into a page.
+- Responsible gambling: Every page renders a 'panel' (usually inside the footer). 'strip' is an optional top-of-page addition.
+- Responsible gambling: Where a market lists several mandated taglines, one is chosen per site by seed.
+- Header: One-page landing and app pages use 'minimal' (no nav) so attention stays on the conversion.
+- Header: The CTA stays visible at every width; on mobile the nav collapses into a menu, the CTA does not.
+- Offer hero: Value, code, two key terms and Claim above the fold at 375x667.
+- Offer hero: Offer value, code and terms come only from brands/promotions/<brand>.json; content may only add a headline and subtitle.
+- Offer hero: No countdowns, no click-to-reveal; the verified date is always shown.
+- Trust bar: Values come from brand facts and market config; nothing is typed by hand.
+- Trust bar: Rating shows only when the brand has facts.rating_source.
+- Trust bar: Sits directly under the hero (section 2 or 3).
+- Offer terms: Terms come from the promotion feed only. Never collapsed by default; never in small print.
+- Promo list: Never above the lead offer. Each promo shows value, code or 'no code', two key terms and its verified date.
+- Steps: Exactly 3 steps; numbers are used because the order is real.
+- Steps: Mention verification and deposit limits honestly; do not promise instant approval.
+- FAQ: 4-6 questions: legality in the country, deposits/withdrawals, payout time, verification, limits or self-exclusion.
+- FAQ: Answers are plain text, 1-3 sentences. No CTA links inside answers.
+- Final CTA: Always the last section before the footer.
+- Final CTA: Headline 40 characters max. No urgency claims (timers, 'last chance').
+- Footer: Always renders the compliance panel; it cannot be switched off.
+- Footer: Payment methods come from the market config so they are always locally correct.
+- Age gate: Age comes from the market (21 in KZ, 18 in AU/BR). Never hard-code it.
+- Age gate: Content stays in the HTML for crawlers; the overlay is shown by script, so no-JS users still see the compliance footer.
+- Sticky CTA: Phones only (860px and narrower). Never covers the compliance panel: the footer gets bottom padding.
+- Sticky CTA: Shows the market age badge next to the CTA.
+
+## Page
+
+- Title tag: Código promocional Marlowe Club MARLOWE50: 50% até €200
+- The only H1: Código promocional Marlowe Club
+- Structured data (JSON-LD): WebPage, FAQPage
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Header** — block `sx/header`, variant `minimal`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Licenciado"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Offer hero** — block `sx/offer-hero`, variant `centered-code`, role `hero`
+   Purpose: Lead promotion: value, code with copy, two key terms, Claim, verified date. Data from the brand promotion feed.
+   - `title`: "Código promocional Marlowe Club"
+   - `subtitle`: "Copie o código, informe-o no primeiro depósito e o bônus entra no seu saldo na hora."
+4. **Trust bar** — block `sx/trust-bar`, variant `badges`, role `trust`
+   Purpose: Licence, payout time, years operating, local payments and (only if sourced) rating.
+   - `items`: `["licence","payout","since","payments"]`
+5. **Offer terms** — block `sx/promo-terms`, variant `table`, role `content`
+   Purpose: Every significant term of the lead offer, in plain words, with a link to the full T&Cs.
+   - `intro`: "As regras completas do MARLOWE50. Leia a linha do rollover antes de depositar."
+6. **Promo list** — block `sx/promo-list`, variant `cards`, role `content`
+   Purpose: Other active, allowed promotions from the feed, below the lead offer. Renders nothing when there are none.
+   - `include_lead`: false
+   - `show_codes`: true
+   - `mobile`: "stack"
+   - `limit`: "0"
+7. **Steps** — block `sx/steps`, variant `timeline`, role `content`
+   Purpose: Three real steps from sign-up to first bet, followed by the mid-page CTA.
+   - `eyebrow`: "Como usar o código"
+   - `title`: "Do código ao bônus em três passos"
+   - `items`: `[{"title":"Copie MARLOWE50","text":"Toque em Copiar acima e depois em Pegar oferta para abrir o cadastro da Marlowe Club."},{"title":"Deposite €20 ou mais","text":"Cole o código no formulário de depósito. Cartão, transferência bancária e Apple Pay valem. Defina um limite de depósito na mesma tela."},{"title":"Cumpra o rollover","text":"O bônus de 50% entra na hora. Aposte o valor 10 vezes em slots em até 21 dias, com no máximo €5 por giro."}]`
+   - `show_cta`: true
+8. **FAQ** — block `sx/faq`, variant `columns`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"O MARLOWE50 ainda funciona?","a":"Sim. Testamos o código em 29 out 2026. Ele vale para novos clientes até 31 dez 2026."},{"q":"Quanto preciso apostar?","a":"Dez vezes o valor do bônus. Um bônus de €100 exige €1.000 em apostas antes de sacar os ganhos do bônus."},{"q":"As mesas ao vivo contam?","a":"Só 10% das apostas em mesas ao vivo contam para o rollover. Slots contam integralmente."},{"q":"E se eu apostar mais de €5?","a":"Apostas acima de €5 com o bônus ativo podem anular o bônus e os ganhos dele."},{"q":"Posso limitar meus depósitos?","a":"Sim. Limites de depósito, perda e sessão podem ser definidos no cadastro e alterados na sua conta a qualquer momento."}]`
+9. **Final CTA** — block `sx/cta-band`, variant `solid`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Seu código: MARLOWE50"
+   - `text`: "50% até €200 no primeiro depósito. Novos clientes, 18+."
+   - `show_code`: true
+10. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+11. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+12. **Sticky CTA** — block `sx/sticky-cta`, variant `code-bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+_Long text and lists are shortened here (…, "[n items]"). For the full text run `php build/ai-brief.php sites/demos/<config>.json`._

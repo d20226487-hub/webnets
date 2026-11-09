@@ -275,9 +275,10 @@ function sx_review_palette(string $baseHtml, string $altHtml): array
 /**
  * Review pages only: the switcher rows that work in the browser, with no page of their own. Colours (when $palettes has
  * the page's "neutral" and "brand" versions from sx_review_palette()) and Rows of cards (swipe or stacked: the
- * data-rows attribute). The choice is remembered while moving between the review's pages.
+ * data-rows attribute). The choice is remembered while moving between the review's pages. $rows: where Rows of cards
+ * changes anything ("all", "phone": phones only, null: nowhere, so the row is left out).
  */
-function sx_review_live_switches(array $palettes, string $locale): string
+function sx_review_live_switches(array $palettes, string $locale, ?string $rows = 'all'): string
 {
     $tr = fn(array $m) => $m[$locale] ?? $m['en'];
     $out = '';
@@ -292,11 +293,13 @@ function sx_review_live_switches(array $palettes, string $locale): string
             $out .= '<template id="sx-pal-' . $k . '"' . ($p['fonts'] ? ' data-fonts="' . htmlspecialchars($p['fonts']) . '"' : '') . '>' . htmlspecialchars($p['css']) . '</template>';
         }
     }
-    $links = '';
-    foreach (['swipe' => ['en' => 'Swipe', 'ru' => 'Листаются', 'pt' => 'Deslizar'], 'stack' => ['en' => 'Stacked', 'ru' => 'Сеткой', 'pt' => 'Em grade']] as $k => $label) {
-        $links .= '<a href="#" role="button" data-sxrows="' . $k . '">' . htmlspecialchars($tr($label)) . '</a>';
+    if ($rows !== null) {
+        $links = '';
+        foreach (['swipe' => ['en' => 'Swipe', 'ru' => 'Листаются', 'pt' => 'Deslizar'], 'stack' => ['en' => 'Stacked', 'ru' => 'Сеткой', 'pt' => 'Em grade']] as $k => $label) {
+            $links .= '<a href="#" role="button" data-sxrows="' . $k . '">' . htmlspecialchars($tr($label)) . '</a>';
+        }
+        $out .= '<div class="vbar-row"><span>' . htmlspecialchars($tr($rows === 'phone' ? ['en' => 'Rows of cards (phones)', 'ru' => 'Ряды карточек (телефон)', 'pt' => 'Fileiras de cartões (celular)'] : ['en' => 'Rows of cards', 'ru' => 'Ряды карточек', 'pt' => 'Fileiras de cartões'])) . '</span><nav>' . $links . '</nav></div>';
     }
-    $out .= '<div class="vbar-row"><span>' . htmlspecialchars($tr(['en' => 'Rows of cards', 'ru' => 'Ряды карточек', 'pt' => 'Fileiras de cartões'])) . '</span><nav>' . $links . '</nav></div>';
     return $out . '<script>(function(){var K="sx-review-live",st={};try{st=JSON.parse(localStorage.getItem(K)||"{}")}catch(e){}'
         . 'var rows0=document.body.getAttribute("data-rows")==="stack"?"stack":"swipe";'
         . 'function save(){try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}}'
@@ -308,4 +311,51 @@ function sx_review_live_switches(array $palettes, string $locale): string
         . '[].forEach.call(document.querySelectorAll("[data-sxrows]"),function(a){if(a.getAttribute("data-sxrows")===r)a.setAttribute("aria-current","true");else a.removeAttribute("aria-current");});}'
         . 'document.addEventListener("click",function(e){var a=e.target.closest("[data-sxpal],[data-sxrows]");if(!a)return;e.preventDefault();'
         . 'if(a.hasAttribute("data-sxpal"))st.pal=a.getAttribute("data-sxpal");else st.rows=a.getAttribute("data-sxrows");save();apply();});apply();})();</script>';
+}
+
+/**
+ * Where the Rows of cards switch shows: "all" when a [data-rows=stack] rule applies to the page at any width,
+ * "phone" when only inside a max-width media query, null when no such rule matches anything on the page.
+ */
+function sx_review_rows_scope(string $html): ?string
+{
+    preg_match_all('#<style[^>]*>(.*?)</style>#s', $html, $m);
+    $css = implode("\n", $m[1]);
+    $body = preg_replace('#<style.*?</style>|<script.*?</script>|<template.*?</template>#s', '', $html);
+    preg_match_all('#class="([^"]*)"#', $body, $cm);
+    $have = array_flip(preg_split('/\s+/', implode(' ', $cm[1]), -1, PREG_SPLIT_NO_EMPTY));
+    $scope = null;
+    $stack = []; // open blocks: true for a max-width @media
+    $len = strlen($css);
+    $sel = 0;
+    for ($i = 0; $i < $len; $i++) {
+        $ch = $css[$i];
+        if ($ch === '{') {
+            $head = trim(substr($css, $sel, $i - $sel));
+            if (str_starts_with($head, '@')) {
+                $stack[] = str_starts_with($head, '@media') && str_contains($head, 'max-width');
+            } else {
+                $stack[] = null;
+                if (str_contains($head, 'data-rows=stack') || str_contains($head, 'data-rows="stack"')) {
+                    foreach (explode(',', $head) as $part) {
+                        if (!preg_match('#data-rows="?stack"?\]\s*(.*)#', $part, $pm)) {
+                            continue;
+                        }
+                        preg_match_all('#\.([\w-]+)#', $pm[1], $cl);
+                        if ($cl[1] && count(array_intersect_key(array_flip($cl[1]), $have)) === count(array_unique($cl[1]))) {
+                            $phone = in_array(true, $stack, true);
+                            $scope = !$phone ? 'all' : ($scope ?? 'phone');
+                        }
+                    }
+                }
+            }
+            $sel = $i + 1;
+        } elseif ($ch === '}') {
+            array_pop($stack);
+            $sel = $i + 1;
+        } elseif ($ch === ';' && !$stack) {
+            $sel = $i + 1;
+        }
+    }
+    return $scope;
 }

@@ -115,9 +115,12 @@ function sx_auto_prefix(string $seed): string
     return "$out-";
 }
 
-/** HTML lang attribute for a locale within a market. */
-function sx_html_lang(string $locale, string $market): string
+/** HTML lang attribute for a locale within a market: the market's "html_lang" map, else a plain default. */
+function sx_html_lang(string $locale, string $market, ?array $data = null): string
 {
+    if (isset($data['html_lang'][$locale])) {
+        return $data['html_lang'][$locale];
+    }
     return ['en' => 'en-' . strtoupper($market), 'pt' => 'pt-BR', 'ru' => $market === 'kz' ? 'ru-KZ' : 'ru', 'kk' => 'kk-KZ'][$locale] ?? $locale;
 }
 

@@ -628,3 +628,88 @@ function sx_plural(string $key, int $n): string
     }
     return t(isset(SX::$ctx['strings'][$key . $form]) ? $key . $form : $key, ['n' => $n]);
 }
+
+/**
+ * Every age label on a page shows the market's minimum age: "18+", "с 18 лет", "старше 21 года", "menores de 18 anos",
+ * "21 жастан", "aged 18 or older". Copy written for another market (or by hand) can carry its own age; this rewrites
+ * ages from 16 to 25 next to an age word or a "+", outside styles and scripts other than JSON-LD (plain text with $markup false: all of it).
+ */
+function sx_age_apply(string $html, int $age, bool $markup = true): string
+{
+    $ru = function (int $n, bool $gen): string {
+        $d = $n % 10;
+        $t = $n % 100;
+        if ($gen) {
+            return ($d === 1 && $t !== 11) ? 'года' : 'лет';
+        }
+        return ($d === 1 && $t !== 11) ? 'год' : (($d >= 2 && $d <= 4 && ($t < 12 || $t > 14)) ? 'года' : 'лет');
+    };
+    $n = '(?<![\d.,+€$£₸₽\/#-])(?:1[6-9]|2[0-5])(?![\d.,]\d)';
+    $rules = [
+        "/$n\+(?!\d)(?!\s*(?!only\b)\p{L})/u" => fn() => $age . '+', // "18+", "18+ only"; not a count such as "20+ providers"
+        "/(?<pre>(?<!\p{L})(?:[сСcC]|от|От|старше|Старше|до|младше|моложе)\s+)?$n(?<sp>\s|&nbsp;)(?:лет|года|год)(?!\p{L})/u" => fn($m) => $m['pre'] . $age . $m['sp'] . $ru($age, $m['pre'] !== ''),
+        "/$n(?<sp>\s|&nbsp;)(?<w>anos|years|year|жастан|жас)\b/u" => fn($m) => $age . $m['sp'] . $m['w'],
+        "/$n(?=\s+or\s+(?:older|over)\b)/u" => fn() => (string)$age,
+        "/(?<=\baged\s)$n\b/u" => fn() => (string)$age,
+    ];
+    $parts = !$markup ? [$html] : preg_split('/(<style\b.*?<\/style>|<script\b(?![^>]*ld\+json).*?<\/script>|<svg\b.*?<\/svg>)/is', $html, -1, PREG_SPLIT_DELIM_CAPTURE);
+    foreach ($parts as $i => $p) {
+        if ($i % 2 === 0 && $p !== '') {
+            foreach ($rules as $re => $fn) {
+                $p = preg_replace_callback($re, $fn, $p);
+            }
+            $parts[$i] = $p;
+        }
+    }
+    return implode('', $parts);
+}
+
+/** Rough rates to euros, for demo amounts written in another market's currency (placeholder copy, not live prices). */
+const SX_DEMO_EUR_RATES = ['EUR' => 1, 'BRL' => 6, 'AUD' => 1.7, 'KZT' => 550, 'USD' => 1.1, 'GBP' => 0.85];
+
+/**
+ * Amounts written in another currency ("€25", "R$ 50", "A$100", "500 ₸") become the market's currency, converted at
+ * SX_DEMO_EUR_RATES and rounded to a round figure, in the market's format ("14 000 ₸"). Outside styles, scripts and
+ * SVG; $markup false treats the whole string as text (briefs, JSON).
+ */
+function sx_money_apply(string $html, array $market, bool $markup = true): string
+{
+    $to = $market['currency'] ?? null;
+    if (!$to || !isset(SX_DEMO_EUR_RATES[$to['code']])) {
+        return $html;
+    }
+    $symbols = ['€' => 'EUR', 'R$' => 'BRL', 'A$' => 'AUD', '₸' => 'KZT', 'EUR' => 'EUR', 'BRL' => 'BRL', 'AUD' => 'AUD', 'KZT' => 'KZT'];
+    unset($symbols[$to['symbol']], $symbols[$to['code']]);
+    if (!$symbols) {
+        return $html;
+    }
+    $sym = implode('|', array_map(fn($s) => preg_quote($s, '/'), array_keys($symbols)));
+    $num = '(\d{1,3}(?:(?:[ .,\x{00A0}\x{202F}])\d{3})+|\d+)(?:[.,](\d{1,2}))?(?!\d)';
+    $value = function (string $int, string $dec): float {
+        return (float)(preg_replace('/\D/u', '', $int) . ($dec !== '' ? ".$dec" : ''));
+    };
+    $fmt = function (float $v) use ($to): string {
+        $v = $v < 10 ? max(1, round($v)) : ($v < 100 ? round($v / 5) * 5 : round($v, -((int)floor(log10($v)) - 1))); // round figures: 43 -> 45, 13 750 -> 14 000
+        $th = $to['thousands'] === ' ' ? "\u{202F}" : $to['thousands'];
+        $n = number_format($v, 0, $to['decimal'], $th);
+        $gap = $to['space'] ? "\u{00A0}" : '';
+        return $to['position'] === 'before' ? $to['symbol'] . $gap . $n : $n . $gap . $to['symbol'];
+    };
+    $conv = function (string $code, float $v) use ($to): float {
+        return $v / SX_DEMO_EUR_RATES[$code] * SX_DEMO_EUR_RATES[$to['code']];
+    };
+    $rules = [
+        "/(?<![\p{L}\d])(?<s>$sym)(?:\s|\x{00A0})?$num/u" => fn($m) => $fmt($conv($symbols[$m['s']], $value($m[2], $m[3] ?? ''))),
+        "/(?<![\d.,])$num(?:\s|\x{00A0}|\x{202F})?(?<s>$sym)(?![\p{L}])/u" => fn($m) => $fmt($conv($symbols[$m['s']], $value($m[1], $m[2] ?? ''))),
+    ];
+    $parts = !$markup ? [$html] : preg_split('/(<style\b.*?<\/style>|<script\b(?![^>]*ld\+json).*?<\/script>|<svg\b.*?<\/svg>)/is', $html, -1, PREG_SPLIT_DELIM_CAPTURE);
+    foreach ($parts as $i => $p) {
+        if ($i % 2 === 0 && $p !== '') {
+            foreach ($rules as $re => $fn) {
+                $p = preg_replace_callback($re, $fn, $p);
+            }
+            $parts[$i] = $p;
+        }
+    }
+    return implode('', $parts);
+}

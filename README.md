@@ -248,7 +248,17 @@ otherwise, and with "Placeholder text", copy is placeholder text of the same len
 
 **Colours and Design:** every type has a Colours option: "Site style" (the preset and its per-site variation), "Neutral", or "Brand colours", a palette around the brand's colour (the job brand's on single-brand sites, the site's own on multi-brand ones: casino reviews, news). Game-provider sites keep their own Colours list, which adds "Provider colours". App sites and casino reviews also have a Design option for the first screen; each design is named after the site that inspired its structure (for example "Offer cards (like liga.net)"). The names only appear in the job form: the sites are built in their own visual language and never name or imitate those sites. Jobs from before Colours and Design were split keep their colour picks.
 
-**Affiliate disclosure:** review, ranking and news sites say on every page that they earn a commission through their links (the `disclosure` block). The job form (and the editor, per type or site) chooses where: a strip at the top of every page (default) or a line in the footer above the responsible-gambling panel (`"disclosure": "footer"`). It cannot be switched off: gambling advertising rules and the type briefs require it.
+**Affiliate disclosure:** review, ranking and news sites can say on every page that they earn a commission through their links (the `disclosure` block). The job form (and the editor, per type or site) chooses: off (the default for new jobs), a strip at the top of every page (`"disclosure": "top"`) or a line in the footer above the responsible-gambling panel (`"disclosure": "footer"`). Jobs made before the default changed keep their setting.
+
+**Age labels:** every age on a built page is the market's minimum age (Markets → What is allowed). The age check, compliance bar, offer fine print and app ratings read it directly; copy written for another market ("18+", "с 18 лет", "старше 21 года", "menores de 18 anos", "21 жастан", "18 or older") is rewritten when the page is built, and so is the copy quoted in AI briefs. Counts such as "20+ providers" are left alone.
+
+**Market data stays consistent:** what a site and its AI brief say comes from the market file.
+- *Currency:* amounts in another market's currency ("€25", "R$ 50") are converted to the market's at rough demo rates, rounded and formatted the market's way ("14 000 ₸").
+- *Payment methods:* generated brands' facts (payment list, withdrawal times) and demo copy use the market's own methods: the same card where it has it, else its main local method (Apple Pay → Kaspi in Kazakhstan).
+- *Ratings language:* generated brands' editorial ratings are written in the site's language (Russian sites get the Russian demo ratings, not the English ones).
+- *AI market notes:* the market part of every brief (age, products, promotions, payments, currency, mandated texts and the rules that follow) is written from the market file each time; `ai/markets/<id>.md` holds only the rules the settings cannot express (eGov, BetStop, .bet.br). The Markets tab shows the generated part above that text.
+
+**Variations panel:** the "Template variations" bar (colours, card rows, demo switchers) is a gallery tool; generated sites are built without it. In the gallery each chip is checked when the review pages are built: an option that gives the same pages as the current one (for example a top layout equal to "Default" in that combination) is left out, and a row with nothing left to switch is dropped. "Rows of cards" shows only on pages with card rows it changes (the choice carries over between pages), marked "(phones)" when they only scroll sideways on phones. Colour rows always come after the content rows, with the same labels everywhere: Site style, Neutral, Brand colours (and Provider colours on studio sites).
 
 **Sample brands:** casino review sites list the job's brands plus a fixed set of made-up operators (`GEN_SAMPLE_NAMES` in `generator/brands.php`, the first N, 7 by default, set in the job form), so rankings show a full set of cards; the featured (paid) slot is always one of the job's brands. The code fingerprint ignores the job number in brand ids (`u40-…`), so the same brand does not make two jobs' sites differ.
 
@@ -438,6 +448,71 @@ Files: `generator/lib.php` (catalog, planning, placeholders, build, fingerprints
 `generator/run.php` (background worker), `generator/visual.py` (screenshots and visual prints), `generator/probe.php`
 (market checks), `generator/index.php` (the app). `lib/nocomments.php` strips comments from every build. The Docker
 image includes Chromium for the visual check (`docker compose build` after pulling this change).
+
+### Site types (`generator/types.php`, `generator/types.js`)
+
+The **Site types** tab manages each type's plan, its blueprint (`blueprints/<type>.json`), and its AI notes
+(`ai/types/<type>.md`).
+
+- **List:** every type with its pages, sections and angles, whether it needs a vertical, whether it is a copy or hidden,
+  the jobs and sites built with it, demos, the last change, and the latest changes of all types.
+- **Edit:** the name in the job form, the title and the vertical the whole type needs; per page (multi-page types: one
+  tab per page) whether the page is required or optional, its address, its conditions (needs an app, a vertical, a
+  promotion; required by a market), and its sections: zone (top: first screen in order; middle: order picked per site;
+  bottom: last), required or optional, which of the block's designs it may use (with the vertical a design needs), order
+  in the list, remove, and add back a section the type had or its base type has. Order rules (before, not first) with
+  the number of orders they allow. Angles: what each needs, which optional sections it shows, which designs it limits,
+  which pages it adds; remove or copy as a new angle. Frame: header and footer designs. Everything else in the JSON view.
+- **Safety:** every save is checked (unique section ids, existing blocks and designs, rules that only name middle
+  sections and leave at least one order, angles that name real sections and pages, at least one angle) and then
+  test-built in the demo market with every option of the job form; a plan that no longer builds is not saved and the
+  file is put back. The test build catches crashes, not sections that build but make little sense on a page.
+- **Copies:** "Copy a type" makes a new type from any type (`"based_on"` in its blueprint, `"generator": {"label"}`). It
+  builds from the same demo content and works like its base type in the generator (axes, sample brands, names), with its
+  own plan, so it can drop pages and sections and rearrange them. Built-in types can be hidden from the job form but not
+  deleted; copies can be deleted once no job uses them.
+- **Transparency:** the jobs and demos that use the type, built sites made before the last change, and each market's last
+  availability check for the type; "Test build now" runs the test builds on demand.
+- **History:** like markets (`<cache>/type-history/`): every save keeps the previous version and logs the changed fields;
+  any version can be compared and put back.
+
+The generator's type list (`gen_catalog()`) now merges the built-in list (`GEN_TYPES`) with the blueprints' `generator`
+entries and the copies; code that behaves per type uses `gen_type_base()`. In Docker, `blueprints/` is linked back to the
+project folder like `markets/`. API: `GET/POST /generator/api/types`, `GET/PUT/DELETE /generator/api/types/<id>`,
+`PUT .../<id>/visibility`, `POST .../<id>/test`, `GET .../<id>/version?v=`, `POST .../<id>/restore`.
+
+### Markets (`generator/markets.php`, `generator/markets.js`)
+
+The **Markets** tab manages every market: the files in `markets/<id>.json` and their AI notes in `ai/markets/<id>.md`.
+Nothing about a market is hidden in code any more; the three rules that were (share button order, the page `lang` tags,
+and pages required only in some markets, e.g. Responsible gambling in AU) now live in the market file as
+`share_networks`, `html_lang` and `required_pages` (blueprints' `required_in` still works, but no blueprint uses it).
+
+- **List:** languages, age, verticals, how many promotion types are allowed, currency, and which jobs, sites and demos use
+  each market; deleted markets (restorable) and the latest changes of all markets.
+- **Add:** a copy of an existing market (every rule, text and AI note), with its own id (2–8 lowercase letters, fixed) and
+  name, optionally demo-only.
+- **Edit:** every field, in sections: basics (name, languages, main language, short names, direction), formats (currency,
+  date, per-language overrides, with a live preview), what is allowed (minimum age, sports and casino, each promotion
+  type), payments and apps (payment methods in order, iPhone and Android install paths, brand domain ending),
+  compliance texts per language (licence line, regulator, licence badge, age notice, self-exclusion, taglines,
+  helpline, compliance bar, required blocks, notes), pages and sharing (required pages, share buttons in order, page
+  language tags) and the AI notes. Next to each rule: what it changes, read from the blueprints and blocks (e.g. casino
+  off leaves out the casino review types, these angles, pages and section designs). The rest of the file, notes in it
+  included, is editable as JSON in the same form.
+- **Transparency:** "Built here" runs a test build of every site type for the market and shows what can be built and
+  why not; "Used by" lists the jobs, demos and licensed brands; a note counts built sites made before the last change
+  (they keep the old rules until rebuilt).
+- **Checks before saving:** only languages the blocks are written in; every language needs its licence line (with
+  `{brand}`), regulator, licence badge and age notice; age 16–25; ISO currency code; valid tags and ids. Problems show
+  next to their fields.
+- **History:** every save keeps the previous version (`<cache>/market-history/<id>/`) and a log line
+  (`market-history/log.jsonl`): what changed, field by field; any version can be compared with now and put back. A market
+  in use by jobs or demos cannot be deleted; a deleted market is kept in `market-history/_deleted/` and can be restored.
+
+In Docker, `markets/` is linked back to the project folder like `ai/` (`build/docker-sync.sh`), so edits land in the repo.
+API: `GET/POST /generator/api/markets`, `GET/PUT/DELETE /generator/api/markets/<id>`, `GET .../<id>/availability`,
+`GET .../<id>/version?v=`, `POST .../<id>/restore`.
 
 ## Block implementations (A and B)
 

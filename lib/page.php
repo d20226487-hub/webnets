@@ -97,7 +97,7 @@ function sx_build_site(array $cfg, string $root): array
         SX::$jsonld = [];
         sx_context(array_merge($ctx, $map ? ['page_id' => $page['id']] : [], array_key_exists('cta_brand', $page) && $page['item'] !== null ? ['cta_brand' => $page['cta_brand']] : [], $page['ctx'] ?? []));
         sx_reset_used();
-        $html = sx_dialect_apply(sx_drop_gone_links(sx_strip_comments(sx_render_page($page, $preset, $ctx))), $ctx['dialect'], $ctx['prefix']);
+        $html = sx_dialect_apply(sx_money_apply(sx_age_apply(sx_drop_gone_links(sx_strip_comments(sx_render_page($page, $preset, $ctx))), (int)($ctx['market']['min_age'] ?? 18)), $ctx['market']), $ctx['dialect'], $ctx['prefix']);
         $out[] = [
             'id' => $page['id'] ?? null,
             'slug' => $page['slug'] ?? 'index',
@@ -222,7 +222,7 @@ function sx_render_page(array $page, array $preset, array $ctx): string
     }
     $css = sx_minify_css(':root { color-scheme: ' . ($preset['theme'] === 'dark' ? 'dark' : 'light') . "; }\n"
         . sx_vars_to_css(sx_token_vars($preset), ':root')) . sx_collect_css();
-    $lang = sx_html_lang($ctx['locale'], $ctx['market']['id']);
+    $lang = sx_html_lang($ctx['locale'], $ctx['market']['id'], $ctx['market']);
     $title = e($page['title'] ?? $ctx['site']['name']);
     $desc = e($page['description'] ?? '');
     $fonts = e(sx_google_fonts_url([$preset]));

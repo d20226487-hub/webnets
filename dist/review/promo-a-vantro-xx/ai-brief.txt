@@ -1,0 +1,217 @@
+You are rebuilding one page of the **Vantro Offers** template, a promo site (angle: welcome). Keep the section order, the content and every rule in the brief. Write the page text exactly as given (it is in English); write code and comments in English. If something in the brief is missing or unclear, ask instead of guessing, and never invent claims, figures, offers or reviews.
+
+**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section with the listed fields as props.
+
+## Acceptance checklist
+
+- [ ] Sections appear in the order given, with the same layout variant (or an equivalent layout).
+- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
+- [ ] One H1 per page; headings do not skip levels.
+- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
+- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
+- [ ] The structured data listed for each page is present and valid.
+- [ ] Every internal link opens an existing page.
+- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
+- [ ] Every rule in the market guidance and the block rules holds on every page.
+
+---
+
+# Rebuild brief: Vantro Offers
+
+_Follow the system prompt (role, target stack, acceptance checklist) together with this brief._
+
+## Site type guidance
+
+- Purpose: show the current offers and their terms in plain words; the lead offer comes first.
+- Every offer shows its value, its code (or "no code needed"), two key terms, the date it was verified and a link to the full terms.
+- Never show an expired offer or one that is not valid yet; the build refuses a page with no live offer.
+- Offer types the market restricts are not shown at all.
+- Code boxes copy the code with one tap and show feedback.
+
+## Market guidance
+
+### Market context (from the market settings)
+
+- Market: Demoland (demo only) (`xx`), languages en, ru, pt, currency EUR (€)
+- Minimum age: 18+
+- Products allowed: sports, casino
+- Promotions allowed: welcome_bonus, deposit_bonus, free_bets, promo_code, odds_boost, cashback, loyalty, tournaments
+- Payment methods: Visa Debit, Mastercard Debit, Apple Pay, Bank transfer
+- App install paths: iOS app-store, Android play
+
+### Mandated texts (from the market settings)
+
+- Age notice: 18+ only. Offers are subject to terms.
+- Licence: Licensed
+- Self-exclusion: Self-exclusion and deposit-limit tools are available in every account.
+
+### Rules you must not break
+
+- Every page opens with an age gate (18+) before any gambling content.
+- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- Minimum age is 18: the age gate and every age line say 18+.
+- Show only these payment methods: Visa Debit, Mastercard Debit, Apple Pay, Bank transfer.
+- Amounts are in EUR (€).
+
+### Market-specific rules
+
+- DEMO-ONLY market: never ship it to a real site; the build refuses it unless the config has "demo": true.
+
+## Site context
+
+- Site: Vantro Offers, brand or publisher: Vantro
+- Site type: promo, angle welcome; language `en`, text direction `ltr`
+
+## Design tokens
+
+Fonts (Google Fonts): Onest.
+
+Use these CSS custom properties (they are the whole palette, type scale and radius set):
+
+```css
+:root {
+  --pef: elevated;
+  --kco: 0 8px 24px rgba(120,80,0,0.12);
+  --duk: transparent;
+  --rkg: rgb(255,255,255);
+  --lyx: 96px;
+  --cbo: 64px;
+  --tdp: 48px;
+  --csp: 32px;
+  --lvd: 24px;
+  --cfy: 16px;
+  --naz: 12px;
+  --idn: 8px;
+  --dyy: 4px;
+  --rys: clamp(41.5px,33.13px + 2.325vw,61.04px);
+  --swu: clamp(33.2px,26.51px + 1.86vw,48.83px);
+  --ilv: clamp(26.56px,21.21px + 1.488vw,39.06px);
+  --uub: clamp(21.25px,16.96px + 1.19vw,31.25px);
+  --lex: 25px;
+  --aaq: 16px;
+  --hji: 12.8px;
+  --goe: 1;
+  --sif: 1px;
+  --ohi: 999px;
+  --tia: 24px;
+  --bxv: 16px;
+  --eoe: 10px;
+  --qwn: 1.15;
+  --vpq: 1.55;
+  --eru: -0.02em;
+  --gcx: none;
+  --vvl: 500;
+  --ghp: 400;
+  --lfe: 800;
+  --dju: "Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --zad: "Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --lyi: "Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --tha: linear-gradient(135deg,rgb(255,227,138) 0%,rgb(255,247,230) 55%);
+  --gri: rgb(255,255,255);
+  --hms: rgb(0,122,64);
+  --grc: rgb(94,82,54);
+  --rcb: rgb(31,26,14);
+  --pqa: rgb(217,54,54);
+  --twh: rgb(217,139,0);
+  --flj: rgb(31,157,85);
+  --sqa: rgb(255,184,0);
+  --kxh: rgb(255,255,255);
+  --pwi: rgb(0,122,64);
+  --kmc: rgb(240,223,181);
+  --hzo: rgb(107,94,62);
+  --vpt: rgb(31,26,14);
+  --yoy: rgb(255,239,204);
+  --uxl: rgb(255,255,255);
+  --ffl: rgb(255,247,230);
+}
+```
+
+Layout is mobile-first: it must work from 375px to 1440px wide.
+
+## Block rules
+
+- Responsible gambling: All copy comes from markets/<id>.json; never type compliance text into a page.
+- Responsible gambling: Every page renders a 'panel' (usually inside the footer). 'strip' is an optional top-of-page addition.
+- Responsible gambling: Where a market lists several mandated taglines, one is chosen per site by seed.
+- Header: One-page landing and app pages use 'minimal' (no nav) so attention stays on the conversion.
+- Header: The CTA stays visible at every width; on mobile the nav collapses into a menu, the CTA does not.
+- Offer hero: Value, code, two key terms and Claim above the fold at 375x667.
+- Offer hero: Offer value, code and terms come only from brands/promotions/<brand>.json; content may only add a headline and subtitle.
+- Offer hero: No countdowns, no click-to-reveal; the verified date is always shown.
+- Trust bar: Values come from brand facts and market config; nothing is typed by hand.
+- Trust bar: Rating shows only when the brand has facts.rating_source.
+- Trust bar: Sits directly under the hero (section 2 or 3).
+- Offer terms: Terms come from the promotion feed only. Never collapsed by default; never in small print.
+- Steps: Exactly 3 steps; numbers are used because the order is real.
+- Steps: Mention verification and deposit limits honestly; do not promise instant approval.
+- Promo list: Never above the lead offer. Each promo shows value, code or 'no code', two key terms and its verified date.
+- FAQ: 4-6 questions: legality in the country, deposits/withdrawals, payout time, verification, limits or self-exclusion.
+- FAQ: Answers are plain text, 1-3 sentences. No CTA links inside answers.
+- Final CTA: Always the last section before the footer.
+- Final CTA: Headline 40 characters max. No urgency claims (timers, 'last chance').
+- Footer: Always renders the compliance panel; it cannot be switched off.
+- Footer: Payment methods come from the market config so they are always locally correct.
+- Age gate: Age comes from the market (21 in KZ, 18 in AU/BR). Never hard-code it.
+- Age gate: Content stays in the HTML for crawlers; the overlay is shown by script, so no-JS users still see the compliance footer.
+- Sticky CTA: Phones only (860px and narrower). Never covers the compliance panel: the footer gets bottom padding.
+- Sticky CTA: Shows the market age badge next to the CTA.
+
+## Page
+
+- Title tag: Vantro promo code VANTRO100: 100% up to €100
+- The only H1: Vantro promo code: 100% up to €100
+- Structured data (JSON-LD): WebPage, FAQPage
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Header** — block `sx/header`, variant `minimal`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Licensed"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Offer hero** — block `sx/offer-hero`, variant `code-ticket`, role `hero`
+   Purpose: Lead promotion: value, code with copy, two key terms, Claim, verified date. Data from the brand promotion feed.
+   - `title`: "Vantro promo code: 100% up to €100"
+   - `subtitle`: "Enter the code when you register and make your first deposit. Your free bets arrive as soon as the deposit clears."
+4. **Trust bar** — block `sx/trust-bar`, variant `strip`, role `trust`
+   Purpose: Licence, payout time, years operating, local payments and (only if sourced) rating.
+   - `items`: `["licence","payout","since","payments"]`
+5. **Offer terms** — block `sx/promo-terms`, variant `table`, role `content`
+   Purpose: Every significant term of the lead offer, in plain words, with a link to the full T&Cs.
+   - `intro`: "Everything that applies to this offer, before you sign up."
+6. **Steps** — block `sx/steps`, variant `row`, role `content`
+   Purpose: Three real steps from sign-up to first bet, followed by the mid-page CTA.
+   - `eyebrow`: "How to claim"
+   - `title`: "Claim it in three steps"
+   - `items`: `[{"title":"Register with the code","text":"Tap Claim offer, create your account and enter VANTRO100 in the promo code field."},{"title":"Deposit at least €10","text":"Use a card, bank transfer or Apple Pay. Set your deposit limit in the same step."},{"title":"Get your free bets","text":"Your free bets match your deposit up to €100. Use them on odds of 1.50 or higher."}]`
+   - `show_cta`: true
+7. **Promo list** — block `sx/promo-list`, variant `cards`, role `content`
+   Purpose: Other active, allowed promotions from the feed, below the lead offer. Renders nothing when there are none.
+   - `include_lead`: false
+   - `show_codes`: true
+   - `mobile`: "stack"
+   - `limit`: "0"
+8. **FAQ** — block `sx/faq`, variant `accordion`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Is VANTRO100 still working?","a":"Yes. We checked the code on 29 Oct 2026. It is valid until 31 Dec 2026 for new customers."},{"q":"What does 1× wagering mean?","a":"You need to bet the bonus amount once before winnings from it can be withdrawn. Free bet stakes are not returned."},{"q":"Can I use an e-wallet for the deposit?","a":"No. Deposits by e-wallet do not qualify. Use a debit card, bank transfer or Apple Pay."},{"q":"I forgot to enter the code. What now?","a":"Contact Vantro support within 7 days of registering; they can add the offer if you have not placed a bet yet."},{"q":"Can I set limits before I play?","a":"Yes. You can set deposit limits during sign-up and change them in your account at any time."}]`
+9. **Final CTA** — block `sx/cta-band`, variant `solid`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Your code: VANTRO100"
+   - `text`: "100% up to €100 in free bets. New customers, 18+."
+   - `show_code`: true
+10. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
+     - `show_verify`: false
+11. **Age gate** — block `sx/age-gate`, variant `modal`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+12. **Sticky CTA** — block `sx/sticky-cta`, variant `code-bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+_Long text and lists are shortened here (…, "[n items]"). For the full text run `php build/ai-brief.php sites/demos/<config>.json`._

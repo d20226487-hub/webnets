@@ -616,7 +616,7 @@
       "ru": "Платформа"
     },
     "look": {
-      "ru": "Стиль"
+      "ru": "Вид страницы"
     },
     "both": {
       "ru": "iOS + Android"
@@ -628,7 +628,7 @@
       "ru": "Только Android"
     },
     "preset": {
-      "ru": "Исходный"
+      "ru": "Стиль сайта"
     },
     "neutral": {
       "ru": "Нейтральный"
@@ -637,10 +637,10 @@
       "ru": "Цвета бренда"
     },
     "play": {
-      "ru": "Под Google Play"
+      "ru": "Стиль Google Play"
     },
     "appstore": {
-      "ru": "Под App Store"
+      "ru": "Стиль App Store"
     },
     "catalog": {
       "ru": "Каталог загрузок"

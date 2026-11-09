@@ -30,19 +30,19 @@ _Follow the system prompt (role, target stack, acceptance checklist) together wi
 
 ## Market guidance
 
-### Market context
+### Market context (from the market settings)
 
-- Market: Kazakhstan (`kz`), languages ru, kk, currency KZT
+- Market: Kazakhstan (`kz`), languages ru, kk, currency KZT (₸)
 - Minimum age: 21+
-- Products allowed: sports; not allowed: casino
-- Promotions allowed: none; restricted: welcome_bonus, deposit_bonus, free_bets, promo_code
-- Payment methods: kaspi, visa, mastercard, halyk
+- Products allowed: sports, casino
+- Promotions allowed: welcome_bonus, deposit_bonus, free_bets, promo_code, odds_boost, cashback, loyalty, tournaments
+- Payment methods: Kaspi, Visa, Mastercard, Halyk
 - App install paths: iOS app-store, Android apk
-- Notes: Online bets are processed through the Unified Accounting Centre (ЕУЦ). Online casino is not permitted: casino-vertical blocks are disabled for this market.
 
 ### Mandated texts (from the market settings)
 
 - Age notice: Участие в азартных играх разрешено с 21 года.
+- Licence: Лицензия РК
 - Self-exclusion: Вы можете ограничить своё участие в азартных играх через eGov.
 
 ### Rules you must not break
@@ -50,7 +50,12 @@ _Follow the system prompt (role, target stack, acceptance checklist) together wi
 - Every page opens with an age gate (21+) before any gambling content.
 - Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
 - Minimum age is 21: the age gate and every age line say 21+.
-- No online casino content anywhere; only sports betting.
+- Show only these payment methods: Kaspi, Visa, Mastercard, Halyk.
+- Amounts are in KZT (₸).
+
+### Market-specific rules
+
+- Online bets are processed through the Unified Accounting Centre (ЕУЦ).
 - Identification goes through eGov (or video identification); say so on sign-up pages.
 - Self-limitation is available through eGov; mention it on responsible-gambling content.
 
@@ -240,13 +245,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `title`: "Nyxa для iPhone"
    - `answer`: "Приложение бесплатно в App Store. Нужен iPhone с iOS 14 или новее и около 118 МБ свободного места."
    - `show_cta`: false
-3. **Download panel** — block `sx/download-panel`, variant `panel`, role `content`
+3. **App info** — block `sx/app-info`, variant `table`, role `content`
+   Purpose: Version, size, requirements, languages, age rating, developer, licence. All from brand app data.
+   - `title`: "О версии для iPhone"
+4. **Download panel** — block `sx/download-panel`, variant `panel`, role `content`
    Purpose: Final install section: all install buttons, a QR code for desktop visitors, key app facts.
    - `title`: "Скачать в App Store"
    - `text`: "Бесплатно, 21+. На компьютере наведите камеру iPhone на QR-код."
-4. **App info** — block `sx/app-info`, variant `table`, role `content`
-   Purpose: Version, size, requirements, languages, age rating, developer, licence. All from brand app data.
-   - `title`: "О версии для iPhone"
 5. **Steps** — block `sx/steps`, variant `timeline`, role `content`
    Purpose: Three real steps from sign-up to first bet, followed by the mid-page CTA.
    - `eyebrow`: "Установка"

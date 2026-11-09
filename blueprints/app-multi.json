@@ -566,9 +566,6 @@
     },
     "responsible": {
       "rule": "optional",
-      "required_in": [
-        "au"
-      ],
       "slug": "responsible-gambling",
       "hide_frame": [
         "sticky-cta"

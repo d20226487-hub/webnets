@@ -1,0 +1,217 @@
+You are rebuilding one page of the **Paper Lantern at Marlowe** template, a vendor site (angle: studio). Keep the section order, the content and every rule in the brief. Write the page text exactly as given (it is in English); write code and comments in English. If something in the brief is missing or unclear, ask instead of guessing, and never invent claims, figures, offers or reviews.
+
+**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section with the listed fields as props.
+
+## Acceptance checklist
+
+- [ ] Sections appear in the order given, with the same layout variant (or an equivalent layout).
+- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
+- [ ] One H1 per page; headings do not skip levels.
+- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
+- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
+- [ ] The structured data listed for each page is present and valid.
+- [ ] Every internal link opens an existing page.
+- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
+- [ ] Every rule in the market guidance and the block rules holds on every page.
+
+---
+
+# Rebuild brief: Paper Lantern at Marlowe
+
+_Follow the system prompt (role, target stack, acceptance checklist) together with this brief._
+
+## Site type guidance
+
+- Purpose: present one game studio as a brand carries it: new and popular games and honest RTP.
+- Games and RTP come from the brand catalog; only games the brand really carries in the market are listed.
+- RTP is explained as a long-run average, never as a promise of winnings.
+- Provider links go to the provider's games on the brand site.
+
+## Market guidance
+
+### Market context (from the market settings)
+
+- Market: Demoland (demo only) (`xx`), languages en, ru, pt, currency EUR (€)
+- Minimum age: 18+
+- Products allowed: sports, casino
+- Promotions allowed: welcome_bonus, deposit_bonus, free_bets, promo_code, odds_boost, cashback, loyalty, tournaments
+- Payment methods: Visa Debit, Mastercard Debit, Apple Pay, Bank transfer
+- App install paths: iOS app-store, Android play
+
+### Mandated texts (from the market settings)
+
+- Age notice: 18+ only. Offers are subject to terms.
+- Licence: Licensed
+- Self-exclusion: Self-exclusion and deposit-limit tools are available in every account.
+
+### Rules you must not break
+
+- Every page opens with an age gate (18+) before any gambling content.
+- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- Minimum age is 18: the age gate and every age line say 18+.
+- Show only these payment methods: Visa Debit, Mastercard Debit, Apple Pay, Bank transfer.
+- Amounts are in EUR (€).
+
+### Market-specific rules
+
+- DEMO-ONLY market: never ship it to a real site; the build refuses it unless the config has "demo": true.
+
+## Site context
+
+- Site: Paper Lantern at Marlowe, brand or publisher: Marlowe Club
+- Site type: vendor, angle studio; language `en`, text direction `ltr`
+
+## Design tokens
+
+Fonts (Google Fonts): Fira Sans, Lora.
+
+Use these CSS custom properties (they are the whole palette, type scale and radius set):
+
+```css
+:root {
+  --c-bg: rgb(246 246 243);
+  --c-surface: rgb(255 255 255);
+  --c-surface-2: rgb(236 236 231);
+  --c-text: rgb(27 27 24);
+  --c-muted: rgb(90 90 82);
+  --c-border: rgb(214 214 207);
+  --c-accent: rgb(200 16 46);
+  --c-on-accent: rgb(255 255 255);
+  --c-accent-2: rgb(27 27 24);
+  --c-success: rgb(31 157 85);
+  --c-warning: rgb(217 139 0);
+  --c-danger: rgb(217 54 54);
+  --c-hero-text: rgb(27 27 24);
+  --c-hero-muted: rgb(90 90 82);
+  --c-hero-accent: rgb(200 16 46);
+  --c-hero-on-accent: rgb(255 255 255);
+  --hero-bg: rgb(246 246 243);
+  --f-display: "Lora",Georgia,"Times New Roman",serif;
+  --f-body: "Fira Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono: "Fira Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --fw-heading: 700;
+  --fw-body: 400;
+  --fw-strong: 500;
+  --tt-heading: none;
+  --ls-heading: -0.01em;
+  --lh-body: 1.65;
+  --lh-heading: 1.15;
+  --r-sm: 0px;
+  --r: 0px;
+  --r-lg: 2px;
+  --r-btn: 2px;
+  --bw: 1px;
+  --density: 1.05;
+  --fs-0: 13.6px;
+  --fs-1: 17px;
+  --fs-2: 26.56px;
+  --fs-3: clamp(22.58px,18.02px + 1.265vw,33.2px);
+  --fs-4: clamp(28.22px,22.53px + 1.581vw,41.5px);
+  --fs-5: clamp(35.28px,28.16px + 1.976vw,51.88px);
+  --fs-6: clamp(44.1px,35.2px + 2.47vw,64.85px);
+  --sp-1: 4.2px;
+  --sp-2: 8.4px;
+  --sp-3: 12.6px;
+  --sp-4: 16.8px;
+  --sp-5: 25.2px;
+  --sp-6: 33.6px;
+  --sp-7: 50.4px;
+  --sp-8: 67.2px;
+  --sp-9: 100.8px;
+  --card-bg: rgb(255 255 255);
+  --card-border: transparent;
+  --card-shadow: none;
+  --surface-style: flat;
+}
+```
+
+Layout is mobile-first: it must work from 375px to 1440px wide.
+
+## Block rules
+
+- Responsible gambling: All copy comes from markets/<id>.json; never type compliance text into a page.
+- Responsible gambling: Every page renders a 'panel' (usually inside the footer). 'strip' is an optional top-of-page addition.
+- Responsible gambling: Where a market lists several mandated taglines, one is chosen per site by seed.
+- Header: One-page landing and app pages use 'minimal' (no nav) so attention stays on the conversion.
+- Header: The CTA stays visible at every width; on mobile the nav collapses into a menu, the CTA does not.
+- Vendor hero: Lobby CTA and games count above the fold at 375x667.
+- Vendor hero: The spotlight game is the newest game added to the brand, never the one with the biggest max win.
+- Vendor hero: Studio facts come from brands/providers.json; game availability and RTP from brands/catalog/<brand>.json.
+- Trust bar: Values come from brand facts and market config; nothing is typed by hand.
+- Trust bar: Rating shows only when the brand has facts.rating_source.
+- Trust bar: Sits directly under the hero (section 2 or 3).
+- Game grid: Only games the brand catalog lists as live in the site's market.
+- Game grid: mode=new shows games added to the brand in the last 60 days and renders nothing below 2.
+- Game grid: 'Popular' wording only when the catalog has ranks; otherwise the title says 'games'.
+- RTP explainer: The explanation is fixed UI copy in every locale; content cannot soften it or add win claims.
+- Features: 3 or 4 items. Titles 4 words max, text one sentence (about 120 characters).
+- Features: Features describe the product, never an offer or bonus.
+- Providers: Lists only providers in the brand catalog for this market. No rankings between providers.
+- FAQ: 4-6 questions: legality in the country, deposits/withdrawals, payout time, verification, limits or self-exclusion.
+- FAQ: Answers are plain text, 1-3 sentences. No CTA links inside answers.
+- Final CTA: Always the last section before the footer.
+- Final CTA: Headline 40 characters max. No urgency claims (timers, 'last chance').
+- Footer: Always renders the compliance panel; it cannot be switched off.
+- Footer: Payment methods come from the market config so they are always locally correct.
+- Age gate: Age comes from the market (21 in KZ, 18 in AU/BR). Never hard-code it.
+- Age gate: Content stays in the HTML for crawlers; the overlay is shown by script, so no-JS users still see the compliance footer.
+- Sticky CTA: Phones only (860px and narrower). Never covers the compliance panel: the footer gets bottom padding.
+- Sticky CTA: Shows the market age badge next to the CTA.
+
+## Page
+
+- Title tag: Paper Lantern Games at Marlowe Club: the studio and its slots
+- The only H1: Paper Lantern Games: small studio, story-led slots
+- Structured data (JSON-LD): WebPage, FAQPage
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Header** — block `sx/header`, variant `minimal`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: true
+3. **Vendor hero** — block `sx/vendor-hero`, variant `studio-banner`, role `hero`
+   Purpose: Game studio as it exists on the brand: identity, games count at the brand, lobby CTA, optional spotlight game.
+   - `title`: "Paper Lantern Games: small studio, story-led slots"
+   - `subtitle`: "A young studio with hand-drawn worlds and gentle bonus rounds. All six of its games are in the Marlowe Club lobby."
+4. **Trust bar** — block `sx/trust-bar`, variant `strip`, role `trust`
+   Purpose: Licence, payout time, years operating, local payments and (only if sourced) rating.
+   - `items`: `["licence","payout","since","payments"]`
+5. **Game grid** — block `sx/game-grid`, variant `grid`, role `content`
+   Purpose: The provider's games at the brand: newest additions or popular titles, each with facts and its own CTA.
+   - `mode`: "popular"
+   - `intro`: "In order of popularity at Marlowe Club."
+   - `limit`: "8"
+6. **RTP explainer** — block `sx/rtp-explainer`, variant `inline`, role `content`
+   Purpose: Plain-language explanation of RTP, volatility and max win, with a volatility scale. Text is built in.
+7. **Features** — block `sx/features`, variant `bento`, role `content`
+   Purpose: 3-4 product reasons to join, each with an icon, a short title and one sentence.
+   - `eyebrow`: "The studio"
+   - `title`: "What Paper Lantern slots feel like"
+   - `items`: `[{"icon":"star","title":"Hand-drawn worlds","text":"Every game is drawn in ink and watercolour, set in night markets, rivers and festivals."},{"icon":"bolt","title":"Story bonus rounds","text":"Bonus rounds move through short scenes instead of a plain spin counter."},{"icon":"shield","title":"Volatility for every taste","text":"Three of the six games are low or medium volatility. Paper Tigers is the only very high one."},{"icon":"clock","title":"Founded 2024","text":"A small team; new games arrive every two to three months."}]`
+8. **Providers** — block `sx/provider-links`, variant `logos-text`, role `content`
+   Purpose: Other studios the brand carries in this market, with game counts, linking to their lobbies or vendor pages.
+9. **FAQ** — block `sx/faq`, variant `accordion`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Which Paper Lantern games does Marlowe Club have?","a":"All six: Fox & Kite, Night Market, Moon Ferry, Ink & Gold, Lantern Festival and Paper Tigers."},{"q":"Is the RTP the same at every casino?","a":"Not always. Studios often offer several RTP versions and each casino picks one. We show the version Marlowe Club runs."},{"q":"Can I play on my phone?","a":"Yes. The games run in the mobile browser; no download is needed."},{"q":"How do I deposit?","a":"By card, bank transfer or e-wallet. You can set a deposit limit when you sign up."},{"q":"Can I take a break?","a":"Yes. Set time and loss limits in your account, or pause it for a period you choose."}]`
+10. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Open the Paper Lantern lobby"
+   - `text`: "Six games at Marlowe Club. 18+ only."
+   - `show_code`: false
+11. **Footer** — block `sx/footer`, variant `centered`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+12. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+13. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+_Long text and lists are shortened here (…, "[n items]"). For the full text run `php build/ai-brief.php sites/demos/<config>.json`._

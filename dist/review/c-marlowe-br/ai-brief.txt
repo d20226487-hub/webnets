@@ -1,0 +1,227 @@
+You are rebuilding one page of the **Marlowe Club Brasil** template, a landing site (angle: live-casino). Keep the section order, the content and every rule in the brief. Write the page text exactly as given (it is in Portuguese); write code and comments in English. If something in the brief is missing or unclear, ask instead of guessing, and never invent claims, figures, offers or reviews.
+
+**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section with the listed fields as props.
+
+## Acceptance checklist
+
+- [ ] Sections appear in the order given, with the same layout variant (or an equivalent layout).
+- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
+- [ ] One H1 per page; headings do not skip levels.
+- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
+- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
+- [ ] The structured data listed for each page is present and valid.
+- [ ] Every internal link opens an existing page.
+- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
+- [ ] Every rule in the market guidance and the block rules holds on every page.
+
+---
+
+# Rebuild brief: Marlowe Club Brasil
+
+_Follow the system prompt (role, target stack, acceptance checklist) together with this brief._
+
+## Site type guidance
+
+- Purpose: sell one brand on one page and send the visitor to sign up. Every section leads to the same primary CTA.
+- Keep exactly one primary CTA per section; the hero CTA must be above the fold at 375x667.
+- The hero headline is at most 60 characters, the subtitle at most 160.
+- Trust bar values (licence, payout time, payments) come from brand and market data; never type them by hand.
+- Product sections (odds board, game strip, bonus banners) only show products the market allows.
+- The sticky CTA appears on phones after the hero scrolls out of view.
+
+## Market guidance
+
+### Market context (from the market settings)
+
+- Market: Brazil (`br`), languages pt, currency BRL (R$)
+- Minimum age: 18+
+- Products allowed: sports, casino
+- Promotions allowed: none; not allowed: welcome_bonus, deposit_bonus, free_bets, promo_code, odds_boost, cashback, loyalty, tournaments
+- Payment methods: PIX, TED, Débito
+- App install paths: iOS app-store, Android both
+
+### Mandated texts (from the market settings)
+
+- Age notice: Proibido para menores de 18 anos.
+- Licence: Autorizada SPA/MF
+- Self-exclusion: Você pode solicitar a autoexclusão a qualquer momento.
+
+### Rules you must not break
+
+- Every page opens with an age gate (18+) before any gambling content.
+- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- Minimum age is 18: the age gate and every age line say 18+.
+- Show only these payment methods: PIX, TED, Débito.
+- Amounts are in BRL (R$).
+
+### Market-specific rules
+
+- Only licensed operators with .bet.br domains; links go to the .bet.br domain.
+- Credit cards are never shown as a payment method.
+- Identity and age are verified with CPF before play.
+
+## Site context
+
+- Site: Marlowe Club Brasil, brand or publisher: Marlowe Club
+- Site type: landing, angle live-casino; language `pt`, text direction `ltr`
+
+## Design tokens
+
+Fonts (Google Fonts): Cormorant Garamond, Montserrat.
+
+Use these CSS custom properties (they are the whole palette, type scale and radius set):
+
+```css
+:root {
+  --ypt: outlined;
+  --syg: none;
+  --ten: rgb(58,50,38);
+  --kat: rgb(24,21,15);
+  --ukk: 110.4px;
+  --fle: 73.6px;
+  --bue: 55.2px;
+  --dvl: 36.8px;
+  --mvx: 27.6px;
+  --azs: 18.4px;
+  --rhe: 13.8px;
+  --hsu: 9.2px;
+  --abh: 4.6px;
+  --vuz: clamp(61.04px,48.73px + 3.42vw,89.76px);
+  --hiz: clamp(45.79px,36.56px + 2.565vw,67.34px);
+  --zxp: clamp(34.35px,27.42px + 1.924vw,50.52px);
+  --mnw: clamp(25.77px,20.57px + 1.444vw,37.9px);
+  --umz: 28.43px;
+  --pvu: 16px;
+  --fxo: 12px;
+  --tlu: 1.15;
+  --uri: 1px;
+  --xbs: 0px;
+  --cwh: 4px;
+  --flt: 2px;
+  --rji: 0px;
+  --lsn: 1.15;
+  --jfb: 1.65;
+  --skv: 0.005em;
+  --dum: none;
+  --tiu: 500;
+  --osu: 400;
+  --hpk: 600;
+  --qyx: "Montserrat",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --iwa: "Montserrat",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --byy: "Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --iio: radial-gradient(70% 90% at 50% 0%,rgba(212,175,106,0.18),transparent 70%),rgb(15,13,11);
+  --zfj: rgb(26,20,10);
+  --cga: rgb(212,175,106);
+  --ryd: rgb(196,183,159);
+  --svg: rgb(243,236,223);
+  --sft: rgb(217,54,54);
+  --gbl: rgb(217,139,0);
+  --nys: rgb(31,157,85);
+  --jxi: rgb(140,107,63);
+  --cdz: rgb(26,20,10);
+  --tbx: rgb(212,175,106);
+  --nmb: rgb(58,50,38);
+  --ive: rgb(179,166,143);
+  --wcw: rgb(243,236,223);
+  --lwm: rgb(34,29,22);
+  --jbj: rgb(24,21,15);
+  --ota: rgb(15,13,11);
+}
+```
+
+Layout is mobile-first: it must work from 375px to 1440px wide.
+
+## Block rules
+
+- Header: One-page landing and app pages use 'minimal' (no nav) so attention stays on the conversion.
+- Header: The CTA stays visible at every width; on mobile the nav collapses into a menu, the CTA does not.
+- Hero: Exactly one primary CTA. The secondary action is a text link or ghost button.
+- Hero: Primary CTA must sit above the fold at 375x667.
+- Hero: Headline 60 characters max; subtitle 160 max (long Russian/Portuguese strings included).
+- Hero: full-bleed: art is CSS only for now; text sits on a scrim so contrast holds on any preset.
+- Trust bar: Values come from brand facts and market config; nothing is typed by hand.
+- Trust bar: Rating shows only when the brand has facts.rating_source.
+- Trust bar: Sits directly under the hero (section 2 or 3).
+- Features: 3 or 4 items. Titles 4 words max, text one sentence (about 120 characters).
+- Features: Features describe the product, never an offer or bonus.
+- Steps: Exactly 3 steps; numbers are used because the order is real.
+- Steps: Mention verification and deposit limits honestly; do not promise instant approval.
+- Showcase: Odds and fixtures are illustrations; the note saying so is required.
+- Showcase: Never placed directly after the hero (blueprint order rule).
+- FAQ: 4-6 questions: legality in the country, deposits/withdrawals, payout time, verification, limits or self-exclusion.
+- FAQ: Answers are plain text, 1-3 sentences. No CTA links inside answers.
+- Final CTA: Always the last section before the footer.
+- Final CTA: Headline 40 characters max. No urgency claims (timers, 'last chance').
+- Footer: Always renders the compliance panel; it cannot be switched off.
+- Footer: Payment methods come from the market config so they are always locally correct.
+- Responsible gambling: All copy comes from markets/<id>.json; never type compliance text into a page.
+- Responsible gambling: Every page renders a 'panel' (usually inside the footer). 'strip' is an optional top-of-page addition.
+- Responsible gambling: Where a market lists several mandated taglines, one is chosen per site by seed.
+- Age gate: Age comes from the market (21 in KZ, 18 in AU/BR). Never hard-code it.
+- Age gate: Content stays in the HTML for crawlers; the overlay is shown by script, so no-JS users still see the compliance footer.
+- Sticky CTA: Phones only (860px and narrower). Never covers the compliance panel: the footer gets bottom padding.
+- Sticky CTA: Shows the market age badge next to the CTA.
+
+## Page
+
+- Title tag: Marlowe Club: cassino ao vivo com saque via PIX
+- The only H1: Mesas ao vivo com crupiês reais, 24 horas
+- Structured data (JSON-LD): WebPage, FAQPage
+
+### Sections, in order
+
+1. **Header** — block `sx/header`, variant `minimal`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Autorizada SPA/MF"
+   - `sticky`: false
+   - `show_cta`: true
+2. **Hero** — block `sx/hero`, variant `full-bleed`, role `hero`
+   Purpose: Above-the-fold hero: headline, one primary CTA, trust row and an optional offer/feature card.
+   - `eyebrow`: "Cassino ao vivo"
+   - `title`: "Mesas ao vivo com crupiês reais, 24 horas"
+   - `subtitle`: "Roleta, blackjack e bacará transmitidos de estúdio, com saques via PIX em até 30 minutos."
+   - `secondary`: `{"label":"Ver as mesas","url":"#games"}`
+   - `show_trust`: true
+   - `art`: "roulette"
+   - `chips`: `["Roleta","Blackjack","Bacará","Game shows"]`
+3. **Trust bar** — block `sx/trust-bar`, variant `strip`, role `trust`
+   Purpose: Licence, payout time, years operating, local payments and (only if sourced) rating.
+   - `items`: `["licence","payout","since","payments"]`
+4. **Features** — block `sx/features`, variant `bento`, role `content`
+   Purpose: 3-4 product reasons to join, each with an icon, a short title and one sentence.
+   - `eyebrow`: "Por que a Marlowe"
+   - `title`: "Um cassino feito para mesas ao vivo"
+   - `items`: `[{"icon":"play","title":"Estúdios em alta definição","text":"Mais de 60 mesas ao vivo em HD, com crupiês que falam português."},{"icon":"wallet","title":"Saque via PIX","text":"A maioria dos saques cai na conta em até 30 minutos, todos os dias."},{"icon":"shield","title":"Autorizada no Brasil","text":"Operação autorizada pela SPA/MF, no domínio .bet.br."},{"icon":"gauge","title":"Limites de depósito","text":"Defina limites diários, semanais ou mensais e faça pausas quando quiser."}]`
+5. **Steps** — block `sx/steps`, variant `row`, role `content`
+   Purpose: Three real steps from sign-up to first bet, followed by the mid-page CTA.
+   - `eyebrow`: "Como começar"
+   - `title`: "Três passos até a mesa"
+   - `items`: `[{"title":"Crie sua conta","text":"Cadastro com CPF e verificação facial, como exige a lei. Leva poucos minutos."},{"title":"Deposite via PIX","text":"Depósito mínimo de R$ 10, aprovado na hora. Defina seu limite no mesmo passo."},{"title":"Escolha sua mesa","text":"Entre em uma mesa ao vivo e jogue com crupiês reais."}]`
+   - `show_cta`: true
+6. **Showcase** — block `sx/showcase`, variant `game-strip`, role `content`
+   Purpose: Shows the product instead of describing it: an odds board (sports) or game strip (casino).
+   - `eyebrow`: "Ao vivo agora"
+   - `title`: "Mesas abertas"
+   - `tiles`: `[{"name":"Roleta Imperial","studio":"Velvet Live","meta":"Aposta mín. R$ 1","tag":"Ao vivo","motif":"wheel","colors":["#8C2B3A","#1A0B0E"]},{"name":"Blackjack Clássico","studio":"Velvet Live","meta":"3 lugares livres","tag":"Ao vivo","motif":"cards","colors":["#1E5A44","#08160F"]},{"name":"Bacará Speed","studio":"Harbor Studios","meta":"Rodada a cada 27 s","tag":"Ao vivo","motif":"cards","colors":["#2B3F8C","#0A0F24"]},{"name":"Roleta Dourada","studio":"Harbor Studios","meta":"Aposta mín. R$ 5","motif":"wheel","colors":["#C9A45C","#2A1E08"]},{"name":"Mega Roda","studio":"Velvet Live","meta":"Game show","motif":"rings","colors":["#6E3BB5","#160A26"]},{"name":"Dragon Tiger","studio":"Harbor Studios","meta":"Aposta mín. R$ 2","motif":"cards","colors":["#B5482A","#26100A"]}]`
+   - `note`: "Mesas, estúdios e limites ilustrativos."
+7. **FAQ** — block `sx/faq`, variant `accordion`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"A Marlowe Club é legalizada no Brasil?","a":"Sim. A Marlowe Club é autorizada pela Secretaria de Prêmios e Apostas do Ministério da Fazenda e opera no domínio marlowe.bet.br."},{"q":"Quanto tempo demora o saque?","a":"A maioria dos saques via PIX é concluída em até 30 minutos."},{"q":"Posso usar cartão de crédito?","a":"Não. A regulamentação brasileira permite apenas PIX, TED e cartão de débito."},{"q":"Por que preciso informar meu CPF?","a":"A lei exige a verificação de identidade e idade de todos os jogadores. Seus dados são protegidos."},{"q":"Existe bônus de boas-vindas?","a":"Não. A regulamentação brasileira não permite bônus de boas-vindas. Em vez disso, focamos em saques rápidos e mesas de qualidade."}]`
+8. **Final CTA** — block `sx/cta-band`, variant `solid`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "A mesa está posta."
+   - `text`: "Cadastro em poucos minutos. Defina seus limites desde o primeiro dia."
+   - `show_code`: false
+9. **Footer** — block `sx/footer`, variant `centered`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
+     - `show_verify`: false
+10. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+11. **Sticky CTA** — block `sx/sticky-cta`, variant `bar`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+_Long text and lists are shortened here (…, "[n items]"). For the full text run `php build/ai-brief.php sites/demos/<config>.json`._

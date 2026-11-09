@@ -73,6 +73,10 @@ try {
         gen_send_site_brief($db, $seg[1]);
     } elseif ($seg[0] === 'jobs' && ($seg[2] ?? '') === 'briefs' && $method === 'GET') { // a job's AI briefs as a zip (?types=a,b)
         gen_send_job_briefs($db, (int)$seg[1], array_values(array_filter(explode(',', (string)($_GET['types'] ?? '')))));
+    } elseif ($seg[0] === 'types') { // site types: list, copy, edit, hide, delete, history (generator/types.php)
+        gen_types_api($db, $seg, $method);
+    } elseif ($seg[0] === 'markets') { // markets: list, add, edit, delete, history (generator/markets.php)
+        gen_markets_api($db, $seg, $method);
     } elseif ($path === 'settings' && $method === 'GET') {
         gen_json(['settings' => gen_settings(), 'defaults' => GEN_SETTINGS]);
     } elseif ($path === 'settings' && $method === 'PUT') {
@@ -281,7 +285,7 @@ function gen_job_input(array $b): array
         'colors' => array_filter(array_map(fn($c) => preg_match('/^#[0-9a-fA-F]{6}$/', (string)$c) ? $c : null, (array)($b['colors'] ?? []))),
         'copy' => ($b['copy'] ?? 'demo') === 'placeholder' ? 'placeholder' : 'demo',
         'rows' => in_array($b['rows'] ?? '', ['swipe', 'stack', 'both'], true) ? $b['rows'] : 'both',
-        'disclosure' => in_array($b['disclosure'] ?? 'top', ['top', 'footer', 'off'], true) ? $b['disclosure'] : 'top',
+        'disclosure' => in_array($b['disclosure'] ?? 'off', ['top', 'footer', 'off'], true) ? $b['disclosure'] : 'off',
         'sample_brands' => max(0, min(count(GEN_SAMPLE_NAMES), (int)($b['sample_brands'] ?? 7)))];
     $name = mb_substr(trim($b['name'] ?? ''), 0, 120);
     $err = match (true) {

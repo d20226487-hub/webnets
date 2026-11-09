@@ -1,0 +1,223 @@
+You are rebuilding one page of the **Vantro App Australia** template, a app site (angle: official-app). Keep the section order, the content and every rule in the brief. Write the page text exactly as given (it is in English); write code and comments in English. If something in the brief is missing or unclear, ask instead of guessing, and never invent claims, figures, offers or reviews.
+
+**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section with the listed fields as props.
+
+## Acceptance checklist
+
+- [ ] Sections appear in the order given, with the same layout variant (or an equivalent layout).
+- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
+- [ ] One H1 per page; headings do not skip levels.
+- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
+- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
+- [ ] The structured data listed for each page is present and valid.
+- [ ] Every internal link opens an existing page.
+- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
+- [ ] Every rule in the market guidance and the block rules holds on every page.
+
+---
+
+# Rebuild brief: Vantro App Australia
+
+_Follow the system prompt (role, target stack, acceptance checklist) together with this brief._
+
+## Site type guidance
+
+- Purpose: get the official app installed on the visitor's own device with as little doubt as possible.
+- Show only the install paths the market and site offer (App Store, Google Play, APK) and detect the visitor's platform first.
+- An APK install needs the step-by-step guide and a clear safety note; link the APK only from the official domain.
+- App facts (version, size, minimum OS, rating, languages) come from the brand's app data, never from memory.
+- Store-style looks (Google Play / App Store) are our own layout in that store's spirit; never copy the real store interface or badges unless the client supplies official badge files.
+- The QR code points to the brand's app page so a desktop visitor can switch to the phone.
+
+## Market guidance
+
+### Market context (from the market settings)
+
+- Market: Australia (`au`), languages en, currency AUD (A$)
+- Minimum age: 18+
+- Products allowed: sports, casino
+- Promotions allowed: none; not allowed: welcome_bonus, deposit_bonus, free_bets, promo_code, odds_boost, cashback, loyalty, tournaments
+- Payment methods: PayID, BPAY, Visa Debit, Mastercard Debit, Apple Pay
+- App install paths: iOS app-store, Android play
+
+### Mandated texts (from the market settings)
+
+- Age notice: Gambling is for adults 18+ only.
+- Licence: Licensed in Australia
+- Self-exclusion: Exclude yourself from all licensed online wagering with BetStop, the National Self-Exclusion Register: betstop.gov.au
+- Helpline: For free and confidential support call 1800 858 858 or visit gamblinghelponline.org.au
+
+### Rules you must not break
+
+- Every page opens with an age gate (18+) before any gambling content.
+- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- Minimum age is 18: the age gate and every age line say 18+.
+- Show only these payment methods: PayID, BPAY, Visa Debit, Mastercard Debit, Apple Pay.
+- Amounts are in AUD (A$).
+
+### Market-specific rules
+
+- Every page links BetStop, the national self-exclusion register, and the helpline.
+- Credit cards are never shown as a payment method (banned for online wagering since June 2024).
+- Inducement advertising is restricted in several states: no "bet now" pressure around offers.
+
+## Site context
+
+- Site: Vantro App Australia, brand or publisher: Vantro
+- Site type: app, angle official-app; language `en`, text direction `ltr`
+
+## Design tokens
+
+Fonts (Google Fonts): Manrope.
+
+Use these CSS custom properties (they are the whole palette, type scale and radius set):
+
+```css
+:root {
+  --pnc: flat;
+  --wam: none;
+  --xnq: transparent;
+  --ljt: #F5F7FB;
+  --nuk: 110.4px;
+  --uux: 73.6px;
+  --tef: 55.2px;
+  --kyl: 36.8px;
+  --jyd: 27.6px;
+  --kge: 18.4px;
+  --yni: 13.8px;
+  --riw: 9.2px;
+  --blj: 4.6px;
+  --obs: clamp(41.5px,33.13px + 2.325vw,61.04px);
+  --ldj: clamp(33.2px,26.51px + 1.86vw,48.83px);
+  --znq: clamp(26.56px,21.21px + 1.488vw,39.06px);
+  --fwo: clamp(21.25px,16.96px + 1.19vw,31.25px);
+  --koh: 25px;
+  --opr: 16px;
+  --ntk: 12.8px;
+  --kzr: 1.15;
+  --pql: 1px;
+  --gfh: 12px;
+  --ehf: 20px;
+  --gqz: 12px;
+  --ong: 8px;
+  --elp: 1.15;
+  --zzd: 1.6;
+  --aje: -0.03em;
+  --acd: none;
+  --rqi: 500;
+  --rdt: 400;
+  --btw: 800;
+  --rnv: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --twx: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --ukw: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --umf: linear-gradient(180deg,#EEF2FF 0%,#FFFFFF 100%);
+  --bly: #FFFFFF;
+  --alf: #2457FF;
+  --erj: #556079;
+  --ndk: #0E1525;
+  --yiu: #D93636;
+  --opa: #D98B00;
+  --civ: #1F9D55;
+  --gba: #00C2A8;
+  --qbq: #FFFFFF;
+  --qtf: #2457FF;
+  --dis: #E2E7F0;
+  --qce: #556079;
+  --oay: #0E1525;
+  --nrw: #EBEFF7;
+  --hey: #F5F7FB;
+  --xal: #FFFFFF;
+}
+```
+
+Layout is mobile-first: it must work from 375px to 1440px wide.
+
+## Block rules
+
+- Responsible gambling: All copy comes from markets/<id>.json; never type compliance text into a page.
+- Responsible gambling: Every page renders a 'panel' (usually inside the footer). 'strip' is an optional top-of-page addition.
+- Responsible gambling: Where a market lists several mandated taglines, one is chosen per site by seed.
+- Header: One-page landing and app pages use 'minimal' (no nav) so attention stays on the conversion.
+- Header: The CTA stays visible at every width; on mobile the nav collapses into a menu, the CTA does not.
+- App hero: Install buttons above the fold at 375x667; the visitor's platform first.
+- App hero: Facts (version, size, age rating) come from brands/<brand>.app, never from content.
+- App hero: Store-listing structure only: no imitation of App Store or Google Play interface.
+- Trust bar: Values come from brand facts and market config; nothing is typed by hand.
+- Trust bar: Rating shows only when the brand has facts.rating_source.
+- Trust bar: Sits directly under the hero (section 2 or 3).
+- Screenshots: 3-6 screens, captions 6 words max, each caption names one benefit.
+- Screenshots: Real screenshots must be the brand's own, 9:19.5, WebP or AVIF.
+- Features: 3 or 4 items. Titles 4 words max, text one sentence (about 120 characters).
+- Features: Features describe the product, never an offer or bonus.
+- App info: Every value comes from brands/<brand>.app and the market; nothing is typed per site.
+- What's new: Renders nothing (and warns) if the brand has no changelog for the site's locale.
+- FAQ: 4-6 questions: legality in the country, deposits/withdrawals, payout time, verification, limits or self-exclusion.
+- FAQ: Answers are plain text, 1-3 sentences. No CTA links inside answers.
+- Download panel: Always the last section before the footer on app pages.
+- Download panel: QR encodes links.qr (a device-aware tracked link) or links.go; generated at build time, no external service.
+- Download panel: QR shows on desktop only; phones get the buttons.
+- Footer: Always renders the compliance panel; it cannot be switched off.
+- Footer: Payment methods come from the market config so they are always locally correct.
+- Age gate: Age comes from the market (21 in KZ, 18 in AU/BR). Never hard-code it.
+- Age gate: Content stays in the HTML for crawlers; the overlay is shown by script, so no-JS users still see the compliance footer.
+- Sticky CTA: Phones only (860px and narrower). Never covers the compliance panel: the footer gets bottom padding.
+- Sticky CTA: Shows the market age badge next to the CTA.
+
+## Page
+
+- Title tag: Vantro Sports app for iPhone and Android
+- The only H1: The official Vantro app for Australia
+- Structured data (JSON-LD): WebPage, MobileApplication, FAQPage
+
+### Sections, in order
+
+1. **Responsible gambling** — block `sx/compliance-bar`, variant `ribbon`, role `compliance`
+   Purpose: Market-driven responsible gambling notice: age, licence line, taglines, self-exclusion, helpline.
+   - `show_verify`: false
+2. **Header** — block `sx/header`, variant `app-bar`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: true
+3. **App hero** — block `sx/app-hero`, variant `listing`, role `hero`
+   Purpose: App download hero: icon, name, developer, fact row, install buttons for the visitor's device, phone.
+   - `title`: "The official Vantro app for Australia"
+   - `subtitle`: "Bet on footy, cricket and racing, build same-game multis and withdraw to PayID, all from your phone."
+   - `screen`: "home"
+4. **Trust bar** — block `sx/trust-bar`, variant `badges`, role `trust`
+   Purpose: Licence, payout time, years operating, local payments and (only if sourced) rating.
+   - `items`: `["licence","payout","since","payments"]`
+5. **Screenshots** — block `sx/screenshots`, variant `carousel`, role `content`
+   Purpose: Phone screens with one-line captions. Real screenshots via image URLs; CSS-drawn screens otherwise.
+   - `eyebrow`: "Inside the app"
+   - `title`: "Built for your phone"
+   - `screens`: `[{"kind":"home","caption":"All of tonight's markets"},{"kind":"live","caption":"Live scores and odds"},{"kind":"slip","caption":"Multis in a few taps"},{"kind":"wallet","caption":"PayID withdrawals in about an hour"}]`
+6. **Features** — block `sx/features`, variant `grid`, role `content`
+   Purpose: 3-4 product reasons to join, each with an icon, a short title and one sentence.
+   - `eyebrow`: "Why the app"
+   - `title`: "Everything from the website, faster"
+   - `items`: `[{"icon":"bolt","title":"Instant odds updates","text":"Prices refresh in real time during play, with alerts when they move."},{"icon":"play","title":"Live streaming","text":"Watch selected matches in the app while you bet in-play."},{"icon":"mobile","title":"Face ID log-in","text":"Log in with Face ID or your fingerprint instead of a password."},{"icon":"gauge","title":"Limits in two taps","text":"Set deposit limits or take a break from the account screen."}]`
+7. **App info** — block `sx/app-info`, variant `table`, role `content`
+   Purpose: Version, size, requirements, languages, age rating, developer, licence. All from brand app data.
+8. **What's new** — block `sx/changelog`, variant `list`, role `content`
+   Purpose: Latest app release notes from the brand's app data. Shows the app is maintained.
+   - `limit`: "2"
+9. **FAQ** — block `sx/faq`, variant `accordion`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Is the Vantro app free?","a":"Yes. The app is free to download from the App Store and Google Play."},{"q":"Which phones are supported?","a":"iPhone with iOS 15 or later, and Android phones with Android 8.0 or later."},{"q":"How do I know I have the official app?","a":"Use the App Store and Google Play links on this page. The app is published by Vantro Digital Pty Ltd, the licensed operator."},{"q":"Do I need a new account for the app?","a":"No. Log in with your existing Vantro account, or create one in the app."},{"q":"How do I set limits in the app?","a":"Open Account, then Responsible gambling, to set deposit limits or take a break. You can also use BetStop at betstop.gov.au."}]`
+10. **Download panel** — block `sx/download-panel`, variant `panel`, role `content`
+   Purpose: Final install section: all install buttons, a QR code for desktop visitors, key app facts.
+   - `title`: "Get the Vantro app"
+   - `text`: "Free on iPhone and Android. 18+ only."
+11. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
+     - `show_verify`: false
+12. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+13. **Sticky CTA** — block `sx/sticky-cta`, variant `app-banner`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+_Long text and lists are shortened here (…, "[n items]"). For the full text run `php build/ai-brief.php sites/demos/<config>.json`._

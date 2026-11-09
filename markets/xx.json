@@ -45,6 +45,9 @@
     "ios": "app-store",
     "android": "play"
   },
+  "share_networks": ["facebook", "x", "whatsapp", "telegram"],
+  "html_lang": {"en": "en-XX", "ru": "ru", "pt": "pt-BR"},
+  "required_pages": [],
   "compliance": {
     "_verify": "DEMO COPY. This market does not exist.",
     "license_line": {

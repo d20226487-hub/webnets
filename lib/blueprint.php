@@ -391,7 +391,8 @@ function sx_expand_blueprint(array $cfg, string $root, ?array $bp = null, string
  *
  * Page rules: "required" | "optional" (on when the angle lists it, or forced via cfg.pages_on).
  * Conditions on any page: requires_vertical, requires_app (brand has an app in the market),
- * requires_promo (market allows at least one promotion type), required_in (market ids where the page is mandatory).
+ * requires_promo (market allows at least one promotion type), required_in (market ids where the page is mandatory; markets
+ * also list such pages themselves: markets/<id>.json "required_pages").
  *
  * Site config keys per page: content.<page>, variants.<page>, order.<page>, sections.<page>, meta.<page>.
  * Top-level content.header/footer and string pins in variants (header, footer, sticky-cta) apply to every page.
@@ -442,11 +443,12 @@ function sx_expand_site(array $cfg, string $root): array
         } elseif (!empty($p['requires_promo']) && !sx_promo_allowed_types()) {
             $why = "market '{$market['id']}' allows no promotion type";
         }
-        $mandatory = $p['rule'] === 'required' || in_array($market['id'], $p['required_in'] ?? [], true);
+        $requiredHere = in_array($market['id'], $p['required_in'] ?? [], true) || in_array($pid, $market['required_pages'] ?? [], true);
+        $mandatory = $p['rule'] === 'required' || $requiredHere;
         $wanted = in_array($pid, $angle['pages'] ?? [], true);
         $on = $mandatory || $wanted;
         if (array_key_exists($pid, $force)) {
-            if ($mandatory && !$force[$pid] && !($p['rule'] === 'required' && $pid !== 'home' && !in_array($market['id'], $p['required_in'] ?? [], true) && in_array($pid, $cfg['removable_pages'] ?? [], true))) {
+            if ($mandatory && !$force[$pid] && !($p['rule'] === 'required' && $pid !== 'home' && !$requiredHere && in_array($pid, $cfg['removable_pages'] ?? [], true))) {
                 SX::$warnings[] = "Page '$pid' is required here and cannot be turned off.";
             } else {
                 $on = (bool)$force[$pid];

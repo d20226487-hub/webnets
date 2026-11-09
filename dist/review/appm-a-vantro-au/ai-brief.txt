@@ -30,19 +30,19 @@ _Follow the system prompt (role, target stack, acceptance checklist) together wi
 
 ## Market guidance
 
-### Market context
+### Market context (from the market settings)
 
-- Market: Australia (`au`), languages en, currency AUD
+- Market: Australia (`au`), languages en, currency AUD (A$)
 - Minimum age: 18+
-- Products allowed: sports; not allowed: casino
-- Promotions allowed: none; restricted: welcome_bonus, deposit_bonus, free_bets, promo_code
-- Payment methods: payid, bpay, visa-debit, mastercard-debit, apple-pay
+- Products allowed: sports, casino
+- Promotions allowed: none; not allowed: welcome_bonus, deposit_bonus, free_bets, promo_code, odds_boost, cashback, loyalty, tournaments
+- Payment methods: PayID, BPAY, Visa Debit, Mastercard Debit, Apple Pay
 - App install paths: iOS app-store, Android play
-- Notes: Online casino is prohibited under the Interactive Gambling Act. Credit cards cannot be used for online wagering (from June 2024). Inducement advertising is restricted in several states.
 
 ### Mandated texts (from the market settings)
 
 - Age notice: Gambling is for adults 18+ only.
+- Licence: Licensed in Australia
 - Self-exclusion: Exclude yourself from all licensed online wagering with BetStop, the National Self-Exclusion Register: betstop.gov.au
 - Helpline: For free and confidential support call 1800 858 858 or visit gamblinghelponline.org.au
 
@@ -50,9 +50,15 @@ _Follow the system prompt (role, target stack, acceptance checklist) together wi
 
 - Every page opens with an age gate (18+) before any gambling content.
 - Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- Minimum age is 18: the age gate and every age line say 18+.
+- Show only these payment methods: PayID, BPAY, Visa Debit, Mastercard Debit, Apple Pay.
+- Amounts are in AUD (A$).
+
+### Market-specific rules
+
 - Every page links BetStop, the national self-exclusion register, and the helpline.
-- Credit cards are never shown as a payment method.
-- No online casino content anywhere (Interactive Gambling Act).
+- Credit cards are never shown as a payment method (banned for online wagering since June 2024).
+- Inducement advertising is restricted in several states: no "bet now" pressure around offers.
 
 ## Site context
 
@@ -252,13 +258,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `title`: "Vantro on iPhone"
    - `answer`: "Free on the App Store. You need an iPhone with iOS 15 or later and about 142 MB of space."
    - `show_cta`: false
-4. **App info** — block `sx/app-info`, variant `chips`, role `content`
-   Purpose: Version, size, requirements, languages, age rating, developer, licence. All from brand app data.
-   - `title`: "iPhone version"
-5. **Download panel** — block `sx/download-panel`, variant `panel`, role `content`
+4. **Download panel** — block `sx/download-panel`, variant `panel`, role `content`
    Purpose: Final install section: all install buttons, a QR code for desktop visitors, key app facts.
    - `title`: "Download on the App Store"
    - `text`: "Free. 18+. On a computer, scan the code with your iPhone camera."
+5. **App info** — block `sx/app-info`, variant `chips`, role `content`
+   Purpose: Version, size, requirements, languages, age rating, developer, licence. All from brand app data.
+   - `title`: "iPhone version"
 6. **Steps** — block `sx/steps`, variant `row`, role `content`
    Purpose: Three real steps from sign-up to first bet, followed by the mid-page CTA.
    - `eyebrow`: "Install"
@@ -304,13 +310,13 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `title`: "Vantro on Android"
    - `answer`: "Free on Google Play. You need Android 8.0 or later and about 96 MB of space."
    - `show_cta`: false
-4. **App info** — block `sx/app-info`, variant `chips`, role `content`
-   Purpose: Version, size, requirements, languages, age rating, developer, licence. All from brand app data.
-   - `title`: "Android version"
-5. **Download panel** — block `sx/download-panel`, variant `panel`, role `content`
+4. **Download panel** — block `sx/download-panel`, variant `panel`, role `content`
    Purpose: Final install section: all install buttons, a QR code for desktop visitors, key app facts.
    - `title`: "Get it on Google Play"
    - `text`: "Free. 18+. On a computer, scan the code with your phone camera."
+5. **App info** — block `sx/app-info`, variant `chips`, role `content`
+   Purpose: Version, size, requirements, languages, age rating, developer, licence. All from brand app data.
+   - `title`: "Android version"
 6. **Steps** — block `sx/steps`, variant `row`, role `content`
    Purpose: Three real steps from sign-up to first bet, followed by the mid-page CTA.
    - `eyebrow`: "Install"
@@ -356,20 +362,20 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `title`: "What the Vantro app does"
    - `answer`: "Live odds and streaming, same-game multis, PayID withdrawals in about an hour and limits in two taps."
    - `show_cta`: false
-4. **Features** — block `sx/features`, variant `bento`, role `content`
-   Purpose: 3-4 product reasons to join, each with an icon, a short title and one sentence.
-   - `eyebrow`: "Why the app"
-   - `title`: "Everything from the website, faster"
-   - `items`: `[{"icon":"bolt","title":"Instant odds updates","text":"Prices refresh in real time during play, with alerts when they move."},{"icon":"play","title":"Live streaming","text":"Watch selected matches in the app while you bet in-play."},{"icon":"mobile","title":"Face ID log-in","text":"Log in with Face ID or your fingerprint instead of a password."},{"icon":"gauge","title":"Limits in two taps","text":"Set deposit limits or take a break from the account screen."}]`
-5. **Screenshots** — block `sx/screenshots`, variant `grid`, role `content`
+4. **Screenshots** — block `sx/screenshots`, variant `grid`, role `content`
    Purpose: Phone screens with one-line captions. Real screenshots via image URLs; CSS-drawn screens otherwise.
    - `eyebrow`: "Inside the app"
    - `title`: "Built for your phone"
    - `screens`: `[{"kind":"home","caption":"All of tonight's markets"},{"kind":"live","caption":"Live scores and odds"},{"kind":"slip","caption":"Multis in a few taps"},{"kind":"wallet","caption":"PayID withdrawals in about an hour"}]`
-6. **Text block** — block `sx/prose`, variant `toc-side`, role `content`
+5. **Text block** — block `sx/prose`, variant `toc-side`, role `content`
    Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
    - `html`: `<h2>Betting and live</h2><p>The app has the full Vantro market: AFL, NRL, cricket, racing, basketball and more. In-play odds update in real time, selected matches stream in the app, and you can build a same-game multi from one match in a few taps.</p><h2>Money</h2><p>Deposit with PayID, BPAY or a debit card; credit cards cannot be used for online wagering in Australia. Most PayID withdrawals land …` (HTML)
    - `toc`: true
+6. **Features** — block `sx/features`, variant `bento`, role `content`
+   Purpose: 3-4 product reasons to join, each with an icon, a short title and one sentence.
+   - `eyebrow`: "Why the app"
+   - `title`: "Everything from the website, faster"
+   - `items`: `[{"icon":"bolt","title":"Instant odds updates","text":"Prices refresh in real time during play, with alerts when they move."},{"icon":"play","title":"Live streaming","text":"Watch selected matches in the app while you bet in-play."},{"icon":"mobile","title":"Face ID log-in","text":"Log in with Face ID or your fingerprint instead of a password."},{"icon":"gauge","title":"Limits in two taps","text":"Set deposit limits or take a break from the account screen."}]`
 7. **Download panel** — block `sx/download-panel`, variant `panel`, role `content`
    Purpose: Final install section: all install buttons, a QR code for desktop visitors, key app facts.
    - `title`: "Get the Vantro app"

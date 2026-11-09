@@ -63,6 +63,6 @@ function sx_review_devspec(array $page, array $pages, string $locale, string $pr
     return '<style>' . file_get_contents("$dir/devspec.css") . '</style>'
         . '<button type="button" id="sx-skeltoggle" aria-haspopup="dialog"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg></span>'
         . htmlspecialchars($label) . '</button>'
-        . '<script type="application/json" id="sx-devdata">' . json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP) . '</script>'
+        . '<script type="application/json" id="sx-devdata">' . sx_money_apply(sx_age_apply(json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP), (int)(sx_ctx('market')['min_age'] ?? 18), false), sx_ctx('market') ?? [], false) . '</script>'
         . '<script>' . file_get_contents("$dir/devspec.js") . '</script>';
 }

@@ -58,7 +58,11 @@ function sx_ai_brief(array $pages, ?string $only = null, bool $full = false, boo
     }
     $L[] = '## Market guidance';
     $L[] = '';
-    $L[] = sx_ai_setting("markets/{$m['id']}.md") ?: "- Market: {$m['name']} (`{$m['id']}`), minimum age {$m['min_age']}+";
+    $L[] = sx_ai_market_facts($m, $loc);
+    if (($extra = sx_ai_setting("markets/{$m['id']}.md")) !== '') { // the market's own rules, written by hand
+        $L[] = '';
+        $L[] = $extra;
+    }
     $L[] = '';
 
     $L[] = '## Site context';
@@ -168,10 +172,69 @@ function sx_ai_brief(array $pages, ?string $only = null, bool $full = false, boo
     if (!$full) {
         $L[] = '_Long text and lists are shortened here (…, "[n items]"). For the full text run `php build/ai-brief.php sites/demos/<config>.json`._';
     }
-    return implode("\n", $L) . "\n";
+    return sx_money_apply(sx_age_apply(implode("\n", $L), (int)$m['min_age'], false), $m, false) . "\n"; // quoted copy shows the market's age and currency, as the pages do
 }
 
 /** One AI settings file (ai/<rel>, edited in the local settings page) without its HTML comments; '' when missing. */
+/**
+ * The market part of every AI brief, from the market file itself (markets/<id>.json), so the brief always says what the
+ * sites show: age, products, promotions, payments, apps, mandated texts and the rules that follow from them.
+ * Rules the settings cannot express (eGov, BetStop, .bet.br) stay in ai/markets/<id>.md and follow this part.
+ */
+function sx_ai_market_facts(array $m, string $loc): string
+{
+    $tx = function ($v) use ($m, $loc) {
+        if (!is_array($v)) {
+            return $v;
+        }
+        return $v[$loc] ?? $v[$m['default_locale'] ?? ''] ?? reset($v);
+    };
+    $pay = fn(string $id) => function_exists('sx_payment_name') ? sx_payment_name($id) : $id;
+    $age = (int)$m['min_age'];
+    $on = array_keys(array_filter($m['verticals'] ?? []));
+    $off = array_keys(array_diff_key($m['verticals'] ?? [], array_flip($on)));
+    $allowed = array_keys(array_filter($m['promotions'] ?? [], fn($s) => $s === 'allowed'));
+    $notAllowed = array_keys(array_filter($m['promotions'] ?? [], fn($s) => $s !== 'allowed'));
+    $c = $m['compliance'] ?? [];
+    $L = ['### Market context (from the market settings)', ''];
+    $L[] = "- Market: {$m['name']} (`{$m['id']}`), languages " . implode(', ', $m['locales'] ?? []) . ", currency {$m['currency']['code']} ({$m['currency']['symbol']})";
+    $L[] = "- Minimum age: {$age}+";
+    $L[] = '- Products allowed: ' . ($on ? implode(', ', $on) : 'none') . ($off ? '; not allowed: ' . implode(', ', $off) : '');
+    $L[] = '- Promotions allowed: ' . ($allowed ? implode(', ', $allowed) : 'none') . ($notAllowed ? '; not allowed: ' . implode(', ', $notAllowed) : '');
+    $L[] = '- Payment methods: ' . implode(', ', array_map($pay, $m['payments'] ?? []));
+    if (!empty($m['apps'])) {
+        $L[] = '- App install paths: ' . implode(', ', array_map(fn($k, $v) => ($k === 'ios' ? 'iOS' : ucfirst($k)) . ' ' . $v, array_keys($m['apps']), $m['apps']));
+    }
+    $texts = array_filter([
+        'Age notice' => $tx($c['age_notice'] ?? ''),
+        'Licence' => $tx($c['license_short'] ?? ''),
+        'Self-exclusion' => $tx($c['self_exclusion'] ?? ''),
+        'Helpline' => $tx($c['helpline'] ?? ''),
+    ]);
+    if ($texts) {
+        $L[] = '';
+        $L[] = '### Mandated texts (from the market settings)';
+        $L[] = '';
+        foreach ($texts as $k => $v) {
+            $L[] = "- $k: $v";
+        }
+    }
+    $L[] = '';
+    $L[] = '### Rules you must not break';
+    $L[] = '';
+    if (in_array('age-gate', $c['required_blocks'] ?? [], true)) {
+        $L[] = "- Every page opens with an age gate ({$age}+) before any gambling content.";
+    }
+    $L[] = '- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.';
+    $L[] = "- Minimum age is {$age}: the age gate and every age line say {$age}+.";
+    foreach ($off as $v) {
+        $L[] = $v === 'casino' ? '- No casino content anywhere (slots, live casino, table games); only sports betting.' : "- No $v content anywhere.";
+    }
+    $L[] = '- Show only these payment methods: ' . implode(', ', array_map($pay, $m['payments'] ?? [])) . '.';
+    $L[] = "- Amounts are in {$m['currency']['code']} ({$m['currency']['symbol']}).";
+    return implode("\n", $L);
+}
+
 function sx_ai_setting(string $rel): string
 {
     $f = dirname(__DIR__) . "/ai/$rel";

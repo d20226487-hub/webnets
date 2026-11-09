@@ -109,6 +109,7 @@ function gen_materialise_brands(array $brands, string $market, int $jobId, strin
     $donor = $ops[GEN_DONOR];
     $m = sx_json("$GEN_ROOT/markets/$market.json");
     $locales = $m['locales'];
+    $pay = gen_payment_map($m); // donor data names payment methods of the demo market
     $markets = array_map(fn($f) => basename($f, '.json'), glob("$GEN_ROOT/markets/*.json"));
     $ids = [];
     foreach ($brands as $i => $b) {
@@ -121,6 +122,7 @@ function gen_materialise_brands(array $brands, string $market, int $jobId, strin
                     $GLOBALS['GEN_BRAND_NAMES'][$o['name']] = $b['name'];
                 }
             }
+            $GLOBALS['GEN_BRAND_NAMES'] += $pay['names'];
         }
         $host = gen_brand_host($b, $market);
         $color = $b['color'] ?: GEN_BRAND_COLORS[crc32($b['name']) % count(GEN_BRAND_COLORS)];
@@ -163,18 +165,24 @@ function gen_materialise_brands(array $brands, string $market, int $jobId, strin
                 continue;
             }
             foreach (sx_json($f)['promotions'] ?? [] as $p) {
-                $promos[$p['type']] ??= $p;
+                // one per type, preferring an offer written in the market's language (else the site shows another one's)
+                if (!isset($promos[$p['type']]) || (!isset($promos[$p['type']]['title'][$m['default_locale']]) && isset($p['title'][$m['default_locale']]))) {
+                    $promos[$p['type']] = $p;
+                }
             }
         }
         $n = 0;
         $feed = [];
         foreach ($promos as $p) {
             $n++;
+            $p = gen_fit_promo_money($p, $market);
             $p = gen_brand_copy($p, "$id.promo.$n");
             $p['id'] = "$id-$n";
             $p['markets'] = [$market];
             if (!empty($p['code'])) {
-                $p['code'] = strtoupper(substr(preg_replace('/[^a-z0-9]/i', '', gen_slug($b['name'])), 0, 6)) . (10 * $n + 5);
+                $code = strtoupper(substr(preg_replace('/[^a-z0-9]/i', '', gen_slug($b['name'])), 0, 6)) . (10 * $n + 5);
+                $p = gen_swap_names($p, [$p['code'] => $code]); // the old code named in the title and terms too
+                $p['code'] = $code;
             }
             if (!empty($p['terms_url'])) {
                 $p['terms_url'] = "https://$host/promotions/terms";
@@ -220,7 +228,7 @@ function gen_materialise_brands(array $brands, string $market, int $jobId, strin
         };
         // placeholder numbers vary per brand (seeded by its id), so rankings and tables do not tie
         $vary = fn(string $k, float $v, float $spread) => $v * (1 + ((crc32("$id|$k") % 1000) / 1000 - .5) * 2 * $spread);
-        $facts = $donorEntry("facts/$market.json");
+        $facts = gen_fit_fact_payments($donorEntry("facts/$market.json"), $pay['ids']);
         $facts['domain'] = $host;
         foreach (['games', 'live_tables', 'min_deposit'] as $k) {
             if (is_numeric($facts[$k] ?? null)) {
@@ -239,14 +247,18 @@ function gen_materialise_brands(array $brands, string $market, int $jobId, strin
             $d['brands'][$id] = $facts;
             return $d;
         });
-        $rfiles = ["ratings/$market.json"];
+        // editorial rating in each of the market's languages: ratings/<market>.json in its default language, plus
+        // ratings/<market>.<lang>.json for other languages there is donor text in (the demo market's file is English)
+        $rfiles = [];
         foreach ($locales as $l) {
-            if (is_file("$GEN_ROOT/brands/ratings/$market.$l.json")) {
-                $rfiles[] = "ratings/$market.$l.json";
-            }
+            $rfiles[$l === $m['default_locale'] ? "ratings/$market.json" : "ratings/$market.$l.json"] = $l;
         }
-        foreach ($rfiles as $rf) {
-            $rating = gen_brand_copy($donorEntry($rf), "$id.rating");
+        foreach ($rfiles as $rf => $l) {
+            $donorRating = gen_rating_donor($market, $l, $m['default_locale']);
+            if ($donorRating === null) { // no text in this language: the site falls back to ratings/<market>.json
+                continue;
+            }
+            $rating = gen_brand_copy($donorRating, "$id.rating");
             foreach ($rating['scores'] ?? [] as $k => $sc) {
                 $rating['scores'][$k]['score'] = max(5, min(10, round($vary("r$k", $sc['score'], .15) * 2) / 2));
             }
@@ -263,6 +275,66 @@ function gen_materialise_brands(array $brands, string $market, int $jobId, strin
     }
     unset($GLOBALS['GEN_BRAND_NAMES']);
     return $ids;
+}
+
+/**
+ * A donor offer's amounts (value max / amount, minimum deposit, maximum bet) in $market's currency: they are written in
+ * the currency of the offer's own market, converted at SX_DEMO_EUR_RATES and rounded like the copy's amounts.
+ */
+function gen_fit_promo_money(array $p, string $market): array
+{
+    global $GEN_ROOT;
+    $code = fn(string $mk) => is_file("$GEN_ROOT/markets/$mk.json") ? (sx_json("$GEN_ROOT/markets/$mk.json")['currency']['code'] ?? null) : null;
+    $from = $code($p['markets'][0] ?? 'xx');
+    $to = $code($market);
+    if (!$from || !$to || $from === $to || !isset(SX_DEMO_EUR_RATES[$from], SX_DEMO_EUR_RATES[$to])) {
+        return $p;
+    }
+    $conv = function ($v) use ($from, $to) {
+        if (!is_numeric($v) || $v <= 0) {
+            return $v;
+        }
+        $v = $v / SX_DEMO_EUR_RATES[$from] * SX_DEMO_EUR_RATES[$to];
+        return (int)($v < 10 ? max(1, round($v)) : ($v < 100 ? round($v / 5) * 5 : round($v, -((int)floor(log10($v)) - 1))));
+    };
+    foreach (['max', 'amount'] as $k) {
+        if (isset($p['value'][$k])) {
+            $p['value'][$k] = $conv($p['value'][$k]);
+        }
+    }
+    foreach (['min_deposit', 'max_bet'] as $k) {
+        if (isset($p['terms'][$k])) {
+            $p['terms'][$k] = $conv($p['terms'][$k]);
+        }
+    }
+    return $p;
+}
+
+/**
+ * The donor's editorial rating written in $lang, for $market: the market's own entry in that language completed from the
+ * demo market's (scores, products), or null when no rating text in that language exists. A ratings/<id>.json file is
+ * written in market <id>'s default language, ratings/<id>.<lang>.json in <lang>.
+ */
+function gen_rating_donor(string $market, string $lang, string $default): ?array
+{
+    global $GEN_ROOT;
+    $dir = "$GEN_ROOT/brands/ratings";
+    $entry = function (string $f): ?array {
+        return is_file($f) ? (sx_json($f)['brands'][GEN_DONOR] ?? null) : null;
+    };
+    $xxDefault = sx_json("$GEN_ROOT/markets/xx.json")['default_locale'] ?? 'en';
+    $base = $entry("$dir/xx.$lang.json") ?? ($lang === $xxDefault ? $entry("$dir/xx.json") : null);
+    $own = $entry("$dir/$market.$lang.json") ?? ($lang === $default ? $entry("$dir/$market.json") : null);
+    if ($base === null && $own === null) {
+        return null;
+    }
+    $e = ($own ?? []) + ($base ?? []);
+    foreach (['scores', 'products'] as $k) {
+        if (is_array($base[$k] ?? null) && is_array($own[$k] ?? null)) {
+            $e[$k] = array_replace_recursive($base[$k], $own[$k]);
+        }
+    }
+    return $e;
 }
 
 /**

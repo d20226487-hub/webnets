@@ -1,44 +1,98 @@
 {
-  "id": "kz",
-  "name": "Kazakhstan",
-  "locales": ["ru", "kk"],
-  "default_locale": "ru",
-  "dir": "ltr",
-  "currency": { "code": "KZT", "symbol": "₸", "position": "after", "space": true, "decimal": ",", "thousands": " ", "decimals": 0 },
-  "date_format": "d.m.Y",
-  "min_age": 21,
-  "verticals": { "sports": true, "casino": false },
-  "promotions": {"welcome_bonus":"restricted","deposit_bonus":"restricted","free_bets":"restricted","promo_code":"restricted","odds_boost":"unknown","cashback":"unknown","loyalty":"unknown","tournaments":"unknown"},
-  "_promotions_verify": "Brief 03: unknown counts as restricted. Compliance sets each type to allowed/restricted.",
-  "payments": ["kaspi", "visa", "mastercard", "halyk"],
-  "apps": {"ios":"app-store","android":"apk"},
-  "_apps_verify": "Assumed distribution per brief 02, section 3. Confirm per brand.",
-  "compliance": {
-    "_verify": "PLACEHOLDER COPY. Confirm every line with compliance before production use.",
-    "license_line": {
-      "ru": "{brand} — лицензия № {license_no}, выдана {regulator}.",
-      "kk": "{brand} — № {license_no} лицензия, берген {regulator}."
+    "id": "kz",
+    "name": "Kazakhstan",
+    "locales": [
+        "ru",
+        "kk"
+    ],
+    "default_locale": "ru",
+    "dir": "ltr",
+    "currency": {
+        "code": "KZT",
+        "symbol": "₸",
+        "position": "after",
+        "space": true,
+        "decimal": ",",
+        "thousands": " ",
+        "decimals": 0
     },
-    "regulator_default": {
-      "ru": "уполномоченным органом Республики Казахстан",
-      "kk": "Қазақстан Республикасының уәкілетті органы"
+    "date_format": "d.m.Y",
+    "min_age": 21,
+    "verticals": {
+        "sports": true,
+        "casino": true
     },
-    "license_short": { "ru": "Лицензия РК", "kk": "ҚР лицензиясы" },
-    "strip": "optional",
-    "age_notice": {
-      "ru": "Участие в азартных играх разрешено с 21 года.",
-      "kk": "Ойынға 21 жастан бастап рұқсат етіледі."
+    "promotions": {
+        "welcome_bonus": "allowed",
+        "deposit_bonus": "allowed",
+        "free_bets": "allowed",
+        "promo_code": "allowed",
+        "odds_boost": "allowed",
+        "cashback": "allowed",
+        "loyalty": "allowed",
+        "tournaments": "allowed"
     },
-    "taglines": {
-      "ru": ["Играйте ответственно.", "Ставки могут вызывать зависимость."],
-      "kk": ["Жауапкершілікпен ойнаңыз.", "Бәс тігу тәуелділік тудыруы мүмкін."]
+    "_promotions_verify": "Brief 03: unknown counts as restricted. Compliance sets each type to allowed/restricted.",
+    "payments": [
+        "kaspi",
+        "visa",
+        "mastercard",
+        "halyk"
+    ],
+    "apps": {
+        "ios": "app-store",
+        "android": "apk"
     },
-    "self_exclusion": {
-      "ru": "Вы можете ограничить своё участие в азартных играх через eGov.",
-      "kk": "eGov арқылы құмар ойындарға қатысуыңызды шектей аласыз."
+    "_apps_verify": "Assumed distribution per brief 02, section 3. Confirm per brand.",
+    "share_networks": [
+        "telegram",
+        "whatsapp",
+        "facebook",
+        "x"
+    ],
+    "html_lang": {
+        "ru": "ru-KZ",
+        "kk": "kk-KZ"
     },
-    "helpline": null,
-    "required_blocks": ["age-gate", "compliance-bar"],
-    "notes": "Online bets are processed through the Unified Accounting Centre (ЕУЦ). Online casino is not permitted: casino-vertical blocks are disabled for this market."
-  }
+    "required_pages": [],
+    "compliance": {
+        "_verify": "PLACEHOLDER COPY. Confirm every line with compliance before production use.",
+        "license_line": {
+            "ru": "{brand} — лицензия № {license_no}, выдана {regulator}.",
+            "kk": "{brand} — № {license_no} лицензия, берген {regulator}."
+        },
+        "regulator_default": {
+            "ru": "уполномоченным органом Республики Казахстан",
+            "kk": "Қазақстан Республикасының уәкілетті органы"
+        },
+        "license_short": {
+            "ru": "Лицензия РК",
+            "kk": "ҚР лицензиясы"
+        },
+        "strip": "optional",
+        "age_notice": {
+            "ru": "Участие в азартных играх разрешено с 21 года.",
+            "kk": "Ойынға 21 жастан бастап рұқсат етіледі."
+        },
+        "taglines": {
+            "ru": [
+                "Играйте ответственно.",
+                "Ставки могут вызывать зависимость."
+            ],
+            "kk": [
+                "Жауапкершілікпен ойнаңыз.",
+                "Бәс тігу тәуелділік тудыруы мүмкін."
+            ]
+        },
+        "self_exclusion": {
+            "ru": "Вы можете ограничить своё участие в азартных играх через eGov.",
+            "kk": "eGov арқылы құмар ойындарға қатысуыңызды шектей аласыз."
+        },
+        "helpline": null,
+        "required_blocks": [
+            "age-gate",
+            "compliance-bar"
+        ],
+        "notes": "Online bets are processed through the Unified Accounting Centre (ЕУЦ). Online casino is not permitted: casino-vertical blocks are disabled for this market."
+    }
 }

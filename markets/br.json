@@ -13,6 +13,9 @@
   "payments": ["pix", "ted", "debit"],
   "apps": {"ios":"app-store","android":"both"},
   "_apps_verify": "Assumed distribution per brief 02, section 3. Confirm per brand.",
+  "share_networks": ["whatsapp", "facebook", "x", "telegram"],
+  "html_lang": {"pt": "pt-BR", "en": "en-BR"},
+  "required_pages": [],
   "compliance": {
     "_verify": "PLACEHOLDER COPY. Confirm every line with compliance before production use.",
     "license_line": {

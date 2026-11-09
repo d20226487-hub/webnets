@@ -15,25 +15,68 @@ $GEN_ROOT = dirname(__DIR__);
 require_once "$GEN_ROOT/lib/page.php";
 require_once __DIR__ . '/brands.php';
 require_once __DIR__ . '/edits.php';
+require_once __DIR__ . '/markets.php';
+require_once __DIR__ . '/types.php';
 
 const GEN_PLACEHOLDER = 'Placeholder copy for this section of the site to be written later with real content';
 
-/** Meaningful variations per type: from which switcher demo, which axes the job form offers, which the generator picks. */
+/**
+ * Site types: the built-in ones (GEN_TYPES), with what the Site types page changed (each blueprint's "generator" entry:
+ * label, hidden), and the copies made there (a blueprint with "based_on": a built-in type). A copy works like the type it
+ * is based on (same source demo, axes and generator behaviour) with its own blueprint: sections, pages, rules, angles.
+ */
 function gen_catalog(): array
 {
-    return [
-        'landing' => ['label' => 'Branded landing', 'source' => 'b-nyxa-xx', 'axes' => ['product' => 'Product', 'palette' => 'Colours'], 'auto' => ['length']],
-        'app' => ['label' => 'App page (landing)', 'source' => 'app-b-nyxa-kz', 'axes' => ['platform' => 'Platform', 'palette' => 'Colours', 'look' => 'Design'], 'auto' => []],
-        'app-multi' => ['label' => 'App site (multi-page)', 'source' => 'appm-b-nyxa-kz', 'axes' => ['platform' => 'Platform', 'palette' => 'Colours', 'look' => 'Design'], 'auto' => []],
-        'promo' => ['label' => 'Bonuses and promo codes', 'source' => 'promo-b-nyxa-xx', 'axes' => ['offers' => 'Offers', 'palette' => 'Colours'], 'auto' => []],
-        'vendor' => ['label' => 'Game provider overview', 'source' => 'vendor-b-nyxa-xx', 'axes' => ['studios' => 'Providers', 'look' => 'Colours'], 'auto' => []],
-        'satellite' => ['label' => 'Multi-page satellite', 'source' => 'sat-b-nyxa-xx', 'axes' => ['product' => 'Product', 'palette' => 'Colours'], 'auto' => ['size', 'nav']],
-        'casinos' => ['label' => 'Casino reviews (several brands)', 'source' => 'casinos-b-xx', 'axes' => ['product' => 'Product', 'layout' => 'Design', 'palette' => 'Colours'], 'auto' => ['rank']],
-        'casinos-one' => ['label' => 'Casino reviews, one page (several brands)', 'source' => 'casinos1-b-xx', 'axes' => ['product' => 'Product', 'layout' => 'Design', 'palette' => 'Colours'], 'auto' => ['rank']],
-        'news' => ['label' => 'Gambling news', 'source' => 'news-c-kz', 'axes' => ['topic' => 'News', 'pr' => 'Paid articles', 'palette' => 'Colours'], 'auto' => ['images']],
-        'reviews' => ['label' => 'Brand reviews (user reviews)', 'source' => 'reviews-a-nyxa-kz', 'axes' => ['palette' => 'Colours'], 'auto' => ['images']],
-    ];
+    global $GEN_ROOT;
+    static $cache = [];
+    $files = glob("$GEN_ROOT/blueprints/*.json");
+    $sig = md5(implode('|', array_map(fn($f) => $f . filemtime($f), $files)));
+    if (isset($cache[$sig])) {
+        return $cache[$sig];
+    }
+    $out = [];
+    $copies = [];
+    foreach (GEN_TYPES as $t => $e) {
+        $g = is_file("$GEN_ROOT/blueprints/$t.json") ? (sx_json("$GEN_ROOT/blueprints/$t.json")['generator'] ?? []) : [];
+        $out[$t] = ['base' => $t] + array_merge($e, array_intersect_key($g, ['label' => 1, 'hidden' => 1]));
+    }
+    foreach ($files as $f) {
+        $bp = sx_json($f);
+        $t = basename($f, '.json');
+        if (!isset($out[$t]) && isset($out[$bp['based_on'] ?? ''])) {
+            $g = $bp['generator'] ?? [];
+            $copies[$bp['based_on']][$t] = ['base' => $bp['based_on']] + array_merge($out[$bp['based_on']], ['label' => $g['label'] ?? $t, 'hidden' => !empty($g['hidden'])], ['base' => $bp['based_on']]);
+        }
+    }
+    $all = [];
+    foreach ($out as $t => $e) { // each copy right after the type it is based on
+        $all[$t] = $e;
+        foreach ($copies[$t] ?? [] as $ct => $ce) {
+            $all[$ct] = $ce;
+        }
+    }
+    return $cache[$sig] = $all;
 }
+
+/** The built-in type a type works like: itself, or for a copy the type it was copied from. */
+function gen_type_base(string $type): string
+{
+    return gen_catalog()[$type]['base'] ?? $type;
+}
+
+/** Meaningful variations per built-in type: from which switcher demo, which axes the job form offers, which the generator picks. */
+const GEN_TYPES = [
+    'landing' => ['label' => 'Branded landing', 'source' => 'b-nyxa-xx', 'axes' => ['product' => 'Product', 'palette' => 'Colours'], 'auto' => ['length']],
+    'app' => ['label' => 'App page (landing)', 'source' => 'app-b-nyxa-kz', 'axes' => ['platform' => 'Platform', 'palette' => 'Colours', 'look' => 'Design'], 'auto' => []],
+    'app-multi' => ['label' => 'App site (multi-page)', 'source' => 'appm-b-nyxa-kz', 'axes' => ['platform' => 'Platform', 'palette' => 'Colours', 'look' => 'Design'], 'auto' => []],
+    'promo' => ['label' => 'Bonuses and promo codes', 'source' => 'promo-b-nyxa-xx', 'axes' => ['offers' => 'Offers', 'palette' => 'Colours'], 'auto' => []],
+    'vendor' => ['label' => 'Game provider overview', 'source' => 'vendor-b-nyxa-xx', 'axes' => ['studios' => 'Providers', 'look' => 'Colours'], 'auto' => []],
+    'satellite' => ['label' => 'Multi-page satellite', 'source' => 'sat-b-nyxa-xx', 'axes' => ['product' => 'Product', 'palette' => 'Colours'], 'auto' => ['size', 'nav']],
+    'casinos' => ['label' => 'Casino reviews (several brands)', 'source' => 'casinos-b-xx', 'axes' => ['product' => 'Product', 'layout' => 'Design', 'palette' => 'Colours'], 'auto' => ['rank']],
+    'casinos-one' => ['label' => 'Casino reviews, one page (several brands)', 'source' => 'casinos1-b-xx', 'axes' => ['product' => 'Product', 'layout' => 'Design', 'palette' => 'Colours'], 'auto' => ['rank']],
+    'news' => ['label' => 'Gambling news', 'source' => 'news-c-kz', 'axes' => ['topic' => 'News', 'pr' => 'Paid articles', 'palette' => 'Colours'], 'auto' => ['images']],
+    'reviews' => ['label' => 'Brand reviews (user reviews)', 'source' => 'reviews-a-nyxa-kz', 'axes' => ['palette' => 'Colours'], 'auto' => ['images']],
+];
 
 /**
  * Source demo for a site: a switcher demo of the type written for this market (its copy, payments and figures fit),
@@ -102,9 +145,9 @@ function gen_catalog_full(): array
             foreach (array_keys(gen_demo_axes($demo)[$axis] ?? []) as $o) {
                 $opts[$o] = gen_option_label($axis, $o, $lab($o));
             }
-            $axes[$axis] = ['label' => $name, 'options' => $opts] + (($h = GEN_AXIS_HINTS[$type][$axis] ?? null) ? ['hint' => $h] : []);
+            $axes[$axis] = ['label' => $name, 'options' => $opts] + (($h = GEN_AXIS_HINTS[gen_type_base($type)][$axis] ?? null) ? ['hint' => $h] : []);
         }
-        $out[$type] = ['label' => $c['label'], 'axes' => $axes, 'auto' => $c['auto']];
+        $out[$type] = ['label' => $c['label'], 'axes' => $axes, 'auto' => $c['auto'], 'base' => $c['base'], 'hidden' => !empty($c['hidden'])];
     }
     return $out;
 }
@@ -404,6 +447,7 @@ function gen_site_config(string $type, string $market, ?string $brand, array $ch
         $choice['layout'] = $choice['design'];
     }
     unset($cfg['variations'], $cfg['variation_labels'], $cfg['_demo']);
+    $cfg['type'] = $type; // a copied type builds from its own blueprint, with the source demo of the type it is based on
     // Below the first screen the engine picks the order and the designs by its rules (no two conversion blocks or tinted
     // bands in a row, one pattern per site: lib/blueprint.php), so the demo's hand-picked order and section designs are
     // dropped; the header, footer and other frame pins stay, and the chosen options add the pins they need.
@@ -474,6 +518,9 @@ function gen_site_config(string $type, string $market, ?string $brand, array $ch
     // demo copy when the demo is written in the site's language (brand names swapped for the user's), else placeholders
     $useDemo = $copy === 'demo' && $demoLocale === $cfg['locale'];
     $names = gen_name_map($useDemo ? ($brand && isset($cfg['brand']) ? [$brand] : $brands) : []);
+    if ($useDemo) { // payment methods named in the demo copy: the market's own (Apple Pay -> Kaspi)
+        $names += gen_payment_map($m)['names'];
+    }
     if (!empty($cfg['articles'])) { // news: the demo's articles, about the job's brands
         $cfg['articles'] = gen_site_articles($cfg['articles'], $id, $brands, $useDemo ? $names : null);
         if ($brands) {
@@ -493,7 +540,7 @@ function gen_site_config(string $type, string $market, ?string $brand, array $ch
     $ops = sx_brand_data($GEN_ROOT, 'operators.json');
     $tld = $m['compliance']['brand_domain_suffix'] ?? '.example'; // e.g. Brazil: brand links must be on .bet.br
     $host = fn($b) => $ops[$b]['domain'] ?? ($b . (str_starts_with($tld, '.') ? $tld : ".$tld"));
-    if (in_array($type, ['app', 'app-multi', 'satellite'], true)) { // store links where the source demo installs by APK
+    if (in_array(gen_type_base($type), ['app', 'app-multi', 'satellite'], true)) { // store links where the source demo installs by APK
         $cfg['links'] += ['ios' => 'x', 'android' => 'x'];
     }
     foreach ($cfg['links'] ?? [] as $k => $url) { // every tracked link (go, ios, android, apk...) on the brand's own domain
@@ -607,7 +654,7 @@ function gen_hero_combos(string $type, array $cfg, string $market): array
     $sx = sx_json("$GEN_ROOT/blocks/{$hero['block']}/block.json")['sx'] ?? [];
     $verticals = sx_json("$GEN_ROOT/markets/$market.json")['verticals'];
     $list = $hero['variants'] ?? ($sx['variants'] ?? []); // a list on the blueprint's section itself is a hard limit
-    $list = array_values(array_filter($list, fn($v) => in_array($v, $sx['variants'] ?? [], true) && !in_array($v, GEN_HERO_SKIP[$type] ?? [], true)
+    $list = array_values(array_filter($list, fn($v) => in_array($v, $sx['variants'] ?? [], true) && !in_array($v, GEN_HERO_SKIP[gen_type_base($type)] ?? [], true)
         && (!isset($sx['variant_requires'][$v]) || !empty($verticals[$sx['variant_requires'][$v]]))));
     $out = [];
     foreach (['a', 'b'] as $impl) {
@@ -625,7 +672,7 @@ function gen_site_name(string $type, string $brand, string $id): string
     $n = (int)substr($id, strrpos($id, '-') + 1);
     $base = ucfirst($brand ?: 'Site');
     return trim($base . ' ' . ['landing' => 'Hub', 'app' => 'App', 'app-multi' => 'App Guide', 'promo' => 'Bonus', 'vendor' => 'Games',
-        'satellite' => 'Guide', 'casinos' => 'Casino Ranking', 'casinos-one' => 'Casino Top', 'news' => 'News', 'reviews' => 'Reviews'][$type] . ' ' . ($n ?: ''));
+        'satellite' => 'Guide', 'casinos' => 'Casino Ranking', 'casinos-one' => 'Casino Top', 'news' => 'News', 'reviews' => 'Reviews'][gen_type_base($type)] . ' ' . ($n ?: ''));
 }
 
 /**
@@ -654,6 +701,67 @@ function gen_name_map(array $brandIds): array
 }
 
 /** Swap demo brand names in every copy string (whole words only), keep settings. */
+/**
+ * Payment methods for a market: every method another market (or the demo data) uses, mapped to one this market has.
+ * The same card where the market has it (Visa Debit -> Visa), a card for "debit", else the market's first non-card
+ * method (Apple Pay, PIX or PayID -> Kaspi). Returns ['ids' => [from => to], 'names' => [from name => to name]]; the
+ * names map leaves generic words (bank transfer, debit) alone, as the copy around them reads fine either way.
+ */
+function gen_payment_map(array $m): array
+{
+    global $GEN_ROOT;
+    static $all = null;
+    if ($all === null) {
+        $all = ['apple-pay', 'visa-debit', 'mastercard-debit'];
+        foreach (glob("$GEN_ROOT/markets/*.json") as $f) {
+            $all = array_merge($all, sx_json($f)['payments'] ?? []);
+        }
+        $all = array_values(array_unique($all));
+    }
+    $own = $m['payments'] ?? [];
+    if (!$own) {
+        return ['ids' => [], 'names' => []];
+    }
+    $card = fn(string $p) => (bool)preg_match('/^(visa|mastercard)(-debit)?$|^debit$/', $p);
+    $cards = array_values(array_filter($own, $card));
+    $other = array_values(array_filter($own, fn($p) => !$card($p)));
+    $ids = $names = [];
+    foreach ($all as $p) {
+        if (in_array($p, $own, true)) {
+            continue;
+        }
+        $to = match (true) {
+            in_array(preg_replace('/-debit$/', '', $p), $own, true) => preg_replace('/-debit$/', '', $p),
+            in_array("$p-debit", $own, true) => "$p-debit",
+            $card($p) && (bool)$cards => $cards[0],
+            default => $other[0] ?? $own[0],
+        };
+        $ids[$p] = $to;
+        if (!in_array($p, ['bank', 'debit'], true) && !in_array($to, ['bank', 'debit'], true) && !str_starts_with(sx_payment_name($to), sx_payment_name($p))) { // "Visa" -> "Visa Debit" would double up an existing "Visa Debit"
+            $names[sx_payment_name($p)] = sx_payment_name($to);
+        }
+    }
+    uksort($names, fn($a, $b) => mb_strlen($b) <=> mb_strlen($a)); // "Visa Debit" before "Visa"
+    return ['ids' => $ids, 'names' => $names];
+}
+
+/** Brand facts with the market's own payment methods: payments and withdrawal times keyed by gen_payment_map() ids. */
+function gen_fit_fact_payments(array $facts, array $map): array
+{
+    if (isset($facts['payments']) && is_array($facts['payments'])) {
+        $facts['payments'] = array_values(array_unique(array_map(fn($p) => $map[$p] ?? $p, $facts['payments'])));
+    }
+    if (isset($facts['withdrawal_minutes']) && is_array($facts['withdrawal_minutes'])) {
+        $w = [];
+        foreach ($facts['withdrawal_minutes'] as $p => $min) {
+            $to = $map[$p] ?? $p;
+            $w[$to] = isset($w[$to]) ? min($w[$to], $min) : $min;
+        }
+        $facts['withdrawal_minutes'] = $w;
+    }
+    return $facts;
+}
+
 function gen_swap_names($v, array $map)
 {
     if (is_array($v)) {
@@ -863,7 +971,7 @@ function gen_plan_job(int $jobId, array $spec): array
             $style = gen_pick_style($use);
             $navs = gen_navs($type);
             $sites[] = ['type' => $type, 'n' => $i + 1, 'brand' => $brands && !gen_multi_brand($type) ? $brands[$i % count($brands)] : null, 'choice' => $choice,
-                'plan' => gen_set_style(['seed' => bin2hex(random_bytes(6)), 'colors' => $spec['colors'] ?? [], 'slot' => $i + $jobId, 'palette' => $i + $jobId, 'copy' => $spec['copy'] ?? 'demo', 'menu' => gen_menu_plan($type, $i + $jobId), 'rows' => gen_rows_plan($spec['rows'] ?? 'both', $i + $jobId)] + ($type === 'satellite' ? ['offers' => ($i + $jobId) % 3 === 0] : []) + ($navs ? ['nav' => $navs[($i + 2 * $jobId) % count($navs)]] : []), $style)];
+                'plan' => gen_set_style(['seed' => bin2hex(random_bytes(6)), 'colors' => $spec['colors'] ?? [], 'slot' => $i + $jobId, 'palette' => $i + $jobId, 'copy' => $spec['copy'] ?? 'demo', 'menu' => gen_menu_plan($type, $i + $jobId), 'rows' => gen_rows_plan($spec['rows'] ?? 'both', $i + $jobId)] + (gen_type_base($type) === 'satellite' ? ['offers' => ($i + $jobId) % 3 === 0] : []) + ($navs ? ['nav' => $navs[($i + 2 * $jobId) % count($navs)]] : []), $style)];
             gen_style_count($use, $sites[count($sites) - 1]['plan']);
         }
     }
@@ -890,7 +998,7 @@ function gen_build_site(array $site, string $market, array $brands = []): array
         $brands = array_values(array_unique(array_merge($brands, $spec['sample_ids'] ?? [])));
     }
     $cfg = gen_site_config($site['type'], $market, $site['brand'], json_decode($site['choice'], true), $site['id'], $plan['seed'], $plan['preset'], $plan['colors'] ?? [], $brands, $plan['slot'] ?? $site['n'] - 1 + (int)$site['job_id'], $plan['copy'] ?? 'demo', (int)($plan['level'] ?? 0), isset($plan['palette']) ? (int)$plan['palette'] : null, $plan['nav'] ?? null, ['hue' => (int)($plan['hue'] ?? 0), 'flip' => !empty($plan['flip'])], $plan['menu'] ?? []);
-    if ($site['type'] === 'satellite') { // bonuses before the hero on some satellites, like the full-length landings (older plans: from the site id)
+    if (gen_type_base($site['type']) === 'satellite') { // bonuses before the hero on some satellites, like the full-length landings (older plans: from the site id)
         $cfg['sections']['home']['offers'] = (bool)($plan['offers'] ?? crc32($site['id'] . '|offers') % 3 === 0);
     }
     $cfg['rows'] = ($plan['rows'] ?? 'swipe') === 'stack' ? 'stack' : 'swipe';
@@ -1307,7 +1415,7 @@ const GEN_SIDE_LOOKS = ['panel', 'rail', 'cards'];
 function gen_multi_brand(string $type): bool
 {
     global $GEN_ROOT;
-    return $type === 'news' || !empty(sx_json("$GEN_ROOT/blueprints/$type.json")['compares_brands']);
+    return gen_type_base($type) === 'news' || !empty(sx_json("$GEN_ROOT/blueprints/$type.json")['compares_brands']);
 }
 
 function gen_multi_page(string $type): bool

@@ -8,11 +8,9 @@
 /** Networks in the order people in this market use them. */
 function sx_share_networks(): array
 {
-    return match (SX::$ctx['market']['id'] ?? '') {
-        'kz' => ['telegram', 'whatsapp', 'facebook', 'x'],
-        'br' => ['whatsapp', 'facebook', 'x', 'telegram'],
-        default => ['facebook', 'x', 'whatsapp', 'telegram'],
-    };
+    $all = ['facebook', 'x', 'whatsapp', 'telegram'];
+    $order = array_values(array_intersect(SX::$ctx['market']['share_networks'] ?? $all, $all)); // markets/<id>.json "share_networks"
+    return $order ?: $all;
 }
 
 function sx_share_bar(?string $url, string $title, string $extra = ''): string

@@ -94,7 +94,7 @@ foreach ($combos as $c) {
     // Colours in the browser (a demo whose switchers already change colours keeps those): the same pages with the
     // neutral and brand looks, kept as colour overrides only
     $pal = [];
-    if (!isset($axes['palette']) && !isset($axes['look']) && empty($cfg['look'])) {
+    if (!$out && !isset($axes['palette']) && !isset($axes['look']) && empty($cfg['look'])) { // gallery only: generated sites have no variations panel
         foreach (['neutral', 'brand'] as $look) {
             foreach (sx_build_site(['look' => $look] + $cfg, $root) as $ap) {
                 $k = substr($ap['file'], strlen($cfg['file_prefix']));
@@ -107,12 +107,52 @@ foreach ($combos as $c) {
     $sets[] = [$c, $pages, $pal];
 }
 
-$bar = function (array $current, string $page, string $live = '') use ($axes, $L, $sets, $prefix): string {
+/**
+ * Does a switcher option change anything? Option $o of $axis, seen from combination $c, does nothing when the target
+ * combination has the same pages and every one of them is the same (its own file prefix aside). Such a chip is left out.
+ */
+$setOf = function (array $c) use ($sets): ?array {
+    foreach ($sets as $s) {
+        if ($s[0] === $c) {
+            return $s;
+        }
+    }
+    return null;
+};
+$changes = function (array $c, array $t) use ($setOf, $prefix): bool {
+    static $memo = [];
+    $key = json_encode([$c, $t]);
+    if (isset($memo[$key])) {
+        return $memo[$key];
+    }
+    [, $a] = $setOf($c);
+    [, $b] = $setOf($t) ?? [null, []];
+    if (array_keys($a) != array_keys($b)) {
+        return $memo[$key] = true;
+    }
+    $own = fn(string $html, string $pfx) => $pfx === '' ? $html : str_replace(['"' . $pfx, "'" . $pfx], ['"', "'"], $html); // links to its own files
+    foreach ($a as $k => $p) {
+        if ($own($p['html'], $prefix($c)) !== $own($b[$k]['html'], $prefix($t))) {
+            return $memo[$key] = true;
+        }
+    }
+    return $memo[$key] = false;
+};
+// colour switchers (an axis offering neutral and brand colours) come after the content ones, as the live Colours row does
+$isColour = fn(array $options) => isset($options['neutral'], $options['brand']);
+$axes = array_filter($axes, fn($o) => !$isColour($o)) + array_filter($axes, $isColour);
+
+$bar = function (array $current, string $page, string $live = '') use ($axes, $L, $sets, $prefix, $changes): string {
     $rows = '';
     foreach ($axes as $axis => $options) {
         $links = '';
+        $shown = 0;
         foreach (array_keys($options) as $o) {
             $target = array_merge($current, [$axis => $o]);
+            if ($current[$axis] !== $o && !$changes($current, $target)) {
+                continue;
+            }
+            $shown++;
             $has = false;
             foreach ($sets as [$c, $pages, $pal]) {
                 if ($c === $target) {
@@ -122,7 +162,10 @@ $bar = function (array $current, string $page, string $live = '') use ($axes, $L
             $href = $prefix($target) . ($has ? $page : 'index.html');
             $links .= '<a href="' . $href . '"' . ($current[$axis] === $o ? ' aria-current="true"' : '') . '>' . htmlspecialchars($L[$o] ?? $o) . '</a>';
         }
-        $rows .= '<div class="vbar-row"><span>' . htmlspecialchars($L[$axis] ?? $axis) . '</span><nav>' . $links . '</nav></div>';
+        if ($shown < 2) { // only the current option is left: nothing to switch here
+            continue;
+        }
+        $rows .='<div class="vbar-row"><span>' . htmlspecialchars($L[$axis] ?? $axis) . '</span><nav>' . $links . '</nav></div>';
     }
     return '<style>.vbar{position:relative;z-index:2147483000;display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;padding:8px 16px;background:#111318;color:#E8EAF0;font:500 13px/1.3 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}'
         . '.vbar b{font-weight:600;color:#9AA3B5;font-size:11px;text-transform:uppercase;letter-spacing:.08em}.vbar-row{display:flex;align-items:center;gap:8px;min-width:0}'
@@ -142,8 +185,11 @@ foreach ($sets as [$c, $pages, $pal]) {
     file_put_contents("$dir/$briefFile", sx_ai_brief($pages, null, false, true));
     $brief = count($pages) > 1 ? $briefFile : null;
     foreach ($pages as $page => $p) {
+        $rowsScope = $out ? null : sx_review_rows_scope($p['html']); // Rows of cards: only on pages with card rows it changes
         $html = str_replace('</body>', sx_review_nav_script() . sx_review_device_toggle($p['file'], $locale) . sx_review_devspec($p, $pages, $locale, $p['prefix'], $brief) . '</body>', $p['html']);
-        $html = preg_replace('#<body([^>]*)>#', '<body$1>' . $bar($c, $page, sx_review_live_switches($pal[$page] ?? [], $locale)), $html, 1);
+        if (!$out) { // the variations panel is the gallery's; generated sites are built as they are
+            $html = preg_replace('#<body([^>]*)>#', '<body$1>' . $bar($c, $page, sx_review_live_switches($pal[$page] ?? [], $locale, $rowsScope)), $html, 1);
+        }
         file_put_contents("$dir/{$p['file']}", sx_strip_comments($html)); // review additions too (panel, phone view)
         echo "dist/review/{$base['id']}/{$p['file']}\n";
     }

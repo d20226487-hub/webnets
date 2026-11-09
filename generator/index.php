@@ -31,6 +31,17 @@ details.more[open]>summary{margin-bottom:6px}
 .bhead{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px}.bhead b{margin-right:auto}
 button.link{background:none;border:0;padding:4px 2px;color:var(--accent);font-weight:600}
 .btypes{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:8px 16px}.btypes label{display:flex;gap:8px;align-items:center;font-size:14px}
+[hidden]{display:none!important}
+/* markets */.mtop{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:16px;margin:14px 0}.mtop h3{margin-top:0}.mtop p{margin:6px 0;font-size:14px}
+.mnav{position:sticky;top:0;z-index:3;display:flex;flex-wrap:wrap;gap:4px;padding:10px 0;background:var(--bg);border-bottom:1px solid var(--line);margin-bottom:14px}.mnav a{padding:6px 10px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;color:var(--muted)}.mnav a:hover{background:var(--panel);color:var(--text)}
+.mform{display:grid;gap:16px}.msec h3{margin:0 0 14px;font-size:18px}.msec h4{margin:18px 0 6px}.msec{scroll-margin-top:60px}.mhelp{font-size:13px!important;line-height:1.5}
+.mform .field{display:grid;gap:6px;margin-bottom:18px}.mform .lbl{font-weight:650}.mform input[type=text],.mform textarea{font:14px system-ui,sans-serif;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);max-width:100%}
+.mform textarea{width:100%;resize:vertical}.inl{display:inline-flex;align-items:center;gap:8px;font-size:14px}.mchecks{display:flex;flex-wrap:wrap;gap:8px 20px}
+.mgrid{display:flex;flex-wrap:wrap;gap:4px 18px}.mstack{display:grid;gap:6px}.mloc{display:grid;grid-template-columns:34px 1fr;align-items:center;gap:8px}.mloc>span:first-child{font:600 12px ui-monospace,monospace;color:var(--muted)}
+.mloc input{width:100%}.mloc3{display:flex;gap:6px;align-items:center}.mprev{display:grid;gap:4px;font-size:15px}.mshare{margin:0;padding-left:22px;display:grid;gap:4px;max-width:360px}.mshare li{display:flex;align-items:center;gap:6px}.mshare button{padding:2px 8px}
+.ferr{color:var(--bad);font-size:13px}.bad-f>input,.bad-f input,.bad-f select{border-color:var(--bad)!important}.okmsg{color:var(--ok);font-size:14px}
+.msavebar{position:sticky;bottom:0;z-index:3;display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:12px 16px;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 -4px 16px rgba(0,0,0,.06)}
+.mkt-table td{vertical-align:middle}.tdes{display:flex;flex-wrap:wrap;gap:4px 12px}.tdes .inl{font-size:13px}.tsec td{vertical-align:top}.tsec td button{padding:2px 7px;font-size:12px}.tpages{display:flex;flex-wrap:wrap;gap:6px}.tpages button{padding:6px 10px;font-size:13px}.tangles{display:grid;gap:10px}.tangle{display:grid;gap:8px;padding:12px 14px}.tangle .field{margin-bottom:6px}.tlim{gap:6px 12px;font-size:13px}.trules{display:grid;gap:6px;margin-bottom:8px}.mform select{max-width:380px}
 .bfoot{display:flex;flex-wrap:wrap;align-items:center;gap:12px}.bfoot a[aria-disabled]{opacity:.5;pointer-events:none}.bnote{margin:0;font-size:13px}
 main{max-width:1280px;margin:0 auto;padding:20px 24px 60px}h2{margin:0 0 4px;font-size:22px}h3{margin:22px 0 10px;font-size:16px}
 .muted{color:var(--muted)}.row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}.sp{flex:1}
@@ -274,7 +285,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     document.documentElement.lang = LANG;
     document.title = 'WebNets';
     var h = location.hash.replace(/^#\/?/, '').split('/')[0];
-    document.getElementById('topnav').innerHTML = '<a href="#/"' + (h !== 'settings' ? ' aria-current="page"' : '') + '>' + L('Projects') + '</a><a href="#/settings"' + (h === 'settings' ? ' aria-current="page"' : '') + '>' + L('Thresholds') + '</a><a href="/">' + L('Gallery') + '</a><a href="/settings/">' + L('AI brief settings') + '</a>';
+    document.getElementById('topnav').innerHTML = '<a href="#/"' + (['settings', 'markets', 'types'].indexOf(h) < 0 ? ' aria-current="page"' : '') + '>' + L('Projects') + '</a><a href="#/types"' + (h === 'types' ? ' aria-current="page"' : '') + '>' + L('Site types') + '</a><a href="#/markets"' + (h === 'markets' ? ' aria-current="page"' : '') + '>' + L('Markets') + '</a><a href="#/settings"' + (h === 'settings' ? ' aria-current="page"' : '') + '>' + L('Thresholds') + '</a><a href="/">' + L('Gallery') + '</a><a href="/settings/">' + L('AI brief settings') + '</a>';
     var lang = document.getElementById('ui-lang'), th = document.getElementById('ui-theme'), cur = document.documentElement.dataset.theme || 'auto';
     lang.value = LANG;
     lang.setAttribute('aria-label', L('Language'));
@@ -375,7 +386,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         + '<span class="muted" style="font-size:13px">' + L('The demo copy is in Russian: sites in Russian (demo market, Kazakhstan) get it; sites in other languages (Australia, Brazil) get placeholder text.') + '</span></div>'
         + '<div class="field"><label class="lbl" for="jrows">' + L('Rows of cards (bonuses, games, screenshots, reviews)') + '</label><select id="jrows"><option value="both">' + L('Both: swipe on some sites, stacked on others') + '</option><option value="swipe">' + L('Swipe: one row you scroll sideways') + '</option><option value="stack">' + L('Stacked: cards wrap into a grid') + '</option></select>'
         + '<span class="muted" style="font-size:13px">' + L('Wide tables keep their sideways scroll either way.') + '</span></div>'
-        + '<div class="field"><label class="lbl" for="jdisc">' + L('Affiliate disclosure (casino reviews, brand reviews, news)') + '</label><select id="jdisc"><option value="top">' + L('A strip at the top of every page') + '</option><option value="footer">' + L('In the footer') + '</option><option value="off">' + L('Off (no disclosure)') + '</option></select>'
+        + '<div class="field"><label class="lbl" for="jdisc">' + L('Affiliate disclosure (casino reviews, brand reviews, news)') + '</label><select id="jdisc"><option value="off" selected>' + L('Off (no disclosure)') + '</option><option value="top">' + L('A strip at the top of every page') + '</option><option value="footer">' + L('In the footer') + '</option></select>'
         + '<span class="muted" style="font-size:13px">' + L('The line saying the site earns a commission through its links. Most gambling advertising rules require it: with Off, checking the market’s rules is up to you, and each site carries a build note.') + '</span></div>'
         + '<div class="field"><label class="lbl" for="jsample">' + L('Sample brands in casino rankings') + '</label><input type="number" id="jsample" min="0" max="16" value="7" style="max-width:120px">'
         + '<span class="muted" style="font-size:13px">' + L('Made-up operators listed next to your brands on casino review sites, so a ranking looks like a real one. Their data is placeholder; the featured (paid) slot is always one of your brands. 0 = your brands only.') + '</span></div>'
@@ -437,7 +448,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         var keep = readTypes();
         document.getElementById('types').innerHTML = (checking ? '<p class="muted" id="tcheck" style="margin:0 0 8px">' + L('Checking the market rules… warnings appear here in a few seconds. You can fill in the form meanwhile.') + '</p>' : '')
           + '<div class="types" style="overflow-x:auto"><table><thead><tr><th>' + L('Type') + '</th><th>' + L('Sites') + '</th><th>' + L('Variations (tick one or more)') + '</th></tr></thead><tbody>'
-          + Object.keys(cat.types).map(function (t) {
+          + Object.keys(cat.types).filter(function (t) { return !cat.types[t].hidden || (ed && ed.spec.types[t]); }).map(function (t) {
             var a = avail[t] || { ok: true, reason: null, options: {} }, T = cat.types[t], notes = [];
             var axes = Object.keys(T.axes).map(function (ax) {
               var blk = (a.options && a.options[ax]) || {};
@@ -480,7 +491,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         document.getElementById('jname').value = ed.name;
         document.getElementById('jcopy').value = ed.spec.copy || 'demo';
         document.getElementById('jrows').value = ed.spec.rows || 'swipe';
-        document.getElementById('jdisc').value = ed.spec.disclosure || 'top';
+        document.getElementById('jdisc').value = ed.spec.disclosure || 'off';
         document.getElementById('jsample').value = ed.spec.sample_brands == null ? 0 : ed.spec.sample_brands;
         mk.value = ed.market;
         var bl = (ed.spec.brands || []).map(function (b) { return typeof b === 'string' ? { name: b.charAt(0).toUpperCase() + b.slice(1) } : b; });
@@ -853,7 +864,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
           + '<div><h3 style="margin:0 0 10px">' + L('Navigation') + '</h3><div class="row" style="align-items:flex-start;gap:18px">'
           + '<div class="field"><label class="lbl" for="e-nav">' + L('On desktop') + '</label>' + sel('e-nav', E.nav, [['', L('Automatic')]].concat(S.navs.map(function (n) { return [n, L({ top: 'Top menu', left: 'Sidebar on the left', right: 'Sidebar on the right', hub: 'Hub (the home page links to every page)' }[n])]; }))) + '</div>'
           + '<div class="field"><label class="lbl" for="e-look">' + L('Sidebar look') + '</label>' + sel('e-look', E.look, [['', L('Automatic')]].concat(S.looks.map(function (n) { return [n, L({ panel: 'Panel', rail: 'Rail', cards: 'Cards' }[n])]; }))) + '</div>'
-          + (['casinos', 'casinos-one', 'reviews', 'news'].indexOf(d.type) > -1 ? '<div class="field"><label class="lbl" for="e-disc">' + L('Affiliate disclosure') + '</label>' + sel('e-disc', E.disclosure, [['', L('Automatic')], ['top', L('Strip at the top')], ['footer', L('In the footer')], ['off', L('Off (no disclosure)')]]) + '</div>' : '')
+          + (['casinos', 'casinos-one', 'reviews', 'news'].indexOf((CAT && CAT.types[d.type] && CAT.types[d.type].base) || d.type) > -1 ? '<div class="field"><label class="lbl" for="e-disc">' + L('Affiliate disclosure') + '</label>' + sel('e-disc', E.disclosure, [['', L('Automatic')], ['top', L('Strip at the top')], ['footer', L('In the footer')], ['off', L('Off (no disclosure)')]]) + '</div>' : '')
           + '<div class="field"><label class="lbl" for="e-rows">' + L('Rows of cards') + '</label>' + sel('e-rows', E.rows, [['', L('Automatic')], ['swipe', L('Swipe')], ['stack', L('Stacked')]]) + '</div>'
           + '<div class="field"><label class="lbl" for="e-mside">' + L('Phone menu side') + '</label>' + sel('e-mside', mn.side, [['', L('Automatic')], ['left', L('Left')], ['right', L('Right')]]) + '</div>'
           + '<div class="field"><label class="lbl" for="e-mstyle">' + L('Phone menu opens as') + '</label>' + sel('e-mstyle', mn.style, [['', L('Automatic')]].concat(S.menu_styles.map(function (n) { return [n, L({ dropdown: 'Dropdown', drawer: 'Side drawer', sheet: 'Under the header', full: 'Full screen' }[n])]; }))) + '</div>'
@@ -929,10 +940,16 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     return en ? L(en) : id;
   }
 
+  window.GEN = { api: api, esc: esc, L: L, fail: fail, main: main, RU: RU, pageName: pageLabel };
+<?php readfile(__DIR__ . '/markets.js'); ?>
+<?php readfile(__DIR__ . '/types.js'); ?>
+
   function route() {
     clearTimeout(poll);
     var h = location.hash.replace(/^#\/?/, '').split('/');
     if (h[0] === 'settings') return settings();
+    if (h[0] === 'markets') return GEN.markets(h);
+    if (h[0] === 'types') return GEN.types(h);
     if (h[0] === 'p' && h[2] === 'new') return jobForm(h[1]);
     if (h[0] === 'p') return project(h[1]);
     if (h[0] === 'j' && h[2] === 'edit') return jobForm(null, h[1]);

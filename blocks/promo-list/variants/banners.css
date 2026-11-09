@@ -24,6 +24,8 @@
     grid-template-areas: "art value value" "art name name" "foot foot cta"; align-items: center; align-content: start; gap: 2px var(--sp-3);
     padding: var(--sp-3); border: var(--bw) solid var(--c-border); border-radius: var(--r); background: var(--c-surface); }
   .sx-plist--strip .sx-plist__items > .sx-plist__bitem:only-child { flex-basis: 100%; }
+  [data-rows=stack] .sx-plist--strip .sx-plist__items { flex-direction: column; overflow: visible; scroll-snap-type: none; margin-inline: 0; padding-inline: 0; }
+  [data-rows=stack] .sx-plist--strip .sx-plist__bitem { flex-basis: auto; }
   .sx-plist--strip .sx-plist__banner, .sx-plist--strip .sx-plist__bcopy { display: contents; color: var(--c-text); }
   .sx-plist--strip .sx-plist__banner::before { display: none; }
   .sx-plist--strip .sx-art { grid-area: art; align-self: start; position: static; z-index: auto; width: 48px; height: 48px; border-radius: var(--r-sm); }

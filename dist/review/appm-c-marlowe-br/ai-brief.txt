@@ -30,27 +30,33 @@ _Follow the system prompt (role, target stack, acceptance checklist) together wi
 
 ## Market guidance
 
-### Market context
+### Market context (from the market settings)
 
-- Market: Brazil (`br`), languages pt, currency BRL
+- Market: Brazil (`br`), languages pt, currency BRL (R$)
 - Minimum age: 18+
 - Products allowed: sports, casino
-- Promotions allowed: none; restricted: welcome_bonus, deposit_bonus, free_bets, promo_code
-- Payment methods: pix, ted, debit
+- Promotions allowed: none; not allowed: welcome_bonus, deposit_bonus, free_bets, promo_code, odds_boost, cashback, loyalty, tournaments
+- Payment methods: PIX, TED, Débito
 - App install paths: iOS app-store, Android both
-- Notes: Regulated under Lei 14.790/2023. Licensed operators use .bet.br domains. Advance bonuses are prohibited; PIX is the default payment rail; credit cards are not accepted.
 
 ### Mandated texts (from the market settings)
 
 - Age notice: Proibido para menores de 18 anos.
+- Licence: Autorizada SPA/MF
 - Self-exclusion: Você pode solicitar a autoexclusão a qualquer momento.
 
 ### Rules you must not break
 
 - Every page opens with an age gate (18+) before any gambling content.
 - Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- Minimum age is 18: the age gate and every age line say 18+.
+- Show only these payment methods: PIX, TED, Débito.
+- Amounts are in BRL (R$).
+
+### Market-specific rules
+
 - Only licensed operators with .bet.br domains; links go to the .bet.br domain.
-- Payments are PIX, TED and debit cards; never show credit cards.
+- Credit cards are never shown as a payment method.
 - Identity and age are verified with CPF before play.
 
 ## Site context
@@ -249,15 +255,15 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    Purpose: Final install section: all install buttons, a QR code for desktop visitors, key app facts.
    - `title`: "Baixar na App Store"
    - `text`: "Grátis. 18+. No computador, aponte a câmera do iPhone para o QR code."
-4. **App info** — block `sx/app-info`, variant `table`, role `content`
-   Purpose: Version, size, requirements, languages, age rating, developer, licence. All from brand app data.
-   - `title`: "Versão para iPhone"
-5. **Steps** — block `sx/steps`, variant `timeline`, role `content`
+4. **Steps** — block `sx/steps`, variant `timeline`, role `content`
    Purpose: Three real steps from sign-up to first bet, followed by the mid-page CTA.
    - `eyebrow`: "Instalação"
    - `title`: "Como instalar no iPhone"
    - `items`: `[{"title":"Abra a App Store","text":"Toque no botão desta página para abrir a página oficial do Marlowe Club."},{"title":"Toque em Obter","text":"Confirme com Face ID ou a senha do seu ID Apple. O app é grátis."},{"title":"Entre na sua conta","text":"Use a mesma conta do site e ative o login por Face ID no perfil."}]`
    - `show_cta`: false
+5. **App info** — block `sx/app-info`, variant `table`, role `content`
+   Purpose: Version, size, requirements, languages, age rating, developer, licence. All from brand app data.
+   - `title`: "Versão para iPhone"
 6. **FAQ** — block `sx/faq`, variant `accordion`, role `content`
    Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
    - `items`: `[{"q":"O app para iPhone é grátis?","a":"Sim, é grátis na App Store."},{"q":"Quais iPhones são compatíveis?","a":"Qualquer iPhone com iOS 15 ou superior."},{"q":"Preciso verificar minha conta?","a":"Sim. A lei exige verificação de identidade e idade com CPF antes de jogar."},{"q":"Posso usar a mesma conta do site?","a":"Sim. Entre com a conta que você já tem ou crie uma no próprio app."}]`
@@ -341,20 +347,20 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    - `title`: "O que o app Marlowe Club faz"
    - `answer`: "Mesas ao vivo em português, saques via PIX em até 30 minutos e limites no perfil, tudo em um só app."
    - `show_cta`: false
-3. **Screenshots** — block `sx/screenshots`, variant `fan`, role `content`
-   Purpose: Phone screens with one-line captions. Real screenshots via image URLs; CSS-drawn screens otherwise.
-   - `eyebrow`: "No app"
-   - `title`: "Feito para jogar no celular"
-   - `screens`: `[{"kind":"table","caption":"Mesas ao vivo em HD"},{"kind":"casino","caption":"Mais de 2.400 jogos"},{"kind":"wallet","caption":"Depósito e saque via PIX"},{"kind":"slip","caption":"Histórico de apostas"}]`
-4. **Text block** — block `sx/prose`, variant `article`, role `content`
-   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
-   - `html`: `<h2>Mesas ao vivo</h2><p>Roleta, blackjack e bacará transmitidos de estúdio com crupiês reais, 24 horas por dia, com mesas em português. A grade mostra os lugares livres e a aposta mínima de cada mesa.</p><h2>Pagamentos</h2><p>Depósitos e saques via PIX, TED ou cartão de débito; cartão de crédito não é aceito, conforme a regulamentação brasileira. A maioria dos saques via PIX cai em até 30 minutos…` (HTML)
-   - `toc`: true
-5. **Features** — block `sx/features`, variant `rows`, role `content`
+3. **Features** — block `sx/features`, variant `rows`, role `content`
    Purpose: 3-4 product reasons to join, each with an icon, a short title and one sentence.
    - `eyebrow`: "Pagamentos rápidos"
    - `title`: "Seu dinheiro na hora, no app"
    - `items`: `[{"icon":"wallet","title":"PIX em segundos","text":"Depósitos via PIX aprovados na hora, sem sair do app."},{"icon":"bolt","title":"Saque em até 30 min","text":"A maioria dos saques via PIX cai na conta em até meia hora."},{"icon":"shield","title":"Autorizada no Brasil","text":"Operação autorizada pela SPA/MF, no domínio .bet.br."},{"icon":"gauge","title":"Limites no app","text":"Defina limites de depósito e pausas no seu perfil."}]`
+4. **Screenshots** — block `sx/screenshots`, variant `fan`, role `content`
+   Purpose: Phone screens with one-line captions. Real screenshots via image URLs; CSS-drawn screens otherwise.
+   - `eyebrow`: "No app"
+   - `title`: "Feito para jogar no celular"
+   - `screens`: `[{"kind":"table","caption":"Mesas ao vivo em HD"},{"kind":"casino","caption":"Mais de 2.400 jogos"},{"kind":"wallet","caption":"Depósito e saque via PIX"},{"kind":"slip","caption":"Histórico de apostas"}]`
+5. **Text block** — block `sx/prose`, variant `article`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<h2>Mesas ao vivo</h2><p>Roleta, blackjack e bacará transmitidos de estúdio com crupiês reais, 24 horas por dia, com mesas em português. A grade mostra os lugares livres e a aposta mínima de cada mesa.</p><h2>Pagamentos</h2><p>Depósitos e saques via PIX, TED ou cartão de débito; cartão de crédito não é aceito, conforme a regulamentação brasileira. A maioria dos saques via PIX cai em até 30 minutos…` (HTML)
+   - `toc`: true
 6. **Download panel** — block `sx/download-panel`, variant `panel`, role `content`
    Purpose: Final install section: all install buttons, a QR code for desktop visitors, key app facts.
    - `title`: "Baixe o app Marlowe Club"

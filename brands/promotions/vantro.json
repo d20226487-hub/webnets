@@ -8,7 +8,8 @@
         "xx"
       ],
       "title": {
-        "en": "100% first deposit match in free bets"
+        "en": "100% first deposit match in free bets",
+        "ru": "100% к первому депозиту фрибетами"
       },
       "value": {
         "kind": "match",
@@ -24,13 +25,16 @@
         "max_bet": null,
         "expiry_days": 30,
         "eligible": {
-          "en": "New customers, 18+, one offer per person"
+          "en": "New customers, 18+, one offer per person",
+          "ru": "Новые клиенты, 18+, одно предложение на человека"
         },
         "excluded_payments": {
-          "en": "E-wallets"
+          "en": "E-wallets",
+          "ru": "Электронные кошельки"
         },
         "games": {
-          "en": "Sports bets only"
+          "en": "Sports bets only",
+          "ru": "Только ставки на спорт"
         }
       },
       "valid_from": "2026-10-01",

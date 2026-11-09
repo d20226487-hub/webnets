@@ -9,7 +9,8 @@
       ],
       "title": {
         "en": "Code MARLOWE50: 50% match on your first deposit",
-        "pt": "Código MARLOWE50: 50% no seu primeiro depósito"
+        "pt": "Código MARLOWE50: 50% no seu primeiro depósito",
+        "ru": "Код MARLOWE50: 50% к первому депозиту"
       },
       "value": {
         "kind": "match",
@@ -26,15 +27,18 @@
         "expiry_days": 21,
         "eligible": {
           "en": "New customers, 18+, one offer per person",
-          "pt": "Novos clientes, 18+, uma oferta por pessoa"
+          "pt": "Novos clientes, 18+, uma oferta por pessoa",
+          "ru": "Новые клиенты, 18+, одно предложение на человека"
         },
         "excluded_payments": {
           "en": "E-wallets and prepaid vouchers",
-          "pt": "Carteiras digitais e vouchers pré-pagos"
+          "pt": "Carteiras digitais e vouchers pré-pagos",
+          "ru": "Электронные кошельки и предоплаченные ваучеры"
         },
         "games": {
           "en": "Slots count 100%, live tables 10%",
-          "pt": "Slots contam 100%, mesas ao vivo 10%"
+          "pt": "Slots contam 100%, mesas ao vivo 10%",
+          "ru": "Слоты засчитываются на 100%, live-столы на 10%"
         }
       },
       "valid_from": "2026-10-01",
@@ -50,7 +54,8 @@
       ],
       "title": {
         "en": "Friday reload: 25% on one deposit",
-        "pt": "Recarga de sexta: 25% em um depósito"
+        "pt": "Recarga de sexta: 25% em um depósito",
+        "ru": "Пятничный бонус: 25% к одному депозиту"
       },
       "value": {
         "kind": "match",
@@ -67,15 +72,18 @@
         "expiry_days": 7,
         "eligible": {
           "en": "Verified customers, 18+, once per week",
-          "pt": "Clientes verificados, 18+, uma vez por semana"
+          "pt": "Clientes verificados, 18+, uma vez por semana",
+          "ru": "Проверенные клиенты, 18+, раз в неделю"
         },
         "excluded_payments": {
           "en": "E-wallets",
-          "pt": "Carteiras digitais"
+          "pt": "Carteiras digitais",
+          "ru": "Электронные кошельки"
         },
         "games": {
           "en": "Slots only",
-          "pt": "Somente slots"
+          "pt": "Somente slots",
+          "ru": "Только слоты"
         }
       },
       "valid_from": "2026-10-01",
@@ -129,7 +137,8 @@
       ],
       "title": {
         "en": "Marlowe Club points: free spins every level",
-        "pt": "Pontos Marlowe Club: giros grátis a cada nível"
+        "pt": "Pontos Marlowe Club: giros grátis a cada nível",
+        "ru": "Очки Marlowe Club: фриспины на каждом уровне"
       },
       "value": {
         "kind": "free_spins",
@@ -145,12 +154,14 @@
         "expiry_days": 30,
         "eligible": {
           "en": "All verified customers, 18+",
-          "pt": "Todos os clientes verificados, 18+"
+          "pt": "Todos os clientes verificados, 18+",
+          "ru": "Все проверенные клиенты, 18+"
         },
         "excluded_payments": null,
         "games": {
           "en": "Points from slots and live tables; spins on selected slots",
-          "pt": "Pontos em slots e mesas ao vivo; giros em slots selecionados"
+          "pt": "Pontos em slots e mesas ao vivo; giros em slots selecionados",
+          "ru": "Очки за слоты и live-столы; фриспины на избранных слотах"
         }
       },
       "valid_from": "2026-10-01",
