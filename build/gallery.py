@@ -65,7 +65,8 @@ def t(en, ru):
     return f'<span data-l="en">{esc(en)}</span><span data-l="ru">{esc(ru)}</span>'
 
 # local gallery only: link to the AI brief settings page (build/settings.php via build/local-router.php)
-SETTINGS_LINK = f'<p class="lede"><a href="/settings/" style="font-weight:600">{t("AI brief settings", "Настройки брифа для ИИ")} →</a></p>' if LOCAL else ''
+SETTINGS_LINK = (f'<p class="lede applinks"><a class="genlink" href="/generator/">{t("Open the generator", "Открыть генератор")} →</a>'
+                 f'<a href="/settings/" style="font-weight:600">{t("AI brief settings", "Настройки брифа для ИИ")} →</a></p>') if LOCAL else ''
 
 demos = []
 skipped = []
@@ -273,6 +274,10 @@ p {{ margin: 0; }}
 .kicker {{ font: 500 12px/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }}
 h1 {{ font: 700 clamp(2rem, 4.6vw, 3.4rem)/1.04 var(--f-display); letter-spacing: -.02em; max-width: 20ch; }}
 .lede {{ color: var(--muted); max-width: 66ch; font-size: 1.05rem; }}
+.applinks {{ display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; }}
+.genlink {{ display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px; background: var(--accent); color: var(--paper); font-weight: 650; text-decoration: none; }}
+.genlink:hover {{ filter: brightness(1.08); }}
+.genlink:focus-visible {{ outline: 2px solid var(--ink); outline-offset: 2px; }}
 .stats {{ display: flex; flex-wrap: wrap; gap: 8px 28px; padding: 0; margin: 0; list-style: none; font-variant-numeric: tabular-nums; }}
 .stats li {{ display: grid; }}
 .stats b {{ font: 700 1.9rem/1.1 var(--f-display); }}

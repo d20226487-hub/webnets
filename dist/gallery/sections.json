@@ -1,0 +1,850 @@
+[
+ {
+  "block": "app-hero",
+  "design": "apk-page",
+  "first_screen": true,
+  "page": "review/app-b-nyxa-kz/android-brand-apk-page.html",
+  "desktop": "gallery/sections/app-hero--apk-page-d.png",
+  "phone": "gallery/sections/app-hero--apk-page-m.png"
+ },
+ {
+  "block": "app-hero",
+  "design": "banner",
+  "first_screen": true,
+  "page": "generated/j40-app-multi-49/index.html",
+  "desktop": "gallery/sections/app-hero--banner-d.png",
+  "phone": "gallery/sections/app-hero--banner-m.png"
+ },
+ {
+  "block": "app-hero",
+  "design": "catalog",
+  "first_screen": true,
+  "page": "review/app-b-nyxa-kz/android-brand-catalog.html",
+  "desktop": "gallery/sections/app-hero--catalog-d.png",
+  "phone": "gallery/sections/app-hero--catalog-m.png"
+ },
+ {
+  "block": "app-hero",
+  "design": "device",
+  "first_screen": true,
+  "page": "review/app-b-nyxa-kz/index.html",
+  "desktop": "gallery/sections/app-hero--device-d.png",
+  "phone": "gallery/sections/app-hero--device-m.png"
+ },
+ {
+  "block": "app-hero",
+  "design": "hub",
+  "first_screen": true,
+  "page": "review/app-b-nyxa-kz/android-brand-hub.html",
+  "desktop": "gallery/sections/app-hero--hub-d.png",
+  "phone": "gallery/sections/app-hero--hub-m.png"
+ },
+ {
+  "block": "app-hero",
+  "design": "listing",
+  "first_screen": true,
+  "page": "review/app-a-vantro-au/index.html",
+  "desktop": "gallery/sections/app-hero--listing-d.png",
+  "phone": "gallery/sections/app-hero--listing-m.png"
+ },
+ {
+  "block": "app-hero",
+  "design": "qr-first",
+  "first_screen": true,
+  "page": "review/app-c-marlowe-br/index.html",
+  "desktop": "gallery/sections/app-hero--qr-first-d.png",
+  "phone": "gallery/sections/app-hero--qr-first-m.png"
+ },
+ {
+  "block": "app-hero",
+  "design": "stage",
+  "first_screen": true,
+  "page": "generated/j42-app-03/index.html",
+  "desktop": "gallery/sections/app-hero--stage-d.png",
+  "phone": "gallery/sections/app-hero--stage-m.png"
+ },
+ {
+  "block": "app-info",
+  "design": "chips",
+  "first_screen": false,
+  "page": "review/app-c-marlowe-br/index.html",
+  "desktop": "gallery/sections/app-info--chips-d.png",
+  "phone": "gallery/sections/app-info--chips-m.png"
+ },
+ {
+  "block": "app-info",
+  "design": "table",
+  "first_screen": false,
+  "page": "review/app-a-vantro-au/index.html",
+  "desktop": "gallery/sections/app-info--table-d.png",
+  "phone": "gallery/sections/app-info--table-m.png"
+ },
+ {
+  "block": "app-privacy",
+  "design": "appstore",
+  "first_screen": false,
+  "page": "review/app-b-nyxa-kz/android-brand-appstore.html",
+  "desktop": "gallery/sections/app-privacy--appstore-d.png",
+  "phone": "gallery/sections/app-privacy--appstore-m.png"
+ },
+ {
+  "block": "app-privacy",
+  "design": "play",
+  "first_screen": false,
+  "page": "review/app-b-nyxa-kz/android-brand-play.html",
+  "desktop": "gallery/sections/app-privacy--play-d.png",
+  "phone": "gallery/sections/app-privacy--play-m.png"
+ },
+ {
+  "block": "article-body",
+  "design": "banner",
+  "first_screen": true,
+  "page": "generated/j42-news-04/guides-boostwin-limity-i-pauza.html",
+  "desktop": "gallery/sections/article-body--banner-d.png",
+  "phone": "gallery/sections/article-body--banner-m.png"
+ },
+ {
+  "block": "article-body",
+  "design": "standard",
+  "first_screen": true,
+  "page": "review/news-a-au/guides-activity-statements.html",
+  "desktop": "gallery/sections/article-body--standard-d.png",
+  "phone": "gallery/sections/article-body--standard-m.png"
+ },
+ {
+  "block": "article-body",
+  "design": "toc-side",
+  "first_screen": true,
+  "page": "generated/j42-news-05/guides-kak-chitat-koefficienty.html",
+  "desktop": "gallery/sections/article-body--toc-side-d.png",
+  "phone": "gallery/sections/article-body--toc-side-m.png"
+ },
+ {
+  "block": "article-lead",
+  "design": "list",
+  "first_screen": true,
+  "page": "review/news-c-kz/index.html",
+  "desktop": "gallery/sections/article-lead--list-d.png",
+  "phone": "gallery/sections/article-lead--list-m.png"
+ },
+ {
+  "block": "article-lead",
+  "design": "split",
+  "first_screen": true,
+  "page": "review/news-a-au/index.html",
+  "desktop": "gallery/sections/article-lead--split-d.png",
+  "phone": "gallery/sections/article-lead--split-m.png"
+ },
+ {
+  "block": "article-lead",
+  "design": "stack",
+  "first_screen": true,
+  "page": "review/news-b-br/index.html",
+  "desktop": "gallery/sections/article-lead--stack-d.png",
+  "phone": "gallery/sections/article-lead--stack-m.png"
+ },
+ {
+  "block": "article-list",
+  "design": "cards",
+  "first_screen": false,
+  "page": "review/news-a-au/index.html",
+  "desktop": "gallery/sections/article-list--cards-d.png",
+  "phone": "gallery/sections/article-list--cards-m.png"
+ },
+ {
+  "block": "article-list",
+  "design": "list",
+  "first_screen": false,
+  "page": "review/news-a-au/index.html",
+  "desktop": "gallery/sections/article-list--list-d.png",
+  "phone": "gallery/sections/article-list--list-m.png"
+ },
+ {
+  "block": "article-list",
+  "design": "rail",
+  "first_screen": false,
+  "page": "review/news-a-au/index.html",
+  "desktop": "gallery/sections/article-list--rail-d.png",
+  "phone": "gallery/sections/article-list--rail-m.png"
+ },
+ {
+  "block": "brand-header",
+  "design": "split",
+  "first_screen": true,
+  "page": "review/casinos-a-br/analise-cobaltio.html",
+  "desktop": "gallery/sections/brand-header--split-d.png",
+  "phone": "gallery/sections/brand-header--split-m.png"
+ },
+ {
+  "block": "changelog",
+  "design": "list",
+  "first_screen": false,
+  "page": "review/app-a-vantro-au/index.html",
+  "desktop": "gallery/sections/changelog--list-d.png",
+  "phone": "gallery/sections/changelog--list-m.png"
+ },
+ {
+  "block": "compare-table",
+  "design": "table",
+  "first_screen": false,
+  "page": "review/casinos1-b-xx/index.html",
+  "desktop": "gallery/sections/compare-table--table-d.png",
+  "phone": "gallery/sections/compare-table--table-m.png"
+ },
+ {
+  "block": "criteria",
+  "design": "list",
+  "first_screen": false,
+  "page": "review/casinos1-b-xx/index.html",
+  "desktop": "gallery/sections/criteria--list-d.png",
+  "phone": "gallery/sections/criteria--list-m.png"
+ },
+ {
+  "block": "cta-band",
+  "design": "solid",
+  "first_screen": false,
+  "page": "review/a-vantro-au/index.html",
+  "desktop": "gallery/sections/cta-band--solid-d.png",
+  "phone": "gallery/sections/cta-band--solid-m.png"
+ },
+ {
+  "block": "cta-band",
+  "design": "split",
+  "first_screen": false,
+  "page": "review/b-nyxa-xx/index.html",
+  "desktop": "gallery/sections/cta-band--split-d.png",
+  "phone": "gallery/sections/cta-band--split-m.png"
+ },
+ {
+  "block": "download-panel",
+  "design": "panel",
+  "first_screen": false,
+  "page": "review/app-a-vantro-au/index.html",
+  "desktop": "gallery/sections/download-panel--panel-d.png",
+  "phone": "gallery/sections/download-panel--panel-m.png"
+ },
+ {
+  "block": "editor-box",
+  "design": "card",
+  "first_screen": false,
+  "page": "review/reviews-a-nyxa-kz/index.html",
+  "desktop": "gallery/sections/editor-box--card-d.png",
+  "phone": "gallery/sections/editor-box--card-m.png"
+ },
+ {
+  "block": "facts-table",
+  "design": "table",
+  "first_screen": false,
+  "page": "review/casinos-a-br/analise-cobaltio.html",
+  "desktop": "gallery/sections/facts-table--table-d.png",
+  "phone": "gallery/sections/facts-table--table-m.png"
+ },
+ {
+  "block": "faq",
+  "design": "accordion",
+  "first_screen": false,
+  "page": "review/a-vantro-au/index.html",
+  "desktop": "gallery/sections/faq--accordion-d.png",
+  "phone": "gallery/sections/faq--accordion-m.png"
+ },
+ {
+  "block": "faq",
+  "design": "columns",
+  "first_screen": false,
+  "page": "review/app-b-nyxa-kz/index.html",
+  "desktop": "gallery/sections/faq--columns-d.png",
+  "phone": "gallery/sections/faq--columns-m.png"
+ },
+ {
+  "block": "features",
+  "design": "bento",
+  "first_screen": false,
+  "page": "review/app-c-marlowe-br/index.html",
+  "desktop": "gallery/sections/features--bento-d.png",
+  "phone": "gallery/sections/features--bento-m.png"
+ },
+ {
+  "block": "features",
+  "design": "grid",
+  "first_screen": false,
+  "page": "review/a-vantro-au/index.html",
+  "desktop": "gallery/sections/features--grid-d.png",
+  "phone": "gallery/sections/features--grid-m.png"
+ },
+ {
+  "block": "features",
+  "design": "rows",
+  "first_screen": false,
+  "page": "review/app-b-nyxa-kz/index.html",
+  "desktop": "gallery/sections/features--rows-d.png",
+  "phone": "gallery/sections/features--rows-m.png"
+ },
+ {
+  "block": "game-grid",
+  "design": "grid",
+  "first_screen": false,
+  "page": "review/vendor-a-marlowe-br/index.html",
+  "desktop": "gallery/sections/game-grid--grid-d.png",
+  "phone": "gallery/sections/game-grid--grid-m.png"
+ },
+ {
+  "block": "game-grid",
+  "design": "strip",
+  "first_screen": false,
+  "page": "review/vendor-a-marlowe-br/index.html",
+  "desktop": "gallery/sections/game-grid--strip-d.png",
+  "phone": "gallery/sections/game-grid--strip-m.png"
+ },
+ {
+  "block": "game-grid",
+  "design": "table",
+  "first_screen": false,
+  "page": "review/vendor-b-nyxa-xx/index.html",
+  "desktop": "gallery/sections/game-grid--table-d.png",
+  "phone": "gallery/sections/game-grid--table-m.png"
+ },
+ {
+  "block": "hero",
+  "design": "centered",
+  "first_screen": false,
+  "page": "generated/j42-landing-05/index.html",
+  "desktop": "gallery/sections/hero--centered-d.png",
+  "phone": "gallery/sections/hero--centered-m.png"
+ },
+ {
+  "block": "hero",
+  "design": "full-bleed",
+  "first_screen": true,
+  "page": "review/c-marlowe-br/index.html",
+  "desktop": "gallery/sections/hero--full-bleed-d.png",
+  "phone": "gallery/sections/hero--full-bleed-m.png"
+ },
+ {
+  "block": "hero",
+  "design": "scoreboard",
+  "first_screen": true,
+  "page": "review/a-vantro-au/index.html",
+  "desktop": "gallery/sections/hero--scoreboard-d.png",
+  "phone": "gallery/sections/hero--scoreboard-m.png"
+ },
+ {
+  "block": "hero",
+  "design": "split",
+  "first_screen": false,
+  "page": "review/b-nyxa-xx/index.html",
+  "desktop": "gallery/sections/hero--split-d.png",
+  "phone": "gallery/sections/hero--split-m.png"
+ },
+ {
+  "block": "hero",
+  "design": "stat-led",
+  "first_screen": true,
+  "page": "review/sat-a-vantro-au/index.html",
+  "desktop": "gallery/sections/hero--stat-led-d.png",
+  "phone": "gallery/sections/hero--stat-led-m.png"
+ },
+ {
+  "block": "install-guide",
+  "design": "side-by-side",
+  "first_screen": false,
+  "page": "review/app-b-nyxa-kz/index.html",
+  "desktop": "gallery/sections/install-guide--side-by-side-d.png",
+  "phone": "gallery/sections/install-guide--side-by-side-m.png"
+ },
+ {
+  "block": "install-guide",
+  "design": "tabs",
+  "first_screen": false,
+  "page": "review/app-c-marlowe-br/index.html",
+  "desktop": "gallery/sections/install-guide--tabs-d.png",
+  "phone": "gallery/sections/install-guide--tabs-m.png"
+ },
+ {
+  "block": "offer-hero",
+  "design": "banner",
+  "first_screen": true,
+  "page": "review/promo-b-nyxa-xx/banners.html",
+  "desktop": "gallery/sections/offer-hero--banner-d.png",
+  "phone": "gallery/sections/offer-hero--banner-m.png"
+ },
+ {
+  "block": "offer-hero",
+  "design": "centered-code",
+  "first_screen": true,
+  "page": "review/promo-c-marlowe-xx/index.html",
+  "desktop": "gallery/sections/offer-hero--centered-code-d.png",
+  "phone": "gallery/sections/offer-hero--centered-code-m.png"
+ },
+ {
+  "block": "offer-hero",
+  "design": "code-ticket",
+  "first_screen": true,
+  "page": "review/promo-a-vantro-xx/index.html",
+  "desktop": "gallery/sections/offer-hero--code-ticket-d.png",
+  "phone": "gallery/sections/offer-hero--code-ticket-m.png"
+ },
+ {
+  "block": "offer-hero",
+  "design": "split-offer",
+  "first_screen": true,
+  "page": "review/promo-b-nyxa-xx/index.html",
+  "desktop": "gallery/sections/offer-hero--split-offer-d.png",
+  "phone": "gallery/sections/offer-hero--split-offer-m.png"
+ },
+ {
+  "block": "page-hero",
+  "design": "answer",
+  "first_screen": true,
+  "page": "review/appm-a-vantro-au/features.html",
+  "desktop": "gallery/sections/page-hero--answer-d.png",
+  "phone": "gallery/sections/page-hero--answer-m.png"
+ },
+ {
+  "block": "page-hero",
+  "design": "compact",
+  "first_screen": true,
+  "page": "review/appm-a-vantro-au/android.html",
+  "desktop": "gallery/sections/page-hero--compact-d.png",
+  "phone": "gallery/sections/page-hero--compact-m.png"
+ },
+ {
+  "block": "page-links",
+  "design": "cards",
+  "first_screen": false,
+  "page": "review/casinos-a-br/index.html",
+  "desktop": "gallery/sections/page-links--cards-d.png",
+  "phone": "gallery/sections/page-links--cards-m.png"
+ },
+ {
+  "block": "page-links",
+  "design": "list",
+  "first_screen": false,
+  "page": "review/appm-a-vantro-au/index.html",
+  "desktop": "gallery/sections/page-links--list-d.png",
+  "phone": "gallery/sections/page-links--list-m.png"
+ },
+ {
+  "block": "payments",
+  "design": "table",
+  "first_screen": false,
+  "page": "review/b-nyxa-xx/index.html",
+  "desktop": "gallery/sections/payments--table-d.png",
+  "phone": "gallery/sections/payments--table-m.png"
+ },
+ {
+  "block": "payments",
+  "design": "tiles",
+  "first_screen": false,
+  "page": "review/sat-b-nyxa-xx/both-full-hub-payments.html",
+  "desktop": "gallery/sections/payments--tiles-d.png",
+  "phone": "gallery/sections/payments--tiles-m.png"
+ },
+ {
+  "block": "promo-list",
+  "design": "banners",
+  "first_screen": true,
+  "page": "review/b-nyxa-xx/index.html",
+  "desktop": "gallery/sections/promo-list--banners-d.png",
+  "phone": "gallery/sections/promo-list--banners-m.png"
+ },
+ {
+  "block": "promo-list",
+  "design": "cards",
+  "first_screen": false,
+  "page": "review/promo-a-vantro-xx/index.html",
+  "desktop": "gallery/sections/promo-list--cards-d.png",
+  "phone": "gallery/sections/promo-list--cards-m.png"
+ },
+ {
+  "block": "promo-list",
+  "design": "list",
+  "first_screen": true,
+  "page": "generated/j42-landing-05/index.html",
+  "desktop": "gallery/sections/promo-list--list-d.png",
+  "phone": "gallery/sections/promo-list--list-m.png"
+ },
+ {
+  "block": "promo-terms",
+  "design": "checklist",
+  "first_screen": false,
+  "page": "review/promo-b-nyxa-xx/index.html",
+  "desktop": "gallery/sections/promo-terms--checklist-d.png",
+  "phone": "gallery/sections/promo-terms--checklist-m.png"
+ },
+ {
+  "block": "promo-terms",
+  "design": "table",
+  "first_screen": false,
+  "page": "review/promo-a-vantro-xx/index.html",
+  "desktop": "gallery/sections/promo-terms--table-d.png",
+  "phone": "gallery/sections/promo-terms--table-m.png"
+ },
+ {
+  "block": "pros-cons",
+  "design": "columns",
+  "first_screen": false,
+  "page": "review/casinos-a-br/analise-cobaltio.html",
+  "desktop": "gallery/sections/pros-cons--columns-d.png",
+  "phone": "gallery/sections/pros-cons--columns-m.png"
+ },
+ {
+  "block": "prose",
+  "design": "article",
+  "first_screen": false,
+  "page": "review/appm-a-vantro-au/help.html",
+  "desktop": "gallery/sections/prose--article-d.png",
+  "phone": "gallery/sections/prose--article-m.png"
+ },
+ {
+  "block": "prose",
+  "design": "toc-side",
+  "first_screen": false,
+  "page": "review/appm-a-vantro-au/features.html",
+  "desktop": "gallery/sections/prose--toc-side-d.png",
+  "phone": "gallery/sections/prose--toc-side-m.png"
+ },
+ {
+  "block": "provider-links",
+  "design": "chips",
+  "first_screen": false,
+  "page": "review/vendor-a-marlowe-br/index.html",
+  "desktop": "gallery/sections/provider-links--chips-d.png",
+  "phone": "gallery/sections/provider-links--chips-m.png"
+ },
+ {
+  "block": "provider-links",
+  "design": "logos-text",
+  "first_screen": false,
+  "page": "review/vendor-c-marlowe-xx/index.html",
+  "desktop": "gallery/sections/provider-links--logos-text-d.png",
+  "phone": "gallery/sections/provider-links--logos-text-m.png"
+ },
+ {
+  "block": "rating-summary",
+  "design": "band",
+  "first_screen": true,
+  "page": "review/reviews-b-marlowe-br/index.html",
+  "desktop": "gallery/sections/rating-summary--band-d.png",
+  "phone": "gallery/sections/rating-summary--band-m.png"
+ },
+ {
+  "block": "rating-summary",
+  "design": "board",
+  "first_screen": true,
+  "page": "review/reviews-a-nyxa-kz/index.html",
+  "desktop": "gallery/sections/rating-summary--board-d.png",
+  "phone": "gallery/sections/rating-summary--board-m.png"
+ },
+ {
+  "block": "rating-summary",
+  "design": "quotes",
+  "first_screen": true,
+  "page": "review/reviews-c-vantro-au/index.html",
+  "desktop": "gallery/sections/rating-summary--quotes-d.png",
+  "phone": "gallery/sections/rating-summary--quotes-m.png"
+ },
+ {
+  "block": "rating-summary",
+  "design": "strip",
+  "first_screen": true,
+  "page": "review/reviews-a-nyxa-kz/off-compact-payout-reviews.html",
+  "desktop": "gallery/sections/rating-summary--strip-d.png",
+  "phone": "gallery/sections/rating-summary--strip-m.png"
+ },
+ {
+  "block": "review-form",
+  "design": "card",
+  "first_screen": false,
+  "page": "review/reviews-a-nyxa-kz/off-compact-write-a-review.html",
+  "desktop": "gallery/sections/review-form--card-d.png",
+  "phone": "gallery/sections/review-form--card-m.png"
+ },
+ {
+  "block": "review-list",
+  "design": "cards",
+  "first_screen": false,
+  "page": "review/reviews-a-nyxa-kz/index.html",
+  "desktop": "gallery/sections/review-list--cards-d.png",
+  "phone": "gallery/sections/review-list--cards-m.png"
+ },
+ {
+  "block": "review-list",
+  "design": "compact",
+  "first_screen": false,
+  "page": "review/reviews-b-marlowe-br/index.html",
+  "desktop": "gallery/sections/review-list--compact-d.png",
+  "phone": "gallery/sections/review-list--compact-m.png"
+ },
+ {
+  "block": "review-list",
+  "design": "verified",
+  "first_screen": false,
+  "page": "review/reviews-a-nyxa-kz/off-verified-index.html",
+  "desktop": "gallery/sections/review-list--verified-d.png",
+  "phone": "gallery/sections/review-list--verified-m.png"
+ },
+ {
+  "block": "rtp-explainer",
+  "design": "card",
+  "first_screen": false,
+  "page": "review/vendor-b-nyxa-xx/index.html",
+  "desktop": "gallery/sections/rtp-explainer--card-d.png",
+  "phone": "gallery/sections/rtp-explainer--card-m.png"
+ },
+ {
+  "block": "rtp-explainer",
+  "design": "inline",
+  "first_screen": false,
+  "page": "review/vendor-a-marlowe-br/index.html",
+  "desktop": "gallery/sections/rtp-explainer--inline-d.png",
+  "phone": "gallery/sections/rtp-explainer--inline-m.png"
+ },
+ {
+  "block": "score-box",
+  "design": "rows",
+  "first_screen": false,
+  "page": "review/casinos-a-br/analise-cobaltio.html",
+  "desktop": "gallery/sections/score-box--rows-d.png",
+  "phone": "gallery/sections/score-box--rows-m.png"
+ },
+ {
+  "block": "screenshots",
+  "design": "carousel",
+  "first_screen": false,
+  "page": "review/app-a-vantro-au/index.html",
+  "desktop": "gallery/sections/screenshots--carousel-d.png",
+  "phone": "gallery/sections/screenshots--carousel-m.png"
+ },
+ {
+  "block": "screenshots",
+  "design": "fan",
+  "first_screen": false,
+  "page": "review/app-b-nyxa-kz/index.html",
+  "desktop": "gallery/sections/screenshots--fan-d.png",
+  "phone": "gallery/sections/screenshots--fan-m.png"
+ },
+ {
+  "block": "screenshots",
+  "design": "grid",
+  "first_screen": false,
+  "page": "review/app-c-marlowe-br/index.html",
+  "desktop": "gallery/sections/screenshots--grid-d.png",
+  "phone": "gallery/sections/screenshots--grid-m.png"
+ },
+ {
+  "block": "showcase",
+  "design": "game-strip",
+  "first_screen": false,
+  "page": "review/b-nyxa-xx/index.html",
+  "desktop": "gallery/sections/showcase--game-strip-d.png",
+  "phone": "gallery/sections/showcase--game-strip-m.png"
+ },
+ {
+  "block": "showcase",
+  "design": "odds-board",
+  "first_screen": false,
+  "page": "review/a-vantro-au/index.html",
+  "desktop": "gallery/sections/showcase--odds-board-d.png",
+  "phone": "gallery/sections/showcase--odds-board-m.png"
+ },
+ {
+  "block": "steps",
+  "design": "row",
+  "first_screen": false,
+  "page": "review/a-vantro-au/index.html",
+  "desktop": "gallery/sections/steps--row-d.png",
+  "phone": "gallery/sections/steps--row-m.png"
+ },
+ {
+  "block": "steps",
+  "design": "timeline",
+  "first_screen": false,
+  "page": "review/b-nyxa-xx/index.html",
+  "desktop": "gallery/sections/steps--timeline-d.png",
+  "phone": "gallery/sections/steps--timeline-m.png"
+ },
+ {
+  "block": "store-about",
+  "design": "appstore",
+  "first_screen": false,
+  "page": "review/app-b-nyxa-kz/android-brand-appstore.html",
+  "desktop": "gallery/sections/store-about--appstore-d.png",
+  "phone": "gallery/sections/store-about--appstore-m.png"
+ },
+ {
+  "block": "store-about",
+  "design": "play",
+  "first_screen": false,
+  "page": "review/app-b-nyxa-kz/android-brand-play.html",
+  "desktop": "gallery/sections/store-about--play-d.png",
+  "phone": "gallery/sections/store-about--play-m.png"
+ },
+ {
+  "block": "store-header",
+  "design": "appstore",
+  "first_screen": true,
+  "page": "review/app-b-nyxa-kz/android-brand-appstore.html",
+  "desktop": "gallery/sections/store-header--appstore-d.png",
+  "phone": "gallery/sections/store-header--appstore-m.png"
+ },
+ {
+  "block": "store-header",
+  "design": "play",
+  "first_screen": true,
+  "page": "review/app-b-nyxa-kz/android-brand-play.html",
+  "desktop": "gallery/sections/store-header--play-d.png",
+  "phone": "gallery/sections/store-header--play-m.png"
+ },
+ {
+  "block": "store-reviews",
+  "design": "appstore",
+  "first_screen": false,
+  "page": "review/app-b-nyxa-kz/android-brand-appstore.html",
+  "desktop": "gallery/sections/store-reviews--appstore-d.png",
+  "phone": "gallery/sections/store-reviews--appstore-m.png"
+ },
+ {
+  "block": "store-reviews",
+  "design": "play",
+  "first_screen": false,
+  "page": "review/app-b-nyxa-kz/android-brand-play.html",
+  "desktop": "gallery/sections/store-reviews--play-d.png",
+  "phone": "gallery/sections/store-reviews--play-m.png"
+ },
+ {
+  "block": "topic-scores",
+  "design": "bars",
+  "first_screen": false,
+  "page": "review/reviews-a-nyxa-kz/index.html",
+  "desktop": "gallery/sections/topic-scores--bars-d.png",
+  "phone": "gallery/sections/topic-scores--bars-m.png"
+ },
+ {
+  "block": "topic-scores",
+  "design": "grid",
+  "first_screen": false,
+  "page": "review/reviews-b-marlowe-br/index.html",
+  "desktop": "gallery/sections/topic-scores--grid-d.png",
+  "phone": "gallery/sections/topic-scores--grid-m.png"
+ },
+ {
+  "block": "toplist",
+  "design": "cards",
+  "first_screen": true,
+  "page": "review/casinos-a-br/index.html",
+  "desktop": "gallery/sections/toplist--cards-d.png",
+  "phone": "gallery/sections/toplist--cards-m.png"
+ },
+ {
+  "block": "toplist",
+  "design": "claim-cards",
+  "first_screen": true,
+  "page": "review/casinos-b-xx/both-app-claim-cards-index.html",
+  "desktop": "gallery/sections/toplist--claim-cards-d.png",
+  "phone": "gallery/sections/toplist--claim-cards-m.png"
+ },
+ {
+  "block": "toplist",
+  "design": "grid",
+  "first_screen": true,
+  "page": "generated/j40-casinos-one-35/index.html",
+  "desktop": "gallery/sections/toplist--grid-d.png",
+  "phone": "gallery/sections/toplist--grid-m.png"
+ },
+ {
+  "block": "toplist",
+  "design": "list",
+  "first_screen": false,
+  "page": "review/casinos-a-br/analise-cobaltio.html",
+  "desktop": "gallery/sections/toplist--list-d.png",
+  "phone": "gallery/sections/toplist--list-m.png"
+ },
+ {
+  "block": "toplist",
+  "design": "logo-grid",
+  "first_screen": true,
+  "page": "review/casinos-b-xx/both-app-logo-grid-index.html",
+  "desktop": "gallery/sections/toplist--logo-grid-d.png",
+  "phone": "gallery/sections/toplist--logo-grid-m.png"
+ },
+ {
+  "block": "toplist",
+  "design": "offer-cards",
+  "first_screen": true,
+  "page": "review/casinos-b-xx/both-app-offer-cards-index.html",
+  "desktop": "gallery/sections/toplist--offer-cards-d.png",
+  "phone": "gallery/sections/toplist--offer-cards-m.png"
+ },
+ {
+  "block": "toplist",
+  "design": "podium",
+  "first_screen": true,
+  "page": "review/casinos-c-xx/index.html",
+  "desktop": "gallery/sections/toplist--podium-d.png",
+  "phone": "gallery/sections/toplist--podium-m.png"
+ },
+ {
+  "block": "toplist",
+  "design": "portal",
+  "first_screen": true,
+  "page": "review/casinos-b-xx/both-app-portal-index.html",
+  "desktop": "gallery/sections/toplist--portal-d.png",
+  "phone": "gallery/sections/toplist--portal-m.png"
+ },
+ {
+  "block": "toplist",
+  "design": "spotlight",
+  "first_screen": true,
+  "page": "generated/j42-casinos-03/bystryj-vyvod.html",
+  "desktop": "gallery/sections/toplist--spotlight-d.png",
+  "phone": "gallery/sections/toplist--spotlight-m.png"
+ },
+ {
+  "block": "toplist",
+  "design": "table",
+  "first_screen": true,
+  "page": "review/casinos-b-xx/index.html",
+  "desktop": "gallery/sections/toplist--table-d.png",
+  "phone": "gallery/sections/toplist--table-m.png"
+ },
+ {
+  "block": "trust-bar",
+  "design": "badges",
+  "first_screen": false,
+  "page": "review/app-a-vantro-au/index.html",
+  "desktop": "gallery/sections/trust-bar--badges-d.png",
+  "phone": "gallery/sections/trust-bar--badges-m.png"
+ },
+ {
+  "block": "trust-bar",
+  "design": "strip",
+  "first_screen": false,
+  "page": "review/a-vantro-au/index.html",
+  "desktop": "gallery/sections/trust-bar--strip-d.png",
+  "phone": "gallery/sections/trust-bar--strip-m.png"
+ },
+ {
+  "block": "vendor-hero",
+  "design": "spotlight",
+  "first_screen": true,
+  "page": "review/vendor-a-marlowe-br/index.html",
+  "desktop": "gallery/sections/vendor-hero--spotlight-d.png",
+  "phone": "gallery/sections/vendor-hero--spotlight-m.png"
+ },
+ {
+  "block": "vendor-hero",
+  "design": "stats",
+  "first_screen": true,
+  "page": "review/vendor-b-nyxa-xx/index.html",
+  "desktop": "gallery/sections/vendor-hero--stats-d.png",
+  "phone": "gallery/sections/vendor-hero--stats-m.png"
+ },
+ {
+  "block": "vendor-hero",
+  "design": "studio-banner",
+  "first_screen": true,
+  "page": "review/vendor-c-marlowe-xx/index.html",
+  "desktop": "gallery/sections/vendor-hero--studio-banner-d.png",
+  "phone": "gallery/sections/vendor-hero--studio-banner-m.png"
+ }
+]

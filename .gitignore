@@ -1,10 +1,12 @@
-# Build output: only what the local gallery needs is kept (dist/index.html, gallery screenshots, review pages, AI briefs).
+# Build output: only what the local gallery needs is kept (dist/index.html, gallery screenshots, section pictures, review pages, AI briefs).
 dist/*
 !dist/index.html
 !dist/gallery/
 dist/gallery/*
 !dist/gallery/gallery.html
 !dist/gallery/shots/
+!dist/gallery/sections/
+!dist/gallery/sections.json
 !dist/review/
 dist/review/*.html
 !dist/ai/

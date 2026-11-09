@@ -32,6 +32,10 @@ p { margin: 0; }
 .kicker { font: 500 12px/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
 h1 { font: 700 clamp(2rem, 4.6vw, 3.4rem)/1.04 var(--f-display); letter-spacing: -.02em; max-width: 20ch; }
 .lede { color: var(--muted); max-width: 66ch; font-size: 1.05rem; }
+.applinks { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; }
+.genlink { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px; background: var(--accent); color: var(--paper); font-weight: 650; text-decoration: none; }
+.genlink:hover { filter: brightness(1.08); }
+.genlink:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 .stats { display: flex; flex-wrap: wrap; gap: 8px 28px; padding: 0; margin: 0; list-style: none; font-variant-numeric: tabular-nums; }
 .stats li { display: grid; }
 .stats b { font: 700 1.9rem/1.1 var(--f-display); }
@@ -122,7 +126,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
   <header class="top">
     <h1><span data-l="en">Every site type, every demo</span><span data-l="ru">Все типы сайтов, все демо</span></h1>
     <p class="lede"><span data-l="en">Home pages of all demo sites built from the shared block library, shown at desktop and phone width. Brands, numbers and reviews are fictional. Open a demo to click through its pages.</span><span data-l="ru">Главные страницы всех демо-сайтов, собранных из общей библиотеки блоков, на компьютере и на телефоне. Бренды, цифры и отзывы вымышлены. Откройте демо, чтобы пройтись по его страницам.</span></p>
-    <p class="lede"><a href="/settings/" style="font-weight:600"><span data-l="en">AI brief settings</span><span data-l="ru">Настройки брифа для ИИ</span> →</a></p>
+    <p class="lede applinks"><a class="genlink" href="/generator/"><span data-l="en">Open the generator</span><span data-l="ru">Открыть генератор</span> →</a><a href="/settings/" style="font-weight:600"><span data-l="en">AI brief settings</span><span data-l="ru">Настройки брифа для ИИ</span> →</a></p>
     <ul class="stats">
       <li><b>10</b><span><span data-l="en">of 10 site types built</span><span data-l="ru">из 10 типов сайтов готово</span></span></li>
       <li><b>28</b><span><span data-l="en">demo sites</span><span data-l="ru">демо-сайтов</span></span></li>
@@ -1604,7 +1608,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
       </article>
     </section>
   </div>
-  <footer><p><span data-l="en">Screenshots and review links show the current builds as of 7 Nov 2026.</span><span data-l="ru">Скриншоты и ссылки показывают текущие сборки на 7 ноября 2026 года.</span></p></footer>
+  <footer><p><span data-l="en">Screenshots and review links show the current builds as of 9 Nov 2026.</span><span data-l="ru">Скриншоты и ссылки показывают текущие сборки на 9 ноября 2026 года.</span></p></footer>
 </div>
 
 <script>
