@@ -303,7 +303,7 @@ difference checks (Code %, Visual %, how many times it was rebuilt to meet them)
 in the job, in the project's other jobs and in every other job, by code (with the DOM-tree difference) and visually.
 
 
-**Editing (phase 3):** the job page opens in View mode; **Edit mode** shows **Edit all** next to each type and
+**Editing (phase 3):** the job page shows **Edit all** next to each type and
 **Edit** on each site card. The editor (`#/j/<job>/type/<type>` for all sites of a type in the job, `#/s/<site>` for
 one site) sets, each on Automatic unless changed: the style (a preset, light / dark), the three colours, the desktop
 navigation (top menu, sidebar left / right, hub on satellites), the sidebar look, the phone menu (side, how it opens,

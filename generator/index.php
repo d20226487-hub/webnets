@@ -555,11 +555,8 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
 
   /* ---------- job: gallery, differences, mobile checks */
   var PER_PAGE = 10, PAGE = {};
-  var EDIT = false; // job page mode: View (default) or Edit (editing links on every type and site)
-  try { EDIT = localStorage.getItem('gen-edit') === '1'; } catch (e) {}
+  var EDIT = true; // the job page always shows "Edit all" on each type and "Edit" on each site (hidden while building)
   var BRIEFS = { open: false, off: {} }; // job page: the AI briefs download panel, and the site types left out
-  var TIP_SEEN = false; // the edit-mode tip, closed once
-  try { TIP_SEEN = localStorage.getItem('gen-edit-tip') === '1'; } catch (e) {}
   function saveScroll() { try { sessionStorage.setItem('scroll:' + location.hash, String(window.scrollY)); } catch (e) {} }
   var scrollTimer = null;
   window.addEventListener('scroll', function () { clearTimeout(scrollTimer); scrollTimer = setTimeout(saveScroll, 150); });
@@ -677,7 +674,6 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
       }
       document.getElementById('jobhead').innerHTML = '<div class="row"><h2>' + esc(j.name) + '</h2><span class="chip">' + esc(j.market.toUpperCase()) + '</span><span class="sp"></span>'
         + (j.status === 'stopped' ? '<button id="retry" class="primary">' + L('Continue the build') + '</button>' : failed && !running ? '<button id="retry">' + L('Retry failed ({0})', failed) + '</button>' : '')
-        + (running ? '' : '<button id="emode" class="' + (EDIT ? 'primary' : '') + '" aria-pressed="' + EDIT + '" title="' + L('Shows the links to edit a whole type or a single site') + '">' + (EDIT ? L('Done editing') : L('Edit mode')) + '</button>')
         + (running ? '' : '<a class="btn" href="#/j/' + j.id + '/edit">' + L('Edit job') + '</a><button id="restyle" title="' + L('New seed, style, palette and hero layout for every site; the variations stay') + '">' + L('New looks') + '</button><button id="rebuild" title="' + L('Same plans (seeds, styles, variations), current engine; sites under the difference thresholds are re-planned') + '">' + L('Rebuild all') + '</button>') + (built ? '<button id="briefs" aria-expanded="' + BRIEFS.open + '" aria-controls="bpanel">' + L('AI briefs') + ' ↓</button>' : '') + '<button class="danger" id="delj">' + L('Delete job') + '</button></div>'
         + (built && BRIEFS.open ? briefPanel(j, d) : '')
         + '<div style="margin:6px 0 2px;font-size:14px"><label style="display:inline-flex;gap:8px;align-items:center"><input type="checkbox" id="jcmp"' + (+j.compare ? ' checked' : '') + '> ' + L('Count this job in comparisons') + '</label>'
@@ -689,7 +685,6 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         : running ? '<div class="notice" role="status"><span class="spin" aria-hidden="true"></span><span><b>' + (j.status === 'checking' ? L('Checking the differences') : j.status === 'planned' ? L('Starting the build') : L('Rebuilding: {0} of {1} sites done', built, d.sites.length)) + '.</b> '
           + (j.status === 'checking' ? L('Screenshots are compared site by site; a site that looks too alike is rebuilt, so its card can still change.') : L('Sites are built one by one; each card comes back when its site is ready.'))
           + ' ' + L('The comparison table updates when the job is done. You can leave this page; the build carries on.') + '</span></div>' : '')
-        + (EDIT && !running && !TIP_SEEN ? '<p class="note" id="etip" style="display:flex;gap:12px;align-items:flex-start"><span style="flex:1">' + L('Edit mode: change a whole type with “Edit all” next to its name, or one site with “Edit” on its card. Your settings stay when the job is rebuilt.') + '</span><button type="button" id="etipx" aria-label="' + L('Close') + '" style="padding:2px 8px;line-height:1">×</button></p>' : '')
         + '<p class="err" id="jerr" hidden></p>';
       var dEl = document.getElementById('diff');
       dEl.classList.toggle('stale', running);
@@ -728,11 +723,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
       del.onclick = function () { if (confirm(L('Delete this job and its sites?'))) api('jobs/' + id, null, 'DELETE').then(function () { location.hash = '#/p/' + j.project_id; }).catch(jerr); };
       var retry = document.getElementById('retry');
       if (retry) retry.onclick = function () { retry.disabled = true; retry.textContent = L('Starting…'); api('jobs/' + id + '/retry', null, 'POST').then(function () { job(id); }).catch(jerr); };
-      var em = document.getElementById('emode');
-      if (em) em.onclick = function () { EDIT = !EDIT; try { localStorage.setItem('gen-edit', EDIT ? '1' : '0'); } catch (e) {} job(id, true); };
       briefWire(j, d);
-      var tipx = document.getElementById('etipx'); // the edit-mode tip, once closed, stays closed
-      if (tipx) tipx.onclick = function () { TIP_SEEN = true; try { localStorage.setItem('gen-edit-tip', '1'); } catch (e) {} var t = document.getElementById('etip'); if (t) t.remove(); };
       var cmp = document.getElementById('jcmp');
       cmp.onchange = function () { cmp.disabled = true; api('jobs/' + id + '/compare', { compare: cmp.checked }, 'PUT').then(function () { cmp.disabled = false; diff(id, d); }).catch(function (x) { cmp.disabled = false; cmp.checked = !cmp.checked; jerr(x); }); };
       var rs = document.getElementById('restyle');
