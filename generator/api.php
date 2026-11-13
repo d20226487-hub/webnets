@@ -1,5 +1,37 @@
 <?php
 /** Generator JSON API, routed from generator/index.php: /generator/api/<path>. */
+
+// PHP's own errors never go into the answer as HTML (the app would only see "not valid JSON"): they go to the server
+// log, and a fatal error or an uncaught exception comes back as JSON {error} with its message, file and line.
+ini_set('display_errors', '0');
+ini_set('log_errors', '1');
+set_exception_handler(function (Throwable $e) {
+    error_log('Generator API: ' . $e);
+    gen_api_fail(get_class($e) . ': ' . $e->getMessage() . ' (' . basename($e->getFile()) . ':' . $e->getLine() . ')');
+});
+register_shutdown_function(function () {
+    $e = error_get_last();
+    if ($e && in_array($e['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR], true)) {
+        gen_api_fail('PHP error: ' . $e['message'] . ' (' . basename($e['file']) . ':' . $e['line'] . ')');
+    }
+});
+function gen_api_fail(string $msg): void
+{
+    while (ob_get_level()) {
+        ob_end_clean();
+    }
+    if (!headers_sent()) {
+        http_response_code(500);
+        header('Content-Type: application/json; charset=utf-8');
+    }
+    echo json_encode(['error' => $msg, 'server_error' => true], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_SUBSTITUTE);
+}
+foreach (['pdo_sqlite', 'mbstring'] as $ext) { // without these nothing works; say which one, before the first call fails
+    if (!extension_loaded($ext)) {
+        gen_api_fail("The server's PHP is missing the $ext extension (install php-" . ($ext === 'pdo_sqlite' ? 'sqlite3' : 'mbstring') . ' and restart PHP).');
+        exit;
+    }
+}
 require_once __DIR__ . '/lib.php';
 require_once __DIR__ . '/diff.php';
 require_once __DIR__ . '/briefs.php';
@@ -53,6 +85,10 @@ function gen_site_row(array $s, array $cat): array
 
 $path = trim(preg_replace('#^/generator/api#', '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)), '/');
 $method = $_SERVER['REQUEST_METHOD'];
+if ($path === 'health') { // before the database: it also answers when the database is what fails
+    gen_json(gen_health());
+    return;
+}
 $db = gen_db();
 try {
     $seg = explode('/', $path);

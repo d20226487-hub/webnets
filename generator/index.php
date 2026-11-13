@@ -197,6 +197,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     'Choose at least one site type.': 'Выберите хотя бы один тип сайтов.',
     'One .txt file per built site: the system prompt and the rebuild brief for all its pages. With several site types, each type gets its own folder.':
       'По одному .txt на каждый собранный сайт: системный промпт и бриф на все его страницы. Если выбрано несколько типов, у каждого типа своя папка.',
+    'Server error ({0}): {1}': 'Ошибка сервера ({0}): {1}', 'The server is not set up completely:': 'Сервер настроен не полностью:',
     'Edit all': 'Изменить все', 'Edit': 'Изменить', 'edited': 'изменён', 'This site has its own settings': 'У сайта свои настройки',
     'Edit: {0}': 'Изменить: {0}', 'Edit site {0}': 'Изменить сайт {0}',
     'Applies to all {0} sites of this type in the job. What stays on Automatic is left to the generator, which keeps the sites different. Saving rebuilds these sites and checks their differences again.': 'Применяется ко всем сайтам этого типа в задании ({0}). То, что оставлено на «Автоматически», выбирает генератор, чтобы сайты различались. Сохранение пересобирает эти сайты и заново проверяет различия.',
@@ -308,7 +309,24 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function api(path, body, method) {
     return fetch('/generator/api/' + path, body || method ? { method: method || 'POST', headers: { 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined } : {})
-      .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || r.statusText); return j; }); });
+      .then(function (r) {
+        return r.text().then(function (t) {
+          var j;
+          try { j = JSON.parse(t); } catch (e) { // not JSON: show what the server said (a PHP error page, a proxy error), not "not valid JSON"
+            var msg = t.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 400);
+            throw new Error(L('Server error ({0}): {1}', r.status, msg || r.statusText));
+          }
+          if (!r.ok) throw new Error(j.error || r.statusText);
+          return j;
+        });
+      });
+  }
+  // the server's setup (PHP extensions, writable folders, tools): problems shown on the Projects page
+  function healthNote() {
+    return fetch('/generator/api/health').then(function (r) { return r.json(); }).then(function (h) {
+      return h.ok ? '' : '<div class="err" role="alert" style="margin-bottom:16px"><b>' + L('The server is not set up completely:') + '</b><ul style="margin:6px 0 0;padding-left:20px">'
+        + h.problems.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ul></div>';
+    }).catch(function () { return ''; });
   }
   var AVAIL = {};
   function catalog() { return CAT ? Promise.resolve(CAT) : api('catalog').then(function (c) { CAT = c; return c; }); }
@@ -341,8 +359,9 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
 
   /* ---------- projects */
   function projects() {
-    api('projects').then(function (list) {
-      main.innerHTML = '<div class="row"><div><h2>' + L('Projects') + '</h2><p class="muted">' + L('A project holds the jobs that generate its sites. Sites are compared inside the project and against every other job.') + '</p></div></div>'
+    Promise.all([api('projects'), healthNote()]).then(function (res) {
+      var list = res[0];
+      main.innerHTML = res[1] + '<div class="row"><div><h2>' + L('Projects') + '</h2><p class="muted">' + L('A project holds the jobs that generate its sites. Sites are compared inside the project and against every other job.') + '</p></div></div>'
         + '<form class="card row" id="np"><input type="text" id="pname" placeholder="' + L('New project name') + '" aria-label="' + L('New project name') + '" required style="flex:1;min-width:220px"><button class="primary">' + L('Create project') + '</button></form>'
         + '<div class="list">' + (list.length ? list.map(function (p) {
           return '<a class="item" href="#/p/' + p.id + '"><strong>' + esc(p.name) + '</strong><span class="sp"></span><span class="chip">' + L('{0} jobs', p.jobs) + '</span><span class="chip">' + L('{0} sites', p.sites) + '</span><span class="muted">' + when(p.created) + '</span></a>';

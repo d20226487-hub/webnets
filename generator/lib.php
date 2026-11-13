@@ -273,6 +273,56 @@ function gen_save_settings(array $in): array
 }
 
 /** The database file: SX_GEN_DB (Docker: the generator-db volume, on Docker's own disk), else data/generator.sqlite. */
+/**
+ * What the generator needs from the server, checked: PHP extensions, folders it writes, the database and the tools
+ * builds call (python3, Chromium). Returns ['ok' => bool, 'problems' => [text], 'checks' => [name => ok]].
+ */
+function gen_health(): array
+{
+    global $GEN_ROOT;
+    $checks = $problems = [];
+    foreach (['pdo_sqlite' => 'php-sqlite3', 'mbstring' => 'php-mbstring', 'iconv' => 'php-iconv (glibc)', 'ctype' => 'php-ctype', 'zlib' => 'php-zlib'] as $ext => $pkg) {
+        $checks["php: $ext"] = extension_loaded($ext);
+        if (!$checks["php: $ext"]) {
+            $problems[] = "PHP extension $ext is missing (package $pkg)" . ($ext === 'zlib' ? '; brief zips are stored uncompressed.' : '.');
+        }
+    }
+    $dirs = ['data' => "$GEN_ROOT/data", 'dist/generated' => "$GEN_ROOT/dist/generated", 'database folder' => dirname(gen_db_file()), 'cache' => gen_cache_dir(), 'brand data' => "$GEN_ROOT/data/overlay"];
+    foreach ($dirs as $name => $d) {
+        is_dir($d) || @mkdir($d, 0777, true);
+        $checks["writable: $name"] = is_dir($d) && is_writable($d);
+        if (!$checks["writable: $name"]) {
+            $problems[] = "The generator cannot write to $name ($d): " . (is_dir($d) ? 'no permission for the PHP user ' . (function_exists('posix_geteuid') ? '(uid ' . posix_geteuid() . ')' : '') : 'the folder does not exist and cannot be created') . '.';
+        }
+    }
+    if ($checks['php: pdo_sqlite'] && $checks['writable: database folder']) {
+        try {
+            gen_db()->query('SELECT COUNT(*) FROM projects')->fetchColumn();
+            $checks['database'] = true;
+        } catch (Throwable $e) {
+            $checks['database'] = false;
+            $problems[] = 'The database (' . gen_db_file() . ') does not open: ' . $e->getMessage();
+        }
+    }
+    $has = fn(string $bin) => trim((string)@shell_exec('command -v ' . escapeshellarg($bin) . ' 2>/dev/null')) !== '';
+    if (PHP_OS_FAMILY !== 'Windows') {
+        $checks['proc_open'] = function_exists('proc_open') && function_exists('shell_exec');
+        if (!$checks['proc_open']) {
+            $problems[] = 'proc_open / shell_exec are disabled (disable_functions): builds and market checks cannot start.';
+        }
+        $checks['python3'] = $has('python3');
+        if (!$checks['python3']) {
+            $problems[] = 'python3 is missing: screenshots and the visual check of built sites cannot run.';
+        }
+        $chrome = getenv('CHROME') ?: '';
+        $checks['chromium'] = ($chrome !== '' && is_executable($chrome)) || $has('chromium') || $has('chromium-browser') || $has('google-chrome');
+        if (!$checks['chromium']) {
+            $problems[] = 'Chromium is missing (or CHROME is not set): built sites get no screenshots or visual check.';
+        }
+    }
+    return ['ok' => !$problems, 'problems' => $problems, 'checks' => $checks, 'php' => PHP_VERSION, 'sapi' => PHP_SAPI];
+}
+
 function gen_db_file(): string
 {
     global $GEN_ROOT;

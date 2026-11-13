@@ -39,3 +39,19 @@ they need the CPU. The 2-CPU cap is the hard limit; raise `cpus` to 3 for faster
 - A swap file on the VPS (1–2 GB) keeps a rare peak from waking the kernel's OOM killer for the other tools.
 - Disk: built sites take ~0.6 MB each (`dist/generated`); deleting a job or project removes its sites, brands,
   articles and logs.
+
+## When something does not work
+
+Open `https://<your server>/generator/api/health` (or look at the red box on the Projects page). It lists what is
+missing: PHP extensions, folders the generator cannot write to (with the user PHP runs as), the database, python3
+and Chromium. An error in the app now shows PHP's own message (file and line) instead of "not valid JSON"; the same
+text is in the server log (`docker compose logs gallery`, or the PHP-FPM log without Docker).
+
+Typical fixes:
+- **Running in Docker (recommended):** the image has everything. Start it with both compose files as above; the
+  container runs as root and writes `data/` and `dist/` in the project folder and the database on its volume.
+- **Running PHP directly (php-fpm, no Docker):** install `php8.3-sqlite3 php8.3-mbstring python3 chromium`
+  (Debian/Ubuntu names), then let the PHP user write the project's data folders:
+  `sudo mkdir -p data dist/generated && sudo chown -R www-data: data dist/generated` (in the project folder), and
+  set `SX_GEN_DB` / `SX_GEN_CACHE` in the pool config if the database should live elsewhere. nginx then needs a
+  `fastcgi_pass` location for `/generator` and `/settings` instead of the `proxy_pass` ones in `webnets.conf`.
