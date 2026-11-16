@@ -1,0 +1,466 @@
+You are rebuilding every page of the **Отзывы о Nyxa** template, a reviews site (angle: payout-focus). Keep the section order, the content and every rule in the brief. Write the page text exactly as given (it is in Russian); write code and comments in English. If something in the brief is missing or unclear, ask instead of guessing, and never invent claims, figures, offers or reviews.
+
+**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section with the listed fields as props.
+
+## Acceptance checklist
+
+- [ ] Sections appear in the order given, with the same layout variant (or an equivalent layout).
+- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
+- [ ] One H1 per page; headings do not skip levels.
+- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
+- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
+- [ ] The structured data listed for each page is present and valid.
+- [ ] Every internal link opens an existing page.
+- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
+- [ ] Every rule in the market guidance and the block rules holds on every page.
+
+---
+
+# Rebuild brief: Отзывы о Nyxa
+
+_Follow the system prompt (role, target stack, acceptance checklist) together with this brief._
+
+## Site type guidance
+
+- Purpose: player reviews of one brand, with computed scores and topic filters.
+- Negative reviews stay visible; never hide, reorder or soften reviews by rating.
+- Scores are computed from the reviews; never type a score by hand.
+- Brand replies are shown under the review they answer and are labelled as the brand's.
+- Sample (made-up) reviews may only ship in demos and must be labelled as samples there.
+- The moderation policy page explains what is removed and why.
+
+## Market guidance
+
+### Market context (from the market settings)
+
+- Market: Kazakhstan (`kz`), languages ru, kk, currency KZT (₸)
+- Minimum age: 21+
+- Products allowed: sports, casino
+- Promotions allowed: welcome_bonus, deposit_bonus, free_bets, promo_code, odds_boost, cashback, loyalty, tournaments
+- Payment methods: Kaspi, Visa, Mastercard, Halyk
+- App install paths: iOS app-store, Android apk
+
+### Mandated texts (from the market settings)
+
+- Age notice: Участие в азартных играх разрешено с 21 года.
+- Licence: Лицензия РК
+- Self-exclusion: Вы можете ограничить своё участие в азартных играх через eGov.
+
+### Rules you must not break
+
+- Every page opens with an age gate (21+) before any gambling content.
+- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- Minimum age is 21: the age gate and every age line say 21+.
+- Show only these payment methods: Kaspi, Visa, Mastercard, Halyk.
+- Amounts are in KZT (₸).
+
+### Market-specific rules
+
+- Online bets are processed through the Unified Accounting Centre (ЕУЦ).
+- Identification goes through eGov (or video identification); say so on sign-up pages.
+- Self-limitation is available through eGov; mention it on responsible-gambling content.
+
+## Site context
+
+- Site: Отзывы о Nyxa (https://nyxa-otzyvy.example), brand or publisher: Nyxa
+- Site type: reviews, angle payout-focus; language `ru`, text direction `ltr`
+- Pages (6):
+  - `index.html` — Отзывы о Nyxa: оценки игроков, выплаты и поддержка
+  - `reviews.html` — Все отзывы о Nyxa с фильтром по темам
+  - `reviews-2.html` — Все отзывы о Nyxa с фильтром по темам · страница 2
+  - `payout-reviews.html` — Отзывы о выплатах Nyxa: Kaspi, Halyk и карты
+  - `write-a-review.html` — Написать отзыв о Nyxa
+  - `how-we-moderate.html` — Как мы модерируем отзывы о Nyxa
+
+## Design tokens
+
+Fonts (Google Fonts): Inter, JetBrains Mono.
+
+Use these CSS custom properties (they are the whole palette, type scale and radius set):
+
+```css
+:root {
+  --mxw: #FFFFFF;
+  --fyb: #F4F4F4;
+  --mov: #E9E9E9;
+  --rwz: #111111;
+  --snv: #666666;
+  --ijq: #D9D9D9;
+  --ttg: #111111;
+  --xvk: #FFFFFF;
+  --cjb: #555555;
+  --qkm: #333333;
+  --sbm: #777777;
+  --lom: #333333;
+  --yjy: #111111;
+  --shr: #555555;
+  --hra: #111111;
+  --olw: #FFFFFF;
+  --rjt: #FFFFFF;
+  --qdd: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --gkw: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --nnl: "JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+  --seb: 700;
+  --rao: 400;
+  --pxh: 500;
+  --grt: none;
+  --pnd: -0.01em;
+  --fsv: 1.6;
+  --dgy: 1.15;
+  --mib: 6px;
+  --fll: 10px;
+  --smk: 16px;
+  --pjb: 8px;
+  --mfh: 1px;
+  --eoi: 1;
+  --nkf: 12.8px;
+  --cln: 16px;
+  --gln: 25px;
+  --uff: clamp(21.25px,16.96px + 1.19vw,31.25px);
+  --evs: clamp(26.56px,21.21px + 1.488vw,39.06px);
+  --imx: clamp(33.2px,26.51px + 1.86vw,48.83px);
+  --uke: clamp(41.5px,33.13px + 2.325vw,61.04px);
+  --lsm: 4px;
+  --kzd: 8px;
+  --ggw: 12px;
+  --eij: 16px;
+  --nle: 24px;
+  --zld: 32px;
+  --lpn: 48px;
+  --who: 64px;
+  --vzj: 96px;
+  --zur: #F4F4F4;
+  --cvk: transparent;
+  --jtj: none;
+  --maw: flat;
+}
+```
+
+Layout is mobile-first: it must work from 375px to 1440px wide.
+
+## Block rules
+
+- Affiliate disclosure: Fixed wording per locale; cannot be removed on review sites.
+- Header: One-page landing and app pages use 'minimal' (no nav) so attention stays on the conversion.
+- Header: The CTA stays visible at every width; on mobile the nav collapses into a menu, the CTA does not.
+- Rating summary: No typed-in scores: everything comes from brands/reviews/<brand>.json.
+- Rating summary: No AggregateRating structured data.
+- Trust bar: Values come from brand facts and market config; nothing is typed by hand.
+- Trust bar: Rating shows only when the brand has facts.rating_source.
+- Trust bar: Sits directly under the hero (section 2 or 3).
+- Topic scores: Computed from the review feed; topics without reviews are hidden.
+- Review list: Newest first, every published review; never sorted or filtered by rating by default.
+- Review list: The CTA sits between reviews, never inside a review card.
+- Editor box: Person comes from the site config "editor" {name, role, bio}; renders nothing (and warns) without it.
+- FAQ: 4-6 questions: legality in the country, deposits/withdrawals, payout time, verification, limits or self-exclusion.
+- FAQ: Answers are plain text, 1-3 sentences. No CTA links inside answers.
+- Final CTA: Always the last section before the footer.
+- Final CTA: Headline 40 characters max. No urgency claims (timers, 'last chance').
+- Footer: Always renders the compliance panel; it cannot be switched off.
+- Footer: Payment methods come from the market config so they are always locally correct.
+- Responsible gambling: All copy comes from markets/<id>.json; never type compliance text into a page.
+- Responsible gambling: Every page renders a 'panel' (usually inside the footer). 'strip' is an optional top-of-page addition.
+- Responsible gambling: Where a market lists several mandated taglines, one is chosen per site by seed.
+- Age gate: Age comes from the market (21 in KZ, 18 in AU/BR). Never hard-code it.
+- Age gate: Content stays in the HTML for crawlers; the overlay is shown by script, so no-JS users still see the compliance footer.
+- Sticky CTA: Phones only (860px and narrower). Never covers the compliance panel: the footer gets bottom padding.
+- Sticky CTA: Shows the market age badge next to the CTA.
+- Page links: Internal links only; never a substitute for the brand CTA.
+- Text block: Only h2, h3, p, ul, ol, li, strong, em, a, table, blockquote survive; all attributes except href are removed.
+- Text block: Links: page:<id> for internal pages, https:// for sources. Brand links belong in CTAs, not in prose.
+- Page title: The answer line states the page's key fact in one sentence, above the fold on phones.
+- Review form: No incentives for reviews. Asks only for a display name; never email, phone or account numbers.
+- Steps: Exactly 3 steps; numbers are used because the order is real.
+- Steps: Mention verification and deposit limits honestly; do not promise instant approval.
+
+## Page `index.html`
+
+- Title tag: Отзывы о Nyxa: оценки игроков, выплаты и поддержка
+- Meta description: Что игроки пишут о Nyxa в Казахстане: выплаты на Kaspi, верификация, поддержка и приложение. Публикуем и хорошие, и плохие отзывы. 21+.
+- The only H1: Отзывы игроков о Nyxa
+- Structured data (JSON-LD): WebPage, FAQPage, WebSite
+- Links to: `how-we-moderate.html`, `index.html`, `reviews.html`, `payout-reviews.html`, `write-a-review.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Лицензия РК"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Rating summary** — block `sx/rating-summary`, variant `board`, role `hero`
+   Purpose: Hero for review sites: average score, review count, 5-to-1 distribution, one topic score and the CTA. Every number is computed from the review feed.
+   - `title`: "Отзывы игроков о Nyxa"
+   - `subtitle`: "Что пишут о выплатах, проверке документов и поддержке. Мы публикуем все отзывы, кроме спама и оскорблений."
+   - `lead_topic`: "payouts"
+4. **Trust bar** — block `sx/trust-bar`, variant `strip`, role `trust`
+   Purpose: Licence, payout time, years operating, local payments and (only if sourced) rating.
+   - `items`: `["licence","payout","since","payments"]`
+5. **Topic scores** — block `sx/topic-scores`, variant `bars`, role `content`
+   Purpose: Average score and review count per topic (payouts, verification, support...), each linking to those reviews.
+6. **Review list** — block `sx/review-list`, variant `cards`, role `content`
+   Purpose: Published reviews, newest first. Optional topic and rating filters (pure CSS, no JavaScript needed) and a CTA after every few reviews.
+   - `mode`: "latest"
+   - `limit`: "6"
+   - `filters`: false
+   - `cta_every`: "0"
+7. **Editor box** — block `sx/editor-box`, variant `card`, role `trust`
+   Purpose: Who looks after this page: editor card with role, bio, last update and the moderation policy, plus share links.
+   - `share`: true
+8. **FAQ** — block `sx/faq`, variant `accordion`, role `content`
+   Purpose: Answers the objections that stop sign-ups. Emits FAQPage structured data.
+   - `items`: `[{"q":"Это настоящие отзывы?","a":"Да. Каждый отзыв оставил игрок, и модератор прочитал его перед публикацией. Негативные отзывы мы тоже публикуем — удаляем только спам, оскорбления и личные данные."},{"q":"Вы удаляете плохие отзывы?","a":"Нет. Мы удаляем только спам, оскорбления, личные данные и рекламу. Отрицательные отзывы остаются."},{"q":"Откуда берутся ответы Nyxa?","a":"Ответы пишет сама Nyxa. Мы публикуем их под отзывом с пометкой «Ответ Nyxa»."},{"q":"Вы связаны с Nyxa?","a":"Мы получаем комиссию за регистрации по нашим ссылкам. Это не влияет на то, какие отзывы публикуются."}]`
+9. **Final CTA** — block `sx/cta-band`, variant `solid`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Решили попробовать?"
+   - `text`: "Регистрация в Nyxa занимает несколько минут. Только для лиц старше 21 года."
+   - `show_code`: false
+10. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+11. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+12. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `reviews.html`
+
+- Title tag: Все отзывы о Nyxa с фильтром по темам
+- Meta description: Все опубликованные отзывы игроков о Nyxa, от новых к старым. Фильтр по темам: выплаты, верификация, поддержка, приложение. 21+.
+- The only H1: Все отзывы о Nyxa
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `how-we-moderate.html`, `index.html`, `reviews.html`, `payout-reviews.html`, `write-a-review.html`, `reviews-2.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Лицензия РК"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Rating summary** — block `sx/rating-summary`, variant `strip`, role `hero`
+   Purpose: Hero for review sites: average score, review count, 5-to-1 distribution, one topic score and the CTA. Every number is computed from the review feed.
+   - `title`: "Все отзывы о Nyxa"
+4. **Review list** — block `sx/review-list`, variant `cards`, role `content`
+   Purpose: Published reviews, newest first. Optional topic and rating filters (pure CSS, no JavaScript needed) and a CTA after every few reviews.
+   - `mode`: "all"
+   - `limit`: "6"
+   - `filters`: true
+   - `cta_every`: "6"
+5. **Editor box** — block `sx/editor-box`, variant `card`, role `trust`
+   Purpose: Who looks after this page: editor card with role, bio, last update and the moderation policy, plus share links.
+   - `share`: true
+6. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+7. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Посмотрите Nyxa сами"
+   - `text`: "Только для лиц старше 21 года."
+   - `show_code`: false
+8. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+9. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+10. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `reviews-2.html`
+
+- Title tag: Все отзывы о Nyxa с фильтром по темам · страница 2
+- Meta description: Все опубликованные отзывы игроков о Nyxa, от новых к старым. Фильтр по темам: выплаты, верификация, поддержка, приложение. 21+. · страница 2
+- The only H1: Все отзывы о Nyxa
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `how-we-moderate.html`, `index.html`, `reviews.html`, `payout-reviews.html`, `write-a-review.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Лицензия РК"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Rating summary** — block `sx/rating-summary`, variant `strip`, role `hero`
+   Purpose: Hero for review sites: average score, review count, 5-to-1 distribution, one topic score and the CTA. Every number is computed from the review feed.
+   - `title`: "Все отзывы о Nyxa"
+4. **Review list** — block `sx/review-list`, variant `cards`, role `content`
+   Purpose: Published reviews, newest first. Optional topic and rating filters (pure CSS, no JavaScript needed) and a CTA after every few reviews.
+   - `mode`: "all"
+   - `limit`: "6"
+   - `filters`: true
+   - `cta_every`: "6"
+5. **Editor box** — block `sx/editor-box`, variant `card`, role `trust`
+   Purpose: Who looks after this page: editor card with role, bio, last update and the moderation policy, plus share links.
+   - `share`: true
+6. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+7. **Final CTA** — block `sx/cta-band`, variant `split`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Посмотрите Nyxa сами"
+   - `text`: "Только для лиц старше 21 года."
+   - `show_code`: false
+8. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+9. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+10. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `payout-reviews.html`
+
+- Title tag: Отзывы о выплатах Nyxa: Kaspi, Halyk и карты
+- Meta description: Как быстро Nyxa выплачивает выигрыши: отзывы игроков о выводе на Kaspi, Halyk и банковские карты, с ответами Nyxa. 21+.
+- The only H1: Отзывы о выплатах Nyxa
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `how-we-moderate.html`, `index.html`, `reviews.html`, `payout-reviews.html`, `write-a-review.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Лицензия РК"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Rating summary** — block `sx/rating-summary`, variant `strip`, role `hero`
+   Purpose: Hero for review sites: average score, review count, 5-to-1 distribution, one topic score and the CTA. Every number is computed from the review feed.
+   - `title`: "Отзывы о выплатах Nyxa"
+   - `topic`: "payouts"
+4. **Review list** — block `sx/review-list`, variant `compact`, role `content`
+   Purpose: Published reviews, newest first. Optional topic and rating filters (pure CSS, no JavaScript needed) and a CTA after every few reviews.
+   - `mode`: "topic"
+   - `topic`: "payouts"
+   - `limit`: "6"
+   - `filters`: false
+   - `cta_every`: "6"
+5. **Text block** — block `sx/prose`, variant `article`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<p>Вывод денег — самая частая тема отзывов о Nyxa. Игроки пишут о том, сколько ждали выплату, какие документы понадобились и что помогло, когда деньги задержались. Ниже — сводка по всем опубликованным отзывам о выплатах. Её ведёт и обновляет редактор сайта Ерлан Абдрахманов, а сами отзывы вы найдёте в списке выше.</p><h2>Сколько обычно занимает вывод</h2><p>Большинство игроков получают деньги на K…` (HTML)
+   - `toc`: false
+6. **Editor box** — block `sx/editor-box`, variant `card`, role `trust`
+   Purpose: Who looks after this page: editor card with role, bio, last update and the moderation policy, plus share links.
+   - `share`: true
+7. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+8. **Final CTA** — block `sx/cta-band`, variant `solid`, role `content`
+   Purpose: The last push before the footer: short headline, the CTA and two proof points.
+   - `title`: "Посмотрите Nyxa сами"
+   - `text`: "Только для лиц старше 21 года."
+   - `show_code`: false
+9. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+10. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+11. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `write-a-review.html`
+
+- Title tag: Написать отзыв о Nyxa
+- Meta description: Расскажите о своём опыте с Nyxa. Мы публикуем и положительные, и отрицательные отзывы после модерации.
+- The only H1: Написать отзыв о Nyxa
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `how-we-moderate.html`, `index.html`, `reviews.html`, `payout-reviews.html`, `write-a-review.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Лицензия РК"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Page title** — block `sx/page-hero`, variant `compact`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Написать отзыв о Nyxa"
+   - `answer`: "Расскажите, что получилось и что нет. Мы публикуем и хорошие, и плохие отзывы после проверки на спам."
+   - `show_cta`: false
+4. **Review form** — block `sx/review-form`, variant `card`, role `content`
+   Purpose: Write-a-review form. Disabled (mockup) unless links.review_form is set and the site uses real reviews.
+   - `title`: "Ваш отзыв"
+5. **Steps** — block `sx/steps`, variant `row`, role `content`
+   Purpose: Three real steps from sign-up to first bet, followed by the mid-page CTA.
+   - `eyebrow`: "После отправки"
+   - `title`: "Что будет дальше"
+   - `items`: `[{"title":"Проверка","text":"Модератор проверяет отзыв на спам, оскорбления и личные данные, обычно в течение суток."},{"title":"Публикация","text":"Отзыв появляется на сайте с вашим именем и первой буквой фамилии."},{"title":"Ответ Nyxa","text":"Nyxa может ответить на отзыв. Ответ появится под ним с пометкой."}]`
+   - `show_cta`: false
+6. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+7. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+8. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+
+## Page `how-we-moderate.html`
+
+- Title tag: Как мы модерируем отзывы о Nyxa
+- Meta description: Какие отзывы мы удаляем, какие никогда не удаляем, откуда берутся ответы Nyxa и как мы зарабатываем.
+- The only H1: Как мы модерируем отзывы
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `how-we-moderate.html`, `index.html`, `reviews.html`, `payout-reviews.html`, `write-a-review.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `note`: "Лицензия РК"
+   - `sticky`: false
+   - `show_cta`: true
+3. **Page title** — block `sx/page-hero`, variant `compact`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Как мы модерируем отзывы"
+   - `answer`: "Мы удаляем спам, оскорбления, личные данные и рекламу. Отрицательные отзывы мы не удаляем никогда."
+   - `show_cta`: false
+4. **Text block** — block `sx/prose`, variant `toc-side`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<p>На этом сайте публикуются отзывы игроков о Nyxa. Чтобы им можно было доверять, мы придерживаемся простых правил и применяем их ко всем одинаково — к хвалебным отзывам и к жалобам. Ниже описано, что мы удаляем, что оставляем всегда и как устроены оценки. Модерацию ведёт редактор сайта Ерлан Абдрахманов.</p><h2>Как проходит модерация</h2><p>Каждый новый отзыв читает человек, а не только фильтр. О…` (HTML)
+   - `toc`: true
+5. **Editor box** — block `sx/editor-box`, variant `card`, role `trust`
+   Purpose: Who looks after this page: editor card with role, bio, last update and the moderation policy, plus share links.
+   - `share`: true
+6. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+7. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+8. **Age gate** — block `sx/age-gate`, variant `fullscreen`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+
+_Long text and lists are shortened here (…, "[n items]"). For the full text run `php build/ai-brief.php sites/demos/<config>.json`._

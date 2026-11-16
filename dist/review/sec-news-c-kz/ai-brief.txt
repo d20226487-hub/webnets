@@ -1,0 +1,611 @@
+You are rebuilding every page of the **Ставки Дня** template, a news site (angle: brand-watch). Keep the section order, the content and every rule in the brief. Write the page text exactly as given (it is in Russian); write code and comments in English. If something in the brief is missing or unclear, ask instead of guessing, and never invent claims, figures, offers or reviews.
+
+**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section with the listed fields as props.
+
+## Acceptance checklist
+
+- [ ] Sections appear in the order given, with the same layout variant (or an equivalent layout).
+- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
+- [ ] One H1 per page; headings do not skip levels.
+- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
+- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
+- [ ] The structured data listed for each page is present and valid.
+- [ ] Every internal link opens an existing page.
+- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
+- [ ] Every rule in the market guidance and the block rules holds on every page.
+
+---
+
+# Rebuild brief: Ставки Дня
+
+_Follow the system prompt (role, target stack, acceptance checklist) together with this brief._
+
+## Site type guidance
+
+- Purpose: industry or brand news and guides, with paid articles clearly labelled.
+- Paid (PR) articles show the advertising label in every list and above the headline, name the sponsor and carry a disclosure box; their brand links are rel="sponsored nofollow".
+- Sponsors cannot pay for or edit news and guides, or remove the advertising label.
+- Articles show author, date and, when corrected, the update date.
+- Article pages are generated from the article files; lists paginate instead of growing without limit.
+
+## Market guidance
+
+### Market context (from the market settings)
+
+- Market: Kazakhstan (`kz`), languages ru, kk, currency KZT (₸)
+- Minimum age: 21+
+- Products allowed: sports, casino
+- Promotions allowed: welcome_bonus, deposit_bonus, free_bets, promo_code, odds_boost, cashback, loyalty, tournaments
+- Payment methods: Kaspi, Visa, Mastercard, Halyk
+- App install paths: iOS app-store, Android apk
+
+### Mandated texts (from the market settings)
+
+- Age notice: Участие в азартных играх разрешено с 21 года.
+- Licence: Лицензия РК
+- Self-exclusion: Вы можете ограничить своё участие в азартных играх через eGov.
+
+### Rules you must not break
+
+- Every page opens with an age gate (21+) before any gambling content.
+- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- Minimum age is 21: the age gate and every age line say 21+.
+- Show only these payment methods: Kaspi, Visa, Mastercard, Halyk.
+- Amounts are in KZT (₸).
+
+### Market-specific rules
+
+- Online bets are processed through the Unified Accounting Centre (ЕУЦ).
+- Identification goes through eGov (or video identification); say so on sign-up pages.
+- Self-limitation is available through eGov; mention it on responsible-gambling content.
+
+## Site context
+
+- Site: Ставки Дня (https://stavkidnya.example)
+- Site type: news, angle brand-watch; language `ru`, text direction `ltr`
+- Pages (13):
+  - `index.html` — Ставки Дня: новости букмекеров Казахстана
+  - `news-kaspi-vyvod-sroki.html` — Вывод на Kaspi: букмекеры публикуют фактические сроки выплат | Ставки Дня
+  - `guides-kak-chitat-koefficienty.html` — Как читать коэффициенты и считать выигрыш | Ставки Дня
+  - `guides-verifikaciya-akkaunta.html` — Верификация аккаунта у букмекера: какие документы нужны | Ставки Дня
+  - `partner-content-nyxa-face-id-kz.html` — Nyxa добавила вход по Face ID и быстрый купон в приложение | Ставки Дня
+  - `guides-limity-i-samoisklyuchenie.html` — Лимиты и самоисключение: как поставить ограничения в аккаунте | Ставки Дня
+  - `news-legalnye-bukmekery-licenziya.html` — Как проверить лицензию букмекера в Казахстане | Ставки Дня
+  - `partner-content-vantro-statistika-futbol-kz.html` — Vantro запустила подробную статистику по матчам КПЛ | Ставки Дня
+  - `news-sezon-khokkeya-stavki.html` — Старт хоккейного сезона: букмекеры расширили роспись на матчи «Барыса» | Ставки Дня
+  - `news.html` — Новости букмекеров | Ставки Дня
+  - `guides.html` — Разборы и гайды | Ставки Дня
+  - `partner-content.html` — Партнёрские материалы | Ставки Дня
+  - `about.html` — О Ставках Дня и рекламных материалах
+
+## Design tokens
+
+Fonts (Google Fonts): Inter, JetBrains Mono.
+
+Use these CSS custom properties (they are the whole palette, type scale and radius set):
+
+```css
+:root {
+  --surface-style: flat;
+  --card-shadow: none;
+  --card-border: transparent;
+  --card-bg: rgb(244 244 244);
+  --sp-9: 96px;
+  --sp-8: 64px;
+  --sp-7: 48px;
+  --sp-6: 32px;
+  --sp-5: 24px;
+  --sp-4: 16px;
+  --sp-3: 12px;
+  --sp-2: 8px;
+  --sp-1: 4px;
+  --fs-6: clamp(41.5px,33.13px + 2.325vw,61.04px);
+  --fs-5: clamp(33.2px,26.51px + 1.86vw,48.83px);
+  --fs-4: clamp(26.56px,21.21px + 1.488vw,39.06px);
+  --fs-3: clamp(21.25px,16.96px + 1.19vw,31.25px);
+  --fs-2: 25px;
+  --fs-1: 16px;
+  --fs-0: 12.8px;
+  --density: 1;
+  --bw: 1px;
+  --r-btn: 8px;
+  --r-lg: 16px;
+  --r: 10px;
+  --r-sm: 6px;
+  --lh-heading: 1.15;
+  --lh-body: 1.6;
+  --ls-heading: -0.01em;
+  --tt-heading: none;
+  --fw-strong: 500;
+  --fw-body: 400;
+  --fw-heading: 700;
+  --f-mono: "JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+  --f-body: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-display: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --hero-bg: rgb(255 255 255);
+  --c-hero-on-accent: rgb(255 255 255);
+  --c-hero-accent: rgb(17 17 17);
+  --c-hero-muted: rgb(85 85 85);
+  --c-hero-text: rgb(17 17 17);
+  --c-danger: rgb(51 51 51);
+  --c-warning: rgb(119 119 119);
+  --c-success: rgb(51 51 51);
+  --c-accent-2: rgb(85 85 85);
+  --c-on-accent: rgb(255 255 255);
+  --c-accent: rgb(17 17 17);
+  --c-border: rgb(217 217 217);
+  --c-muted: rgb(102 102 102);
+  --c-text: rgb(17 17 17);
+  --c-surface-2: rgb(233 233 233);
+  --c-surface: rgb(244 244 244);
+  --c-bg: rgb(255 255 255);
+}
+```
+
+Layout is mobile-first: it must work from 375px to 1440px wide.
+
+## Block rules
+
+- Affiliate disclosure: Fixed wording per locale; cannot be removed on review sites.
+- Header: One-page landing and app pages use 'minimal' (no nav) so attention stays on the conversion.
+- Header: The CTA stays visible at every width; on mobile the nav collapses into a menu, the CTA does not.
+- Lead stories: PR articles are never the lead story.
+- Article list: Paid (pr) articles always carry the Sponsored label and sponsor name.
+- Footer: Always renders the compliance panel; it cannot be switched off.
+- Footer: Payment methods come from the market config so they are always locally correct.
+- Responsible gambling: All copy comes from markets/<id>.json; never type compliance text into a page.
+- Responsible gambling: Every page renders a 'panel' (usually inside the footer). 'strip' is an optional top-of-page addition.
+- Responsible gambling: Where a market lists several mandated taglines, one is chosen per site by seed.
+- Age gate: Age comes from the market (21 in KZ, 18 in AU/BR). Never hard-code it.
+- Age gate: Content stays in the HTML for crawlers; the overlay is shown by script, so no-JS users still see the compliance footer.
+- Sticky CTA: Phones only (860px and narrower). Never covers the compliance panel: the footer gets bottom padding.
+- Sticky CTA: Shows the market age badge next to the CTA.
+- Article body: Paid articles show the Sponsored label, the sponsor and a disclosure box; their brand links are rel="sponsored nofollow".
+- Article body: Paid articles get no NewsArticle structured data.
+- Page title: The answer line states the page's key fact in one sentence, above the fold on phones.
+- Text block: Only h2, h3, p, ul, ol, li, strong, em, a, table, blockquote survive; all attributes except href are removed.
+- Text block: Links: page:<id> for internal pages, https:// for sources. Brand links belong in CTAs, not in prose.
+- Page links: Internal links only; never a substitute for the brand CTA.
+
+## Page `index.html`
+
+- Title tag: Ставки Дня: новости букмекеров Казахстана
+- Meta description: Новости лицензированных букмекеров, разборы коэффициентов и верификации, партнёрские материалы с пометкой «Реклама». 21+.
+- The only H1: Новости букмекеров Казахстана
+- Structured data (JSON-LD): WebPage, WebSite
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `news-kaspi-vyvod-sroki.html`, `guides-kak-chitat-koefficienty.html`, `guides-verifikaciya-akkaunta.html`, `guides-limity-i-samoisklyuchenie.html`, `news-legalnye-bukmekery-licenziya.html`, `news-sezon-khokkeya-stavki.html`, `partner-content-nyxa-face-id-kz.html`, `partner-content-vantro-statistika-futbol-kz.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Lead stories** — block `sx/article-lead`, variant `list`, role `content`
+   Purpose: Home masthead: H1 and the newest news or guide stories (split, stack or numbered wire). Never paid content.
+   - `title`: "Новости букмекеров Казахстана"
+4. **Article list** — block `sx/article-list`, variant `list`, role `content`
+   Purpose: Articles newest first: one kind or all, with the Sponsored label on paid ones, optional paging and a "see all" link.
+   - `heading`: "h2"
+   - `title`: "Лента"
+   - `exclude_pr`: true
+   - `skip_lead`: true
+   - `limit`: "6"
+   - `more`: "news"
+   - `exclude_current`: false
+5. **Article list** — block `sx/article-list`, variant `cards`, role `content`
+   Purpose: Articles newest first: one kind or all, with the Sponsored label on paid ones, optional paging and a "see all" link.
+   - `heading`: "h2"
+   - `title`: "Партнёрские материалы"
+   - `kind`: "pr"
+   - `exclude_pr`: false
+   - `skip_lead`: false
+   - `limit`: "3"
+   - `more`: "partners"
+   - `exclude_current`: false
+6. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+7. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+8. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `news-kaspi-vyvod-sroki.html`
+
+- Title tag: Вывод на Kaspi: букмекеры публикуют фактические сроки выплат | Ставки Дня
+- Meta description: Вывод на Kaspi: букмекеры публикуют фактические сроки выплат. Ставки Дня, новости букмекеров Казахстана.
+- The only H1: Вывод на Kaspi: букмекеры публикуют фактические сроки выплат
+- Structured data (JSON-LD): WebPage, NewsArticle, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `news-legalnye-bukmekery-licenziya.html`, `news-sezon-khokkeya-stavki.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+5. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+6. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `guides-kak-chitat-koefficienty.html`
+
+- Title tag: Как читать коэффициенты и считать выигрыш | Ставки Дня
+- Meta description: Как читать коэффициенты и считать выигрыш. Ставки Дня, новости букмекеров Казахстана.
+- The only H1: Как читать коэффициенты и считать выигрыш
+- Structured data (JSON-LD): WebPage, Article, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `guides-verifikaciya-akkaunta.html`, `guides-limity-i-samoisklyuchenie.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+5. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+6. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `guides-verifikaciya-akkaunta.html`
+
+- Title tag: Верификация аккаунта у букмекера: какие документы нужны | Ставки Дня
+- Meta description: Верификация аккаунта у букмекера: какие документы нужны. Ставки Дня, новости букмекеров Казахстана.
+- The only H1: Верификация аккаунта у букмекера: какие документы нужны
+- Structured data (JSON-LD): WebPage, Article, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `guides-kak-chitat-koefficienty.html`, `guides-limity-i-samoisklyuchenie.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+5. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+6. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `partner-content-nyxa-face-id-kz.html`
+
+- Title tag: Nyxa добавила вход по Face ID и быстрый купон в приложение | Ставки Дня
+- Meta description: Nyxa добавила вход по Face ID и быстрый купон в приложение. Ставки Дня, новости букмекеров Казахстана.
+- The only H1: Nyxa добавила вход по Face ID и быстрый купон в приложение
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `partner-content-vantro-statistika-futbol-kz.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+5. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+6. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `guides-limity-i-samoisklyuchenie.html`
+
+- Title tag: Лимиты и самоисключение: как поставить ограничения в аккаунте | Ставки Дня
+- Meta description: Лимиты и самоисключение: как поставить ограничения в аккаунте. Ставки Дня, новости букмекеров Казахстана.
+- The only H1: Лимиты и самоисключение: как поставить ограничения в аккаунте
+- Structured data (JSON-LD): WebPage, Article, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `guides-kak-chitat-koefficienty.html`, `guides-verifikaciya-akkaunta.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+5. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+6. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `news-legalnye-bukmekery-licenziya.html`
+
+- Title tag: Как проверить лицензию букмекера в Казахстане | Ставки Дня
+- Meta description: Как проверить лицензию букмекера в Казахстане. Ставки Дня, новости букмекеров Казахстана.
+- The only H1: Как проверить лицензию букмекера в Казахстане
+- Structured data (JSON-LD): WebPage, NewsArticle, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `news-kaspi-vyvod-sroki.html`, `news-sezon-khokkeya-stavki.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+5. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+6. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `partner-content-vantro-statistika-futbol-kz.html`
+
+- Title tag: Vantro запустила подробную статистику по матчам КПЛ | Ставки Дня
+- Meta description: Vantro запустила подробную статистику по матчам КПЛ. Ставки Дня, новости букмекеров Казахстана.
+- The only H1: Vantro запустила подробную статистику по матчам КПЛ
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `partner-content-nyxa-face-id-kz.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+5. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+6. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `news-sezon-khokkeya-stavki.html`
+
+- Title tag: Старт хоккейного сезона: букмекеры расширили роспись на матчи «Барыса» | Ставки Дня
+- Meta description: Старт хоккейного сезона: букмекеры расширили роспись на матчи «Барыса». Ставки Дня, новости букмекеров Казахстана.
+- The only H1: Старт хоккейного сезона: букмекеры расширили роспись на матчи «Барыса»
+- Structured data (JSON-LD): WebPage, NewsArticle, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `news-kaspi-vyvod-sroki.html`, `news-legalnye-bukmekery-licenziya.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+5. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+6. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `news.html`
+
+- Title tag: Новости букмекеров | Ставки Дня
+- Meta description: Что меняется у лицензированных букмекеров Казахстана.
+- The only H1: Новости
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `news-kaspi-vyvod-sroki.html`, `news-legalnye-bukmekery-licenziya.html`, `news-sezon-khokkeya-stavki.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Article list** — block `sx/article-list`, variant `list`, role `content`
+   Purpose: Articles newest first: one kind or all, with the Sponsored label on paid ones, optional paging and a "see all" link.
+   - `heading`: "h1"
+   - `title`: "Новости"
+   - `kind`: "news"
+   - `exclude_pr`: false
+   - `skip_lead`: false
+   - `limit`: "0"
+   - `exclude_current`: false
+4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+5. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+6. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `guides.html`
+
+- Title tag: Разборы и гайды | Ставки Дня
+- Meta description: Коэффициенты, верификация, вывод и лимиты простыми словами.
+- The only H1: Гайды
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `guides-kak-chitat-koefficienty.html`, `guides-verifikaciya-akkaunta.html`, `guides-limity-i-samoisklyuchenie.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Article list** — block `sx/article-list`, variant `cards`, role `content`
+   Purpose: Articles newest first: one kind or all, with the Sponsored label on paid ones, optional paging and a "see all" link.
+   - `heading`: "h1"
+   - `title`: "Гайды"
+   - `kind`: "guide"
+   - `exclude_pr`: false
+   - `skip_lead`: false
+   - `limit`: "0"
+   - `exclude_current`: false
+4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+5. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+6. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `partner-content.html`
+
+- Title tag: Партнёрские материалы | Ставки Дня
+- Meta description: Статьи, оплаченные букмекерами. Каждая помечена как реклама.
+- The only H1: Реклама Партнёрские материалы
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`, `partner-content-nyxa-face-id-kz.html`, `partner-content-vantro-statistika-futbol-kz.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Article list** — block `sx/article-list`, variant `cards`, role `content`
+   Purpose: Articles newest first: one kind or all, with the Sponsored label on paid ones, optional paging and a "see all" link.
+   - `heading`: "h1"
+   - `title`: "Партнёрские материалы"
+   - `intro`: "Эти статьи оплачены букмекерами и согласованы с ними перед публикацией. Это реклама, а не независимая журналистика."
+   - `kind`: "pr"
+   - `exclude_pr`: false
+   - `skip_lead`: false
+   - `limit`: "0"
+   - `exclude_current`: false
+4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+5. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+6. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `about.html`
+
+- Title tag: О Ставках Дня и рекламных материалах
+- Meta description: Кто мы, как помечаем рекламу, как исправляем ошибки и где найти помощь.
+- The only H1: О Ставках Дня
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `about.html`, `index.html`, `news.html`, `guides.html`, `partner-content.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `line`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `inline`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Page title** — block `sx/page-hero`, variant `compact`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "О Ставках Дня"
+   - `answer`: "Мы пишем новости и разборы о букмекерах Казахстана. Бренды могут оплатить статью; каждая такая статья помечена как реклама."
+   - `show_cta`: false
+4. **Text block** — block `sx/prose`, variant `article`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<h2>Рекламные статьи</h2><p>Букмекеры могут заплатить нам за публикацию статьи о своём продукте. Такие статьи помечены как «Реклама» в лентах и над заголовком, называют бренд, который заплатил, и содержат пояснение, что это реклама.</p><p>Ссылки в рекламных статьях помечены для поисковых систем как оплаченные.</p><h2>Чего не могут спонсоры</h2><ul><li>Оплачивать или править наши новости и гайды</l…` (HTML)
+   - `toc`: true
+5. **Page links** — block `sx/page-links`, variant `list`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+6. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `panel`
+     - `show_verify`: false
+7. **Age gate** — block `sx/age-gate`, variant `sheet`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+8. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+_Long text and lists are shortened here (…, "[n items]"). For the full text run `php build/ai-brief.php sites/demos/<config>.json`._

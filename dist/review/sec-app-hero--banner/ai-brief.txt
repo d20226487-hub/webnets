@@ -75,36 +75,36 @@ _Follow the system prompt (role, target stack, acceptance checklist) together wi
 
 ## Design tokens
 
-Fonts (Google Fonts): Manrope.
+Fonts (Google Fonts): Inter, JetBrains Mono.
 
 Use these CSS custom properties (they are the whole palette, type scale and radius set):
 
 ```css
 :root {
   --bw: 1px;
-  --c-accent-2: #00C2A8;
-  --c-accent: #2457FF;
+  --c-accent-2: #555555;
+  --c-accent: #111111;
   --c-bg: #FFFFFF;
-  --c-border: #E2E7F0;
-  --c-danger: #D93636;
-  --c-hero-accent: #2457FF;
-  --c-hero-muted: #556079;
+  --c-border: #D9D9D9;
+  --c-danger: #333333;
+  --c-hero-accent: #111111;
+  --c-hero-muted: #555555;
   --c-hero-on-accent: #FFFFFF;
-  --c-hero-text: #0E1525;
-  --c-muted: #556079;
+  --c-hero-text: #111111;
+  --c-muted: #666666;
   --c-on-accent: #FFFFFF;
-  --c-success: #1F9D55;
-  --c-surface-2: #EBEFF7;
-  --c-surface: #F5F7FB;
-  --c-text: #0E1525;
-  --c-warning: #D98B00;
-  --card-bg: #F5F7FB;
+  --c-success: #333333;
+  --c-surface-2: #E9E9E9;
+  --c-surface: #F4F4F4;
+  --c-text: #111111;
+  --c-warning: #777777;
+  --card-bg: #F4F4F4;
   --card-border: transparent;
   --card-shadow: none;
-  --density: 1.15;
-  --f-body: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-display: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-mono: "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --density: 1;
+  --f-body: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-display: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono: "JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
   --fs-0: 12.8px;
   --fs-1: 16px;
   --fs-2: 25px;
@@ -113,25 +113,25 @@ Use these CSS custom properties (they are the whole palette, type scale and radi
   --fs-5: clamp(33.2px,26.51px + 1.86vw,48.83px);
   --fs-6: clamp(41.5px,33.13px + 2.325vw,61.04px);
   --fw-body: 400;
-  --fw-heading: 800;
+  --fw-heading: 700;
   --fw-strong: 500;
-  --hero-bg: linear-gradient(180deg,#EEF2FF 0%,#FFFFFF 100%);
+  --hero-bg: #FFFFFF;
   --lh-body: 1.6;
   --lh-heading: 1.15;
-  --ls-heading: -0.03em;
-  --r-btn: 12px;
-  --r-lg: 20px;
-  --r-sm: 8px;
-  --r: 12px;
-  --sp-1: 4.6px;
-  --sp-2: 9.2px;
-  --sp-3: 13.8px;
-  --sp-4: 18.4px;
-  --sp-5: 27.6px;
-  --sp-6: 36.8px;
-  --sp-7: 55.2px;
-  --sp-8: 73.6px;
-  --sp-9: 110.4px;
+  --ls-heading: -0.01em;
+  --r-btn: 8px;
+  --r-lg: 16px;
+  --r-sm: 6px;
+  --r: 10px;
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 96px;
   --surface-style: flat;
   --tt-heading: none;
 }

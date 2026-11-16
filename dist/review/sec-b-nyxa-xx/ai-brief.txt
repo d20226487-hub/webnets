@@ -65,65 +65,65 @@ _Follow the system prompt (role, target stack, acceptance checklist) together wi
 
 ## Design tokens
 
-Fonts (Google Fonts): Geologica, JetBrains Mono, Tektur.
+Fonts (Google Fonts): Inter, JetBrains Mono.
 
 Use these CSS custom properties (they are the whole palette, type scale and radius set):
 
 ```css
 :root {
-  --ovu: outlined;
+  --ovu: flat;
   --idh: none;
-  --rqv: #1d3a33;
-  --vyn: #0c1c19;
-  --ndw: 91.2px;
-  --srx: 60.8px;
-  --arb: 45.6px;
-  --etn: 30.4px;
-  --ctm: 22.8px;
-  --snu: 15.2px;
-  --plf: 11.4px;
-  --gds: 7.6px;
-  --kgh: 3.8px;
-  --vlc: clamp(38.91px,31.06px + 2.18vw,57.22px);
-  --cga: clamp(31.13px,24.85px + 1.744vw,45.78px);
-  --sdx: clamp(24.9px,19.88px + 1.395vw,36.62px);
-  --zxu: clamp(19.92px,15.9px + 1.116vw,29.3px);
-  --pui: 23.44px;
-  --avr: 15px;
-  --gcu: 12px;
-  --pbv: 0.95;
+  --rqv: transparent;
+  --vyn: #f4f4f4;
+  --ndw: 96px;
+  --srx: 64px;
+  --arb: 48px;
+  --etn: 32px;
+  --ctm: 24px;
+  --snu: 16px;
+  --plf: 12px;
+  --gds: 8px;
+  --kgh: 4px;
+  --vlc: clamp(41.5px,33.13px + 2.325vw,61.04px);
+  --cga: clamp(33.2px,26.51px + 1.86vw,48.83px);
+  --sdx: clamp(26.56px,21.21px + 1.488vw,39.06px);
+  --zxu: clamp(21.25px,16.96px + 1.19vw,31.25px);
+  --pui: 25px;
+  --avr: 16px;
+  --gcu: 12.8px;
+  --pbv: 1;
   --wnk: 1px;
-  --gmv: 6px;
-  --tye: 10px;
-  --awm: 6px;
-  --oxu: 2px;
-  --ows: 1.08;
-  --myr: 1.55;
-  --pie: 0.02em;
-  --tou: uppercase;
+  --gmv: 8px;
+  --tye: 16px;
+  --awm: 10px;
+  --oxu: 6px;
+  --ows: 1.15;
+  --myr: 1.6;
+  --pie: -0.01em;
+  --tou: none;
   --ibo: 500;
   --pjl: 400;
   --gpv: 700;
   --pyj: "JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
-  --ruz: "Geologica",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --wxr: "Tektur",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --qxh: linear-gradient(rgba(43,245,196,0.07) 1px,transparent 1px) 0 0 / 28px 28px,linear-gradient(90deg,rgba(43,245,196,0.07) 1px,transparent 1px) 0 0 / 28px 28px,#071210;
-  --lqx: #04201a;
-  --kde: #2bf5c4;
-  --eln: #9cc2b5;
-  --hjh: #dff7ef;
-  --uzd: #d93636;
-  --liy: #d98b00;
-  --gnb: #1f9d55;
-  --xlf: #f5d02b;
-  --kle: #04201a;
-  --zah: #2bf5c4;
-  --cli: #1d3a33;
-  --ujq: #86a99d;
-  --sft: #dff7ef;
-  --lej: #12271f;
-  --wka: #0c1c19;
-  --wdr: #071210;
+  --ruz: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --wxr: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --qxh: #ffffff;
+  --lqx: #ffffff;
+  --kde: #111111;
+  --eln: #555555;
+  --hjh: #111111;
+  --uzd: #333333;
+  --liy: #777777;
+  --gnb: #333333;
+  --xlf: #555555;
+  --kle: #ffffff;
+  --zah: #111111;
+  --cli: #d9d9d9;
+  --ujq: #666666;
+  --sft: #111111;
+  --lej: #e9e9e9;
+  --wka: #f4f4f4;
+  --wdr: #ffffff;
 }
 ```
 
@@ -178,7 +178,7 @@ Layout is mobile-first: it must work from 375px to 1440px wide.
    Purpose: Site header with logo, navigation and primary CTA.
    - `sticky`: false
    - `show_cta`: true
-3. **Promo list** — block `sx/promo-list`, variant `list`, role `content`
+3. **Promo list** — block `sx/promo-list`, variant `banners`, role `content`
    Purpose: Other active, allowed promotions from the feed, below the lead offer. Renders nothing when there are none.
    - `title`: "Акции Nyxa"
    - `include_lead`: true

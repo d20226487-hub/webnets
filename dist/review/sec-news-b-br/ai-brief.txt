@@ -1,0 +1,608 @@
+You are rebuilding every page of the **Placar Aberto** template, a news site (angle: guides-first). Keep the section order, the content and every rule in the brief. Write the page text exactly as given (it is in Portuguese); write code and comments in English. If something in the brief is missing or unclear, ask instead of guessing, and never invent claims, figures, offers or reviews.
+
+**Target stack:** WordPress with the SX ACF blocks (`sx/<block>` from `wp/sx-blocks.php`). If you use another stack (plain HTML/CSS, React/Next.js, another CMS), build one component per section with the listed fields as props.
+
+## Acceptance checklist
+
+- [ ] Sections appear in the order given, with the same layout variant (or an equivalent layout).
+- [ ] All text is used exactly as given; nothing invented (no extra claims, figures, offers or reviews).
+- [ ] One H1 per page; headings do not skip levels.
+- [ ] No horizontal scrolling at 375px; tap targets at least 44px.
+- [ ] Each page is under 64 KB of HTML and CSS (images excluded).
+- [ ] The structured data listed for each page is present and valid.
+- [ ] Every internal link opens an existing page.
+- [ ] Text contrast meets WCAG AA, focus is visible, images have alt text.
+- [ ] Every rule in the market guidance and the block rules holds on every page.
+
+---
+
+# Rebuild brief: Placar Aberto
+
+_Follow the system prompt (role, target stack, acceptance checklist) together with this brief._
+
+## Site type guidance
+
+- Purpose: industry or brand news and guides, with paid articles clearly labelled.
+- Paid (PR) articles show the advertising label in every list and above the headline, name the sponsor and carry a disclosure box; their brand links are rel="sponsored nofollow".
+- Sponsors cannot pay for or edit news and guides, or remove the advertising label.
+- Articles show author, date and, when corrected, the update date.
+- Article pages are generated from the article files; lists paginate instead of growing without limit.
+
+## Market guidance
+
+### Market context (from the market settings)
+
+- Market: Brazil (`br`), languages pt, currency BRL (R$)
+- Minimum age: 18+
+- Products allowed: sports, casino
+- Promotions allowed: none; not allowed: welcome_bonus, deposit_bonus, free_bets, promo_code, odds_boost, cashback, loyalty, tournaments
+- Payment methods: PIX, TED, Débito
+- App install paths: iOS app-store, Android both
+
+### Mandated texts (from the market settings)
+
+- Age notice: Proibido para menores de 18 anos.
+- Licence: Autorizada SPA/MF
+- Self-exclusion: Você pode solicitar a autoexclusão a qualquer momento.
+
+### Rules you must not break
+
+- Every page opens with an age gate (18+) before any gambling content.
+- Every page has the responsible-gambling panel (usually in the footer) with the market text: age notice, licence line, taglines, self-exclusion and helpline where given. Never type this text yourself; it comes from the market settings.
+- Minimum age is 18: the age gate and every age line say 18+.
+- Show only these payment methods: PIX, TED, Débito.
+- Amounts are in BRL (R$).
+
+### Market-specific rules
+
+- Only licensed operators with .bet.br domains; links go to the .bet.br domain.
+- Credit cards are never shown as a payment method.
+- Identity and age are verified with CPF before play.
+
+## Site context
+
+- Site: Placar Aberto (https://placaraberto.example)
+- Site type: news, angle guides-first; language `pt`, text direction `ltr`
+- Pages (13):
+  - `index.html` — Placar Aberto: notícias e guias de apostas no Brasil
+  - `guides-como-funciona-o-saque-pix.html` — Saque via PIX em casas de apostas: prazos, limites e o que pode atrasar | Placar Aberto
+  - `news-o-que-muda-com-bet-br.html` — Domínio .bet.br: como saber se o site é autorizado | Placar Aberto
+  - `guides-limites-de-deposito-guia.html` — Como definir limites de depósito e de tempo na sua conta | Placar Aberto
+  - `partner-content-nyxa-app-pix-tempo-real.html` — Nyxa passa a mostrar o status do saque PIX em tempo real no app | Placar Aberto
+  - `guides-odds-decimais-explicadas.html` — Odds decimais: como ler e calcular o retorno de uma aposta | Placar Aberto
+  - `news-brasileirao-reta-final.html` — Reta final do Brasileirão concentra o maior volume de apostas do ano | Placar Aberto
+  - `partner-content-marlowe-mesas-ao-vivo-portugues.html` — Marlowe Club abre novas mesas ao vivo com crupiês em português | Placar Aberto
+  - `news-publicidade-de-apostas-novas-regras.html` — Publicidade de apostas: o que as regras proíbem | Placar Aberto
+  - `news.html` — Notícias do mercado de apostas | Placar Aberto
+  - `guides.html` — Guias de apostas | Placar Aberto
+  - `partner-content.html` — Conteúdo de parceiros | Placar Aberto
+  - `about.html` — Sobre o Placar Aberto e o conteúdo pago
+
+## Design tokens
+
+Fonts (Google Fonts): Inter, JetBrains Mono.
+
+Use these CSS custom properties (they are the whole palette, type scale and radius set):
+
+```css
+:root {
+  --ujk: rgb(255 255 255);
+  --cuq: rgb(244 244 244);
+  --oal: rgb(233 233 233);
+  --qpy: rgb(17 17 17);
+  --osv: rgb(102 102 102);
+  --xou: rgb(217 217 217);
+  --ymq: rgb(17 17 17);
+  --esf: rgb(255 255 255);
+  --ldx: rgb(85 85 85);
+  --atf: rgb(51 51 51);
+  --mrz: rgb(119 119 119);
+  --tfk: rgb(51 51 51);
+  --ngd: rgb(17 17 17);
+  --emj: rgb(85 85 85);
+  --kfi: rgb(17 17 17);
+  --wpa: rgb(255 255 255);
+  --jrd: rgb(255 255 255);
+  --now: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --oqy: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --qme: "JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+  --bjn: 700;
+  --oxh: 400;
+  --bre: 500;
+  --lmx: none;
+  --pcr: -0.01em;
+  --lmq: 1.6;
+  --ets: 1.15;
+  --svg: 6px;
+  --rqs: 10px;
+  --agx: 16px;
+  --wnm: 8px;
+  --jep: 1px;
+  --rei: 1;
+  --qkn: 12.8px;
+  --rzh: 16px;
+  --tao: 25px;
+  --aty: clamp(21.25px,16.96px + 1.19vw,31.25px);
+  --phb: clamp(26.56px,21.21px + 1.488vw,39.06px);
+  --dgx: clamp(33.2px,26.51px + 1.86vw,48.83px);
+  --ytj: clamp(41.5px,33.13px + 2.325vw,61.04px);
+  --qfk: 4px;
+  --cvt: 8px;
+  --yax: 12px;
+  --anw: 16px;
+  --kiz: 24px;
+  --ryi: 32px;
+  --owr: 48px;
+  --lta: 64px;
+  --kfu: 96px;
+  --jzk: rgb(244 244 244);
+  --hxm: transparent;
+  --hfq: none;
+  --zvn: flat;
+}
+```
+
+Layout is mobile-first: it must work from 375px to 1440px wide.
+
+## Block rules
+
+- Affiliate disclosure: Fixed wording per locale; cannot be removed on review sites.
+- Header: One-page landing and app pages use 'minimal' (no nav) so attention stays on the conversion.
+- Header: The CTA stays visible at every width; on mobile the nav collapses into a menu, the CTA does not.
+- Lead stories: PR articles are never the lead story.
+- Article list: Paid (pr) articles always carry the Sponsored label and sponsor name.
+- Footer: Always renders the compliance panel; it cannot be switched off.
+- Footer: Payment methods come from the market config so they are always locally correct.
+- Responsible gambling: All copy comes from markets/<id>.json; never type compliance text into a page.
+- Responsible gambling: Every page renders a 'panel' (usually inside the footer). 'strip' is an optional top-of-page addition.
+- Responsible gambling: Where a market lists several mandated taglines, one is chosen per site by seed.
+- Age gate: Age comes from the market (21 in KZ, 18 in AU/BR). Never hard-code it.
+- Age gate: Content stays in the HTML for crawlers; the overlay is shown by script, so no-JS users still see the compliance footer.
+- Sticky CTA: Phones only (860px and narrower). Never covers the compliance panel: the footer gets bottom padding.
+- Sticky CTA: Shows the market age badge next to the CTA.
+- Article body: Paid articles show the Sponsored label, the sponsor and a disclosure box; their brand links are rel="sponsored nofollow".
+- Article body: Paid articles get no NewsArticle structured data.
+- Page title: The answer line states the page's key fact in one sentence, above the fold on phones.
+- Text block: Only h2, h3, p, ul, ol, li, strong, em, a, table, blockquote survive; all attributes except href are removed.
+- Text block: Links: page:<id> for internal pages, https:// for sources. Brand links belong in CTAs, not in prose.
+- Page links: Internal links only; never a substitute for the brand CTA.
+
+## Page `index.html`
+
+- Title tag: Placar Aberto: notícias e guias de apostas no Brasil
+- The only H1: Notícias e guias de apostas no Brasil
+- Structured data (JSON-LD): WebPage, WebSite
+- Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `guides-como-funciona-o-saque-pix.html`, `news-o-que-muda-com-bet-br.html`, `guides-limites-de-deposito-guia.html`, `guides-odds-decimais-explicadas.html`, `news-brasileirao-reta-final.html`, `news-publicidade-de-apostas-novas-regras.html`, `partner-content-nyxa-app-pix-tempo-real.html`, `partner-content-marlowe-mesas-ao-vivo-portugues.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Lead stories** — block `sx/article-lead`, variant `stack`, role `content`
+   Purpose: Home masthead: H1 and the newest news or guide stories (split, stack or numbered wire). Never paid content.
+   - `title`: "Notícias e guias de apostas no Brasil"
+4. **Article list** — block `sx/article-list`, variant `cards`, role `content`
+   Purpose: Articles newest first: one kind or all, with the Sponsored label on paid ones, optional paging and a "see all" link.
+   - `heading`: "h2"
+   - `title`: "Guias para começar"
+   - `kind`: "guide"
+   - `exclude_pr`: false
+   - `skip_lead`: true
+   - `limit`: "3"
+   - `more`: "guides"
+   - `exclude_current`: false
+5. **Article list** — block `sx/article-list`, variant `list`, role `content`
+   Purpose: Articles newest first: one kind or all, with the Sponsored label on paid ones, optional paging and a "see all" link.
+   - `heading`: "h2"
+   - `title`: "Últimas notícias"
+   - `exclude_pr`: true
+   - `skip_lead`: true
+   - `limit`: "6"
+   - `more`: "news"
+   - `exclude_current`: false
+6. **Article list** — block `sx/article-list`, variant `rail`, role `content`
+   Purpose: Articles newest first: one kind or all, with the Sponsored label on paid ones, optional paging and a "see all" link.
+   - `heading`: "h2"
+   - `title`: "Conteúdo de parceiros"
+   - `kind`: "pr"
+   - `exclude_pr`: false
+   - `skip_lead`: false
+   - `limit`: "3"
+   - `more`: "partners"
+   - `exclude_current`: false
+7. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
+     - `show_verify`: false
+8. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+9. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `guides-como-funciona-o-saque-pix.html`
+
+- Title tag: Saque via PIX em casas de apostas: prazos, limites e o que pode atrasar | Placar Aberto
+- The only H1: Saque via PIX em casas de apostas: prazos, limites e o que pode atrasar
+- Structured data (JSON-LD): WebPage, Article, BreadcrumbList
+- Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `guides-limites-de-deposito-guia.html`, `guides-odds-decimais-explicadas.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
+     - `show_verify`: false
+5. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+6. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `news-o-que-muda-com-bet-br.html`
+
+- Title tag: Domínio .bet.br: como saber se o site é autorizado | Placar Aberto
+- The only H1: Domínio .bet.br: como saber se o site é autorizado
+- Structured data (JSON-LD): WebPage, NewsArticle, BreadcrumbList
+- Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `news-brasileirao-reta-final.html`, `news-publicidade-de-apostas-novas-regras.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
+     - `show_verify`: false
+5. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+6. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `guides-limites-de-deposito-guia.html`
+
+- Title tag: Como definir limites de depósito e de tempo na sua conta | Placar Aberto
+- The only H1: Como definir limites de depósito e de tempo na sua conta
+- Structured data (JSON-LD): WebPage, Article, BreadcrumbList
+- Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `guides-como-funciona-o-saque-pix.html`, `guides-odds-decimais-explicadas.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
+     - `show_verify`: false
+5. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+6. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `partner-content-nyxa-app-pix-tempo-real.html`
+
+- Title tag: Nyxa passa a mostrar o status do saque PIX em tempo real no app | Placar Aberto
+- The only H1: Nyxa passa a mostrar o status do saque PIX em tempo real no app
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `partner-content-marlowe-mesas-ao-vivo-portugues.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
+     - `show_verify`: false
+5. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+6. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `guides-odds-decimais-explicadas.html`
+
+- Title tag: Odds decimais: como ler e calcular o retorno de uma aposta | Placar Aberto
+- The only H1: Odds decimais: como ler e calcular o retorno de uma aposta
+- Structured data (JSON-LD): WebPage, Article, BreadcrumbList
+- Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `guides-como-funciona-o-saque-pix.html`, `guides-limites-de-deposito-guia.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
+     - `show_verify`: false
+5. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+6. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `news-brasileirao-reta-final.html`
+
+- Title tag: Reta final do Brasileirão concentra o maior volume de apostas do ano | Placar Aberto
+- The only H1: Reta final do Brasileirão concentra o maior volume de apostas do ano
+- Structured data (JSON-LD): WebPage, NewsArticle, BreadcrumbList
+- Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `news-o-que-muda-com-bet-br.html`, `news-publicidade-de-apostas-novas-regras.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
+     - `show_verify`: false
+5. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+6. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `partner-content-marlowe-mesas-ao-vivo-portugues.html`
+
+- Title tag: Marlowe Club abre novas mesas ao vivo com crupiês em português | Placar Aberto
+- The only H1: Marlowe Club abre novas mesas ao vivo com crupiês em português
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `partner-content-nyxa-app-pix-tempo-real.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
+     - `show_verify`: false
+5. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+6. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `news-publicidade-de-apostas-novas-regras.html`
+
+- Title tag: Publicidade de apostas: o que as regras proíbem | Placar Aberto
+- The only H1: Publicidade de apostas: o que as regras proíbem
+- Structured data (JSON-LD): WebPage, NewsArticle, BreadcrumbList
+- Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `news-o-que-muda-com-bet-br.html`, `news-brasileirao-reta-final.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Article body** — block `sx/article-body`, variant `standard`, role `hero`
+   Purpose: The article of this page: kicker or Sponsored label, H1, dek, byline, disclosure box (paid), body, brand box with CTA (paid), related articles.
+4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
+     - `show_verify`: false
+5. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+6. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `news.html`
+
+- Title tag: Notícias do mercado de apostas | Placar Aberto
+- The only H1: Notícias
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `news-o-que-muda-com-bet-br.html`, `news-brasileirao-reta-final.html`, `news-publicidade-de-apostas-novas-regras.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Article list** — block `sx/article-list`, variant `cards`, role `content`
+   Purpose: Articles newest first: one kind or all, with the Sponsored label on paid ones, optional paging and a "see all" link.
+   - `heading`: "h1"
+   - `title`: "Notícias"
+   - `kind`: "news"
+   - `exclude_pr`: false
+   - `skip_lead`: false
+   - `limit`: "0"
+   - `exclude_current`: false
+4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
+     - `show_verify`: false
+5. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+6. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `guides.html`
+
+- Title tag: Guias de apostas | Placar Aberto
+- The only H1: Guias
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `guides-como-funciona-o-saque-pix.html`, `guides-limites-de-deposito-guia.html`, `guides-odds-decimais-explicadas.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Article list** — block `sx/article-list`, variant `cards`, role `content`
+   Purpose: Articles newest first: one kind or all, with the Sponsored label on paid ones, optional paging and a "see all" link.
+   - `heading`: "h1"
+   - `title`: "Guias"
+   - `kind`: "guide"
+   - `exclude_pr`: false
+   - `skip_lead`: false
+   - `limit`: "0"
+   - `exclude_current`: false
+4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
+     - `show_verify`: false
+5. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+6. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `partner-content.html`
+
+- Title tag: Conteúdo de parceiros | Placar Aberto
+- The only H1: Publicidade Conteúdo de parceiros
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`, `partner-content-nyxa-app-pix-tempo-real.html`, `partner-content-marlowe-mesas-ao-vivo-portugues.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Article list** — block `sx/article-list`, variant `list`, role `content`
+   Purpose: Articles newest first: one kind or all, with the Sponsored label on paid ones, optional paging and a "see all" link.
+   - `heading`: "h1"
+   - `title`: "Conteúdo de parceiros"
+   - `intro`: "Estes artigos são pagos por marcas de apostas e revisados por elas antes da publicação. São publicidade, não jornalismo independente."
+   - `kind`: "pr"
+   - `exclude_pr`: false
+   - `skip_lead`: false
+   - `limit`: "0"
+   - `exclude_current`: false
+4. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
+     - `show_verify`: false
+5. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+6. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+## Page `about.html`
+
+- Title tag: Sobre o Placar Aberto e o conteúdo pago
+- The only H1: Sobre o Placar Aberto
+- Structured data (JSON-LD): WebPage, BreadcrumbList
+- Links to: `about.html`, `news.html`, `guides.html`, `partner-content.html`, `index.html`
+
+### Sections, in order
+
+1. **Affiliate disclosure** — block `sx/disclosure`, variant `chip`, role `top`
+   Purpose: One-line affiliate disclosure with a link to the moderation policy. Every page of a review site.
+2. **Header** — block `sx/header`, variant `centered`, role `header`
+   Purpose: Site header with logo, navigation and primary CTA.
+   - `sticky`: false
+   - `show_cta`: false
+3. **Page title** — block `sx/page-hero`, variant `answer`, role `hero`
+   Purpose: Short hero for service pages: breadcrumbs, title, the one-line answer, CTA.
+   - `title`: "Sobre o Placar Aberto"
+   - `answer`: "Escrevemos notícias e guias sobre apostas no Brasil. Marcas podem pagar por artigos; todo artigo pago é marcado como Publicidade."
+   - `show_cta`: false
+4. **Text block** — block `sx/prose`, variant `toc-side`, role `content`
+   Purpose: Formats a service page's text: H2/H3, paragraphs, lists, a simple table. Optional table of contents. Content comes from the content pipeline.
+   - `html`: `<h2>Artigos pagos</h2><p>Marcas de apostas podem pagar para publicarmos artigos sobre seus produtos. Esses artigos aparecem marcados como Publicidade nas listas e acima do título, dizem qual marca pagou e trazem um aviso de que são anúncios.</p><p>Os links em artigos pagos são marcados como links patrocinados para os buscadores.</p><h2>O que patrocinadores não podem fazer</h2><ul><li>Pagar ou edit…` (HTML)
+   - `toc`: true
+5. **Page links** — block `sx/page-links`, variant `cards`, role `content`
+   Purpose: Links to the site's other pages with a one-line blurb: service pages on home, related pages elsewhere.
+6. **Footer** — block `sx/footer`, variant `compact`, role `footer`
+   Purpose: Footer with links, payment methods, the compliance panel and copyright.
+   - `show_verify`: false
+  - inside it: **Responsible gambling** — block `sx/compliance-bar`, variant `cards`
+     - `show_verify`: false
+7. **Age gate** — block `sx/age-gate`, variant `split`, role `age-gate`
+   Purpose: Age confirmation overlay using the market's minimum age. Remembers the answer for 30 days.
+   - `leave_url`: "https://www.google.com"
+   - `preview`: false
+8. **Sticky CTA** — block `sx/sticky-cta`, variant `pill`, role `sticky`
+   Purpose: Bottom CTA on phones. Appears once the hero CTA scrolls away; hides while the final CTA is on screen.
+
+_Long text and lists are shortened here (…, "[n items]"). For the full text run `php build/ai-brief.php sites/demos/<config>.json`._
