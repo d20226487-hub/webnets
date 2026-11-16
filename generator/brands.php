@@ -111,7 +111,7 @@ function gen_rmtree(string $dir): void
 function gen_overlay_update(string $rel, callable $fn): void
 {
     $file = gen_overlay_dir() . "/$rel";
-    is_dir(dirname($file)) || mkdir(dirname($file), 0777, true);
+    gen_mkdir(dirname($file));
     // writers take turns on a lock file; the new content is written aside and renamed over the old file, so a build
     // reading brand data at the same moment (it takes no lock) sees the old file or the new one, never a half-written one
     $h = fopen("$file.lock", 'c');
@@ -215,7 +215,7 @@ function gen_materialise_brands(array $brands, string $market, int $jobId, strin
             'user_brand' => true,
         ];
         gen_overlay_update('operators.json', fn($d) => array_merge($d, [$id => $op]));
-        is_dir(gen_overlay_dir() . '/logos') || mkdir(gen_overlay_dir() . '/logos', 0777, true);
+        gen_mkdir(gen_overlay_dir() . '/logos');
         $logo = gen_overlay_dir() . "/logos/$id.svg";
         file_put_contents("$logo." . getmypid() . '.tmp', gen_logo_svg($b['name'], $id));
         rename("$logo." . getmypid() . '.tmp', $logo);
@@ -440,7 +440,7 @@ function gen_site_articles(string $srcDir, string $siteId, array $brandIds, ?arr
     global $GEN_ROOT;
     $rel = "data/content/$siteId/articles";
     $dir = "$GEN_ROOT/$rel";
-    is_dir($dir) || mkdir($dir, 0777, true);
+    gen_mkdir($dir);
     $ops = sx_brand_data($GEN_ROOT, 'operators.json');
     $written = [];
     $map = [];

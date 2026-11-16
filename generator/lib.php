@@ -173,6 +173,24 @@ function gen_option_label(string $axis, string $o, string $fallback): string
 
 /* ---------------------------------------------------------------- database */
 
+/** mkdir -p that also works through a link whose target is gone: in Docker /app/data links to the project's data/
+ *  on the host, which is not in git, so a fresh clone or a git clean removes it while the container runs. */
+function gen_mkdir(string $d): bool
+{
+    if (is_dir($d)) {
+        return true;
+    }
+    for ($p = $d; $p !== dirname($p); $p = dirname($p)) {
+        if (is_link($p) && !file_exists($p)) {
+            $t = readlink($p);
+            $t = $t[0] === '/' ? $t : dirname($p) . '/' . $t;
+            @mkdir($t, 0777, true);
+            break;
+        }
+    }
+    return is_dir($d) || @mkdir($d, 0777, true) || is_dir($d);
+}
+
 function gen_db(): PDO
 {
     global $GEN_ROOT;
@@ -180,9 +198,9 @@ function gen_db(): PDO
     if ($db) {
         return $db;
     }
-    @mkdir("$GEN_ROOT/data", 0777, true);
+    gen_mkdir("$GEN_ROOT/data");
     $file = gen_db_file();
-    is_dir(dirname($file)) || mkdir(dirname($file), 0777, true);
+    gen_mkdir(dirname($file));
     $db = new PDO('sqlite:' . $file);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -289,10 +307,10 @@ function gen_health(): array
     }
     $dirs = ['data' => "$GEN_ROOT/data", 'dist/generated' => "$GEN_ROOT/dist/generated", 'database folder' => dirname(gen_db_file()), 'cache' => gen_cache_dir(), 'brand data' => "$GEN_ROOT/data/overlay"];
     foreach ($dirs as $name => $d) {
-        is_dir($d) || @mkdir($d, 0777, true);
+        gen_mkdir($d);
         $checks["writable: $name"] = is_dir($d) && is_writable($d);
         if (!$checks["writable: $name"]) {
-            $problems[] = "The generator cannot write to $name ($d): " . (is_dir($d) ? 'no permission for the PHP user ' . (function_exists('posix_geteuid') ? '(uid ' . posix_geteuid() . ')' : '') : 'the folder does not exist and cannot be created') . '.';
+            $problems[] = "The generator cannot write to $name ($d): " . (is_link($d) && !file_exists($d) ? 'it links to ' . readlink($d) . ', which is missing and cannot be created (is the project folder mounted and writable?)' : (is_dir($d) ? 'no permission for the PHP user ' . (function_exists('posix_geteuid') ? '(uid ' . posix_geteuid() . ')' : '') : 'the folder does not exist and cannot be created')) . '.';
         }
     }
     if ($checks['php: pdo_sqlite'] && $checks['writable: database folder']) {
@@ -334,7 +352,7 @@ function gen_cache_dir(string $sub = ''): string
 {
     global $GEN_ROOT;
     $d = rtrim(getenv('SX_GEN_CACHE') ?: "$GEN_ROOT/data", '/') . ($sub !== '' ? "/$sub" : '');
-    is_dir($d) || @mkdir($d, 0777, true);
+    gen_mkdir($d);
     return $d;
 }
 
@@ -479,7 +497,7 @@ function gen_warm_availability(): void
     if (!gen_stale_markets()) {
         return;
     }
-    @mkdir("$GEN_ROOT/data/logs", 0777, true);
+    gen_mkdir("$GEN_ROOT/data/logs");
     $cmd = escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg(__DIR__ . '/probe.php') . ' warm >> ' . escapeshellarg("$GEN_ROOT/data/logs/availability.log") . ' 2>&1';
     if (PHP_OS_FAMILY === 'Windows') {
         pclose(popen('start "" /B cmd /c "' . $cmd . '"', 'r'));
@@ -1135,7 +1153,7 @@ function gen_build_site(array $site, string $market, array $brands = []): array
         $cfg['featured'] = $own[crc32($site['id']) % count($own)];
     }
     $cfg = gen_apply_edits($cfg, $site['type'], gen_site_edits($spec, $site['type'], $plan)); // the user's edits (type, then site) go on top of the plan
-    @mkdir("$GEN_ROOT/data/configs", 0777, true);
+    gen_mkdir("$GEN_ROOT/data/configs");
     $file = "$GEN_ROOT/data/configs/{$site['id']}.json";
     file_put_contents($file, json_encode($cfg, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
     $cmd = 'SX_REVIEW_OUT=dist/generated ' . escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg("$GEN_ROOT/build/export-review-site.php") . ' ' . escapeshellarg($file) . ' 2>&1';
@@ -1247,7 +1265,7 @@ function gen_diff(array $a, array $b): array
 function gen_spawn(int $jobId): void
 {
     global $GEN_ROOT;
-    @mkdir("$GEN_ROOT/data/logs", 0777, true);
+    gen_mkdir("$GEN_ROOT/data/logs");
     $log = "$GEN_ROOT/data/logs/job-$jobId.log";
     $cmd = gen_php_cmd() . ' ' . escapeshellarg(__DIR__ . '/run.php') . ' ' . $jobId . ' >> ' . escapeshellarg($log) . ' 2>&1';
     if (PHP_OS_FAMILY === 'Windows') {
