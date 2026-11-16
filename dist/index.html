@@ -82,6 +82,7 @@ h1 { font: 700 clamp(2rem, 4.6vw, 3.4rem)/1.04 var(--f-display); letter-spacing:
 footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
 .viewbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
 #secview { display: grid; gap: 36px; }
+html:not([data-gview="sections"]) .only-sections, html[data-gview="sections"] .only-sites { display: none !important; }
 .ssel { font: 500 14px/1.2 var(--f-body); color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; min-height: 36px; max-width: 100%; }
 .sshare { font: 500 12px/1 var(--f-body); color: var(--muted); padding: 5px 9px; border: 1px solid var(--line); border-radius: 999px; }
 .sshare.many { color: var(--accent); border-color: var(--accent); }
@@ -124,10 +125,18 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
   </div>
 
   <header class="top">
-    <h1><span data-l="en">Every site type, every demo</span><span data-l="ru">Все типы сайтов, все демо</span></h1>
-    <p class="lede"><span data-l="en">Home pages of all demo sites built from the shared block library, shown at desktop and phone width. Brands, numbers and reviews are fictional. Open a demo to click through its pages.</span><span data-l="ru">Главные страницы всех демо-сайтов, собранных из общей библиотеки блоков, на компьютере и на телефоне. Бренды, цифры и отзывы вымышлены. Откройте демо, чтобы пройтись по его страницам.</span></p>
+    <h1 class="only-sites"><span data-l="en">Every site type, every demo</span><span data-l="ru">Все типы сайтов, все демо</span></h1>
+    <h1 class="only-sections"><span data-l="en">Every section, every design</span><span data-l="ru">Все секции, все дизайны</span></h1>
+    <p class="lede only-sections"><span data-l="en">Each section of the shared block library in every design, at desktop and phone width, with the site types that use it. Open a design to see it on a demo page.</span><span data-l="ru">Каждая секция общей библиотеки блоков во всех дизайнах, на компьютере и на телефоне, и типы сайтов, где она используется. Откройте дизайн, чтобы увидеть его на странице демо.</span></p>
+    <p class="lede only-sites"><span data-l="en">Home pages of all demo sites built from the shared block library, shown at desktop and phone width. Brands, numbers and reviews are fictional. Open a demo to click through its pages.</span><span data-l="ru">Главные страницы всех демо-сайтов, собранных из общей библиотеки блоков, на компьютере и на телефоне. Бренды, цифры и отзывы вымышлены. Откройте демо, чтобы пройтись по его страницам.</span></p>
     <p class="lede applinks"><a class="genlink" href="/generator/"><span data-l="en">Open the generator</span><span data-l="ru">Открыть генератор</span> →</a><a href="/settings/" style="font-weight:600"><span data-l="en">AI brief settings</span><span data-l="ru">Настройки брифа для ИИ</span> →</a></p>
-    <ul class="stats">
+    <ul class="stats only-sections">
+      <li><b>43</b><span><span data-l="en">sections</span><span data-l="ru">секции</span></span></li>
+      <li><b>106</b><span><span data-l="en">designs</span><span data-l="ru">дизайнов</span></span></li>
+      <li><b>26</b><span><span data-l="en">shared by several site types</span><span data-l="ru">общих для нескольких типов сайтов</span></span></li>
+      <li><b>10</b><span><span data-l="en">site types</span><span data-l="ru">типов сайтов</span></span></li>
+    </ul>
+    <ul class="stats only-sites">
       <li><b>10</b><span><span data-l="en">of 10 site types built</span><span data-l="ru">из 10 типов сайтов готово</span></span></li>
       <li><b>28</b><span><span data-l="en">demo sites</span><span data-l="ru">демо-сайтов</span></span></li>
       <li><b>140</b><span><span data-l="en">pages in total</span><span data-l="ru">страниц всего</span></span></li>
@@ -1608,7 +1617,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
       </article>
     </section>
   </div>
-  <footer><p><span data-l="en">Screenshots and review links show the current builds as of 9 Nov 2026.</span><span data-l="ru">Скриншоты и ссылки показывают текущие сборки на 9 ноября 2026 года.</span></p></footer>
+  <footer class="only-sites"><p><span data-l="en">Screenshots and review links show the current builds as of 9 Nov 2026.</span><span data-l="ru">Скриншоты и ссылки показывают текущие сборки на 9 ноября 2026 года.</span></p></footer>
 </div>
 
 <script>
@@ -1672,6 +1681,7 @@ footer p { color: var(--muted); font-size: 13px; max-width: 72ch; }
     if (!secview) return;
     var sec = v === 'sections';
     secview.hidden = !sec; siteview.hidden = sec; filters.hidden = sec; none.hidden = true;
+    docEl.setAttribute('data-gview', sec ? 'sections' : 'sites');
     document.querySelectorAll('[data-view]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.view === v)); });
     if (save) keep('sxg-view', v);
     if (!sec) apply();

@@ -182,6 +182,7 @@ for x in sec_items:
 sec_groups_html = []
 sec_types, sec_blocks = set(), []
 n_sec_designs = len(sec_items)
+n_sec_shared = 0  # sections used by more than one site type
 for gid, gname, blocks in SEC_GROUPS:
     cards_ = []
     for bl in blocks:
@@ -196,6 +197,7 @@ for gid, gname, blocks in SEC_GROUPS:
         n = len(meta['sx'].get('variants') or [1])
         types_ = sorted(u['home'] | u['inner'], key=lambda x: [y[0] for y in TYPES].index(x) if x in TYPE_NAMES else 99)
         sec_types.update(types_)
+        n_sec_shared += len(types_) > 1
         share = (t(f"Shared by {len(types_)} site types", f"Общая для {len(types_)} " + ru_plural(len(types_), 'типа', 'типов', 'типов') + " сайтов") if len(types_) > 1
                  else t(f"Only {TYPE_NAMES.get(types_[0], (types_[0],))[0]}", f"Только {TYPE_NAMES.get(types_[0], (types_[0], types_[0]))[1]}") if types_ else '')
         sec_blocks.append((gid, bl, en, SEC_RU.get(bl, en)))
@@ -324,6 +326,7 @@ h1 {{ font: 700 clamp(2rem, 4.6vw, 3.4rem)/1.04 var(--f-display); letter-spacing
 footer p {{ color: var(--muted); font-size: 13px; max-width: 72ch; }}
 .viewbar {{ display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }}
 #secview {{ display: grid; gap: 36px; }}
+html:not([data-gview="sections"]) .only-sections, html[data-gview="sections"] .only-sites {{ display: none !important; }}
 .ssel {{ font: 500 14px/1.2 var(--f-body); color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; min-height: 36px; max-width: 100%; }}
 .sshare {{ font: 500 12px/1 var(--f-body); color: var(--muted); padding: 5px 9px; border: 1px solid var(--line); border-radius: 999px; }}
 .sshare.many {{ color: var(--accent); border-color: var(--accent); }}
@@ -366,11 +369,20 @@ footer p {{ color: var(--muted); font-size: 13px; max-width: 72ch; }}
   </div>
 
   <header class="top">
-    <h1>{t("Every site type, every demo", "Все типы сайтов, все демо")}</h1>
-    <p class="lede">{t("Home pages of all demo sites built from the shared block library, shown at desktop and phone width. Brands, numbers and reviews are fictional. Open a demo to click through its pages.",
+    <h1 class="only-sites">{t("Every site type, every demo", "Все типы сайтов, все демо")}</h1>
+    <h1 class="only-sections">{t("Every section, every design", "Все секции, все дизайны")}</h1>
+    <p class="lede only-sections">{t("Each section of the shared block library in every design, at desktop and phone width, with the site types that use it. Open a design to see it on a demo page.",
+                       "Каждая секция общей библиотеки блоков во всех дизайнах, на компьютере и на телефоне, и типы сайтов, где она используется. Откройте дизайн, чтобы увидеть его на странице демо.")}</p>
+    <p class="lede only-sites">{t("Home pages of all demo sites built from the shared block library, shown at desktop and phone width. Brands, numbers and reviews are fictional. Open a demo to click through its pages.",
                        "Главные страницы всех демо-сайтов, собранных из общей библиотеки блоков, на компьютере и на телефоне. Бренды, цифры и отзывы вымышлены. Откройте демо, чтобы пройтись по его страницам.")}</p>
     {SETTINGS_LINK}
-    <ul class="stats">
+    <ul class="stats only-sections">
+      <li><b>{len(sec_blocks)}</b><span>{t("sections", ru_plural(len(sec_blocks), "секция", "секции", "секций"))}</span></li>
+      <li><b>{n_sec_designs}</b><span>{t("designs", ru_plural(n_sec_designs, "дизайн", "дизайна", "дизайнов"))}</span></li>
+      <li><b>{n_sec_shared}</b><span>{t("shared by several site types", "общих для нескольких типов сайтов")}</span></li>
+      <li><b>{len(sec_types)}</b><span>{t("site types", ru_plural(len(sec_types), "тип сайтов", "типа сайтов", "типов сайтов"))}</span></li>
+    </ul>
+    <ul class="stats only-sites">
       <li><b>{n_built}</b><span>{t(f"of {n_types} site types built", f"из {n_types} типов сайтов готово")}</span></li>
       <li><b>{n_demos}</b><span>{t("demo sites", ru_plural(n_demos, "демо-сайт", "демо-сайта", "демо-сайтов"))}</span></li>
       <li><b>{n_pages}</b><span>{t("pages in total", ru_plural(n_pages, "страница всего", "страницы всего", "страниц всего"))}</span></li>
@@ -387,7 +399,7 @@ footer p {{ color: var(--muted); font-size: 13px; max-width: 72ch; }}
   <p class="none-msg" id="none" hidden>{t("No demo matches these filters.", "Нет демо под эти фильтры.")} <button type="button" class="clear" id="clear2">{t("Show all", "Показать все")}</button></p>
   <div id="siteview">{''.join(sections)}</div>
   {SEC_VIEW}
-  <footer><p>{t(f"Screenshots and review links show the current builds as of {BUILT_EN}.", f"Скриншоты и ссылки показывают текущие сборки на {BUILT_RU}.")}</p></footer>
+  <footer class="only-sites"><p>{t(f"Screenshots and review links show the current builds as of {BUILT_EN}.", f"Скриншоты и ссылки показывают текущие сборки на {BUILT_RU}.")}</p></footer>
 </div>
 
 <script>
@@ -451,6 +463,7 @@ footer p {{ color: var(--muted); font-size: 13px; max-width: 72ch; }}
     if (!secview) return;
     var sec = v === 'sections';
     secview.hidden = !sec; siteview.hidden = sec; filters.hidden = sec; none.hidden = true;
+    docEl.setAttribute('data-gview', sec ? 'sections' : 'sites');
     document.querySelectorAll('[data-view]').forEach(function (b) {{ b.setAttribute('aria-pressed', String(b.dataset.view === v)); }});
     if (save) keep('sxg-view', v);
     if (!sec) apply();
