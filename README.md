@@ -450,6 +450,10 @@ Files: `generator/lib.php` (catalog, planning, placeholders, build, fingerprints
 (market checks), `generator/index.php` (the app). `lib/nocomments.php` strips comments from every build. The Docker
 image includes Chromium for the visual check (`docker compose build` after pulling this change).
 
+### User guide
+
+The generator has a user guide in Russian: **Справка** (`#/docs`) in its top menu. It covers getting started, the job form, the job page, editing sites, AI briefs, thresholds, markets, site types, the gallery, an FAQ and setup for admins. The text is `generator/docs.html` (one `<section id>` per chapter; the contents list is built from the `<h2>` headings), shown by `generator/docs.js`; `#/docs/<id>` opens a chapter.
+
 ### Running on a small VPS
 
 `docker-compose.vps.yml` caps the container (1.5 GB RAM, 2 CPUs) and limits the heavy steps: test builds run 4 at a time

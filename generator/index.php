@@ -87,6 +87,34 @@ table{border-collapse:collapse;width:100%}th,td{text-align:left;padding:8px 10px
 .ov td,.ov th{text-align:left}.ov a{color:inherit}
 .legend{display:flex;flex-wrap:wrap;gap:6px 10px;margin:8px 0 4px;font-size:13px}
 details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.warn ul{margin:6px 0 0;padding-left:18px;font-size:12px;color:var(--muted)}
+/* Справка (user guide) */
+.docs{display:grid;grid-template-columns:240px minmax(0,1fr);gap:40px;align-items:start}
+.dtoc{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;font-size:14px}
+.dtoc summary{font-weight:650;cursor:pointer;padding:6px 0;list-style:none}.dtoc summary::-webkit-details-marker{display:none}
+.dtoc ol{margin:6px 0 0;padding:0;list-style:none;counter-reset:d;display:grid;gap:2px}
+.dtoc li{counter-increment:d}.dtoc a{display:block;padding:6px 10px;border-radius:8px;color:var(--muted);text-decoration:none;line-height:1.35}
+.dtoc a::before{content:counter(d) ". ";font-variant-numeric:tabular-nums;opacity:.7}
+.dtoc a:hover{background:var(--accent-2);color:var(--text)}.dtoc a[aria-current]{background:var(--accent-2);color:var(--accent);font-weight:600}
+.dbody{max-width:780px;font-size:16px;line-height:1.65;min-width:0}
+.dkicker{margin:0;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.dh1{margin:6px 0 18px;font-size:30px;line-height:1.15;letter-spacing:-.01em}
+.dbody section{padding:18px 0 22px;border-top:1px solid var(--line);scroll-margin-top:16px}
+.dbody section:first-of-type{border-top:0;padding-top:0}
+.dbody h2{font-size:22px;margin:0 0 10px}.dbody h3{font-size:17px;margin:20px 0 8px}
+.dbody p,.dbody ul,.dbody ol{margin:0 0 12px}.dbody li{margin:4px 0}
+.dbody code{font:13px/1.4 ui-monospace,SFMono-Regular,Consolas,monospace;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:1px 6px;overflow-wrap:anywhere}
+.dbody .steps{padding-left:22px}.dbody .steps li{margin:8px 0}
+.dtable{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:15px}
+.dtable th,.dtable td{border-top:1px solid var(--line);padding:10px 12px;vertical-align:top;text-align:left}
+.dtable th{width:30%;font-weight:600}.dtable tr:first-child th,.dtable tr:first-child td{border-top:0}
+.dnote,.dtip{margin:14px 0;padding:12px 14px;border-radius:10px;font-size:15px}
+.dnote{background:var(--accent-2);border-left:3px solid var(--accent)}.dtip{background:var(--okbg);border-left:3px solid var(--ok)}
+.dmuted{color:var(--muted);font-size:14px}
+.dbody details{border:1px solid var(--line);border-radius:10px;padding:0 14px;margin:8px 0;background:var(--panel)}
+.dbody details summary{cursor:pointer;padding:12px 0;font-weight:600}.dbody details p{margin:0 0 12px}
+@media (max-width:860px){.docs{grid-template-columns:1fr;gap:16px}.dtoc{position:static;max-height:none;border:1px solid var(--line);border-radius:10px;padding:4px 12px;background:var(--panel)}
+.dtoc summary::after{content:" ▾";color:var(--muted)}.dh1{font-size:24px}.dtable,.dtable tbody,.dtable tr,.dtable th,.dtable td{display:block;width:auto}
+.dtable th{padding:10px 0 2px;border-top:1px solid var(--line)}.dtable td{border-top:0;padding:0 0 10px}}
 @media (max-width:640px){main{padding:16px}header.top{padding:12px 16px}.types th:nth-child(3){display:none}}
 </style>
 </head>
@@ -94,10 +122,12 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
 <header class="top"><h1 id="apptitle">WebNets</h1><nav id="topnav"></nav><span class="sp"></span>
 <div class="prefs"><select id="ui-lang"><option value="en">EN</option><option value="ru">RU</option></select><select id="ui-theme"></select></div></header>
 <main id="main" aria-live="polite"></main>
+<template id="gen-docs"><?php readfile(__DIR__ . '/docs.html'); ?></template>
 <script>
 (function () {
   var main = document.getElementById('main'), CAT = null, poll = null;
   var RU = {
+    'User guide': 'Справка',
     'Projects': 'Проекты', 'Thresholds': 'Пороги', 'Gallery': 'Галерея', 'AI brief settings': 'Настройки ИИ-брифа',
     'Language': 'Язык', 'Theme': 'Тема', 'Auto': 'Авто', 'Light': 'Светлая', 'Dark': 'Тёмная',
     'Difference thresholds': 'Пороги различий',
@@ -287,7 +317,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     document.documentElement.lang = LANG;
     document.title = 'WebNets';
     var h = location.hash.replace(/^#\/?/, '').split('/')[0];
-    document.getElementById('topnav').innerHTML = '<a href="#/"' + (['settings', 'markets', 'types'].indexOf(h) < 0 ? ' aria-current="page"' : '') + '>' + L('Projects') + '</a><a href="#/types"' + (h === 'types' ? ' aria-current="page"' : '') + '>' + L('Site types') + '</a><a href="#/markets"' + (h === 'markets' ? ' aria-current="page"' : '') + '>' + L('Markets') + '</a><a href="#/settings"' + (h === 'settings' ? ' aria-current="page"' : '') + '>' + L('Thresholds') + '</a><a href="/">' + L('Gallery') + '</a><a href="/settings/">' + L('AI brief settings') + '</a>';
+    document.getElementById('topnav').innerHTML = '<a href="#/"' + (['settings', 'markets', 'types', 'docs'].indexOf(h) < 0 ? ' aria-current="page"' : '') + '>' + L('Projects') + '</a><a href="#/types"' + (h === 'types' ? ' aria-current="page"' : '') + '>' + L('Site types') + '</a><a href="#/markets"' + (h === 'markets' ? ' aria-current="page"' : '') + '>' + L('Markets') + '</a><a href="#/settings"' + (h === 'settings' ? ' aria-current="page"' : '') + '>' + L('Thresholds') + '</a><a href="/">' + L('Gallery') + '</a><a href="/settings/">' + L('AI brief settings') + '</a><a href="#/docs"' + (h === 'docs' ? ' aria-current="page"' : '') + '>' + L('User guide') + '</a>';
     var lang = document.getElementById('ui-lang'), th = document.getElementById('ui-theme'), cur = document.documentElement.dataset.theme || 'auto';
     lang.value = LANG;
     lang.setAttribute('aria-label', L('Language'));
@@ -975,9 +1005,10 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     return en ? L(en) : id;
   }
 
-  window.GEN = { api: api, esc: esc, L: L, fail: fail, main: main, RU: RU, pageName: pageLabel };
+  window.GEN = { api: api, esc: esc, L: L, fail: fail, main: main, RU: RU, pageName: pageLabel, lang: function () { return LANG; } };
 <?php readfile(__DIR__ . '/markets.js'); ?>
 <?php readfile(__DIR__ . '/types.js'); ?>
+<?php readfile(__DIR__ . '/docs.js'); ?>
 
   function route() {
     clearTimeout(poll);
@@ -985,6 +1016,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     if (h[0] === 'settings') return settings();
     if (h[0] === 'markets') return GEN.markets(h);
     if (h[0] === 'types') return GEN.types(h);
+    if (h[0] === 'docs') return GEN.docs(h);
     if (h[0] === 'p' && h[2] === 'new') return jobForm(h[1]);
     if (h[0] === 'p') return project(h[1]);
     if (h[0] === 'j' && h[2] === 'edit') return jobForm(null, h[1]);
