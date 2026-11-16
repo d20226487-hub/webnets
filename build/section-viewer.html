@@ -1,0 +1,124 @@
+<!doctype html>
+<!-- One section of a built page, on its own: the gallery's "By section" view links here
+     (dist/gallery/section.html?p=<page under dist/>&s=<block>.<design>&en=<name>&ru=<name>). The page loads in a frame
+     and everything but that section is hidden, the way build/sections.py pictures it. Copied by build/gallery.py. -->
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Секция</title>
+<style>
+:root{--bg:#EEF0F2;--paper:#FFFFFF;--ink:#15181C;--muted:#5B636D;--line:#D5DAE0;--accent:#1D6B5F;--accent-soft:#DCEDEA;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111417;--paper:#1A1E23;--ink:#E8ECEF;--muted:#9AA3AD;--line:#2C333A;--accent:#5CC4B2;--accent-soft:#163631;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#111417;--paper:#1A1E23;--ink:#E8ECEF;--muted:#9AA3AD;--line:#2C333A;--accent:#5CC4B2;--accent-soft:#163631;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.bar{position:sticky;top:0;z-index:2;display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;padding:10px 16px;background:var(--paper);border-bottom:1px solid var(--line)}
+.bar h1{margin:0;font-size:16px;font-weight:700}
+.bar .design{color:var(--muted);font-size:14px}
+.sp{flex:1}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.seg button{font:inherit;font-size:13px;padding:6px 12px;min-height:34px;border:0;background:transparent;color:var(--ink);cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+a{color:var(--accent);font-weight:600;text-decoration:none}a:hover{text-decoration:underline}
+.stage{padding:20px 16px 40px;display:flex;justify-content:center}
+.frame{width:100%;max-width:1280px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;transition:max-width .2s}
+.stage.phone .frame{max-width:391px;border-radius:28px;border:8px solid #15181C}
+iframe{display:block;width:100%;height:600px;border:0}
+.msg{max-width:640px;margin:40px auto;padding:16px;border-radius:10px;background:var(--paper);border:1px solid var(--line)}
+@media (max-width:640px){.bar{gap:8px}.stage{padding:12px 8px 32px}}
+</style>
+</head>
+<body>
+<div class="bar">
+  <h1 id="name">…</h1><span class="design" id="design"></span>
+  <span class="sp"></span>
+  <div class="seg" role="group" id="widths"><button type="button" data-w="desk" aria-pressed="true"></button><button type="button" data-w="phone" aria-pressed="false"></button></div>
+  <a id="full" href="#" target="_blank" rel="noopener"></a>
+</div>
+<div class="stage" id="stage"><div class="frame"><iframe id="f" title=""></iframe></div></div>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search), lang = 'ru';
+  try { lang = localStorage.getItem('sxg-lang') || (navigator.language || '').slice(0, 2) || 'ru'; } catch (e) {}
+  lang = lang === 'en' ? 'en' : 'ru';
+  try { var th = localStorage.getItem('sxg-theme'); if (th && th !== 'auto') document.documentElement.setAttribute('data-theme', th); } catch (e) {}
+  var T = { ru: { desk: 'Компьютер', phone: 'Телефон', full: 'Вся страница ↗', missing: 'Секция не найдена на этой странице: возможно, страница пересобрана с другим дизайном.', title: 'Секция' },
+            en: { desk: 'Desktop', phone: 'Phone', full: 'Whole page ↗', missing: 'The section is not on this page any more: the page may have been rebuilt with another design.', title: 'Section' } }[lang];
+  document.documentElement.lang = lang;
+  var page = (q.get('p') || '').replace(/^\/+/, ''), sec = (q.get('s') || '').split('.');
+  if (!/^(review|generated)\/[\w.\/-]+\.html$/.test(page) || page.indexOf('..') > -1) { page = ''; } // only built pages of this gallery
+  var name = q.get(lang) || q.get('en') || sec[0] || T.title, design = (sec[1] || '').replace(/-/g, ' ');
+  document.title = name + (design ? ' · ' + design : '');
+  document.getElementById('name').textContent = name;
+  document.getElementById('design').textContent = design;
+  var full = document.getElementById('full');
+  full.textContent = T.full;
+  full.href = page ? '../' + page : '../';
+  var stage = document.getElementById('stage'), f = document.getElementById('f');
+  f.title = name;
+  [].forEach.call(document.querySelectorAll('[data-w]'), function (b) {
+    b.textContent = T[b.dataset.w];
+    b.onclick = function () {
+      [].forEach.call(document.querySelectorAll('[data-w]'), function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      stage.classList.toggle('phone', b.dataset.w === 'phone');
+      setTimeout(fit, 250);
+    };
+  });
+  var HIDE = 'body *:not([data-sxsec]):not([data-sxsec] *):not(:has([data-sxsec])){display:none!important}'
+    + ':has(>[data-sxsec]),:has([data-sxsec]){margin:0!important;padding:0!important;gap:0!important;border:0!important;'
+    + 'grid-template-columns:minmax(0,1fr)!important;max-width:none!important;width:auto!important;min-height:0!important}'
+    + '[data-sxsec]{width:auto!important}.vbar,#sx-devtoggle,#sx-skeltoggle,#sx-devview,'
+    + '[class*="agegate"],[class*="age-gate"],[role="dialog"][id^="age-"]{display:none!important}html,body{overflow:visible!important}'
+    + 'body{padding:0!important;margin:0!important}'
+    + 'html{filter:grayscale(1)}'; // one palette for every section, as in the gallery's pictures: white, black and grey
+  function fit() { // the frame as tall as the section (a page is never shorter than its frame, so measure the section)
+    try {
+      var d = f.contentDocument, el = d.querySelector('[data-sxsec]');
+      var h = el ? Math.ceil(el.getBoundingClientRect().bottom + (d.defaultView.scrollY || 0)) : d.documentElement.scrollHeight;
+      f.style.height = Math.max(120, h) + 'px';
+    } catch (e) {}
+  }
+  function isolate() {
+    var d;
+    try { d = f.contentDocument; } catch (e) { return; }
+    if (!d || !d.body) return;
+    var data = d.getElementById('sx-devdata'), items = [];
+    try { items = JSON.parse(data.textContent).items || []; } catch (e) {}
+    var hit = null;
+    [].some.call(d.querySelectorAll('[data-sxdev]'), function (el) {
+      var it = items[+el.getAttribute('data-sxdev')];
+      if (!it || it.b !== sec[0] || (it.v || '-') !== sec[1]) return false;
+      hit = el;
+      while (hit && /^(SCRIPT|STYLE)$/.test(hit.tagName)) hit = hit.nextElementSibling; // an app hero's device script comes first
+      return true;
+    });
+    if (!hit) {
+      stage.innerHTML = '<p class="msg">' + T.missing + ' <a href="' + full.href + '" target="_blank" rel="noopener">' + T.full + '</a></p>';
+      return;
+    }
+    hit.setAttribute('data-sxsec', '');
+    var st = d.createElement('style');
+    st.textContent = HIDE;
+    d.head.appendChild(st);
+    [].forEach.call(d.querySelectorAll('a[href]'), function (a) { a.setAttribute('target', '_blank'); }); // links leave the viewer
+    fit();
+    if ('ResizeObserver' in window) new ResizeObserver(fit).observe(d.documentElement);
+    setTimeout(fit, 600);
+  }
+  if (!page) { stage.innerHTML = '<p class="msg">' + T.missing + '</p>'; return; }
+  // The demo pages remember the gallery's live choices (Colours, Rows of cards) in sx-review-live and apply them on load.
+  // The section pictures are taken without them, so the page loads here without them too; they are put back right after.
+  var LIVE = 'sx-review-live', saved = null;
+  try { saved = localStorage.getItem(LIVE); if (saved !== null) localStorage.removeItem(LIVE); } catch (e) {}
+  f.addEventListener('load', function () {
+    try { if (saved !== null) localStorage.setItem(LIVE, saved); } catch (e) {}
+    isolate();
+  });
+  f.src = '../' + page;
+})();
+</script>
+</body>
+</html>

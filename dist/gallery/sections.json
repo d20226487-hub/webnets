@@ -11,7 +11,7 @@
   "block": "app-hero",
   "design": "banner",
   "first_screen": true,
-  "page": "generated/j40-app-multi-49/index.html",
+  "page": "review/sec-app-hero--banner/index.html",
   "desktop": "gallery/sections/app-hero--banner-d.png",
   "phone": "gallery/sections/app-hero--banner-m.png"
  },
@@ -59,7 +59,7 @@
   "block": "app-hero",
   "design": "stage",
   "first_screen": true,
-  "page": "generated/j42-app-03/index.html",
+  "page": "review/sec-app-hero--stage/index.html",
   "desktop": "gallery/sections/app-hero--stage-d.png",
   "phone": "gallery/sections/app-hero--stage-m.png"
  },
@@ -99,9 +99,17 @@
   "block": "article-body",
   "design": "banner",
   "first_screen": true,
-  "page": "generated/j42-news-04/guides-boostwin-limity-i-pauza.html",
+  "page": "review/sec-article-body--banner/guides-activity-statements.html",
   "desktop": "gallery/sections/article-body--banner-d.png",
   "phone": "gallery/sections/article-body--banner-m.png"
+ },
+ {
+  "block": "article-body",
+  "design": "magazine",
+  "first_screen": true,
+  "page": "review/sec-article-body--magazine/guides-activity-statements.html",
+  "desktop": "gallery/sections/article-body--magazine-d.png",
+  "phone": "gallery/sections/article-body--magazine-m.png"
  },
  {
   "block": "article-body",
@@ -115,7 +123,7 @@
   "block": "article-body",
   "design": "toc-side",
   "first_screen": true,
-  "page": "generated/j42-news-05/guides-kak-chitat-koefficienty.html",
+  "page": "review/sec-article-body--toc-side/guides-activity-statements.html",
   "desktop": "gallery/sections/article-body--toc-side-d.png",
   "phone": "gallery/sections/article-body--toc-side-m.png"
  },
@@ -306,8 +314,8 @@
  {
   "block": "hero",
   "design": "centered",
-  "first_screen": false,
-  "page": "generated/j42-landing-05/index.html",
+  "first_screen": true,
+  "page": "review/sec-hero--centered/index.html",
   "desktop": "gallery/sections/hero--centered-d.png",
   "phone": "gallery/sections/hero--centered-m.png"
  },
@@ -459,7 +467,7 @@
   "block": "promo-list",
   "design": "list",
   "first_screen": true,
-  "page": "generated/j42-landing-05/index.html",
+  "page": "review/sec-promo-list--list/index.html",
   "desktop": "gallery/sections/promo-list--list-d.png",
   "phone": "gallery/sections/promo-list--list-m.png"
  },
@@ -747,7 +755,7 @@
   "block": "toplist",
   "design": "grid",
   "first_screen": true,
-  "page": "generated/j40-casinos-one-35/index.html",
+  "page": "review/sec-toplist--grid/index.html",
   "desktop": "gallery/sections/toplist--grid-d.png",
   "phone": "gallery/sections/toplist--grid-m.png"
  },
@@ -795,7 +803,7 @@
   "block": "toplist",
   "design": "spotlight",
   "first_screen": true,
-  "page": "generated/j42-casinos-03/bystryj-vyvod.html",
+  "page": "review/sec-toplist--spotlight/index.html",
   "desktop": "gallery/sections/toplist--spotlight-d.png",
   "phone": "gallery/sections/toplist--spotlight-m.png"
  },

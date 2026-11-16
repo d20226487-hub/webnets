@@ -3,7 +3,7 @@
    Usage: python build/gallery.py [--local] [satellite-system folder]
    --local writes dist/index.html instead, linking every demo to its local review pages (dist/review/<id>/index.html)
    so the whole set can be viewed without publishing: run build/serve-local (or php -S localhost:8080 -t dist)."""
-import sys, os, json, glob, re, html
+import sys, os, json, glob, re, html, shutil, urllib.parse
 LOCAL = '--local' in sys.argv
 args = [a for a in sys.argv[1:] if a != '--local']
 root = args[0] if args else os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -201,13 +201,14 @@ for gid, gname, blocks in SEC_GROUPS:
         share = (t(f"Shared by {len(types_)} site types", f"Общая для {len(types_)} " + ru_plural(len(types_), 'типа', 'типов', 'типов') + " сайтов") if len(types_) > 1
                  else t(f"Only {TYPE_NAMES.get(types_[0], (types_[0],))[0]}", f"Только {TYPE_NAMES.get(types_[0], (types_[0], types_[0]))[1]}") if types_ else '')
         sec_blocks.append((gid, bl, en, SEC_RU.get(bl, en)))
+        view = lambda x: 'gallery/section.html?' + urllib.parse.urlencode({'p': x['page'], 's': f"{bl}.{x['design']}", 'en': en, 'ru': SEC_RU.get(bl, en)})  # the section on its own
         tiles = ''.join(f'''
           <figure class="dtile">
-            <a class="shots" href="{esc(x['page'])}" target="_blank" rel="noopener" title="{esc(x['page'])}">
+            <a class="shots" href="{esc(view(x))}" target="_blank" rel="noopener" title="{esc(x['page'])}">
               <img class="desk" src="{esc(x['desktop'])}" alt="{esc(en)}: {esc(x['design'])}" width="640" height="450" loading="lazy">
               <span class="phone"><img src="{esc(x['phone'])}" alt="" width="416" height="624" loading="lazy"></span>
             </a>
-            <figcaption><b>{esc(x['design'].replace('-', ' '))}</b><a href="{esc(x['page'])}" target="_blank" rel="noopener">{t("Open page", "Открыть страницу")} ↗</a></figcaption>
+            <figcaption><b>{esc(x['design'].replace('-', ' '))}</b><span class="dlinks"><a href="{esc(view(x))}" target="_blank" rel="noopener">{t("Open section", "Открыть секцию")} ↗</a><a class="dpage" href="{esc(x['page'])}" target="_blank" rel="noopener">{t("Whole page", "Вся страница")}</a></span></figcaption>
           </figure>''' for x in designs)
         cards_.append(f'''
       <article class="scard" data-group="{gid}" data-block="{bl}" data-types=" {' '.join(types_)} " data-share="{'many' if len(types_) > 1 else 'one'}">
@@ -343,6 +344,8 @@ html:not([data-gview="sections"]) .only-sections, html[data-gview="sections"] .o
 .dtile figcaption {{ display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 14px; }}
 .dtile figcaption b {{ text-transform: capitalize; }}
 .dtile figcaption a {{ color: var(--accent); font-weight: 600; text-decoration: none; white-space: nowrap; }}
+.dlinks {{ display: inline-flex; flex-wrap: wrap; justify-content: flex-end; align-items: baseline; gap: 4px 14px; }}
+.dtile figcaption a.dpage {{ color: var(--muted); font-weight: 500; font-size: 13px; }}
 @media (max-width: 560px) {{
   .wrap {{ padding-block: 20px 48px; gap: 28px; }}
   .type-head {{ grid-template-columns: minmax(0, 1fr) auto; }}
@@ -519,5 +522,14 @@ html:not([data-gview="sections"]) .only-sections, html[data-gview="sections"] .o
 '''
 out = os.path.join(root, 'dist/index.html' if LOCAL else 'dist/gallery/gallery.html')
 open(out, 'w', encoding='utf-8').write(page)
+if LOCAL and sec_groups_html:  # "Open section": one section of a built page on its own
+    shutil.copyfile(os.path.join(root, 'build/section-viewer.html'), os.path.join(root, 'dist/gallery/section.html'))
+    # a picture older than its page shows an older version than "Open section" opens: say so, it is easy to miss
+    stale = [x['block'] + '.' + x['design'] for x in sec_items
+             if not os.path.isfile(os.path.join(root, 'dist', x['page']))
+             or os.path.getmtime(os.path.join(root, 'dist', x['page'])) > os.path.getmtime(os.path.join(root, 'dist', x['desktop']))]
+    if stale:
+        print(f'WARNING: {len(stale)} section pictures are older than their page (or the page is gone): '
+              f'{", ".join(stale[:6])}{"…" if len(stale) > 6 else ""}. Run: python3 build/sections.py, then this again.', file=sys.stderr)
 missing = [d['id'] for d in demos if not d['link']]
 print(len(demos), 'demos', n_pages, 'pages', round(os.path.getsize(out) / 1024, 1), 'KB', '| skipped (no review link or screenshots):', skipped or 'none')
