@@ -114,7 +114,7 @@ function gen_overlay_update(string $rel, callable $fn): void
     gen_mkdir(dirname($file));
     // writers take turns on a lock file; the new content is written aside and renamed over the old file, so a build
     // reading brand data at the same moment (it takes no lock) sees the old file or the new one, never a half-written one
-    $h = fopen("$file.lock", 'c');
+    $h = gen_lock_open("$file.lock");
     flock($h, LOCK_EX);
     $data = is_file($file) ? (json_decode((string)file_get_contents($file), true) ?: []) : [];
     $data = $fn($data);

@@ -352,8 +352,24 @@ function gen_cache_dir(string $sub = ''): string
 {
     global $GEN_ROOT;
     $d = rtrim(getenv('SX_GEN_CACHE') ?: "$GEN_ROOT/data", '/') . ($sub !== '' ? "/$sub" : '');
+    if (gen_mkdir($d) && is_writable($d)) {
+        return $d;
+    }
+    $d = sys_get_temp_dir() . '/satellite-generator-cache' . ($sub !== '' ? "/$sub" : ''); // caches can be rebuilt: a temp folder will do
     gen_mkdir($d);
     return $d;
+}
+
+/** An exclusive-lock handle on $file (its folder is created), or an error that names the file. */
+function gen_lock_open(string $file)
+{
+    gen_mkdir(dirname($file));
+    $h = @fopen($file, 'c');
+    if (!$h) {
+        $why = error_get_last()['message'] ?? '';
+        throw new RuntimeException("Cannot open the lock file $file" . ($why !== '' ? ': ' . preg_replace('/^fopen\([^)]*\): */', '', $why) : '') . '. The folder must exist and be writable by the PHP user.');
+    }
+    return $h;
 }
 
 function gen_now(): string
@@ -380,7 +396,7 @@ function gen_availability(string $market): array
     if (($types = $read()) !== null) {
         return $types;
     }
-    $lock = fopen("$cache.lock", 'c');
+    $lock = gen_lock_open("$cache.lock");
     flock($lock, LOCK_EX);
     try {
         if (($types = $read()) !== null) {
@@ -1285,7 +1301,7 @@ function gen_lock_file(): string
 function gen_worker_busy(): bool
 {
     global $GEN_ROOT;
-    $f = fopen(gen_lock_file(), 'c');
+    $f = gen_lock_open(gen_lock_file());
     $free = flock($f, LOCK_EX | LOCK_NB);
     if ($free) {
         flock($f, LOCK_UN);

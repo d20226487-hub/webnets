@@ -18,7 +18,7 @@ function gen_type_file(string $t): string
 function gen_type_history_dir(string $sub = ''): string
 {
     $d = gen_cache_dir('type-history') . ($sub !== '' ? "/$sub" : '');
-    is_dir($d) || @mkdir($d, 0777, true);
+    gen_mkdir($d);
     return $d;
 }
 
@@ -394,7 +394,7 @@ function gen_types_api(PDO $db, array $seg, string $method): void
             return;
         }
         // try it: write, test-build, and put the old one back if the type no longer builds
-        $lock = fopen(gen_type_history_dir() . '/.lock', 'c');
+        $lock = gen_lock_open(gen_type_history_dir() . '/.lock');
         flock($lock, LOCK_EX);
         try {
             $before = gen_type_probe($t)['base'];

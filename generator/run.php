@@ -21,7 +21,7 @@ if (!$job) {
     fwrite(STDERR, "No job $jobId\n");
     exit(1);
 }
-$lock = fopen(gen_lock_file(), 'c');
+$lock = gen_lock_open(gen_lock_file());
 if (!flock($lock, LOCK_EX | LOCK_NB)) { // another job is building: this one waits its turn
     $db->prepare("UPDATE jobs SET status = 'queued', queued_at = COALESCE(queued_at, ?) WHERE id = ?")->execute([gen_now(), $jobId]);
     exit(0);
