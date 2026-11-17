@@ -42,7 +42,7 @@
       'Дизайны шапки и подвала, которые может использовать тип. Остальная рамка (полоса соответствия, проверка возраста, плавающая кнопка) зависит от рынка.',
     'Header': 'Шапка', 'Footer': 'Подвал', 'Added to every AI brief for sites of this type.': 'Добавляется в каждый ИИ-бриф для сайтов этого типа.',
     'Every field of the plan. Edit here for anything the form does not cover, then use this JSON and save.': 'Все поля плана. Редактируйте здесь то, чего нет в форме, затем примените JSON и сохраните.',
-    'Recent changes': 'Последние изменения', 'Built-in': 'Встроенный', 'Used by': 'Где используется', 'Last change': 'Последнее изменение', 'Jobs': 'Задания', 'Demos': 'Демо', 'None.': 'Нет.',
+    'Recent changes': 'Последние изменения', 'Built-in': 'Встроенный', 'Used by': 'Где используется', 'Last change': 'Последнее изменение', 'Jobs': 'Задания', 'Demos': 'Демо', 'None.': 'Нет.', 'Not used': 'Не используется',
     'History': 'История', 'Save changes': 'Сохранить изменения', 'Unsaved changes': 'Есть несохранённые изменения', 'Saved.': 'Сохранено.', 'Changed: {0}': 'Изменено: {0}', 'No changes to save.': 'Нет изменений.',
     'Use this JSON': 'Применить JSON', 'Not valid JSON: {0}': 'Неверный JSON: {0}', 'JSON applied to the form. Save to keep it.': 'JSON применён к форме. Сохраните, чтобы закрепить.',
     'All of it as JSON': 'Всё в виде JSON', 'AI notes': 'Заметки для ИИ', 'Time': 'Время', 'Action': 'Действие', 'What changed': 'Что изменилось', 'No changes yet.': 'Изменений пока нет.',
@@ -52,6 +52,11 @@
     'Every save keeps the previous version. Open one to see what differs from now, or put it back.': 'Каждое сохранение хранит предыдущую версию. Откройте её, чтобы увидеть отличия от текущей, или верните.'
   });
   var M = null, D = null, dirty = false, page = null;
+  var count = function (n, one, many, ru1, ru2, ru5) { // "12 jobs" / "12 заданий"
+    if (G.lang() !== 'ru') return n + ' ' + (n === 1 ? one : many);
+    var a = n % 10, b = n % 100;
+    return n + ' ' + (a === 1 && b !== 11 ? ru1 : a >= 2 && a <= 4 && (b < 12 || b > 14) ? ru2 : ru5);
+  };
   var chip = function (t, cls) { return '<span class="chip' + (cls ? ' ' + cls : '') + '">' + t + '</span>'; };
   var pagesOf = function (bp) { return bp.pages ? bp.pages : { '': bp }; };
   var act = function (a) { return a.replace(/^created from (.+)$/, function (m, x) { return L('created from {0}', x); }).replace(/^(edited|deleted)$/, function (m) { return L(m); }); };
@@ -77,8 +82,9 @@
         + d.types.map(function (x) {
           return '<tr><td><a href="#/types/' + x.id + '"><b>' + esc(L(x.label)) + '</b></a> ' + chip(esc(x.id)) + (x.copy ? ' ' + chip(L('copy of {0}', esc(x.base)), 'auto') : '') + (x.hidden ? ' ' + chip(L('hidden'), 'warn') : '')
             + (x.requires_vertical ? ' ' + chip(L('needs {0}', esc(x.requires_vertical))) : '') + '</td><td>' + x.pages + '</td><td>' + x.sections + '</td><td>' + x.angles + '</td>'
-            + '<td>' + x.jobs + ' / ' + x.sites + (x.demos ? '<br><span class="muted">' + L('Demos') + ': ' + x.demos + '</span>' : '') + '</td><td class="muted">' + esc(x.changed) + '</td></tr>';
-        }).join('') + '</tbody></table></div><p class="muted" style="font-size:13px">' + L('Used by') + ': ' + L('Jobs').toLowerCase() + ' / sites</p>'
+            + '<td>' + (x.jobs || x.sites ? count(x.jobs, 'job', 'jobs', 'задание', 'задания', 'заданий') + ' · ' + count(x.sites, 'site', 'sites', 'сайт', 'сайта', 'сайтов') : '<span class="muted">' + L('Not used') + '</span>')
+            + (x.demos ? '<br><span class="muted">' + L('Demos') + ': ' + x.demos + '</span>' : '') + '</td><td class="muted">' + esc(x.changed) + '</td></tr>';
+        }).join('') + '</tbody></table></div>'
         + '<h3>' + L('Recent changes') + '</h3>' + logTable(d.log, true);
     }).catch(G.fail);
   }
