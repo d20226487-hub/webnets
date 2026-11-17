@@ -49,6 +49,7 @@ button,.btn{font:600 14px system-ui,sans-serif;border-radius:8px;border:1px soli
 button.primary,.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}button.danger{color:var(--bad)}button:disabled{opacity:.5;cursor:default}
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 input[type=text],input[type=number],select{font:14px system-ui,sans-serif;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);max-width:100%}
+.pinfo{margin:14px 0 22px}.pdl{display:grid;grid-template-columns:minmax(140px,220px) 1fr;gap:8px 16px;margin:14px 0 0}.pdl dt{font-weight:650}.pdl dd{margin:0}@media (max-width:640px){.pdl{grid-template-columns:1fr}.pdl dd{margin-bottom:6px}}#pf .inl{display:flex}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
 .list{display:grid;gap:10px;margin-top:14px}.list a.item{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--panel);border:1px solid var(--line);border-radius:12px;color:var(--text);text-decoration:none}
 .list a.item:hover{border-color:var(--accent)}.chip{display:inline-block;padding:2px 9px;border-radius:999px;background:var(--bg);border:1px solid var(--line);font-size:12px;color:var(--muted);white-space:nowrap}
@@ -150,7 +151,20 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     'A project holds the jobs that generate its sites. Sites are compared inside the project and against every other job.': 'Проект объединяет задания, которые генерируют его сайты. Сайты сравниваются внутри проекта и со всеми остальными заданиями.',
     'New project name': 'Название нового проекта', 'Create project': 'Создать проект', 'No projects yet.': 'Проектов пока нет.',
     '{0} jobs': 'заданий: {0}', '{0} sites': 'сайтов: {0}', '{0} / {1} sites': '{0} / {1} сайтов',
-    'New job': 'Новое задание', 'Delete project': 'Удалить проект',
+    'New job': 'Новое задание', 'Delete project': 'Удалить проект', 'Jobs': 'Задания',
+    'Project information': 'Информация о проекте', 'Project name': 'Название проекта',
+    'Used by the AI briefs of every site in this project to write relevant text in the sections and, if you choose, below them. Changes apply to the next brief download; no rebuild is needed.':
+      'ИИ-брифы всех сайтов проекта используют эту информацию, чтобы писать подходящий текст в секциях и, если вы выберете, под ними. Изменения попадают в следующее скачивание брифов, пересобирать сайты не нужно.',
+    'Nothing filled in yet: the briefs use only the site and market information.': 'Пока ничего не заполнено: брифы опираются только на данные сайта и рынка.',
+    'Write in any language: the AI writes each site in its own language. Leave a field empty to skip it.': 'Пишите на любом языке: ИИ пишет каждый сайт на его языке. Пустые поля пропускаются.',
+    'About the project': 'О проекте', 'What the project is and what its sites are for: the brand or offer, what makes it different, the goal of the sites.': 'Что это за проект и зачем его сайты: бренд или предложение, чем он отличается, цель сайтов.',
+    'Audience': 'Аудитория', 'Who the sites are for and what they want to know.': 'Для кого сайты и что эти люди хотят узнать.',
+    'Tone of voice': 'Тон', 'e.g. friendly and plain, expert and calm, no hype.': 'например: дружелюбно и просто, экспертно и спокойно, без хайпа.',
+    'Facts and messages to use': 'Факты и тезисы', 'One per line: facts the text may state and points it should make (licence, payout times, app features, support hours…).': 'По одному в строке: факты, которые можно упоминать, и мысли, которые текст должен донести (лицензия, сроки выплат, функции приложения, часы поддержки…).',
+    'Topics and search phrases': 'Темы и поисковые фразы', 'One per line: what the text should cover and the phrases people search for.': 'По одной в строке: о чём писать и что люди ищут.',
+    'Avoid': 'Избегать', 'One per line: words, claims and topics the text must not use.': 'По одному в строке: слова, обещания и темы, которых в тексте быть не должно.',
+    'Text below sections': 'Текст под секциями', 'Whether the AI adds a short text below sections, written from this information (useful for search).': 'Добавляет ли ИИ короткий текст под секциями на основе этой информации (полезно для поиска).',
+    'No: text only inside the sections': 'Нет: текст только внутри секций', 'Where it helps: a short text below some sections': 'Где полезно: короткий текст под некоторыми секциями', 'Below every main section': 'Под каждой основной секцией',
     'Other jobs are not compared with this one': 'Другие задания с этим не сравниваются', 'left out of comparisons': 'не участвует в сравнении',
     'No jobs yet. Create one to generate sites.': 'Заданий пока нет. Создайте задание, чтобы сгенерировать сайты.',
     'Delete this project, its jobs and every generated site?': 'Удалить проект, его задания и все сгенерированные сайты?',
@@ -405,6 +419,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
   function project(id) {
     api('projects/' + id).then(function (d) {
       main.innerHTML = '<p><a href="#/">← ' + L('Projects') + '</a></p><div class="row"><h2>' + esc(d.project.name) + '</h2><span class="sp"></span><a class="btn primary" href="#/p/' + id + '/new">' + L('New job') + '</a><button class="danger" id="delp">' + L('Delete project') + '</button></div>'
+        + '<div id="pinfo"></div><h3>' + L('Jobs') + '</h3>'
         + '<div class="list">' + (d.jobs.length ? d.jobs.map(function (j) {
           return '<a class="item" href="#/j/' + j.id + '"><strong>' + esc(j.name) + '</strong><span class="chip">' + esc(j.market.toUpperCase()) + '</span>' + (+j.compare ? '' : '<span class="chip auto" title="' + L('Other jobs are not compared with this one') + '">' + L('left out of comparisons') + '</span>') + '<span class="sp"></span>'
             + '<span class="chip ' + (j.status === 'done' ? 'ok' : j.status === 'done-with-errors' || j.status === 'stopped' ? 'bad' : 'warn') + '">' + esc(L(j.status)) + '</span><span class="chip">' + L('{0} / {1} sites', j.built, j.sites) + '</span><span class="muted">' + when(j.created) + '</span></a>';
@@ -412,7 +427,53 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
       document.getElementById('delp').onclick = function () {
         if (confirm(L('Delete this project, its jobs and every generated site?'))) api('projects/' + id, null, 'DELETE').then(function () { location.hash = '#/'; }).catch(fail);
       };
+      projectInfo(id, d.project, false);
     }).catch(fail);
+  }
+
+  /* Project information: what the AI briefs of the project's sites use to write relevant text (added to every brief when it is downloaded) */
+  var PINFO = [
+    ['about', 'About the project', 'What the project is and what its sites are for: the brand or offer, what makes it different, the goal of the sites.', 4],
+    ['audience', 'Audience', 'Who the sites are for and what they want to know.', 2],
+    ['tone', 'Tone of voice', 'e.g. friendly and plain, expert and calm, no hype.', 1],
+    ['facts', 'Facts and messages to use', 'One per line: facts the text may state and points it should make (licence, payout times, app features, support hours…).', 4],
+    ['keywords', 'Topics and search phrases', 'One per line: what the text should cover and the phrases people search for.', 3],
+    ['avoid', 'Avoid', 'One per line: words, claims and topics the text must not use.', 2]
+  ];
+  var PBELOW = [['none', 'No: text only inside the sections'], ['useful', 'Where it helps: a short text below some sections'], ['every', 'Below every main section']];
+  function projectInfo(id, p, editing) {
+    var box = document.getElementById('pinfo'), info = p.info || {};
+    if (!box) return;
+    var filled = PINFO.filter(function (f) { return info[f[0]]; }), below = info.below || 'none';
+    if (!editing) {
+      box.innerHTML = '<section class="card pinfo"><div class="row"><h3 style="margin:0">' + L('Project information') + '</h3><span class="sp"></span><button type="button" id="pedit">' + L('Edit') + '</button></div>'
+        + '<p class="muted" style="margin:8px 0 0;font-size:14px">' + L('Used by the AI briefs of every site in this project to write relevant text in the sections and, if you choose, below them. Changes apply to the next brief download; no rebuild is needed.') + '</p>'
+        + (filled.length || below !== 'none'
+          ? '<dl class="pdl">' + filled.map(function (f) { return '<dt>' + L(f[1]) + '</dt><dd>' + esc(info[f[0]]).replace(/\n/g, '<br>') + '</dd>'; }).join('')
+            + '<dt>' + L('Text below sections') + '</dt><dd>' + L(PBELOW.filter(function (b) { return b[0] === below; })[0][1]) + '</dd></dl>'
+          : '<p style="margin:10px 0 0">' + L('Nothing filled in yet: the briefs use only the site and market information.') + '</p>')
+        + '</section>';
+      document.getElementById('pedit').onclick = function () { projectInfo(id, p, true); };
+      return;
+    }
+    box.innerHTML = '<form class="card mform pinfo" id="pf"><h3 style="margin-top:0">' + L('Project information') + '</h3>'
+      + '<p class="muted" style="margin-top:0;font-size:14px">' + L('Write in any language: the AI writes each site in its own language. Leave a field empty to skip it.') + '</p>'
+      + '<div class="field"><label class="lbl" for="pf-name">' + L('Project name') + '</label><input type="text" id="pf-name" required maxlength="120" value="' + esc(p.name) + '"></div>'
+      + PINFO.map(function (f) {
+        return '<div class="field"><label class="lbl" for="pf-' + f[0] + '">' + L(f[1]) + '</label><span class="muted" style="font-size:13px">' + L(f[2]) + '</span>'
+          + (f[3] > 1 ? '<textarea id="pf-' + f[0] + '" rows="' + f[3] + '" maxlength="3000">' + esc(info[f[0]] || '') + '</textarea>' : '<input type="text" id="pf-' + f[0] + '" maxlength="3000" value="' + esc(info[f[0]] || '') + '">') + '</div>';
+      }).join('')
+      + '<div class="field"><span class="lbl">' + L('Text below sections') + '</span><span class="muted" style="font-size:13px">' + L('Whether the AI adds a short text below sections, written from this information (useful for search).') + '</span>'
+      + PBELOW.map(function (b) { return '<label class="inl"><input type="radio" name="pf-below" value="' + b[0] + '"' + (below === b[0] ? ' checked' : '') + '> ' + L(b[1]) + '</label>'; }).join('') + '</div>'
+      + '<div class="row"><button class="primary" type="submit">' + L('Save') + '</button><button type="button" id="pf-cancel">' + L('Cancel') + '</button><span class="err" id="pf-err"></span></div></form>';
+    document.getElementById('pf-cancel').onclick = function () { projectInfo(id, p, false); };
+    document.getElementById('pf').onsubmit = function (e) {
+      e.preventDefault();
+      var next = { below: document.querySelector('input[name="pf-below"]:checked').value };
+      PINFO.forEach(function (f) { next[f[0]] = document.getElementById('pf-' + f[0]).value.trim(); });
+      api('projects/' + id, { name: document.getElementById('pf-name').value.trim(), info: next }, 'PUT').then(function () { project(id); })
+        .catch(function (er) { document.getElementById('pf-err').textContent = L(er.message || String(er)); });
+    };
   }
 
   /* ---------- job form */

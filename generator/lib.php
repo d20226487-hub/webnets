@@ -223,6 +223,9 @@ function gen_db(): PDO
     if (!in_array('compare', array_column($db->query('PRAGMA table_info(jobs)')->fetchAll(), 'name'), true)) { // 0 = a draft: other jobs are not compared with it
         $db->exec('ALTER TABLE jobs ADD COLUMN compare INTEGER NOT NULL DEFAULT 1');
     }
+    if (!in_array('info', array_column($db->query('PRAGMA table_info(projects)')->fetchAll(), 'name'), true)) { // project information for the AI briefs (JSON)
+        $db->exec("ALTER TABLE projects ADD COLUMN info TEXT NOT NULL DEFAULT '{}'");
+    }
     if (!in_array('queued_at', array_column($db->query('PRAGMA table_info(jobs)')->fetchAll(), 'name'), true)) { // when the job joined the worker queue
         $db->exec('ALTER TABLE jobs ADD COLUMN queued_at TEXT');
     }

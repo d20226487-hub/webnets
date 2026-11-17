@@ -134,10 +134,24 @@ try {
         $p = $db->prepare('SELECT * FROM projects WHERE id = ?');
         $p->execute([(int)$seg[1]]);
         $project = $p->fetchAll()[0] ?? throw new RuntimeException('No such project.');
+        $project['info'] = gen_project_info(json_decode($project['info'] ?? '{}', true) ?: []);
         $j = $db->prepare('SELECT j.id, j.name, j.market, j.status, j.compare, j.created, (SELECT COUNT(*) FROM sites s WHERE s.job_id = j.id) AS sites,
             (SELECT COUNT(*) FROM sites s WHERE s.job_id = j.id AND s.status = \'built\') AS built FROM jobs j WHERE j.project_id = ? ORDER BY j.id DESC');
         $j->execute([$project['id']]);
         gen_json(['project' => $project, 'jobs' => $j->fetchAll()]);
+    } elseif ($seg[0] === 'projects' && isset($seg[1]) && $method === 'PUT') { // rename the project, edit its information for the AI briefs
+        $b = gen_body();
+        $name = trim((string)($b['name'] ?? ''));
+        if ($name === '') {
+            gen_json(['error' => 'Give the project a name.'], 422);
+            return;
+        }
+        $q = $db->prepare('UPDATE projects SET name = ?, info = ? WHERE id = ?');
+        $q->execute([mb_substr($name, 0, 120), json_encode(gen_project_info($b['info'] ?? []), JSON_UNESCAPED_UNICODE), (int)$seg[1]]);
+        if (!$q->rowCount()) {
+            throw new RuntimeException('No such project.');
+        }
+        gen_json(['ok' => true]);
     } elseif ($seg[0] === 'projects' && isset($seg[1]) && $method === 'DELETE') {
         foreach ($db->query('SELECT s.id FROM sites s JOIN jobs j ON j.id = s.job_id WHERE j.project_id = ' . (int)$seg[1])->fetchAll() as $r) {
             gen_remove_files($r['id']);
