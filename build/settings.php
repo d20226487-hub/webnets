@@ -117,7 +117,7 @@ if ($api !== null) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI brief settings</title>
+<title>AI brief</title>
 <script>/* theme and language before first paint; same saved choices as the gallery (sxg-theme, sxg-lang) */
 (function(){var d=document.documentElement,g=function(k){try{return localStorage.getItem(k)}catch(e){return null}};var th=g('sxg-theme')||'light';if(th==='auto')d.removeAttribute('data-theme');else d.setAttribute('data-theme',th);
 var l=g('sxg-lang')||((navigator.language||'').toLowerCase().indexOf('ru')===0?'ru':'en');d.setAttribute('data-lang',l);d.lang=l;})();</script>
@@ -168,7 +168,7 @@ select{font:14px system-ui,sans-serif;padding:7px 10px;border-radius:8px;border:
 (function () {
   var docEl = document.documentElement, files = [], demos = [], cur = null, dirty = false, lastLog = null;
   var L = {
-    en: { title: 'AI brief settings', back: '← Gallery', light: 'Light', dark: 'Dark', auto: 'Auto', theme: 'Theme', rebuild: 'Rebuild review pages',
+    en: { title: 'AI brief', back: '← Gallery', light: 'Light', dark: 'Dark', auto: 'Auto', theme: 'Theme', rebuild: 'Rebuild review pages',
       gSystem: 'System prompt', gTypes: 'Site types', gMarkets: 'Markets', check: 'Check', preview: 'Preview a brief', type1: 'Site type', market1: 'Market',
       hSystem: 'The system prompt: role, target stack and acceptance checklist. Developers paste it once into the AI tool\'s system prompt or custom instructions. Placeholders: {scope}, {site}, {type}, {angle}, {language}. Shown in every page\'s AI brief tab and at the top of the site brief files.',
       hTypes: 'Guidance for this site type: what it is for and what a developer must get right. Added to every AI brief of this type under "Site type guidance".',
@@ -177,7 +177,7 @@ select{font:14px system-ui,sans-serif;padding:7px 10px;border-radius:8px;border:
       discard: 'Discard unsaved changes to %s?', rebuildDirty: 'You have unsaved changes; rebuild without them?', leave: 'Unsaved changes',
       pHelp: 'The system prompt and the site brief for a demo\'s main version, assembled from the saved settings (no rebuild needed).', show: 'Show', building: 'Building…',
       sysT: 'System prompt', briefT: 'Site brief', rebuilding: 'Rebuilding… ', last: 'Last rebuild: ', edLabel: 'Settings text' },
-    ru: { title: 'Настройки брифа для ИИ', back: '← Галерея', light: 'Светлая', dark: 'Тёмная', auto: 'Авто', theme: 'Тема', rebuild: 'Пересобрать страницы демо',
+    ru: { title: 'ИИ-бриф', back: '← Галерея', light: 'Светлая', dark: 'Тёмная', auto: 'Авто', theme: 'Тема', rebuild: 'Пересобрать страницы демо',
       gSystem: 'Системный промпт', gTypes: 'Типы сайтов', gMarkets: 'Рынки', check: 'Проверка', preview: 'Предпросмотр брифа', type1: 'Тип сайта', market1: 'Рынок',
       hSystem: 'Системный промпт: роль, целевой стек и чек-лист приёмки. Разработчик один раз вставляет его в системный промпт или пользовательские инструкции ИИ-инструмента. Подстановки: {scope}, {site}, {type}, {angle}, {language}. Показывается во вкладке «Бриф для ИИ» каждой страницы и в начале файлов брифа сайта.',
       hTypes: 'Рекомендации для этого типа сайта: для чего он и что разработчик должен сделать правильно. Добавляются в каждый бриф этого типа в раздел «Site type guidance».',

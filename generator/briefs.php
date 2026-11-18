@@ -19,8 +19,8 @@ function gen_project_info($in): array
     return $out;
 }
 
-/** The brief part written from the project information, or '' when nothing is filled in. */
-function gen_project_brief(array $info): string
+/** The brief part written from the project information and its documents ($docs: gen_pfiles_brief()), or '' when there is neither. */
+function gen_project_brief(array $info, string $docs = ''): string
 {
     $fields = [
         'about' => 'About the project',
@@ -31,7 +31,7 @@ function gen_project_brief(array $info): string
         'avoid' => 'Avoid',
     ];
     $filled = array_filter(array_intersect_key($info, $fields), fn($v) => $v !== '');
-    if (!$filled && $info['below'] === 'none') {
+    if (!$filled && $info['below'] === 'none' && $docs === '') {
         return '';
     }
     $L = ['## Project information', ''];
@@ -53,6 +53,12 @@ function gen_project_brief(array $info): string
                 $L[] = '  - ' . preg_replace('/^[-*•]\s*/u', '', $x);
             }
         }
+    }
+    if ($docs !== '') {
+        if (end($L) !== '') {
+            $L[] = '';
+        }
+        $L[] = rtrim($docs);
     }
     $L[] = '';
     $L[] = '### Text below sections';
@@ -82,9 +88,10 @@ function gen_brief_with_project(string $text, string $part): string
 /** The project information brief part for a job's sites. */
 function gen_job_project_brief(PDO $db, int $jobId): string
 {
-    $q = $db->prepare('SELECT p.info FROM projects p JOIN jobs j ON j.project_id = p.id WHERE j.id = ?');
+    $q = $db->prepare('SELECT p.id, p.info FROM projects p JOIN jobs j ON j.project_id = p.id WHERE j.id = ?');
     $q->execute([$jobId]);
-    return gen_project_brief(gen_project_info(json_decode((string)$q->fetchColumn(), true) ?: []));
+    $p = $q->fetch() ?: ['id' => 0, 'info' => '{}'];
+    return gen_project_brief(gen_project_info(json_decode((string)$p['info'], true) ?: []), gen_pfiles_brief($db, (int)$p['id']));
 }
 
 /** A built site's whole-site AI brief (system prompt and rebuild brief in one document), or null when it is not built. */

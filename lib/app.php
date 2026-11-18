@@ -161,6 +161,25 @@ function sx_date(string $iso): string
     return date($fmt, strtotime($iso));
 }
 
+/** A drawn screen the brand's products can show: sports screens (lines, live score, bet slip) become casino ones
+ *  (game tiles, live dealer table) for a casino-only brand, and the other way round for a sports-only brand. */
+function sx_phone_kind(string $kind, ?array $verticals = null): string
+{
+    $v = $verticals ?? SX::$ctx['brand']['verticals'] ?? null;
+    if (!is_array($v)) {
+        return $kind;
+    }
+    $sports = in_array('sports', $v, true);
+    $casino = (bool)array_intersect(['casino', 'live-casino'], $v);
+    if ($sports && !$casino) {
+        return ['casino' => 'home', 'table' => 'live'][$kind] ?? $kind;
+    }
+    if ($casino && !$sports) {
+        return ['home' => 'casino', 'live' => 'table', 'slip' => 'casino'][$kind] ?? $kind;
+    }
+    return $kind;
+}
+
 /**
  * Phone mockup. $screen: {kind: home|live|slip|wallet|casino|install, image?: url}.
  * With an image, the real screenshot is shown; without, a CSS-drawn screen in the preset's tokens.
@@ -168,7 +187,7 @@ function sx_date(string $iso): string
 function sx_phone(array $screen, string $extra = '', bool $lazy = true): string
 {
     SX::$used['_phone'] = SX::$used['_phone'] ?? 1;
-    $kind = $screen['kind'] ?? 'home';
+    $kind = sx_phone_kind($screen['kind'] ?? 'home');
     if (empty($screen['image'])) {
         SX::$variantsUsed['_phone'][$kind] = true; // ship only this screen's CSS
     }

@@ -49,6 +49,10 @@ button,.btn{font:600 14px system-ui,sans-serif;border-radius:8px;border:1px soli
 button.primary,.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}button.danger{color:var(--bad)}button:disabled{opacity:.5;cursor:default}
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 input[type=text],input[type=number],select{font:14px system-ui,sans-serif;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);max-width:100%}
+.pfiles{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}.pflist{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:6px}.pflist li{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px}.pflist .muted{font-size:13px}.pflist button{padding:4px 10px;font-size:13px}#pf-msg{margin-top:6px;font-size:13px}
+.stabs{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 18px;border-bottom:1px solid var(--line)}.stabs a{padding:8px 14px;color:var(--muted);text-decoration:none;font-weight:600;border-bottom:2px solid transparent;margin-bottom:-1px}.stabs a:hover{color:var(--text)}.stabs a[aria-current]{color:var(--accent);border-bottom-color:var(--accent)}
+.bfacts{margin:14px 0}.bfgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:4px 18px}.bfgrid .field{margin-bottom:12px}.bfstate{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}.bfq{font-size:12px}.bffound input{border-color:var(--ok)}.linkish{border:0;background:none;padding:0;color:var(--accent);font-weight:600;font-size:13px;cursor:pointer}.bf-msg.ok{color:var(--ok)}
+.seo{margin:14px 0}.seorow{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}.seorow .acts button{padding:4px 10px;font-size:13px}.seonote{margin:6px 0 0;font-size:13px;white-space:pre-wrap}#v-msg.ok{color:var(--ok)}#v-msg.err{color:var(--bad)}#vf .inl{display:flex}
 .pinfo{margin:14px 0 22px}.pdl{display:grid;grid-template-columns:minmax(140px,220px) 1fr;gap:8px 16px;margin:14px 0 0}.pdl dt{font-weight:650}.pdl dd{margin:0}@media (max-width:640px){.pdl{grid-template-columns:1fr}.pdl dd{margin-bottom:6px}}#pf .inl{display:flex}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
 .list{display:grid;gap:10px;margin-top:14px}.list a.item{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--panel);border:1px solid var(--line);border-radius:12px;color:var(--text);text-decoration:none}
@@ -129,7 +133,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
   var main = document.getElementById('main'), CAT = null, poll = null;
   var RU = {
     'User guide': 'Справка',
-    'Projects': 'Проекты', 'Thresholds': 'Пороги', 'Gallery': 'Галерея', 'AI brief settings': 'Настройки ИИ-брифа',
+    'Projects': 'Проекты', 'Thresholds': 'Пороги', 'Settings': 'Настройки', 'Gallery': 'Галерея',
     'Language': 'Язык', 'Theme': 'Тема', 'Auto': 'Авто', 'Light': 'Светлая', 'Dark': 'Тёмная',
     'Difference thresholds': 'Пороги различий',
     'How different every generated site must be from the sites it is compared with (same type). The generator checks each site after it is built; a site under a threshold gets a new plan (new seed, another style, the next hero layout, then a free section order and free layouts) and is rebuilt, up to the rebuilds limit. It keeps the best version; a site that still misses a threshold is flagged on the job page.':
@@ -153,6 +157,52 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     '{0} jobs': 'заданий: {0}', '{0} sites': 'сайтов: {0}', '{0} / {1} sites': '{0} / {1} сайтов',
     'New job': 'Новое задание', 'Delete project': 'Удалить проект', 'Jobs': 'Задания',
     'Project information': 'Информация о проекте', 'Project name': 'Название проекта',
+    'Vertex AI is not connected. Add an API key or a service account in Settings → Vertex AI.': 'Vertex AI не подключён. Добавьте API-ключ или сервисный аккаунт в «Настройки» → «Vertex AI».',
+    'No approved, built site is waiting for text. Approve sites first.': 'Нет одобренных собранных сайтов без текста. Сначала одобрите сайты.',
+    'The site has no build yet. Build it first.': 'Сайт ещё не собран. Сначала соберите его.',
+    'The service account JSON is not valid: it needs client_email and private_key (download a key for the service account in Google Cloud → IAM → Service accounts → Keys).': 'JSON сервисного аккаунта неверный: нужны client_email и private_key (скачайте ключ в Google Cloud → IAM → Сервисные аккаунты → Ключи).',
+    'SEO review and text': 'SEO-проверка и тексты', 'Brand facts': 'Факты бренда', 'Brand facts confirmed': 'Факты бренда подтверждены',
+    'The sites still show example brand data.': 'На сайтах ещё пример данных бренда.', ' and {0} more': ' и ещё {0}',
+    'Confirm the real facts before approving, so no made-up licence number or date goes live.': 'Подтвердите настоящие факты до одобрения, чтобы на живой сайт не попал выдуманный номер лицензии или дата.',
+    'A new brand starts with example data so the templates look real: licence number, start year, payout times, app details. Enter the real facts here; the sites are rebuilt with them. A field left empty keeps the example data (marked «example»); «Hide» removes the fact from the pages where they can do without it.':
+      'Новый бренд получает пример данных, чтобы шаблоны выглядели настоящими: номер лицензии, год запуска, сроки выплат, данные приложения. Впишите здесь настоящие факты — сайты пересоберутся с ними. Пустое поле оставляет пример (метка «пример»); «Скрыть» убирает факт со страниц, где без него можно обойтись.',
+    'Fill from the project': 'Заполнить из проекта', '«Fill from the project»: Vertex AI reads the project information and documents and fills in only what they state, with the quoted words. Check the values, then save.':
+      '«Заполнить из проекта»: Vertex AI читает информацию и документы проекта и заполняет только то, что там написано, с цитатой. Проверьте значения и сохраните.',
+    'hidden': 'скрыто', 'confirmed': 'подтверждено', 'example': 'пример', 'not shown': 'не показывается', 'keep the example': 'оставить пример', 'Hide': 'Скрыть',
+    'Save and rebuild the sites': 'Сохранить и пересобрать сайты', 'This job has no brands of its own.': 'В задании нет своих брендов.', 'Reading the project…': 'Читаю проект…',
+    'From the project: «{0}»': 'Из проекта: «{0}»', '{0} facts found in the project. Check them and save.': 'Найдено в проекте фактов: {0}. Проверьте и сохраните.',
+    'The project information and documents do not state any of these facts. Add them there, or type them here.': 'В информации и документах проекта этих фактов нет. Добавьте их туда или впишите здесь.',
+    'The project has no information or documents to read the facts from. Fill in «Project information» or upload a document first.': 'В проекте нет информации или документов, из которых можно взять факты. Сначала заполните «Информацию о проекте» или загрузите документ.',
+    'Licence number': 'Номер лицензии', 'Operating since (year)': 'Работает с (год)', 'Withdrawal time, minutes: {0}': 'Срок вывода, минут: {0}', 'Tagline ({0})': 'Слоган ({0})',
+    'App developer': 'Разработчик приложения', 'App version': 'Версия приложения', 'App updated (YYYY-MM-DD)': 'Обновлено (ГГГГ-ММ-ДД)', 'iPhone app size, MB': 'Размер для iPhone, МБ',
+    'Android app size, MB': 'Размер для Android, МБ', 'Minimum iOS': 'Минимальная iOS', 'Minimum Android': 'Минимальный Android', 'App languages ({0}, comma separated)': 'Языки приложения ({0}, через запятую)', 'Approve all ({0})': 'Одобрить все ({0})', 'Withdraw approvals': 'Снять одобрения', 'Write the text ({0})': 'Написать тексты ({0})',
+    '1. Look at each template and approve it, or mark it «Needs changes» with a note. 2. «Write the text»: Vertex AI rewrites the approved sites’ text from the project information and documents, then they are rebuilt.':
+      '1. Посмотрите каждый шаблон и одобрите его или отметьте «Нужны правки» с комментарием. 2. «Написать тексты»: Vertex AI переписывает тексты одобренных сайтов по информации и документам проекта, затем сайты пересобираются.',
+    'Vertex AI connection': 'Подключение Vertex AI', 'Approved: {0} of {1}': 'Одобрено: {0} из {1}', 'Needs changes: {0}': 'Нужны правки: {0}', 'With AI text: {0}': 'С текстом ИИ: {0}', 'Text failed: {0}': 'Ошибка текста: {0}',
+    'Writing the text: {0} sites left': 'ИИ пишет тексты: осталось сайтов — {0}', 'About half a minute per page. The sites are rebuilt with the new text when it is done; you can leave this page.': 'Около полуминуты на страницу. Когда тексты готовы, сайты пересобираются с ними; страницу можно закрыть.',
+    'Withdraw the SEO approval of every site in this job?': 'Снять SEO-одобрение со всех сайтов задания?', 'What should change in this template? (the note stays on the card)': 'Что поправить в этом шаблоне? (комментарий останется на карточке)',
+    'Put the template’s text back on this site? The AI text is removed and the site is rebuilt.': 'Вернуть сайту текст шаблона? Текст ИИ удалится, сайт пересоберётся.',
+    'Approved by SEO': 'Одобрено SEO', 'Needs changes': 'Нужны правки', 'Not reviewed': 'Не проверен', 'Text queued': 'Текст в очереди', 'AI is writing…': 'ИИ пишет…', 'Text failed': 'Ошибка текста', 'AI text': 'Текст ИИ',
+    '{0} texts rewritten, {1} below sections · {2}': 'Переписано текстов: {0}, под секциями: {1} · {2}', 'Approve': 'Одобрить', 'Withdraw approval': 'Снять одобрение', 'Write again': 'Написать заново', 'Write the text': 'Написать текст', 'Template text back': 'Вернуть текст шаблона',
+    'The model that writes the sites’ text after the SEO review. Connect with an API key (Vertex Express: Gemini models, small quotas) or a service account key (your Google Cloud project’s quotas; also Claude models). Keys are stored on the server and never shown again.':
+      'Модель, которая пишет тексты сайтов после SEO-проверки. Подключение по API-ключу (Vertex Express: модели Gemini, небольшие квоты) или по ключу сервисного аккаунта (квоты вашего проекта Google Cloud; также модели Claude). Ключи хранятся на сервере и больше не показываются.',
+    'Connect with': 'Способ подключения', 'API key (Vertex Express)': 'API-ключ (Vertex Express)', 'Service account (JSON key)': 'Сервисный аккаунт (JSON-ключ)', 'API key': 'API-ключ',
+    'Saved (ends in {0}). Leave empty to keep it.': 'Сохранён (заканчивается на {0}). Оставьте пустым, чтобы не менять.', 'Google Cloud console → Vertex AI → API keys (Express mode).': 'Консоль Google Cloud → Vertex AI → API-ключи (режим Express).',
+    'Remove the saved key': 'Удалить сохранённый ключ', 'Service account key (JSON)': 'Ключ сервисного аккаунта (JSON)', 'Saved: {0}. Leave empty to keep it.': 'Сохранён: {0}. Оставьте пустым, чтобы не менять.',
+    'IAM → Service accounts → Keys → Add key → JSON. The account needs the «Vertex AI User» role.': 'IAM → Сервисные аккаунты → Ключи → Добавить ключ → JSON. Аккаунту нужна роль «Vertex AI User».',
+    'Choose the .json file': 'Выбрать файл .json', 'Project ID': 'ID проекта', 'Taken from the key when empty.': 'Если пусто — берётся из ключа.', 'Region': 'Регион', 'e.g. us-central1, europe-west4, or global.': 'например: us-central1, europe-west4 или global.',
+    'Region for Claude models': 'Регион для моделей Claude', 'Only if Claude runs in another region (e.g. us-east5). Empty = the region above.': 'Только если Claude работает в другом регионе (например, us-east5). Пусто — регион выше.',
+    'Model': 'Модель', 'A Gemini model id, or a Claude model id (service account only). Pick one or type another.': 'ID модели Gemini или Claude (Claude — только через сервисный аккаунт). Выберите из списка или впишите свою.',
+    'Test the connection': 'Проверить подключение', 'Testing…': 'Проверка…', 'Connected: {0} answered in {1} ms.': 'Подключено: {0} ответила за {1} мс.', 'Documents': 'Документы', 'Upload files': 'Загрузить файлы',
+    '.txt, .md, .csv, .docx or .odt, up to 3 MB each, at most 10. Their text goes into the briefs as source material; for an old .doc, save it as .docx first.':
+      '.txt, .md, .csv, .docx или .odt, до 3 МБ каждый, не больше 10. Их текст попадает в брифы как исходный материал; старый .doc сначала сохраните как .docx.',
+    '{0} characters': 'знаков: {0}', 'Delete this document from the project?': 'Удалить этот документ из проекта?', 'Uploading…': 'Загрузка…',
+    '{0}: the file is over 3 MB.': '{0}: файл больше 3 МБ.', 'Delete': 'Удалить',
+    'old Word (.doc) and .rtf files cannot be read. Save it as .docx (File → Save as) and upload that.': 'старый Word (.doc) и .rtf прочитать нельзя. Сохраните файл как .docx (Файл → Сохранить как) и загрузите его.',
+    'only .txt, .md, .csv, .docx and .odt files can be uploaded.': 'можно загрузить только файлы .txt, .md, .csv, .docx и .odt.',
+    'the file is over 3 MB.': 'файл больше 3 МБ.', 'no text found in the file.': 'в файле не найден текст.',
+    'this is not a readable .docx file.': 'это не читаемый файл .docx.', 'this is not a readable .odt file.': 'это не читаемый файл .odt.',
+    'A project holds at most 10 files. Delete one first.': 'В проекте может быть не больше 10 файлов. Сначала удалите один.', 'The file did not arrive. Try again.': 'Файл не дошёл. Попробуйте ещё раз.',
     'Used by the AI briefs of every site in this project to write relevant text in the sections and, if you choose, below them. Changes apply to the next brief download; no rebuild is needed.':
       'ИИ-брифы всех сайтов проекта используют эту информацию, чтобы писать подходящий текст в секциях и, если вы выберете, под ними. Изменения попадают в следующее скачивание брифов, пересобирать сайты не нужно.',
     'Nothing filled in yet: the briefs use only the site and market information.': 'Пока ничего не заполнено: брифы опираются только на данные сайта и рынка.',
@@ -331,7 +381,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     document.documentElement.lang = LANG;
     document.title = 'WebNets';
     var h = location.hash.replace(/^#\/?/, '').split('/')[0];
-    document.getElementById('topnav').innerHTML = '<a href="#/"' + (['settings', 'markets', 'types', 'docs'].indexOf(h) < 0 ? ' aria-current="page"' : '') + '>' + L('Projects') + '</a><a href="#/types"' + (h === 'types' ? ' aria-current="page"' : '') + '>' + L('Site types') + '</a><a href="#/markets"' + (h === 'markets' ? ' aria-current="page"' : '') + '>' + L('Markets') + '</a><a href="#/settings"' + (h === 'settings' ? ' aria-current="page"' : '') + '>' + L('Thresholds') + '</a><a href="/">' + L('Gallery') + '</a><a href="/settings/">' + L('AI brief settings') + '</a><a href="#/docs"' + (h === 'docs' ? ' aria-current="page"' : '') + '>' + L('User guide') + '</a>';
+    document.getElementById('topnav').innerHTML = '<a href="#/"' + (['settings', 'markets', 'types', 'docs'].indexOf(h) < 0 ? ' aria-current="page"' : '') + '>' + L('Projects') + '</a><a href="#/types"' + (h === 'types' ? ' aria-current="page"' : '') + '>' + L('Site types') + '</a><a href="#/markets"' + (h === 'markets' ? ' aria-current="page"' : '') + '>' + L('Markets') + '</a><a href="#/settings"' + (h === 'settings' ? ' aria-current="page"' : '') + '>' + L('Settings') + '</a><a href="/">' + L('Gallery') + '</a><a href="/settings/">' + L('AI brief') + '</a><a href="#/docs"' + (h === 'docs' ? ' aria-current="page"' : '') + '>' + L('User guide') + '</a>';
     var lang = document.getElementById('ui-lang'), th = document.getElementById('ui-theme'), cur = document.documentElement.dataset.theme || 'auto';
     lang.value = LANG;
     lang.setAttribute('aria-label', L('Language'));
@@ -378,10 +428,17 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
   function when(s) { return esc(String(s).replace('T', ' ').slice(0, 16)); }
 
   /* ---------- thresholds */
+  /* Settings: one page, a tab per area */
+  function settingsTabs(on) {
+    return '<h2>' + L('Settings') + '</h2><nav class="stabs" aria-label="' + L('Settings') + '">'
+      + [['thresholds', '#/settings', L('Thresholds')], ['vertex', '#/settings/vertex', 'Vertex AI']].map(function (t) {
+        return '<a href="' + t[1] + '"' + (t[0] === on ? ' aria-current="page"' : '') + '>' + t[2] + '</a>';
+      }).join('') + '</nav>';
+  }
   function settings() {
     api('settings').then(function (d) {
       var st = d.settings, df = d.defaults;
-      main.innerHTML = '<h2>' + L('Difference thresholds') + '</h2><p class="muted">' + L('How different every generated site must be from the sites it is compared with (same type). The generator checks each site after it is built; a site under a threshold gets a new plan (new seed, another style, the next hero layout, then a free section order and free layouts) and is rebuilt, up to the rebuilds limit. It keeps the best version; a site that still misses a threshold is flagged on the job page.') + '</p>'
+      main.innerHTML = settingsTabs('thresholds') + '<h3>' + L('Difference thresholds') + '</h3><p class="muted">' + L('How different every generated site must be from the sites it is compared with (same type). The generator checks each site after it is built; a site under a threshold gets a new plan (new seed, another style, the next hero layout, then a free section order and free layouts) and is rebuilt, up to the rebuilds limit. It keeps the best version; a site that still misses a threshold is flagged on the job page.') + '</p>'
         + '<form class="card" id="sf" style="display:grid;gap:14px;max-width:640px">'
         + '<div class="field"><label class="lbl" for="scode">' + L('Minimum code difference, %') + '</label><input type="number" id="scode" min="0" max="100" value="' + st.code_min + '" style="width:110px"><span class="muted" style="font-size:13px">' + L('Share of CSS rules and HTML that differ (renamed classes, whitespace and order do not count). Checked in milliseconds after each build. Default {0}.', df.code_min) + '</span></div>'
         + '<div class="field"><label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="svis"' + (st.visual ? ' checked' : '') + '> <span class="lbl" style="margin:0">' + L('Check visual difference') + '</span></label>'
@@ -427,6 +484,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
       document.getElementById('delp').onclick = function () {
         if (confirm(L('Delete this project, its jobs and every generated site?'))) api('projects/' + id, null, 'DELETE').then(function () { location.hash = '#/'; }).catch(fail);
       };
+      d.project.files = d.files || [];
       projectInfo(id, d.project, false);
     }).catch(fail);
   }
@@ -451,9 +509,47 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         + (filled.length || below !== 'none'
           ? '<dl class="pdl">' + filled.map(function (f) { return '<dt>' + L(f[1]) + '</dt><dd>' + esc(info[f[0]]).replace(/\n/g, '<br>') + '</dd>'; }).join('')
             + '<dt>' + L('Text below sections') + '</dt><dd>' + L(PBELOW.filter(function (b) { return b[0] === below; })[0][1]) + '</dd></dl>'
-          : '<p style="margin:10px 0 0">' + L('Nothing filled in yet: the briefs use only the site and market information.') + '</p>')
-        + '</section>';
+          : p.files.length ? '' : '<p style="margin:10px 0 0">' + L('Nothing filled in yet: the briefs use only the site and market information.') + '</p>')
+        + '<div class="pfiles"><div class="row"><h4 style="margin:0">' + L('Documents') + '</h4><span class="sp"></span>'
+        + '<label class="btn" for="pf-up">' + L('Upload files') + '</label><input type="file" id="pf-up" multiple accept=".txt,.md,.csv,.tsv,.docx,.odt" hidden></div>'
+        + '<p class="muted" style="margin:6px 0 0;font-size:13px">' + L('.txt, .md, .csv, .docx or .odt, up to 3 MB each, at most 10. Their text goes into the briefs as source material; for an old .doc, save it as .docx first.') + '</p>'
+        + '<div id="pf-msg" class="err"></div>'
+        + (p.files.length ? '<ul class="pflist">' + p.files.map(function (f) {
+          return '<li><a href="/generator/api/projects/' + id + '/files/' + f.id + '" target="_blank" rel="noopener"><b>' + esc(f.name) + '</b></a>'
+            + '<span class="muted">' + L('{0} characters', f.chars.toLocaleString()) + ' · ' + Math.max(1, Math.round(f.size / 1024)) + ' KB</span>'
+            + '<span class="sp"></span><button type="button" class="danger pf-del" data-id="' + f.id + '">' + L('Delete') + '</button></li>';
+        }).join('') + '</ul>' : '')
+        + '</div></section>';
       document.getElementById('pedit').onclick = function () { projectInfo(id, p, true); };
+      [].forEach.call(box.querySelectorAll('.pf-del'), function (b) {
+        b.onclick = function () {
+          if (confirm(L('Delete this document from the project?'))) api('projects/' + id + '/files/' + b.dataset.id, null, 'DELETE').then(function () { project(id); }).catch(fail);
+        };
+      });
+      document.getElementById('pf-up').onchange = function () {
+        var files = [].slice.call(this.files), msg = document.getElementById('pf-msg'), errs = [];
+        msg.className = 'muted';
+        msg.textContent = L('Uploading…');
+        files.reduce(function (chain, f) {
+          return chain.then(function () {
+            if (f.size > 3 * 1024 * 1024) { errs.push(L('{0}: the file is over 3 MB.', f.name)); return; }
+            return new Promise(function (ok) {
+              var r = new FileReader();
+              r.onload = function () { ok(String(r.result).split(',')[1] || ''); };
+              r.onerror = function () { ok(''); };
+              r.readAsDataURL(f);
+            }).then(function (data) {
+              return api('projects/' + id + '/files', { name: f.name, data: data }).catch(function (e) {
+                var m = e.message || String(e), at = m.indexOf(': ');
+                errs.push(at > 0 && m.slice(0, at) === f.name ? f.name + ': ' + L(m.slice(at + 2)) : L(m)); // "<file>: message", the message translated
+              });
+            });
+          });
+        }, Promise.resolve()).then(function () {
+          if (errs.length) { project(id); setTimeout(function () { var m = document.getElementById('pf-msg'); if (m) { m.className = 'err'; m.innerHTML = errs.map(esc).join('<br>'); } }, 400); }
+          else project(id);
+        });
+      };
       return;
     }
     box.innerHTML = '<form class="card mform pinfo" id="pf"><h3 style="margin-top:0">' + L('Project information') + '</h3>'
@@ -687,7 +783,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
   }
   /* a card = thumbnail (kept while the build is the same, so it does not reload) + body (redrawn when anything changes) */
   function drawCard(card, s) {
-    var tkey = s.status + '|' + (s.v || '') + '|' + (s.thumb || ''), bkey = JSON.stringify([s.status, s.mobile, s.warnings.length, s.blocks, s.pages, s.preset, s.brand, s.edited, EDIT]);
+    var tkey = s.status + '|' + (s.v || '') + '|' + (s.thumb || ''), bkey = JSON.stringify([s.status, s.mobile, s.warnings.length, s.blocks, s.pages, s.preset, s.brand, s.edited, EDIT, s.seo, s.content, s.ai]);
     if (card.dataset.t !== tkey) {
       card.dataset.t = tkey;
       var th = card.querySelector('.thumb') || card.appendChild(document.createElement('div'));
@@ -720,7 +816,187 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
       + (s.status === 'built' ? '<div class="chips">' + checkChips(s.checks) + mobileChips(s.mobile) + '</div>' : '')
       + (s.blocks.length ? '<div>' + s.blocks.map(function (w) { return '<span class="wn" style="max-width:none">⚠ ' + L('Market rule overridden: {0}', esc(w)) + '</span>'; }).join('') + '</div>' : '')
       + (s.warnings.length ? '<details class="warn"><summary>' + (s.warnings.length > 1 ? L('{0} build notes', s.warnings.length) : L('1 build note')) + '</summary><ul>' + s.warnings.slice(0, 12).map(function (w) { return '<li>' + esc(w) + '</li>'; }).join('') + '</ul></details>' : '')
+      + (s.status === 'built' ? seoCard(s) : '')
       + (s.status === 'built' ? '<div class="acts"><a class="btn primary" href="' + s.url + '" target="_blank" rel="noopener">' + L('Open site') + '</a>' + (s.brief ? '<a class="btn" href="' + s.brief + '" download title="' + L('Download the AI brief for the whole site (.txt)') + '">' + L('AI brief') + ' ↓</a>' : '') + (EDIT ? '<a class="btn" href="#/s/' + s.id + '">' + L('Edit') + '</a>' : '') + '</div>' : '');
+  }
+
+  /* SEO review and AI text (generator/content.php): the SEO approves templates, then Vertex AI writes the approved sites' text */
+  function seoState(s) { return s.seo && s.seo.status; }
+  function seoPanel(j, d) {
+    var built = d.sites.filter(function (s) { return s.status === 'built'; });
+    var ok = built.filter(function (s) { return seoState(s) === 'approved'; }), changes = built.filter(function (s) { return seoState(s) === 'changes'; });
+    var busy = built.filter(function (s) { return s.content && (s.content.state === 'queued' || s.content.state === 'writing'); });
+    var done = built.filter(function (s) { return s.ai; }), errs = built.filter(function (s) { return s.content && s.content.state === 'error'; });
+    var todo = ok.filter(function (s) { return !s.ai && !(s.content && (s.content.state === 'queued' || s.content.state === 'writing')); });
+    return '<section class="card seo" aria-labelledby="seoh"><div class="row"><h3 id="seoh" style="margin:0">' + L('SEO review and text') + '</h3><span class="sp"></span>'
+      + (ok.length + changes.length < built.length ? '<button type="button" id="seoall">' + L('Approve all ({0})', built.length - ok.length - changes.length) + '</button>' : '')
+      + (ok.length ? '<button type="button" id="seonone">' + L('Withdraw approvals') + '</button>' : '')
+      + '<button type="button" class="primary" id="aiwrite"' + (todo.length && !busy.length ? '' : ' disabled') + '>' + L('Write the text ({0})', todo.length) + '</button></div>'
+      + '<p class="muted" style="margin:8px 0 0;font-size:14px">' + L('1. Look at each template and approve it, or mark it «Needs changes» with a note. 2. «Write the text»: Vertex AI rewrites the approved sites’ text from the project information and documents, then they are rebuilt.') + ' <a href="#/settings/vertex">' + L('Vertex AI connection') + '</a> · <a href="#/p/' + j.project_id + '">' + L('Project information') + '</a></p>'
+      + factsNote(j)
+      + '<div class="chips" style="margin-top:10px"><span class="chip ok">' + L('Approved: {0} of {1}', ok.length, built.length) + '</span>' + (changes.length ? '<span class="chip warn">' + L('Needs changes: {0}', changes.length) + '</span>' : '')
+      + '<span class="chip">' + L('With AI text: {0}', done.length) + '</span>' + (errs.length ? '<span class="chip bad">' + L('Text failed: {0}', errs.length) + '</span>' : '') + '</div>'
+      + (busy.length ? '<div class="notice" role="status" style="margin-top:10px"><span class="spin" aria-hidden="true"></span><span><b>' + L('Writing the text: {0} sites left', busy.length) + '.</b> ' + L('About half a minute per page. The sites are rebuilt with the new text when it is done; you can leave this page.') + '</span></div>' : '')
+      + '</section>';
+  }
+  function factLabel(f) { return L(f.label, f.param); }
+  function factsNote(j) {
+    var left = j.facts_left || {}, names = Object.keys(left);
+    if (!names.length) return '<p style="margin:10px 0 0;font-size:14px"><span class="chip ok">' + L('Brand facts confirmed') + '</span> <a href="#/j/' + j.id + '/brands">' + L('Brand facts') + '</a></p>';
+    return '<div class="note" style="margin-top:10px"><b>' + L('The sites still show example brand data.') + '</b> '
+      + names.map(function (n) { return esc(n) + ': ' + left[n].slice(0, 6).map(function (f) { return esc(factLabel(f)); }).join(', ') + (left[n].length > 6 ? L(' and {0} more', left[n].length - 6) : ''); }).join('; ')
+      + '. ' + L('Confirm the real facts before approving, so no made-up licence number or date goes live.') + ' <a class="btn" style="padding:4px 10px;font-size:13px" href="#/j/' + j.id + '/brands">' + L('Brand facts') + '</a></div>';
+  }
+
+  /* Brand facts: the real licence, start year, payout times, app details and tagline of the job's brands */
+  function brandFacts(id) {
+    Promise.all([api('jobs/' + id), api('jobs/' + id + '/brands')]).then(function (r) {
+      var j = r[0].job, brands = r[1].brands;
+      main.innerHTML = '<p><a href="#/j/' + id + '">← ' + esc(j.name) + '</a></p><h2>' + L('Brand facts') + '</h2>'
+        + '<p class="muted" style="max-width:860px">' + L('A new brand starts with example data so the templates look real: licence number, start year, payout times, app details. Enter the real facts here; the sites are rebuilt with them. A field left empty keeps the example data (marked «example»); «Hide» removes the fact from the pages where they can do without it.') + '</p>'
+        + (brands.length ? brands.map(function (b) {
+          return '<form class="card mform bfacts" data-b="' + esc(b.id) + '"><div class="row"><h3 style="margin:0">' + esc(b.name) + '</h3><span class="sp"></span>'
+            + '<button type="button" class="bf-fill">' + L('Fill from the project') + '</button></div>'
+            + '<p class="muted bf-msg" style="margin:6px 0 12px;font-size:13px">' + L('«Fill from the project»: Vertex AI reads the project information and documents and fills in only what they state, with the quoted words. Check the values, then save.') + '</p>'
+            + '<div class="bfgrid">' + b.fields.map(function (f) {
+              var hidden = f.confirmed && f.value === '' && f.hide;
+              return '<div class="field" data-k="' + f.key + '"><label class="lbl" for="bf-' + esc(b.id) + '-' + f.key + '">' + esc(factLabel(f)) + '</label>'
+                + '<input type="text" id="bf-' + esc(b.id) + '-' + f.key + '" data-kind="' + f.kind + '" value="' + esc(f.value) + '" placeholder="' + esc(f.example) + '"' + (hidden ? ' disabled' : '') + '>'
+                + '<span class="bfstate">' + (f.confirmed ? (hidden ? '<span class="chip">' + L('hidden') + '</span>' : '<span class="chip ok">' + L('confirmed') + '</span>') : f.example !== '' ? '<span class="chip warn">' + L('example') + '</span>' : '<span class="chip auto">' + L('not shown') + '</span>')
+                + (f.example !== '' && !f.confirmed ? ' <button type="button" class="linkish bf-keep">' + L('keep the example') + '</button>' : '')
+                + (f.hide ? ' <label class="inl"><input type="checkbox" class="bf-hide"' + (hidden ? ' checked' : '') + '> ' + L('Hide') + '</label>' : '') + '</span><small class="bfq muted"></small></div>';
+            }).join('') + '</div>'
+            + '<div class="row"><button class="primary" type="submit">' + L('Save and rebuild the sites') + '</button><span class="bf-err err"></span></div></form>';
+        }).join('') : '<p class="muted">' + L('This job has no brands of its own.') + '</p>');
+      [].forEach.call(main.querySelectorAll('.bfacts'), function (form) {
+        var bid = form.dataset.b, msg = form.querySelector('.bf-msg'), err = form.querySelector('.bf-err');
+        [].forEach.call(form.querySelectorAll('.bf-hide'), function (c) {
+          c.onchange = function () { var inp = c.closest('.field').querySelector('input[type=text]'); inp.disabled = c.checked; if (c.checked) inp.value = ''; };
+        });
+        [].forEach.call(form.querySelectorAll('.bf-keep'), function (k) {
+          k.onclick = function () { var inp = k.closest('.field').querySelector('input[type=text]'); inp.value = inp.placeholder; inp.focus(); };
+        });
+        form.querySelector('.bf-fill').onclick = function () {
+          var btn = this;
+          btn.disabled = true;
+          msg.className = 'muted bf-msg';
+          msg.textContent = L('Reading the project…');
+          api('jobs/' + id + '/brands/' + encodeURIComponent(bid) + '/fill', {}, 'POST').then(function (x) {
+            btn.disabled = false;
+            var keys = Object.keys(x.facts || {});
+            keys.forEach(function (k) {
+              var fld = form.querySelector('[data-k="' + k + '"]');
+              if (!fld) return;
+              var inp = fld.querySelector('input[type=text]');
+              inp.value = x.facts[k].value;
+              inp.disabled = false;
+              fld.querySelector('.bfq').textContent = L('From the project: «{0}»', x.facts[k].quote);
+              fld.classList.add('bffound');
+            });
+            msg.className = keys.length ? 'ok bf-msg' : 'muted bf-msg';
+            msg.textContent = keys.length ? L('{0} facts found in the project. Check them and save.', keys.length) : L('The project information and documents do not state any of these facts. Add them there, or type them here.');
+          }).catch(function (e) { btn.disabled = false; msg.className = 'err bf-msg'; msg.textContent = L(e.message || String(e)); });
+        };
+        form.onsubmit = function (e) {
+          e.preventDefault();
+          var facts = {};
+          [].forEach.call(form.querySelectorAll('.field[data-k]'), function (fld) {
+            var inp = fld.querySelector('input[type=text]'), hide = fld.querySelector('.bf-hide');
+            if (hide && hide.checked) facts[fld.dataset.k] = '';
+            else if (inp.value.trim() !== '') facts[fld.dataset.k] = inp.value.trim();
+          });
+          err.textContent = '';
+          api('jobs/' + id + '/brands/' + encodeURIComponent(bid), { facts: facts }, 'PUT').then(function () { location.hash = '#/j/' + id; })
+            .catch(function (x) { err.textContent = L(x.message || String(x)); });
+        };
+      });
+    }).catch(fail);
+  }
+
+  function seoWire(id, d, jerr) {
+    var all = document.getElementById('seoall'), none = document.getElementById('seonone'), w = document.getElementById('aiwrite');
+    if (all) all.onclick = function () { all.disabled = true; api('jobs/' + id + '/seo', { status: 'approved' }, 'POST').then(function () { job(id); }).catch(jerr); };
+    if (none) none.onclick = function () { if (confirm(L('Withdraw the SEO approval of every site in this job?'))) api('jobs/' + id + '/seo', { status: null }, 'POST').then(function () { job(id); }).catch(jerr); };
+    if (w) w.onclick = function () { w.disabled = true; w.textContent = L('Starting…'); api('jobs/' + id + '/content', {}, 'POST').then(function () { job(id); }).catch(function (x) { w.disabled = false; jerr(x); }); };
+    var box = document.getElementById('sites');
+    if (box.dataset.seo) return;
+    box.dataset.seo = '1'; // one listener for every card's buttons
+    box.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-seo],[data-aiw],[data-aiun]');
+      if (!b) return;
+      var sid = b.dataset.seo || b.dataset.aiw || b.dataset.aiun, jid = location.hash.split('/')[2], done = function () { job(jid); }, err = function (x) { alert(L(x.message || String(x))); };
+      if (b.dataset.seo) {
+        var v = b.dataset.v;
+        if (v === 'changes') {
+          var note = prompt(L('What should change in this template? (the note stays on the card)'), b.dataset.note || '');
+          if (note === null) return;
+          api('sites/' + sid + '/seo', { status: 'changes', note: note }, 'PUT').then(done).catch(err);
+        } else api('sites/' + sid + '/seo', { status: v || null }, 'PUT').then(done).catch(err);
+      } else if (b.dataset.aiw) {
+        b.disabled = true;
+        api('jobs/' + jid + '/content', { sites: [sid] }, 'POST').then(done).catch(function (x) { b.disabled = false; err(x); });
+      } else if (confirm(L('Put the template’s text back on this site? The AI text is removed and the site is rebuilt.'))) {
+        api('sites/' + sid + '/ai', null, 'DELETE').then(done).catch(err);
+      }
+    });
+  }
+  function seoCard(s) {
+    var st = seoState(s), c = s.content || {}, note = s.seo && s.seo.note;
+    var chips = (st === 'approved' ? '<span class="chip ok">' + L('Approved by SEO') + '</span>' : st === 'changes' ? '<span class="chip warn" title="' + esc(note || '') + '">' + L('Needs changes') + '</span>' : '<span class="chip auto">' + L('Not reviewed') + '</span>')
+      + (c.state === 'queued' ? '<span class="chip auto">' + L('Text queued') + '</span>' : c.state === 'writing' ? '<span class="chip warn">' + L('AI is writing…') + '</span>'
+        : c.state === 'error' ? '<span class="chip bad" title="' + esc(c.error || '') + '">' + L('Text failed') + '</span>' : s.ai ? '<span class="chip ok" title="' + esc(L('{0} texts rewritten, {1} below sections · {2}', c.fields || 0, c.after || 0, c.model || '')) + '">' + L('AI text') + '</span>' : '');
+    var busy = c.state === 'queued' || c.state === 'writing';
+    return '<div class="seorow"><div class="chips">' + chips + '</div>'
+      + (st === 'changes' && note ? '<p class="seonote">' + esc(note) + '</p>' : '')
+      + (c.state === 'error' ? '<p class="seonote err">' + esc(c.error || '') + '</p>' : '')
+      + '<div class="acts">' + (st !== 'approved' ? '<button type="button" data-seo="' + s.id + '" data-v="approved">' + L('Approve') + '</button>' : '<button type="button" data-seo="' + s.id + '" data-v="">' + L('Withdraw approval') + '</button>')
+      + '<button type="button" data-seo="' + s.id + '" data-v="changes" data-note="' + esc(note || '') + '">' + L('Needs changes') + '</button>'
+      + (st === 'approved' && !busy ? '<button type="button" data-aiw="' + s.id + '">' + (s.ai ? L('Write again') : L('Write the text')) + '</button>' : '')
+      + (s.ai && !busy ? '<button type="button" data-aiun="' + s.id + '">' + L('Template text back') + '</button>' : '') + '</div></div>';
+  }
+
+  /* Vertex AI connection: an API key (Vertex Express, Gemini) or a service account (any region, Gemini and Claude) */
+  function vertexPage() {
+    api('vertex').then(function (v) {
+      main.innerHTML = settingsTabs('vertex') + '<h3>Vertex AI</h3><p class="muted" style="max-width:860px">' + L('The model that writes the sites’ text after the SEO review. Connect with an API key (Vertex Express: Gemini models, small quotas) or a service account key (your Google Cloud project’s quotas; also Claude models). Keys are stored on the server and never shown again.') + '</p>'
+        + '<form id="vf" class="card mform" style="max-width:760px">'
+        + '<div class="field"><span class="lbl">' + L('Connect with') + '</span><label class="inl"><input type="radio" name="vmode" value="key"' + (v.mode !== 'sa' ? ' checked' : '') + '> ' + L('API key (Vertex Express)') + '</label><label class="inl"><input type="radio" name="vmode" value="sa"' + (v.mode === 'sa' ? ' checked' : '') + '> ' + L('Service account (JSON key)') + '</label></div>'
+        + '<div id="v-key"><div class="field"><label class="lbl" for="v-api">' + L('API key') + '</label><span class="muted" style="font-size:13px">' + (v.api_key_set ? L('Saved (ends in {0}). Leave empty to keep it.', esc(v.api_key_end)) : L('Google Cloud console → Vertex AI → API keys (Express mode).')) + '</span><input type="password" id="v-api" autocomplete="off" placeholder="' + (v.api_key_set ? '••••••••' + esc(v.api_key_end) : 'AQ.…') + '">'
+        + (v.api_key_set ? '<label class="inl"><input type="checkbox" id="v-clearkey"> ' + L('Remove the saved key') + '</label>' : '') + '</div></div>'
+        + '<div id="v-sa"><div class="field"><label class="lbl" for="v-json">' + L('Service account key (JSON)') + '</label><span class="muted" style="font-size:13px">' + (v.sa_set ? L('Saved: {0}. Leave empty to keep it.', esc(v.sa_email)) : L('IAM → Service accounts → Keys → Add key → JSON. The account needs the «Vertex AI User» role.')) + '</span>'
+        + '<textarea id="v-json" rows="5" placeholder="{ &quot;type&quot;: &quot;service_account&quot;, … }"></textarea><label class="btn" style="justify-self:start" for="v-file">' + L('Choose the .json file') + '</label><input type="file" id="v-file" accept=".json,application/json" hidden>'
+        + (v.sa_set ? '<label class="inl"><input type="checkbox" id="v-clearsa"> ' + L('Remove the saved key') + '</label>' : '') + '</div>'
+        + '<div class="field"><label class="lbl" for="v-proj">' + L('Project ID') + '</label><span class="muted" style="font-size:13px">' + L('Taken from the key when empty.') + '</span><input type="text" id="v-proj" value="' + esc(v.project_id) + '"></div>'
+        + '<div class="field"><label class="lbl" for="v-loc">' + L('Region') + '</label><span class="muted" style="font-size:13px">' + L('e.g. us-central1, europe-west4, or global.') + '</span><input type="text" id="v-loc" value="' + esc(v.location) + '"></div>'
+        + '<div class="field"><label class="lbl" for="v-cloc">' + L('Region for Claude models') + '</label><span class="muted" style="font-size:13px">' + L('Only if Claude runs in another region (e.g. us-east5). Empty = the region above.') + '</span><input type="text" id="v-cloc" value="' + esc(v.claude_location) + '"></div></div>'
+        + '<div class="field"><label class="lbl" for="v-model">' + L('Model') + '</label><span class="muted" style="font-size:13px">' + L('A Gemini model id, or a Claude model id (service account only). Pick one or type another.') + '</span><input type="text" id="v-model" list="v-models" value="' + esc(v.model) + '"><datalist id="v-models">' + v.models.map(function (m) { return '<option value="' + esc(m) + '">'; }).join('') + '</datalist></div>'
+        + '<div class="row"><button class="primary" type="submit">' + L('Save') + '</button><button type="button" id="v-test"' + (v.ready ? '' : ' disabled') + '>' + L('Test the connection') + '</button><span id="v-msg" role="status"></span></div></form>';
+      var show = function () { var sa = document.querySelector('input[name="vmode"]:checked').value === 'sa'; document.getElementById('v-sa').hidden = !sa; document.getElementById('v-key').hidden = sa; };
+      [].forEach.call(document.querySelectorAll('input[name="vmode"]'), function (r) { r.onchange = show; });
+      show();
+      var msg = document.getElementById('v-msg'), say = function (t, cls) { msg.className = cls || ''; msg.textContent = t; };
+      document.getElementById('v-file').onchange = function () {
+        var f = this.files[0];
+        if (!f) return;
+        var r = new FileReader();
+        r.onload = function () { document.getElementById('v-json').value = String(r.result); };
+        r.readAsText(f);
+      };
+      document.getElementById('vf').onsubmit = function (e) {
+        e.preventDefault();
+        var g = function (i) { var el = document.getElementById(i); return el ? el.value : ''; }, c = function (i) { var el = document.getElementById(i); return !!(el && el.checked); };
+        api('vertex', { mode: document.querySelector('input[name="vmode"]:checked').value, api_key: g('v-api'), sa_json: g('v-json'), clear_key: c('v-clearkey'), clear_sa: c('v-clearsa'),
+          project_id: g('v-proj'), location: g('v-loc'), claude_location: g('v-cloc'), model: g('v-model') }, 'PUT')
+          .then(function () { vertexPage(); setTimeout(function () { var m = document.getElementById('v-msg'); if (m) { m.className = 'ok'; m.textContent = L('Saved.'); } }, 300); })
+          .catch(function (x) { say(L(x.message || String(x)), 'err'); });
+      };
+      document.getElementById('v-test').onclick = function () {
+        say(L('Testing…'), 'muted');
+        api('vertex/test', {}, 'POST').then(function (r) {
+          if (r.ok) say(L('Connected: {0} answered in {1} ms.', r.model, r.ms), 'ok'); else say(r.error, 'err');
+        }).catch(function (x) { say(L(x.message || String(x)), 'err'); });
+      };
+    }).catch(fail);
   }
 
   function checkChips(c) {
@@ -795,6 +1071,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         : running ? '<div class="notice" role="status"><span class="spin" aria-hidden="true"></span><span><b>' + (j.status === 'checking' ? L('Checking the differences') : j.status === 'planned' ? L('Starting the build') : L('Rebuilding: {0} of {1} sites done', built, d.sites.length)) + '.</b> '
           + (j.status === 'checking' ? L('Screenshots are compared site by site; a site that looks too alike is rebuilt, so its card can still change.') : L('Sites are built one by one; each card comes back when its site is ready.'))
           + ' ' + L('The comparison table updates when the job is done. You can leave this page; the build carries on.') + '</span></div>' : '')
+        + (!running && built ? seoPanel(j, d) : '')
         + '<p class="err" id="jerr" hidden></p>';
       var dEl = document.getElementById('diff');
       dEl.classList.toggle('stale', running);
@@ -834,6 +1111,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
       var retry = document.getElementById('retry');
       if (retry) retry.onclick = function () { retry.disabled = true; retry.textContent = L('Starting…'); api('jobs/' + id + '/retry', null, 'POST').then(function () { job(id); }).catch(jerr); };
       briefWire(j, d);
+      seoWire(id, d, jerr);
       var cmp = document.getElementById('jcmp');
       cmp.onchange = function () { cmp.disabled = true; api('jobs/' + id + '/compare', { compare: cmp.checked }, 'PUT').then(function () { cmp.disabled = false; diff(id, d); }).catch(function (x) { cmp.disabled = false; cmp.checked = !cmp.checked; jerr(x); }); };
       var rs = document.getElementById('restyle');
@@ -841,10 +1119,12 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
       var rb = document.getElementById('rebuild');
       if (rb) rb.onclick = function () { rb.disabled = true; rb.textContent = L('Starting…'); api('jobs/' + id + '/rebuild', null, 'POST').then(function () { job(id); }).catch(function (x) { rb.disabled = false; rb.textContent = L('Rebuild all'); jerr(x); }); };
       clearTimeout(poll);
-      if (running) {
+      var writing = d.sites.some(function (s) { return s.content && (s.content.state === 'queued' || s.content.state === 'writing'); });
+      if (running || writing) {
         restoreScroll();
         poll = setTimeout(function () { if (location.hash === '#/j/' + id) job(id); }, 4000);
-      } else {
+      }
+      if (!running) {
         if (!local) diff(id, d); // the differences do not change with the page shown
         mobileChecks(id, shown.filter(function (s) { return s.status === 'built' && !s.mobile; }));
       }
@@ -1074,6 +1354,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
   function route() {
     clearTimeout(poll);
     var h = location.hash.replace(/^#\/?/, '').split('/');
+    if (h[0] === 'vertex' || (h[0] === 'settings' && h[1] === 'vertex')) return vertexPage();
     if (h[0] === 'settings') return settings();
     if (h[0] === 'markets') return GEN.markets(h);
     if (h[0] === 'types') return GEN.types(h);
@@ -1081,6 +1362,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     if (h[0] === 'p' && h[2] === 'new') return jobForm(h[1]);
     if (h[0] === 'p') return project(h[1]);
     if (h[0] === 'j' && h[2] === 'edit') return jobForm(null, h[1]);
+    if (h[0] === 'j' && h[2] === 'brands') return brandFacts(h[1]);
     if (h[0] === 'j' && h[2] === 'type' && h[3]) return editor('type', h[1], h[3]);
     if (h[0] === 's' && h[1]) return editor('site', h[1]);
     if (h[0] === 'j') return job(h[1]);

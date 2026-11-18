@@ -35,6 +35,9 @@ foreach (['pdo_sqlite', 'mbstring'] as $ext) { // without these nothing works; s
 require_once __DIR__ . '/lib.php';
 require_once __DIR__ . '/diff.php';
 require_once __DIR__ . '/briefs.php';
+require_once __DIR__ . '/projectfiles.php';
+require_once __DIR__ . '/content.php';
+require_once __DIR__ . '/brandfacts.php';
 
 function gen_json($data, int $code = 200): void
 {
@@ -80,7 +83,8 @@ function gen_site_row(array $s, array $cat): array
         'preset' => gen_style_label($plan), 'choice' => $labels, 'warnings' => $notes, 'blocks' => array_keys($blocks), 'brand_name' => $ops[$s['brand'] ?? '']['name'] ?? null, 'error' => $s['error'],
         'mobile' => $s['mobile'] ? json_decode($s['mobile'], true) : null, 'url' => "/generated/{$s['id']}/index.html", 'v' => $v = substr(md5($s['status'] . '|' . ($s['checks'] ?? '') . '|' . $s['plan']), 0, 10),
         'thumb' => !empty($s['shot']) && $s['status'] === 'built' ? "/generated/{$s['id']}/_thumb.png?v=$v-" . GEN_THUMB_REV : null, // no file checks on the mounted folder: slow for hundreds of sites
-        'brief' => $s['status'] === 'built' ? "/generator/api/sites/{$s['id']}/brief" : null, 'checks' => $s['checks'] ? json_decode($s['checks'], true) : null, 'edited' => !empty($plan['edits'])];
+        'brief' => $s['status'] === 'built' ? "/generator/api/sites/{$s['id']}/brief" : null, 'checks' => $s['checks'] ? json_decode($s['checks'], true) : null, 'edited' => !empty($plan['edits']),
+        'seo' => !empty($s['seo']) ? json_decode($s['seo'], true) : null, 'content' => !empty($s['content']) ? json_decode($s['content'], true) : null, 'ai' => !empty($plan['ai'])];
 }
 
 $path = trim(preg_replace('#^/generator/api#', '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)), '/');
@@ -113,6 +117,94 @@ try {
         gen_types_api($db, $seg, $method);
     } elseif ($seg[0] === 'markets') { // markets: list, add, edit, delete, history (generator/markets.php)
         gen_markets_api($db, $seg, $method);
+    } elseif ($path === 'vertex' && $method === 'GET') { // Vertex AI connection (secrets are never sent back)
+        gen_json(gen_vertex_public());
+    } elseif ($path === 'vertex' && $method === 'PUT') {
+        try {
+            gen_json(gen_vertex_save(gen_body()));
+        } catch (InvalidArgumentException $e) {
+            gen_json(['error' => $e->getMessage()], 422);
+        }
+    } elseif ($path === 'vertex/test' && $method === 'POST') {
+        try {
+            gen_json(gen_vertex_test());
+        } catch (RuntimeException $e) {
+            gen_json(['ok' => false, 'error' => $e->getMessage()]);
+        }
+    } elseif ($seg[0] === 'jobs' && ($seg[2] ?? '') === 'brands' && !isset($seg[3]) && $method === 'GET') { // the job's brand facts
+        gen_json(['brands' => gen_bfacts_job($db, (int)$seg[1])]);
+    } elseif ($seg[0] === 'jobs' && ($seg[2] ?? '') === 'brands' && isset($seg[3]) && ($seg[4] ?? '') === 'fill' && $method === 'POST') { // facts read from the project by Vertex AI (suggestions, not saved)
+        try {
+            gen_json(['facts' => (object)gen_bfacts_fill($db, (int)$seg[1], $seg[3])]);
+        } catch (InvalidArgumentException $e) {
+            gen_json(['error' => $e->getMessage()], 422);
+        }
+    } elseif ($seg[0] === 'jobs' && ($seg[2] ?? '') === 'brands' && isset($seg[3]) && !isset($seg[4]) && $method === 'PUT') { // confirm facts, then rebuild the built sites
+        try {
+            gen_bfacts_save($db, (int)$seg[1], $seg[3], (array)(gen_body()['facts'] ?? []));
+        } catch (InvalidArgumentException $e) {
+            gen_json(['error' => $e->getMessage()], 422);
+            return;
+        }
+        $n = $db->prepare("UPDATE sites SET status = 'planned', error = NULL, mobile = NULL WHERE job_id = ? AND status IN ('built', 'failed')");
+        $n->execute([(int)$seg[1]]);
+        if ($n->rowCount()) {
+            $db->prepare("UPDATE jobs SET status = 'planned' WHERE id = ?")->execute([(int)$seg[1]]);
+            gen_spawn((int)$seg[1]);
+        }
+        gen_json(['ok' => true, 'rebuild' => $n->rowCount()]);
+    } elseif ($seg[0] === 'sites' && ($seg[2] ?? '') === 'seo' && $method === 'PUT') { // the SEO's verdict on a template: approved, changes (with a note) or none
+        gen_content_columns($db);
+        $b = gen_body();
+        $st = in_array($b['status'] ?? null, ['approved', 'changes'], true) ? $b['status'] : null;
+        $seo = $st || trim((string)($b['note'] ?? '')) !== '' ? ['status' => $st, 'note' => mb_substr(trim((string)($b['note'] ?? '')), 0, 2000), 'at' => gen_now()] : null;
+        $db->prepare('UPDATE sites SET seo = ? WHERE id = ?')->execute([$seo ? json_encode($seo, JSON_UNESCAPED_UNICODE) : null, $seg[1]]);
+        gen_json(['ok' => true, 'seo' => $seo]);
+    } elseif ($seg[0] === 'jobs' && ($seg[2] ?? '') === 'seo' && $method === 'POST') { // approve every built site of the job (or withdraw: status none)
+        gen_content_columns($db);
+        $b = gen_body();
+        $seo = ($b['status'] ?? '') === 'approved' ? json_encode(['status' => 'approved', 'note' => '', 'at' => gen_now()]) : null;
+        $q = $db->prepare("UPDATE sites SET seo = ? WHERE job_id = ? AND status = 'built'" . ($seo ? " AND (seo IS NULL OR json_extract(seo, '$.status') IS NOT 'changes')" : ''));
+        $q->execute([$seo, (int)$seg[1]]);
+        gen_json(['ok' => true, 'sites' => $q->rowCount()]);
+    } elseif ($seg[0] === 'jobs' && ($seg[2] ?? '') === 'content' && $method === 'POST') { // write the text of the approved sites (all of them, or the ids given)
+        gen_content_columns($db);
+        if (!gen_vertex_ready(gen_vertex_settings())) {
+            gen_json(['error' => 'Vertex AI is not connected. Add an API key or a service account in Settings → Vertex AI.'], 422);
+            return;
+        }
+        $ids = array_values(array_filter((array)(gen_body()['sites'] ?? []), 'is_string'));
+        $q = $db->prepare("SELECT id FROM sites WHERE job_id = ? AND status = 'built' AND json_extract(seo, '$.status') = 'approved'
+            AND (content IS NULL OR json_extract(content, '$.state') NOT IN ('queued', 'writing'))");
+        $q->execute([(int)$seg[1]]);
+        $todo = array_values(array_filter(array_column($q->fetchAll(), 'id'), fn($id) => !$ids || in_array($id, $ids, true)));
+        if (!$todo) {
+            gen_json(['error' => 'No approved, built site is waiting for text. Approve sites first.'], 422);
+            return;
+        }
+        $set = $db->prepare('UPDATE sites SET content = ? WHERE id = ?');
+        foreach ($todo as $id) {
+            $set->execute([json_encode(['state' => 'queued', 'at' => gen_now()]), $id]);
+        }
+        gen_mkdir("$GEN_ROOT/data/logs");
+        $cmd = gen_php_cmd() . ' ' . escapeshellarg(__DIR__ . '/contentjob.php') . ' ' . (int)$seg[1] . ' >> ' . escapeshellarg("$GEN_ROOT/data/logs/content-" . (int)$seg[1] . '.log') . ' 2>&1';
+        if (PHP_OS_FAMILY === 'Windows') {
+            pclose(popen('start "" /B cmd /c "' . $cmd . '"', 'r'));
+        } else {
+            exec($cmd . ' &');
+        }
+        gen_json(['ok' => true, 'sites' => count($todo)]);
+    } elseif ($seg[0] === 'sites' && ($seg[2] ?? '') === 'ai' && $method === 'DELETE') { // back to the template's text
+        $q = $db->prepare('SELECT job_id, plan FROM sites WHERE id = ?');
+        $q->execute([$seg[1]]);
+        $row = $q->fetch() ?: throw new RuntimeException('No such site.');
+        $plan = json_decode($row['plan'], true) ?: [];
+        unset($plan['ai']);
+        gen_content_columns($db);
+        $db->prepare("UPDATE sites SET plan = ?, content = NULL, status = 'planned', error = NULL, mobile = NULL WHERE id = ?")->execute([json_encode($plan, JSON_UNESCAPED_UNICODE), $seg[1]]);
+        $db->prepare("UPDATE jobs SET status = 'planned' WHERE id = ?")->execute([(int)$row['job_id']]);
+        gen_spawn((int)$row['job_id']);
+        gen_json(['ok' => true]);
     } elseif ($path === 'settings' && $method === 'GET') {
         gen_json(['settings' => gen_settings(), 'defaults' => GEN_SETTINGS]);
     } elseif ($path === 'settings' && $method === 'PUT') {
@@ -130,6 +222,32 @@ try {
         }
         $db->prepare('INSERT INTO projects (name, created) VALUES (?, ?)')->execute([mb_substr($name, 0, 120), gen_now()]);
         gen_json(['id' => (int)$db->lastInsertId()]);
+    } elseif ($seg[0] === 'projects' && ($seg[2] ?? '') === 'files' && !isset($seg[3]) && $method === 'POST') { // upload a document as project information
+        $b = gen_body();
+        $p = $db->prepare('SELECT id FROM projects WHERE id = ?');
+        $p->execute([(int)$seg[1]]);
+        $p->fetchColumn() ?: throw new RuntimeException('No such project.');
+        $data = base64_decode((string)($b['data'] ?? ''), true);
+        if ($data === false) {
+            gen_json(['error' => 'The file did not arrive. Try again.'], 422);
+            return;
+        }
+        try {
+            gen_json(gen_pfile_add($db, (int)$seg[1], (string)($b['name'] ?? ''), $data));
+        } catch (InvalidArgumentException $e) {
+            gen_json(['error' => $e->getMessage()], 422);
+        }
+    } elseif ($seg[0] === 'projects' && ($seg[2] ?? '') === 'files' && isset($seg[3]) && $method === 'GET') { // the text kept from a document
+        gen_pfiles_table($db);
+        $q = $db->prepare('SELECT name, text FROM project_files WHERE id = ? AND project_id = ?');
+        $q->execute([(int)$seg[3], (int)$seg[1]]);
+        $f = $q->fetch() ?: throw new RuntimeException('No such file.');
+        header('Content-Type: text/plain; charset=utf-8');
+        echo $f['text'];
+    } elseif ($seg[0] === 'projects' && ($seg[2] ?? '') === 'files' && isset($seg[3]) && $method === 'DELETE') {
+        gen_pfiles_table($db);
+        $db->prepare('DELETE FROM project_files WHERE id = ? AND project_id = ?')->execute([(int)$seg[3], (int)$seg[1]]);
+        gen_json(['ok' => true]);
     } elseif ($seg[0] === 'projects' && isset($seg[1]) && $method === 'GET') {
         $p = $db->prepare('SELECT * FROM projects WHERE id = ?');
         $p->execute([(int)$seg[1]]);
@@ -138,7 +256,7 @@ try {
         $j = $db->prepare('SELECT j.id, j.name, j.market, j.status, j.compare, j.created, (SELECT COUNT(*) FROM sites s WHERE s.job_id = j.id) AS sites,
             (SELECT COUNT(*) FROM sites s WHERE s.job_id = j.id AND s.status = \'built\') AS built FROM jobs j WHERE j.project_id = ? ORDER BY j.id DESC');
         $j->execute([$project['id']]);
-        gen_json(['project' => $project, 'jobs' => $j->fetchAll()]);
+        gen_json(['project' => $project, 'jobs' => $j->fetchAll(), 'files' => gen_pfiles_list($db, (int)$project['id'])]);
     } elseif ($seg[0] === 'projects' && isset($seg[1]) && $method === 'PUT') { // rename the project, edit its information for the AI briefs
         $b = gen_body();
         $name = trim((string)($b['name'] ?? ''));
@@ -200,11 +318,13 @@ try {
         $busy = gen_busy_job();
         $job['busy'] = $busy && (int)$busy['id'] !== (int)$job['id'] ? $busy : null;
         $cat = gen_catalog_full();
-        $rows = $db->prepare('SELECT id, job_id, n, type, brand, choice, plan, status, warnings, error, pages, mobile, checks, created, visual IS NOT NULL AS shot
+        gen_content_columns($db);
+        $rows = $db->prepare('SELECT id, job_id, n, type, brand, choice, plan, status, warnings, error, pages, mobile, checks, created, seo, content, visual IS NOT NULL AS shot
             FROM sites WHERE job_id = ? ORDER BY type, n'); // not the code fingerprints and screenshot prints: megabytes for a big job
         $rows->execute([$job['id']]);
         $job['spec'] = json_decode($job['spec'], true);
         unset($job['log']);
+        $job['facts_left'] = gen_bfacts_unconfirmed($db, (int)$job['id']); // brand facts still example data: {brand name: [labels]}
         gen_json(['job' => $job, 'types' => array_map(fn($t) => $t['label'], $cat), 'sites' => array_map(fn($s) => gen_site_row($s, $cat), $rows->fetchAll())]);
     } elseif ($seg[0] === 'jobs' && ($seg[2] ?? '') === 'diff') {
         // worked out in the background (seconds to a minute on a big network); the page asks again until it is ready

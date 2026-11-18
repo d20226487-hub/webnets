@@ -1148,6 +1148,17 @@ function gen_site_id(int $jobId, string $type, int $n): string
 function gen_build_site(array $site, string $market, array $brands = []): array
 {
     global $GEN_ROOT;
+    $cfg = gen_site_full_config($site, $market, $brands);
+    gen_mkdir("$GEN_ROOT/data/configs");
+    $file = "$GEN_ROOT/data/configs/{$site['id']}.json";
+    file_put_contents($file, json_encode($cfg, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+    return gen_export_site($site['id'], $file);
+}
+
+/** A site's whole config: its plan, the job's settings, the user's edits and (unless $withAi is false) the AI text. */
+function gen_site_full_config(array $site, string $market, array $brands = [], bool $withAi = true): array
+{
+    global $GEN_ROOT;
     $plan = is_array($site['plan']) ? $site['plan'] : json_decode($site['plan'], true);
     $q = gen_db()->prepare('SELECT spec FROM jobs WHERE id = ?');
     $q->execute([(int)$site['job_id']]);
@@ -1172,15 +1183,23 @@ function gen_build_site(array $site, string $market, array $brands = []): array
         $cfg['featured'] = $own[crc32($site['id']) % count($own)];
     }
     $cfg = gen_apply_edits($cfg, $site['type'], gen_site_edits($spec, $site['type'], $plan)); // the user's edits (type, then site) go on top of the plan
-    gen_mkdir("$GEN_ROOT/data/configs");
-    $file = "$GEN_ROOT/data/configs/{$site['id']}.json";
-    file_put_contents($file, json_encode($cfg, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+    if ($withAi && !empty($plan['ai'])) { // the text written by the content step (generator/content.php), on top of everything
+        require_once __DIR__ . '/content.php';
+        $cfg = gen_apply_ai($cfg, $plan['ai']);
+    }
+    return $cfg;
+}
+
+/** Exports a site config file to dist/generated/<site>/: [ok, warnings, error, pages]. */
+function gen_export_site(string $siteId, string $file): array
+{
+    global $GEN_ROOT;
     $cmd = 'SX_REVIEW_OUT=dist/generated ' . escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg("$GEN_ROOT/build/export-review-site.php") . ' ' . escapeshellarg($file) . ' 2>&1';
     if (PHP_OS_FAMILY === 'Windows') {
         $cmd = 'set SX_REVIEW_OUT=dist/generated&& ' . escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg("$GEN_ROOT/build/export-review-site.php") . ' ' . escapeshellarg($file) . ' 2>&1';
     }
     exec($cmd, $out, $code);
-    $dir = "$GEN_ROOT/dist/generated/{$site['id']}";
+    $dir = "$GEN_ROOT/dist/generated/$siteId";
     $pages = count(glob("$dir/*.html"));
     $warnings = array_values(array_filter($out, fn($l) => !str_starts_with($l, 'dist/') && trim($l) !== ''));
     if ($code !== 0 || !$pages) {

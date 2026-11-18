@@ -362,6 +362,10 @@ function sx_expand_blueprint(array $cfg, string $root, ?array $bp = null, string
         // Props: content first, then the angle's section props (e.g. a lead topic), then the blueprint's defaults.
         $blocks[] = ['block' => $s['block'], 'props' => ['variant' => $v] + ($content[$id] ?? []) + ($angle['props'][$id] ?? []) + ($s['props'] ?? [])];
         $summary['sections'][] = "$id:$v";
+        $after = $cfg['after'][$id] ?? ''; // text below the section ("after": {section: html}, per page on multi-page types), written by the content step
+        if (is_string($after) && trim(strip_tags($after)) !== '') {
+            $blocks[] = ['block' => 'prose', 'props' => ['variant' => 'article', 'toc' => false, 'html' => $after]];
+        }
     }
 
     $f = $bp['frame']['footer'];
@@ -603,6 +607,7 @@ function sx_expand_site(array $cfg, string $root): array
             'type' => $cfg['type'],
             'angle' => $angleId,
             'content' => ($cfg['content'][$base] ?? []) + $sharedContent,
+            'after' => $cfg['after'][$base] ?? [],
             'variants' => ($cfg['variants'][$base] ?? []) + $shared,
             'sections' => $cfg['sections'][$base] ?? [],
             'removable' => $cfg['removable'][$base] ?? [],

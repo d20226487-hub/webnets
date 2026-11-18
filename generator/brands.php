@@ -336,6 +336,10 @@ function gen_materialise_brands(array $brands, string $market, int $jobId, strin
         }
     }
     unset($GLOBALS['GEN_BRAND_NAMES']);
+    require_once __DIR__ . '/brandfacts.php';
+    foreach ($ids as $id) { // the facts the user confirmed replace the example data, every time it is made again
+        gen_bfacts_apply(gen_db(), $id, $market);
+    }
     return $ids;
 }
 

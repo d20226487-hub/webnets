@@ -66,7 +66,7 @@ def t(en, ru):
 
 # local gallery only: link to the AI brief settings page (build/settings.php via build/local-router.php)
 SETTINGS_LINK = (f'<p class="lede applinks"><a class="genlink" href="/generator/">{t("Open the generator", "Открыть генератор")} →</a>'
-                 f'<a href="/settings/" style="font-weight:600">{t("AI brief settings", "Настройки брифа для ИИ")} →</a></p>') if LOCAL else ''
+                 f'<a href="/settings/" style="font-weight:600">{t("AI brief", "ИИ-бриф")} →</a></p>') if LOCAL else ''
 
 demos = []
 skipped = []
