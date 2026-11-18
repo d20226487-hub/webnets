@@ -175,7 +175,7 @@ function sx_phone_kind(string $kind, ?array $verticals = null): string
         return ['casino' => 'home', 'table' => 'live'][$kind] ?? $kind;
     }
     if ($casino && !$sports) {
-        return ['home' => 'casino', 'live' => 'table', 'slip' => 'casino'][$kind] ?? $kind;
+        return ['home' => 'casino', 'live' => 'table', 'slip' => 'wallet'][$kind] ?? $kind; // a bet slip is a history of bets: the wallet's list of transactions
     }
     return $kind;
 }
