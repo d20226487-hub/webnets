@@ -95,11 +95,27 @@ function gen_bfacts_clean(string $kind, $v, string $label)
     };
 }
 
-/** Puts a brand's confirmed facts into its brand data (operators.json and the market's facts file). */
+/** The licence written in the project information of a job: ['regulator', 'no', 'short'], empty strings when not given. */
+function gen_project_licence(PDO $db, int $jobId): array
+{
+    $q = $db->prepare('SELECT p.info FROM projects p JOIN jobs j ON j.project_id = p.id WHERE j.id = ?');
+    $q->execute([$jobId]);
+    $i = json_decode((string)$q->fetchColumn(), true) ?: [];
+    return ['regulator' => trim((string)($i['licence_regulator'] ?? '')), 'no' => trim((string)($i['licence_no'] ?? '')), 'short' => trim((string)($i['licence_short'] ?? ''))];
+}
+
+/** Puts a brand's confirmed facts into its brand data (operators.json and the market's facts file). The project's
+ *  licence number is the brand's licence unless the brand facts give its own. */
 function gen_bfacts_apply(PDO $db, string $brandId, string $market): void
 {
     global $GEN_ROOT;
     $saved = gen_bfacts_saved($db, $brandId);
+    if (preg_match('/^u(\d+)-/', $brandId, $jm) && !isset($saved['license_no'])) {
+        $lic = gen_project_licence($db, (int)$jm[1])['no'];
+        if ($lic !== '') {
+            $saved['license_no'] = $lic;
+        }
+    }
     if (!$saved) {
         return;
     }
@@ -156,12 +172,14 @@ function gen_bfacts_job(PDO $db, int $jobId): array
             continue;
         }
         $saved = gen_bfacts_saved($db, $id);
+        $projectLicence = gen_project_licence($db, $jobId)['no'];
         $fields = [];
         foreach (gen_bfacts_schema($m, $ops[$id]) as $k => $def) {
             [$label, $kind, $path, $hide] = $def;
             [$where, $p] = explode(':', $path, 2);
             $now = gen_bfacts_get($where === 'op' ? $ops[$id] : ($mk[$id] ?? []), $p);
-            $fields[] = ['key' => $k, 'label' => $label, 'param' => $def[4] ?? '', 'kind' => $kind, 'hide' => $hide, 'confirmed' => array_key_exists($k, $saved),
+            $fromProject = $k === 'license_no' && !array_key_exists($k, $saved) && $projectLicence !== '';
+            $fields[] = ['key' => $k, 'label' => $label, 'param' => $def[4] ?? '', 'kind' => $kind, 'hide' => $hide, 'confirmed' => array_key_exists($k, $saved) || $fromProject, 'project' => $fromProject,
                 'value' => array_key_exists($k, $saved) ? (is_array($saved[$k]) ? implode(', ', $saved[$k]) : (string)$saved[$k]) : '',
                 'example' => is_array($now) ? implode(', ', $now) : (string)($now ?? '')];
         }

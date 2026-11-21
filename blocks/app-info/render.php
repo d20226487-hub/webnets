@@ -22,7 +22,7 @@ $rows = array_filter([
     t('app.languages') => implode(', ', tm($app['languages'] ?? []) ?: []),
     t('app.age') => $app['age_rating'] ?? '',
     t('app.price') => t('app.free'),
-    t('trust.licensed') => tm(sx_ctx('market')['compliance']['license_short']),
+    t('trust.licensed') => sx_licence_short(),
 ]);
 ?>
 <section class="<?= cx('appinfo', ['appinfo', null, $variant]) ?>" id="info">

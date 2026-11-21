@@ -5,7 +5,7 @@ $qrUrl = $links['qr'] ?? $links['go'] ?? null;
 $facts = array_filter([
     isset($app['version']) ? t('app.version') . ' ' . $app['version'] : '',
     $app['age_rating'] ?? '',
-    tm(sx_ctx('market')['compliance']['license_short']),
+    sx_licence_short(),
 ]);
 ?>
 <?= sx_platform_script() ?>

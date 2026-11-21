@@ -53,6 +53,7 @@ input[type=text],input[type=number],select{font:14px system-ui,sans-serif;paddin
 .stabs{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 18px;border-bottom:1px solid var(--line)}.stabs a{padding:8px 14px;color:var(--muted);text-decoration:none;font-weight:600;border-bottom:2px solid transparent;margin-bottom:-1px}.stabs a:hover{color:var(--text)}.stabs a[aria-current]{color:var(--accent);border-bottom-color:var(--accent)}
 .bfacts{margin:14px 0}.bfgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:4px 18px}.bfgrid .field{margin-bottom:12px}.bfstate{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}.bfq{font-size:12px}.bffound input{border-color:var(--ok)}.linkish{border:0;background:none;padding:0;color:var(--accent);font-weight:600;font-size:13px;cursor:pointer}.bf-msg.ok{color:var(--ok)}
 .seo{margin:14px 0}.seorow{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}.seorow .acts button{padding:4px 10px;font-size:13px}.seonote{margin:6px 0 0;font-size:13px;white-space:pre-wrap}#v-msg.ok{color:var(--ok)}#v-msg.err{color:var(--bad)}#vf .inl{display:flex}
+.pout{margin:0 0 22px}.poutlist{display:grid;gap:6px;margin:10px 0}.poutlist .inl{display:flex}
 .pinfo{margin:14px 0 22px}.pdl{display:grid;grid-template-columns:minmax(140px,220px) 1fr;gap:8px 16px;margin:14px 0 0}.pdl dt{font-weight:650}.pdl dd{margin:0}@media (max-width:640px){.pdl{grid-template-columns:1fr}.pdl dd{margin-bottom:6px}}#pf .inl{display:flex}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
 .list{display:grid;gap:10px;margin-top:14px}.list a.item{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--panel);border:1px solid var(--line);border-radius:12px;color:var(--text);text-decoration:none}
@@ -156,7 +157,21 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     'New project name': 'Название нового проекта', 'Create project': 'Создать проект', 'No projects yet.': 'Проектов пока нет.',
     '{0} jobs': 'заданий: {0}', '{0} sites': 'сайтов: {0}', '{0} / {1} sites': '{0} / {1} сайтов',
     'New job': 'Новое задание', 'Delete project': 'Удалить проект', 'Jobs': 'Задания',
-    'Project information': 'Информация о проекте', 'Project name': 'Название проекта',
+    'Project information': 'Информация о проекте', 'Project name': 'Название проекта', 'Licence issued by': 'Кем выдана лицензия', 'Licence badge': 'Подпись лицензии',
+    'Who issued the brand\'s licence, as it reads in the footer line «… licence no. …, issued by …», e.g. «Curaçao Gaming Control Board». Empty: the market\'s regulator.': 'Кто выдал лицензию бренда — так, как читается в строке подвала «… лицензия № …, выдана …», например «Curaçao Gaming Control Board». Пусто — регулятор рынка.',
+    'The licence number shown on every site of the project (brand facts can give a brand its own). Empty: the brand\'s.': 'Номер лицензии на всех сайтах проекта (в фактах бренда можно задать бренду свой). Пусто — номер бренда.',
+    'The short label in trust badges and app info, e.g. «Лицензия Кюрасао». Empty: the market\'s («Лицензия РК»).': 'Короткая подпись в значках доверия и данных приложения, например «Лицензия Кюрасао». Пусто — подпись рынка («Лицензия РК»).',
+    'The licence changed. These jobs\u2019 sites still show the previous one:': 'Лицензия изменилась. На сайтах этих заданий пока прежняя:',
+    'Update the data': 'Обновить данные', 'Update the data ({0})': 'Обновить данные ({0})', 'Rebuild fully': 'Пересобрать полностью', 'Leave them as they are': 'Оставить как есть',
+    '«Update the data»: the pages are written again with the new licence and new preview pictures are taken, about 2 seconds per site; design and text stay. «Rebuild fully» also runs the difference checks, as «Rebuild all» on a job page.': '«Обновить данные»: страницы записываются заново с новой лицензией и снимаются новые превью — около 2 секунд на сайт; дизайн и тексты не меняются. «Пересобрать полностью» — ещё и с проверками различий, как «Пересобрать всё» на странице задания.',
+    'Pages written again with the current brand data, licence and AI text, and new preview pictures; design and text stay, no difference checks. About 2 seconds per site.': 'Страницы записываются заново с текущими данными бренда, лицензией и текстом ИИ, снимаются новые превью; дизайн и тексты не меняются, без проверок различий. Около 2 секунд на сайт.',
+    'Save and update the sites': 'Сохранить и обновить сайты', 'refresh': 'ждёт обновления', 'refreshing': 'обновляется',
+    'A rebuild keeps each site\u2019s design and text; jobs build one at a time. You can also rebuild a job later with «Rebuild all» on its page.': 'Пересборка сохраняет дизайн и тексты сайтов; задания собираются по очереди. Задание можно пересобрать и позже кнопкой «Пересобрать всё» на его странице.', 'from the project': 'из проекта', 'Files': 'Файлы', 'Add files': 'Добавить файлы', 'Remove': 'Удалить', 'Remove this file from the project?': 'Удалить этот файл из проекта?',
+    'Everything here, the files included, goes to the AI: it writes the text of the sites once the SEO approves them, and it is in every AI brief. Changes apply to the next text run and brief download; no rebuild is needed.':
+      'Всё, что здесь есть, включая файлы, получает ИИ: по этому он пишет тексты сайтов после одобрения SEO, и это же попадает в каждый ИИ-бриф. Изменения действуют со следующего написания текстов и скачивания брифов; пересобирать сайты не нужно.',
+    'Nothing filled in yet: the AI uses only the site and market information.': 'Пока ничего не заполнено: ИИ опирается только на данные сайта и рынка.',
+    'Brand overviews, bonus tables, briefs: .txt, .md, .csv, .docx or .odt, up to 3 MB each, at most 10. The AI reads them with the fields above. An old .doc: save it as .docx first.':
+      'Обзоры бренда, таблицы бонусов, брифы: .txt, .md, .csv, .docx или .odt, до 3 МБ каждый, не больше 10. ИИ читает их вместе с полями выше. Старый .doc сначала сохраните как .docx.',
     'Vertex AI is not connected. Add an API key or a service account in Settings → Vertex AI.': 'Vertex AI не подключён. Добавьте API-ключ или сервисный аккаунт в «Настройки» → «Vertex AI».',
     'No approved, built site is waiting for text. Approve sites first.': 'Нет одобренных собранных сайтов без текста. Сначала одобрите сайты.',
     'The site has no build yet. Build it first.': 'Сайт ещё не собран. Сначала соберите его.',
@@ -208,9 +223,9 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     'Nothing filled in yet: the briefs use only the site and market information.': 'Пока ничего не заполнено: брифы опираются только на данные сайта и рынка.',
     'Write in any language: the AI writes each site in its own language. Leave a field empty to skip it.': 'Пишите на любом языке: ИИ пишет каждый сайт на его языке. Пустые поля пропускаются.',
     'About the project': 'О проекте', 'What the project is and what its sites are for: the brand or offer, what makes it different, the goal of the sites.': 'Что это за проект и зачем его сайты: бренд или предложение, чем он отличается, цель сайтов.',
+    'Facts and messages to use': 'Факты и тезисы', 'Facts the text may state and points it should make (licence, payout times, app features, support hours…), one per line. No length limit.': 'Факты, которые можно упоминать, и мысли, которые текст должен донести (лицензия, сроки выплат, функции приложения, часы поддержки…), по одному в строке. Без ограничения длины.',
     'Audience': 'Аудитория', 'Who the sites are for and what they want to know.': 'Для кого сайты и что эти люди хотят узнать.',
     'Tone of voice': 'Тон', 'e.g. friendly and plain, expert and calm, no hype.': 'например: дружелюбно и просто, экспертно и спокойно, без хайпа.',
-    'Facts and messages to use': 'Факты и тезисы', 'One per line: facts the text may state and points it should make (licence, payout times, app features, support hours…).': 'По одному в строке: факты, которые можно упоминать, и мысли, которые текст должен донести (лицензия, сроки выплат, функции приложения, часы поддержки…).',
     'Topics and search phrases': 'Темы и поисковые фразы', 'One per line: what the text should cover and the phrases people search for.': 'По одной в строке: о чём писать и что люди ищут.',
     'Avoid': 'Избегать', 'One per line: words, claims and topics the text must not use.': 'По одному в строке: слова, обещания и темы, которых в тексте быть не должно.',
     'Text below sections': 'Текст под секциями', 'Whether the AI adds a short text below sections, written from this information (useful for search).': 'Добавляет ли ИИ короткий текст под секциями на основе этой информации (полезно для поиска).',
@@ -476,7 +491,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
   function project(id) {
     api('projects/' + id).then(function (d) {
       main.innerHTML = '<p><a href="#/">← ' + L('Projects') + '</a></p><div class="row"><h2>' + esc(d.project.name) + '</h2><span class="sp"></span><a class="btn primary" href="#/p/' + id + '/new">' + L('New job') + '</a><button class="danger" id="delp">' + L('Delete project') + '</button></div>'
-        + '<div id="pinfo"></div><h3>' + L('Jobs') + '</h3>'
+        + '<div id="pinfo"></div><div id="pout"></div><h3>' + L('Jobs') + '</h3>'
         + '<div class="list">' + (d.jobs.length ? d.jobs.map(function (j) {
           return '<a class="item" href="#/j/' + j.id + '"><strong>' + esc(j.name) + '</strong><span class="chip">' + esc(j.market.toUpperCase()) + '</span>' + (+j.compare ? '' : '<span class="chip auto" title="' + L('Other jobs are not compared with this one') + '">' + L('left out of comparisons') + '</span>') + '<span class="sp"></span>'
             + '<span class="chip ' + (j.status === 'done' ? 'ok' : j.status === 'done-with-errors' || j.status === 'stopped' ? 'bad' : 'warn') + '">' + esc(L(j.status)) + '</span><span class="chip">' + L('{0} / {1} sites', j.built, j.sites) + '</span><span class="muted">' + when(j.created) + '</span></a>';
@@ -486,6 +501,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
       };
       d.project.files = d.files || [];
       projectInfo(id, d.project, false);
+      outdatedPanel(id, d.jobs);
     }).catch(fail);
   }
 
@@ -494,74 +510,102 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     ['about', 'About the project', 'What the project is and what its sites are for: the brand or offer, what makes it different, the goal of the sites.', 4],
     ['audience', 'Audience', 'Who the sites are for and what they want to know.', 2],
     ['tone', 'Tone of voice', 'e.g. friendly and plain, expert and calm, no hype.', 1],
-    ['facts', 'Facts and messages to use', 'One per line: facts the text may state and points it should make (licence, payout times, app features, support hours…).', 4],
+    ['facts', 'Facts and messages to use', 'Facts the text may state and points it should make (licence, payout times, app features, support hours…), one per line. No length limit.', 8],
     ['keywords', 'Topics and search phrases', 'One per line: what the text should cover and the phrases people search for.', 3],
-    ['avoid', 'Avoid', 'One per line: words, claims and topics the text must not use.', 2]
+    ['avoid', 'Avoid', 'One per line: words, claims and topics the text must not use.', 2],
+    ['licence_regulator', 'Licence issued by', 'Who issued the brand\'s licence, as it reads in the footer line «… licence no. …, issued by …», e.g. «Curaçao Gaming Control Board». Empty: the market\'s regulator.', 1],
+    ['licence_no', 'Licence number', 'The licence number shown on every site of the project (brand facts can give a brand its own). Empty: the brand\'s.', 1],
+    ['licence_short', 'Licence badge', 'The short label in trust badges and app info, e.g. «Лицензия Кюрасао». Empty: the market\'s («Лицензия РК»).', 1]
   ];
   var PBELOW = [['none', 'No: text only inside the sections'], ['useful', 'Where it helps: a short text below some sections'], ['every', 'Below every main section']];
+  /* Jobs whose sites still show the project's previous licence: the user picks which to rebuild */
+  function outdatedPanel(id, jobs) {
+    var box = document.getElementById('pout'), old = jobs.filter(function (j) { return +j.outdated; });
+    if (!box) return;
+    if (!old.length) { box.innerHTML = ''; return; }
+    box.innerHTML = '<section class="card note pout"><b>' + L('The licence changed. These jobs\u2019 sites still show the previous one:') + '</b>'
+      + '<div class="poutlist">' + old.map(function (j) {
+        return '<label class="inl"><input type="checkbox" value="' + j.id + '"> ' + esc(j.name) + ' <span class="muted">· ' + esc(j.market.toUpperCase()) + ' · ' + L('{0} sites', j.sites) + '</span></label>';
+      }).join('') + '</div>'
+      + '<div class="row"><button type="button" class="primary" id="pout-go" disabled>' + L('Update the data') + '</button><button type="button" id="pout-full" disabled>' + L('Rebuild fully') + '</button><button type="button" id="pout-skip">' + L('Leave them as they are') + '</button><span class="err" id="pout-err"></span></div>'
+      + '<p class="muted" style="margin:6px 0 0;font-size:13px">' + L('«Update the data»: the pages are written again with the new licence and new preview pictures are taken, about 2 seconds per site; design and text stay. «Rebuild fully» also runs the difference checks, as «Rebuild all» on a job page.') + '</p></section>';
+    var go = document.getElementById('pout-go'), full = document.getElementById('pout-full'), boxes = [].slice.call(box.querySelectorAll('input[type=checkbox]')), err = document.getElementById('pout-err');
+    var picked = function () { return boxes.filter(function (c) { return c.checked; }).map(function (c) { return +c.value; }); };
+    boxes.forEach(function (c) { c.onchange = function () { var n = picked().length; go.disabled = full.disabled = !n; go.textContent = n ? L('Update the data ({0})', n) : L('Update the data'); }; });
+    var send = function (kind, btn) { go.disabled = full.disabled = true; var body = {}; body[kind] = picked(); api('projects/' + id + '/outdated', body, 'POST').then(function () { project(id); }).catch(function (x) { err.textContent = L(x.message || String(x)); go.disabled = full.disabled = false; }); };
+    go.onclick = function () { send('refresh'); };
+    full.onclick = function () { send('rebuild'); };
+    document.getElementById('pout-skip').onclick = function () { api('projects/' + id + '/outdated', { rebuild: [], dismiss: true }, 'POST').then(function () { project(id); }).catch(function (x) { err.textContent = L(x.message || String(x)); }); };
+  }
+  function fileLink(id, f) {
+    return '<a href="/generator/api/projects/' + id + '/files/' + f.id + '" target="_blank" rel="noopener"><b>' + esc(f.name) + '</b></a> <span class="muted">' + L('{0} characters', f.chars.toLocaleString()) + ' · ' + Math.max(1, Math.round(f.size / 1024)) + ' KB</span>';
+  }
   function projectInfo(id, p, editing) {
     var box = document.getElementById('pinfo'), info = p.info || {};
     if (!box) return;
-    var filled = PINFO.filter(function (f) { return info[f[0]]; }), below = info.below || 'none';
+    var filled = PINFO.filter(function (f) { return info[f[0]]; }), below = info.below || 'none', files = p.files || [];
     if (!editing) {
       box.innerHTML = '<section class="card pinfo"><div class="row"><h3 style="margin:0">' + L('Project information') + '</h3><span class="sp"></span><button type="button" id="pedit">' + L('Edit') + '</button></div>'
-        + '<p class="muted" style="margin:8px 0 0;font-size:14px">' + L('Used by the AI briefs of every site in this project to write relevant text in the sections and, if you choose, below them. Changes apply to the next brief download; no rebuild is needed.') + '</p>'
-        + (filled.length || below !== 'none'
+        + '<p class="muted" style="margin:8px 0 0;font-size:14px">' + L('Everything here, the files included, goes to the AI: it writes the text of the sites once the SEO approves them, and it is in every AI brief. Changes apply to the next text run and brief download; no rebuild is needed.') + '</p>'
+        + (filled.length || files.length || below !== 'none'
           ? '<dl class="pdl">' + filled.map(function (f) { return '<dt>' + L(f[1]) + '</dt><dd>' + esc(info[f[0]]).replace(/\n/g, '<br>') + '</dd>'; }).join('')
+            + (files.length ? '<dt>' + L('Files') + '</dt><dd><ul class="pflist">' + files.map(function (f) { return '<li>' + fileLink(id, f) + '</li>'; }).join('') + '</ul></dd>' : '')
             + '<dt>' + L('Text below sections') + '</dt><dd>' + L(PBELOW.filter(function (b) { return b[0] === below; })[0][1]) + '</dd></dl>'
-          : p.files.length ? '' : '<p style="margin:10px 0 0">' + L('Nothing filled in yet: the briefs use only the site and market information.') + '</p>')
-        + '<div class="pfiles"><div class="row"><h4 style="margin:0">' + L('Documents') + '</h4><span class="sp"></span>'
-        + '<label class="btn" for="pf-up">' + L('Upload files') + '</label><input type="file" id="pf-up" multiple accept=".txt,.md,.csv,.tsv,.docx,.odt" hidden></div>'
-        + '<p class="muted" style="margin:6px 0 0;font-size:13px">' + L('.txt, .md, .csv, .docx or .odt, up to 3 MB each, at most 10. Their text goes into the briefs as source material; for an old .doc, save it as .docx first.') + '</p>'
-        + '<div id="pf-msg" class="err"></div>'
-        + (p.files.length ? '<ul class="pflist">' + p.files.map(function (f) {
-          return '<li><a href="/generator/api/projects/' + id + '/files/' + f.id + '" target="_blank" rel="noopener"><b>' + esc(f.name) + '</b></a>'
-            + '<span class="muted">' + L('{0} characters', f.chars.toLocaleString()) + ' · ' + Math.max(1, Math.round(f.size / 1024)) + ' KB</span>'
-            + '<span class="sp"></span><button type="button" class="danger pf-del" data-id="' + f.id + '">' + L('Delete') + '</button></li>';
-        }).join('') + '</ul>' : '')
-        + '</div></section>';
+          : '<p style="margin:10px 0 0">' + L('Nothing filled in yet: the AI uses only the site and market information.') + '</p>')
+        + '</section>';
       document.getElementById('pedit').onclick = function () { projectInfo(id, p, true); };
-      [].forEach.call(box.querySelectorAll('.pf-del'), function (b) {
-        b.onclick = function () {
-          if (confirm(L('Delete this document from the project?'))) api('projects/' + id + '/files/' + b.dataset.id, null, 'DELETE').then(function () { project(id); }).catch(fail);
-        };
-      });
-      document.getElementById('pf-up').onchange = function () {
-        var files = [].slice.call(this.files), msg = document.getElementById('pf-msg'), errs = [];
-        msg.className = 'muted';
-        msg.textContent = L('Uploading…');
-        files.reduce(function (chain, f) {
-          return chain.then(function () {
-            if (f.size > 3 * 1024 * 1024) { errs.push(L('{0}: the file is over 3 MB.', f.name)); return; }
-            return new Promise(function (ok) {
-              var r = new FileReader();
-              r.onload = function () { ok(String(r.result).split(',')[1] || ''); };
-              r.onerror = function () { ok(''); };
-              r.readAsDataURL(f);
-            }).then(function (data) {
-              return api('projects/' + id + '/files', { name: f.name, data: data }).catch(function (e) {
-                var m = e.message || String(e), at = m.indexOf(': ');
-                errs.push(at > 0 && m.slice(0, at) === f.name ? f.name + ': ' + L(m.slice(at + 2)) : L(m)); // "<file>: message", the message translated
-              });
-            });
-          });
-        }, Promise.resolve()).then(function () {
-          if (errs.length) { project(id); setTimeout(function () { var m = document.getElementById('pf-msg'); if (m) { m.className = 'err'; m.innerHTML = errs.map(esc).join('<br>'); } }, 400); }
-          else project(id);
-        });
-      };
       return;
     }
     box.innerHTML = '<form class="card mform pinfo" id="pf"><h3 style="margin-top:0">' + L('Project information') + '</h3>'
       + '<p class="muted" style="margin-top:0;font-size:14px">' + L('Write in any language: the AI writes each site in its own language. Leave a field empty to skip it.') + '</p>'
       + '<div class="field"><label class="lbl" for="pf-name">' + L('Project name') + '</label><input type="text" id="pf-name" required maxlength="120" value="' + esc(p.name) + '"></div>'
       + PINFO.map(function (f) {
+        var max = f[0] === 'facts' ? '' : ' maxlength="3000"';
         return '<div class="field"><label class="lbl" for="pf-' + f[0] + '">' + L(f[1]) + '</label><span class="muted" style="font-size:13px">' + L(f[2]) + '</span>'
-          + (f[3] > 1 ? '<textarea id="pf-' + f[0] + '" rows="' + f[3] + '" maxlength="3000">' + esc(info[f[0]] || '') + '</textarea>' : '<input type="text" id="pf-' + f[0] + '" maxlength="3000" value="' + esc(info[f[0]] || '') + '">') + '</div>';
+          + (f[3] > 1 ? '<textarea id="pf-' + f[0] + '" rows="' + f[3] + '"' + max + '>' + esc(info[f[0]] || '') + '</textarea>' : '<input type="text" id="pf-' + f[0] + '"' + max + ' value="' + esc(info[f[0]] || '') + '">') + '</div>';
       }).join('')
+      + '<div class="field"><span class="lbl">' + L('Files') + '</span><span class="muted" style="font-size:13px">' + L('Brand overviews, bonus tables, briefs: .txt, .md, .csv, .docx or .odt, up to 3 MB each, at most 10. The AI reads them with the fields above. An old .doc: save it as .docx first.') + '</span>'
+      + '<ul class="pflist" id="pf-files"></ul><div class="row"><label class="btn" for="pf-up">' + L('Add files') + '</label><input type="file" id="pf-up" multiple accept=".txt,.md,.csv,.tsv,.docx,.odt" hidden><span id="pf-msg" role="status"></span></div></div>'
       + '<div class="field"><span class="lbl">' + L('Text below sections') + '</span><span class="muted" style="font-size:13px">' + L('Whether the AI adds a short text below sections, written from this information (useful for search).') + '</span>'
       + PBELOW.map(function (b) { return '<label class="inl"><input type="radio" name="pf-below" value="' + b[0] + '"' + (below === b[0] ? ' checked' : '') + '> ' + L(b[1]) + '</label>'; }).join('') + '</div>'
       + '<div class="row"><button class="primary" type="submit">' + L('Save') + '</button><button type="button" id="pf-cancel">' + L('Cancel') + '</button><span class="err" id="pf-err"></span></div></form>';
+    var list = document.getElementById('pf-files'), msg = document.getElementById('pf-msg');
+    function drawFiles() { // files are saved as soon as they are added or removed; the typed fields stay as they are
+      list.innerHTML = files.map(function (f) { return '<li>' + fileLink(id, f) + '<span class="sp"></span><button type="button" class="danger pf-del" data-id="' + f.id + '">' + L('Remove') + '</button></li>'; }).join('');
+      [].forEach.call(list.querySelectorAll('.pf-del'), function (b) {
+        b.onclick = function () {
+          if (!confirm(L('Remove this file from the project?'))) return;
+          api('projects/' + id + '/files/' + b.dataset.id, null, 'DELETE').then(refresh).catch(function (x) { msg.className = 'err'; msg.textContent = L(x.message || String(x)); });
+        };
+      });
+    }
+    function refresh() { return api('projects/' + id).then(function (d) { files = p.files = d.files || []; drawFiles(); }); }
+    drawFiles();
+    document.getElementById('pf-up').onchange = function () {
+      var chosen = [].slice.call(this.files), errs = [];
+      this.value = '';
+      msg.className = 'muted';
+      msg.textContent = L('Uploading…');
+      chosen.reduce(function (chain, f) {
+        return chain.then(function () {
+          if (f.size > 3 * 1024 * 1024) { errs.push(L('{0}: the file is over 3 MB.', f.name)); return; }
+          return new Promise(function (ok) {
+            var r = new FileReader();
+            r.onload = function () { ok(String(r.result).split(',')[1] || ''); };
+            r.onerror = function () { ok(''); };
+            r.readAsDataURL(f);
+          }).then(function (data) {
+            return api('projects/' + id + '/files', { name: f.name, data: data }).catch(function (e) {
+              var m = e.message || String(e), at = m.indexOf(': ');
+              errs.push(at > 0 && m.slice(0, at) === f.name ? f.name + ': ' + L(m.slice(at + 2)) : L(m)); // "<file>: message", the message translated
+            });
+          });
+        });
+      }, Promise.resolve()).then(refresh).then(function () {
+        msg.className = errs.length ? 'err' : 'muted';
+        msg.innerHTML = errs.length ? errs.map(esc).join('<br>') : '';
+      });
+    };
     document.getElementById('pf-cancel').onclick = function () { projectInfo(id, p, false); };
     document.getElementById('pf').onsubmit = function (e) {
       e.preventDefault();
@@ -862,11 +906,11 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
               var hidden = f.confirmed && f.value === '' && f.hide;
               return '<div class="field" data-k="' + f.key + '"><label class="lbl" for="bf-' + esc(b.id) + '-' + f.key + '">' + esc(factLabel(f)) + '</label>'
                 + '<input type="text" id="bf-' + esc(b.id) + '-' + f.key + '" data-kind="' + f.kind + '" value="' + esc(f.value) + '" placeholder="' + esc(f.example) + '"' + (hidden ? ' disabled' : '') + '>'
-                + '<span class="bfstate">' + (f.confirmed ? (hidden ? '<span class="chip">' + L('hidden') + '</span>' : '<span class="chip ok">' + L('confirmed') + '</span>') : f.example !== '' ? '<span class="chip warn">' + L('example') + '</span>' : '<span class="chip auto">' + L('not shown') + '</span>')
+                + '<span class="bfstate">' + (f.project ? '<span class="chip ok">' + L('from the project') + '</span>' : f.confirmed ? (hidden ? '<span class="chip">' + L('hidden') + '</span>' : '<span class="chip ok">' + L('confirmed') + '</span>') : f.example !== '' ? '<span class="chip warn">' + L('example') + '</span>' : '<span class="chip auto">' + L('not shown') + '</span>')
                 + (f.example !== '' && !f.confirmed ? ' <button type="button" class="linkish bf-keep">' + L('keep the example') + '</button>' : '')
                 + (f.hide ? ' <label class="inl"><input type="checkbox" class="bf-hide"' + (hidden ? ' checked' : '') + '> ' + L('Hide') + '</label>' : '') + '</span><small class="bfq muted"></small></div>';
             }).join('') + '</div>'
-            + '<div class="row"><button class="primary" type="submit">' + L('Save and rebuild the sites') + '</button><span class="bf-err err"></span></div></form>';
+            + '<div class="row"><button class="primary" type="submit">' + L('Save and update the sites') + '</button><span class="bf-err err"></span></div></form>';
         }).join('') : '<p class="muted">' + L('This job has no brands of its own.') + '</p>');
       [].forEach.call(main.querySelectorAll('.bfacts'), function (form) {
         var bid = form.dataset.b, msg = form.querySelector('.bf-msg'), err = form.querySelector('.bf-err');
@@ -1060,7 +1104,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
       }
       document.getElementById('jobhead').innerHTML = '<div class="row"><h2>' + esc(j.name) + '</h2><span class="chip">' + esc(j.market.toUpperCase()) + '</span><span class="sp"></span>'
         + (j.status === 'stopped' ? '<button id="retry" class="primary">' + L('Continue the build') + '</button>' : failed && !running ? '<button id="retry">' + L('Retry failed ({0})', failed) + '</button>' : '')
-        + (running ? '' : '<a class="btn" href="#/j/' + j.id + '/edit">' + L('Edit job') + '</a><button id="restyle" title="' + L('New seed, style, palette and hero layout for every site; the variations stay') + '">' + L('New looks') + '</button><button id="rebuild" title="' + L('Same plans (seeds, styles, variations), current engine; sites under the difference thresholds are re-planned') + '">' + L('Rebuild all') + '</button>') + (built ? '<button id="briefs" aria-expanded="' + BRIEFS.open + '" aria-controls="bpanel">' + L('AI briefs') + ' ↓</button>' : '') + '<button class="danger" id="delj">' + L('Delete job') + '</button></div>'
+        + (running ? '' : '<a class="btn" href="#/j/' + j.id + '/edit">' + L('Edit job') + '</a><button id="restyle" title="' + L('New seed, style, palette and hero layout for every site; the variations stay') + '">' + L('New looks') + '</button><button id="refresh" title="' + L('Pages written again with the current brand data, licence and AI text, and new preview pictures; design and text stay, no difference checks. About 2 seconds per site.') + '">' + L('Update the data') + '</button><button id="rebuild" title="' + L('Same plans (seeds, styles, variations), current engine; sites under the difference thresholds are re-planned') + '">' + L('Rebuild all') + '</button>') + (built ? '<button id="briefs" aria-expanded="' + BRIEFS.open + '" aria-controls="bpanel">' + L('AI briefs') + ' ↓</button>' : '') + '<button class="danger" id="delj">' + L('Delete job') + '</button></div>'
         + (built && BRIEFS.open ? briefPanel(j, d) : '')
         + '<div style="margin:6px 0 2px;font-size:14px"><label style="display:inline-flex;gap:8px;align-items:center"><input type="checkbox" id="jcmp"' + (+j.compare ? ' checked' : '') + '> ' + L('Count this job in comparisons') + '</label>'
         + '<div class="muted" style="font-size:13px;margin-top:2px">' + L('Untick for a draft or test job: other jobs are not compared with its sites or rebuilt to differ from them. Its own sites are still checked.') + '</div></div>'
@@ -1116,6 +1160,8 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
       cmp.onchange = function () { cmp.disabled = true; api('jobs/' + id + '/compare', { compare: cmp.checked }, 'PUT').then(function () { cmp.disabled = false; diff(id, d); }).catch(function (x) { cmp.disabled = false; cmp.checked = !cmp.checked; jerr(x); }); };
       var rs = document.getElementById('restyle');
       if (rs) rs.onclick = function () { if (!confirm(L('Give every site of this job a new seed, style, palette and hero layout? The variations stay the same.'))) return; rs.disabled = true; rs.textContent = L('Starting…'); api('jobs/' + id + '/restyle', null, 'POST').then(function () { job(id); }).catch(function (x) { rs.disabled = false; rs.textContent = L('New looks'); jerr(x); }); };
+      var rf = document.getElementById('refresh');
+      if (rf) rf.onclick = function () { rf.disabled = true; rf.textContent = L('Starting…'); api('jobs/' + id + '/refresh', null, 'POST').then(function () { job(id); }).catch(function (x) { rf.disabled = false; rf.textContent = L('Update the data'); jerr(x); }); };
       var rb = document.getElementById('rebuild');
       if (rb) rb.onclick = function () { rb.disabled = true; rb.textContent = L('Starting…'); api('jobs/' + id + '/rebuild', null, 'POST').then(function () { job(id); }).catch(function (x) { rb.disabled = false; rb.textContent = L('Rebuild all'); jerr(x); }); };
       clearTimeout(poll);

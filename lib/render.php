@@ -57,6 +57,18 @@ function sx_ctx(?string $key = null)
     return $key === null ? SX::$ctx : (SX::$ctx[$key] ?? null);
 }
 
+/** The licence badge text: the site's own (config "licence".short), else the market's. */
+function sx_licence_short(): string
+{
+    return (string)((sx_ctx('licence')['short'] ?? '') ?: tm(sx_ctx('market')['compliance']['license_short']));
+}
+
+/** Who issued the licence: the site's own (config "licence".regulator), else the market's default regulator. */
+function sx_licence_regulator(): string
+{
+    return (string)((sx_ctx('licence')['regulator'] ?? '') ?: tm(sx_ctx('market')['compliance']['regulator_default']));
+}
+
 /** Escape for HTML text and attributes. */
 function e($s): string
 {
@@ -491,7 +503,7 @@ function sx_proof_points(): array
     if (!empty($f['rating_source'])) {
         $p['rating'] = ['star', number_format($f['rating'], 1), tm($f['rating_source'])];
     }
-    $p['licence'] = ['shield', tm($m['compliance']['license_short']), t('trust.licensed')];
+    $p['licence'] = ['shield', sx_licence_short(), t('trust.licensed')];
     if (isset($f['payout_minutes'])) {
         $p['payout'] = ['bolt', sx_minutes_label($f['payout_minutes']), t('trust.payout')];
     }

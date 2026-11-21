@@ -10,6 +10,9 @@
  * Each site keeps its best attempt; one that still misses a threshold is flagged on the job page, not retried forever.
  * One job builds at a time: a worker that finds another one building queues its job (status "queued") and exits; each
  * worker starts the next queued job when it is done. Jobs left "running" by a worker that died become "stopped".
+ * Quick refresh (sites with status "refresh"): the pages are written again from the site's plan, with the current brand
+ * data, licence and AI text, and the first-screen picture is retaken; no difference checks, no re-planning, as the
+ * design does not change. Done first, before any planned site.
  * Started in the background by the generator app: php generator/run.php <job id>
  */
 require __DIR__ . '/lib.php';
@@ -65,6 +68,30 @@ function run_checks(?array $code, ?array $visual, array $set, int $attempts, boo
 }
 
 $state = [];
+$refresh = $db->query("SELECT * FROM sites WHERE job_id = $jobId AND status IN ('refresh', 'refreshing') ORDER BY type, n")->fetchAll();
+$fresh = [];
+foreach ($refresh as $s) {
+    $db->prepare("UPDATE sites SET status = 'refreshing' WHERE id = ?")->execute([$s['id']]);
+    $err = null;
+    $res = run_attempt($s, $job['market'], $brandIds, json_decode($s['plan'], true), $err);
+    if ($res === null) {
+        $db->prepare("UPDATE sites SET status = 'failed', error = ? WHERE id = ?")->execute([$err ?: 'Build failed.', $s['id']]);
+        continue;
+    }
+    [$warnings, $pages, $fp] = $res;
+    $db->prepare("UPDATE sites SET status = 'built', warnings = ?, error = NULL, pages = ?, fingerprint = ? WHERE id = ?")
+        ->execute([json_encode($warnings, JSON_UNESCAPED_UNICODE), $pages, json_encode($fp), $s['id']]);
+    $fresh[] = $s['id'];
+}
+foreach (array_chunk($fresh, 12) as $chunk) { // the first-screen pictures again (the job page's previews and the visual comparison)
+    try {
+        foreach (gen_shoot($chunk) as $id => $print) {
+            $db->prepare('UPDATE sites SET visual = ? WHERE id = ?')->execute([$print, $id]);
+        }
+    } catch (Throwable $e) {
+        fwrite(STDERR, date('c') . ' refresh pictures: ' . $e->getMessage() . "\n");
+    }
+}
 foreach ($sites as $s) {
     $db->prepare('UPDATE sites SET status = ? WHERE id = ?')->execute(['building', $s['id']]);
     $plan = json_decode($s['plan'], true);

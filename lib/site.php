@@ -210,6 +210,7 @@ function sx_site_context(array $cfg, string $root): array
             'style' => in_array($cfg['menu']['style'] ?? '', ['dropdown', 'drawer', 'sheet', 'full'], true) ? $cfg['menu']['style'] : 'dropdown',
             'skip' => !empty($cfg['menu']['skip']),
         ],
+        'licence' => is_array($cfg['licence'] ?? null) ? $cfg['licence'] : [], // the site's own licence wording (regulator, badge), over the market's
         'pins_over_angle' => !empty($cfg['pins_over_angle']), // a pinned layout outside the angle's list is kept (generated sites)
         'rows' => ($cfg['rows'] ?? 'swipe') === 'stack' ? 'stack' : 'swipe',
         // affiliate disclosure of review, ranking and news sites: a strip at the top of every page, or in the footer

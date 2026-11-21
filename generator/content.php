@@ -371,14 +371,14 @@ function gen_content_run(int $jobId): void
             $ai = gen_content_site($site, $info['below'], $part, $info, $job);
             $plan = json_decode($site['plan'], true) ?: [];
             $plan['ai'] = $ai;
-            $db->prepare("UPDATE sites SET plan = ?, status = 'planned', error = NULL, mobile = NULL WHERE id = ?")->execute([json_encode($plan, JSON_UNESCAPED_UNICODE), $site['id']]);
+            $db->prepare("UPDATE sites SET plan = ?, status = 'refresh', error = NULL WHERE id = ?")->execute([json_encode($plan, JSON_UNESCAPED_UNICODE), $site['id']]); // new text, same design: a quick refresh
             $set->execute([json_encode(['state' => 'done', 'at' => gen_now(), 'fields' => count($ai['fields']), 'after' => count(array_filter($ai['after'], 'is_string')) + array_sum(array_map(fn($x) => is_array($x) ? count($x) : 0, $ai['after'])), 'skipped' => $ai['skipped'], 'model' => $ai['model'], 'tokens' => $ai['tokens']]), $site['id']]);
             $done++;
         } catch (Throwable $e) {
             $set->execute([json_encode(['state' => 'error', 'at' => gen_now(), 'error' => $e->getMessage()]), $site['id']]);
         }
     }
-    if ($done) { // the worker rebuilds them (one job at a time, as every build)
+    if ($done) { // the worker refreshes them (one job at a time, as every build)
         $db->prepare("UPDATE jobs SET status = 'planned' WHERE id = ?")->execute([$jobId]);
         gen_spawn($jobId);
     }

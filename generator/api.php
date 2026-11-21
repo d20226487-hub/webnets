@@ -39,6 +39,54 @@ require_once __DIR__ . '/projectfiles.php';
 require_once __DIR__ . '/content.php';
 require_once __DIR__ . '/brandfacts.php';
 
+/** Quick refresh: the built sites of a job (or only $siteIds) get their pages written again from their plans, with the
+ *  current brand data, licence and AI text, and new first-screen pictures; no checks or re-planning. Returns the count. */
+function gen_refresh_job(int $jobId, ?array $siteIds = null): int
+{
+    $db = gen_db();
+    $j = $db->prepare('SELECT market, spec FROM jobs WHERE id = ?');
+    $j->execute([$jobId]);
+    $row = $j->fetch() ?: throw new RuntimeException('No such job.');
+    $spec = json_decode($row['spec'], true) ?: [];
+    if (gen_user_brands($spec)) { // brand data made again (same ids), with the confirmed facts and the project's licence
+        gen_materialise_brands($spec['brands'], $row['market'], $jobId, $spec['copy'] ?? 'demo');
+    }
+    $q = $db->prepare("SELECT id FROM sites WHERE job_id = ? AND status IN ('built', 'failed')");
+    $q->execute([$jobId]);
+    $ids = array_column($q->fetchAll(), 'id');
+    if ($siteIds !== null) {
+        $ids = array_values(array_intersect($ids, $siteIds));
+    }
+    $set = $db->prepare("UPDATE sites SET status = 'refresh', error = NULL WHERE id = ?");
+    foreach ($ids as $id) {
+        $set->execute([$id]);
+    }
+    $db->prepare('UPDATE jobs SET outdated = 0' . ($ids ? ", status = 'planned'" : '') . ' WHERE id = ?')->execute([$jobId]);
+    if ($ids) {
+        gen_spawn($jobId);
+    }
+    return count($ids);
+}
+
+/** Rebuild every site of a job with the same plans and the current engine (and brand data, made again). */
+function gen_rebuild_job(int $jobId): void
+{
+    $db = gen_db();
+    $j = $db->prepare('SELECT market, spec FROM jobs WHERE id = ?');
+    $j->execute([$jobId]);
+    $row = $j->fetchAll()[0] ?? throw new RuntimeException('No such job.');
+    $spec = json_decode($row['spec'], true);
+    if (gen_user_brands($spec)) { // brand data is placeholder data: re-created with the current generator, same ids
+        gen_materialise_brands($spec['brands'], $row['market'], $jobId, $spec['copy'] ?? 'demo');
+        $n = (int)($spec['sample_brands'] ?? 0); // and the sample rivals of casino rankings
+        $spec['sample_ids'] = $n > 0 ? gen_materialise_brands(gen_sample_brands($spec['brands'], $n, $jobId), $row['market'], $jobId, $spec['copy'] ?? 'demo') : [];
+        $db->prepare('UPDATE jobs SET spec = ? WHERE id = ?')->execute([json_encode($spec, JSON_UNESCAPED_UNICODE), $jobId]);
+    }
+    $db->prepare("UPDATE sites SET status = 'planned', error = NULL, mobile = NULL WHERE job_id = ?")->execute([$jobId]);
+    $db->prepare("UPDATE jobs SET status = 'planned', outdated = 0 WHERE id = ?")->execute([$jobId]); // the page polls from now on; it shows the project's licence again
+    gen_spawn($jobId);
+}
+
 function gen_json($data, int $code = 200): void
 {
     http_response_code($code);
@@ -146,13 +194,10 @@ try {
             gen_json(['error' => $e->getMessage()], 422);
             return;
         }
-        $n = $db->prepare("UPDATE sites SET status = 'planned', error = NULL, mobile = NULL WHERE job_id = ? AND status IN ('built', 'failed')");
-        $n->execute([(int)$seg[1]]);
-        if ($n->rowCount()) {
-            $db->prepare("UPDATE jobs SET status = 'planned' WHERE id = ?")->execute([(int)$seg[1]]);
-            gen_spawn((int)$seg[1]);
-        }
-        gen_json(['ok' => true, 'rebuild' => $n->rowCount()]);
+        // only the sites that show this brand: its own sites and the multi-brand ones (rankings, reviews) that list it
+        $q = $db->prepare('SELECT id FROM sites WHERE job_id = ? AND (brand = ? OR brand IS NULL OR brand = \'\')');
+        $q->execute([(int)$seg[1], $seg[3]]);
+        gen_json(['ok' => true, 'refresh' => gen_refresh_job((int)$seg[1], array_column($q->fetchAll(), 'id'))]);
     } elseif ($seg[0] === 'sites' && ($seg[2] ?? '') === 'seo' && $method === 'PUT') { // the SEO's verdict on a template: approved, changes (with a note) or none
         gen_content_columns($db);
         $b = gen_body();
@@ -201,9 +246,8 @@ try {
         $plan = json_decode($row['plan'], true) ?: [];
         unset($plan['ai']);
         gen_content_columns($db);
-        $db->prepare("UPDATE sites SET plan = ?, content = NULL, status = 'planned', error = NULL, mobile = NULL WHERE id = ?")->execute([json_encode($plan, JSON_UNESCAPED_UNICODE), $seg[1]]);
-        $db->prepare("UPDATE jobs SET status = 'planned' WHERE id = ?")->execute([(int)$row['job_id']]);
-        gen_spawn((int)$row['job_id']);
+        $db->prepare('UPDATE sites SET plan = ?, content = NULL WHERE id = ?')->execute([json_encode($plan, JSON_UNESCAPED_UNICODE), $seg[1]]);
+        gen_refresh_job((int)$row['job_id'], [$seg[1]]);
         gen_json(['ok' => true]);
     } elseif ($path === 'settings' && $method === 'GET') {
         gen_json(['settings' => gen_settings(), 'defaults' => GEN_SETTINGS]);
@@ -253,7 +297,7 @@ try {
         $p->execute([(int)$seg[1]]);
         $project = $p->fetchAll()[0] ?? throw new RuntimeException('No such project.');
         $project['info'] = gen_project_info(json_decode($project['info'] ?? '{}', true) ?: []);
-        $j = $db->prepare('SELECT j.id, j.name, j.market, j.status, j.compare, j.created, (SELECT COUNT(*) FROM sites s WHERE s.job_id = j.id) AS sites,
+        $j = $db->prepare('SELECT j.id, j.name, j.market, j.status, j.compare, j.created, j.outdated, (SELECT COUNT(*) FROM sites s WHERE s.job_id = j.id) AS sites,
             (SELECT COUNT(*) FROM sites s WHERE s.job_id = j.id AND s.status = \'built\') AS built FROM jobs j WHERE j.project_id = ? ORDER BY j.id DESC');
         $j->execute([$project['id']]);
         gen_json(['project' => $project, 'jobs' => $j->fetchAll(), 'files' => gen_pfiles_list($db, (int)$project['id'])]);
@@ -264,10 +308,38 @@ try {
             gen_json(['error' => 'Give the project a name.'], 422);
             return;
         }
+        $old = $db->prepare('SELECT info FROM projects WHERE id = ?');
+        $old->execute([(int)$seg[1]]);
+        $old = gen_project_info(json_decode((string)$old->fetchColumn(), true) ?: []);
+        $info = gen_project_info($b['info'] ?? []);
         $q = $db->prepare('UPDATE projects SET name = ?, info = ? WHERE id = ?');
-        $q->execute([mb_substr($name, 0, 120), json_encode(gen_project_info($b['info'] ?? []), JSON_UNESCAPED_UNICODE), (int)$seg[1]]);
+        $q->execute([mb_substr($name, 0, 120), json_encode($info, JSON_UNESCAPED_UNICODE), (int)$seg[1]]);
         if (!$q->rowCount()) {
             throw new RuntimeException('No such project.');
+        }
+        $outdated = 0;
+        $licKeys = ['licence_regulator', 'licence_no', 'licence_short'];
+        if (array_intersect_key($old, array_flip($licKeys)) !== array_intersect_key($info, array_flip($licKeys))) {
+            // the licence is on the pages: the jobs with built sites are marked, and the user picks which to rebuild
+            $o = $db->prepare("UPDATE jobs SET outdated = 1 WHERE project_id = ? AND EXISTS (SELECT 1 FROM sites s WHERE s.job_id = jobs.id AND s.status IN ('built', 'failed'))");
+            $o->execute([(int)$seg[1]]);
+            $outdated = $o->rowCount();
+        }
+        gen_json(['ok' => true, 'outdated' => $outdated]);
+    } elseif ($seg[0] === 'projects' && ($seg[2] ?? '') === 'outdated' && $method === 'POST') { // rebuild the chosen out-of-date jobs, and leave the others as they are
+        $b = gen_body();
+        $rebuild = array_map('intval', (array)($b['rebuild'] ?? []));
+        $refresh = array_map('intval', (array)($b['refresh'] ?? []));
+        $q = $db->prepare('SELECT id FROM jobs WHERE project_id = ? AND outdated = 1');
+        $q->execute([(int)$seg[1]]);
+        foreach (array_column($q->fetchAll(), 'id') as $jid) {
+            if (in_array((int)$jid, $refresh, true)) {
+                gen_refresh_job((int)$jid);
+            } elseif (in_array((int)$jid, $rebuild, true)) {
+                gen_rebuild_job((int)$jid);
+            } elseif (!empty($b['dismiss'])) {
+                $db->prepare('UPDATE jobs SET outdated = 0 WHERE id = ?')->execute([(int)$jid]);
+            }
         }
         gen_json(['ok' => true]);
     } elseif ($seg[0] === 'projects' && isset($seg[1]) && $method === 'DELETE') {
@@ -406,20 +478,10 @@ try {
         $db->prepare("UPDATE jobs SET status = 'planned' WHERE id = ?")->execute([(int)$seg[1]]);
         gen_spawn((int)$seg[1]);
         gen_json(['ok' => true]);
+    } elseif ($seg[0] === 'jobs' && ($seg[2] ?? '') === 'refresh' && $method === 'POST') { // quick refresh of every built site
+        gen_json(['ok' => true, 'sites' => gen_refresh_job((int)$seg[1])]);
     } elseif ($seg[0] === 'jobs' && ($seg[2] ?? '') === 'rebuild' && $method === 'POST') { // same plans, current engine
-        $j = $db->prepare('SELECT market, spec FROM jobs WHERE id = ?');
-        $j->execute([(int)$seg[1]]);
-        $row = $j->fetchAll()[0] ?? throw new RuntimeException('No such job.');
-        $spec = json_decode($row['spec'], true);
-        if (gen_user_brands($spec)) { // brand data is placeholder data: re-created with the current generator, same ids
-            gen_materialise_brands($spec['brands'], $row['market'], (int)$seg[1], $spec['copy'] ?? 'demo');
-            $n = (int)($spec['sample_brands'] ?? 0); // and the sample rivals of casino rankings
-            $spec['sample_ids'] = $n > 0 ? gen_materialise_brands(gen_sample_brands($spec['brands'], $n, (int)$seg[1]), $row['market'], (int)$seg[1], $spec['copy'] ?? 'demo') : [];
-            $db->prepare('UPDATE jobs SET spec = ? WHERE id = ?')->execute([json_encode($spec, JSON_UNESCAPED_UNICODE), (int)$seg[1]]);
-        }
-        $db->prepare("UPDATE sites SET status = 'planned', error = NULL, mobile = NULL WHERE job_id = ?")->execute([(int)$seg[1]]);
-        $db->prepare("UPDATE jobs SET status = 'planned' WHERE id = ?")->execute([(int)$seg[1]]); // the page polls from now on
-        gen_spawn((int)$seg[1]);
+        gen_rebuild_job((int)$seg[1]);
         gen_json(['ok' => true]);
     } elseif ($seg[0] === 'jobs' && isset($seg[1]) && $method === 'DELETE') {
         $r = $db->prepare('SELECT id FROM sites WHERE job_id = ?');

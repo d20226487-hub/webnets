@@ -226,6 +226,9 @@ function gen_db(): PDO
     if (!in_array('info', array_column($db->query('PRAGMA table_info(projects)')->fetchAll(), 'name'), true)) { // project information for the AI briefs (JSON)
         $db->exec("ALTER TABLE projects ADD COLUMN info TEXT NOT NULL DEFAULT '{}'");
     }
+    if (!in_array('outdated', array_column($db->query('PRAGMA table_info(jobs)')->fetchAll(), 'name'), true)) { // 1: the project's licence changed since the job's sites were built
+        $db->exec('ALTER TABLE jobs ADD COLUMN outdated INTEGER NOT NULL DEFAULT 0');
+    }
     if (!in_array('queued_at', array_column($db->query('PRAGMA table_info(jobs)')->fetchAll(), 'name'), true)) { // when the job joined the worker queue
         $db->exec('ALTER TABLE jobs ADD COLUMN queued_at TEXT');
     }
@@ -1183,6 +1186,11 @@ function gen_site_full_config(array $site, string $market, array $brands = [], b
         $cfg['featured'] = $own[crc32($site['id']) % count($own)];
     }
     $cfg = gen_apply_edits($cfg, $site['type'], gen_site_edits($spec, $site['type'], $plan)); // the user's edits (type, then site) go on top of the plan
+    require_once __DIR__ . '/brandfacts.php';
+    $lic = gen_project_licence(gen_db(), (int)$site['job_id']);
+    if ($lic['regulator'] !== '' || $lic['short'] !== '') { // the project's licence replaces the market's wording (lib/site.php "licence")
+        $cfg['licence'] = array_filter(['regulator' => $lic['regulator'], 'short' => $lic['short']], 'strlen');
+    }
     if ($withAi && !empty($plan['ai'])) { // the text written by the content step (generator/content.php), on top of everything
         require_once __DIR__ . '/content.php';
         $cfg = gen_apply_ai($cfg, $plan['ai']);
@@ -1368,6 +1376,7 @@ function gen_stop_jobs(array $ids): void
     foreach ($ids as $id) {
         $db->prepare("UPDATE jobs SET status = 'stopped' WHERE id = ? AND status IN ('running', 'checking')")->execute([(int)$id]);
         $db->prepare("UPDATE sites SET status = 'planned' WHERE job_id = ? AND status = 'building'")->execute([(int)$id]);
+        $db->prepare("UPDATE sites SET status = 'refresh' WHERE job_id = ? AND status = 'refreshing'")->execute([(int)$id]); // a quick refresh picks up where it stopped
     }
 }
 

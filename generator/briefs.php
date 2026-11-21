@@ -5,15 +5,15 @@
  */
 
 /** Project information fields: the AI briefs of the project's sites use them to write relevant text. */
-const GEN_PROJECT_INFO = ['about', 'audience', 'tone', 'facts', 'keywords', 'avoid', 'below'];
+const GEN_PROJECT_INFO = ['about', 'audience', 'tone', 'facts', 'keywords', 'avoid', 'licence_regulator', 'licence_no', 'licence_short', 'below'];
 
-/** Project information as stored: known fields only, trimmed text, at most 3000 characters each; below is none, useful or every. */
+/** Project information as stored: known fields only, trimmed text (3000 characters at most, «facts» without limit); below is none, useful or every. */
 function gen_project_info($in): array
 {
     $out = [];
     foreach (GEN_PROJECT_INFO as $k) {
         $v = is_array($in) && is_string($in[$k] ?? null) ? trim(str_replace("\r", '', $in[$k])) : '';
-        $out[$k] = mb_substr($v, 0, 3000);
+        $out[$k] = $k === 'facts' ? $v : mb_substr($v, 0, 3000);
     }
     $out['below'] = in_array($out['below'], ['useful', 'every'], true) ? $out['below'] : 'none';
     return $out;
@@ -27,6 +27,9 @@ function gen_project_brief(array $info, string $docs = ''): string
         'audience' => 'Audience',
         'tone' => 'Tone of voice',
         'facts' => 'Facts and messages to use',
+        'licence_regulator' => 'Licence issued by',
+        'licence_no' => 'Licence number',
+        'licence_short' => 'Licence badge',
         'keywords' => 'Topics and search phrases to cover',
         'avoid' => 'Avoid',
     ];

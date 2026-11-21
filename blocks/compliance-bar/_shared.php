@@ -5,7 +5,7 @@ $market = sx_ctx('market');
 $brand = sx_ctx('brand');
 $m = $market['compliance'];
 
-$regulator = $props['regulator'] ?: tm($m['regulator_default']);
+$regulator = $props['regulator'] ?: sx_licence_regulator();
 $taglines = tm($m['taglines']) ?: [];
 
 $c = [
