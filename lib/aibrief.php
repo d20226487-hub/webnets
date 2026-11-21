@@ -58,7 +58,7 @@ function sx_ai_brief(array $pages, ?string $only = null, bool $full = false, boo
     }
     $L[] = '## Market guidance';
     $L[] = '';
-    $L[] = sx_ai_market_facts($m, $loc);
+    $L[] = sx_ai_market_facts($m, $loc, $b['licence'] ?? []);
     if (($extra = sx_ai_setting("markets/{$m['id']}.md")) !== '') { // the market's own rules, written by hand
         $L[] = '';
         $L[] = $extra;
@@ -181,7 +181,7 @@ function sx_ai_brief(array $pages, ?string $only = null, bool $full = false, boo
  * sites show: age, products, promotions, payments, apps, mandated texts and the rules that follow from them.
  * Rules the settings cannot express (eGov, BetStop, .bet.br) stay in ai/markets/<id>.md and follow this part.
  */
-function sx_ai_market_facts(array $m, string $loc): string
+function sx_ai_market_facts(array $m, string $loc, array $licence = []): string
 {
     $tx = function ($v) use ($m, $loc) {
         if (!is_array($v)) {
@@ -207,7 +207,8 @@ function sx_ai_market_facts(array $m, string $loc): string
     }
     $texts = array_filter([
         'Age notice' => $tx($c['age_notice'] ?? ''),
-        'Licence' => $tx($c['license_short'] ?? ''),
+        'Licence' => ($licence['short'] ?? '') ?: $tx($c['license_short'] ?? ''), // the site's own licence (project) over the market's
+        'Licence issued by' => $licence['regulator'] ?? '',
         'Self-exclusion' => $tx($c['self_exclusion'] ?? ''),
         'Helpline' => $tx($c['helpline'] ?? ''),
     ]);

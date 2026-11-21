@@ -1188,8 +1188,19 @@ function gen_site_full_config(array $site, string $market, array $brands = [], b
     $cfg = gen_apply_edits($cfg, $site['type'], gen_site_edits($spec, $site['type'], $plan)); // the user's edits (type, then site) go on top of the plan
     require_once __DIR__ . '/brandfacts.php';
     $lic = gen_project_licence(gen_db(), (int)$site['job_id']);
-    if ($lic['regulator'] !== '' || $lic['short'] !== '') { // the project's licence replaces the market's wording (lib/site.php "licence")
-        $cfg['licence'] = array_filter(['regulator' => $lic['regulator'], 'short' => $lic['short']], 'strlen');
+    if ($lic['regulator'] !== '' || $lic['short'] !== '' || $lic['no'] !== '') { // the project's licence replaces the market's wording (lib/site.php "licence")
+        // no badge text given: the market's («Лицензия РК») would name the wrong licence, so the badge shows who issued it (or the number)
+        $short = $lic['short'] !== '' ? $lic['short'] : ($lic['regulator'] !== '' ? $lic['regulator'] : $lic['no']);
+        $cfg['licence'] = array_filter(['regulator' => $lic['regulator'], 'short' => $short], 'strlen');
+        // template text that is the market's licence label (e.g. a header note «Лицензия РК») names the project's licence too
+        $labels = array_values(array_filter((array)(sx_json("$GEN_ROOT/markets/$market.json")['compliance']['license_short'] ?? []), 'is_string'));
+        if ($labels && isset($cfg['content'])) {
+            array_walk_recursive($cfg['content'], function (&$v) use ($labels, $short) {
+                if (is_string($v) && in_array(trim($v), $labels, true)) {
+                    $v = $short;
+                }
+            });
+        }
     }
     if ($withAi && !empty($plan['ai'])) { // the text written by the content step (generator/content.php), on top of everything
         require_once __DIR__ . '/content.php';

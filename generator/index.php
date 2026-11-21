@@ -157,12 +157,13 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     'New project name': 'Название нового проекта', 'Create project': 'Создать проект', 'No projects yet.': 'Проектов пока нет.',
     '{0} jobs': 'заданий: {0}', '{0} sites': 'сайтов: {0}', '{0} / {1} sites': '{0} / {1} сайтов',
     'New job': 'Новое задание', 'Delete project': 'Удалить проект', 'Jobs': 'Задания',
-    'Project information': 'Информация о проекте', 'Project name': 'Название проекта', 'Licence issued by': 'Кем выдана лицензия', 'Licence badge': 'Подпись лицензии',
+    'Project information': 'Информация о проекте', 'Project name': 'Название проекта', 'Licence issued by': 'Кем выдана лицензия',
     'Who issued the brand\'s licence, as it reads in the footer line «… licence no. …, issued by …», e.g. «Curaçao Gaming Control Board». Empty: the market\'s regulator.': 'Кто выдал лицензию бренда — так, как читается в строке подвала «… лицензия № …, выдана …», например «Curaçao Gaming Control Board». Пусто — регулятор рынка.',
     'The licence number shown on every site of the project (brand facts can give a brand its own). Empty: the brand\'s.': 'Номер лицензии на всех сайтах проекта (в фактах бренда можно задать бренду свой). Пусто — номер бренда.',
-    'The short label in trust badges and app info, e.g. «Лицензия Кюрасао». Empty: the market\'s («Лицензия РК»).': 'Короткая подпись в значках доверия и данных приложения, например «Лицензия Кюрасао». Пусто — подпись рынка («Лицензия РК»).',
+    'The short label in trust badges and app info, e.g. «Лицензия Кюрасао». Empty: «Licence issued by» above (or the number; without any project licence, the market\'s «Лицензия РК»).': 'Короткая подпись в значках доверия и данных приложения, например «Лицензия Кюрасао». Пусто — «Кем выдана лицензия» выше (или номер; а если лицензия проекта не задана — значок рынка «Лицензия РК»).',
     'The licence changed. These jobs\u2019 sites still show the previous one:': 'Лицензия изменилась. На сайтах этих заданий пока прежняя:',
-    'Update the data': 'Обновить данные', 'Update the data ({0})': 'Обновить данные ({0})', 'Rebuild fully': 'Пересобрать полностью', 'Leave them as they are': 'Оставить как есть',
+    'Update the data': 'Обновить данные', 'Updating the data: {0} sites left': 'Обновляю данные: осталось сайтов — {0}',
+    'Pages are written again and new preview pictures taken, a few sites at a time; each card comes back when its site is done. Design and text stay. You can leave this page.': 'Страницы записываются заново и снимаются новые превью, по несколько сайтов; карточка возвращается, когда её сайт готов. Дизайн и тексты не меняются. Страницу можно закрыть.', 'Update the data ({0})': 'Обновить данные ({0})', 'Rebuild fully': 'Пересобрать полностью', 'Leave them as they are': 'Оставить как есть',
     '«Update the data»: the pages are written again with the new licence and new preview pictures are taken, about 2 seconds per site; design and text stay. «Rebuild fully» also runs the difference checks, as «Rebuild all» on a job page.': '«Обновить данные»: страницы записываются заново с новой лицензией и снимаются новые превью — около 2 секунд на сайт; дизайн и тексты не меняются. «Пересобрать полностью» — ещё и с проверками различий, как «Пересобрать всё» на странице задания.',
     'Pages written again with the current brand data, licence and AI text, and new preview pictures; design and text stay, no difference checks. About 2 seconds per site.': 'Страницы записываются заново с текущими данными бренда, лицензией и текстом ИИ, снимаются новые превью; дизайн и тексты не меняются, без проверок различий. Около 2 секунд на сайт.',
     'Save and update the sites': 'Сохранить и обновить сайты', 'refresh': 'ждёт обновления', 'refreshing': 'обновляется',
@@ -191,6 +192,9 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     'Licence number': 'Номер лицензии', 'Operating since (year)': 'Работает с (год)', 'Withdrawal time, minutes: {0}': 'Срок вывода, минут: {0}', 'Tagline ({0})': 'Слоган ({0})',
     'App developer': 'Разработчик приложения', 'App version': 'Версия приложения', 'App updated (YYYY-MM-DD)': 'Обновлено (ГГГГ-ММ-ДД)', 'iPhone app size, MB': 'Размер для iPhone, МБ',
     'Android app size, MB': 'Размер для Android, МБ', 'Minimum iOS': 'Минимальная iOS', 'Minimum Android': 'Минимальный Android', 'App languages ({0}, comma separated)': 'Языки приложения ({0}, через запятую)', 'Approve all ({0})': 'Одобрить все ({0})', 'Withdraw approvals': 'Снять одобрения', 'Write the text ({0})': 'Написать тексты ({0})',
+    'Approve sites first: the AI writes the text of approved sites only.': 'Сначала одобрите сайты: ИИ пишет тексты только для одобренных.', 'The AI is writing now.': 'ИИ сейчас пишет тексты.',
+    'All {0} approved sites already have AI text. Write it again for all of them?': 'У всех одобренных сайтов ({0}) уже есть текст ИИ. Написать его заново для всех?',
+    '{0} of the {1} approved sites already have AI text; it will be written again for them too. Go on?': 'У {0} из {1} одобренных сайтов уже есть текст ИИ — для них он будет написан заново. Продолжить?',
     '1. Look at each template and approve it, or mark it «Needs changes» with a note. 2. «Write the text»: Vertex AI rewrites the approved sites’ text from the project information and documents, then they are rebuilt.':
       '1. Посмотрите каждый шаблон и одобрите его или отметьте «Нужны правки» с комментарием. 2. «Написать тексты»: Vertex AI переписывает тексты одобренных сайтов по информации и документам проекта, затем сайты пересобираются.',
     'Vertex AI connection': 'Подключение Vertex AI', 'Approved: {0} of {1}': 'Одобрено: {0} из {1}', 'Needs changes: {0}': 'Нужны правки: {0}', 'With AI text: {0}': 'С текстом ИИ: {0}', 'Text failed: {0}': 'Ошибка текста: {0}',
@@ -515,7 +519,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     ['avoid', 'Avoid', 'One per line: words, claims and topics the text must not use.', 2],
     ['licence_regulator', 'Licence issued by', 'Who issued the brand\'s licence, as it reads in the footer line «… licence no. …, issued by …», e.g. «Curaçao Gaming Control Board». Empty: the market\'s regulator.', 1],
     ['licence_no', 'Licence number', 'The licence number shown on every site of the project (brand facts can give a brand its own). Empty: the brand\'s.', 1],
-    ['licence_short', 'Licence badge', 'The short label in trust badges and app info, e.g. «Лицензия Кюрасао». Empty: the market\'s («Лицензия РК»).', 1]
+    ['licence_short', 'Licence badge', 'The short label in trust badges and app info, e.g. «Лицензия Кюрасао». Empty: «Licence issued by» above (or the number; without any project licence, the market\'s «Лицензия РК»).', 1]
   ];
   var PBELOW = [['none', 'No: text only inside the sections'], ['useful', 'Where it helps: a short text below some sections'], ['every', 'Below every main section']];
   /* Jobs whose sites still show the project's previous licence: the user picks which to rebuild */
@@ -871,11 +875,14 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     var ok = built.filter(function (s) { return seoState(s) === 'approved'; }), changes = built.filter(function (s) { return seoState(s) === 'changes'; });
     var busy = built.filter(function (s) { return s.content && (s.content.state === 'queued' || s.content.state === 'writing'); });
     var done = built.filter(function (s) { return s.ai; }), errs = built.filter(function (s) { return s.content && s.content.state === 'error'; });
-    var todo = ok.filter(function (s) { return !s.ai && !(s.content && (s.content.state === 'queued' || s.content.state === 'writing')); });
+    var todo = ok.filter(function (s) { return !(s.content && (s.content.state === 'queued' || s.content.state === 'writing')); }); // every approved site: new text, or written again
+    var again = todo.filter(function (s) { return s.ai; }).length;
+    var why = !ok.length ? L('Approve sites first: the AI writes the text of approved sites only.') : busy.length ? L('The AI is writing now.') : '';
     return '<section class="card seo" aria-labelledby="seoh"><div class="row"><h3 id="seoh" style="margin:0">' + L('SEO review and text') + '</h3><span class="sp"></span>'
       + (ok.length + changes.length < built.length ? '<button type="button" id="seoall">' + L('Approve all ({0})', built.length - ok.length - changes.length) + '</button>' : '')
       + (ok.length ? '<button type="button" id="seonone">' + L('Withdraw approvals') + '</button>' : '')
-      + '<button type="button" class="primary" id="aiwrite"' + (todo.length && !busy.length ? '' : ' disabled') + '>' + L('Write the text ({0})', todo.length) + '</button></div>'
+      + '<button type="button" class="primary" id="aiwrite" data-again="' + again + '" data-n="' + todo.length + '"' + (todo.length && !busy.length ? '' : ' disabled') + (why ? ' title="' + esc(why) + '"' : '') + '>' + L('Write the text ({0})', todo.length) + '</button></div>'
+      + (why && !busy.length ? '<p class="muted" style="margin:6px 0 0;font-size:13px">' + why + '</p>' : '')
       + '<p class="muted" style="margin:8px 0 0;font-size:14px">' + L('1. Look at each template and approve it, or mark it «Needs changes» with a note. 2. «Write the text»: Vertex AI rewrites the approved sites’ text from the project information and documents, then they are rebuilt.') + ' <a href="#/settings/vertex">' + L('Vertex AI connection') + '</a> · <a href="#/p/' + j.project_id + '">' + L('Project information') + '</a></p>'
       + factsNote(j)
       + '<div class="chips" style="margin-top:10px"><span class="chip ok">' + L('Approved: {0} of {1}', ok.length, built.length) + '</span>' + (changes.length ? '<span class="chip warn">' + L('Needs changes: {0}', changes.length) + '</span>' : '')
@@ -961,7 +968,10 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     var all = document.getElementById('seoall'), none = document.getElementById('seonone'), w = document.getElementById('aiwrite');
     if (all) all.onclick = function () { all.disabled = true; api('jobs/' + id + '/seo', { status: 'approved' }, 'POST').then(function () { job(id); }).catch(jerr); };
     if (none) none.onclick = function () { if (confirm(L('Withdraw the SEO approval of every site in this job?'))) api('jobs/' + id + '/seo', { status: null }, 'POST').then(function () { job(id); }).catch(jerr); };
-    if (w) w.onclick = function () { w.disabled = true; w.textContent = L('Starting…'); api('jobs/' + id + '/content', {}, 'POST').then(function () { job(id); }).catch(function (x) { w.disabled = false; jerr(x); }); };
+    if (w) w.onclick = function () {
+      var again = +w.dataset.again, n = +w.dataset.n;
+      if (again && !confirm(again === n ? L('All {0} approved sites already have AI text. Write it again for all of them?', n) : L('{0} of the {1} approved sites already have AI text; it will be written again for them too. Go on?', again, n))) return;
+      w.disabled = true; w.textContent = L('Starting…'); api('jobs/' + id + '/content', {}, 'POST').then(function () { job(id); }).catch(function (x) { w.disabled = false; jerr(x); }); };
     var box = document.getElementById('sites');
     if (box.dataset.seo) return;
     box.dataset.seo = '1'; // one listener for every card's buttons
@@ -1097,6 +1107,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
       if (location.hash !== '#/j/' + id) return;
       var j = d.job, built = d.sites.filter(function (s) { return s.status === 'built'; }).length, failed = d.sites.filter(function (s) { return s.status === 'failed'; }).length;
       var running = j.status === 'planned' || j.status === 'queued' || j.status === 'running' || j.status === 'checking';
+      var refreshing = d.sites.filter(function (s) { return s.status === 'refresh' || s.status === 'refreshing'; }).length; // «Update the data» in progress
       var byType = {};
       d.sites.forEach(function (s) { (byType[s.type] = byType[s.type] || []).push(s); });
       if (!document.getElementById('jobhead')) {
@@ -1112,6 +1123,8 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         + '<div class="bar"><i style="width:' + Math.round(100 * (built + failed) / Math.max(1, d.sites.length)) + '%"></i></div>'
         + (j.status === 'stopped' ? '<p class="note">' + L('The build was stopped before it finished ({0} of {1} sites built). Continue the build to finish the rest.', built, d.sites.length) + '</p>' : '')
         + (j.status === 'queued' ? '<div class="notice" role="status"><span class="spin" aria-hidden="true"></span><span><b>' + L('Waiting for another job') + '.</b> ' + esc(L('Job "{0}" is building now. This job starts automatically when it is done; one job builds at a time, so the generator stays responsive.', j.busy ? j.busy.name : '…')) + '</span></div>'
+        : running && refreshing && j.status !== 'queued' ? '<div class="notice" role="status"><span class="spin" aria-hidden="true"></span><span><b>' + L('Updating the data: {0} sites left', refreshing) + '.</b> '
+          + L('Pages are written again and new preview pictures taken, a few sites at a time; each card comes back when its site is done. Design and text stay. You can leave this page.') + '</span></div>'
         : running ? '<div class="notice" role="status"><span class="spin" aria-hidden="true"></span><span><b>' + (j.status === 'checking' ? L('Checking the differences') : j.status === 'planned' ? L('Starting the build') : L('Rebuilding: {0} of {1} sites done', built, d.sites.length)) + '.</b> '
           + (j.status === 'checking' ? L('Screenshots are compared site by site; a site that looks too alike is rebuilt, so its card can still change.') : L('Sites are built one by one; each card comes back when its site is ready.'))
           + ' ' + L('The comparison table updates when the job is done. You can leave this page; the build carries on.') + '</span></div>' : '')

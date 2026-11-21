@@ -215,13 +215,18 @@ function sx_defaults(array $fields): array
     return $out;
 }
 
-/** Variants of a block that the current market allows (sx.variant_requires: {variant: vertical}). */
+/** Variants of a block that the current market allows and the brand offers (sx.variant_requires: {variant: vertical}):
+ *  an odds board needs sports in the market and in the brand's products, or it has nothing to show. Multi-brand sites
+ *  (a publisher, no products of its own) are only held to the market. */
 function sx_market_variants(string $name): array
 {
     $sx = sx_block_meta($name)['block']['sx'] ?? [];
     $req = $sx['variant_requires'] ?? [];
     $verticals = SX::$ctx['market']['verticals'] ?? [];
-    return array_values(array_filter($sx['variants'] ?? ['default'], fn($v) => !isset($req[$v]) || !empty($verticals[$req[$v]])));
+    $brand = SX::$ctx['brand']['verticals'] ?? null;
+    $offers = fn(string $need) => !is_array($brand) || !$brand || in_array($need, $brand, true) || ($need === 'casino' && in_array('live-casino', $brand, true));
+    $ok = array_values(array_filter($sx['variants'] ?? ['default'], fn($v) => !isset($req[$v]) || (!empty($verticals[$req[$v]]) && $offers($req[$v]))));
+    return $ok ?: array_values(array_filter($sx['variants'] ?? ['default'], fn($v) => !isset($req[$v]) || !empty($verticals[$req[$v]]))); // nothing fits the brand: the market's choice, as before
 }
 
 /**

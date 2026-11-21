@@ -168,7 +168,7 @@ function gen_content_system(array $cfg, array $info, string $projectPart, array 
         $L[] = "The brand offers $offers. Write only about these products; the site's pictures show them too.";
     }
     $L[] = '';
-    $L[] = sx_ai_market_facts($m, $loc);
+    $L[] = sx_ai_market_facts($m, $loc, $cfg['licence'] ?? []);
     $L[] = '';
     $L[] = $projectPart !== '' ? $projectPart : "## Project information\n\nNone given: keep the template's subject and improve the wording.";
     $L[] = '';

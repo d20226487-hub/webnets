@@ -69,27 +69,35 @@ function run_checks(?array $code, ?array $visual, array $set, int $attempts, boo
 
 $state = [];
 $refresh = $db->query("SELECT * FROM sites WHERE job_id = $jobId AND status IN ('refresh', 'refreshing') ORDER BY type, n")->fetchAll();
-$fresh = [];
-foreach ($refresh as $s) {
-    $db->prepare("UPDATE sites SET status = 'refreshing' WHERE id = ?")->execute([$s['id']]);
-    $err = null;
-    $res = run_attempt($s, $job['market'], $brandIds, json_decode($s['plan'], true), $err);
-    if ($res === null) {
-        $db->prepare("UPDATE sites SET status = 'failed', error = ? WHERE id = ?")->execute([$err ?: 'Build failed.', $s['id']]);
-        continue;
-    }
-    [$warnings, $pages, $fp] = $res;
-    $db->prepare("UPDATE sites SET status = 'built', warnings = ?, error = NULL, pages = ?, fingerprint = ? WHERE id = ?")
-        ->execute([json_encode($warnings, JSON_UNESCAPED_UNICODE), $pages, json_encode($fp), $s['id']]);
-    $fresh[] = $s['id'];
-}
-foreach (array_chunk($fresh, 12) as $chunk) { // the first-screen pictures again (the job page's previews and the visual comparison)
-    try {
-        foreach (gen_shoot($chunk) as $id => $print) {
-            $db->prepare('UPDATE sites SET visual = ? WHERE id = ?')->execute([$print, $id]);
+foreach (array_chunk($refresh, 6) as $batch) { // a batch at a time: pages, then their pictures; a site counts as done (built) once both are new
+    $fresh = [];
+    foreach ($batch as $s) {
+        $db->prepare("UPDATE sites SET status = 'refreshing' WHERE id = ?")->execute([$s['id']]);
+        $err = null;
+        $res = run_attempt($s, $job['market'], $brandIds, json_decode($s['plan'], true), $err);
+        if ($res === null) {
+            $db->prepare("UPDATE sites SET status = 'failed', error = ? WHERE id = ?")->execute([$err ?: 'Build failed.', $s['id']]);
+            continue;
         }
-    } catch (Throwable $e) {
-        fwrite(STDERR, date('c') . ' refresh pictures: ' . $e->getMessage() . "\n");
+        [$warnings, $pages, $fp] = $res;
+        $db->prepare('UPDATE sites SET warnings = ?, error = NULL, pages = ?, fingerprint = ? WHERE id = ?')
+            ->execute([json_encode($warnings, JSON_UNESCAPED_UNICODE), $pages, json_encode($fp), $s['id']]);
+        $fresh[] = $s['id'];
+    }
+    $prints = [];
+    if ($fresh) {
+        try { // the first-screen pictures again (the job page's previews and the visual comparison)
+            $prints = gen_shoot($fresh);
+        } catch (Throwable $e) {
+            fwrite(STDERR, date('c') . ' refresh pictures: ' . $e->getMessage() . "\n");
+        }
+    }
+    foreach ($fresh as $id) {
+        if (isset($prints[$id])) {
+            $db->prepare("UPDATE sites SET status = 'built', visual = ? WHERE id = ?")->execute([$prints[$id], $id]);
+        } else {
+            $db->prepare("UPDATE sites SET status = 'built' WHERE id = ?")->execute([$id]);
+        }
     }
 }
 foreach ($sites as $s) {

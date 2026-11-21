@@ -112,7 +112,7 @@ function sx_build_site(array $cfg, string $root): array
             'dev' => SX::$dev,
             // review links: what the AI brief needs to know about the site and its market
             'brief' => !empty($ctx['devspec']) ? ['type' => $cfg['type'] ?? '', 'angle' => $summary['angle'] ?? '', 'site' => $ctx['site']['name'] ?? '',
-                'url' => $ctx['site']['url'] ?? '', 'brand' => $ctx['brand']['name'] ?? '', 'locale' => $ctx['locale'], 'market' => $ctx['market']] : null,
+                'url' => $ctx['site']['url'] ?? '', 'brand' => $ctx['brand']['name'] ?? '', 'locale' => $ctx['locale'], 'market' => $ctx['market'], 'licence' => $ctx['licence'] ?? []] : null,
             'title' => $page['title'] ?? $ctx['site']['name'],
         ];
     }
