@@ -73,7 +73,7 @@ function sx_build_site(array $cfg, string $root): array
             if (!empty($bp['compares_brands'])) {
                 // Generic CTAs go to the top brand for the angle; review pages override with their own brand.
                 $ctx['rank_by'] = $bp['angles'][$summary['angle']]['rank_by'] ?? null;
-                $ctx['cta_brand'] = sx_casino_rank(sx_crit($ctx['rank_by']))[0];
+                $ctx['cta_brand'] = !empty($ctx['promote']) ? $ctx['featured'] : sx_casino_rank(sx_crit($ctx['rank_by']))[0]; // the promoted brand, else the top one
             }
             if (empty($ctx['site']['url'])) {
                 SX::$warnings[] = 'site.url is required on multi-page sites (canonical links, sitemap).';
@@ -83,7 +83,7 @@ function sx_build_site(array $cfg, string $root): array
             [$page, $summary] = sx_expand_blueprint($cfg, $root);
             if (!empty($bp['compares_brands'])) { // one-page brand comparisons: generic CTAs go to the top brand for the angle
                 $ctx['rank_by'] = $bp['angles'][$summary['angle']]['rank_by'] ?? null;
-                $ctx['cta_brand'] = sx_casino_rank(sx_crit($ctx['rank_by']))[0];
+                $ctx['cta_brand'] = !empty($ctx['promote']) ? $ctx['featured'] : sx_casino_rank(sx_crit($ctx['rank_by']))[0]; // the promoted brand, else the top one
             }
             $cfg['pages'] = [$page];
         }

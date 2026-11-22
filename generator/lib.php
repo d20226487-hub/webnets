@@ -147,7 +147,8 @@ function gen_catalog_full(): array
             }
             $axes[$axis] = ['label' => $name, 'options' => $opts] + (($h = GEN_AXIS_HINTS[gen_type_base($type)][$axis] ?? null) ? ['hint' => $h] : []);
         }
-        $out[$type] = ['label' => $c['label'], 'axes' => $axes, 'auto' => $c['auto'], 'base' => $c['base'], 'hidden' => !empty($c['hidden'])];
+        $needs = sx_json("$GEN_ROOT/blueprints/$type.json")['requires_vertical'] ?? null; // e.g. game providers: casino only
+        $out[$type] = ['label' => $c['label'], 'axes' => $axes, 'auto' => $c['auto'], 'base' => $c['base'], 'hidden' => !empty($c['hidden']), 'needs' => $needs];
     }
     return $out;
 }
@@ -1188,6 +1189,9 @@ function gen_site_full_config(array $site, string $market, array $brands = [], b
     $cfg['disclosure'] = in_array($spec['disclosure'] ?? 'top', ['top', 'footer', 'off'], true) ? $spec['disclosure'] : 'top'; // affiliate disclosure: top strip, footer or none
     if (isset($cfg['featured']) && $own && $brands !== $own) { // the paid featured slot is always one of the job's own brands
         $cfg['featured'] = $own[crc32($site['id']) % count($own)];
+    }
+    if (isset($cfg['featured']) && $own) { // the site is made for the job's brand: its labelled slot leads the list and the general buttons lead to it
+        $cfg['promote'] = true;
     }
     $cfg = gen_apply_edits($cfg, $site['type'], gen_site_edits($spec, $site['type'], $plan)); // the user's edits (type, then site) go on top of the plan
     require_once __DIR__ . '/brandfacts.php';

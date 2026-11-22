@@ -164,7 +164,9 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     'The licence number shown on every site of the project (brand facts can give a brand its own). Empty: the brand\'s.': 'Номер лицензии на всех сайтах проекта (в фактах бренда можно задать бренду свой). Пусто — номер бренда.',
     'The short label in trust badges and app info, e.g. «Лицензия Кюрасао». Empty: «Licence issued by» above (or the number; without any project licence, the market\'s «Лицензия РК»).': 'Короткая подпись в значках доверия и данных приложения, например «Лицензия Кюрасао». Пусто — «Кем выдана лицензия» выше (или номер; а если лицензия проекта не задана — значок рынка «Лицензия РК»).',
     'The licence changed. These jobs\u2019 sites still show the previous one:': 'Лицензия изменилась. На сайтах этих заданий пока прежняя:',
-    'Update the data': 'Обновить данные', 'Limits': 'Лимиты', 'Requests per minute': 'Запросов в минуту', 'Max parallel requests': 'Макс. параллельных запросов',
+    'Update the data': 'Обновить данные', 'Casino and sports betting': 'Казино и ставки на спорт', 'Casino only': 'Только казино', 'Sports betting only': 'Только ставки на спорт',
+    'What the project\u2019s sites are about. With one product, the job form shows only what fits it, and the AI writes about that product only.': 'О чём сайты проекта. Если выбран один продукт, в форме задания видно только то, что ему подходит, и ИИ пишет только о нём.',
+    'This project is «{0}»: the form shows only what fits it. Change it in the project information.': 'Проект — «{0}»: в форме видно только то, что ему подходит. Изменить можно в информации о проекте.', 'Limits': 'Лимиты', 'Requests per minute': 'Запросов в минуту', 'Max parallel requests': 'Макс. параллельных запросов',
     'Batch size (sites)': 'Размер пакета (сайтов)', 'Delay between requests (ms)': 'Задержка между запросами (мс)', 'Max retries': 'Максимум повторов', 'Base retry delay (ms)': 'Базовая задержка отката (мс)',
     'Random retry spread (ms)': 'Случайный разброс отката (мс)', 'Honour the Retry-After header': 'Учитывать заголовок Retry-After',
     'How the text step sends requests to Vertex AI. Lower them if Google answers «too many requests» (an API key has small quotas); raise them for a service account with larger quotas.': 'Как шаг текстов отправляет запросы в Vertex AI. Уменьшите, если Google отвечает «слишком много запросов» (у API-ключа небольшие квоты); увеличьте для сервисного аккаунта с большими квотами.', '{0} requests': 'запросов: {0}', '{0} tokens in, {1} out': 'токенов: {0} на входе, {1} на выходе',
@@ -487,17 +489,20 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
   }
 
   /* ---------- projects */
+  var PPROD = [['both', 'Casino and sports betting'], ['casino', 'Casino only'], ['sports', 'Sports betting only']];
   function projects() {
     Promise.all([api('projects'), healthNote()]).then(function (res) {
       var list = res[0];
       main.innerHTML = res[1] + '<div class="row"><div><h2>' + L('Projects') + '</h2><p class="muted">' + L('A project holds the jobs that generate its sites. Sites are compared inside the project and against every other job.') + '</p></div></div>'
-        + '<form class="card row" id="np"><input type="text" id="pname" placeholder="' + L('New project name') + '" aria-label="' + L('New project name') + '" required style="flex:1;min-width:220px"><button class="primary">' + L('Create project') + '</button></form>'
+        + '<form class="card row" id="np"><input type="text" id="pname" placeholder="' + L('New project name') + '" aria-label="' + L('New project name') + '" required style="flex:1;min-width:220px">'
+        + '<select id="pprod" aria-label="' + L('Products') + '">' + PPROD.map(function (o) { return '<option value="' + o[0] + '">' + L(o[1]) + '</option>'; }).join('') + '</select>'
+        + '<button class="primary">' + L('Create project') + '</button></form>'
         + '<div class="list">' + (list.length ? list.map(function (p) {
           return '<a class="item" href="#/p/' + p.id + '"><strong>' + esc(p.name) + '</strong><span class="sp"></span><span class="chip">' + L('{0} jobs', p.jobs) + '</span><span class="chip">' + L('{0} sites', p.sites) + '</span>' + (+p.ai_calls ? '<span class="chip" title="Vertex AI">' + usd(p.ai_cost) + '</span>' : '') + '<span class="muted">' + when(p.created) + '</span></a>';
         }).join('') : '<p class="muted">' + L('No projects yet.') + '</p>') + '</div>';
       document.getElementById('np').onsubmit = function (e) {
         e.preventDefault();
-        api('projects', { name: document.getElementById('pname').value }).then(function (r) { location.hash = '#/p/' + r.id; }).catch(fail);
+        api('projects', { name: document.getElementById('pname').value, product: document.getElementById('pprod').value }).then(function (r) { location.hash = '#/p/' + r.id; }).catch(fail);
       };
     }).catch(fail);
   }
@@ -573,8 +578,9 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     if (!editing) {
       box.innerHTML = '<section class="card pinfo"><div class="row"><h3 style="margin:0">' + L('Project information') + '</h3><span class="sp"></span><button type="button" id="pedit">' + L('Edit') + '</button></div>'
         + '<p class="muted" style="margin:8px 0 0;font-size:14px">' + L('Everything here, the files included, goes to the AI: it writes the text of the sites once the SEO approves them, and it is in every AI brief. Changes apply to the next text run and brief download; no rebuild is needed.') + '</p>'
-        + (filled.length || files.length || below !== 'none'
+        + (filled.length || files.length || below !== 'none' || (info.product || 'both') !== 'both'
           ? '<dl class="pdl">' + filled.map(function (f) { return '<dt>' + L(f[1]) + '</dt><dd>' + esc(info[f[0]]).replace(/\n/g, '<br>') + '</dd>'; }).join('')
+            + '<dt>' + L('Products') + '</dt><dd>' + L(PPROD.filter(function (o) { return o[0] === (info.product || 'both'); })[0][1]) + '</dd>'
             + (files.length ? '<dt>' + L('Files') + '</dt><dd><ul class="pflist">' + files.map(function (f) { return '<li>' + fileLink(id, f) + '</li>'; }).join('') + '</ul></dd>' : '')
             + '<dt>' + L('Text below sections') + '</dt><dd>' + L(PBELOW.filter(function (b) { return b[0] === below; })[0][1]) + '</dd></dl>'
           : '<p style="margin:10px 0 0">' + L('Nothing filled in yet: the AI uses only the site and market information.') + '</p>')
@@ -585,6 +591,8 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     box.innerHTML = '<form class="card mform pinfo" id="pf"><h3 style="margin-top:0">' + L('Project information') + '</h3>'
       + '<p class="muted" style="margin-top:0;font-size:14px">' + L('Write in any language: the AI writes each site in its own language. Leave a field empty to skip it.') + '</p>'
       + '<div class="field"><label class="lbl" for="pf-name">' + L('Project name') + '</label><input type="text" id="pf-name" required maxlength="120" value="' + esc(p.name) + '"></div>'
+      + '<div class="field"><span class="lbl">' + L('Products') + '</span><span class="muted" style="font-size:13px">' + L('What the project\u2019s sites are about. With one product, the job form shows only what fits it, and the AI writes about that product only.') + '</span>'
+      + PPROD.map(function (o) { return '<label class="inl"><input type="radio" name="pf-product" value="' + o[0] + '"' + ((info.product || 'both') === o[0] ? ' checked' : '') + '> ' + L(o[1]) + '</label>'; }).join('') + '</div>'
       + PINFO.map(function (f) {
         var max = f[0] === 'facts' ? '' : ' maxlength="3000"';
         return '<div class="field"><label class="lbl" for="pf-' + f[0] + '">' + L(f[1]) + '</label><span class="muted" style="font-size:13px">' + L(f[2]) + '</span>'
@@ -635,7 +643,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     document.getElementById('pf-cancel').onclick = function () { projectInfo(id, p, false); };
     document.getElementById('pf').onsubmit = function (e) {
       e.preventDefault();
-      var next = { below: document.querySelector('input[name="pf-below"]:checked').value };
+      var next = { below: document.querySelector('input[name="pf-below"]:checked').value, product: document.querySelector('input[name="pf-product"]:checked').value };
       PINFO.forEach(function (f) { next[f[0]] = document.getElementById('pf-' + f[0]).value.trim(); });
       api('projects/' + id, { name: document.getElementById('pf-name').value.trim(), info: next }, 'PUT').then(function () { project(id); })
         .catch(function (er) { document.getElementById('pf-err').textContent = L(er.message || String(er)); });
@@ -647,11 +655,17 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     Promise.all([catalog(), editId ? api('jobs/' + editId) : null]).then(function (r) {
       var cat = r[0], ed = r[1] && r[1].job, prefilled = false;
       if (ed) pid = ed.project_id;
+      return api('projects/' + pid).then(function (pd) { return [cat, ed, ((pd.project || {}).info || {}).product || 'both']; });
+    }).then(function (r) {
+      var cat = r[0], ed = r[1], prod = r[2], prefilled = false;
+      // a project of one product: the job form offers only what fits it (brands, product variations, site types)
+      var FITS = { casino: ['casino'], sports: ['sports', 'live'] }[prod] || null;
       main.innerHTML = '<p><a href="' + (ed ? '#/j/' + ed.id : '#/p/' + pid) + '">← ' + (ed ? esc(ed.name) : L('Project')) + '</a></p><h2>' + (ed ? L('Edit job') : L('New job')) + '</h2>'
         + (ed ? '<p class="note">' + L('Saving rebuilds the job. Sites that stay (same type and number) keep their seed and style; extra sites are added, sites over the new count are deleted.') + '</p>' : '')
         + '<p class="muted">' + L('Each site gets its own seed, style, layouts, code style and implementation; the generator spreads them so sites differ.') + '</p>'
         + '<form id="jf" class="card"><div class="field"><label class="lbl" for="jname">' + L('Job name') + '</label><input type="text" id="jname" required maxlength="120" placeholder="' + L('e.g. Brazil casino network, wave 1') + '"></div>'
         + '<div class="field"><label class="lbl" for="jmarket">' + L('Market') + '</label><select id="jmarket">' + cat.markets.map(function (m) { return '<option value="' + m.id + '"' + (m.id === 'xx' ? ' selected' : '') + '>' + esc(L(m.name)) + ' (' + m.id.toUpperCase() + ')</option>'; }).join('') + '</select></div>'
+        + (FITS ? '<p class="note">' + L('This project is «{0}»: the form shows only what fits it. Change it in the project information.', L(PPROD.filter(function (o) { return o[0] === prod; })[0][1])) + '</p>' : '')
         + '<div class="field"><span class="lbl">' + L('Brands') + '</span><div id="brows" class="brows"></div><div class="row"><button type="button" id="addb">' + L('+ Add brand') + '</button></div>'
         + '<span class="muted" style="font-size:13px">' + esc(L('Your own brands. Single-brand sites are spread across them; casino reviews and news sites list all of them. Domain is optional (links use it); colour is used by the "brand colours" design. Logos are generated from the initials, other brand data (bonuses, reviews, ratings, games) is placeholder.')) + '</span></div>'
         + '<div class="field"><span class="lbl">' + L('Brand colours') + '</span><div class="colors">'
@@ -696,7 +710,8 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         r.querySelector('.bcol').value = b.color || '#4F46E5';
         r.querySelector('.bauto').checked = !b.color;
         r.querySelector('.bcol').disabled = !b.color;
-        r.querySelector('.bprod').value = b.products || 'both';
+        r.querySelector('.bprod').value = FITS ? prod : (b.products || 'both');
+        if (FITS) r.querySelector('.bprod').hidden = true;
         r.querySelector('.bauto').onchange = function () { r.querySelector('.bcol').disabled = this.checked; };
         r.querySelector('.bdel').onclick = function () { r.remove(); if (!document.querySelector('.brow')) document.getElementById('brows').appendChild(brandRow()); };
         return r;
@@ -725,11 +740,15 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         var keep = readTypes();
         document.getElementById('types').innerHTML = (checking ? '<p class="muted" id="tcheck" style="margin:0 0 8px">' + L('Checking the market rules… warnings appear here in a few seconds. You can fill in the form meanwhile.') + '</p>' : '')
           + '<div class="types" style="overflow-x:auto"><table><thead><tr><th>' + L('Type') + '</th><th>' + L('Sites') + '</th><th>' + L('Variations (tick one or more)') + '</th></tr></thead><tbody>'
-          + Object.keys(cat.types).filter(function (t) { return !cat.types[t].hidden || (ed && ed.spec.types[t]); }).map(function (t) {
+          + Object.keys(cat.types).filter(function (t) { return (!cat.types[t].hidden || (ed && ed.spec.types[t])) && !(FITS && cat.types[t].needs && cat.types[t].needs !== prod && !cat.types[t].axes.product); }).map(function (t) { // a type with a product choice (rankings) can be about either product
             var a = avail[t] || { ok: true, reason: null, options: {} }, T = cat.types[t], notes = [];
             var axes = Object.keys(T.axes).map(function (ax) {
               var blk = (a.options && a.options[ax]) || {};
-              return '<div class="axis"><b>' + esc(L(T.axes[ax].label)) + '</b>' + Object.keys(T.axes[ax].options).map(function (o, k) {
+              var opts = Object.keys(T.axes[ax].options).filter(function (o) { return !(FITS && ax === 'product' && FITS.indexOf(o) < 0); });
+              if (FITS && ax === 'product' && opts.length < 2) { // one product left: nothing to choose, it is ticked unseen
+                return opts.map(function (o) { return '<input type="checkbox" class="opt" hidden data-t="' + t + '" data-a="' + ax + '" value="' + o + '" checked>'; }).join('');
+              }
+              return '<div class="axis"><b>' + esc(L(T.axes[ax].label)) + '</b>' + opts.map(function (o, k) {
                 if (blk[o]) notes.push(L(T.axes[ax].options[o]) + ': ' + blk[o]);
                 return '<label' + (blk[o] ? ' class="blk" title="' + esc(blk[o]) + '"' : '') + '><input type="checkbox" class="opt" data-t="' + t + '" data-a="' + ax + '" value="' + o + '"' + (k === 0 ? ' checked' : '') + '> ' + esc(L(T.axes[ax].options[o])) + '</label>';
               }).join('') + (T.axes[ax].hint ? '<small class="muted" style="width:100%;font-size:12px">' + esc(L(T.axes[ax].hint)) + '</small>' : '') + '</div>';
@@ -753,6 +772,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         var why = bs.length ? L('Your brands do not offer this product') : '';
         [].forEach.call(document.querySelectorAll('.opt[data-a=product]'), function (o) {
           var ok = !bs.length || (needs[o.value] || []).every(function (n) { return offer[n]; }), lab = o.closest('label');
+          if (!lab) return; // the project's one product, ticked unseen
           o.disabled = !ok;
           if (!ok) o.checked = false;
           lab.classList.toggle('off', !ok);

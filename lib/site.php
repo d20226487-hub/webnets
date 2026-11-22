@@ -200,6 +200,7 @@ function sx_site_context(array $cfg, string $root): array
         'xray' => !empty($cfg['_xray']),        // builder preview: extra measurements for the X-ray panel
         'brands_list' => $cfg['brands'] ?? [],   // multi-brand sites: compared operators
         'featured' => $cfg['featured'] ?? null,  // multi-brand sites: one labelled paid slot
+        'promote' => !empty($cfg['promote']) && !empty($cfg['featured']), // the site promotes its featured brand: slot always shown, general CTAs go to it
         'look' => $cfg['look'] ?? null,
         'nav_style' => $cfg['nav_style'] ?? 'top', // multi-page: top menu, sidebar guide, or hub (no menu; the home page is the map)
         'nav_side' => ($cfg['nav_side'] ?? 'left') === 'right' ? 'right' : 'left', // sidebar guide: on the left or the right of the content

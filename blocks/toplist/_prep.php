@@ -10,7 +10,7 @@ if (!empty($props['exclude_current']) && ($here = sx_page_item())) {
 if ((int)$props['limit'] > 0) {
     $ids = array_slice($ids, 0, (int)$props['limit']);
 }
-$featured = !empty($props['show_featured']) ? (SX::$ctx['featured'] ?? null) : null;
+$featured = !empty($props['show_featured']) || !empty(SX::$ctx['promote']) ? (SX::$ctx['featured'] ?? null) : null; // a site that promotes its brand always shows the labelled slot
 $h = $props['heading'] === 'h1' ? 'h1' : 'h2';
 $kf = $crit ?: 'payouts';
 $c = fn($el) => cls('toplist', $el);

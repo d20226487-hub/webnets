@@ -265,7 +265,8 @@ try {
             gen_json(['error' => 'Give the project a name.'], 422);
             return;
         }
-        $db->prepare('INSERT INTO projects (name, created) VALUES (?, ?)')->execute([mb_substr($name, 0, 120), gen_now()]);
+        $db->prepare('INSERT INTO projects (name, created, info) VALUES (?, ?, ?)')->execute([mb_substr($name, 0, 120), gen_now(),
+            json_encode(gen_project_info(['product' => (string)(gen_body()['product'] ?? 'both')]), JSON_UNESCAPED_UNICODE)]);
         gen_json(['id' => (int)$db->lastInsertId()]);
     } elseif ($seg[0] === 'projects' && ($seg[2] ?? '') === 'files' && !isset($seg[3]) && $method === 'POST') { // upload a document as project information
         $b = gen_body();
@@ -351,7 +352,7 @@ try {
         gen_purge_deleted_jobs(); // its jobs' brands, articles and logs
         gen_json(['ok' => true]);
     } elseif ($path === 'jobs' && $method === 'POST') {
-        $b = gen_body();
+        $b = gen_project_product_fit(gen_body(), (int)(gen_body()['project_id'] ?? 0));
         [$name, $spec, $err] = gen_job_input($b);
         if ($err || empty($b['project_id'])) {
             gen_json(['error' => $err ?: 'No project.'], 422);
@@ -374,7 +375,9 @@ try {
             gen_json(['error' => 'The job is still building. Edit it when it is done.'], 409);
             return;
         }
-        [$name, $spec, $err] = gen_job_input(gen_body());
+        $pq = $db->prepare('SELECT project_id FROM jobs WHERE id = ?');
+        $pq->execute([(int)$seg[1]]);
+        [$name, $spec, $err] = gen_job_input(gen_project_product_fit(gen_body(), (int)$pq->fetchColumn()));
         if ($err) {
             gen_json(['error' => $err], 422);
             return;
@@ -508,6 +511,36 @@ try {
 }
 
 /** Name and spec from the job form. Returns [name, spec, error]. */
+/** A job form's input fitted to its project's product (casino or sports only): brands offer it, product variations
+ *  and site types that need the other product are dropped. A project for both leaves the input as it is. */
+function gen_project_product_fit(array $b, int $projectId): array
+{
+    $q = gen_db()->prepare('SELECT info FROM projects WHERE id = ?');
+    $q->execute([$projectId]);
+    $prod = gen_project_info(json_decode((string)$q->fetchColumn(), true) ?: [])['product'];
+    if ($prod === 'both') {
+        return $b;
+    }
+    foreach ((array)($b['brands'] ?? []) as $i => $br) {
+        if (is_array($br)) {
+            $b['brands'][$i]['products'] = $prod;
+        }
+    }
+    $fits = $prod === 'casino' ? ['casino'] : ['sports', 'live'];
+    $cat = gen_catalog_full();
+    foreach ((array)($b['types'] ?? []) as $t => $v) {
+        if (!empty($cat[$t]['needs']) && $cat[$t]['needs'] !== $prod && empty($cat[$t]['axes']['product'])) { // rankings pick their product instead
+            unset($b['types'][$t]);
+            continue;
+        }
+        if (isset($v['variations']['product'])) {
+            $keep = array_values(array_intersect((array)$v['variations']['product'], $fits));
+            $b['types'][$t]['variations']['product'] = $keep ?: [$prod];
+        }
+    }
+    return $b;
+}
+
 function gen_job_input(array $b): array
 {
     global $GEN_ROOT;

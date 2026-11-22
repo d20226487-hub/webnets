@@ -5,7 +5,7 @@
  */
 
 /** Project information fields: the AI briefs of the project's sites use them to write relevant text. */
-const GEN_PROJECT_INFO = ['about', 'audience', 'tone', 'facts', 'keywords', 'avoid', 'licence_regulator', 'licence_no', 'licence_short', 'below'];
+const GEN_PROJECT_INFO = ['about', 'audience', 'tone', 'facts', 'keywords', 'avoid', 'licence_regulator', 'licence_no', 'licence_short', 'below', 'product'];
 
 /** Project information as stored: known fields only, trimmed text (3000 characters at most, «facts» without limit); below is none, useful or every. */
 function gen_project_info($in): array
@@ -15,6 +15,7 @@ function gen_project_info($in): array
         $v = is_array($in) && is_string($in[$k] ?? null) ? trim(str_replace("\r", '', $in[$k])) : '';
         $out[$k] = $k === 'facts' ? $v : mb_substr($v, 0, 3000);
     }
+    $out['product'] = in_array($out['product'], ['casino', 'sports'], true) ? $out['product'] : 'both'; // what the project's sites are about
     $out['below'] = in_array($out['below'], ['useful', 'every'], true) ? $out['below'] : 'none';
     return $out;
 }
@@ -34,7 +35,7 @@ function gen_project_brief(array $info, string $docs = ''): string
         'avoid' => 'Avoid',
     ];
     $filled = array_filter(array_intersect_key($info, $fields), fn($v) => $v !== '');
-    if (!$filled && $info['below'] === 'none' && $docs === '') {
+    if (!$filled && $info['below'] === 'none' && $docs === '' && ($info['product'] ?? 'both') === 'both') {
         return '';
     }
     $L = ['## Project information', ''];
@@ -56,6 +57,9 @@ function gen_project_brief(array $info, string $docs = ''): string
                 $L[] = '  - ' . preg_replace('/^[-*•]\s*/u', '', $x);
             }
         }
+    }
+    if (($info['product'] ?? 'both') !== 'both') {
+        $L[] = '- Products: ' . ($info['product'] === 'casino' ? 'casino only (no sports betting)' : 'sports betting only (no casino)');
     }
     if ($docs !== '') {
         if (end($L) !== '') {
