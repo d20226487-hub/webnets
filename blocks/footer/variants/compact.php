@@ -3,9 +3,9 @@
   <div class="<?= cx('container', ['footer', 'inner']) ?>">
     <div class="<?= cls('footer', 'row') ?>">
       <?= sx_logo('mono') ?>
-      <ul class="<?= cls('footer', 'links') ?>">
+      <?php if ($legal): ?><ul class="<?= cls('footer', 'links') ?>">
         <?php foreach ($legal as $l): ?><li><a href="<?= sx_url($l['url']) ?>"><?= e($l['label']) ?></a></li><?php endforeach; ?>
-      </ul>
+      </ul><?php endif; ?>
     </div>
     <?php if ($siteNav): ?>
       <nav class="<?= cls('footer', 'site') ?>" aria-label="<?= e(sx_ctx('site')['name']) ?>">

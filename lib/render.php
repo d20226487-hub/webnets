@@ -57,9 +57,13 @@ function sx_ctx(?string $key = null)
     return $key === null ? SX::$ctx : (SX::$ctx[$key] ?? null);
 }
 
-/** The licence badge text: the site's own (config "licence".short), else the market's. */
+/** The licence badge text: the site's own (config "licence".short), else the market's. Sites that list several operators
+ *  (a publisher) name no licence: the badge says the operator is licensed. */
 function sx_licence_short(): string
 {
+    if (!empty(sx_ctx('brand')['publisher'])) {
+        return t('trust.licensed_any');
+    }
     return (string)((sx_ctx('licence')['short'] ?? '') ?: tm(sx_ctx('market')['compliance']['license_short']));
 }
 

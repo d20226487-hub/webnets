@@ -17,9 +17,9 @@
       <?php foreach ($payments as $p): ?><li><?= e($p) ?></li><?php endforeach; ?>
     </ul>
     <div class="<?= cls('footer', 'base') ?>">
-      <ul class="<?= cls('footer', 'links') ?>">
+      <?php if ($legal): ?><ul class="<?= cls('footer', 'links') ?>">
         <?php foreach ($legal as $l): ?><li><a href="<?= sx_url($l['url']) ?>"><?= e($l['label']) ?></a></li><?php endforeach; ?>
-      </ul>
+      </ul><?php endif; ?>
       <p class="<?= cls('footer', 'rights') ?>"><?= $rights ?></p>
     </div>
   </div>

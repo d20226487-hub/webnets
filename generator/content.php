@@ -190,7 +190,7 @@ function gen_content_system(array $cfg, array $info, string $projectPart, array 
 }
 
 /** One request: the fields of one group, and the "after" instruction. Returns the parsed answer. */
-function gen_content_request(string $system, array $group, string $below, array $cfg, array $pictures = []): array
+function gen_content_request(string $system, array $group, string $below, array $cfg, array $pictures = [], array $meta = []): array
 {
     [$label, $pid, $secs, $fields] = $group;
     $pics = array_intersect_key($pictures, $fields);
@@ -220,7 +220,7 @@ function gen_content_request(string $system, array $group, string $below, array 
     }
     $P[] = '';
     $P[] = 'Answer with JSON only, in this shape: {"fields": {"<path>": "<new text>", …every path above…}, "after": {"<section id>": "<html>"}}';
-    $r = gen_vertex_generate(implode("\n", $P), $system, true);
+    $r = gen_vertex_generate(implode("\n", $P), $system, true, 16384, null, $meta + ['kind' => 'text']);
     $json = trim($r['text']);
     if (preg_match('/```(?:json)?\s*(.*?)```/s', $json, $mm)) {
         $json = $mm[1];
@@ -293,7 +293,7 @@ function gen_content_site(array $site, string $below, string $projectPart, array
     $multi = !isset(gen_site_sections($site['type'])['']);
     $out = ['fields' => [], 'after' => [], 'model' => '', 'at' => gen_now(), 'tokens' => 0, 'skipped' => 0];
     foreach ($groups as $g) {
-        $a = gen_content_request($system, $g, $below, $cfg, $pictures);
+        $a = gen_content_request($system, $g, $below, $cfg, $pictures, ['project' => $job['project_id'] ?? null, 'job' => (int)$site['job_id'], 'site' => $site['id']]);
         foreach ($g[3] as $path => $old) {
             $new = gen_content_check($old, $a['fields'][$path] ?? null);
             $new = $new === null ? null : gen_content_brand($path, $new, $brand['name'] ?? '');
@@ -355,7 +355,7 @@ function gen_content_run(int $jobId): void
     $part = gen_project_brief(['below' => 'none'] + $info, $docs);
     $part = preg_replace('/\n### Text below sections.*$/s', '', $part); // below-section text is asked per request
     $set = $db->prepare('UPDATE sites SET content = ? WHERE id = ?');
-    $jq = $db->prepare('SELECT market, spec FROM jobs WHERE id = ?');
+    $jq = $db->prepare('SELECT market, spec, project_id FROM jobs WHERE id = ?');
     $jq->execute([$jobId]);
     $job = $jq->fetch() ?: [];
     $done = 0;

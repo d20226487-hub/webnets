@@ -173,6 +173,8 @@ try {
         } catch (InvalidArgumentException $e) {
             gen_json(['error' => $e->getMessage()], 422);
         }
+    } elseif ($path === 'vertex/prices' && $method === 'PUT') { // USD per 1M tokens per model; calls without a price get one
+        gen_json(['prices' => (object)gen_vertex_prices_save((array)(gen_body()['prices'] ?? [])), 'usage' => gen_usage_summary()]);
     } elseif ($path === 'vertex/test' && $method === 'POST') {
         try {
             gen_json(gen_vertex_test());
@@ -256,8 +258,11 @@ try {
     } elseif ($path === 'availability') {
         gen_json(gen_availability(preg_replace('/[^a-z]/', '', $_GET['market'] ?? 'xx')));
     } elseif ($path === 'projects' && $method === 'GET') {
+        gen_usage_table($db);
         gen_json($db->query('SELECT p.*, (SELECT COUNT(*) FROM jobs j WHERE j.project_id = p.id) AS jobs,
-            (SELECT COUNT(*) FROM sites s JOIN jobs j ON j.id = s.job_id WHERE j.project_id = p.id) AS sites FROM projects p ORDER BY p.id DESC')->fetchAll());
+            (SELECT COUNT(*) FROM sites s JOIN jobs j ON j.id = s.job_id WHERE j.project_id = p.id) AS sites,
+            (SELECT COALESCE(SUM(cost_usd), 0) FROM ai_usage u WHERE u.project_id = p.id) AS ai_cost,
+            (SELECT COUNT(*) FROM ai_usage u WHERE u.project_id = p.id) AS ai_calls FROM projects p ORDER BY p.id DESC')->fetchAll());
     } elseif ($path === 'projects' && $method === 'POST') {
         $name = trim(gen_body()['name'] ?? '');
         if ($name === '') {
@@ -300,7 +305,7 @@ try {
         $j = $db->prepare('SELECT j.id, j.name, j.market, j.status, j.compare, j.created, j.outdated, (SELECT COUNT(*) FROM sites s WHERE s.job_id = j.id) AS sites,
             (SELECT COUNT(*) FROM sites s WHERE s.job_id = j.id AND s.status = \'built\') AS built FROM jobs j WHERE j.project_id = ? ORDER BY j.id DESC');
         $j->execute([$project['id']]);
-        gen_json(['project' => $project, 'jobs' => $j->fetchAll(), 'files' => gen_pfiles_list($db, (int)$project['id'])]);
+        gen_json(['project' => $project, 'jobs' => $j->fetchAll(), 'files' => gen_pfiles_list($db, (int)$project['id']), 'usage' => gen_usage_summary('project_id = ' . (int)$project['id'])]);
     } elseif ($seg[0] === 'projects' && isset($seg[1]) && $method === 'PUT') { // rename the project, edit its information for the AI briefs
         $b = gen_body();
         $name = trim((string)($b['name'] ?? ''));
@@ -397,6 +402,7 @@ try {
         $job['spec'] = json_decode($job['spec'], true);
         unset($job['log']);
         $job['facts_left'] = gen_bfacts_unconfirmed($db, (int)$job['id']); // brand facts still example data: {brand name: [labels]}
+        $job['usage'] = gen_usage_summary('job_id = ' . (int)$job['id']); // Vertex AI calls and their cost
         gen_json(['job' => $job, 'types' => array_map(fn($t) => $t['label'], $cat), 'sites' => array_map(fn($s) => gen_site_row($s, $cat), $rows->fetchAll())]);
     } elseif ($seg[0] === 'jobs' && ($seg[2] ?? '') === 'diff') {
         // worked out in the background (seconds to a minute on a big network); the page asks again until it is ready

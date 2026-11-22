@@ -13,11 +13,11 @@
           </ul>
         </nav>
       <?php endif; ?>
-      <nav aria-label="<?= e(t('footer.rg')) ?>">
+      <?php if ($legal): ?><nav aria-label="<?= e(t('footer.rg')) ?>">
         <ul class="<?= cls('footer', 'links') ?>">
           <?php foreach ($legal as $l): ?><li><a href="<?= sx_url($l['url']) ?>"><?= e($l['label']) ?></a></li><?php endforeach; ?>
         </ul>
-      </nav>
+      </nav><?php endif; ?>
       <div>
         <p class="<?= cls('eyebrow') ?>"><?= e(t('footer.payments')) ?></p>
         <ul class="<?= cls('footer', 'pay') ?>">

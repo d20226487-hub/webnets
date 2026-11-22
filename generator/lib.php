@@ -713,7 +713,10 @@ function gen_site_config(string $type, string $market, ?string $brand, array $ch
     foreach (array_keys($cfg['links']['brands'] ?? []) as $b) {
         $cfg['links']['brands'][$b] = 'https://' . $host($b) . "/join?src=$id";
     }
-    $cfg['site']['name'] = gen_site_name($type, $brand && isset($cfg['brand']) ? ($ops[$brand]['name'] ?? $brand) : ($cfg['publisher'] ?? ''), $id);
+    // the name visitors see (footer copyright, structured data): the brand, or on multi-brand sites the publisher;
+    // the generator's working label («BoostWin Hub 1») stays in the generator
+    $pubName = !empty($cfg['publisher']) ? (sx_brand_data($GEN_ROOT, 'publishers.json')[$cfg['publisher']]['name'] ?? null) : null;
+    $cfg['site']['name'] = $brand && isset($cfg['brand']) ? ($ops[$brand]['name'] ?? $brand) : ($pubName ?? $cfg['site']['name'] ?? gen_site_name($type, '', $id));
     $cfg['site']['url'] = "https://$id.example";
     if ($preset) {
         $cfg['preset'] = $preset;
@@ -829,6 +832,7 @@ function gen_hero_combos(string $type, array $cfg, string $market): array
     return $out;
 }
 
+/** The generator's working label for a site (brand + type + number), for lists; not shown on the site itself. */
 function gen_site_name(string $type, string $brand, string $id): string
 {
     $n = (int)substr($id, strrpos($id, '-') + 1);
@@ -1188,7 +1192,9 @@ function gen_site_full_config(array $site, string $market, array $brands = [], b
     $cfg = gen_apply_edits($cfg, $site['type'], gen_site_edits($spec, $site['type'], $plan)); // the user's edits (type, then site) go on top of the plan
     require_once __DIR__ . '/brandfacts.php';
     $lic = gen_project_licence(gen_db(), (int)$site['job_id']);
-    if ($lic['regulator'] !== '' || $lic['short'] !== '' || $lic['no'] !== '') { // the project's licence replaces the market's wording (lib/site.php "licence")
+    // the project's licence replaces the market's wording (lib/site.php "licence") on the brand's own sites; sites that list
+    // several operators (rankings, reviews, news) name no single licence
+    if (empty($cfg['publisher']) && ($lic['regulator'] !== '' || $lic['short'] !== '' || $lic['no'] !== '')) {
         // no badge text given: the market's («Лицензия РК») would name the wrong licence, so the badge shows who issued it (or the number)
         $short = $lic['short'] !== '' ? $lic['short'] : ($lic['regulator'] !== '' ? $lic['regulator'] : $lic['no']);
         $cfg['licence'] = array_filter(['regulator' => $lic['regulator'], 'short' => $short], 'strlen');

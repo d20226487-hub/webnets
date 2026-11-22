@@ -264,6 +264,12 @@
     "kk": "Пікірлер: {n}",
     "pt": "{n} avaliações"
   },
+  "trust.licensed_any": {
+    "en": "Licensed operator",
+    "ru": "Лицензированный оператор",
+    "kk": "Лицензиясы бар оператор",
+    "pt": "Operador licenciado"
+  },
   "trust.licensed": {
     "en": "Licensed",
     "ru": "Лицензия",
@@ -1001,9 +1007,19 @@
     "ru": "Бонусы на этом рынке не оцениваются: его правила их ограничивают."
   },
   "casinos.licence_line": {
-    "en": "We only list operators licensed by {regulator}.",
-    "pt": "Listamos apenas operadores autorizados pela {regulator}.",
-    "ru": "Мы показываем только операторов с лицензией {regulator}."
+    "en": "We only list licensed casinos.",
+    "pt": "Listamos apenas cassinos licenciados.",
+    "ru": "Мы показываем только лицензированные казино."
+  },
+  "casinos.licence_line@sports": {
+    "en": "We only list licensed betting sites.",
+    "pt": "Listamos apenas casas de apostas licenciadas.",
+    "ru": "Мы показываем только лицензированных букмекеров."
+  },
+  "casinos.licence_line@both": {
+    "en": "We only list licensed casinos and betting sites.",
+    "pt": "Listamos apenas cassinos e casas de apostas licenciados.",
+    "ru": "Мы показываем только лицензированные казино и букмекеров."
   },
   "casinos.pros": {
     "en": "Strengths",

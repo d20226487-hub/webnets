@@ -255,7 +255,8 @@ function gen_bfacts_fill(PDO $db, int $jobId, string $brandId): array
         . " Years as 4 digits, minutes and megabytes as whole numbers, dates as YYYY-MM-DD, lists as comma-separated text, taglines in the language named in the key."
         . " For each value found, quote the words it comes from.\n\nAnswer with JSON only: {\"facts\": {\"<key>\": <value or null>}, \"quotes\": {\"<key>\": \"<quoted words>\"}}\n\n"
         . "---\n\n$source";
-    $r = gen_vertex_generate($prompt, 'You extract facts from documents exactly as stated. You never invent or infer values.', true, 4096);
+    $r = gen_vertex_generate($prompt, 'You extract facts from documents exactly as stated. You never invent or infer values.', true, 4096, null,
+        ['project' => (int)$p['id'] ?: null, 'job' => $jobId, 'kind' => 'facts']);
     $json = trim($r['text']);
     if (preg_match('/```(?:json)?\s*(.*?)```/s', $json, $mm)) {
         $json = $mm[1];

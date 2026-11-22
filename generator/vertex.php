@@ -25,7 +25,8 @@ function gen_vertex_public(): array
     $sa = json_decode($s['sa_json'], true) ?: [];
     return ['mode' => $s['mode'], 'api_key_set' => $s['api_key'] !== '', 'api_key_end' => $s['api_key'] !== '' ? substr($s['api_key'], -4) : '',
         'sa_set' => $s['sa_json'] !== '', 'sa_email' => $sa['client_email'] ?? '', 'project_id' => $s['project_id'], 'location' => $s['location'],
-        'claude_location' => $s['claude_location'], 'model' => $s['model'], 'models' => GEN_VERTEX_MODELS, 'ready' => gen_vertex_ready($s)];
+        'claude_location' => $s['claude_location'], 'model' => $s['model'], 'models' => GEN_VERTEX_MODELS, 'ready' => gen_vertex_ready($s),
+        'prices' => (object)gen_vertex_prices(), 'used_models' => gen_usage_models(), 'usage' => gen_usage_summary()];
 }
 
 function gen_vertex_ready(array $s): bool
@@ -133,7 +134,7 @@ function gen_http_post(string $url, string $body, array $headers, int $timeout =
  * One generation: the model's text reply. $json asks Gemini for a JSON reply (Claude is told so in the prompt).
  * Retries rate limits and server errors (honouring Retry-After) up to 3 times. Returns ['text', 'model', 'tokens'].
  */
-function gen_vertex_generate(string $prompt, string $system = '', bool $json = false, int $maxTokens = 16384, ?array $s = null): array
+function gen_vertex_generate(string $prompt, string $system = '', bool $json = false, int $maxTokens = 16384, ?array $s = null, array $meta = []): array
 {
     $s ??= gen_vertex_settings();
     if (!gen_vertex_ready($s)) {
@@ -176,13 +177,23 @@ function gen_vertex_generate(string $prompt, string $system = '', bool $json = f
     }
     if ($claude) {
         $text = implode('', array_map(fn($b) => ($b['type'] ?? '') === 'text' ? $b['text'] : '', $r['content'] ?? []));
-        $tokens = ($r['usage']['input_tokens'] ?? 0) + ($r['usage']['output_tokens'] ?? 0);
+        $in = (int)($r['usage']['input_tokens'] ?? 0);
+        $outTok = (int)($r['usage']['output_tokens'] ?? 0);
         $cut = ($r['stop_reason'] ?? '') === 'max_tokens';
     } else {
         $c = $r['candidates'][0] ?? [];
         $text = implode('', array_map(fn($p) => $p['text'] ?? '', $c['content']['parts'] ?? []));
-        $tokens = (int)($r['usageMetadata']['totalTokenCount'] ?? 0);
+        $u = $r['usageMetadata'] ?? [];
+        $in = (int)($u['promptTokenCount'] ?? 0);
+        $outTok = (int)($u['candidatesTokenCount'] ?? 0) + (int)($u['thoughtsTokenCount'] ?? 0); // thinking is billed as output
+        if (!$in && !$outTok && !empty($u['totalTokenCount'])) {
+            $in = (int)$u['totalTokenCount'];
+        }
         $cut = ($c['finishReason'] ?? '') === 'MAX_TOKENS';
+    }
+    $tokens = $in + $outTok;
+    gen_usage_record($meta, $model, $in, $outTok); // billed even when the answer is unusable below
+    if (!$claude) {
         if ($text === '' && !empty($c['finishReason'])) {
             throw new RuntimeException("Vertex AI ($model) returned no text (finish reason {$c['finishReason']}).");
         }
@@ -190,13 +201,101 @@ function gen_vertex_generate(string $prompt, string $system = '', bool $json = f
     if ($cut) {
         throw new RuntimeException("Vertex AI ($model): the reply was cut off at the token limit.");
     }
-    return ['text' => $text, 'model' => $model, 'tokens' => $tokens];
+    return ['text' => $text, 'model' => $model, 'tokens' => $tokens, 'input' => $in, 'output' => $outTok];
+}
+
+/* ---------------------------------------------------------------- usage and cost (as in ACM: one row per call, priced when made) */
+
+function gen_usage_table(PDO $db): void
+{
+    $db->exec('CREATE TABLE IF NOT EXISTS ai_usage (id INTEGER PRIMARY KEY AUTOINCREMENT, at TEXT NOT NULL, project_id INTEGER, job_id INTEGER,
+        site_id TEXT, kind TEXT NOT NULL, model TEXT NOT NULL, input_tokens INTEGER NOT NULL, output_tokens INTEGER NOT NULL, cost_usd REAL)');
+    $db->exec('CREATE INDEX IF NOT EXISTS ai_usage_job ON ai_usage (job_id)');
+    $db->exec('CREATE INDEX IF NOT EXISTS ai_usage_project ON ai_usage (project_id)');
+}
+
+/** Prices per model: [model => ['in' => USD per 1M input tokens, 'out' => per 1M output tokens]], set in Settings → Vertex AI. */
+function gen_vertex_prices(): array
+{
+    $q = gen_db()->query("SELECT value FROM settings WHERE key = 'vertex_prices'");
+    $v = json_decode((string)$q->fetchColumn(), true);
+    return is_array($v) ? $v : [];
+}
+
+/** The cost of a call in USD, or null when the model has no price. */
+function gen_usage_cost(string $model, int $in, int $out, ?array $prices = null): ?float
+{
+    $p = ($prices ?? gen_vertex_prices())[$model] ?? null;
+    if (!$p || (!isset($p['in']) && !isset($p['out']))) {
+        return null;
+    }
+    return round($in / 1e6 * (float)($p['in'] ?? 0) + $out / 1e6 * (float)($p['out'] ?? 0), 6);
+}
+
+/** One call: $meta = [project, job, site, kind] (kind: text | facts | test). */
+function gen_usage_record(array $meta, string $model, int $in, int $out): void
+{
+    try {
+        $db = gen_db();
+        gen_usage_table($db);
+        $db->prepare('INSERT INTO ai_usage (at, project_id, job_id, site_id, kind, model, input_tokens, output_tokens, cost_usd) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)')
+            ->execute([gen_now(), $meta['project'] ?? null, $meta['job'] ?? null, $meta['site'] ?? null, $meta['kind'] ?? 'text', $model, $in, $out, gen_usage_cost($model, $in, $out)]);
+    } catch (Throwable $e) {
+        error_log('ai usage: ' . $e->getMessage()); // counting must never stop the work it counts
+    }
+}
+
+/** The models that have calls, for the price table. */
+function gen_usage_models(): array
+{
+    $db = gen_db();
+    gen_usage_table($db);
+    return array_column($db->query('SELECT DISTINCT model FROM ai_usage ORDER BY model')->fetchAll(), 'model');
+}
+
+/** Saves the prices; calls made without a price get one now (calls already priced keep theirs). */
+function gen_vertex_prices_save(array $in): array
+{
+    $out = [];
+    foreach ($in as $model => $p) {
+        $model = preg_replace('/[^\w.@-]/', '', (string)$model);
+        $i = is_numeric($p['in'] ?? null) ? max(0, (float)$p['in']) : null;
+        $o = is_numeric($p['out'] ?? null) ? max(0, (float)$p['out']) : null;
+        if ($model !== '' && ($i !== null || $o !== null)) {
+            $out[$model] = array_filter(['in' => $i, 'out' => $o], fn($x) => $x !== null);
+        }
+    }
+    $db = gen_db();
+    $db->prepare('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)')->execute(['vertex_prices', json_encode($out)]);
+    gen_usage_table($db);
+    $set = $db->prepare('UPDATE ai_usage SET cost_usd = ? WHERE id = ?');
+    foreach ($db->query('SELECT id, model, input_tokens, output_tokens FROM ai_usage WHERE cost_usd IS NULL')->fetchAll() as $u) {
+        $c = gen_usage_cost($u['model'], (int)$u['input_tokens'], (int)$u['output_tokens'], $out);
+        if ($c !== null) {
+            $set->execute([$c, $u['id']]);
+        }
+    }
+    return $out;
+}
+
+/** Totals of the calls matching $where (e.g. 'job_id = 46'): calls, tokens, cost, calls without a price, per kind and per job. */
+function gen_usage_summary(string $where = '1'): array
+{
+    $db = gen_db();
+    gen_usage_table($db);
+    $t = $db->query("SELECT COUNT(*) AS calls, COALESCE(SUM(input_tokens), 0) AS input, COALESCE(SUM(output_tokens), 0) AS output,
+        COALESCE(SUM(cost_usd), 0) AS cost, COALESCE(SUM(cost_usd IS NULL), 0) AS unpriced FROM ai_usage WHERE $where")->fetch();
+    $by = fn(string $col) => $db->query("SELECT $col AS k, COUNT(*) AS calls, SUM(input_tokens) + SUM(output_tokens) AS tokens, COALESCE(SUM(cost_usd), 0) AS cost
+        FROM ai_usage WHERE $where GROUP BY $col ORDER BY cost DESC, tokens DESC")->fetchAll();
+    return ['calls' => (int)$t['calls'], 'input' => (int)$t['input'], 'output' => (int)$t['output'], 'cost' => round((float)$t['cost'], 6),
+        'unpriced' => (int)$t['unpriced'], 'by_kind' => $by('kind'), 'by_job' => $by('job_id'),
+        'unpriced_models' => array_column($db->query("SELECT DISTINCT model FROM ai_usage WHERE ($where) AND cost_usd IS NULL")->fetchAll(), 'model')];
 }
 
 /** Connection test: a tiny request with the saved settings. */
 function gen_vertex_test(): array
 {
     $t0 = microtime(true);
-    $r = gen_vertex_generate('Reply with the single word OK.', '', false, 256);
+    $r = gen_vertex_generate('Reply with the single word OK.', '', false, 256, null, ['kind' => 'test']);
     return ['ok' => true, 'model' => $r['model'], 'reply' => mb_substr(trim($r['text']), 0, 80), 'ms' => (int)round((microtime(true) - $t0) * 1000)];
 }

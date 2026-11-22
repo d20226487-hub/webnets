@@ -8,11 +8,12 @@ $site = sx_ctx('site');
 $payments = array_map('sx_payment_name', $market['payments']);
 
 $pages = sx_pages();
-// Only links to something that exists: the responsible-gambling page, else the panel in this footer. Terms, privacy and
-// contact link only to pages the site has (none of the blueprints has them yet).
-$legal = array_merge($props['links'] ?? [], [
-    ['label' => t('footer.rg'), 'url' => isset($pages['responsible']) ? sx_page_url('responsible') : '#responsible-gambling'],
-], array_values(array_filter(array_map(fn($k) => isset($pages[$k]) ? ['label' => t("footer.$k"), 'url' => sx_page_url($k)] : null, ['terms', 'privacy', 'contact']))));
+// Only links to something that exists: the responsible-gambling page when the site has one (without it the panel is
+// right below in this footer, so a link to it would only jump a few lines). Terms, privacy and contact link only to
+// pages the site has (none of the blueprints has them yet).
+$legal = array_merge($props['links'] ?? [], isset($pages['responsible']) ? [
+    ['label' => t('footer.rg'), 'url' => sx_page_url('responsible')],
+] : [], array_values(array_filter(array_map(fn($k) => isset($pages[$k]) ? ['label' => t("footer.$k"), 'url' => sx_page_url($k)] : null, ['terms', 'privacy', 'contact']))));
 
 $about = $props['about'] ?: tm($brand['tagline']);
 // compliance inside the footer: panel or cards, per site (seed; pin with "variants": {"compliance": "cards"})
