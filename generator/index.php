@@ -52,6 +52,7 @@ input[type=text],input[type=number],select{font:14px system-ui,sans-serif;paddin
 .pfiles{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}.pflist{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:6px}.pflist li{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px}.pflist .muted{font-size:13px}.pflist button{padding:4px 10px;font-size:13px}#pf-msg{margin-top:6px;font-size:13px}
 .stabs{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 18px;border-bottom:1px solid var(--line)}.stabs a{padding:8px 14px;color:var(--muted);text-decoration:none;font-weight:600;border-bottom:2px solid transparent;margin-bottom:-1px}.stabs a:hover{color:var(--text)}.stabs a[aria-current]{color:var(--accent);border-bottom-color:var(--accent)}
 .bfacts{margin:14px 0}.bfgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:4px 18px}.bfgrid .field{margin-bottom:12px}.bfstate{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}.bfq{font-size:12px}.bffound input{border-color:var(--ok)}.linkish{border:0;background:none;padding:0;color:var(--accent);font-weight:600;font-size:13px;cursor:pointer}.bf-msg.ok{color:var(--ok)}
+.vlgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0 16px}.vlgrid input[type=number]{width:100%}
 .usage{margin:8px 0;font-size:14px}.usage .warnx{color:var(--warn)}.pusage{margin:0 0 22px}.utable{width:100%;border-collapse:collapse;font-size:14px}.utable th,.utable td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
 .seo{margin:14px 0}.seorow{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}.seorow .acts button{padding:4px 10px;font-size:13px}.seonote{margin:6px 0 0;font-size:13px;white-space:pre-wrap}#v-msg.ok{color:var(--ok)}#v-msg.err{color:var(--bad)}#vf .inl{display:flex}
 .pout{margin:0 0 22px}.poutlist{display:grid;gap:6px;margin:10px 0}.poutlist .inl{display:flex}
@@ -163,7 +164,10 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     'The licence number shown on every site of the project (brand facts can give a brand its own). Empty: the brand\'s.': 'Номер лицензии на всех сайтах проекта (в фактах бренда можно задать бренду свой). Пусто — номер бренда.',
     'The short label in trust badges and app info, e.g. «Лицензия Кюрасао». Empty: «Licence issued by» above (or the number; without any project licence, the market\'s «Лицензия РК»).': 'Короткая подпись в значках доверия и данных приложения, например «Лицензия Кюрасао». Пусто — «Кем выдана лицензия» выше (или номер; а если лицензия проекта не задана — значок рынка «Лицензия РК»).',
     'The licence changed. These jobs\u2019 sites still show the previous one:': 'Лицензия изменилась. На сайтах этих заданий пока прежняя:',
-    'Update the data': 'Обновить данные', '{0} requests': 'запросов: {0}', '{0} tokens in, {1} out': 'токенов: {0} на входе, {1} на выходе',
+    'Update the data': 'Обновить данные', 'Limits': 'Лимиты', 'Requests per minute': 'Запросов в минуту', 'Max parallel requests': 'Макс. параллельных запросов',
+    'Batch size (sites)': 'Размер пакета (сайтов)', 'Delay between requests (ms)': 'Задержка между запросами (мс)', 'Max retries': 'Максимум повторов', 'Base retry delay (ms)': 'Базовая задержка отката (мс)',
+    'Random retry spread (ms)': 'Случайный разброс отката (мс)', 'Honour the Retry-After header': 'Учитывать заголовок Retry-After',
+    'How the text step sends requests to Vertex AI. Lower them if Google answers «too many requests» (an API key has small quotas); raise them for a service account with larger quotas.': 'Как шаг текстов отправляет запросы в Vertex AI. Уменьшите, если Google отвечает «слишком много запросов» (у API-ключа небольшие квоты); увеличьте для сервисного аккаунта с большими квотами.', '{0} requests': 'запросов: {0}', '{0} tokens in, {1} out': 'токенов: {0} на входе, {1} на выходе',
     '{0} requests without a price ({1}):': 'без цены запросов: {0} ({1}) —', 'set the price': 'задать цену', 'site text': 'тексты сайтов', 'brand facts': 'факты бренда', 'connection test': 'проверка подключения',
     'Vertex AI cost': 'Расходы Vertex AI', 'Job': 'Задание', 'Requests': 'Запросы', 'Tokens': 'Токены', 'Cost': 'Стоимость', 'Project (no job)': 'Проект (без задания)', 'Deleted job {0}': 'Удалённое задание {0}',
     'Prices': 'Цены', 'Input, $ / 1M': 'Вход, $ за 1 млн', 'Output, $ / 1M': 'Выход, $ за 1 млн', 'used': 'используется', 'Save prices': 'Сохранить цены',
@@ -1049,6 +1053,14 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         + '<div class="field"><label class="lbl" for="v-cloc">' + L('Region for Claude models') + '</label><span class="muted" style="font-size:13px">' + L('Only if Claude runs in another region (e.g. us-east5). Empty = the region above.') + '</span><input type="text" id="v-cloc" value="' + esc(v.claude_location) + '"></div></div>'
         + '<div class="field"><label class="lbl" for="v-model">' + L('Model') + '</label><span class="muted" style="font-size:13px">' + L('A Gemini model id, or a Claude model id (service account only). Pick one or type another.') + '</span><input type="text" id="v-model" list="v-models" value="' + esc(v.model) + '"><datalist id="v-models">' + v.models.map(function (m) { return '<option value="' + esc(m) + '">'; }).join('') + '</datalist></div>'
         + '<div class="row"><button class="primary" type="submit">' + L('Save') + '</button><button type="button" id="v-test"' + (v.ready ? '' : ' disabled') + '>' + L('Test the connection') + '</button><span id="v-msg" role="status"></span></div></form>'
+        + '<form id="vl" class="card mform" style="max-width:760px;margin-top:18px"><h3 style="margin-top:0">' + L('Limits') + '</h3>'
+        + '<p class="muted" style="margin-top:0;font-size:14px">' + L('How the text step sends requests to Vertex AI. Lower them if Google answers «too many requests» (an API key has small quotas); raise them for a service account with larger quotas.') + '</p>'
+        + '<div class="vlgrid">' + [['rpm', 'Requests per minute'], ['concurrency', 'Max parallel requests'], ['batch', 'Batch size (sites)'], ['delay_ms', 'Delay between requests (ms)'],
+          ['retries', 'Max retries'], ['backoff_ms', 'Base retry delay (ms)'], ['jitter_ms', 'Random retry spread (ms)']].map(function (f) {
+          return '<label class="field"><span class="lbl">' + L(f[1]) + '</span><input type="number" min="0" step="1" id="vl-' + f[0] + '" value="' + v.limits[f[0]] + '" placeholder="' + v.limits_default[f[0]] + '"></label>';
+        }).join('')
+        + '<label class="inl" style="align-self:end;margin-bottom:12px"><input type="checkbox" id="vl-retry_after"' + (v.limits.retry_after ? ' checked' : '') + '> ' + L('Honour the Retry-After header') + '</label></div>'
+        + '<div class="row"><button class="primary" type="submit">' + L('Save') + '</button><span id="vl-msg" role="status"></span></div></form>'
         + '<form id="vp" class="card mform" style="max-width:760px;margin-top:18px"><h3 style="margin-top:0">' + L('Prices') + '</h3>'
         + '<p class="muted" style="margin-top:0;font-size:14px">' + L('USD per 1 million tokens, from the Vertex AI price list of your Google Cloud account. A request\u2019s cost is worked out when it is made; requests made before a price was set get it when you save.') + '</p>'
         + usageLine(v.usage, true)
@@ -1077,6 +1089,13 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
           project_id: g('v-proj'), location: g('v-loc'), claude_location: g('v-cloc'), model: g('v-model') }, 'PUT')
           .then(function () { vertexPage(); setTimeout(function () { var m = document.getElementById('v-msg'); if (m) { m.className = 'ok'; m.textContent = L('Saved.'); } }, 300); })
           .catch(function (x) { say(L(x.message || String(x)), 'err'); });
+      };
+      document.getElementById('vl').onsubmit = function (e) {
+        e.preventDefault();
+        var body = { retry_after: document.getElementById('vl-retry_after').checked };
+        ['rpm', 'concurrency', 'batch', 'delay_ms', 'retries', 'backoff_ms', 'jitter_ms'].forEach(function (k) { var x = document.getElementById('vl-' + k).value; body[k] = x === '' ? v.limits_default[k] : +x; });
+        api('vertex/limits', body, 'PUT').then(function () { vertexPage(); setTimeout(function () { var m = document.getElementById('vl-msg'); if (m) { m.className = 'ok'; m.textContent = L('Saved.'); } }, 300); })
+          .catch(function (x) { var m = document.getElementById('vl-msg'); m.className = 'err'; m.textContent = L(x.message || String(x)); });
       };
       document.getElementById('vp').onsubmit = function (e) {
         e.preventDefault();

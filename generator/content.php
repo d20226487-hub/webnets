@@ -121,6 +121,7 @@ function gen_content_groups(array $cfg, string $type): array
             }
         }
     }
+    $skip[] = 'content/header/note'; // the header's licence note comes from the licence settings, not from the writer
     $fields = gen_copy_fields($cfg, $skip);
     $groups = [];
     foreach ($pages as $pid => $secs) {
@@ -179,8 +180,9 @@ function gen_content_system(array $cfg, array $info, string $projectPart, array 
     $L[] = '- HTML in a field: keep exactly the same tags in the same structure, change only the text between them.';
     $L[] = '- Keep every {placeholder} in braces (for example {item}) exactly as it is.';
     $L[] = $bname !== ''
-        ? "- In every visible text (headings, buttons, body text, FAQ) write the brand exactly as «{$bname}». Other spellings, transliterations or lower-case forms from the search phrases (for example «" . mb_strtolower($bname) . '») may appear only in the page title and meta description, once each at most. Do not add other brands, links or URLs.'
+        ? "- In every visible text (headings, buttons, body text, FAQ) write the brand exactly as {$bname}, without quotation marks around it. Other spellings, transliterations or lower-case forms from the search phrases (for example " . mb_strtolower($bname) . ') may appear only in the page title and meta description, once each at most. Do not add other brands, links or URLs.'
         : '- Brand and product names stay as written. Do not add brands, links or URLs.';
+    $L[] = '- Disclosures stay as clear as in the current text: when a text says the site earns a commission, is paid, or that something is advertising or a partner offer, the new text says so just as plainly (for example «we earn a commission when you sign up through our links»). Never soften or drop it.';
     $L[] = '- A text next to a picture (a screenshot caption, a card beside a screen) describes what that picture shows; the request says what each one shows.';
     $L[] = '- No absolute or guaranteed claims: never call anything absolutely, completely or 100% safe, guaranteed, risk-free or certain, and never promise wins, fixed payout times or bonuses. Say what is true instead (for example: the file comes from the official site; Android asks for permission to install it).';
     $L[] = '- Facts: do not state amounts, times, percentages, odds, licences or awards unless they are in the project information, its documents or the current text. When unsure, write without the number.';
@@ -189,8 +191,8 @@ function gen_content_system(array $cfg, array $info, string $projectPart, array 
     return implode("\n", $L);
 }
 
-/** One request: the fields of one group, and the "after" instruction. Returns the parsed answer. */
-function gen_content_request(string $system, array $group, string $below, array $cfg, array $pictures = [], array $meta = []): array
+/** The request for one group: the prompt, and the sections that may get text below them. */
+function gen_content_prompt(array $group, string $below, array $pictures = []): array
 {
     [$label, $pid, $secs, $fields] = $group;
     $pics = array_intersect_key($pictures, $fields);
@@ -220,7 +222,13 @@ function gen_content_request(string $system, array $group, string $below, array 
     }
     $P[] = '';
     $P[] = 'Answer with JSON only, in this shape: {"fields": {"<path>": "<new text>", …every path above…}, "after": {"<section id>": "<html>"}}';
-    $r = gen_vertex_generate(implode("\n", $P), $system, true, 16384, null, $meta + ['kind' => 'text']);
+    return [implode("\n", $P), $afterOk];
+}
+
+/** A model reply for one group, read: the fields and texts below sections asked for. */
+function gen_content_answer(array $r, array $group, array $afterOk): array
+{
+    [$label, $pid] = $group;
     $json = trim($r['text']);
     if (preg_match('/```(?:json)?\s*(.*?)```/s', $json, $mm)) {
         $json = $mm[1];
@@ -232,13 +240,19 @@ function gen_content_request(string $system, array $group, string $below, array 
     return ['fields' => $a['fields'], 'after' => is_array($a['after'] ?? null) ? array_intersect_key($a['after'], array_flip($afterOk)) : [], 'pid' => $pid, 'tokens' => $r['tokens'], 'model' => $r['model']];
 }
 
-/** The brand written as the brand in a visible text (not the page title or description): "boostwin" → "BoostWin". */
+/** The brand written plain everywhere («BoostWin» → BoostWin), and as the brand in visible text, not the page title or
+ *  description, where search spellings may stay: "boostwin" → "BoostWin". */
 function gen_content_brand(string $path, string $text, string $brand): string
 {
-    if ($brand === '' || preg_match('#^(page|meta/[^/]+)/(title|description)$#', $path)) {
+    if ($brand === '') {
         return $text;
     }
-    return preg_replace('/(?<![\p{L}\p{N}])' . preg_quote($brand, '/') . '(?![\p{L}\p{N}])/iu', $brand, $text);
+    $q = preg_quote($brand, '/');
+    $text = preg_replace('/[«"„“]\s*(' . $q . ')\s*[»"“”]/iu', '$1', $text);
+    if (preg_match('#^(page|meta/[^/]+)/(title|description)$#', $path)) {
+        return $text;
+    }
+    return preg_replace('/(?<![\p{L}\p{N}])' . $q . '(?![\p{L}\p{N}])/iu', $brand, $text);
 }
 
 /** An answer's text for a field, or null when it breaks the field (tags, placeholders, length). */
@@ -276,8 +290,8 @@ function gen_content_after($html): string
     return mb_strlen(strip_tags($html)) >= 40 ? trim($html) : '';
 }
 
-/** Writes one site's copy. Returns the plan's "ai" entry. */
-function gen_content_site(array $site, string $below, string $projectPart, array $info, array $job = []): array
+/** One site's requests: its groups, prompts and context. Throws when the site cannot be written. */
+function gen_content_prepare(array $site, string $below, string $projectPart, array $info, array $job = []): array
 {
     global $GEN_ROOT;
     if ($site['status'] !== 'built') {
@@ -289,14 +303,28 @@ function gen_content_site(array $site, string $below, string $projectPart, array
     $brand = $site['brand'] ? (sx_brand_data($GEN_ROOT, 'operators.json')[$site['brand']] ?? []) : [];
     $system = gen_content_system($cfg, $info, $projectPart, $brand);
     $pictures = gen_content_pictures($cfg, $brand['verticals'] ?? []);
-    $groups = gen_content_groups($cfg, $site['type']);
-    $multi = !isset(gen_site_sections($site['type'])['']);
+    $meta = ['project' => $job['project_id'] ?? null, 'job' => (int)$site['job_id'], 'site' => $site['id'], 'kind' => 'text'];
+    $req = [];
+    foreach (gen_content_groups($cfg, $site['type']) as $g) {
+        [$prompt, $afterOk] = gen_content_prompt($g, $below, $pictures);
+        $req[] = ['group' => $g, 'after' => $afterOk, 'call' => ['prompt' => $prompt, 'system' => $system, 'json' => true, 'max' => 16384, 'meta' => $meta]];
+    }
+    return ['brand' => $brand['name'] ?? '', 'multi' => !isset(gen_site_sections($site['type'])['']), 'req' => $req];
+}
+
+/** One site's "ai" entry from the replies to its requests ($replies: [i => result | Throwable]). Throws when one failed. */
+function gen_content_assemble(array $prep, array $replies): array
+{
     $out = ['fields' => [], 'after' => [], 'model' => '', 'at' => gen_now(), 'tokens' => 0, 'skipped' => 0];
-    foreach ($groups as $g) {
-        $a = gen_content_request($system, $g, $below, $cfg, $pictures, ['project' => $job['project_id'] ?? null, 'job' => (int)$site['job_id'], 'site' => $site['id']]);
-        foreach ($g[3] as $path => $old) {
+    foreach ($prep['req'] as $i => $q) {
+        $r = $replies[$i] ?? new RuntimeException('No reply from Vertex AI.');
+        if ($r instanceof Throwable) {
+            throw $r;
+        }
+        $a = gen_content_answer($r, $q['group'], $q['after']);
+        foreach ($q['group'][3] as $path => $old) {
             $new = gen_content_check($old, $a['fields'][$path] ?? null);
-            $new = $new === null ? null : gen_content_brand($path, $new, $brand['name'] ?? '');
+            $new = $new === null ? null : gen_content_brand($path, $new, $prep['brand']);
             if ($new === null) {
                 $out['skipped']++;
             } elseif ($new !== $old) {
@@ -305,7 +333,7 @@ function gen_content_site(array $site, string $below, string $projectPart, array
         }
         foreach ($a['after'] as $sid => $html) {
             if (($h = gen_content_after($html)) !== '') {
-                if ($multi && $a['pid'] !== null) {
+                if ($prep['multi'] && $a['pid'] !== null) {
                     $out['after'][$a['pid']][$sid] = $h;
                 } else {
                     $out['after'][$sid] = $h;
@@ -343,6 +371,57 @@ function gen_apply_ai(array $cfg, array $ai): array
 }
 
 /** The content run of a job (generator/contentjob.php): every site queued for it, then a rebuild of those that got text. */
+/** A database write that waits out a busy database (a build or the difference tables writing at the same moment). */
+function gen_db_write(PDOStatement $st, array $args): void
+{
+    for ($try = 1; ; $try++) {
+        try {
+            $st->execute($args);
+            return;
+        } catch (PDOException $e) {
+            if ($try >= 6 || !str_contains($e->getMessage(), 'locked') && !str_contains($e->getMessage(), 'busy')) {
+                throw $e;
+            }
+            sleep(2 * $try);
+        }
+    }
+}
+
+/** The text step's lock file of a job: held while its run is writing. */
+function gen_content_lock(int $jobId): string
+{
+    return sys_get_temp_dir() . "/satellite-generator-content-$jobId.lock";
+}
+
+/** Starts the text step of a job in the background (it exits at once when a run of that job is already writing). */
+function gen_content_spawn(int $jobId): void
+{
+    global $GEN_ROOT;
+    gen_mkdir("$GEN_ROOT/data/logs");
+    $cmd = gen_php_cmd() . ' ' . escapeshellarg(__DIR__ . '/contentjob.php') . ' ' . $jobId . ' >> ' . escapeshellarg("$GEN_ROOT/data/logs/content-$jobId.log") . ' 2>&1';
+    if (PHP_OS_FAMILY === 'Windows') {
+        pclose(popen('start "" /B cmd /c "' . $cmd . '"', 'r'));
+    } else {
+        exec($cmd . ' &');
+    }
+}
+
+/** Sites of a job waiting for text while no run is writing (a run that died): start one. Called when the job page loads. */
+function gen_content_heal(PDO $db, int $jobId): void
+{
+    $q = $db->prepare("SELECT COUNT(*) FROM sites WHERE job_id = ? AND json_extract(content, '$.state') IN ('queued', 'writing')");
+    $q->execute([$jobId]);
+    if (!(int)$q->fetchColumn()) {
+        return;
+    }
+    $h = @fopen(gen_content_lock($jobId), 'c');
+    if ($h && flock($h, LOCK_EX | LOCK_NB)) { // nobody holds it: no run is alive
+        flock($h, LOCK_UN);
+        fclose($h);
+        gen_content_spawn($jobId);
+    }
+}
+
 function gen_content_run(int $jobId): void
 {
     $db = gen_db();
@@ -355,31 +434,68 @@ function gen_content_run(int $jobId): void
     $part = gen_project_brief(['below' => 'none'] + $info, $docs);
     $part = preg_replace('/\n### Text below sections.*$/s', '', $part); // below-section text is asked per request
     $set = $db->prepare('UPDATE sites SET content = ? WHERE id = ?');
+    // sites left "writing" by a run that died are this run's now (one run per job: it holds the job's lock)
+    gen_db_write($db->prepare("UPDATE sites SET content = json_set(content, '$.state', 'queued') WHERE job_id = ? AND json_extract(content, '$.state') = 'writing'"), [$jobId]);
     $jq = $db->prepare('SELECT market, spec, project_id FROM jobs WHERE id = ?');
     $jq->execute([$jobId]);
     $job = $jq->fetch() ?: [];
-    $done = 0;
-    while (true) {
-        $s = $db->prepare("SELECT * FROM sites WHERE job_id = ? AND json_extract(content, '$.state') = 'queued' ORDER BY type, n LIMIT 1");
+    $lim = gen_vertex_limits();
+    $fail = function (string $id, Throwable $e) use ($set): bool { // one site's failure is that site's: the run goes on
+        try {
+            gen_db_write($set, [json_encode(['state' => 'error', 'at' => gen_now(), 'error' => $e->getMessage()]), $id]);
+            return true;
+        } catch (Throwable $e2) {
+            fwrite(STDERR, date('c') . " $id: " . $e->getMessage() . ' / ' . $e2->getMessage() . "\n");
+            return false; // the database will not take writes: the job page starts a new run later
+        }
+    };
+    while (true) { // a batch of sites at a time («batch size»); all their page requests go out together, within the limits
+        $s = $db->prepare("SELECT * FROM sites WHERE job_id = ? AND json_extract(content, '$.state') = 'queued' ORDER BY type, n LIMIT " . (int)$lim['batch']);
         $s->execute([$jobId]);
-        $site = $s->fetch();
-        if (!$site) {
+        $batch = $s->fetchAll();
+        if (!$batch) {
             break;
         }
-        $set->execute([json_encode(['state' => 'writing', 'at' => gen_now()]), $site['id']]);
-        try {
-            $ai = gen_content_site($site, $info['below'], $part, $info, $job);
-            $plan = json_decode($site['plan'], true) ?: [];
-            $plan['ai'] = $ai;
-            $db->prepare("UPDATE sites SET plan = ?, status = 'refresh', error = NULL WHERE id = ?")->execute([json_encode($plan, JSON_UNESCAPED_UNICODE), $site['id']]); // new text, same design: a quick refresh
-            $set->execute([json_encode(['state' => 'done', 'at' => gen_now(), 'fields' => count($ai['fields']), 'after' => count(array_filter($ai['after'], 'is_string')) + array_sum(array_map(fn($x) => is_array($x) ? count($x) : 0, $ai['after'])), 'skipped' => $ai['skipped'], 'model' => $ai['model'], 'tokens' => $ai['tokens']]), $site['id']]);
-            $done++;
-        } catch (Throwable $e) {
-            $set->execute([json_encode(['state' => 'error', 'at' => gen_now(), 'error' => $e->getMessage()]), $site['id']]);
+        $preps = $calls = [];
+        foreach ($batch as $site) {
+            gen_db_write($set, [json_encode(['state' => 'writing', 'at' => gen_now()]), $site['id']]);
+            try {
+                $preps[$site['id']] = gen_content_prepare($site, $info['below'], $part, $info, $job);
+                foreach ($preps[$site['id']]['req'] as $n => $q) {
+                    $calls[$site['id'] . '#' . $n] = $q['call'];
+                }
+            } catch (Throwable $e) {
+                if (!$fail($site['id'], $e)) {
+                    return;
+                }
+            }
         }
-    }
-    if ($done) { // the worker refreshes them (one job at a time, as every build)
-        $db->prepare("UPDATE jobs SET status = 'planned' WHERE id = ?")->execute([$jobId]);
-        gen_spawn($jobId);
+        $replies = $calls ? gen_vertex_many($calls, null, $lim) : [];
+        $done = 0;
+        foreach ($batch as $site) {
+            if (!isset($preps[$site['id']])) {
+                continue;
+            }
+            try {
+                $mine = [];
+                foreach ($preps[$site['id']]['req'] as $n => $q) {
+                    $mine[$n] = $replies[$site['id'] . '#' . $n] ?? null;
+                }
+                $ai = gen_content_assemble($preps[$site['id']], $mine);
+                $plan = json_decode($site['plan'], true) ?: [];
+                $plan['ai'] = $ai;
+                gen_db_write($db->prepare("UPDATE sites SET plan = ?, status = 'refresh', error = NULL WHERE id = ?"), [json_encode($plan, JSON_UNESCAPED_UNICODE), $site['id']]); // new text, same design: a quick refresh
+                gen_db_write($set, [json_encode(['state' => 'done', 'at' => gen_now(), 'fields' => count($ai['fields']), 'after' => count(array_filter($ai['after'], 'is_string')) + array_sum(array_map(fn($x) => is_array($x) ? count($x) : 0, $ai['after'])), 'skipped' => $ai['skipped'], 'model' => $ai['model'], 'tokens' => $ai['tokens']]), $site['id']]);
+                $done++;
+            } catch (Throwable $e) {
+                if (!$fail($site['id'], $e)) {
+                    return;
+                }
+            }
+        }
+        if ($done) { // the worker refreshes this batch while the next one is written (one job at a time, as every build)
+            gen_db_write($db->prepare("UPDATE jobs SET status = 'planned' WHERE id = ? AND status NOT IN ('running', 'checking')"), [$jobId]);
+            gen_spawn($jobId);
+        }
     }
 }

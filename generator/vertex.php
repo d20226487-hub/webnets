@@ -26,7 +26,8 @@ function gen_vertex_public(): array
     return ['mode' => $s['mode'], 'api_key_set' => $s['api_key'] !== '', 'api_key_end' => $s['api_key'] !== '' ? substr($s['api_key'], -4) : '',
         'sa_set' => $s['sa_json'] !== '', 'sa_email' => $sa['client_email'] ?? '', 'project_id' => $s['project_id'], 'location' => $s['location'],
         'claude_location' => $s['claude_location'], 'model' => $s['model'], 'models' => GEN_VERTEX_MODELS, 'ready' => gen_vertex_ready($s),
-        'prices' => (object)gen_vertex_prices(), 'used_models' => gen_usage_models(), 'usage' => gen_usage_summary()];
+        'prices' => (object)gen_vertex_prices(), 'used_models' => gen_usage_models(), 'usage' => gen_usage_summary(),
+        'limits' => gen_vertex_limits(), 'limits_default' => GEN_VERTEX_LIMITS];
 }
 
 function gen_vertex_ready(array $s): bool
@@ -130,13 +131,28 @@ function gen_http_post(string $url, string $body, array $headers, int $timeout =
     return [$code, (string)$out, $h];
 }
 
-/**
- * One generation: the model's text reply. $json asks Gemini for a JSON reply (Claude is told so in the prompt).
- * Retries rate limits and server errors (honouring Retry-After) up to 3 times. Returns ['text', 'model', 'tokens'].
- */
-function gen_vertex_generate(string $prompt, string $system = '', bool $json = false, int $maxTokens = 16384, ?array $s = null, array $meta = []): array
+/** Request limits for the text step, as in ACM (Settings → Vertex AI → Limits). */
+const GEN_VERTEX_LIMITS = ['rpm' => 60, 'concurrency' => 4, 'batch' => 10, 'delay_ms' => 0, 'retries' => 3, 'backoff_ms' => 1000, 'jitter_ms' => 250, 'retry_after' => true];
+
+function gen_vertex_limits(): array
 {
-    $s ??= gen_vertex_settings();
+    $q = gen_db()->query("SELECT value FROM settings WHERE key = 'vertex_limits'");
+    $v = json_decode((string)$q->fetchColumn(), true);
+    return (is_array($v) ? array_intersect_key($v, GEN_VERTEX_LIMITS) : []) + GEN_VERTEX_LIMITS;
+}
+
+function gen_vertex_limits_save(array $in): array
+{
+    $int = fn($k, $min, $max) => max($min, min($max, (int)($in[$k] ?? GEN_VERTEX_LIMITS[$k])));
+    $v = ['rpm' => $int('rpm', 1, 6000), 'concurrency' => $int('concurrency', 1, 32), 'batch' => $int('batch', 1, 200), 'delay_ms' => $int('delay_ms', 0, 600000),
+        'retries' => $int('retries', 0, 10), 'backoff_ms' => $int('backoff_ms', 0, 600000), 'jitter_ms' => $int('jitter_ms', 0, 60000), 'retry_after' => !empty($in['retry_after'])];
+    gen_db()->prepare('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)')->execute(['vertex_limits', json_encode($v)]);
+    return $v;
+}
+
+/** Everything about a request except the access token: url, body, model, whether it is Claude. */
+function gen_vertex_prepare(string $prompt, string $system, bool $json, int $maxTokens, array $s): array
+{
     if (!gen_vertex_ready($s)) {
         throw new RuntimeException('Vertex AI is not connected. Add an API key or a service account in Settings → Vertex AI.');
     }
@@ -146,7 +162,6 @@ function gen_vertex_generate(string $prompt, string $system = '', bool $json = f
         throw new RuntimeException("Vertex AI: $model is a Claude model, which needs a service account (an API key reaches Gemini models only).");
     }
     if ($s['mode'] === 'sa') {
-        $sa = json_decode($s['sa_json'], true);
         $loc = $claude && $s['claude_location'] !== '' ? $s['claude_location'] : $s['location'];
         $url = 'https://' . gen_vertex_host($loc) . "/v1/projects/{$s['project_id']}/locations/$loc/publishers/" . ($claude ? "anthropic/models/$model:rawPredict" : "google/models/$model:generateContent");
     } else {
@@ -158,28 +173,24 @@ function gen_vertex_generate(string $prompt, string $system = '', bool $json = f
         $body = ['contents' => [['role' => 'user', 'parts' => [['text' => $prompt]]]], 'generationConfig' => ['maxOutputTokens' => $maxTokens, 'temperature' => 0.7] + ($json ? ['responseMimeType' => 'application/json'] : [])]
             + ($system !== '' ? ['systemInstruction' => ['parts' => [['text' => $system]]]] : []);
     }
-    for ($try = 1; ; $try++) {
-        $headers = ['Content-Type: application/json'];
-        if ($s['mode'] === 'sa') {
-            $headers[] = 'Authorization: Bearer ' . gen_vertex_token($sa);
-        }
-        [$code, $out, $h] = gen_http_post($url, json_encode($body, JSON_UNESCAPED_UNICODE), $headers);
-        if (($code === 429 || $code >= 500) && $try < 4) {
-            sleep(min(60, max((int)($h['retry-after'] ?? 0), 5 * $try)));
-            continue;
-        }
-        break;
-    }
+    return ['url' => $url, 'body' => json_encode($body, JSON_UNESCAPED_UNICODE), 'model' => $model, 'claude' => $claude];
+}
+
+/** A finished response as the result, recording its usage; throws for an error or an unusable answer. */
+function gen_vertex_parse(int $code, string $out, array $prep, array $meta): array
+{
+    $model = $prep['model'];
     $r = json_decode($out, true);
     if ($code >= 400 || !is_array($r)) {
         $msg = $r['error']['message'] ?? $r[0]['error']['message'] ?? mb_substr(trim(strip_tags($out)), 0, 300);
         throw new RuntimeException("Vertex AI ($model) answered HTTP $code: $msg");
     }
-    if ($claude) {
+    if ($prep['claude']) {
         $text = implode('', array_map(fn($b) => ($b['type'] ?? '') === 'text' ? $b['text'] : '', $r['content'] ?? []));
         $in = (int)($r['usage']['input_tokens'] ?? 0);
         $outTok = (int)($r['usage']['output_tokens'] ?? 0);
         $cut = ($r['stop_reason'] ?? '') === 'max_tokens';
+        $finish = '';
     } else {
         $c = $r['candidates'][0] ?? [];
         $text = implode('', array_map(fn($p) => $p['text'] ?? '', $c['content']['parts'] ?? []));
@@ -190,18 +201,129 @@ function gen_vertex_generate(string $prompt, string $system = '', bool $json = f
             $in = (int)$u['totalTokenCount'];
         }
         $cut = ($c['finishReason'] ?? '') === 'MAX_TOKENS';
+        $finish = (string)($c['finishReason'] ?? '');
     }
-    $tokens = $in + $outTok;
     gen_usage_record($meta, $model, $in, $outTok); // billed even when the answer is unusable below
-    if (!$claude) {
-        if ($text === '' && !empty($c['finishReason'])) {
-            throw new RuntimeException("Vertex AI ($model) returned no text (finish reason {$c['finishReason']}).");
-        }
+    if ($text === '' && $finish !== '') {
+        throw new RuntimeException("Vertex AI ($model) returned no text (finish reason $finish).");
     }
     if ($cut) {
         throw new RuntimeException("Vertex AI ($model): the reply was cut off at the token limit.");
     }
-    return ['text' => $text, 'model' => $model, 'tokens' => $tokens, 'input' => $in, 'output' => $outTok];
+    return ['text' => $text, 'model' => $model, 'tokens' => $in + $outTok, 'input' => $in, 'output' => $outTok];
+}
+
+/**
+ * Several generations at once, within the limits (Settings → Vertex AI → Limits): at most «concurrency» requests in
+ * flight, starts spaced by the requests-per-minute rate and the delay, and a rate limit (429), a server error (5xx)
+ * or a network error retried up to «retries» times after backoff × 2^(try−1) plus a random spread (or the server's
+ * Retry-After). $calls: [key => ['prompt', 'system', 'json', 'max', 'meta']]. Returns [key => result array | Throwable].
+ */
+function gen_vertex_many(array $calls, ?array $s = null, ?array $lim = null): array
+{
+    $s ??= gen_vertex_settings();
+    $lim ??= gen_vertex_limits();
+    $results = [];
+    $queue = [];
+    foreach ($calls as $key => $c) {
+        try {
+            $queue[] = ['key' => $key, 'prep' => gen_vertex_prepare($c['prompt'], $c['system'] ?? '', !empty($c['json']), (int)($c['max'] ?? 16384), $s), 'meta' => $c['meta'] ?? [], 'try' => 1, 'at' => 0.0];
+        } catch (Throwable $e) {
+            $results[$key] = $e;
+        }
+    }
+    $gap = max(60.0 / max(1, $lim['rpm']), $lim['delay_ms'] / 1000); // seconds between two starts
+    $sa = $s['mode'] === 'sa' ? json_decode($s['sa_json'], true) : null;
+    $mh = curl_multi_init();
+    $live = [];
+    $lastStart = 0.0;
+    while ($queue || $live) {
+        $now = microtime(true);
+        foreach ($queue as $i => $q) { // start what the limits allow
+            if (count($live) >= $lim['concurrency'] || $now - $lastStart < $gap) {
+                break;
+            }
+            if ($q['at'] > $now) {
+                continue;
+            }
+            unset($queue[$i]);
+            $headers = ['Content-Type: application/json'];
+            try {
+                if ($sa) {
+                    $headers[] = 'Authorization: Bearer ' . gen_vertex_token($sa);
+                }
+            } catch (Throwable $e) {
+                $results[$q['key']] = $e;
+                continue;
+            }
+            $hdr = [];
+            $ch = curl_init($q['prep']['url']);
+            curl_setopt_array($ch, [CURLOPT_POST => true, CURLOPT_POSTFIELDS => $q['prep']['body'], CURLOPT_HTTPHEADER => $headers, CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_TIMEOUT => 300, CURLOPT_CONNECTTIMEOUT => 15]);
+            $q['hdr'] = new ArrayObject();
+            $box = $q['hdr'];
+            curl_setopt($ch, CURLOPT_HEADERFUNCTION, function ($c, $line) use ($box) {
+                if (str_contains($line, ':')) {
+                    [$k, $v] = explode(':', $line, 2);
+                    $box[strtolower(trim($k))] = trim($v);
+                }
+                return strlen($line);
+            });
+            curl_multi_add_handle($mh, $ch);
+            $live[spl_object_id($ch)] = ['ch' => $ch] + $q;
+            $lastStart = $now = microtime(true);
+        }
+        $queue = array_values($queue);
+        if ($live) {
+            curl_multi_exec($mh, $running);
+            curl_multi_select($mh, 0.2);
+            curl_multi_exec($mh, $running);
+            while ($info = curl_multi_info_read($mh)) {
+                $ch = $info['handle'];
+                $q = $live[spl_object_id($ch)];
+                unset($live[spl_object_id($ch)]);
+                $code = (int)curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+                $out = (string)curl_multi_getcontent($ch);
+                $err = $info['result'] !== CURLE_OK ? curl_error($ch) : '';
+                curl_multi_remove_handle($mh, $ch);
+                curl_close($ch);
+                $retryable = $err !== '' || $code === 429 || $code >= 500;
+                if ($retryable && $q['try'] <= $lim['retries']) {
+                    $wait = $lim['backoff_ms'] / 1000 * 2 ** ($q['try'] - 1) + mt_rand(0, max(0, $lim['jitter_ms'])) / 1000;
+                    $ra = $q['hdr']['retry-after'] ?? null;
+                    if ($lim['retry_after'] && $ra !== null && is_numeric($ra)) {
+                        $wait = max($wait, (float)$ra);
+                    }
+                    $queue[] = ['try' => $q['try'] + 1, 'at' => microtime(true) + min(300, $wait)] + $q;
+                    continue;
+                }
+                try {
+                    if ($err !== '') {
+                        throw new RuntimeException("Vertex AI: network error ($err).");
+                    }
+                    $results[$q['key']] = gen_vertex_parse($code, $out, $q['prep'], $q['meta']);
+                } catch (Throwable $e) {
+                    $results[$q['key']] = $e;
+                }
+            }
+        } elseif ($queue) { // nothing in flight: wait for the next start the limits allow
+            $next = min(array_column($queue, 'at'));
+            $wait = max($next - microtime(true), $lastStart + $gap - microtime(true), 0.05);
+            usleep((int)(min($wait, 5) * 1e6));
+        }
+    }
+    curl_multi_close($mh);
+    return $results;
+}
+
+/** One generation: the model's text reply ($json asks Gemini for JSON). Within the same limits and retries as gen_vertex_many(). */
+function gen_vertex_generate(string $prompt, string $system = '', bool $json = false, int $maxTokens = 16384, ?array $s = null, array $meta = []): array
+{
+    $r = gen_vertex_many(['one' => ['prompt' => $prompt, 'system' => $system, 'json' => $json, 'max' => $maxTokens, 'meta' => $meta]], $s)['one'];
+    if ($r instanceof Throwable) {
+        throw $r;
+    }
+    return $r;
 }
 
 /* ---------------------------------------------------------------- usage and cost (as in ACM: one row per call, priced when made) */

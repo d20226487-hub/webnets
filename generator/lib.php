@@ -204,8 +204,8 @@ function gen_db(): PDO
     $db = new PDO('sqlite:' . $file);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-    $db->setAttribute(PDO::ATTR_TIMEOUT, 15);
-    $db->exec('PRAGMA busy_timeout = 15000');
+    $db->setAttribute(PDO::ATTR_TIMEOUT, 30);
+    $db->exec('PRAGMA busy_timeout = 30000'); // a build, the text step and the difference tables can write at the same moment
     // WAL lets the page read while the worker writes, but needs shared memory, which a host folder mounted into Docker
     // does not give reliably: on Docker's own disk (SX_GEN_DB) WAL, in data/ the rollback journal
     $mode = getenv('SX_GEN_DB') ? 'wal' : 'delete';

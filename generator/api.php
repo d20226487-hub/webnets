@@ -173,6 +173,8 @@ try {
         } catch (InvalidArgumentException $e) {
             gen_json(['error' => $e->getMessage()], 422);
         }
+    } elseif ($path === 'vertex/limits' && $method === 'PUT') { // request limits for the text step (as in ACM)
+        gen_json(['limits' => gen_vertex_limits_save(gen_body())]);
     } elseif ($path === 'vertex/prices' && $method === 'PUT') { // USD per 1M tokens per model; calls without a price get one
         gen_json(['prices' => (object)gen_vertex_prices_save((array)(gen_body()['prices'] ?? [])), 'usage' => gen_usage_summary()]);
     } elseif ($path === 'vertex/test' && $method === 'POST') {
@@ -233,13 +235,7 @@ try {
         foreach ($todo as $id) {
             $set->execute([json_encode(['state' => 'queued', 'at' => gen_now()]), $id]);
         }
-        gen_mkdir("$GEN_ROOT/data/logs");
-        $cmd = gen_php_cmd() . ' ' . escapeshellarg(__DIR__ . '/contentjob.php') . ' ' . (int)$seg[1] . ' >> ' . escapeshellarg("$GEN_ROOT/data/logs/content-" . (int)$seg[1] . '.log') . ' 2>&1';
-        if (PHP_OS_FAMILY === 'Windows') {
-            pclose(popen('start "" /B cmd /c "' . $cmd . '"', 'r'));
-        } else {
-            exec($cmd . ' &');
-        }
+        gen_content_spawn((int)$seg[1]);
         gen_json(['ok' => true, 'sites' => count($todo)]);
     } elseif ($seg[0] === 'sites' && ($seg[2] ?? '') === 'ai' && $method === 'DELETE') { // back to the template's text
         $q = $db->prepare('SELECT job_id, plan FROM sites WHERE id = ?');
@@ -403,6 +399,7 @@ try {
         unset($job['log']);
         $job['facts_left'] = gen_bfacts_unconfirmed($db, (int)$job['id']); // brand facts still example data: {brand name: [labels]}
         $job['usage'] = gen_usage_summary('job_id = ' . (int)$job['id']); // Vertex AI calls and their cost
+        gen_content_heal($db, (int)$job['id']); // a text run that died: start it again
         gen_json(['job' => $job, 'types' => array_map(fn($t) => $t['label'], $cat), 'sites' => array_map(fn($s) => gen_site_row($s, $cat), $rows->fetchAll())]);
     } elseif ($seg[0] === 'jobs' && ($seg[2] ?? '') === 'diff') {
         // worked out in the background (seconds to a minute on a big network); the page asks again until it is ready
