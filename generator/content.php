@@ -32,7 +32,7 @@ function gen_content_columns(PDO $db): void
     $cols = array_column($db->query('PRAGMA table_info(sites)')->fetchAll(), 'name');
     foreach (['seo', 'content'] as $c) {
         if (!in_array($c, $cols, true)) {
-            $db->exec("ALTER TABLE sites ADD COLUMN $c TEXT");
+            gen_db_add_column($db, "ALTER TABLE sites ADD COLUMN $c TEXT");
         }
     }
 }

@@ -174,6 +174,19 @@ function gen_option_label(string $axis, string $o, string $fallback): string
 
 /* ---------------------------------------------------------------- database */
 
+/** Adds a column, once: two requests opening the database after an update both find it missing, and the second one's
+ *  ALTER then fails with «duplicate column name»; that one finds it added and goes on. */
+function gen_db_add_column(PDO $db, string $sql): void
+{
+    try {
+        $db->exec($sql);
+    } catch (PDOException $e) {
+        if (!str_contains($e->getMessage(), 'duplicate column')) {
+            throw $e;
+        }
+    }
+}
+
 /** mkdir -p that also works through a link whose target is gone: in Docker /app/data links to the project's data/
  *  on the host, which is not in git, so a fresh clone or a git clean removes it while the container runs. */
 function gen_mkdir(string $d): bool
@@ -222,16 +235,16 @@ function gen_db(): PDO
         warnings TEXT DEFAULT \'[]\', error TEXT, pages INTEGER DEFAULT 0, mobile TEXT, checks TEXT, created TEXT NOT NULL, fingerprint TEXT, visual TEXT)');
     $db->exec('CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL)');
     if (!in_array('compare', array_column($db->query('PRAGMA table_info(jobs)')->fetchAll(), 'name'), true)) { // 0 = a draft: other jobs are not compared with it
-        $db->exec('ALTER TABLE jobs ADD COLUMN compare INTEGER NOT NULL DEFAULT 1');
+        gen_db_add_column($db, 'ALTER TABLE jobs ADD COLUMN compare INTEGER NOT NULL DEFAULT 1');
     }
     if (!in_array('info', array_column($db->query('PRAGMA table_info(projects)')->fetchAll(), 'name'), true)) { // project information for the AI briefs (JSON)
-        $db->exec("ALTER TABLE projects ADD COLUMN info TEXT NOT NULL DEFAULT '{}'");
+        gen_db_add_column($db, "ALTER TABLE projects ADD COLUMN info TEXT NOT NULL DEFAULT '{}'");
     }
     if (!in_array('outdated', array_column($db->query('PRAGMA table_info(jobs)')->fetchAll(), 'name'), true)) { // 1: the project's licence changed since the job's sites were built
-        $db->exec('ALTER TABLE jobs ADD COLUMN outdated INTEGER NOT NULL DEFAULT 0');
+        gen_db_add_column($db, 'ALTER TABLE jobs ADD COLUMN outdated INTEGER NOT NULL DEFAULT 0');
     }
     if (!in_array('queued_at', array_column($db->query('PRAGMA table_info(jobs)')->fetchAll(), 'name'), true)) { // when the job joined the worker queue
-        $db->exec('ALTER TABLE jobs ADD COLUMN queued_at TEXT');
+        gen_db_add_column($db, 'ALTER TABLE jobs ADD COLUMN queued_at TEXT');
     }
     $cols = array_column($db->query('PRAGMA table_info(sites)')->fetchAll(), 'name');
     if (!in_array('checks', $cols, true) || array_search('fingerprint', $cols, true) < array_search('checks', $cols, true)) {
