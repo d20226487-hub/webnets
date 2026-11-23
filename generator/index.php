@@ -67,7 +67,7 @@ form .field{display:grid;gap:6px;margin-bottom:16px}form label.lbl{font-weight:6
 table{border-collapse:collapse;width:100%}th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}th{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
 .types td{padding:10px}.wn{display:block;margin-top:4px;padding:6px 8px;border-radius:8px;background:var(--warnbg);color:var(--warn);font-size:12px;max-width:300px}
 .axis label.blk{color:var(--warn)}.axis label.off{opacity:.45;text-decoration:line-through;cursor:not-allowed}.axis label.blk::after{content:"⚠";font-size:12px}
-.brows{display:grid;gap:8px}.jlrows{display:grid;gap:8px;margin:6px 0 8px}.jlrow{flex-wrap:nowrap}.jlrow select{flex:1;min-width:0}.brow{display:grid;grid-template-columns:minmax(140px,1.4fr) minmax(140px,1.4fr) auto minmax(120px,1fr) auto;gap:8px;align-items:center}
+.brows{display:grid;gap:8px}.jlrows{display:grid;gap:8px;margin:6px 0 8px}.jlrow{flex-wrap:nowrap}.jlrow .jlq{flex:1;min-width:0}.jlq.bad{border-color:#e5484d}.brow{display:grid;grid-template-columns:minmax(140px,1.4fr) minmax(140px,1.4fr) auto minmax(120px,1fr) auto;gap:8px;align-items:center}
 .brow .cl{display:inline-flex;align-items:center;gap:6px;font-size:13px;white-space:nowrap}
 @media (max-width:720px){.types table,.types tbody,.types tr,.types td{display:block;width:auto}.types thead{display:none}.types tr{border-top:1px solid var(--line);padding:6px 0}.types td{padding:6px 4px}.wn{max-width:none}}
 @media (max-width:720px){.brow{grid-template-columns:1fr 1fr;padding:10px;border:1px solid var(--line);border-radius:10px}.brow input[type=text]{grid-column:1/-1}}.axis{display:flex;flex-wrap:wrap;gap:6px 14px;margin:2px 0 6px}.axis b{font-size:12px;color:var(--muted);font-weight:600;width:100%}
@@ -176,7 +176,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     'Number of free spins': 'Количество фриспинов', 'Wagering (×)': 'Вейджер (×)', 'Min deposit': 'Мин. депозит', 'Max bet': 'Макс. ставка', 'Min odds': 'Мин. коэффициент', 'Days to use it': 'Дней на использование',
     'Valid until': 'Действует до', 'Conditions (who can claim, main terms)': 'Условия (кто может получить, главные условия)', 'Type': 'Тип', 'Value': 'Размер',
     'The project has no information or documents to read the offers from. Fill in «Project information» or upload a document first.': 'В проекте нет информации или документов, из которых можно взять акции. Сначала заполните «Информацию о проекте» или загрузите документ.', 'Minimum deposit (in the market currency)': 'Минимальный депозит (в валюте рынка)', 'Fastest withdrawal, minutes': 'Самый быстрый вывод, минут', 'Payment methods (comma separated)': 'Способы оплаты (через запятую)',
-    'Tagline': 'Слоган', 'Also rewrite the sites that have AI text ({0})': 'Переписать и сайты с текстом ИИ ({0})', 'Also translate the translated sites again ({0})': 'Перевести заново и переведённые сайты ({0})',
+    'Tagline': 'Слоган', 'Type a language or market…': 'Начните вводить язык или рынок…', 'Also rewrite the sites that have AI text ({0})': 'Переписать и сайты с текстом ИИ ({0})', 'Also translate the translated sites again ({0})': 'Перевести заново и переведённые сайты ({0})',
     'Every approved site already has AI text. Tick «Also rewrite the sites that have AI text» to write it again.': 'У всех одобренных сайтов уже есть текст ИИ. Отметьте «Переписать и сайты с текстом ИИ», чтобы написать его заново.',
     'Every approved site with AI text is already translated. Tick «Also translate the translated sites again» to translate them anew.': 'Все одобренные сайты с текстом ИИ уже переведены. Отметьте «Перевести заново и переведённые сайты», чтобы перевести их заново.', 'Max output tokens: translations': 'Макс. токенов ответа: переводы', 'Multi-language sites': 'Многоязычные сайты', '+ Add language': '+ Добавить язык',
     'Multi-language sites: the market is the main language’s.': 'Многоязычные сайты: рынок — рынок основного языка.', 'Language and its market': 'Язык и его рынок', 'Main': 'Основной',
@@ -853,7 +853,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         + '<div class="field"><label class="lbl" for="jmarket">' + L('Market') + '</label><select id="jmarket">' + cat.markets.map(function (m) { return '<option value="' + m.id + '"' + (m.id === 'xx' ? ' selected' : '') + '>' + esc(L(m.name)) + ' (' + m.id.toUpperCase() + ')</option>'; }).join('') + '</select>'
         + '<span class="muted" id="jmnote" style="font-size:13px" hidden>' + L('Multi-language sites: the market is the main language’s.') + '</span></div>'
         + '<div class="field"><label class="inl"><input type="checkbox" id="jml"> ' + L('Multi-language sites') + '</label>'
-        + '<div id="jlangs" hidden><div id="jlrows" class="jlrows"></div><div class="row"><button type="button" id="jladd">' + L('+ Add language') + '</button></div></div>'
+        + '<div id="jlangs" hidden><datalist id="jlist"></datalist><div id="jlrows" class="jlrows"></div><div class="row"><button type="button" id="jladd">' + L('+ Add language') + '</button></div></div>'
         + '<span class="muted" style="font-size:13px">' + L('Every site in several languages: the main one at the site’s root, each other one in its own folder (/kk/, /en/), with a language switcher placed and styled differently on each site. Each language follows the rules of the market chosen for it (age, licence and responsible-gambling texts, allowed offers). The other languages are written by «Translate» on the job page, after the main text.') + '</span></div>'
         + (FITS ? '<p class="note">' + L('This project is «{0}»: the form shows only what fits it. Change it in the project information.', L(PPROD.filter(function (o) { return o[0] === prod; })[0][1])) + '</p>' : '')
         + '<div class="field"><span class="lbl">' + L('Brands') + '</span><div id="brows" class="brows"></div><div class="row"><button type="button" id="addb">' + L('+ Add brand') + '</button></div>'
@@ -874,13 +874,29 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         + '<div class="row"><span class="muted" id="total"></span><span class="sp"></span><button class="primary" id="go">' + L('Generate sites') + '</button></div><p class="err" id="ferr" hidden></p></form>';
       var form = document.getElementById('jf'), mk = document.getElementById('jmarket'), avail = {}, jml = document.getElementById('jml'), jlrows = document.getElementById('jlrows');
       var PAIRS = [];
-      cat.markets.forEach(function (m) { (m.locales || []).forEach(function (l) { PAIRS.push([l + '|' + m.id, langName(l) + ' — ' + L(m.name) + ' (' + m.id.toUpperCase() + ')']); }); });
+      cat.markets.forEach(function (m) { (m.locales || []).forEach(function (l) { PAIRS.push([l + '|' + m.id, langName(l) + ' (' + l + ') — ' + L(m.name) + ' (' + m.id.toUpperCase() + ')']); }); });
+      document.getElementById('jlist').innerHTML = PAIRS.map(function (p) { return '<option value="' + esc(p[1]) + '"></option>'; }).join('');
+      function pairOf(text) { // the pair a typed or picked text names: its label, else the best label holding every word typed (the language's name first)
+        var q = text.trim().toLowerCase(), words = q.split(/\s+/).filter(Boolean);
+        if (!q) return null;
+        var hit = PAIRS.filter(function (p) { return p[1].toLowerCase() === q; });
+        if (hit.length) return hit[0];
+        hit = PAIRS.filter(function (p) { var t = p[1].toLowerCase(); return words.every(function (w) { return t.indexOf(w) > -1; }); });
+        hit.sort(function (a, b) { return (b[1].toLowerCase().indexOf(words[0]) === 0) - (a[1].toLowerCase().indexOf(words[0]) === 0); });
+        return hit[0] || null;
+      }
       function langRow(v, main) {
         var r = document.createElement('div');
         r.className = 'row jlrow';
-        r.innerHTML = '<select class="jlpair" aria-label="' + L('Language and its market') + '">' + PAIRS.map(function (p) { return '<option value="' + p[0] + '"' + (p[0] === v ? ' selected' : '') + '>' + esc(p[1]) + '</option>'; }).join('') + '</select>'
+        var cur = PAIRS.filter(function (p) { return p[0] === v; })[0] || PAIRS[0];
+        // a search field over every language and market (type «kk», «Kaz», «AU»…), the pair it names kept in .jlpair
+        r.innerHTML = '<input type="search" class="jlq" list="jlist" autocomplete="off" value="' + esc(cur[1]) + '" placeholder="' + L('Type a language or market…') + '" aria-label="' + L('Language and its market') + '">'
+          + '<input type="hidden" class="jlpair" value="' + cur[0] + '">'
           + '<label class="inl"><input type="radio" name="jldef" class="jldef"' + (main ? ' checked' : '') + '> ' + L('Main') + '</label><button type="button" class="jlrm" aria-label="' + L('Remove') + '">×</button>';
-        r.querySelector('.jlpair').onchange = langSync;
+        var q = r.querySelector('.jlq'), h = r.querySelector('.jlpair'), last = cur[1];
+        q.onfocus = function () { last = q.value; q.value = ''; }; // the whole list to pick from
+        q.oninput = function () { var p = pairOf(q.value); q.classList.toggle('bad', !p && q.value.trim() !== ''); if (p && p[1] === q.value) { h.value = p[0]; last = p[1]; langSync(); } };
+        q.onblur = function () { var p = pairOf(q.value); if (p) { h.value = p[0]; last = p[1]; langSync(); } q.value = last; q.classList.remove('bad'); };
         r.querySelector('.jldef').onchange = langSync;
         r.querySelector('.jlrm').onclick = function () { r.remove(); langSync(); };
         jlrows.appendChild(r);
