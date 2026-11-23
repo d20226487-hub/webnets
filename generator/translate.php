@@ -163,7 +163,7 @@ function gen_site_lang_configs(array $site, array $cfg, array $langs): array
         }
         unset($a['slugs']);
         if ($miss) {
-            $warn[] = "$c: $miss texts are not translated yet (new or changed since the last translation): they show in the main language. Press «Translate».";
+            $warn[] = "$c: $miss texts are not translated yet (new or changed since the last translation): they show in the main language. Press «Translate» on this site’s card.";
         }
         $out[$c] = $a;
     }
@@ -448,7 +448,8 @@ function gen_tr_run(int $jobId): void
         if (!$site) {
             break;
         }
-        gen_db_write($set, [json_encode(['state' => 'writing', 'at' => gen_now()]), $site['id']]);
+        $fresh = !empty((json_decode((string)$site['tr'], true) ?: [])['fresh']); // translated anew: earlier translations are not kept
+        gen_db_write($set, [json_encode(['state' => 'writing', 'at' => gen_now()] + ($fresh ? ['fresh' => true] : [])), $site['id']]);
         try {
             $cfg = gen_site_full_config($site, $job['market'], $spec['brand_ids'] ?? []);
             $fields = gen_tr_fields($cfg);
@@ -456,7 +457,7 @@ function gen_tr_run(int $jobId): void
             $plan = json_decode($site['plan'], true) ?: [];
             $stat = ['state' => 'done', 'at' => gen_now(), 'langs' => [], 'tokens' => 0, 'model' => '', 'left' => 0];
             foreach (array_slice($langs, 1, null, true) as $c => $mk) {
-                $old = $plan['tr'][$c] ?? [];
+                $old = $fresh ? [] : ($plan['tr'][$c] ?? []);
                 $todo = [];
                 foreach ($keys as $i => $pk) { // only new or changed text is sent; short numbered keys for the model
                     if (($old[$pk]['s'] ?? null) !== $fields[$pk]) {

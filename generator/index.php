@@ -176,7 +176,9 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     'Number of free spins': 'Количество фриспинов', 'Wagering (×)': 'Вейджер (×)', 'Min deposit': 'Мин. депозит', 'Max bet': 'Макс. ставка', 'Min odds': 'Мин. коэффициент', 'Days to use it': 'Дней на использование',
     'Valid until': 'Действует до', 'Conditions (who can claim, main terms)': 'Условия (кто может получить, главные условия)', 'Type': 'Тип', 'Value': 'Размер',
     'The project has no information or documents to read the offers from. Fill in «Project information» or upload a document first.': 'В проекте нет информации или документов, из которых можно взять акции. Сначала заполните «Информацию о проекте» или загрузите документ.', 'Minimum deposit (in the market currency)': 'Минимальный депозит (в валюте рынка)', 'Fastest withdrawal, minutes': 'Самый быстрый вывод, минут', 'Payment methods (comma separated)': 'Способы оплаты (через запятую)',
-    'Tagline': 'Слоган', 'Max output tokens: translations': 'Макс. токенов ответа: переводы', 'Multi-language sites': 'Многоязычные сайты', '+ Add language': '+ Добавить язык',
+    'Tagline': 'Слоган', 'Also rewrite the sites that have AI text ({0})': 'Переписать и сайты с текстом ИИ ({0})', 'Also translate the translated sites again ({0})': 'Перевести заново и переведённые сайты ({0})',
+    'Every approved site already has AI text. Tick «Also rewrite the sites that have AI text» to write it again.': 'У всех одобренных сайтов уже есть текст ИИ. Отметьте «Переписать и сайты с текстом ИИ», чтобы написать его заново.',
+    'Every approved site with AI text is already translated. Tick «Also translate the translated sites again» to translate them anew.': 'Все одобренные сайты с текстом ИИ уже переведены. Отметьте «Перевести заново и переведённые сайты», чтобы перевести их заново.', 'Max output tokens: translations': 'Макс. токенов ответа: переводы', 'Multi-language sites': 'Многоязычные сайты', '+ Add language': '+ Добавить язык',
     'Multi-language sites: the market is the main language’s.': 'Многоязычные сайты: рынок — рынок основного языка.', 'Language and its market': 'Язык и его рынок', 'Main': 'Основной',
     'Every site in several languages: the main one at the site’s root, each other one in its own folder (/kk/, /en/), with a language switcher placed and styled differently on each site. Each language follows the rules of the market chosen for it (age, licence and responsible-gambling texts, allowed offers). The other languages are written by «Translate» on the job page, after the main text.': 'Каждый сайт на нескольких языках: основной — в корне сайта, остальные — каждый в своей папке (/kk/, /en/), с переключателем языка, который на каждом сайте стоит в своём месте и выглядит по-своему. Каждый язык следует правилам выбранного для него рынка (возраст, тексты о лицензии и ответственной игре, разрешённые акции). Остальные языки пишет кнопка «Перевести» на странице задачи, после основного текста.',
     'Add at least two languages, or turn multi-language sites off.': 'Добавьте хотя бы два языка или выключите многоязычные сайты.', 'Each language can be added once.': 'Каждый язык можно добавить один раз.',
@@ -1096,6 +1098,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
   /* ---------- job: gallery, differences, mobile checks */
   var PER_PAGE = 10, PAGE = {};
   var EDIT = true; // the job page always shows "Edit all" on each type and "Edit" on each site (hidden while building)
+  var AGAIN = { text: false, tr: false }; // job page: «rewrite the sites that have AI text», «translate the translated sites again»
   var BRIEFS = { open: false, off: {} }; // job page: the AI briefs download panel, and the site types left out
   function saveScroll() { try { sessionStorage.setItem('scroll:' + location.hash, String(window.scrollY)); } catch (e) {} }
   var scrollTimer = null;
@@ -1162,17 +1165,23 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     var ok = built.filter(function (s) { return seoState(s) === 'approved'; }), changes = built.filter(function (s) { return seoState(s) === 'changes'; });
     var busy = built.filter(function (s) { return s.content && (s.content.state === 'queued' || s.content.state === 'writing'); });
     var done = built.filter(function (s) { return s.ai; }), errs = built.filter(function (s) { return s.content && s.content.state === 'error'; });
-    var todo = ok.filter(function (s) { return !(s.content && (s.content.state === 'queued' || s.content.state === 'writing')); }); // every approved site: new text, or written again
-    var again = todo.filter(function (s) { return s.ai; }).length;
+    var free = ok.filter(function (s) { return !(s.content && (s.content.state === 'queued' || s.content.state === 'writing')); });
+    var again = free.filter(function (s) { return s.ai; }).length; // approved sites with AI text: written again only when ticked
+    var todo = AGAIN.text ? free : free.filter(function (s) { return !s.ai; });
     var why = !ok.length ? L('Approve sites first: the AI writes the text of approved sites only.') : busy.length ? L('The AI is writing now.') : '';
     var langs = jobLangs(j), trBusy = built.filter(function (s) { return s.tr && (s.tr.state === 'queued' || s.tr.state === 'writing'); });
-    var trTodo = ok.filter(function (s) { return s.ai && !(s.content && (s.content.state === 'queued' || s.content.state === 'writing')) && !(s.tr && (s.tr.state === 'queued' || s.tr.state === 'writing')); });
+    var trFree = ok.filter(function (s) { return s.ai && !(s.content && (s.content.state === 'queued' || s.content.state === 'writing')) && !(s.tr && (s.tr.state === 'queued' || s.tr.state === 'writing')); });
+    var trAgain = trFree.filter(function (s) { return s.langs && s.langs.length; }).length; // translated sites: translated anew only when ticked
+    var trTodo = AGAIN.tr ? trFree : trFree.filter(function (s) { return !(s.langs && s.langs.length); });
     var trErr = built.filter(function (s) { return s.tr && s.tr.state === 'error'; });
     return '<section class="card seo" aria-labelledby="seoh"><div class="row"><h3 id="seoh" style="margin:0">' + L('SEO review and text') + '</h3><span class="sp"></span>'
       + (ok.length + changes.length < built.length ? '<button type="button" id="seoall">' + L('Approve all ({0})', built.length - ok.length - changes.length) + '</button>' : '')
       + (ok.length ? '<button type="button" id="seonone">' + L('Withdraw approvals') + '</button>' : '')
-      + '<button type="button" class="primary" id="aiwrite" data-again="' + again + '" data-n="' + todo.length + '"' + (todo.length && !busy.length ? '' : ' disabled') + (why ? ' title="' + esc(why) + '"' : '') + '>' + L('Write the text ({0})', todo.length) + '</button>'
+      + '<button type="button" class="primary" id="aiwrite"' + (todo.length && !busy.length ? '' : ' disabled') + (why ? ' title="' + esc(why) + '"' : '') + '>' + L('Write the text ({0})', todo.length) + '</button>'
       + (langs ? '<button type="button" class="primary" id="aitr"' + (trTodo.length && !busy.length && !trBusy.length ? '' : ' disabled') + ' title="' + esc(!done.length ? L('Write the text first: the AI translates the sites’ AI text.') : trBusy.length ? L('The AI is translating now.') : '') + '">' + L('Translate ({0})', trTodo.length) + '</button>' : '') + '</div>'
+      + (again || langs && trAgain ? '<div class="row" style="justify-content:flex-end;gap:6px 18px;margin-top:6px;font-size:13px">'
+        + (again ? '<label class="inl"><input type="checkbox" id="aiagain"' + (AGAIN.text ? ' checked' : '') + '> ' + L('Also rewrite the sites that have AI text ({0})', again) + '</label>' : '')
+        + (langs && trAgain ? '<label class="inl"><input type="checkbox" id="tragain"' + (AGAIN.tr ? ' checked' : '') + '> ' + L('Also translate the translated sites again ({0})', trAgain) + '</label>' : '') + '</div>' : '')
       + (why && !busy.length ? '<p class="muted" style="margin:6px 0 0;font-size:13px">' + why + '</p>' : '')
       + '<p class="muted" style="margin:8px 0 0;font-size:14px">' + L('1. Look at each template and approve it, or mark it «Needs changes» with a note. 2. «Write the text»: Vertex AI rewrites the approved sites’ text from the project information and documents, then the sites are updated with it (the design stays).') + ' <a href="#/settings/vertex">' + L('Vertex AI connection') + '</a> · <a href="#/p/' + j.project_id + '">' + L('Project information') + '</a></p>'
       + factsNote(j)
@@ -1260,13 +1269,14 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
 
   function seoWire(id, d, jerr) {
     var all = document.getElementById('seoall'), none = document.getElementById('seonone'), w = document.getElementById('aiwrite'), tw = document.getElementById('aitr');
-    if (tw) tw.onclick = function () { tw.disabled = true; tw.textContent = L('Starting…'); api('jobs/' + id + '/translate', {}, 'POST').then(function () { job(id); }).catch(function (x) { tw.disabled = false; jerr(x); }); };
+    var ag = document.getElementById('aiagain'), tg = document.getElementById('tragain');
+    if (ag) ag.onchange = function () { AGAIN.text = ag.checked; job(id); };
+    if (tg) tg.onchange = function () { AGAIN.tr = tg.checked; job(id); };
+    if (tw) tw.onclick = function () { tw.disabled = true; tw.textContent = L('Starting…'); api('jobs/' + id + '/translate', { again: AGAIN.tr }, 'POST').then(function () { job(id); }).catch(function (x) { tw.disabled = false; jerr(x); }); };
     if (all) all.onclick = function () { all.disabled = true; api('jobs/' + id + '/seo', { status: 'approved' }, 'POST').then(function () { job(id); }).catch(jerr); };
     if (none) none.onclick = function () { if (confirm(L('Withdraw the SEO approval of every site in this job?'))) api('jobs/' + id + '/seo', { status: null }, 'POST').then(function () { job(id); }).catch(jerr); };
     if (w) w.onclick = function () {
-      var again = +w.dataset.again, n = +w.dataset.n;
-      if (again && !confirm(again === n ? L('All {0} approved sites already have AI text. Write it again for all of them?', n) : L('{0} of the {1} approved sites already have AI text; it will be written again for them too. Go on?', again, n))) return;
-      w.disabled = true; w.textContent = L('Starting…'); api('jobs/' + id + '/content', {}, 'POST').then(function () { job(id); }).catch(function (x) { w.disabled = false; jerr(x); }); };
+      w.disabled = true; w.textContent = L('Starting…'); api('jobs/' + id + '/content', { again: AGAIN.text }, 'POST').then(function () { job(id); }).catch(function (x) { w.disabled = false; jerr(x); }); };
     var box = document.getElementById('sites');
     if (box.dataset.seo) return;
     box.dataset.seo = '1'; // one listener for every card's buttons

@@ -220,13 +220,15 @@ try {
             gen_json(['error' => 'Vertex AI is not connected. Add an API key or a service account in Settings → Vertex AI.'], 422);
             return;
         }
-        $ids = array_values(array_filter((array)(gen_body()['sites'] ?? []), 'is_string'));
+        $b = gen_body();
+        $ids = array_values(array_filter((array)($b['sites'] ?? []), 'is_string'));
+        $again = $ids || !empty($b['again']); // sites named one by one, or «rewrite» ticked: written again too; else only sites without AI text
         $q = $db->prepare("SELECT id FROM sites WHERE job_id = ? AND status = 'built' AND json_extract(seo, '$.status') = 'approved'
-            AND (content IS NULL OR json_extract(content, '$.state') NOT IN ('queued', 'writing'))");
+            AND (content IS NULL OR json_extract(content, '$.state') NOT IN ('queued', 'writing'))" . ($again ? '' : " AND json_extract(plan, '$.ai') IS NULL"));
         $q->execute([(int)$seg[1]]);
         $todo = array_values(array_filter(array_column($q->fetchAll(), 'id'), fn($id) => !$ids || in_array($id, $ids, true)));
         if (!$todo) {
-            gen_json(['error' => 'No approved, built site is waiting for text. Approve sites first.'], 422);
+            gen_json(['error' => $again ? 'No approved, built site is waiting for text. Approve sites first.' : 'Every approved site already has AI text. Tick «Also rewrite the sites that have AI text» to write it again.'], 422);
             return;
         }
         $set = $db->prepare('UPDATE sites SET content = ? WHERE id = ?');
@@ -247,18 +249,25 @@ try {
             gen_json(['error' => 'This job has one language. Turn on multi-language sites in the job first.'], 422);
             return;
         }
-        $ids = array_values(array_filter((array)(gen_body()['sites'] ?? []), 'is_string'));
-        $q = $db->prepare("SELECT id FROM sites WHERE job_id = ? AND status = 'built' AND json_extract(seo, '$.status') = 'approved' AND json_extract(plan, '$.ai') IS NOT NULL
+        $b = gen_body();
+        $ids = array_values(array_filter((array)($b['sites'] ?? []), 'is_string'));
+        $again = !empty($b['again']); // «translate again» ticked: translated sites are translated anew, from scratch
+        $q = $db->prepare("SELECT id, plan FROM sites WHERE job_id = ? AND status = 'built' AND json_extract(seo, '$.status') = 'approved' AND json_extract(plan, '$.ai') IS NOT NULL
             AND (content IS NULL OR json_extract(content, '$.state') NOT IN ('queued', 'writing')) AND (tr IS NULL OR json_extract(tr, '$.state') NOT IN ('queued', 'writing'))");
         $q->execute([(int)$seg[1]]);
-        $todo = array_values(array_filter(array_column($q->fetchAll(), 'id'), fn($id) => !$ids || in_array($id, $ids, true)));
+        $todo = [];
+        foreach ($q->fetchAll() as $r) { // the button: sites not translated yet (and all with «again»); a site's own button: that site, its new or changed text
+            if ($ids ? in_array($r['id'], $ids, true) : ($again || !array_filter((json_decode($r['plan'], true) ?: [])['tr'] ?? []))) {
+                $todo[] = $r['id'];
+            }
+        }
         if (!$todo) {
-            gen_json(['error' => 'No approved, built site with AI text is waiting for translation. Write the text first.'], 422);
+            gen_json(['error' => $ids || $again ? 'No approved, built site with AI text is waiting for translation. Write the text first.' : 'Every approved site with AI text is already translated. Tick «Also translate the translated sites again» to translate them anew.'], 422);
             return;
         }
         $set = $db->prepare('UPDATE sites SET tr = ? WHERE id = ?');
         foreach ($todo as $id) {
-            $set->execute([json_encode(['state' => 'queued', 'at' => gen_now()]), $id]);
+            $set->execute([json_encode(['state' => 'queued', 'at' => gen_now()] + ($again && !$ids ? ['fresh' => true] : [])), $id]);
         }
         gen_tr_spawn((int)$seg[1]);
         gen_json(['ok' => true, 'sites' => count($todo)]);
