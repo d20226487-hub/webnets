@@ -7,6 +7,7 @@
       <?= sx_app_icon(cls('header', 'appicon')) ?>
       <span class="<?= cls('header', 'appname') ?>"><strong><?= e(sx_app()['name'] ?? sx_ctx('brand')['name']) ?></strong><small><?= e(t('app.official')) ?></small></span>
     </a>
+    <?= sx_lang_switch('header') ?>
     <?= sx_app_get('header', cx('btn', ['btn', null, 'primary'], ['btn', null, 'small'], ['header', 'cta']), true) ?>
   </div>
 </header>

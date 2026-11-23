@@ -4,6 +4,7 @@
     <?= $sideMenu ?>
     <span class="<?= cls('header', 'note') ?>"><?= sx_icon('shield') ?><?= e($props['note'] ?: sx_licence_short()) ?></span>
     <a class="<?= cls('header', 'brand') ?>" href="<?= sx_url(sx_home_url()) ?>"><?= sx_logo() ?></a>
+    <?= sx_lang_switch('header') ?>
     <?= ($props['show_cta'] ?? true) ? sx_cta('header', cx('btn', ['btn', null, 'primary'], ['btn', null, 'small'], ['header', 'cta'])) : '' ?>
   </div>
 </header>

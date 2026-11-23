@@ -8,6 +8,7 @@ require_once __DIR__ . '/site.php';
 require_once __DIR__ . '/blueprint.php';
 require_once __DIR__ . '/dialect.php';
 require_once __DIR__ . '/nocomments.php';
+require_once __DIR__ . '/langs.php';
 
 /**
  * Render every page of a site config.
@@ -220,6 +221,7 @@ function sx_render_page(array $page, array $preset, array $ctx): string
         SX::$used['_sample'] = 1;
         $slots['top'] = '<p class="' . cls('sample') . '" role="note">' . sx_icon('info') . e(t($ctx['sample_notice'])) . '</p>' . $slots['top'];
     }
+    $slots = sx_lang_place($slots); // multi-language sites: the switcher (the header places its own)
     $css = sx_minify_css(':root { color-scheme: ' . ($preset['theme'] === 'dark' ? 'dark' : 'light') . "; }\n"
         . sx_vars_to_css(sx_token_vars($preset), ':root')) . sx_collect_css();
     $lang = sx_html_lang($ctx['locale'], $ctx['market']['id'], $ctx['market']);
@@ -242,7 +244,7 @@ function sx_render_page(array $page, array $preset, array $ctx): string
     }
     $pid = SX::$ctx['page_id'] ?? null;
     $canonical = $pid ? sx_abs_url($pid) : ($ctx['site']['url'] ?? null);
-    $canonicalTag = $canonical ? '<link rel="canonical" href="' . e($canonical) . '">' : '';
+    $canonicalTag = ($canonical ? '<link rel="canonical" href="' . e($canonical) . '">' : '') . sx_lang_head();
     $bodyAttr = $pid ? ' data-page="' . e($pid) . '"' : ''; // analytics: which page a data-cta click came from
     $bodyAttr .= ($ctx['rows'] ?? 'swipe') === 'stack' ? ' data-rows="stack"' : ''; // rows of cards stack instead of scrolling sideways
     $skip = '<a class="' . cls('skip') . '" href="#main">' . e(t('skip_link')) . '</a>';

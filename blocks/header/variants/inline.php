@@ -9,6 +9,7 @@
         <?php endforeach; ?>
       </ul>
     </nav>
+    <?= sx_lang_switch('header') ?>
     <?= ($props['show_cta'] ?? true) ? sx_cta('header', cx('btn', ['btn', null, 'primary'], ['btn', null, 'small'], ['header', 'cta'])) : '' ?>
     <?= $menu ?>
   </div>

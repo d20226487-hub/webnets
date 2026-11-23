@@ -7,6 +7,7 @@
       <?php if (!empty($props['note'])): ?>
         <span class="<?= cls('header', 'note') ?>"><?= sx_icon('shield') ?><?= e($props['note']) ?></span>
       <?php endif; ?>
+      <?= sx_lang_switch('header') ?>
       <?= ($props['show_cta'] ?? true) ? sx_cta('header', cx('btn', ['btn', null, 'primary'], ['btn', null, 'small'], ['header', 'cta'])) : '' ?>
     </div>
   </div>

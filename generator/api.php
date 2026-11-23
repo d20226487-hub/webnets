@@ -129,7 +129,8 @@ function gen_site_row(array $s, array $cat): array
         'mobile' => $s['mobile'] ? json_decode($s['mobile'], true) : null, 'url' => "/generated/{$s['id']}/index.html", 'v' => $v = substr(md5($s['status'] . '|' . ($s['checks'] ?? '') . '|' . $s['plan']), 0, 10),
         'thumb' => !empty($s['shot']) && $s['status'] === 'built' ? "/generated/{$s['id']}/_thumb.png?v=$v-" . GEN_THUMB_REV : null, // no file checks on the mounted folder: slow for hundreds of sites
         'brief' => $s['status'] === 'built' ? "/generator/api/sites/{$s['id']}/brief" : null, 'checks' => $s['checks'] ? json_decode($s['checks'], true) : null, 'edited' => !empty($plan['edits']),
-        'seo' => !empty($s['seo']) ? json_decode($s['seo'], true) : null, 'content' => !empty($s['content']) ? json_decode($s['content'], true) : null, 'ai' => !empty($plan['ai'])];
+        'seo' => !empty($s['seo']) ? json_decode($s['seo'], true) : null, 'content' => !empty($s['content']) ? json_decode($s['content'], true) : null, 'ai' => !empty($plan['ai']),
+        'tr' => !empty($s['tr']) ? json_decode($s['tr'], true) : null, 'langs' => array_keys(array_filter($plan['tr'] ?? []))];
 }
 
 $path = trim(preg_replace('#^/generator/api#', '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)), '/');
@@ -145,14 +146,14 @@ try {
         $markets = [];
         foreach (glob("$GEN_ROOT/markets/*.json") as $f) {
             $m = sx_json($f);
-            $markets[] = ['id' => $m['id'], 'name' => is_array($m['name'] ?? null) ? ($m['name']['en'] ?? reset($m['name'])) : ($m['name'] ?? $m['id'])];
+            $markets[] = ['id' => $m['id'], 'name' => is_array($m['name'] ?? null) ? ($m['name']['en'] ?? reset($m['name'])) : ($m['name'] ?? $m['id']), 'locales' => $m['locales'], 'default_locale' => $m['default_locale']];
         }
         $presets = [];
         foreach (glob("$GEN_ROOT/tokens/presets/*.json") as $f) {
             $p = sx_json($f);
             $presets[$p['id']] = ['name' => $p['name'], 'accent' => $p['color']['accent'], 'accent2' => $p['color']['accent2'], 'bg' => $p['color']['bg']];
         }
-        gen_json(['types' => gen_catalog_full(), 'markets' => $markets, 'presets' => $presets]);
+        gen_json(['types' => gen_catalog_full(), 'markets' => $markets, 'presets' => $presets, 'languages' => GEN_LANG_NAMES]);
         gen_warm_availability(); // the job form opens next: every market's checks are ready by the time it is switched
     } elseif ($seg[0] === 'sites' && ($seg[2] ?? '') === 'brief' && $method === 'GET') { // one site's AI brief, as a download
         gen_send_site_brief($db, $seg[1]);
@@ -233,6 +234,33 @@ try {
             $set->execute([json_encode(['state' => 'queued', 'at' => gen_now()]), $id]);
         }
         gen_content_spawn((int)$seg[1]);
+        gen_json(['ok' => true, 'sites' => count($todo)]);
+    } elseif ($seg[0] === 'jobs' && ($seg[2] ?? '') === 'translate' && $method === 'POST') { // translate the approved sites with AI text into the job's other languages
+        gen_tr_columns($db);
+        if (!gen_vertex_ready(gen_vertex_settings())) {
+            gen_json(['error' => 'Vertex AI is not connected. Add an API key or a service account in Settings → Vertex AI.'], 422);
+            return;
+        }
+        $jq = $db->prepare('SELECT spec FROM jobs WHERE id = ?');
+        $jq->execute([(int)$seg[1]]);
+        if (!gen_job_langs(json_decode((string)$jq->fetchColumn(), true) ?: [])) {
+            gen_json(['error' => 'This job has one language. Turn on multi-language sites in the job first.'], 422);
+            return;
+        }
+        $ids = array_values(array_filter((array)(gen_body()['sites'] ?? []), 'is_string'));
+        $q = $db->prepare("SELECT id FROM sites WHERE job_id = ? AND status = 'built' AND json_extract(seo, '$.status') = 'approved' AND json_extract(plan, '$.ai') IS NOT NULL
+            AND (content IS NULL OR json_extract(content, '$.state') NOT IN ('queued', 'writing')) AND (tr IS NULL OR json_extract(tr, '$.state') NOT IN ('queued', 'writing'))");
+        $q->execute([(int)$seg[1]]);
+        $todo = array_values(array_filter(array_column($q->fetchAll(), 'id'), fn($id) => !$ids || in_array($id, $ids, true)));
+        if (!$todo) {
+            gen_json(['error' => 'No approved, built site with AI text is waiting for translation. Write the text first.'], 422);
+            return;
+        }
+        $set = $db->prepare('UPDATE sites SET tr = ? WHERE id = ?');
+        foreach ($todo as $id) {
+            $set->execute([json_encode(['state' => 'queued', 'at' => gen_now()]), $id]);
+        }
+        gen_tr_spawn((int)$seg[1]);
         gen_json(['ok' => true, 'sites' => count($todo)]);
     } elseif ($seg[0] === 'sites' && ($seg[2] ?? '') === 'ai' && $method === 'DELETE') { // back to the template's text
         $q = $db->prepare('SELECT job_id, plan FROM sites WHERE id = ?');
@@ -408,7 +436,8 @@ try {
         $job['busy'] = $busy && (int)$busy['id'] !== (int)$job['id'] ? $busy : null;
         $cat = gen_catalog_full();
         gen_content_columns($db);
-        $rows = $db->prepare('SELECT id, job_id, n, type, brand, choice, plan, status, warnings, error, pages, mobile, checks, created, seo, content, visual IS NOT NULL AS shot
+        gen_tr_columns($db);
+        $rows = $db->prepare('SELECT id, job_id, n, type, brand, choice, plan, status, warnings, error, pages, mobile, checks, created, seo, content, tr, visual IS NOT NULL AS shot
             FROM sites WHERE job_id = ? ORDER BY type, n'); // not the code fingerprints and screenshot prints: megabytes for a big job
         $rows->execute([$job['id']]);
         $job['spec'] = json_decode($job['spec'], true);
@@ -416,6 +445,7 @@ try {
         $job['facts_left'] = gen_bfacts_unconfirmed($db, (int)$job['id']); // brand facts still example data: {brand name: [labels]}
         $job['usage'] = gen_usage_summary('job_id = ' . (int)$job['id']); // Vertex AI calls and their cost
         gen_content_heal($db, (int)$job['id']); // a text run that died: start it again
+        gen_tr_heal($db, (int)$job['id']); // a translation run that died too
         gen_json(['job' => $job, 'types' => array_map(fn($t) => $t['label'], $cat), 'sites' => array_map(fn($s) => gen_site_row($s, $cat), $rows->fetchAll())]);
     } elseif ($seg[0] === 'jobs' && ($seg[2] ?? '') === 'diff') {
         // worked out in the background (seconds to a minute on a big network); the page asks again until it is ready
@@ -570,9 +600,15 @@ function gen_job_input(array $b): array
         'rows' => in_array($b['rows'] ?? '', ['swipe', 'stack', 'both'], true) ? $b['rows'] : 'both',
         'disclosure' => in_array($b['disclosure'] ?? 'off', ['top', 'footer', 'off'], true) ? $b['disclosure'] : 'off',
         'sample_brands' => max(0, min(count(GEN_SAMPLE_NAMES), (int)($b['sample_brands'] ?? 7)))];
+    [$langs, $langErr] = gen_job_langs_input((array)($b['langs'] ?? []));
+    if ($langs) { // a multi-language job: its market is the main language's
+        $spec['langs'] = $langs;
+        $spec['market'] = $langs['list'][0]['market'];
+    }
     $name = mb_substr(trim($b['name'] ?? ''), 0, 120);
     $err = match (true) {
         $name === '' => 'Give the job a name.',
+        $langErr !== null => $langErr,
         !is_file("$GEN_ROOT/markets/{$spec['market']}.json") => 'Pick a market.',
         !$types => 'Tick at least one site type.',
         !$spec['brands'] => 'Add at least one brand.',
@@ -629,9 +665,19 @@ function gen_remove_files(string $id): void
         return;
     }
     foreach (glob("$GEN_ROOT/dist/generated/$id/*") as $f) {
-        @unlink($f);
+        if (is_dir($f)) { // a language version
+            foreach (glob("$f/*") as $g) {
+                @unlink($g);
+            }
+            @rmdir($f);
+        } else {
+            @unlink($f);
+        }
     }
     @rmdir("$GEN_ROOT/dist/generated/$id");
     @unlink("$GEN_ROOT/data/configs/$id.json");
+    foreach (glob("$GEN_ROOT/data/configs/$id.*.json") as $f) {
+        @unlink($f);
+    }
 }
 

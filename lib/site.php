@@ -144,6 +144,18 @@ function sx_site_context(array $cfg, string $root): array
         throw new RuntimeException("Market '{$market['id']}' is a demo-only market and cannot be used for real sites. (Demos set \"demo\": true.)");
     }
     $locale = $cfg['locale'] ?? $market['default_locale'];
+    if (!empty($cfg['rules_market']) && $cfg['rules_market'] !== $market['id']) {
+        // a language version for another market: that market's rules (compliance copy, age, allowed offers and
+        // verticals, language tags) with the site's own market data (currency, payments, brand data)
+        $rules = sx_market($cfg['rules_market'], $root);
+        foreach (['compliance', 'min_age', 'promotions', 'verticals', 'html_lang', 'dir', 'required_pages', 'locale_formats', 'date_format'] as $k) {
+            if (array_key_exists($k, $rules)) {
+                $market[$k] = $rules[$k];
+            }
+        }
+        $market['locales'] = array_values(array_unique(array_merge($market['locales'], $rules['locales'])));
+        $market['rules_id'] = $rules['id'];
+    }
 
     if (!in_array($market['id'], $brand['markets'], true)) {
         $warn[] = "Brand '{$brand['id']}' is not listed as licensed in market '{$market['id']}'.";
@@ -212,6 +224,8 @@ function sx_site_context(array $cfg, string $root): array
             'style' => in_array($cfg['menu']['style'] ?? '', ['dropdown', 'drawer', 'sheet', 'full'], true) ? $cfg['menu']['style'] : 'dropdown',
             'skip' => !empty($cfg['menu']['skip']),
         ],
+        'langs' => is_array($cfg['langs'] ?? null) ? array_values($cfg['langs']) : [], // multi-language sites: every version, the main one first (lib/langs.php)
+        'lang_ui' => is_array($cfg['lang_ui'] ?? null) ? $cfg['lang_ui'] : [], // where the language switcher goes and how it looks
         'licence' => is_array($cfg['licence'] ?? null) ? $cfg['licence'] : [], // the site's own licence wording (regulator, badge), over the market's
         'pins_over_angle' => !empty($cfg['pins_over_angle']), // a pinned layout outside the angle's list is kept (generated sites)
         'rows' => ($cfg['rows'] ?? 'swipe') === 'stack' ? 'stack' : 'swipe',

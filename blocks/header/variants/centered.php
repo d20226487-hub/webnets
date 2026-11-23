@@ -3,6 +3,7 @@
   <div class="<?= cx('container', ['header', 'inner']) ?>">
     <?= $menu ?>
     <a class="<?= cls('header', 'brand') ?>" href="<?= sx_url(sx_home_url()) ?>"><?= sx_logo() ?></a>
+    <?= sx_lang_switch('header') ?>
     <?= ($props['show_cta'] ?? true) ? sx_cta('header', cx('btn', ['btn', null, 'primary'], ['btn', null, 'small'], ['header', 'cta'])) : '' ?>
   </div>
   <nav class="<?= cls('header', 'nav') ?>" aria-label="Main">

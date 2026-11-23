@@ -1001,8 +1001,19 @@ function gen_poffers_apply(PDO $db, string $id, string $market): void
         return;
     }
     $m = sx_json("$GEN_ROOT/markets/$market.json");
-    $langs = array_values(array_unique(array_merge($m['locales'] ?? [], ['en'])));
-    $all = fn(string $t) => array_fill_keys($langs, $t);
+    $sq = $db->prepare('SELECT spec FROM jobs WHERE id = ?');
+    $sq->execute([(int)$jm[1]]);
+    $jl = gen_job_langs(json_decode((string)$sq->fetchColumn(), true) ?: []); // a multi-language job: its languages, the main one first
+    $langs = array_values(array_unique(array_merge(array_keys($jl), $m['locales'] ?? [], ['en'])));
+    $main = $jl ? array_key_first($jl) : null;
+    // the project's wording in every language; in a multi-language job's other languages its translation (once translated)
+    $all = function (string $t) use ($langs, $main, $db) {
+        $out = [];
+        foreach ($langs as $l) {
+            $out[$l] = $main !== null && $l !== $main ? (gen_tr_cached($db, $l, $t) ?? $t) : $t;
+        }
+        return $out;
+    };
     $num = fn($v) => $v === '' ? null : (int)$v;
     $host = sx_brand_data($GEN_ROOT, 'operators.json')[$id]['domain'] ?? null;
     $feed = [];

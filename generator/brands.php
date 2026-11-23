@@ -671,7 +671,12 @@ function gen_rating_mix(array $alt, array $base): array
     foreach ($base['products'] ?? [] as $p => $pr) {
         $own = $alt['products'][$p] ?? array_intersect_key($alt, $text);
         $r['products'][$p] = $own + $pr;
-        $r['products'][$p]['scores'] = ($own['scores'] ?? []) + ($pr['scores'] ?? []);
+        $sc = ($own['scores'] ?? []) + ($pr['scores'] ?? []);
+        if ($sc) {
+            $r['products'][$p]['scores'] = $sc;
+        } else { // no product scores: the brand's own scores count (an empty list would replace them)
+            unset($r['products'][$p]['scores']);
+        }
     }
     return $r;
 }

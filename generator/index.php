@@ -67,7 +67,7 @@ form .field{display:grid;gap:6px;margin-bottom:16px}form label.lbl{font-weight:6
 table{border-collapse:collapse;width:100%}th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}th{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
 .types td{padding:10px}.wn{display:block;margin-top:4px;padding:6px 8px;border-radius:8px;background:var(--warnbg);color:var(--warn);font-size:12px;max-width:300px}
 .axis label.blk{color:var(--warn)}.axis label.off{opacity:.45;text-decoration:line-through;cursor:not-allowed}.axis label.blk::after{content:"⚠";font-size:12px}
-.brows{display:grid;gap:8px}.brow{display:grid;grid-template-columns:minmax(140px,1.4fr) minmax(140px,1.4fr) auto minmax(120px,1fr) auto;gap:8px;align-items:center}
+.brows{display:grid;gap:8px}.jlrows{display:grid;gap:8px;margin:6px 0 8px}.jlrow{flex-wrap:nowrap}.jlrow select{flex:1;min-width:0}.brow{display:grid;grid-template-columns:minmax(140px,1.4fr) minmax(140px,1.4fr) auto minmax(120px,1fr) auto;gap:8px;align-items:center}
 .brow .cl{display:inline-flex;align-items:center;gap:6px;font-size:13px;white-space:nowrap}
 @media (max-width:720px){.types table,.types tbody,.types tr,.types td{display:block;width:auto}.types thead{display:none}.types tr{border-top:1px solid var(--line);padding:6px 0}.types td{padding:6px 4px}.wn{max-width:none}}
 @media (max-width:720px){.brow{grid-template-columns:1fr 1fr;padding:10px;border:1px solid var(--line);border-radius:10px}.brow input[type=text]{grid-column:1/-1}}.axis{display:flex;flex-wrap:wrap;gap:6px 14px;margin:2px 0 6px}.axis b{font-size:12px;color:var(--muted);font-weight:600;width:100%}
@@ -176,7 +176,17 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     'Number of free spins': 'Количество фриспинов', 'Wagering (×)': 'Вейджер (×)', 'Min deposit': 'Мин. депозит', 'Max bet': 'Макс. ставка', 'Min odds': 'Мин. коэффициент', 'Days to use it': 'Дней на использование',
     'Valid until': 'Действует до', 'Conditions (who can claim, main terms)': 'Условия (кто может получить, главные условия)', 'Type': 'Тип', 'Value': 'Размер',
     'The project has no information or documents to read the offers from. Fill in «Project information» or upload a document first.': 'В проекте нет информации или документов, из которых можно взять акции. Сначала заполните «Информацию о проекте» или загрузите документ.', 'Minimum deposit (in the market currency)': 'Минимальный депозит (в валюте рынка)', 'Fastest withdrawal, minutes': 'Самый быстрый вывод, минут', 'Payment methods (comma separated)': 'Способы оплаты (через запятую)',
-    'Tagline': 'Слоган', 'Answer length': 'Длина ответа', 'The most tokens one answer may have, per task (1 024–65 536). Thinking models spend part of it on thinking. If an answer is «cut off at the limit», raise the one the error names; a higher limit costs only what is used.': 'Сколько токенов может быть в одном ответе, по задачам (1 024–65 536). Модели с рассуждением тратят часть лимита на рассуждение. Если ответ «обрезан на лимите», увеличьте лимит, который назван в ошибке; больший лимит стоит только того, что реально использовано.',
+    'Tagline': 'Слоган', 'Max output tokens: translations': 'Макс. токенов ответа: переводы', 'Multi-language sites': 'Многоязычные сайты', '+ Add language': '+ Добавить язык',
+    'Multi-language sites: the market is the main language’s.': 'Многоязычные сайты: рынок — рынок основного языка.', 'Language and its market': 'Язык и его рынок', 'Main': 'Основной',
+    'Every site in several languages: the main one at the site’s root, each other one in its own folder (/kk/, /en/), with a language switcher placed and styled differently on each site. Each language follows the rules of the market chosen for it (age, licence and responsible-gambling texts, allowed offers). The other languages are written by «Translate» on the job page, after the main text.': 'Каждый сайт на нескольких языках: основной — в корне сайта, остальные — каждый в своей папке (/kk/, /en/), с переключателем языка, который на каждом сайте стоит в своём месте и выглядит по-своему. Каждый язык следует правилам выбранного для него рынка (возраст, тексты о лицензии и ответственной игре, разрешённые акции). Остальные языки пишет кнопка «Перевести» на странице задачи, после основного текста.',
+    'Add at least two languages, or turn multi-language sites off.': 'Добавьте хотя бы два языка или выключите многоязычные сайты.', 'Each language can be added once.': 'Каждый язык можно добавить один раз.',
+    'A language must be one of its market’s languages.': 'Язык должен быть одним из языков своего рынка.', 'English': 'Английский', 'Russian': 'Русский', 'Kazakh': 'Казахский', 'Portuguese': 'Португальский', 'main language': 'основной язык',
+    'Translate ({0})': 'Перевести ({0})', 'Translate': 'Перевести', 'Write the text first: the AI translates the sites’ AI text.': 'Сначала напишите тексты: ИИ переводит тексты сайтов, написанные ИИ.', 'The AI is translating now.': 'ИИ сейчас переводит.',
+    '3. «Translate»: the approved sites with AI text get their other languages ({0}), each under its market’s rules, and are updated with them. Run it again after new text: only new or changed text is translated.': '3. «Перевести»: одобренные сайты с текстом ИИ получают остальные языки ({0}), каждый по правилам своего рынка, и обновляются с ними. После нового текста запустите снова: переводится только новый или изменённый текст.',
+    'Translated: {0}': 'Переведено: {0}', 'Translation failed: {0}': 'Ошибка перевода: {0}', 'Translating: {0} sites left': 'Перевод: осталось сайтов: {0}', 'Each site is updated with its languages when its translation is done; you can leave this page.': 'Каждый сайт обновляется со своими языками, когда его перевод готов; страницу можно закрыть.',
+    'Translation queued': 'Перевод в очереди', 'AI is translating…': 'ИИ переводит…', 'Translation failed': 'Ошибка перевода', '{0} texts left in the main language: their figures came back changed': 'Текстов на основном языке: {0} — в переводе изменились цифры',
+    'Open the {0} version': 'Открыть версию: {0}', 'This job has one language. Turn on multi-language sites in the job first.': 'В этой задаче один язык. Сначала включите многоязычные сайты в задаче.',
+    'No approved, built site with AI text is waiting for translation. Write the text first.': 'Нет одобренных собранных сайтов с текстом ИИ, ожидающих перевода. Сначала напишите тексты.', 'Answer length': 'Длина ответа', 'The most tokens one answer may have, per task (1 024–65 536). Thinking models spend part of it on thinking. If an answer is «cut off at the limit», raise the one the error names; a higher limit costs only what is used.': 'Сколько токенов может быть в одном ответе, по задачам (1 024–65 536). Модели с рассуждением тратят часть лимита на рассуждение. Если ответ «обрезан на лимите», увеличьте лимит, который назван в ошибке; больший лимит стоит только того, что реально использовано.',
     'Max output tokens: site texts': 'Макс. токенов ответа: тексты сайтов', 'Max output tokens: «Fill from the project» (master review)': 'Макс. токенов ответа: «Заполнить из проекта» (мастер обзор)',
     'Max output tokens: brand texts (summary, verdict)': 'Макс. токенов ответа: тексты бренда (описание, вердикт)', 'Max output tokens: «Fill from the project» (offers)': 'Макс. токенов ответа: «Заполнить из проекта» (акции)', 'Licence badge': 'Плашка лицензии', 'Minimum withdrawal (in the market currency)': 'Минимальный вывод (в валюте рынка)', 'Deposit and withdrawal times': 'Время депозита и вывода',
     'Top game providers (comma separated)': 'Топ провайдеров игр (через запятую)', 'Game types (comma separated)': 'Виды игр (через запятую)', 'Top live casino games (comma separated)': 'Топ игр live-казино (через запятую)',
@@ -475,6 +485,9 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
   }
   var AVAIL = {};
   function catalog() { return CAT ? Promise.resolve(CAT) : api('catalog').then(function (c) { CAT = c; return c; }); }
+  function langName(c) { return L((CAT && CAT.languages && CAT.languages[c]) || { en: 'English', ru: 'Russian', kk: 'Kazakh', pt: 'Portuguese' }[c] || c); }
+  function jobLangs(j) { return j && j.spec && j.spec.langs && j.spec.langs.list && j.spec.langs.list.length > 1 ? j.spec.langs.list : null; }
+  var JLANGS = null; // the shown job's languages (multi-language jobs), for the site cards
   function fail(e) { main.innerHTML = '<p class="err">' + esc(L(e.message || String(e))) + '</p>'; }
   function when(s) { return esc(String(s).replace('T', ' ').slice(0, 16)); }
 
@@ -528,7 +541,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
       .sort(function (a, b) { return a.r - b.r || a.i - b.i; }).map(function (x) { return x.f; });
   }
   var VTOKENS = [['tok_text', 'Max output tokens: site texts'], ['tok_facts', 'Max output tokens: «Fill from the project» (master review)'],
-    ['tok_brand', 'Max output tokens: brand texts (summary, verdict)'], ['tok_offers', 'Max output tokens: «Fill from the project» (offers)']];
+    ['tok_brand', 'Max output tokens: brand texts (summary, verdict)'], ['tok_offers', 'Max output tokens: «Fill from the project» (offers)'], ['tok_translate', 'Max output tokens: translations']];
   var PFACTS_LONG = { summary: 2, verdict: 3, pros: 4, cons: 3, payment_times: 3, verification: 2 };
   var OTYPES = [['welcome_bonus', 'Welcome bonus'], ['deposit_bonus', 'Deposit bonus'], ['free_bets', 'Free bets'], ['promo_code', 'Promo code'], ['odds_boost', 'Odds boost'],
     ['cashback', 'Cashback'], ['loyalty', 'Loyalty programme'], ['tournaments', 'Tournament']];
@@ -835,7 +848,11 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         + (ed ? '<p class="note">' + L('Saving rebuilds the job. Sites that stay (same type and number) keep their seed and style; extra sites are added, sites over the new count are deleted.') + '</p>' : '')
         + '<p class="muted">' + L('Each site gets its own seed, style, layouts, code style and implementation; the generator spreads them so sites differ.') + '</p>'
         + '<form id="jf" class="card"><div class="field"><label class="lbl" for="jname">' + L('Job name') + '</label><input type="text" id="jname" required maxlength="120" placeholder="' + L('e.g. Brazil casino network, wave 1') + '"></div>'
-        + '<div class="field"><label class="lbl" for="jmarket">' + L('Market') + '</label><select id="jmarket">' + cat.markets.map(function (m) { return '<option value="' + m.id + '"' + (m.id === 'xx' ? ' selected' : '') + '>' + esc(L(m.name)) + ' (' + m.id.toUpperCase() + ')</option>'; }).join('') + '</select></div>'
+        + '<div class="field"><label class="lbl" for="jmarket">' + L('Market') + '</label><select id="jmarket">' + cat.markets.map(function (m) { return '<option value="' + m.id + '"' + (m.id === 'xx' ? ' selected' : '') + '>' + esc(L(m.name)) + ' (' + m.id.toUpperCase() + ')</option>'; }).join('') + '</select>'
+        + '<span class="muted" id="jmnote" style="font-size:13px" hidden>' + L('Multi-language sites: the market is the main language’s.') + '</span></div>'
+        + '<div class="field"><label class="inl"><input type="checkbox" id="jml"> ' + L('Multi-language sites') + '</label>'
+        + '<div id="jlangs" hidden><div id="jlrows" class="jlrows"></div><div class="row"><button type="button" id="jladd">' + L('+ Add language') + '</button></div></div>'
+        + '<span class="muted" style="font-size:13px">' + L('Every site in several languages: the main one at the site’s root, each other one in its own folder (/kk/, /en/), with a language switcher placed and styled differently on each site. Each language follows the rules of the market chosen for it (age, licence and responsible-gambling texts, allowed offers). The other languages are written by «Translate» on the job page, after the main text.') + '</span></div>'
         + (FITS ? '<p class="note">' + L('This project is «{0}»: the form shows only what fits it. Change it in the project information.', L(PPROD.filter(function (o) { return o[0] === prod; })[0][1])) + '</p>' : '')
         + '<div class="field"><span class="lbl">' + L('Brands') + '</span><div id="brows" class="brows"></div><div class="row"><button type="button" id="addb">' + L('+ Add brand') + '</button></div>'
         + '<span class="muted" style="font-size:13px">' + esc(L('Your own brands. Single-brand sites are spread across them; casino reviews and news sites list all of them. Domain is optional (links use it); colour is used by the "brand colours" design. Logos are generated from the initials, other brand data (bonuses, reviews, ratings, games) is placeholder.')) + '</span></div>'
@@ -853,7 +870,56 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         + '<div class="field"><label class="lbl" for="jsample">' + L('Sample brands in casino rankings') + '</label><input type="number" id="jsample" min="0" max="16" value="7" style="max-width:120px">'
         + '<span class="muted" style="font-size:13px">' + L('Made-up operators listed next to your brands on casino review sites, so a ranking looks like a real one. Their data is placeholder; the featured (paid) slot is always one of your brands. 0 = your brands only.') + '</span></div>'
         + '<div class="row"><span class="muted" id="total"></span><span class="sp"></span><button class="primary" id="go">' + L('Generate sites') + '</button></div><p class="err" id="ferr" hidden></p></form>';
-      var form = document.getElementById('jf'), mk = document.getElementById('jmarket'), avail = {};
+      var form = document.getElementById('jf'), mk = document.getElementById('jmarket'), avail = {}, jml = document.getElementById('jml'), jlrows = document.getElementById('jlrows');
+      var PAIRS = [];
+      cat.markets.forEach(function (m) { (m.locales || []).forEach(function (l) { PAIRS.push([l + '|' + m.id, langName(l) + ' — ' + L(m.name) + ' (' + m.id.toUpperCase() + ')']); }); });
+      function langRow(v, main) {
+        var r = document.createElement('div');
+        r.className = 'row jlrow';
+        r.innerHTML = '<select class="jlpair" aria-label="' + L('Language and its market') + '">' + PAIRS.map(function (p) { return '<option value="' + p[0] + '"' + (p[0] === v ? ' selected' : '') + '>' + esc(p[1]) + '</option>'; }).join('') + '</select>'
+          + '<label class="inl"><input type="radio" name="jldef" class="jldef"' + (main ? ' checked' : '') + '> ' + L('Main') + '</label><button type="button" class="jlrm" aria-label="' + L('Remove') + '">×</button>';
+        r.querySelector('.jlpair').onchange = langSync;
+        r.querySelector('.jldef').onchange = langSync;
+        r.querySelector('.jlrm').onclick = function () { r.remove(); langSync(); };
+        jlrows.appendChild(r);
+      }
+      function langSync() { // the job's market is the main language's
+        var on = jml.checked;
+        document.getElementById('jlangs').hidden = !on;
+        document.getElementById('jmnote').hidden = !on;
+        mk.disabled = on;
+        if (!on) return;
+        var d = jlrows.querySelector('.jldef:checked') || jlrows.querySelector('.jldef');
+        if (!d) return;
+        d.checked = true;
+        var m = d.closest('.jlrow').querySelector('.jlpair').value.split('|')[1];
+        if (mk.value !== m) { mk.value = m; loadMarket(); }
+      }
+      function langsValue() {
+        if (!jml.checked) return { on: false };
+        var list = [], def = '';
+        [].forEach.call(jlrows.querySelectorAll('.jlrow'), function (r) {
+          var v = r.querySelector('.jlpair').value.split('|');
+          list.push({ lang: v[0], market: v[1] });
+          if (r.querySelector('.jldef').checked) def = v[0];
+        });
+        return { on: true, list: list, default: def };
+      }
+      jml.onchange = function () {
+        if (jml.checked && !jlrows.children.length) {
+          var m = (cat.markets.filter(function (x) { return x.id === mk.value; })[0]) || cat.markets[0], first = m.default_locale + '|' + m.id;
+          var other = PAIRS.filter(function (p) { return p[0].split('|')[0] !== m.default_locale && p[0].split('|')[1] === m.id; })[0] || PAIRS.filter(function (p) { return p[0].split('|')[0] !== m.default_locale; })[0];
+          langRow(first, true);
+          if (other) langRow(other[0], false);
+        }
+        langSync();
+      };
+      document.getElementById('jladd').onclick = function () {
+        var used = [].map.call(jlrows.querySelectorAll('.jlpair'), function (s) { return s.value.split('|')[0]; });
+        var p = PAIRS.filter(function (x) { return used.indexOf(x[0].split('|')[0]) < 0; })[0] || PAIRS[0];
+        langRow(p[0], !jlrows.children.length);
+        langSync();
+      };
       [].forEach.call(document.querySelectorAll('.cauto'), function (cb) {
         cb.onchange = function () {
           document.getElementById('c-' + cb.dataset.c).disabled = cb.checked;
@@ -986,6 +1052,11 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         document.getElementById('jdisc').value = ed.spec.disclosure || 'off';
         document.getElementById('jsample').value = ed.spec.sample_brands == null ? 0 : ed.spec.sample_brands;
         mk.value = ed.market;
+        if (ed.spec.langs && ed.spec.langs.list) {
+          jml.checked = true;
+          ed.spec.langs.list.forEach(function (x) { langRow(x.lang + '|' + x.market, x.lang === ed.spec.langs.default); });
+          langSync();
+        }
         var bl = (ed.spec.brands || []).map(function (b) { return typeof b === 'string' ? { name: b.charAt(0).toUpperCase() + b.slice(1) } : b; });
         document.getElementById('brows').innerHTML = '';
         (bl.length ? bl : [{}]).forEach(function (b) { document.getElementById('brows').appendChild(brandRow(b)); });
@@ -1010,10 +1081,12 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         if (!totals()) { err.hidden = false; err.textContent = L('Tick at least one site type.'); return; }
         var brands = brandsValue();
         if (!brands.length) { err.hidden = false; err.textContent = L('Add at least one brand.'); document.querySelector('.bname').focus(); return; }
+        var langs = langsValue();
+        if (langs.on && langs.list.length < 2) { err.hidden = false; err.textContent = L('Add at least two languages, or turn multi-language sites off.'); return; }
         try { localStorage.setItem(bkey, JSON.stringify(brands)); } catch (e) {}
         document.getElementById('go').disabled = true;
         api(ed ? 'jobs/' + ed.id : 'jobs', { project_id: +pid, name: document.getElementById('jname').value, market: mk.value, types: types, colors: colors,
-          brands: brands, copy: document.getElementById('jcopy').value, rows: document.getElementById('jrows').value, sample_brands: +document.getElementById('jsample').value || 0, disclosure: document.getElementById('jdisc').value }, ed ? 'PUT' : 'POST')
+          brands: brands, copy: document.getElementById('jcopy').value, rows: document.getElementById('jrows').value, sample_brands: +document.getElementById('jsample').value || 0, disclosure: document.getElementById('jdisc').value, langs: langs }, ed ? 'PUT' : 'POST')
           .then(function (r) { location.hash = '#/j/' + r.id; })
           .catch(function (x) { err.hidden = false; err.textContent = L(x.message); document.getElementById('go').disabled = false; });
       };
@@ -1078,7 +1151,8 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
       + (s.blocks.length ? '<div>' + s.blocks.map(function (w) { return '<span class="wn" style="max-width:none">⚠ ' + L('Market rule overridden: {0}', esc(w)) + '</span>'; }).join('') + '</div>' : '')
       + (s.warnings.length ? '<details class="warn"><summary>' + (s.warnings.length > 1 ? L('{0} build notes', s.warnings.length) : L('1 build note')) + '</summary><ul>' + s.warnings.slice(0, 12).map(function (w) { return '<li>' + esc(w) + '</li>'; }).join('') + '</ul></details>' : '')
       + (s.status === 'built' ? seoCard(s) : '')
-      + (s.status === 'built' ? '<div class="acts"><a class="btn primary" href="' + s.url + '" target="_blank" rel="noopener">' + L('Open site') + '</a>' + (s.brief ? '<a class="btn" href="' + s.brief + '" download title="' + L('Download the AI brief for the whole site (.txt)') + '">' + L('AI brief') + ' ↓</a>' : '') + (EDIT ? '<a class="btn" href="#/s/' + s.id + '">' + L('Edit') + '</a>' : '') + '</div>' : '');
+      + (s.status === 'built' ? '<div class="acts"><a class="btn primary" href="' + s.url + '" target="_blank" rel="noopener">' + L('Open site') + '</a>'
+        + (JLANGS && s.langs ? s.langs.map(function (c) { return '<a class="btn" href="/generated/' + s.id + '/' + c + '/index.html" target="_blank" rel="noopener" title="' + esc(L('Open the {0} version', langName(c))) + '">' + esc(c.toUpperCase()) + '</a>'; }).join('') : '') + (s.brief ? '<a class="btn" href="' + s.brief + '" download title="' + L('Download the AI brief for the whole site (.txt)') + '">' + L('AI brief') + ' ↓</a>' : '') + (EDIT ? '<a class="btn" href="#/s/' + s.id + '">' + L('Edit') + '</a>' : '') + '</div>' : '');
   }
 
   /* SEO review and AI text (generator/content.php): the SEO approves templates, then Vertex AI writes the approved sites' text */
@@ -1091,15 +1165,22 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     var todo = ok.filter(function (s) { return !(s.content && (s.content.state === 'queued' || s.content.state === 'writing')); }); // every approved site: new text, or written again
     var again = todo.filter(function (s) { return s.ai; }).length;
     var why = !ok.length ? L('Approve sites first: the AI writes the text of approved sites only.') : busy.length ? L('The AI is writing now.') : '';
+    var langs = jobLangs(j), trBusy = built.filter(function (s) { return s.tr && (s.tr.state === 'queued' || s.tr.state === 'writing'); });
+    var trTodo = ok.filter(function (s) { return s.ai && !(s.content && (s.content.state === 'queued' || s.content.state === 'writing')) && !(s.tr && (s.tr.state === 'queued' || s.tr.state === 'writing')); });
+    var trErr = built.filter(function (s) { return s.tr && s.tr.state === 'error'; });
     return '<section class="card seo" aria-labelledby="seoh"><div class="row"><h3 id="seoh" style="margin:0">' + L('SEO review and text') + '</h3><span class="sp"></span>'
       + (ok.length + changes.length < built.length ? '<button type="button" id="seoall">' + L('Approve all ({0})', built.length - ok.length - changes.length) + '</button>' : '')
       + (ok.length ? '<button type="button" id="seonone">' + L('Withdraw approvals') + '</button>' : '')
-      + '<button type="button" class="primary" id="aiwrite" data-again="' + again + '" data-n="' + todo.length + '"' + (todo.length && !busy.length ? '' : ' disabled') + (why ? ' title="' + esc(why) + '"' : '') + '>' + L('Write the text ({0})', todo.length) + '</button></div>'
+      + '<button type="button" class="primary" id="aiwrite" data-again="' + again + '" data-n="' + todo.length + '"' + (todo.length && !busy.length ? '' : ' disabled') + (why ? ' title="' + esc(why) + '"' : '') + '>' + L('Write the text ({0})', todo.length) + '</button>'
+      + (langs ? '<button type="button" class="primary" id="aitr"' + (trTodo.length && !busy.length && !trBusy.length ? '' : ' disabled') + ' title="' + esc(!done.length ? L('Write the text first: the AI translates the sites’ AI text.') : trBusy.length ? L('The AI is translating now.') : '') + '">' + L('Translate ({0})', trTodo.length) + '</button>' : '') + '</div>'
       + (why && !busy.length ? '<p class="muted" style="margin:6px 0 0;font-size:13px">' + why + '</p>' : '')
       + '<p class="muted" style="margin:8px 0 0;font-size:14px">' + L('1. Look at each template and approve it, or mark it «Needs changes» with a note. 2. «Write the text»: Vertex AI rewrites the approved sites’ text from the project information and documents, then the sites are updated with it (the design stays).') + ' <a href="#/settings/vertex">' + L('Vertex AI connection') + '</a> · <a href="#/p/' + j.project_id + '">' + L('Project information') + '</a></p>'
       + factsNote(j)
       + '<div class="chips" style="margin-top:10px"><span class="chip ok">' + L('Approved: {0} of {1}', ok.length, built.length) + '</span>' + (changes.length ? '<span class="chip warn">' + L('Needs changes: {0}', changes.length) + '</span>' : '')
       + '<span class="chip">' + L('With AI text: {0}', done.length) + '</span>' + (errs.length ? '<span class="chip bad">' + L('Text failed: {0}', errs.length) + '</span>' : '') + '</div>'
+      + (langs ? '<p class="muted" style="margin:8px 0 0;font-size:14px">' + L('3. «Translate»: the approved sites with AI text get their other languages ({0}), each under its market’s rules, and are updated with them. Run it again after new text: only new or changed text is translated.', langs.slice(1).map(function (x) { return langName(x.lang) + ' (' + x.market.toUpperCase() + ')'; }).join(', ')) + '</p>'
+        + '<div class="chips" style="margin-top:6px"><span class="chip">' + L('Translated: {0}', built.filter(function (s) { return s.langs && s.langs.length; }).length) + '</span>' + (trErr.length ? '<span class="chip bad">' + L('Translation failed: {0}', trErr.length) + '</span>' : '') + '</div>' : '')
+      + (trBusy.length ? '<div class="notice" role="status" style="margin-top:10px"><span class="spin" aria-hidden="true"></span><span><b>' + L('Translating: {0} sites left', trBusy.length) + '.</b> ' + L('Each site is updated with its languages when its translation is done; you can leave this page.') + '</span></div>' : '')
       + (busy.length ? '<div class="notice" role="status" style="margin-top:10px"><span class="spin" aria-hidden="true"></span><span><b>' + L('Writing the text: {0} sites left', busy.length) + '.</b> ' + L('About half a minute per page. Then each site is updated with its new text (pages written again, new preview; the design stays); you can leave this page.') + '</span></div>' : '')
       + '</section>';
   }
@@ -1178,7 +1259,8 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
   }
 
   function seoWire(id, d, jerr) {
-    var all = document.getElementById('seoall'), none = document.getElementById('seonone'), w = document.getElementById('aiwrite');
+    var all = document.getElementById('seoall'), none = document.getElementById('seonone'), w = document.getElementById('aiwrite'), tw = document.getElementById('aitr');
+    if (tw) tw.onclick = function () { tw.disabled = true; tw.textContent = L('Starting…'); api('jobs/' + id + '/translate', {}, 'POST').then(function () { job(id); }).catch(function (x) { tw.disabled = false; jerr(x); }); };
     if (all) all.onclick = function () { all.disabled = true; api('jobs/' + id + '/seo', { status: 'approved' }, 'POST').then(function () { job(id); }).catch(jerr); };
     if (none) none.onclick = function () { if (confirm(L('Withdraw the SEO approval of every site in this job?'))) api('jobs/' + id + '/seo', { status: null }, 'POST').then(function () { job(id); }).catch(jerr); };
     if (w) w.onclick = function () {
@@ -1189,9 +1271,9 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     if (box.dataset.seo) return;
     box.dataset.seo = '1'; // one listener for every card's buttons
     box.addEventListener('click', function (e) {
-      var b = e.target.closest('[data-seo],[data-aiw],[data-aiun]');
+      var b = e.target.closest('[data-seo],[data-aiw],[data-aiun],[data-trw]');
       if (!b) return;
-      var sid = b.dataset.seo || b.dataset.aiw || b.dataset.aiun, jid = location.hash.split('/')[2], done = function () { job(jid); }, err = function (x) { alert(L(x.message || String(x))); };
+      var sid = b.dataset.seo || b.dataset.aiw || b.dataset.aiun || b.dataset.trw, jid = location.hash.split('/')[2], done = function () { job(jid); }, err = function (x) { alert(L(x.message || String(x))); };
       if (b.dataset.seo) {
         var v = b.dataset.v;
         if (v === 'changes') {
@@ -1199,6 +1281,9 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
           if (note === null) return;
           api('sites/' + sid + '/seo', { status: 'changes', note: note }, 'PUT').then(done).catch(err);
         } else api('sites/' + sid + '/seo', { status: v || null }, 'PUT').then(done).catch(err);
+      } else if (b.dataset.trw) {
+        b.disabled = true;
+        api('jobs/' + jid + '/translate', { sites: [sid] }, 'POST').then(done).catch(function (x) { b.disabled = false; err(x); });
       } else if (b.dataset.aiw) {
         b.disabled = true;
         api('jobs/' + jid + '/content', { sites: [sid] }, 'POST').then(done).catch(function (x) { b.disabled = false; err(x); });
@@ -1212,14 +1297,19 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     var chips = (st === 'approved' ? '<span class="chip ok">' + L('Approved by SEO') + '</span>' : st === 'changes' ? '<span class="chip warn" title="' + esc(note || '') + '">' + L('Needs changes') + '</span>' : '<span class="chip auto">' + L('Not reviewed') + '</span>')
       + (c.state === 'queued' ? '<span class="chip auto">' + L('Text queued') + '</span>' : c.state === 'writing' ? '<span class="chip warn">' + L('AI is writing…') + '</span>'
         : c.state === 'error' ? '<span class="chip bad" title="' + esc(c.error || '') + '">' + L('Text failed') + '</span>' : s.ai ? '<span class="chip ok" title="' + esc(L('{0} texts rewritten, {1} below sections · {2}', c.fields || 0, c.after || 0, c.model || '') + (c.figures ? ' · ' + L('{0} left as the template: figures not in the brand data', c.figures) : '')) + '">' + L('AI text') + '</span>' : '');
-    var busy = c.state === 'queued' || c.state === 'writing';
+    var busy = c.state === 'queued' || c.state === 'writing', tr = s.tr || {}, trBusy = tr.state === 'queued' || tr.state === 'writing';
+    if (JLANGS) chips += tr.state === 'queued' ? '<span class="chip auto">' + L('Translation queued') + '</span>' : tr.state === 'writing' ? '<span class="chip warn">' + L('AI is translating…') + '</span>'
+      : tr.state === 'error' ? '<span class="chip bad" title="' + esc(tr.error || '') + '">' + L('Translation failed') + '</span>'
+      : s.langs && s.langs.length ? '<span class="chip ok" title="' + esc((tr.left ? L('{0} texts left in the main language: their figures came back changed', tr.left) + ' · ' : '') + (tr.model || '')) + '">' + L('Translated: {0}', s.langs.map(function (x) { return x.toUpperCase(); }).join(', ')) + '</span>' : '';
     return '<div class="seorow"><div class="chips">' + chips + '</div>'
       + (st === 'changes' && note ? '<p class="seonote">' + esc(note) + '</p>' : '')
       + (c.state === 'error' ? '<p class="seonote err">' + esc(c.error || '') + '</p>' : '')
+      + (JLANGS && tr.state === 'error' ? '<p class="seonote err">' + esc(tr.error || '') + '</p>' : '')
       + '<div class="acts">' + (st !== 'approved' ? '<button type="button" data-seo="' + s.id + '" data-v="approved">' + L('Approve') + '</button>' : '<button type="button" data-seo="' + s.id + '" data-v="">' + L('Withdraw approval') + '</button>')
       + '<button type="button" data-seo="' + s.id + '" data-v="changes" data-note="' + esc(note || '') + '">' + L('Needs changes') + '</button>'
       + (st === 'approved' && !busy ? '<button type="button" data-aiw="' + s.id + '">' + (s.ai ? L('Write again') : L('Write the text')) + '</button>' : '')
-      + (s.ai && !busy ? '<button type="button" data-aiun="' + s.id + '">' + L('Template text back') + '</button>' : '') + '</div></div>';
+      + (s.ai && !busy ? '<button type="button" data-aiun="' + s.id + '">' + L('Template text back') + '</button>' : '')
+      + (JLANGS && st === 'approved' && s.ai && !busy && !trBusy ? '<button type="button" data-trw="' + s.id + '">' + L('Translate') + '</button>' : '') + '</div></div>';
   }
 
   function priceModels(v) { // the chosen model, the suggestions and every model with requests, once each
@@ -1382,7 +1472,8 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
       if (!document.getElementById('jobhead')) {
         main.innerHTML = '<p><a href="#/p/' + j.project_id + '">← ' + esc(j.project_name) + '</a></p><div id="jobhead"></div><div id="sites"></div><h3>' + L('How different are the sites?') + '</h3><div id="diffnote"></div><div id="diff" class="muted">' + L('Shown when the sites are built.') + '</div>';
       }
-      document.getElementById('jobhead').innerHTML = '<div class="row"><h2>' + esc(j.name) + '</h2><span class="chip">' + esc(j.market.toUpperCase()) + '</span><span class="sp"></span>'
+      JLANGS = jobLangs(j);
+      document.getElementById('jobhead').innerHTML = '<div class="row"><h2>' + esc(j.name) + '</h2>' + (JLANGS ? JLANGS.map(function (x, i) { return '<span class="chip' + (i ? ' auto' : '') + '" title="' + esc(langName(x.lang) + (i ? '' : ' · ' + L('main language'))) + '">' + esc(x.lang.toUpperCase() + ' · ' + x.market.toUpperCase()) + '</span>'; }).join('') : '<span class="chip">' + esc(j.market.toUpperCase()) + '</span>') + '<span class="sp"></span>'
         + (j.status === 'stopped' ? '<button id="retry" class="primary">' + L('Continue the build') + '</button>' : failed && !running ? '<button id="retry">' + L('Retry failed ({0})', failed) + '</button>' : '')
         + (running ? '' : '<a class="btn" href="#/j/' + j.id + '/edit">' + L('Edit job') + '</a><button id="restyle" title="' + L('New seed, style, palette and hero layout for every site; the variations stay') + '">' + L('New looks') + '</button><button id="refresh" title="' + L('Pages written again with the current brand data, licence and AI text, and new preview pictures; design and text stay, no difference checks. About 2 seconds per site.') + '">' + L('Update the data') + '</button><button id="rebuild" title="' + L('Same plans (seeds, styles, variations), current engine; sites under the difference thresholds are re-planned') + '">' + L('Rebuild all') + '</button>') + (built ? '<button id="briefs" aria-expanded="' + BRIEFS.open + '" aria-controls="bpanel">' + L('AI briefs') + ' ↓</button>' : '') + '<button class="danger" id="delj">' + L('Delete job') + '</button></div>'
         + (built && BRIEFS.open ? briefPanel(j, d) : '')
@@ -1448,7 +1539,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
       var rb = document.getElementById('rebuild');
       if (rb) rb.onclick = function () { rb.disabled = true; rb.textContent = L('Starting…'); api('jobs/' + id + '/rebuild', null, 'POST').then(function () { job(id); }).catch(function (x) { rb.disabled = false; rb.textContent = L('Rebuild all'); jerr(x); }); };
       clearTimeout(poll);
-      var writing = d.sites.some(function (s) { return s.content && (s.content.state === 'queued' || s.content.state === 'writing'); });
+      var writing = d.sites.some(function (s) { return s.content && (s.content.state === 'queued' || s.content.state === 'writing') || s.tr && (s.tr.state === 'queued' || s.tr.state === 'writing'); });
       if (running || writing) {
         restoreScroll();
         poll = setTimeout(function () { if (location.hash === '#/j/' + id) job(id); }, 4000);

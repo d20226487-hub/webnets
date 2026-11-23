@@ -89,7 +89,7 @@ function sx_site_checks(array &$out, string $style, string $base, bool $ctaCheck
         preg_match_all('/href="([^"]*)"/', $p['html'], $m);
         foreach (array_unique($m[1]) as $href) {
             $href = html_entity_decode($href);
-            if ($href === '' || preg_match('#^(https?:|mailto:|tel:|data:|//|\#)#', $href)) {
+            if ($href === '' || preg_match('#^(https?:|mailto:|tel:|data:|sxlang|//|\#)#', $href)) {
                 continue;
             }
             $path = preg_replace('/[?#].*$/', '', $href);

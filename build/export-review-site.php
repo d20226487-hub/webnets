@@ -31,7 +31,8 @@ $base['urls'] = 'files';
 $base['_devspec'] = true; // block markers + data for the developer skeleton view
 $axes = $base['variations'] ?? [];
 $extraLabels = $base['variation_labels'] ?? [];
-unset($base['variations'], $base['variation_labels']);
+$alts = $base['alt_configs'] ?? []; // multi-language sites: [code => config file] of the other languages, each built into <dir>/<code>/
+unset($base['variations'], $base['variation_labels'], $base['alt_configs']);
 $locale = $base['locale'] ?? 'en';
 // SX_REVIEW_OUT=dist/generated (the network generator): pages go to <out>/<id>/, without the gallery wrapper copy
 $out = getenv('SX_REVIEW_OUT') ?: '';
@@ -39,6 +40,14 @@ $dir = $out ? "$root/" . trim($out, '/') . "/{$base['id']}" : "$root/dist/review
 @mkdir($dir, 0777, true);
 foreach (glob("$dir/*.{html,txt}", GLOB_BRACE) as $old) {
     unlink($old);
+}
+foreach (glob("$dir/*", GLOB_ONLYDIR) as $old) { // language folders of an earlier build
+    if (preg_match('/^[a-z]{2,3}$/', basename($old))) {
+        foreach (glob("$old/*.{html,txt}", GLOB_BRACE) as $f) {
+            unlink($f);
+        }
+        @rmdir($old);
+    }
 }
 
 function sx_var_merge(array $a, array $b): array
@@ -177,6 +186,39 @@ $bar = function (array $current, string $page, string $live = '') use ($axes, $L
         . sx_review_vbar_toggle($L['_title'], implode(' · ', array_map(fn($o) => $L[$o] ?? $o, $current))) . $rows . $live . '</div>';
 };
 
+// the other languages: the same site in <dir>/<code>/; the switchers' sxlang: links become the same page there
+$langFiles = [];
+$langPages = [];
+$mainLang = $locale;
+if ($alts) {
+    foreach ($sets[0][1] as $file => $p) {
+        $langFiles[$mainLang][$p['id'] ?? 'index'] = $file;
+    }
+    foreach ($alts as $code => $file) {
+        $acfg = sx_json($file);
+        $acfg['urls'] = 'files';
+        $acfg['_devspec'] = true;
+        $acfg['file_prefix'] = '';
+        unset($acfg['variations'], $acfg['variation_labels'], $acfg['alt_configs']);
+        try {
+            $built = sx_build_site($acfg, $root);
+        } catch (Throwable $e) {
+            throw new RuntimeException("Language version '$code': " . $e->getMessage(), 0, $e);
+        }
+        foreach ($built as $p) {
+            if (empty($p['asset'])) {
+                $langPages[$code][$p['file']] = $p;
+                $langFiles[$code][$p['id'] ?? 'index'] = $p['file'];
+                foreach ($p['warnings'] as $w) { // that language's rules are its market's
+                    $w = empty($acfg['rules_market']) ? $w : str_replace("market '{$base['market']}'", "market '{$acfg['rules_market']}'", $w);
+                    fwrite(STDERR, "$code: $w\n");
+                }
+            }
+        }
+    }
+}
+$langLinks = fn(string $html, array $p, string $from) => $alts ? sx_lang_links($html, $p['id'] ?? 'index', $from, $mainLang, $langFiles, $base['site']['url'] ?? '') : $html;
+
 require_once "$root/lib/aibrief.php";
 foreach ($sets as [$c, $pages, $pal]) {
     // AI brief for the whole site in this combination, next to its pages (one-page sites too: it is what gets downloaded);
@@ -190,8 +232,16 @@ foreach ($sets as [$c, $pages, $pal]) {
         if (!$out) { // the variations panel is the gallery's; generated sites are built as they are
             $html = preg_replace('#<body([^>]*)>#', '<body$1>' . $bar($c, $page, sx_review_live_switches($pal[$page] ?? [], $locale, $rowsScope)), $html, 1);
         }
-        file_put_contents("$dir/{$p['file']}", sx_strip_comments($html)); // review additions too (panel, phone view)
+        file_put_contents("$dir/{$p['file']}", sx_strip_comments($langLinks($html, $p, $mainLang))); // review additions too (panel, phone view)
         echo "dist/review/{$base['id']}/{$p['file']}\n";
+    }
+}
+foreach ($langPages as $code => $pages) {
+    @mkdir("$dir/$code", 0777, true);
+    foreach ($pages as $p) {
+        $html = str_replace('</body>', sx_review_nav_script() . sx_review_device_toggle($p['file'], $code) . sx_review_devspec($p, $pages, $code, $p['prefix'], null) . '</body>', $p['html']);
+        file_put_contents("$dir/$code/{$p['file']}", sx_strip_comments($langLinks($html, $p, $code)));
+        echo "dist/review/{$base['id']}/$code/{$p['file']}\n";
     }
 }
 if ($out) {

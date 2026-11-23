@@ -335,15 +335,15 @@
       + '<button class="danger" id="mdel"' + (inUse ? ' disabled title="' + L('Cannot be deleted while jobs or demos use it.') + '"' : '') + '>' + L('Delete market') + '</button></div>'
       + '<p class="muted">' + L('Last change') + ': ' + esc(D.changed) + '</p>'
       + (D.stale ? '<p class="note">' + L('{0} built sites were made before the last change and still show the old rules. Rebuild their jobs to apply it.', D.stale) + '</p>' : '')
+      + '<nav class="mnav">' + [['basics', 'Basics'], ['formats', 'Formats'], ['allowed', 'What is allowed'], ['payapps', 'Payments and apps'], ['compliance', 'Compliance texts'], ['pages', 'Pages and sharing'], ['ai', 'AI notes']]
+        .map(function (x) { return '<a href="javascript:void 0" data-go="m-' + x[0] + '">' + L(x[1]) + '</a>'; }).join('') + '</nav>'
+      + '<form id="mform" class="mform" novalidate>' + form()
+      + '<div class="msavebar"><button class="primary">' + L('Save changes') + '</button><span class="chip warn" id="mdirty"' + (dirty ? '' : ' hidden') + '>' + L('Unsaved changes') + '</span><span id="msave" class="muted"></span></div></form>'
       + '<div class="mtop"><section class="card"><h3>' + L('Used by') + '</h3>'
       + '<p><b>' + L('Jobs') + ':</b> ' + (u.jobs.length ? u.jobs.slice(0, 12).map(function (j) { return '<a href="#/j/' + j.id + '">' + esc(j.project) + ' / ' + esc(j.name) + '</a> <span class="muted">(' + j.sites + ')</span>'; }).join(', ') + (u.jobs.length > 12 ? ' …' : '') : L('None.')) + '</p>'
       + '<p><b>' + L('Demos') + ':</b> ' + (u.demos.length ? esc(u.demos.join(', ')) : L('None.')) + '</p>'
       + '<p><b>' + L('Brands licensed here') + ':</b> ' + (u.brands.length ? esc(u.brands.join(', ')) : L('None.')) + '</p></section>'
-      + '<section class="card"><h3>' + L('Built here') + '</h3><p class="muted mhelp">' + L('Builds run as the sites of this market would. A type that is not available cannot be chosen in the job form for this market.') + '</p><div id="mavail"><p class="notice"><span class="spin" aria-hidden="true"></span><span>' + L('Checking what can be built here (test builds of every site type)…') + '</span></p></div></section></div>'
-      + '<nav class="mnav">' + [['basics', 'Basics'], ['formats', 'Formats'], ['allowed', 'What is allowed'], ['payapps', 'Payments and apps'], ['compliance', 'Compliance texts'], ['pages', 'Pages and sharing'], ['ai', 'AI notes']]
-        .map(function (x) { return '<a href="javascript:void 0" data-go="m-' + x[0] + '">' + L(x[1]) + '</a>'; }).join('') + '</nav>'
-      + '<form id="mform" class="mform" novalidate>' + form()
-      + '<div class="msavebar"><button class="primary">' + L('Save changes') + '</button><span class="chip warn" id="mdirty"' + (dirty ? '' : ' hidden') + '>' + L('Unsaved changes') + '</span><span id="msave" class="muted"></span></div></form>';
+      + '<section class="card"><h3>' + L('Built here') + '</h3><p class="muted mhelp">' + L('Builds run as the sites of this market would. A type that is not available cannot be chosen in the job form for this market.') + '</p><div id="mavail"><p class="notice"><span class="spin" aria-hidden="true"></span><span>' + L('Checking what can be built here (test builds of every site type)…') + '</span></p></div></section></div>';
     wire(id);
     previews();
     [].forEach.call(main.querySelectorAll('[data-go]'), function (a) { a.onclick = function () { document.getElementById(a.dataset.go).scrollIntoView({ behavior: 'smooth' }); }; });

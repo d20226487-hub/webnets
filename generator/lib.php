@@ -17,6 +17,7 @@ require_once __DIR__ . '/brands.php';
 require_once __DIR__ . '/edits.php';
 require_once __DIR__ . '/markets.php';
 require_once __DIR__ . '/types.php';
+require_once __DIR__ . '/translate.php';
 
 const GEN_PLACEHOLDER = 'Placeholder copy for this section of the site to be written later with real content';
 
@@ -614,7 +615,7 @@ function gen_fit_product(string $type, array $choice, ?string $brand, array $bra
     return $choice;
 }
 
-function gen_site_config(string $type, string $market, ?string $brand, array $choice, string $id, string $seed, ?string $preset, array $colors, array $brands = [], ?int $slot = null, string $copy = 'demo', int $level = 0, ?int $palette = null, ?string $nav = null, array $style = [], array $menu = []): array
+function gen_site_config(string $type, string $market, ?string $brand, array $choice, string $id, string $seed, ?string $preset, array $colors, array $brands = [], ?int $slot = null, string $copy = 'demo', int $level = 0, ?int $palette = null, ?string $nav = null, array $style = [], array $menu = [], ?string $locale = null): array
 {
     global $GEN_ROOT;
     $cfg = sx_json("$GEN_ROOT/sites/demos/" . gen_source($type, $market, $choice) . '.json');
@@ -690,6 +691,9 @@ function gen_site_config(string $type, string $market, ?string $brand, array $ch
         $cfg['links']['brands'] = array_fill_keys($brands, 'x');
     }
     $demoLocale = $cfg['locale'] ?? null;
+    if ($locale !== null && in_array($locale, $m['locales'], true)) { // a multi-language job: its main language
+        $cfg['locale'] = $locale;
+    }
     $cfg['locale'] = in_array($cfg['locale'] ?? '', $m['locales'], true) ? $cfg['locale'] : $m['default_locale'];
     // demo copy when the demo is written in the site's language (brand names swapped for the user's), else placeholders
     $useDemo = $copy === 'demo' && $demoLocale === $cfg['locale'];
@@ -1172,8 +1176,29 @@ function gen_build_site(array $site, string $market, array $brands = []): array
     $cfg = gen_site_full_config($site, $market, $brands);
     gen_mkdir("$GEN_ROOT/data/configs");
     $file = "$GEN_ROOT/data/configs/{$site['id']}.json";
+    foreach (glob("$GEN_ROOT/data/configs/{$site['id']}.*.json") as $old) { // language versions of an earlier build
+        unlink($old);
+    }
+    $q = gen_db()->prepare('SELECT spec FROM jobs WHERE id = ?');
+    $q->execute([(int)$site['job_id']]);
+    $warn = [];
+    if ($langs = gen_job_langs(json_decode((string)$q->fetchColumn(), true) ?: [])) { // the translated languages, each in its own folder
+        [$alts, $warn] = gen_site_lang_configs($site, $cfg, $langs);
+        if ($alts) {
+            $cfg['langs'] = gen_lang_list(array_intersect_key($langs, [array_key_first($langs) => 1] + $alts));
+            foreach ($alts as $c => $a) {
+                $a['langs'] = $cfg['langs'];
+                $cfg['alt_configs'][$c] = "$GEN_ROOT/data/configs/{$site['id']}.$c.json";
+                file_put_contents($cfg['alt_configs'][$c], json_encode($a, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+            }
+        }
+    }
     file_put_contents($file, json_encode($cfg, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
-    return gen_export_site($site['id'], $file);
+    $r = gen_export_site($site['id'], $file);
+    if ($r[0]) {
+        $r[1] = array_merge($warn, $r[1]);
+    }
+    return $r;
 }
 
 /** A site's whole config: its plan, the job's settings, the user's edits and (unless $withAi is false) the AI text. */
@@ -1194,7 +1219,10 @@ function gen_site_full_config(array $site, string $market, array $brands = [], b
         gen_db()->prepare('UPDATE sites SET choice = ? WHERE id = ?')->execute([json_encode($fitted), $site['id']]);
         $choice = $fitted;
     }
-    $cfg = gen_site_config($site['type'], $market, $site['brand'], $choice, $site['id'], $plan['seed'], $plan['preset'], $plan['colors'] ?? [], $brands, $plan['slot'] ?? $site['n'] - 1 + (int)$site['job_id'], $plan['copy'] ?? 'demo', (int)($plan['level'] ?? 0), isset($plan['palette']) ? (int)$plan['palette'] : null, $plan['nav'] ?? null, ['hue' => (int)($plan['hue'] ?? 0), 'flip' => !empty($plan['flip'])], $plan['menu'] ?? []);
+    $cfg = gen_site_config($site['type'], $market, $site['brand'], $choice, $site['id'], $plan['seed'], $plan['preset'], $plan['colors'] ?? [], $brands, $plan['slot'] ?? $site['n'] - 1 + (int)$site['job_id'], $plan['copy'] ?? 'demo', (int)($plan['level'] ?? 0), isset($plan['palette']) ? (int)$plan['palette'] : null, $plan['nav'] ?? null, ['hue' => (int)($plan['hue'] ?? 0), 'flip' => !empty($plan['flip'])], $plan['menu'] ?? [], ($langs = gen_job_langs($spec)) ? array_key_first($langs) : null);
+    if ($langs) { // where its language switcher goes and how it looks
+        $cfg['lang_ui'] = gen_lang_ui($plan, $site['id']);
+    }
     if (gen_type_base($site['type']) === 'satellite') { // bonuses before the hero on some satellites, like the full-length landings (older plans: from the site id)
         $cfg['sections']['home']['offers'] = (bool)($plan['offers'] ?? crc32($site['id'] . '|offers') % 3 === 0);
     }
