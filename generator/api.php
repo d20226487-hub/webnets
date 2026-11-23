@@ -47,10 +47,7 @@ function gen_refresh_job(int $jobId, ?array $siteIds = null): int
     $j = $db->prepare('SELECT market, spec FROM jobs WHERE id = ?');
     $j->execute([$jobId]);
     $row = $j->fetch() ?: throw new RuntimeException('No such job.');
-    $spec = json_decode($row['spec'], true) ?: [];
-    if (gen_user_brands($spec)) { // brand data made again (same ids), with the confirmed facts and the project's licence
-        gen_materialise_brands($spec['brands'], $row['market'], $jobId, $spec['copy'] ?? 'demo');
-    }
+    gen_job_brands_reload($jobId);
     $q = $db->prepare("SELECT id FROM sites WHERE job_id = ? AND status IN ('built', 'failed')");
     $q->execute([$jobId]);
     $ids = array_column($q->fetchAll(), 'id');
@@ -266,7 +263,7 @@ try {
             return;
         }
         $db->prepare('INSERT INTO projects (name, created, info) VALUES (?, ?, ?)')->execute([mb_substr($name, 0, 120), gen_now(),
-            json_encode(gen_project_info(['product' => (string)(gen_body()['product'] ?? 'both')]), JSON_UNESCAPED_UNICODE)]);
+            json_encode(gen_project_info(['product' => (string)(gen_body()['product'] ?? 'both'), 'brand_facts' => gen_pfacts_default()]), JSON_UNESCAPED_UNICODE)]);
         gen_json(['id' => (int)$db->lastInsertId()]);
     } elseif ($seg[0] === 'projects' && ($seg[2] ?? '') === 'files' && !isset($seg[3]) && $method === 'POST') { // upload a document as project information
         $b = gen_body();
@@ -314,13 +311,17 @@ try {
         $old->execute([(int)$seg[1]]);
         $old = gen_project_info(json_decode((string)$old->fetchColumn(), true) ?: []);
         $info = gen_project_info($b['info'] ?? []);
+        if ($errs = array_merge(gen_pfacts_errors($info['brand_facts']), gen_poffers_errors($info['offers']))) {
+            gen_json(['error' => implode(' ', $errs)], 422);
+            return;
+        }
         $q = $db->prepare('UPDATE projects SET name = ?, info = ? WHERE id = ?');
         $q->execute([mb_substr($name, 0, 120), json_encode($info, JSON_UNESCAPED_UNICODE), (int)$seg[1]]);
         if (!$q->rowCount()) {
             throw new RuntimeException('No such project.');
         }
         $outdated = 0;
-        $licKeys = ['licence_regulator', 'licence_no', 'licence_short'];
+        $licKeys = ['licence_regulator', 'licence_no', 'licence_short', 'brand_facts', 'offers']; // what the sites show: licence, brand facts and offers
         if (array_intersect_key($old, array_flip($licKeys)) !== array_intersect_key($info, array_flip($licKeys))) {
             // the licence is on the pages: the jobs with built sites are marked, and the user picks which to rebuild
             $o = $db->prepare("UPDATE jobs SET outdated = 1 WHERE project_id = ? AND EXISTS (SELECT 1 FROM sites s WHERE s.job_id = jobs.id AND s.status IN ('built', 'failed'))");
@@ -328,6 +329,18 @@ try {
             $outdated = $o->rowCount();
         }
         gen_json(['ok' => true, 'outdated' => $outdated]);
+    } elseif ($seg[0] === 'projects' && ($seg[2] ?? '') === 'facts' && ($seg[3] ?? '') === 'fill' && $method === 'POST') { // brand facts read from the project by Vertex AI (suggestions, not saved)
+        try {
+            gen_json(['facts' => (object)gen_pfacts_fill($db, (int)$seg[1], (array)(gen_body()['fields'] ?? []))]);
+        } catch (InvalidArgumentException $e) {
+            gen_json(['error' => $e->getMessage()], 422);
+        }
+    } elseif ($seg[0] === 'projects' && ($seg[2] ?? '') === 'offers' && ($seg[3] ?? '') === 'fill' && $method === 'POST') { // offers read from the project by Vertex AI (suggestions, not saved)
+        try {
+            gen_json(['offers' => gen_poffers_fill($db, (int)$seg[1])]);
+        } catch (InvalidArgumentException $e) {
+            gen_json(['error' => $e->getMessage()], 422);
+        }
     } elseif ($seg[0] === 'projects' && ($seg[2] ?? '') === 'outdated' && $method === 'POST') { // rebuild the chosen out-of-date jobs, and leave the others as they are
         $b = gen_body();
         $rebuild = array_map('intval', (array)($b['rebuild'] ?? []));
@@ -566,12 +579,6 @@ function gen_job_input(array $b): array
         default => null,
     };
     return [$name, $spec, $err];
-}
-
-/** Jobs made before user brands kept a list of demo brand ids instead. */
-function gen_user_brands(array $spec): bool
-{
-    return !empty($spec['brands']) && is_array($spec['brands'][0] ?? null);
 }
 
 /**

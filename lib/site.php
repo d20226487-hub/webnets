@@ -199,6 +199,7 @@ function sx_site_context(array $cfg, string $root): array
         'devspec' => !empty($cfg['_devspec']),  // review links: block markers + data for the developer skeleton view
         'xray' => !empty($cfg['_xray']),        // builder preview: extra measurements for the X-ray panel
         'brands_list' => $cfg['brands'] ?? [],   // multi-brand sites: compared operators
+        'brand_text' => is_array($cfg['brand_text'] ?? null) ? $cfg['brand_text'] : [], // this site's wording of their rating texts
         'featured' => $cfg['featured'] ?? null,  // multi-brand sites: one labelled paid slot
         'promote' => !empty($cfg['promote']) && !empty($cfg['featured']), // the site promotes its featured brand: slot always shown, general CTAs go to it
         'look' => $cfg['look'] ?? null,

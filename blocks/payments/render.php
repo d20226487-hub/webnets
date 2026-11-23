@@ -1,14 +1,33 @@
 <?php
 /** "table": comparison table (a real table, scrolls on phones). "tiles": one card per method. */
 $allowed = sx_ctx('market')['payments'];
+$bid = sx_ctx('brand')['id'] ?? null;
+$own = sx_brand_payments($bid);
+$bf = $bid && function_exists('sx_casino') ? (sx_casino($bid)['f'] ?? null) : null;
+$wd = $bf ? sx_brand_withdrawals($bf) : [];
 $rows = [];
 foreach ($props['rows'] as $r) {
     if (!in_array($r['method'], $allowed, true)) {
         SX::$warnings[] = "payments: '{$r['method']}' is not a payment method of market " . sx_ctx('market')['id'] . '; removed.';
         continue;
     }
+    if (!in_array($r['method'], $own, true)) {
+        continue;
+    }
+    if (isset($wd[$r['method']])) {
+        $r['withdraw'] = sx_minutes_label((int)$wd[$r['method']]);
+    }
+    if (isset($bf['min_deposit'])) {
+        $r['min'] = money($bf['min_deposit']);
+    }
     $r['name'] = ($r['label'] ?? '') ?: sx_payment_name($r['method']);
     $rows[] = $r;
+}
+foreach (array_diff($allowed, $own) as $no) {
+    if ($props['eyebrow'] && preg_match('/(?<!\p{L})' . preg_quote(sx_payment_name($no), '/') . '(?!\p{L})/iu', $props['eyebrow'])) {
+        $props['eyebrow'] = implode(', ', array_map('sx_payment_name', $own));
+        break;
+    }
 }
 ?>
 <section class="<?= cx('pay', ['pay', null, $variant]) ?>" id="payments">

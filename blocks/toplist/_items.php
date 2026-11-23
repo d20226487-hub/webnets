@@ -23,7 +23,7 @@ $info = function (string $id) use ($crit, $kf): array {
         'review' => sx_review_url($id),
     ];
 };
-$flabel = fn(string $id) => e(t('casinos.featured')) . ' · ' . e(t('casinos.featured_note', ['n' => $rankOf[$id] + 1]));
+$flabel = fn(string $id) => e(sx_featured_label($rankOf[$id] + 1));
 $tabs = [];
 foreach (['home' => null, 'fast' => 'payouts', 'live' => 'live', 'app' => 'app'] as $pid => $tc) {
     if (isset(sx_pages()[$pid])) {

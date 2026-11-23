@@ -11,7 +11,7 @@ $row = function (string $id, bool $isFeatured) use ($rankOf, $kf, $variant, $hn)
     $n = $rankOf[$id] + 1;
     $score = sx_score10(sx_casino_score($id));
     return '<li class="' . cls('rank', 'slot') . ($isFeatured ? ' ' . cls('rank', 'slot', 'paid') : '') . '">'
-        . ($isFeatured ? '<p class="' . cls('rank', 'paidnote') . '">' . e(t('casinos.featured')) . ' · ' . e(t('casinos.featured_note', ['n' => $n])) . '</p>' : '')
+        . ($isFeatured ? '<p class="' . cls('rank', 'paidnote') . '">' . e(sx_featured_label($n)) . '</p>' : '')
         . '<article class="' . cls('rank', 'entry') . '">'
         . '<b class="' . cls('rank', 'pos') . '" aria-label="' . e(t('casinos.rank_aria', ['n' => $n])) . '">' . $n . '</b>'
         . sx_brand_mark($id, cls('rank', 'logo'))

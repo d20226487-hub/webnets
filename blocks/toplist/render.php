@@ -6,7 +6,7 @@ $entry = function (string $id, bool $isFeatured) use ($c, $rankOf, $kf, $variant
     $pos = $isFeatured ? 'featured' : 'list';
     ob_start(); ?>
     <li class="<?= $isFeatured ? $c('featured') : '' ?>">
-      <?php if ($isFeatured): ?><p class="<?= $c('flabel') ?>"><?= e(t('casinos.featured')) ?> · <?= e(t('casinos.featured_note', ['n' => $rankOf[$id] + 1])) ?></p><?php endif; ?>
+      <?php if ($isFeatured): ?><p class="<?= $c('flabel') ?>"><?= e(sx_featured_label($rankOf[$id] + 1)) ?></p><?php endif; ?>
       <div class="<?= $c('item') ?>">
         <span class="<?= $c('rank') ?>" aria-label="<?= e(t('casinos.rank_aria', ['n' => $rankOf[$id] + 1])) ?>"><?= $rankOf[$id] + 1 ?></span>
         <?= sx_brand_mark($id, $c('mark')) ?>
@@ -42,7 +42,7 @@ $entry = function (string $id, bool $isFeatured) use ($c, $rankOf, $kf, $variant
         </tr></thead>
         <tbody>
           <?php foreach (array_merge($featured ? [[$featured, true]] : [], array_map(fn($id) => [$id, false], $ids)) as [$id, $isF]): $b = sx_casino($id); $review = sx_review_url($id); ?>
-            <?php if ($isF): ?><tr class="<?= $c('flabelrow') ?>"><td colspan="<?= 4 + count($cols) ?>"><?= e(t('casinos.featured')) ?> · <?= e(t('casinos.featured_note', ['n' => $rankOf[$id] + 1])) ?></td></tr><?php endif; ?>
+            <?php if ($isF): ?><tr class="<?= $c('flabelrow') ?>"><td colspan="<?= 4 + count($cols) ?>"><?= e(sx_featured_label($rankOf[$id] + 1)) ?></td></tr><?php endif; ?>
             <tr class="<?= $isF ? $c('frow') : '' ?>">
               <td class="<?= $c('rank') ?>"><?= $rankOf[$id] + 1 ?></td>
               <th scope="row" class="<?= $c('brand') ?>"><?= sx_brand_mark($id, $c('mark')) ?><span><?= e($b['name']) ?><?php if ($review): ?><a class="<?= $c('review') ?>" href="<?= sx_url($review) ?>"><?= e(t('casinos.read')) ?></a><?php endif; ?></span></th>

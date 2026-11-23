@@ -37,6 +37,19 @@ function sx_casino(string $id): array
         $r = array_merge($r, $r['products'][$p]);
     }
     unset($r['products']);
+    $own = SX::$ctx['brand_text'][$id] ?? null; // the site's own wording of the rating texts (generated sites)
+    if ($r && is_array($own)) {
+        foreach (['summary', 'verdict', 'pros', 'cons'] as $k) {
+            if (isset($own[$k]) && $own[$k] !== '' && $own[$k] !== []) {
+                $r[$k] = is_array($own[$k]) ? array_values($own[$k]) : $own[$k];
+            }
+        }
+        foreach ((array)($own['scores'] ?? []) as $k => $reason) {
+            if (isset($r['scores'][$k]) && is_string($reason) && $reason !== '') {
+                $r['scores'][$k]['reason'] = $reason;
+            }
+        }
+    }
     return SX::$once['casino'][$id] = ($ops[$id] ?? []) + [
         'id' => $id,
         'f' => $facts[$id] ?? null,
@@ -90,6 +103,10 @@ function sx_casino_rank(?string $criterion = null): array
 {
     $ids = sx_casino_ids();
     usort($ids, fn($a, $b) => [sx_casino_score($b, $criterion), sx_casino_score($b)] <=> [sx_casino_score($a, $criterion), sx_casino_score($a)]);
+    $f = SX::$ctx['featured'] ?? null;
+    if (!empty(SX::$ctx['promote']) && $f && in_array($f, $ids, true)) { // a site made for its brand: the brand is first in every list, the rest by score
+        $ids = array_values(array_merge([$f], array_diff($ids, [$f])));
+    }
     return $ids;
 }
 
@@ -216,8 +233,9 @@ function sx_duration(int $min): string
 function sx_key_fact(string $id, string $criterion): string
 {
     $f = sx_casino($id)['f'];
-    $fast = array_keys($f['withdrawal_minutes'], min($f['withdrawal_minutes']))[0];
-    $payout = t('casinos.kf.payouts', ['method' => sx_payment_name($fast), 't' => sx_duration(min($f['withdrawal_minutes']))]);
+    $w = sx_brand_withdrawals($f);
+    $fast = array_keys($w, min($w))[0];
+    $payout = t('casinos.kf.payouts', ['method' => sx_payment_name($fast), 't' => sx_duration(min($w))]);
     return match ($criterion) {
         'payouts' => $payout,
         'live' => t('casinos.kf.live', ['n' => sx_number($f['live_tables'])]),
@@ -240,7 +258,7 @@ function sx_fact_defs(): array
 {
     $f = fn($id) => sx_casino($id)['f'];
     $all = [
-        'payouts' => [t('casinos.f.withdrawal'), fn($id) => sx_duration(min($f($id)['withdrawal_minutes']))],
+        'payouts' => [t('casinos.f.withdrawal'), fn($id) => sx_duration(min(sx_brand_withdrawals($f($id))))],
         'live' => [t('casinos.f.live'), fn($id) => sx_number($f($id)['live_tables'])],
         'games' => [t('casinos.f.games'), fn($id) => sx_number($f($id)['games'])],
         'support' => [t('casinos.f.support'), fn($id) => t('casinos.chat', ['h' => $f($id)['support']['chat']])],

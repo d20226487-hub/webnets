@@ -41,7 +41,7 @@ $next = array_slice($entries, 1, 2);
           <?php foreach ($entries as [$id, $isF]): $x = $info($id); ?>
             <li>
               <span class="<?= $c('tile') ?>" style="--brand: <?= e($x['b']['brand_color']) ?>"><?= sx_brand_mark($id, $c('mark')) ?></span>
-              <div><p class="<?= $c('name') ?>"><?= $x['review'] ? '<a href="' . sx_url($x['review']) . '">' . e($x['b']['name']) . '</a>' : e($x['b']['name']) ?></p><p class="<?= $c('mininote') ?>"><?= $isF ? e(t('casinos.featured')) : e($x['value'] ?: $x['fact']) ?></p></div>
+              <div><p class="<?= $c('name') ?>"><?= $x['review'] ? '<a href="' . sx_url($x['review']) . '">' . e($x['b']['name']) . '</a>' : e($x['b']['name']) ?></p><p class="<?= $c('mininote') ?>"><?= $isF ? e(t((sx_ctx('disclosure') ?? 'top') === 'off' ? 'casinos.featured_pick' : 'casinos.featured')) : e($x['value'] ?: $x['fact']) ?></p></div>
               <strong class="<?= cls('num') ?>"><?= e($x['score']) ?></strong>
             </li>
           <?php endforeach; ?>

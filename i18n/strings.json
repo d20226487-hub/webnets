@@ -951,6 +951,16 @@
     "pt": "Ler análise",
     "ru": "Читать обзор"
   },
+  "casinos.featured_paid": {
+    "en": "paid placement",
+    "pt": "posição paga",
+    "ru": "платное размещение"
+  },
+  "casinos.featured_pick": {
+    "en": "Our pick",
+    "pt": "Nossa escolha",
+    "ru": "Наш выбор"
+  },
   "casinos.featured": {
     "en": "Featured partner",
     "pt": "Parceiro em destaque",

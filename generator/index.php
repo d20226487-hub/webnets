@@ -55,6 +55,8 @@ input[type=text],input[type=number],select{font:14px system-ui,sans-serif;paddin
 .vlgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0 16px}.vlgrid input[type=number]{width:100%}
 .usage{margin:8px 0;font-size:14px}.usage .warnx{color:var(--warn)}.pusage{margin:0 0 22px}.utable{width:100%;border-collapse:collapse;font-size:14px}.utable th,.utable td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
 .seo{margin:14px 0}.seorow{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}.seorow .acts button{padding:4px 10px;font-size:13px}.seonote{margin:6px 0 0;font-size:13px;white-space:pre-wrap}#v-msg.ok{color:var(--ok)}#v-msg.err{color:var(--bad)}#vf .inl{display:flex}
+.poffers{display:grid;gap:10px;margin:6px 0 8px}.pofr{padding:12px;display:grid;gap:8px}.pofg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}.pofg .pof:has([data-f="title"]){grid-column:span 2}.pof{display:grid;gap:3px;font-size:13px}.pof[hidden]{display:none}.pof span{color:var(--muted)}
+.pfacts{display:grid;gap:6px;margin:6px 0 8px}.pfrow{display:grid;grid-template-columns:minmax(160px,260px) 1fr auto;gap:6px 10px;align-items:center}.pfrow .pf-fq{grid-column:1/-1;font-size:12px}.pfrow .pf-fname{font-size:14px}.pfrow button{padding:4px 10px}@media (max-width:640px){.pfrow{grid-template-columns:1fr auto}.pfrow .pf-fval{grid-column:1/-1;grid-row:2}}
 .pout{margin:0 0 22px}.poutlist{display:grid;gap:6px;margin:10px 0}.poutlist .inl{display:flex}
 .pinfo{margin:14px 0 22px}.pdl{display:grid;grid-template-columns:minmax(140px,220px) 1fr;gap:8px 16px;margin:14px 0 0}.pdl dt{font-weight:650}.pdl dd{margin:0}@media (max-width:640px){.pdl{grid-template-columns:1fr}.pdl dd{margin-bottom:6px}}#pf .inl{display:flex}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
@@ -164,7 +166,24 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     'The licence number shown on every site of the project (brand facts can give a brand its own). Empty: the brand\'s.': 'Номер лицензии на всех сайтах проекта (в фактах бренда можно задать бренду свой). Пусто — номер бренда.',
     'The short label in trust badges and app info, e.g. «Лицензия Кюрасао». Empty: «Licence issued by» above (or the number; without any project licence, the market\'s «Лицензия РК»).': 'Короткая подпись в значках доверия и данных приложения, например «Лицензия Кюрасао». Пусто — «Кем выдана лицензия» выше (или номер; а если лицензия проекта не задана — значок рынка «Лицензия РК»).',
     'The licence changed. These jobs\u2019 sites still show the previous one:': 'Лицензия изменилась. На сайтах этих заданий пока прежняя:',
-    'Update the data': 'Обновить данные', 'Casino and sports betting': 'Казино и ставки на спорт', 'Casino only': 'Только казино', 'Sports betting only': 'Только ставки на спорт',
+    'Update the data': 'Обновить данные', '{0} left as the template: figures not in the brand data': 'оставлено как в шаблоне: {0} (цифры не из данных бренда)', 'Offers': 'Акции', '+ Add an offer': '+ Добавить акцию', 'No offers: the sites show example offers.': 'Акций нет: сайты показывают пример акций.',
+    'The brand\u2019s real offers. They replace the example offers on every site of the project (offer cards, promo codes, bonus tables) and go to the AI. «Fill from the project» lists the offers the information and files describe.':
+      'Настоящие акции бренда. Они заменяют пример акций на всех сайтах проекта (карточки акций, промокоды, таблицы бонусов) и передаются ИИ. «Заполнить из проекта» находит акции, описанные в информации и файлах.',
+    '{0} offers found in the project. Check them and save.': 'Найдено акций в проекте: {0}. Проверьте и сохраните.', 'The project information and documents describe no other offers.': 'В информации и документах проекта других акций нет.',
+    'Welcome bonus': 'Приветственный бонус', 'Deposit bonus': 'Бонус на депозит', 'Free bets': 'Фрибеты', 'Promo code': 'Промокод', 'Odds boost': 'Повышенные коэффициенты', 'Cashback': 'Кешбэк',
+    'Loyalty programme': 'Программа лояльности', 'Tournament': 'Турнир', 'Deposit match (%, up to)': 'Процент к депозиту (%, до)', 'Boost (%)': 'Повышение (%)', 'Cashback (%, up to)': 'Кешбэк (%, до)',
+    'Free bet amount': 'Сумма фрибета', 'Free spins': 'Фриспины', 'Prize pool': 'Призовой фонд', 'Title': 'Название', 'Percent': 'Процент', 'Up to (amount)': 'До (сумма)', 'Amount': 'Сумма',
+    'Number of free spins': 'Количество фриспинов', 'Wagering (×)': 'Вейджер (×)', 'Min deposit': 'Мин. депозит', 'Max bet': 'Макс. ставка', 'Min odds': 'Мин. коэффициент', 'Days to use it': 'Дней на использование',
+    'Valid until': 'Действует до', 'Conditions (who can claim, main terms)': 'Условия (кто может получить, главные условия)', 'Type': 'Тип', 'Value': 'Размер',
+    'The project has no information or documents to read the offers from. Fill in «Project information» or upload a document first.': 'В проекте нет информации или документов, из которых можно взять акции. Сначала заполните «Информацию о проекте» или загрузите документ.', 'Minimum deposit (in the market currency)': 'Минимальный депозит (в валюте рынка)', 'Fastest withdrawal, minutes': 'Самый быстрый вывод, минут', 'Payment methods (comma separated)': 'Способы оплаты (через запятую)',
+    'Tagline': 'Слоган', 'Licence badge': 'Плашка лицензии', 'Minimum withdrawal (in the market currency)': 'Минимальный вывод (в валюте рынка)', 'Deposit and withdrawal times': 'Время депозита и вывода',
+    'Top game providers (comma separated)': 'Топ провайдеров игр (через запятую)', 'Game types (comma separated)': 'Виды игр (через запятую)', 'Top live casino games (comma separated)': 'Топ игр live-казино (через запятую)',
+    'Bet types (comma separated)': 'Виды ставок (через запятую)', 'Minimum bet (in the market currency)': 'Минимальная ставка (в валюте рынка)', 'Support (channels, hours)': 'Служба поддержки (каналы, часы)',
+    'Support email': 'Email службы поддержки', 'Verification': 'Верификация', 'Site languages (comma separated)': 'Языки сайта (через запятую)', 'e.g. Curaçao Gaming Control Board': 'например, Curaçao Gaming Control Board',
+    'e.g. Лицензия Кюрасао (empty: who issued it)': 'например, Лицензия Кюрасао (пусто: кем выдана)', 'Short description (in rankings)': 'Короткое описание (в рейтингах)', 'Verdict': 'Вердикт', 'Pros (one per line)': 'Плюсы (по одному в строке)', 'Cons (one per line)': 'Минусы (по одному в строке)', 'App languages (comma separated)': 'Языки приложения (через запятую)', 'Field name': 'Название поля', 'No fields: add one below.': 'Полей нет: добавьте ниже.',
+    '+ Add a field': '+ Добавить поле', 'Your own field…': 'Своё поле…', 'Add a field': 'Добавить поле', 'Fill from the project (AI)': 'Заполнить из проекта (ИИ)',
+    'The brand\u2019s real data: licence, figures and texts. They replace the example data on every site of the project and go to the AI. Remove what does not apply, add your own fields (your own fields are not shown on the sites; the AI and the briefs get them). «Fill from the project» reads «About the project», «Facts and messages» and the files. Short description, verdict, pros and cons replace the example texts in rankings and on the review page; the ones left empty are written by «Write the text».':
+      'Настоящие данные бренда: лицензия, цифры и тексты. Они заменяют пример данных на всех сайтах проекта и передаются ИИ. Удалите лишнее, добавьте свои поля (свои поля на сайтах не показываются — их получают ИИ и брифы). «Заполнить из проекта» читает «О проекте», «Факты и тезисы» и файлы. Короткое описание, вердикт, плюсы и минусы заменяют пример текстов в рейтингах и на странице обзора; пустые пишет «Написать тексты».', 'Casino and sports betting': 'Казино и ставки на спорт', 'Casino only': 'Только казино', 'Sports betting only': 'Только ставки на спорт',
     'What the project\u2019s sites are about. With one product, the job form shows only what fits it, and the AI writes about that product only.': 'О чём сайты проекта. Если выбран один продукт, в форме задания видно только то, что ему подходит, и ИИ пишет только о нём.',
     'This project is «{0}»: the form shows only what fits it. Change it in the project information.': 'Проект — «{0}»: в форме видно только то, что ему подходит. Изменить можно в информации о проекте.', 'Limits': 'Лимиты', 'Requests per minute': 'Запросов в минуту', 'Max parallel requests': 'Макс. параллельных запросов',
     'Batch size (sites)': 'Размер пакета (сайтов)', 'Delay between requests (ms)': 'Задержка между запросами (мс)', 'Max retries': 'Максимум повторов', 'Base retry delay (ms)': 'Базовая задержка отката (мс)',
@@ -188,7 +207,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     'No approved, built site is waiting for text. Approve sites first.': 'Нет одобренных собранных сайтов без текста. Сначала одобрите сайты.',
     'The site has no build yet. Build it first.': 'Сайт ещё не собран. Сначала соберите его.',
     'The service account JSON is not valid: it needs client_email and private_key (download a key for the service account in Google Cloud → IAM → Service accounts → Keys).': 'JSON сервисного аккаунта неверный: нужны client_email и private_key (скачайте ключ в Google Cloud → IAM → Сервисные аккаунты → Ключи).',
-    'SEO review and text': 'SEO-проверка и тексты', 'Brand facts': 'Факты бренда', 'Brand facts confirmed': 'Факты бренда подтверждены',
+    'SEO review and text': 'SEO-проверка и тексты', 'Brand facts': 'Факты бренда', 'Master review': 'Мастер обзор', 'Brand facts confirmed': 'Мастер обзор заполнен',
     'The sites still show example brand data.': 'На сайтах ещё пример данных бренда.', ' and {0} more': ' и ещё {0}',
     'Confirm the real facts before approving, so no made-up licence number or date goes live.': 'Подтвердите настоящие факты до одобрения, чтобы на живой сайт не попал выдуманный номер лицензии или дата.',
     'A new brand starts with example data so the templates look real: licence number, start year, payout times, app details. Enter the real facts here; the sites are rebuilt with them. A field left empty keeps the example data (marked «example»); «Hide» removes the fact from the pages where they can do without it.':
@@ -200,7 +219,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     'From the project: «{0}»': 'Из проекта: «{0}»', '{0} facts found in the project. Check them and save.': 'Найдено в проекте фактов: {0}. Проверьте и сохраните.',
     'The project information and documents do not state any of these facts. Add them there, or type them here.': 'В информации и документах проекта этих фактов нет. Добавьте их туда или впишите здесь.',
     'The project has no information or documents to read the facts from. Fill in «Project information» or upload a document first.': 'В проекте нет информации или документов, из которых можно взять факты. Сначала заполните «Информацию о проекте» или загрузите документ.',
-    'Licence number': 'Номер лицензии', 'Operating since (year)': 'Работает с (год)', 'Withdrawal time, minutes: {0}': 'Срок вывода, минут: {0}', 'Tagline ({0})': 'Слоган ({0})',
+    'Licence number': 'Номер лицензии', 'Operating since (year)': 'Работает с (год)', 'Minimum deposit ({0})': 'Минимальный депозит ({0})', 'Casino games': 'Игр в казино', 'Live tables': 'Live-столов', 'Withdrawal time, minutes: {0}': 'Срок вывода, минут: {0}', 'Tagline ({0})': 'Слоган ({0})',
     'App developer': 'Разработчик приложения', 'App version': 'Версия приложения', 'App updated (YYYY-MM-DD)': 'Обновлено (ГГГГ-ММ-ДД)', 'iPhone app size, MB': 'Размер для iPhone, МБ',
     'Android app size, MB': 'Размер для Android, МБ', 'Minimum iOS': 'Минимальная iOS', 'Minimum Android': 'Минимальный Android', 'App languages ({0}, comma separated)': 'Языки приложения ({0}, через запятую)', 'Approve all ({0})': 'Одобрить все ({0})', 'Withdraw approvals': 'Снять одобрения', 'Write the text ({0})': 'Написать тексты ({0})',
     'Approve sites first: the AI writes the text of approved sites only.': 'Сначала одобрите сайты: ИИ пишет тексты только для одобренных.', 'The AI is writing now.': 'ИИ сейчас пишет тексты.',
@@ -344,7 +363,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     'Swipe': 'Листаются', 'Stacked': 'Сеткой',
     'Affiliate disclosure (casino reviews, brand reviews, news)': 'Раскрытие партнёрских ссылок (обзоры казино, отзывы, новости)', 'A strip at the top of every page': 'Полоса вверху каждой страницы',
     'In the footer': 'В подвале', 'Affiliate disclosure': 'Раскрытие партнёрских ссылок', 'Strip at the top': 'Полоса вверху',
-    'The line saying the site earns a commission through its links. Most gambling advertising rules require it: with Off, checking the market’s rules is up to you, and each site carries a build note.': 'Строка о том, что сайт получает комиссию по своим ссылкам. Её требуют большинство правил рекламы азартных игр: при «Выкл» проверка правил рынка — на вас, а у каждого сайта будет заметка сборки.',
+    'The line saying the site earns a commission through its links. Most gambling advertising rules require it: with Off, checking the market’s rules is up to you, and each site carries a build note. Off also labels a ranking’s partner slot «Our pick» and leaves out the template’s texts about paid places and commissions.': 'Строка о том, что сайт получает комиссию по своим ссылкам. Её требуют большинство правил рекламы азартных игр: при «Выкл» проверка правил рынка — на вас, а у каждого сайта будет заметка сборки. При «Выкл» место партнёра в рейтингах подписано «Наш выбор», а тексты шаблона о платных местах и комиссиях не выводятся.',
     'Off (no disclosure)': 'Выкл (без раскрытия)',
     'Close': 'Закрыть',
     'Sample brands in casino rankings': 'Примерные бренды в рейтингах казино',
@@ -489,6 +508,35 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
   }
 
   /* ---------- projects */
+  var PFACTS = [['licence_regulator', 'Licence issued by'], ['licence_no', 'Licence number'], ['licence_short', 'Licence badge'], ['founded', 'Operating since (year)'],
+    ['min_deposit', 'Minimum deposit (in the market currency)'], ['min_withdrawal', 'Minimum withdrawal (in the market currency)'], ['payments', 'Payment methods (comma separated)'],
+    ['payout_minutes', 'Fastest withdrawal, minutes'], ['payment_times', 'Deposit and withdrawal times'], ['games', 'Casino games'], ['live_tables', 'Live tables'],
+    ['providers', 'Top game providers (comma separated)'], ['game_types', 'Game types (comma separated)'], ['live_games', 'Top live casino games (comma separated)'],
+    ['bet_types', 'Bet types (comma separated)'], ['min_bet', 'Minimum bet (in the market currency)'], ['support', 'Support (channels, hours)'], ['support_email', 'Support email'],
+    ['verification', 'Verification'], ['site_languages', 'Site languages (comma separated)'], ['tagline', 'Tagline'], ['summary', 'Short description (in rankings)'], ['verdict', 'Verdict'],
+    ['pros', 'Pros (one per line)'], ['cons', 'Cons (one per line)'],
+    ['developer', 'App developer'], ['version', 'App version'], ['updated', 'App updated (YYYY-MM-DD)'], ['size_ios', 'iPhone app size, MB'], ['size_android', 'Android app size, MB'],
+    ['min_ios', 'Minimum iOS'], ['min_android', 'Minimum Android'], ['languages', 'App languages (comma separated)']];
+  var PFACTS_APP = ['developer', 'version', 'updated', 'size_ios', 'size_android', 'min_ios', 'min_android', 'languages'];
+  var PFACTS_HINT = { licence_regulator: 'e.g. Curaçao Gaming Control Board', licence_short: 'e.g. Лицензия Кюрасао (empty: who issued it)' };
+  function factsSorted(list) { // known facts by importance, then own fields, then the app's (as the server keeps them)
+    var rank = {};
+    PFACTS.forEach(function (x, i) { rank[x[0]] = PFACTS_APP.indexOf(x[0]) >= 0 ? 2000 + i : i; });
+    return list.map(function (f, i) { return { f: f, r: rank[f.key] !== undefined ? rank[f.key] : 1000, i: i }; })
+      .sort(function (a, b) { return a.r - b.r || a.i - b.i; }).map(function (x) { return x.f; });
+  }
+  var PFACTS_LONG = { summary: 2, verdict: 3, pros: 4, cons: 3, payment_times: 3, verification: 2 };
+  var OTYPES = [['welcome_bonus', 'Welcome bonus'], ['deposit_bonus', 'Deposit bonus'], ['free_bets', 'Free bets'], ['promo_code', 'Promo code'], ['odds_boost', 'Odds boost'],
+    ['cashback', 'Cashback'], ['loyalty', 'Loyalty programme'], ['tournaments', 'Tournament']];
+  var OTYPE_LABEL = {};
+  OTYPES.forEach(function (x) { OTYPE_LABEL[x[0]] = x[1]; });
+  var OKINDS = { match: ['percent', 'max'], boost: ['percent'], cashback: ['percent', 'max'], free_bets: ['amount'], free_spins: ['count'], prize_pool: ['amount'] };
+  var OKIND_LABEL = { match: 'Deposit match (%, up to)', boost: 'Boost (%)', cashback: 'Cashback (%, up to)', free_bets: 'Free bet amount', free_spins: 'Free spins', prize_pool: 'Prize pool' };
+  var OFIELD = { title: 'Title', percent: 'Percent', max: 'Up to (amount)', amount: 'Amount', count: 'Number of free spins', code: 'Promo code', wagering: 'Wagering (×)', min_deposit: 'Min deposit',
+    max_bet: 'Max bet', min_odds: 'Min odds', expiry_days: 'Days to use it', valid_to: 'Valid until', conditions: 'Conditions (who can claim, main terms)' };
+  var PFACTS_LABEL = {};
+  PFACTS.forEach(function (x) { PFACTS_LABEL[x[0]] = x[1]; });
+  function factName(f) { return PFACTS_LABEL[f.key] ? L(PFACTS_LABEL[f.key]) : f.label; }
   var PPROD = [['both', 'Casino and sports betting'], ['casino', 'Casino only'], ['sports', 'Sports betting only']];
   function projects() {
     Promise.all([api('projects'), healthNote()]).then(function (res) {
@@ -502,11 +550,11 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         }).join('') : '<p class="muted">' + L('No projects yet.') + '</p>') + '</div>';
       document.getElementById('np').onsubmit = function (e) {
         e.preventDefault();
-        api('projects', { name: document.getElementById('pname').value, product: document.getElementById('pprod').value }).then(function (r) { location.hash = '#/p/' + r.id; }).catch(fail);
+        api('projects', { name: document.getElementById('pname').value, product: document.getElementById('pprod').value }).then(function (r) { location.hash = '#/p/' + r.id + '/edit'; }).catch(fail); // straight to the information and brand facts
       };
     }).catch(fail);
   }
-  function project(id) {
+  function project(id, edit) {
     api('projects/' + id).then(function (d) {
       main.innerHTML = '<p><a href="#/">← ' + L('Projects') + '</a></p><div class="row"><h2>' + esc(d.project.name) + '</h2><span class="sp"></span><a class="btn primary" href="#/p/' + id + '/new">' + L('New job') + '</a><button class="danger" id="delp">' + L('Delete project') + '</button></div>'
         + '<div id="pinfo"></div><div id="pout"></div>' + projectUsage(d) + '<h3>' + L('Jobs') + '</h3>'
@@ -518,7 +566,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         if (confirm(L('Delete this project, its jobs and every generated site?'))) api('projects/' + id, null, 'DELETE').then(function () { location.hash = '#/'; }).catch(fail);
       };
       d.project.files = d.files || [];
-      projectInfo(id, d.project, false);
+      projectInfo(id, d.project, !!edit);
       outdatedPanel(id, d.jobs);
     }).catch(fail);
   }
@@ -530,10 +578,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     ['tone', 'Tone of voice', 'e.g. friendly and plain, expert and calm, no hype.', 1],
     ['facts', 'Facts and messages to use', 'Facts the text may state and points it should make (licence, payout times, app features, support hours…), one per line. No length limit.', 8],
     ['keywords', 'Topics and search phrases', 'One per line: what the text should cover and the phrases people search for.', 3],
-    ['avoid', 'Avoid', 'One per line: words, claims and topics the text must not use.', 2],
-    ['licence_regulator', 'Licence issued by', 'Who issued the brand\'s licence, as it reads in the footer line «… licence no. …, issued by …», e.g. «Curaçao Gaming Control Board». Empty: the market\'s regulator.', 1],
-    ['licence_no', 'Licence number', 'The licence number shown on every site of the project (brand facts can give a brand its own). Empty: the brand\'s.', 1],
-    ['licence_short', 'Licence badge', 'The short label in trust badges and app info, e.g. «Лицензия Кюрасао». Empty: «Licence issued by» above (or the number; without any project licence, the market\'s «Лицензия РК»).', 1]
+    ['avoid', 'Avoid', 'One per line: words, claims and topics the text must not use.', 2]
   ];
   var PBELOW = [['none', 'No: text only inside the sections'], ['useful', 'Where it helps: a short text below some sections'], ['every', 'Below every main section']];
   function projectUsage(d) {
@@ -575,11 +620,15 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     var box = document.getElementById('pinfo'), info = p.info || {};
     if (!box) return;
     var filled = PINFO.filter(function (f) { return info[f[0]]; }), below = info.below || 'none', files = p.files || [];
+    var facts = (info.brand_facts || []).map(function (f) { return { key: f.key, label: f.label || '', value: f.value || '' }; });
+    var offers = (info.offers || []).map(function (o) { return Object.assign({}, o); });
     if (!editing) {
       box.innerHTML = '<section class="card pinfo"><div class="row"><h3 style="margin:0">' + L('Project information') + '</h3><span class="sp"></span><button type="button" id="pedit">' + L('Edit') + '</button></div>'
         + '<p class="muted" style="margin:8px 0 0;font-size:14px">' + L('Everything here, the files included, goes to the AI: it writes the text of the sites once the SEO approves them, and it is in every AI brief. Changes apply to the next text run and brief download; no rebuild is needed.') + '</p>'
         + (filled.length || files.length || below !== 'none' || (info.product || 'both') !== 'both'
           ? '<dl class="pdl">' + filled.map(function (f) { return '<dt>' + L(f[1]) + '</dt><dd>' + esc(info[f[0]]).replace(/\n/g, '<br>') + '</dd>'; }).join('')
+            + (facts.filter(function (f) { return f.value; }).length ? '<dt>' + L('Master review') + '</dt><dd><ul class="pflist">' + facts.filter(function (f) { return f.value; }).map(function (f) { return '<li><span class="muted">' + esc(factName(f)) + ':</span> ' + esc(f.value) + '</li>'; }).join('') + '</ul></dd>' : '')
+            + (offers.length ? '<dt>' + L('Offers') + '</dt><dd><ul class="pflist">' + offers.map(function (o) { return '<li>' + esc(o.title) + ' <span class="muted">' + esc(L(OTYPE_LABEL[o.type] || o.type)) + (o.code ? ' · ' + esc(o.code) : '') + '</span></li>'; }).join('') + '</ul></dd>' : '')
             + '<dt>' + L('Products') + '</dt><dd>' + L(PPROD.filter(function (o) { return o[0] === (info.product || 'both'); })[0][1]) + '</dd>'
             + (files.length ? '<dt>' + L('Files') + '</dt><dd><ul class="pflist">' + files.map(function (f) { return '<li>' + fileLink(id, f) + '</li>'; }).join('') + '</ul></dd>' : '')
             + '<dt>' + L('Text below sections') + '</dt><dd>' + L(PBELOW.filter(function (b) { return b[0] === below; })[0][1]) + '</dd></dl>'
@@ -598,11 +647,127 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         return '<div class="field"><label class="lbl" for="pf-' + f[0] + '">' + L(f[1]) + '</label><span class="muted" style="font-size:13px">' + L(f[2]) + '</span>'
           + (f[3] > 1 ? '<textarea id="pf-' + f[0] + '" rows="' + f[3] + '"' + max + '>' + esc(info[f[0]] || '') + '</textarea>' : '<input type="text" id="pf-' + f[0] + '"' + max + ' value="' + esc(info[f[0]] || '') + '">') + '</div>';
       }).join('')
+      + '<div class="field"><span class="lbl">' + L('Master review') + '</span><span class="muted" style="font-size:13px">' + L('The brand\u2019s real data: licence, figures and texts. They replace the example data on every site of the project and go to the AI. Remove what does not apply, add your own fields (your own fields are not shown on the sites; the AI and the briefs get them). «Fill from the project» reads «About the project», «Facts and messages» and the files. Short description, verdict, pros and cons replace the example texts in rankings and on the review page; the ones left empty are written by «Write the text».') + '</span>'
+      + '<div id="pf-bfacts" class="pfacts"></div>'
+      + '<div class="row"><select id="pf-addf" aria-label="' + L('Add a field') + '"></select><button type="button" id="pf-fill">' + L('Fill from the project (AI)') + '</button><span id="pf-fmsg" class="muted" role="status" style="font-size:13px"></span></div></div>'
+      + '<div class="field"><span class="lbl">' + L('Offers') + '</span><span class="muted" style="font-size:13px">' + L('The brand\u2019s real offers. They replace the example offers on every site of the project (offer cards, promo codes, bonus tables) and go to the AI. «Fill from the project» lists the offers the information and files describe.') + '</span>'
+      + '<div id="pf-offers" class="poffers"></div>'
+      + '<div class="row"><button type="button" id="pf-addo">' + L('+ Add an offer') + '</button><button type="button" id="pf-ofill">' + L('Fill from the project (AI)') + '</button><span id="pf-omsg" class="muted" role="status" style="font-size:13px"></span></div></div>'
       + '<div class="field"><span class="lbl">' + L('Files') + '</span><span class="muted" style="font-size:13px">' + L('Brand overviews, bonus tables, briefs: .txt, .md, .csv, .docx or .odt, up to 3 MB each, at most 10. The AI reads them with the fields above. An old .doc: save it as .docx first.') + '</span>'
       + '<ul class="pflist" id="pf-files"></ul><div class="row"><label class="btn" for="pf-up">' + L('Add files') + '</label><input type="file" id="pf-up" multiple accept=".txt,.md,.csv,.tsv,.docx,.odt" hidden><span id="pf-msg" role="status"></span></div></div>'
       + '<div class="field"><span class="lbl">' + L('Text below sections') + '</span><span class="muted" style="font-size:13px">' + L('Whether the AI adds a short text below sections, written from this information (useful for search).') + '</span>'
       + PBELOW.map(function (b) { return '<label class="inl"><input type="radio" name="pf-below" value="' + b[0] + '"' + (below === b[0] ? ' checked' : '') + '> ' + L(b[1]) + '</label>'; }).join('') + '</div>'
       + '<div class="row"><button class="primary" type="submit">' + L('Save') + '</button><button type="button" id="pf-cancel">' + L('Cancel') + '</button><span class="err" id="pf-err"></span></div></form>';
+    var fbox = document.getElementById('pf-bfacts'), addf = document.getElementById('pf-addf'), fmsg = document.getElementById('pf-fmsg');
+    function readFacts() { // the rows as they are now, typed values included
+      return [].map.call(fbox.querySelectorAll('.pfrow'), function (r) {
+        var lab = r.querySelector('.pf-flabel');
+        return { key: r.dataset.k, label: lab ? lab.value.trim() : '', value: r.querySelector('.pf-fval').value.trim() };
+      });
+    }
+    function drawFacts() {
+      facts = factsSorted(facts);
+      fbox.innerHTML = facts.map(function (f) {
+        var own = !PFACTS_LABEL[f.key];
+        return '<div class="pfrow" data-k="' + esc(f.key) + '">' + (own ? '<input type="text" class="pf-flabel" maxlength="100" placeholder="' + L('Field name') + '" value="' + esc(f.label) + '">' : '<span class="pf-fname">' + esc(L(PFACTS_LABEL[f.key])) + '</span>')
+          + (PFACTS_LONG[f.key] ? '<textarea class="pf-fval" maxlength="2000" rows="' + PFACTS_LONG[f.key] + '" aria-label="' + esc(L(PFACTS_LABEL[f.key])) + '">' + esc(f.value) + '</textarea>'
+            : '<input type="text" class="pf-fval" maxlength="2000" value="' + esc(f.value) + '"' + (PFACTS_HINT[f.key] ? ' placeholder="' + esc(L(PFACTS_HINT[f.key])) + '"' : '') + ' aria-label="' + esc(own ? f.label : L(PFACTS_LABEL[f.key])) + '">')
+          + '<button type="button" class="pf-frm" aria-label="' + L('Remove') + '" title="' + L('Remove') + '">✕</button><small class="pf-fq muted"></small></div>';
+      }).join('') || '<p class="muted" style="margin:0">' + L('No fields: add one below.') + '</p>';
+      [].forEach.call(fbox.querySelectorAll('.pf-frm'), function (b) {
+        b.onclick = function () { facts = readFacts(); var k = b.closest('.pfrow').dataset.k; facts = facts.filter(function (f) { return f.key !== k; }); drawFacts(); };
+      });
+      var have = facts.map(function (f) { return f.key; });
+      addf.innerHTML = '<option value="">' + L('+ Add a field') + '</option>' + PFACTS.filter(function (x) { return have.indexOf(x[0]) < 0; }).map(function (x) { return '<option value="' + x[0] + '">' + esc(L(x[1])) + '</option>'; }).join('')
+        + '<option value="own">' + L('Your own field…') + '</option>';
+    }
+    addf.onchange = function () {
+      var v = addf.value;
+      if (!v) return;
+      facts = readFacts();
+      if (v === 'own') {
+        var n = 1;
+        while (facts.some(function (f) { return f.key === 'c' + n; })) n++;
+        facts.push({ key: 'c' + n, label: '', value: '' });
+      } else facts.push({ key: v, label: '', value: '' });
+      drawFacts();
+      var rows = fbox.querySelectorAll('.pfrow'), last = rows[rows.length - 1];
+      (last.querySelector('.pf-flabel') || last.querySelector('.pf-fval')).focus();
+    };
+    document.getElementById('pf-fill').onclick = function () {
+      var btn = this, cur = readFacts().filter(function (f) { return PFACTS_LABEL[f.key] || f.label; });
+      if (!cur.length) return;
+      btn.disabled = true;
+      fmsg.className = 'muted';
+      fmsg.textContent = L('Reading the project…');
+      api('projects/' + id + '/facts/fill', { fields: cur.map(function (f) { return { key: f.key, label: f.label }; }) }, 'POST').then(function (x) {
+        btn.disabled = false;
+        var keys = Object.keys(x.facts || {});
+        keys.forEach(function (k) {
+          var row = fbox.querySelector('.pfrow[data-k="' + k + '"]');
+          if (!row) return;
+          row.querySelector('.pf-fval').value = x.facts[k].value;
+          row.querySelector('.pf-fq').textContent = L('From the project: «{0}»', x.facts[k].quote);
+          row.classList.add('bffound');
+        });
+        fmsg.className = keys.length ? 'ok' : 'muted';
+        fmsg.textContent = keys.length ? L('{0} facts found in the project. Check them and save.', keys.length) : L('The project information and documents do not state any of these facts. Add them there, or type them here.');
+      }).catch(function (e) { btn.disabled = false; fmsg.className = 'err'; fmsg.textContent = L(e.message || String(e)); });
+    };
+    drawFacts();
+    var obox = document.getElementById('pf-offers'), omsg = document.getElementById('pf-omsg');
+    function readOffers() {
+      return [].map.call(obox.querySelectorAll('.pofr'), function (r) {
+        var o = {};
+        [].forEach.call(r.querySelectorAll('[data-f]'), function (x) { o[x.dataset.f] = x.value.trim(); });
+        return o;
+      });
+    }
+    function fitKind(r) { // only the figures the kind of value takes
+      var k = r.querySelector('[data-f="kind"]').value;
+      [].forEach.call(r.querySelectorAll('[data-v]'), function (x) { x.hidden = (OKINDS[k] || []).indexOf(x.dataset.v) < 0; });
+    }
+    function drawOffers() {
+      var sel = function (f, list, cur) { return '<select data-f="' + f + '">' + list.map(function (x) { return '<option value="' + x[0] + '"' + (x[0] === cur ? ' selected' : '') + '>' + esc(L(x[1])) + '</option>'; }).join('') + '</select>'; };
+      var inp = function (f, o, v, type) { return '<label class="pof"' + (v ? ' data-v="' + f + '"' : '') + '><span>' + L(OFIELD[f]) + '</span><input type="' + (type || 'text') + '" data-f="' + f + '"' + (type === 'text' || !type ? ' maxlength="' + (f === 'title' ? 200 : 40) + '"' : '') + ' inputmode="' + (/^(percent|max|amount|count|wagering|min_deposit|max_bet|expiry_days)$/.test(f) ? 'numeric' : 'text') + '" value="' + esc(o[f] || '') + '"></label>'; };
+      obox.innerHTML = offers.map(function (o) {
+        return '<div class="pofr card">'
+          + '<div class="pofg"><label class="pof"><span>' + L('Type') + '</span>' + sel('type', OTYPES, o.type || 'welcome_bonus') + '</label>' + inp('title', o) + '</div>'
+          + '<div class="pofg"><label class="pof"><span>' + L('Value') + '</span>' + sel('kind', Object.keys(OKINDS).map(function (k) { return [k, OKIND_LABEL[k]]; }), o.kind || 'match') + '</label>'
+          + inp('percent', o, 1) + inp('max', o, 1) + inp('amount', o, 1) + inp('count', o, 1) + '</div>'
+          + '<div class="pofg">' + inp('code', o) + inp('wagering', o) + inp('min_deposit', o) + inp('max_bet', o) + inp('min_odds', o) + inp('expiry_days', o) + inp('valid_to', o, 0, 'date') + '</div>'
+          + '<label class="pof"><span>' + L(OFIELD.conditions) + '</span><textarea data-f="conditions" rows="2" maxlength="600">' + esc(o.conditions || '') + '</textarea></label>'
+          + '<div class="row"><span class="sp"></span><button type="button" class="danger pf-orm">' + L('Remove') + '</button></div></div>';
+      }).join('') || '<p class="muted" style="margin:0">' + L('No offers: the sites show example offers.') + '</p>';
+      [].forEach.call(obox.querySelectorAll('.pofr'), function (r, i) {
+        fitKind(r);
+        r.querySelector('[data-f="kind"]').onchange = function () { fitKind(r); };
+        r.querySelector('.pf-orm').onclick = function () { offers = readOffers(); offers.splice(i, 1); drawOffers(); };
+      });
+    }
+    document.getElementById('pf-addo').onclick = function () {
+      offers = readOffers();
+      offers.push({ type: 'welcome_bonus', kind: 'match' });
+      drawOffers();
+      var rows = obox.querySelectorAll('.pofr');
+      rows[rows.length - 1].querySelector('[data-f="title"]').focus();
+    };
+    document.getElementById('pf-ofill').onclick = function () {
+      var btn = this;
+      btn.disabled = true;
+      omsg.className = 'muted';
+      omsg.textContent = L('Reading the project…');
+      api('projects/' + id + '/offers/fill', {}, 'POST').then(function (x) {
+        btn.disabled = false;
+        offers = readOffers();
+        var have = offers.map(function (o) { return (o.title || '').toLowerCase(); }), found = (x.offers || []).filter(function (o) { return have.indexOf(o.title.toLowerCase()) < 0; });
+        offers = offers.concat(found);
+        drawOffers();
+        omsg.className = found.length ? 'ok' : 'muted';
+        omsg.textContent = found.length ? L('{0} offers found in the project. Check them and save.', found.length) : L('The project information and documents describe no other offers.');
+      }).catch(function (e) { btn.disabled = false; omsg.className = 'err'; omsg.textContent = L(e.message || String(e)); });
+    };
+    drawOffers();
     var list = document.getElementById('pf-files'), msg = document.getElementById('pf-msg');
     function drawFiles() { // files are saved as soon as they are added or removed; the typed fields stay as they are
       list.innerHTML = files.map(function (f) { return '<li>' + fileLink(id, f) + '<span class="sp"></span><button type="button" class="danger pf-del" data-id="' + f.id + '">' + L('Remove') + '</button></li>'; }).join('');
@@ -645,6 +810,8 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
       e.preventDefault();
       var next = { below: document.querySelector('input[name="pf-below"]:checked').value, product: document.querySelector('input[name="pf-product"]:checked').value };
       PINFO.forEach(function (f) { next[f[0]] = document.getElementById('pf-' + f[0]).value.trim(); });
+      next.brand_facts = readFacts().filter(function (f) { return PFACTS_LABEL[f.key] || f.label; });
+      next.offers = readOffers().filter(function (o) { return o.title; });
       api('projects/' + id, { name: document.getElementById('pf-name').value.trim(), info: next }, 'PUT').then(function () { project(id); })
         .catch(function (er) { document.getElementById('pf-err').textContent = L(er.message || String(er)); });
     };
@@ -678,7 +845,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         + '<div class="field"><label class="lbl" for="jrows">' + L('Rows of cards (bonuses, games, screenshots, reviews)') + '</label><select id="jrows"><option value="both">' + L('Both: swipe on some sites, stacked on others') + '</option><option value="swipe">' + L('Swipe: one row you scroll sideways') + '</option><option value="stack">' + L('Stacked: cards wrap into a grid') + '</option></select>'
         + '<span class="muted" style="font-size:13px">' + L('Wide tables keep their sideways scroll either way.') + '</span></div>'
         + '<div class="field"><label class="lbl" for="jdisc">' + L('Affiliate disclosure (casino reviews, brand reviews, news)') + '</label><select id="jdisc"><option value="off" selected>' + L('Off (no disclosure)') + '</option><option value="top">' + L('A strip at the top of every page') + '</option><option value="footer">' + L('In the footer') + '</option></select>'
-        + '<span class="muted" style="font-size:13px">' + L('The line saying the site earns a commission through its links. Most gambling advertising rules require it: with Off, checking the market’s rules is up to you, and each site carries a build note.') + '</span></div>'
+        + '<span class="muted" style="font-size:13px">' + L('The line saying the site earns a commission through its links. Most gambling advertising rules require it: with Off, checking the market’s rules is up to you, and each site carries a build note. Off also labels a ranking’s partner slot «Our pick» and leaves out the template’s texts about paid places and commissions.') + '</span></div>'
         + '<div class="field"><label class="lbl" for="jsample">' + L('Sample brands in casino rankings') + '</label><input type="number" id="jsample" min="0" max="16" value="7" style="max-width:120px">'
         + '<span class="muted" style="font-size:13px">' + L('Made-up operators listed next to your brands on casino review sites, so a ranking looks like a real one. Their data is placeholder; the featured (paid) slot is always one of your brands. 0 = your brands only.') + '</span></div>'
         + '<div class="row"><span class="muted" id="total"></span><span class="sp"></span><button class="primary" id="go">' + L('Generate sites') + '</button></div><p class="err" id="ferr" hidden></p></form>';
@@ -935,17 +1102,17 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
   function factLabel(f) { return L(f.label, f.param); }
   function factsNote(j) {
     var left = j.facts_left || {}, names = Object.keys(left);
-    if (!names.length) return '<p style="margin:10px 0 0;font-size:14px"><span class="chip ok">' + L('Brand facts confirmed') + '</span> <a href="#/j/' + j.id + '/brands">' + L('Brand facts') + '</a></p>';
+    if (!names.length) return '<p style="margin:10px 0 0;font-size:14px"><span class="chip ok">' + L('Brand facts confirmed') + '</span> <a href="#/p/' + j.project_id + '/edit">' + L('Master review') + '</a></p>';
     return '<div class="note" style="margin-top:10px"><b>' + L('The sites still show example brand data.') + '</b> '
       + names.map(function (n) { return esc(n) + ': ' + left[n].slice(0, 6).map(function (f) { return esc(factLabel(f)); }).join(', ') + (left[n].length > 6 ? L(' and {0} more', left[n].length - 6) : ''); }).join('; ')
-      + '. ' + L('Confirm the real facts before approving, so no made-up licence number or date goes live.') + ' <a class="btn" style="padding:4px 10px;font-size:13px" href="#/j/' + j.id + '/brands">' + L('Brand facts') + '</a></div>';
+      + '. ' + L('Confirm the real facts before approving, so no made-up licence number or date goes live.') + ' <a class="btn" style="padding:4px 10px;font-size:13px" href="#/p/' + j.project_id + '/edit">' + L('Master review') + '</a></div>';
   }
 
   /* Brand facts: the real licence, start year, payout times, app details and tagline of the job's brands */
   function brandFacts(id) {
     Promise.all([api('jobs/' + id), api('jobs/' + id + '/brands')]).then(function (r) {
       var j = r[0].job, brands = r[1].brands;
-      main.innerHTML = '<p><a href="#/j/' + id + '">← ' + esc(j.name) + '</a></p><h2>' + L('Brand facts') + '</h2>'
+      main.innerHTML = '<p><a href="#/j/' + id + '">← ' + esc(j.name) + '</a></p><h2>' + L('Master review') + '</h2>'
         + '<p class="muted" style="max-width:860px">' + L('A new brand starts with example data so the templates look real: licence number, start year, payout times, app details. Enter the real facts here; the sites are rebuilt with them. A field left empty keeps the example data (marked «example»); «Hide» removes the fact from the pages where they can do without it.') + '</p>'
         + (brands.length ? brands.map(function (b) {
           return '<form class="card mform bfacts" data-b="' + esc(b.id) + '"><div class="row"><h3 style="margin:0">' + esc(b.name) + '</h3><span class="sp"></span>'
@@ -1040,7 +1207,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     var st = seoState(s), c = s.content || {}, note = s.seo && s.seo.note;
     var chips = (st === 'approved' ? '<span class="chip ok">' + L('Approved by SEO') + '</span>' : st === 'changes' ? '<span class="chip warn" title="' + esc(note || '') + '">' + L('Needs changes') + '</span>' : '<span class="chip auto">' + L('Not reviewed') + '</span>')
       + (c.state === 'queued' ? '<span class="chip auto">' + L('Text queued') + '</span>' : c.state === 'writing' ? '<span class="chip warn">' + L('AI is writing…') + '</span>'
-        : c.state === 'error' ? '<span class="chip bad" title="' + esc(c.error || '') + '">' + L('Text failed') + '</span>' : s.ai ? '<span class="chip ok" title="' + esc(L('{0} texts rewritten, {1} below sections · {2}', c.fields || 0, c.after || 0, c.model || '')) + '">' + L('AI text') + '</span>' : '');
+        : c.state === 'error' ? '<span class="chip bad" title="' + esc(c.error || '') + '">' + L('Text failed') + '</span>' : s.ai ? '<span class="chip ok" title="' + esc(L('{0} texts rewritten, {1} below sections · {2}', c.fields || 0, c.after || 0, c.model || '') + (c.figures ? ' · ' + L('{0} left as the template: figures not in the brand data', c.figures) : '')) + '">' + L('AI text') + '</span>' : '');
     var busy = c.state === 'queued' || c.state === 'writing';
     return '<div class="seorow"><div class="chips">' + chips + '</div>'
       + (st === 'changes' && note ? '<p class="seonote">' + esc(note) + '</p>' : '')
@@ -1514,9 +1681,11 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     if (h[0] === 'types') return GEN.types(h);
     if (h[0] === 'docs') return GEN.docs(h);
     if (h[0] === 'p' && h[2] === 'new') return jobForm(h[1]);
-    if (h[0] === 'p') return project(h[1]);
+    if (h[0] === 'p') return project(h[1], h[2] === 'edit');
     if (h[0] === 'j' && h[2] === 'edit') return jobForm(null, h[1]);
-    if (h[0] === 'j' && h[2] === 'brands') return brandFacts(h[1]);
+    if (h[0] === 'j' && h[2] === 'brands') { // brand facts moved to the project: open its form
+      return api('jobs/' + h[1]).then(function (d) { location.hash = '#/p/' + d.job.project_id + '/edit'; }).catch(fail);
+    }
     if (h[0] === 'j' && h[2] === 'type' && h[3]) return editor('type', h[1], h[3]);
     if (h[0] === 's' && h[1]) return editor('site', h[1]);
     if (h[0] === 'j') return job(h[1]);

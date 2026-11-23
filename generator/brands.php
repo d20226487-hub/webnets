@@ -187,6 +187,7 @@ function gen_materialise_brands(array $brands, string $market, int $jobId, strin
             $GLOBALS['GEN_BRAND_NAMES'] += $pay['names'];
         }
         $host = gen_brand_host($b, $market);
+        $did = !empty($b['sample']) ? gen_sample_donor($b) : GEN_DONOR; // a made-up rival takes another demo brand's figures and texts
         $color = $b['color'] ?: GEN_BRAND_COLORS[crc32($b['name']) % count(GEN_BRAND_COLORS)];
         $verticals = ['casino' => ['casino', 'live-casino'], 'sports' => ['sports', 'live'], 'both' => ['sports', 'live', 'casino', 'live-casino']][$b['products']];
         $tag = [];
@@ -213,7 +214,7 @@ function gen_materialise_brands(array $brands, string $market, int $jobId, strin
             'app' => $app,
             'domain' => $host,
             'user_brand' => true,
-        ];
+        ] + (!empty($b['sample']) ? ['sample' => true] : []);
         gen_overlay_update('operators.json', fn($d) => array_merge($d, [$id => $op]));
         gen_mkdir(gen_overlay_dir() . '/logos');
         $logo = gen_overlay_dir() . "/logos/$id.svg";
@@ -277,9 +278,9 @@ function gen_materialise_brands(array $brands, string $market, int $jobId, strin
         gen_overlay_update("reviews/$id.json", fn($d) => ['reviews' => array_merge(array_values(array_filter($d['reviews'] ?? [], fn($r) => ($r['market'] ?? '') !== $market)), $revs)]);
 
         // market facts and editorial rating, as for the donor (this market's entry, completed from the demo market's)
-        $donorEntry = function (string $rel) use ($GEN_ROOT) {
-            $x = sx_json("$GEN_ROOT/brands/" . preg_replace('~/[^/]+$~', '/xx.json', $rel))['brands'][GEN_DONOR];
-            $h = is_file("$GEN_ROOT/brands/$rel") ? (sx_json("$GEN_ROOT/brands/$rel")['brands'][GEN_DONOR] ?? []) : [];
+        $donorEntry = function (string $rel, string $who = GEN_DONOR) use ($GEN_ROOT) {
+            $x = sx_json("$GEN_ROOT/brands/" . preg_replace('~/[^/]+$~', '/xx.json', $rel))['brands'][$who];
+            $h = is_file("$GEN_ROOT/brands/$rel") ? (sx_json("$GEN_ROOT/brands/$rel")['brands'][$who] ?? []) : [];
             $e = $h + $x;
             foreach (['scores', 'products', 'sports', 'support'] as $k) {
                 if (is_array($x[$k] ?? null)) {
@@ -290,11 +291,16 @@ function gen_materialise_brands(array $brands, string $market, int $jobId, strin
         };
         // placeholder numbers vary per brand (seeded by its id), so rankings and tables do not tie
         $vary = fn(string $k, float $v, float $spread) => $v * (1 + ((crc32("$id|$k") % 1000) / 1000 - .5) * 2 * $spread);
-        $facts = gen_fit_fact_payments($donorEntry("facts/$market.json"), $pay['ids']);
+        $facts = $donorEntry("facts/$market.json", $did) + ($did !== GEN_DONOR ? $donorEntry("facts/$market.json") : []); // what the rival's donor lacks (sports figures) from the usual one
+        $facts = gen_fit_fact_payments($facts, $pay['ids']);
+        if (isset($facts['min_deposit']) && !is_file("$GEN_ROOT/brands/facts/$market.json")) { // the demo market's amount, in this market's currency
+            $facts['min_deposit'] = gen_fit_promo_money(['markets' => ['xx'], 'terms' => ['min_deposit' => $facts['min_deposit']]], $market)['terms']['min_deposit'];
+        }
         $facts['domain'] = $host;
         foreach (['games', 'live_tables', 'min_deposit'] as $k) {
             if (is_numeric($facts[$k] ?? null)) {
-                $facts[$k] = (int)round($vary($k, $facts[$k], .4) / ($k === 'min_deposit' ? 1 : 10)) * ($k === 'min_deposit' ? 1 : 10);
+                $v = $vary($k, $facts[$k], .4);
+                $facts[$k] = $k === 'min_deposit' ? (int)($v < 10 ? max(1, round($v)) : ($v < 100 ? round($v / 5) * 5 : round($v, -((int)floor(log10($v)) - 1)))) : (int)round($v / 10) * 10; // a round amount
             }
         }
         foreach ($facts['withdrawal_minutes'] ?? [] as $k => $v) {
@@ -320,7 +326,10 @@ function gen_materialise_brands(array $brands, string $market, int $jobId, strin
             if ($donorRating === null) { // no text in this language: the site falls back to ratings/<market>.json
                 continue;
             }
-            $rating = gen_brand_copy($donorRating, "$id.rating");
+            if ($did !== GEN_DONOR && ($alt = gen_rating_donor($market, $l, $m['default_locale'], $did)) !== null) {
+                $donorRating = gen_rating_mix($alt, $donorRating);
+            }
+            $rating = gen_brand_copy(gen_rating_drop_names($donorRating, $did), "$id.rating");
             foreach ($rating['scores'] ?? [] as $k => $sc) {
                 $rating['scores'][$k]['score'] = max(5, min(10, round($vary("r$k", $sc['score'], .15) * 2) / 2));
             }
@@ -339,8 +348,205 @@ function gen_materialise_brands(array $brands, string $market, int $jobId, strin
     require_once __DIR__ . '/brandfacts.php';
     foreach ($ids as $id) { // the facts the user confirmed replace the example data, every time it is made again
         gen_bfacts_apply(gen_db(), $id, $market);
+        gen_poffers_apply(gen_db(), $id, $market); // the project's offers replace the example ones
+        gen_rating_sync($id, $market); // the rating's figures follow the brand's facts and offers
+        gen_btexts_apply(gen_db(), $id, $market); // the brand's own texts (project, else AI) replace the example ones
+        gen_reviews_sync(gen_db(), $id, $market); // and so do the example reviews' (rating and tone kept)
     }
     return $ids;
+}
+
+/** Rating copy written from a brand's facts, per language: key => [lang => text]. */
+const GEN_RATING_TPL = [
+    'payouts' => ['en' => '{pay} withdrawals in {t}.', 'ru' => 'Вывод через {pay} — {t}.', 'pt' => 'Saques por {pay} em {t}.', 'kk' => '{pay} арқылы шығару — {t}.'],
+    'payouts2' => ['en' => '{pay} withdrawals in {t}, {pay2} in {t2}.', 'ru' => 'Вывод через {pay} — {t}, через {pay2} — {t2}.', 'pt' => 'Saques por {pay} em {t}, por {pay2} em {t2}.', 'kk' => '{pay} арқылы шығару — {t}, {pay2} арқылы — {t2}.'],
+    'games' => ['en' => 'About {n} games with clear filters.', 'ru' => 'Около {n} игр в каталоге, понятные фильтры.', 'pt' => 'Cerca de {n} jogos, filtros fáceis.', 'kk' => 'Каталогта шамамен {n} ойын, ыңғайлы сүзгілер.'],
+    'live' => ['en' => '{n} live tables.', 'ru' => '{n} live-столов.', 'pt' => '{n} mesas ao vivo.', 'kk' => 'Live-үстелдер: {n}.'],
+    'odds' => ['en' => 'Around {n}% margin on top football.', 'ru' => 'Маржа около {n}% на топ-футболе.', 'pt' => 'Margem de cerca de {n}% no futebol principal.', 'kk' => 'Топ-футболда маржа шамамен {n}%.'],
+    'markets' => ['en' => 'About {n} markets on a big match.', 'ru' => 'Около {n} рынков на крупный матч.', 'pt' => 'Cerca de {n} mercados em um jogo grande.', 'kk' => 'Ірі матчта шамамен {n} нарық.'],
+    'live_bet' => ['en' => 'About {n} live events a day.', 'ru' => 'Около {n} live-событий в день.', 'pt' => 'Cerca de {n} eventos ao vivo por dia.', 'kk' => 'Күніне шамамен {n} live-оқиға.'],
+    'bonuses' => ['en' => 'Welcome offer with {n}× wagering.', 'ru' => 'Приветственный бонус с отыгрышем ×{n}.', 'pt' => 'Bônus de boas-vindas com rollover de {n}×.', 'kk' => 'Сәлемдесу бонусы: айналым ×{n}.'],
+    'deposit' => ['en' => 'Minimum deposit {n}', 'ru' => 'Минимальный депозит {n}', 'pt' => 'Depósito mínimo de {n}', 'kk' => 'Ең аз депозит {n}'],
+    'payout_pro' => ['en' => '{pay} withdrawals in {t}', 'ru' => 'Вывод через {pay} — {t}', 'pt' => 'Saques por {pay} em {t}', 'kk' => '{pay} арқылы шығару — {t}'],
+    'games_pro' => ['en' => 'About {n} games', 'ru' => 'Около {n} игр в каталоге', 'pt' => 'Cerca de {n} jogos', 'kk' => 'Шамамен {n} ойын'],
+    'live_pro' => ['en' => '{n} live tables', 'ru' => '{n} live-столов', 'pt' => '{n} mesas ao vivo', 'kk' => 'Live-үстелдер: {n}'],
+    'live_bet_pro' => ['en' => 'About {n} live events a day', 'ru' => 'Около {n} live-событий в день', 'pt' => 'Cerca de {n} eventos ao vivo por dia', 'kk' => 'Күніне шамамен {n} live-оқиға'],
+    'markets_pro' => ['en' => 'About {n} markets on a big match', 'ru' => 'Около {n} рынков на крупный матч', 'pt' => 'Cerca de {n} mercados por jogo grande', 'kk' => 'Ірі матчта шамамен {n} нарық'],
+    'chat24' => ['en' => '24h chat', 'ru' => 'круглосуточный чат', 'pt' => 'chat 24h', 'kk' => 'тәулік бойы чат'],
+    'chat' => ['en' => 'chat', 'ru' => 'чат', 'pt' => 'chat', 'kk' => 'чат'],
+    'email' => ['en' => 'email', 'ru' => 'e-mail', 'pt' => 'e-mail', 'kk' => 'e-mail'],
+    'phone' => ['en' => 'phone line', 'ru' => 'телефон', 'pt' => 'telefone', 'kk' => 'телефон'],
+    'nophone' => ['en' => 'no phone line', 'ru' => 'телефона нет', 'pt' => 'sem telefone', 'kk' => 'телефон жоқ'],
+    'and' => ['en' => ' and ', 'ru' => ' и ', 'pt' => ' e ', 'kk' => ' және '],
+    'has' => ['en' => '{name} has ', 'ru' => 'У {name} ', 'pt' => '{name} tem ', 'kk' => '{name}: '],
+];
+
+/** Text that states a figure: digits, or a time written in words. */
+const GEN_FIGURE_RE = '/\d|(?<!\p{L})(минут\p{L}*|час(а|ов)?|четверть часа|сут(ки|ок)|minutes?|hours?|quarter of an hour|minutos?|horas?|сағат\p{L}*)(?!\p{L})/iu';
+
+/** What a phrase is about, for the copy that replaces its figure. */
+const GEN_FIGURE_TOPIC = [
+    'deposit' => '/депозит|deposit|depósito/iu',
+    'live_bet' => '/live-событ|live[ -]event|eventos ao vivo|live-оқиға/iu',
+    'markets' => '/рын(ок|к)|market|mercado|нарық/iu',
+    'odds' => '/марж|margin|margem/iu',
+    'bonuses' => '/отыгрыш|wagering|rollover|айналым|×/iu',
+    'live' => '/стол|tables?(?!\p{L})|mesas|үстел/iu',
+    'payout' => '/вывод|выплат|выигрыш|withdraw|payout|saque|шығар/iu',
+    'games' => '/игр|games|jogos|ойын|слот|slot/iu',
+];
+
+/**
+ * A job brand's editorial rating (every language file of the market) made consistent with its facts and offers: the
+ * reasons for payouts, games, live, support, odds, markets, live betting and bonuses are written from the facts; other
+ * phrases that state a figure are rewritten from the facts when their topic is known, else dropped. Idempotent.
+ */
+function gen_rating_sync(string $id, string $market): void
+{
+    global $GEN_ROOT;
+    $m = sx_json("$GEN_ROOT/markets/$market.json");
+    $f = sx_brand_data($GEN_ROOT, "facts/$market.json")['brands'][$id] ?? null;
+    $op = sx_brand_data($GEN_ROOT, 'operators.json')[$id] ?? null;
+    if (!$f || !$op) {
+        return;
+    }
+    $c = $m['currency'] ?? ['symbol' => '', 'decimal' => '.', 'thousands' => ',', 'space' => true, 'position' => 'after'];
+    $num = fn($n) => number_format((float)$n, 0, $c['decimal'] ?? '.', ($c['thousands'] ?? ',') === ' ' ? "\u{202F}" : ($c['thousands'] ?? ','));
+    $money = fn($n) => ($c['position'] ?? 'after') === 'before' ? $c['symbol'] . (!empty($c['space']) ? "\u{00A0}" : '') . $num($n) : $num($n) . (!empty($c['space']) ? "\u{00A0}" : '') . $c['symbol'];
+    $payName = fn(string $p) => $p === 'bank' ? 'Bank' : sx_payment_name($p);
+    $methods = $f['withdrawal_minutes'] ?? [];
+    if (!empty($f['payments'])) {
+        $methods = array_intersect_key($methods, array_flip($f['payments'])) ?: $methods;
+    }
+    asort($methods);
+    $offer = null;
+    foreach (sx_brand_data($GEN_ROOT, "promotions/$id.json")['promotions'] ?? [] as $p) {
+        if (in_array($market, $p['markets'] ?? [$market], true) && !empty($p['terms']['wagering']) && ($p['value']['kind'] ?? '') === 'match'
+            && ($offer === null || in_array($p['type'], ['welcome', 'promo_code'], true) && !in_array($offer['type'], ['welcome'], true))) {
+            $offer = $p;
+        }
+    }
+    $time = function (int $min, string $l): string {
+        $ru = fn($n, $a, $b, $c) => $n % 10 === 1 && $n % 100 !== 11 ? $a : ($n % 10 >= 2 && $n % 10 <= 4 && ($n % 100 < 10 || $n % 100 >= 20) ? $b : $c);
+        if ($min < 60) {
+            return ['en' => "about $min minutes", 'ru' => "около $min " . $ru($min, 'минуты', 'минут', 'минут'), 'pt' => "cerca de $min minutos", 'kk' => "шамамен $min минут"][$l] ?? "~$min min";
+        }
+        if ($min < 1440) {
+            $h = (int)max(1, round($min / 60));
+            return ['en' => "about $h " . ($h === 1 ? 'hour' : 'hours'), 'ru' => "около $h " . $ru($h, 'часа', 'часов', 'часов'), 'pt' => "cerca de $h " . ($h === 1 ? 'hora' : 'horas'), 'kk' => "шамамен $h сағат"][$l] ?? "~$h h";
+        }
+        $d = (int)round($min / 1440);
+        return ['en' => "$d " . ($d === 1 ? 'day' : 'days'), 'ru' => "$d " . $ru($d, 'день', 'дня', 'дней'), 'pt' => "$d " . ($d === 1 ? 'dia' : 'dias'), 'kk' => "$d күн"][$l] ?? "{$d}d";
+    };
+    $files = [];
+    foreach ($m['locales'] as $l) {
+        $files[$l === $m['default_locale'] ? "ratings/$market.json" : "ratings/$market.$l.json"] = $l;
+    }
+    foreach ($files as $rf => $l) {
+        if (!is_array(sx_brand_data($GEN_ROOT, $rf)['brands'][$id] ?? null)) {
+            continue;
+        }
+        $tpl = function (string $k, array $v = []) use ($l): ?string {
+            $s = GEN_RATING_TPL[$k][$l] ?? GEN_RATING_TPL[$k]['en'] ?? null;
+            return $s === null ? null : strtr($s, array_combine(array_map(fn($x) => '{' . $x . '}', array_keys($v)), array_values($v)) ?: []);
+        };
+        $pays = array_keys($methods);
+        $copy = [ // the text per topic: [reason, pro], null where the facts do not say
+            'payout' => $pays ? [count($pays) > 1 && $methods[end($pays)] !== $methods[$pays[0]]
+                ? $tpl('payouts2', ['pay' => $payName($pays[0]), 't' => $time($methods[$pays[0]], $l), 'pay2' => $payName(end($pays)), 't2' => $time($methods[end($pays)], $l)])
+                : $tpl('payouts', ['pay' => $payName($pays[0]), 't' => $time($methods[$pays[0]], $l)]), $tpl('payout_pro', ['pay' => $payName($pays[0]), 't' => $time($methods[$pays[0]], $l)])] : null,
+            'games' => isset($f['games']) ? [$tpl('games', ['n' => $num($f['games'])]), $tpl('games_pro', ['n' => $num($f['games'])])] : null,
+            'live' => isset($f['live_tables']) ? [$tpl('live', ['n' => $num($f['live_tables'])]), $tpl('live_pro', ['n' => $num($f['live_tables'])])] : null,
+            'odds' => isset($f['sports']['margin']) ? [$tpl('odds', ['n' => rtrim(rtrim(number_format((float)$f['sports']['margin'], 1, $c['decimal'] ?? '.', ''), '0'), '.,')]), null] : null,
+            'markets' => isset($f['sports']['markets_per_match']) ? [$tpl('markets', ['n' => $num(round($f['sports']['markets_per_match'], -1))]), $tpl('markets_pro', ['n' => $num(round($f['sports']['markets_per_match'], -1))])] : null,
+            'live_bet' => isset($f['sports']['live_events']) ? [$tpl('live_bet', ['n' => $num(round($f['sports']['live_events'], -1))]), $tpl('live_bet_pro', ['n' => $num(round($f['sports']['live_events'], -1))])] : null,
+            'bonuses' => $offer ? [$tpl('bonuses', ['n' => $offer['terms']['wagering']]), null] : null,
+            'deposit' => isset($f['min_deposit']) ? [null, $tpl('deposit', ['n' => $money($f['min_deposit'])])] : null,
+        ];
+        $s = $f['support'] ?? null;
+        if (is_array($s)) {
+            $have = array_values(array_filter([!empty($s['chat']) ? $tpl(($s['chat'] === '24h' ? 'chat24' : 'chat')) : null, !empty($s['email']) ? $tpl('email') : null, !empty($s['phone']) ? $tpl('phone') : null]));
+            $txt = implode($tpl('and'), $have) . (empty($s['phone']) ? ($have ? '; ' : '') . $tpl('nophone') : '');
+            $copy['support'] = [mb_strtoupper(mb_substr($txt, 0, 1)) . mb_substr($txt, 1) . '.', null];
+        }
+        $topic = function (string $t): ?string {
+            foreach (GEN_FIGURE_TOPIC as $k => $re) {
+                if (preg_match($re, $t)) {
+                    return $k;
+                }
+            }
+            return null;
+        };
+        $item = function (string $t) use ($topic, $copy): ?string { // a pro or con: kept, rewritten from the facts, or dropped
+            if (!preg_match(GEN_FIGURE_RE, $t)) {
+                return $t;
+            }
+            $k = $topic($t);
+            return $k !== null ? ($copy[$k][1] ?? null) : null;
+        };
+        $name = (string)($op['name'] ?? '');
+        $has = $tpl('has', ['name' => $name]);
+        $prose = function (string $t) use ($topic, $copy, $name, $has): string { // summary or verdict: sentences with a figure rewritten or dropped
+            $out = [];
+            foreach (preg_split('/(?<=[.!?])\s+/u', trim($t)) as $sen) {
+                if (!preg_match(GEN_FIGURE_RE, $sen)) {
+                    $out[] = $sen;
+                    continue;
+                }
+                $k = $topic($sen);
+                $rep = $k !== null ? ($copy[$k][0] ?? null) : null;
+                $head = preg_match('/^(.*?):\s+(.*)$/u', $sen, $mm) && !preg_match(GEN_FIGURE_RE, $mm[1]) ? $mm[1] : null;
+                if ($rep !== null && $head !== null && str_contains($rep, ':')) { // «…ради live-казино: live-столов: 180» reads badly: the head alone
+                    $out[] = $head . '.';
+                } elseif ($rep !== null && $head !== null) {
+                    $out[] = $head . ': ' . mb_strtolower(mb_substr($rep, 0, 1)) . mb_substr($rep, 1);
+                } elseif ($rep !== null && $name !== '' && str_contains($sen, $name) && !str_contains($rep, $name)) { // the brand the sentence was about stays named
+                    $out[] = $has . mb_strtolower(mb_substr($rep, 0, 1)) . mb_substr($rep, 1);
+                } elseif ($rep !== null) {
+                    $out[] = $rep;
+                } elseif ($head !== null) {
+                    $out[] = $head . '.';
+                }
+            }
+            return implode(' ', array_unique($out));
+        };
+        $list = fn(array $xs) => array_values(array_unique(array_filter(array_map($item, $xs), fn($x) => $x !== null && $x !== '')));
+        gen_overlay_update($rf, function ($d) use ($id, $copy, $topic, $prose, $list) {
+            $r = $d['brands'][$id] ?? null;
+            if (!is_array($r)) {
+                return $d;
+            }
+            $reasonTopic = ['payouts' => 'payout', 'games' => 'games', 'live' => 'live', 'support' => 'support', 'odds' => 'odds', 'markets' => 'markets', 'live_bet' => 'live_bet', 'bonuses' => 'bonuses'];
+            $fix = function (array $e) use ($reasonTopic, $copy, $prose, $list): array {
+                foreach ($e['scores'] ?? [] as $k => $sc) {
+                    if (!isset($sc['reason'])) {
+                        continue;
+                    }
+                    $new = isset($reasonTopic[$k]) ? ($copy[$reasonTopic[$k]][0] ?? null) : null;
+                    $e['scores'][$k]['reason'] = $new ?? ($prose($sc['reason']) ?: $sc['reason']);
+                }
+                foreach (['summary', 'verdict'] as $k) {
+                    if (is_string($e[$k] ?? null)) {
+                        $e[$k] = $prose($e[$k]) ?: $e[$k];
+                    }
+                }
+                foreach (['pros', 'cons'] as $k) {
+                    if (is_array($e[$k] ?? null)) {
+                        $e[$k] = $list($e[$k]);
+                    }
+                }
+                return $e;
+            };
+            $r = $fix($r);
+            foreach ($r['products'] ?? [] as $p => $pr) {
+                if (is_array($pr)) {
+                    $r['products'][$p] = $fix($pr);
+                }
+            }
+            $d['brands'][$id] = $r;
+            return $d;
+        });
+    }
 }
 
 /**
@@ -381,12 +587,12 @@ function gen_fit_promo_money(array $p, string $market): array
  * demo market's (scores, products), or null when no rating text in that language exists. A ratings/<id>.json file is
  * written in market <id>'s default language, ratings/<id>.<lang>.json in <lang>.
  */
-function gen_rating_donor(string $market, string $lang, string $default): ?array
+function gen_rating_donor(string $market, string $lang, string $default, string $donor = GEN_DONOR): ?array
 {
     global $GEN_ROOT;
     $dir = "$GEN_ROOT/brands/ratings";
-    $entry = function (string $f): ?array {
-        return is_file($f) ? (sx_json($f)['brands'][GEN_DONOR] ?? null) : null;
+    $entry = function (string $f) use ($donor): ?array {
+        return is_file($f) ? (sx_json($f)['brands'][$donor] ?? null) : null;
     };
     $xxDefault = sx_json("$GEN_ROOT/markets/xx.json")['default_locale'] ?? 'en';
     $base = $entry("$dir/xx.$lang.json") ?? ($lang === $xxDefault ? $entry("$dir/xx.json") : null);
@@ -423,7 +629,126 @@ function gen_sample_brands(array $userBrands, int $n, int $jobId): array
     foreach (array_slice($names, 0, $n) as $name) {
         $out[] = ['name' => $name, 'products' => $userBrands[0]['products'] ?? 'both'];
     }
-    return gen_clean_brands($out);
+    return array_map(fn($b) => $b + ['sample' => true], gen_clean_brands($out)); // made-up rivals: the project's facts are not theirs
+}
+
+/**
+ * The demo brand a sample rival is made from: one that offers what it offers, other than the job brands' donor, in turn
+ * by the rival's place in GEN_SAMPLE_NAMES, so the cards of a ranking do not repeat one text.
+ */
+function gen_sample_donor(array $b): string
+{
+    global $GEN_ROOT;
+    $want = ['casino' => ['casino'], 'sports' => ['sports'], 'both' => ['casino', 'sports']][$b['products'] ?? 'both'] ?? ['casino', 'sports'];
+    $ratings = sx_json("$GEN_ROOT/brands/ratings/xx.json")['brands'] ?? [];
+    $c = [];
+    foreach (sx_json("$GEN_ROOT/brands/operators.json") as $id => $o) {
+        if ($id === '_note' || $id === GEN_DONOR || !isset($ratings[$id])) {
+            continue;
+        }
+        $has = array_intersect(['casino', 'sports'], $o['verticals'] ?? []);
+        if ($want === ['sports'] ? in_array('sports', $has, true) : in_array('casino', $has, true)) { // a casino text for casino and both, a sports one for sports
+            $c[] = $id;
+        }
+    }
+    if (!$c) {
+        return GEN_DONOR;
+    }
+    if (count($want) === 2) { // a hybrid ranking: hybrid brands first, so their texts name both products
+        usort($c, fn($x, $y) => (int)!isset($ratings[$x]['products']['both']) <=> (int)!isset($ratings[$y]['products']['both']));
+    }
+    $i = array_search($b['name'], GEN_SAMPLE_NAMES, true);
+    return $c[($i === false ? crc32($b['name']) : $i) % count($c)];
+}
+
+/** A rival's rating: the texts and scores of its donor's rating ($alt), with the usual donor's ($base) filling what the
+ *  other lacks (scores of products it does not offer, product views it has none for). */
+function gen_rating_mix(array $alt, array $base): array
+{
+    $text = ['summary' => 1, 'verdict' => 1, 'pros' => 1, 'cons' => 1];
+    $r = $alt + $base;
+    $r['scores'] = ($alt['scores'] ?? []) + ($base['scores'] ?? []);
+    foreach ($base['products'] ?? [] as $p => $pr) {
+        $own = $alt['products'][$p] ?? array_intersect_key($alt, $text);
+        $r['products'][$p] = $own + $pr;
+        $r['products'][$p]['scores'] = ($own['scores'] ?? []) + ($pr['scores'] ?? []);
+    }
+    return $r;
+}
+
+/** A demo rating without the sentences that compare with another demo brand (after the names are swapped they would
+ *  name the brand itself): a sentence keeps its part before a dash when only the rest names one, else goes. */
+function gen_rating_drop_names(array $r, string $self): array
+{
+    global $GEN_ROOT;
+    $names = [];
+    foreach (sx_json("$GEN_ROOT/brands/operators.json") as $id => $o) {
+        if ($id !== '_note' && $id !== $self) {
+            $names[] = preg_quote($o['name'], '/');
+            $names[] = preg_quote(explode(' ', $o['name'])[0], '/');
+        }
+    }
+    $re = '/(?<!\p{L})(' . implode('|', array_unique($names)) . ')(?!\p{L})/u';
+    $prose = function (string $t) use ($re): string {
+        $out = [];
+        foreach (preg_split('/(?<=[.!?])\s+/u', trim($t)) as $sen) {
+            if (!preg_match($re, $sen)) {
+                $out[] = $sen;
+            } elseif (preg_match('/^(.+?)\s[—–]\s/u', $sen, $mm) && !preg_match($re, $mm[1])) {
+                $out[] = rtrim($mm[1], ',;:') . '.';
+            }
+        }
+        return implode(' ', $out);
+    };
+    $fix = function (array $e) use ($prose, $re): array {
+        foreach (['summary', 'verdict'] as $k) {
+            if (is_string($e[$k] ?? null)) {
+                $e[$k] = $prose($e[$k]) ?: $e[$k];
+            }
+        }
+        foreach ($e['scores'] ?? [] as $k => $sc) {
+            if (is_string($sc['reason'] ?? null)) {
+                $e['scores'][$k]['reason'] = $prose($sc['reason']) ?: $sc['reason'];
+            }
+        }
+        foreach (['pros', 'cons'] as $k) {
+            if (is_array($e[$k] ?? null)) {
+                $e[$k] = array_values(array_filter($e[$k], fn($x) => !is_string($x) || !preg_match($re, $x))) ?: $e[$k];
+            }
+        }
+        return $e;
+    };
+    $r = $fix($r);
+    foreach ($r['products'] ?? [] as $p => $pr) {
+        if (is_array($pr)) {
+            $r['products'][$p] = $fix($pr);
+        }
+    }
+    return $r;
+}
+
+/** Whether a job's brands are the user's own (brand objects), not demo brand ids. */
+function gen_user_brands(array $spec): bool
+{
+    return !empty($spec['brands']) && is_array($spec['brands'][0] ?? null);
+}
+
+/** A job's brand data made again (same ids) with the project's current facts, offers, licence and texts, and its
+ *  sample rivals with it. */
+function gen_job_brands_reload(int $jobId): void
+{
+    $j = gen_db()->prepare('SELECT market, spec FROM jobs WHERE id = ?');
+    $j->execute([$jobId]);
+    $row = $j->fetch() ?: throw new RuntimeException('No such job.');
+    $spec = json_decode($row['spec'], true) ?: [];
+    if (!gen_user_brands($spec)) {
+        return;
+    }
+    gen_materialise_brands($spec['brands'], $row['market'], $jobId, $spec['copy'] ?? 'demo');
+    $n = (int)($spec['sample_brands'] ?? 0); // same names, so the same ids
+    if ($n > 0 && !empty($spec['sample_ids'])) {
+        gen_materialise_brands(gen_sample_brands($spec['brands'], $n, $jobId), $row['market'], $jobId, $spec['copy'] ?? 'demo');
+    }
 }
 
 /** Brands a probe build uses: three placeholder brands offering casino and sport. */

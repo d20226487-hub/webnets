@@ -10,7 +10,8 @@ if (is_file($catFile)) {
         $studios[] = SX::$ctx['providers'][$pid]['name'] ?? $pid;
     }
 }
-$wd = implode(' · ', array_map(fn($m, $min) => sx_payment_name($m) . ' ' . t('casinos.minutes', ['m' => $min >= 1440 ? round($min / 1440) . 'd' : $min]), array_keys($f['withdrawal_minutes']), $f['withdrawal_minutes']));
+$wdm = sx_brand_withdrawals($f);
+$wd = implode(" · ", array_map(fn($m, $min) => sx_payment_name($m) . ' ' . t('casinos.minutes', ['m' => $min >= 1440 ? round($min / 1440) . 'd' : $min]), array_keys($wdm), $wdm));
 $support = trim(t('casinos.chat', ['h' => $f['support']['chat']]) . ($f['support']['email'] ? ' · e-mail' : '') . ($f['support']['phone'] ? ' · ' . t('casinos.phone') : ''));
 $rows = [
     ['casinos.f.licence', t('casinos.kf.licence', ['no' => $b['license_no']])],

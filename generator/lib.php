@@ -1187,6 +1187,9 @@ function gen_site_full_config(array $site, string $market, array $brands = [], b
     }
     $cfg['rows'] = ($plan['rows'] ?? 'swipe') === 'stack' ? 'stack' : 'swipe';
     $cfg['disclosure'] = in_array($spec['disclosure'] ?? 'top', ['top', 'footer', 'off'], true) ? $spec['disclosure'] : 'top'; // affiliate disclosure: top strip, footer or none
+    if ($cfg['disclosure'] === 'off' && isset($cfg['content'])) { // the job turned the disclosure off: the template's texts about paid places and commissions go too
+        $cfg['content'] = gen_strip_paid_mentions($cfg['content']);
+    }
     if (isset($cfg['featured']) && $own && $brands !== $own) { // the paid featured slot is always one of the job's own brands
         $cfg['featured'] = $own[crc32($site['id']) % count($own)];
     }
@@ -1194,6 +1197,9 @@ function gen_site_full_config(array $site, string $market, array $brands = [], b
         $cfg['promote'] = true;
     }
     $cfg = gen_apply_edits($cfg, $site['type'], gen_site_edits($spec, $site['type'], $plan)); // the user's edits (type, then site) go on top of the plan
+    if (!empty($cfg['brands'])) { // the compared brands' rating texts as the site's own copy, so the text step words them per site
+        $cfg['brand_text'] = gen_site_brand_text($cfg, $market);
+    }
     require_once __DIR__ . '/brandfacts.php';
     $lic = gen_project_licence(gen_db(), (int)$site['job_id']);
     // the project's licence replaces the market's wording (lib/site.php "licence") on the brand's own sites; sites that list
@@ -1215,8 +1221,72 @@ function gen_site_full_config(array $site, string $market, array $brands = [], b
     if ($withAi && !empty($plan['ai'])) { // the text written by the content step (generator/content.php), on top of everything
         require_once __DIR__ . '/content.php';
         $cfg = gen_apply_ai($cfg, $plan['ai']);
+        if ($cfg['disclosure'] === 'off' && isset($cfg['content'])) { // AI text written while the disclosure was on keeps none of it either
+            $cfg['content'] = gen_strip_paid_mentions($cfg['content']);
+        }
     }
     return $cfg;
+}
+
+/**
+ * The rating texts of a site's compared brands as site copy: [brand id => [summary, verdict, pros, cons, scores =>
+ * [criterion => reason]]], from the brand data in the site's language and product. The site shows its own copy of them
+ * (lib/casinos.php), so the text step can write them differently on every site.
+ */
+function gen_site_brand_text(array $cfg, string $market): array
+{
+    global $GEN_ROOT;
+    $m = sx_json("$GEN_ROOT/markets/$market.json");
+    $loc = $cfg['locale'] ?? ($m['default_locale'] ?? 'en');
+    $rf = "ratings/$market.$loc.json";
+    $ratings = sx_brand_data($GEN_ROOT, is_file(sx_brand_file($GEN_ROOT, $rf)) ? $rf : "ratings/$market.json")['brands'] ?? [];
+    $bp = sx_json("$GEN_ROOT/blueprints/{$cfg['type']}.json");
+    $crit = $bp['products'][$cfg['product'] ?? '']['criteria'] ?? ($bp['criteria'] ?? null);
+    $shown = []; // the criteria the site scores (composites by their parts)
+    foreach (is_array($crit) ? array_keys($crit) : [] as $c) {
+        foreach ($bp['composite'][$c] ?? [$c] as $x) {
+            $shown[$x] = true;
+        }
+    }
+    $out = [];
+    foreach ((array)$cfg['brands'] as $id) {
+        $r = $ratings[$id] ?? null;
+        if (!is_array($r)) {
+            continue;
+        }
+        if (($p = $cfg['product'] ?? null) && is_array($r['products'][$p] ?? null)) {
+            $r = array_merge($r, $r['products'][$p]);
+        }
+        $t = array_intersect_key($r, ['summary' => 1, 'verdict' => 1, 'pros' => 1, 'cons' => 1]);
+        foreach ($r['scores'] ?? [] as $k => $sc) {
+            if (is_string($sc['reason'] ?? null) && (!$shown || isset($shown[$k]))) {
+                $t['scores'][$k] = $sc['reason'];
+            }
+        }
+        $out[$id] = $t;
+    }
+    return $out;
+}
+
+/** Words of the template's texts about paid places and commissions (the partner slot's name, "commission"), any language. */
+const GEN_PAID_WORDS = '/особом месте|комисси|featured partner|commission|parceiro em destaque|comiss[ãa]o|платн\w* (место|размещ)|paid placement|posição paga/iu';
+
+/** Site text without the template's explanations of paid places and commissions (disclosure off): FAQ items that talk
+ *  about them, and sections (an H2 and what follows) of page text that do. */
+function gen_strip_paid_mentions(array $content): array
+{
+    foreach ($content as $k => $v) {
+        if (is_array($v)) {
+            if (array_is_list($v) && $v && is_array($v[0]) && (isset($v[0]['q']) || isset($v[0]['a']))) {
+                $v = array_values(array_filter($v, fn($it) => !preg_match(GEN_PAID_WORDS, ($it['q'] ?? '') . ' ' . (is_string($it['a'] ?? null) ? $it['a'] : ''))));
+            }
+            $content[$k] = gen_strip_paid_mentions($v);
+        } elseif (is_string($v) && str_contains($v, '<h2') && preg_match(GEN_PAID_WORDS, $v)) {
+            $parts = preg_split('/(?=<h2[\s>])/i', $v);
+            $content[$k] = implode('', array_filter($parts, fn($p) => !str_starts_with(ltrim($p), '<h2') || !preg_match(GEN_PAID_WORDS, $p)));
+        }
+    }
+    return $content;
 }
 
 /** Exports a site config file to dist/generated/<site>/: [ok, warnings, error, pages]. */
@@ -1232,6 +1302,11 @@ function gen_export_site(string $siteId, string $file): array
     $pages = count(glob("$dir/*.html"));
     $warnings = array_values(array_filter($out, fn($l) => !str_starts_with($l, 'dist/') && trim($l) !== ''));
     if ($code !== 0 || !$pages) {
+        foreach ($warnings as $l) { // a crash: its message, not the tail of its stack trace
+            if (preg_match('/Uncaught\s+[\w\\\\]+:\s*(.+?)(?:\s+in\s+\/\S+:\d+)?$/', $l, $mm)) {
+                return [false, [], trim($mm[1]), 0];
+            }
+        }
         return [false, [], trim(implode("\n", array_slice($warnings, -3))) ?: 'Build failed.', 0];
     }
     return [true, $warnings, null, $pages];

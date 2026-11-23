@@ -5,7 +5,7 @@ $market = sx_ctx('market');
 $brand = sx_ctx('brand');
 $site = sx_ctx('site');
 
-$payments = array_map('sx_payment_name', $market['payments']);
+$payments = array_map('sx_payment_name', sx_brand_payments($brand['id'] ?? null));
 
 $pages = sx_pages();
 // Only links to something that exists: the responsible-gambling page when the site has one (without it the panel is

@@ -4,8 +4,10 @@
  * when several types are chosen).
  */
 
+require_once __DIR__ . '/brandfacts.php'; // the project's brand facts list
+
 /** Project information fields: the AI briefs of the project's sites use them to write relevant text. */
-const GEN_PROJECT_INFO = ['about', 'audience', 'tone', 'facts', 'keywords', 'avoid', 'licence_regulator', 'licence_no', 'licence_short', 'below', 'product'];
+const GEN_PROJECT_INFO = ['about', 'audience', 'tone', 'facts', 'keywords', 'avoid', 'below', 'product'];
 
 /** Project information as stored: known fields only, trimmed text (3000 characters at most, «facts» without limit); below is none, useful or every. */
 function gen_project_info($in): array
@@ -15,6 +17,14 @@ function gen_project_info($in): array
         $v = is_array($in) && is_string($in[$k] ?? null) ? trim(str_replace("\r", '', $in[$k])) : '';
         $out[$k] = $k === 'facts' ? $v : mb_substr($v, 0, 3000);
     }
+    $out['offers'] = function_exists('gen_poffers_clean') ? gen_poffers_clean(is_array($in) ? ($in['offers'] ?? null) : null) : [];
+    $facts = is_array($in) && array_key_exists('brand_facts', $in) ? (array)$in['brand_facts'] : gen_pfacts_default(); // a project from before the list: every known fact, empty
+    foreach (['licence_regulator', 'licence_no', 'licence_short'] as $k) { // the licence fields of a project saved before they were brand facts
+        if (is_array($in) && trim((string)($in[$k] ?? '')) !== '' && !array_filter($facts, fn($f) => ($f['key'] ?? '') === $k && trim((string)($f['value'] ?? '')) !== '')) {
+            $facts[] = ['key' => $k, 'value' => (string)$in[$k]];
+        }
+    }
+    $out['brand_facts'] = gen_pfacts_clean($facts);
     $out['product'] = in_array($out['product'], ['casino', 'sports'], true) ? $out['product'] : 'both'; // what the project's sites are about
     $out['below'] = in_array($out['below'], ['useful', 'every'], true) ? $out['below'] : 'none';
     return $out;
@@ -28,14 +38,11 @@ function gen_project_brief(array $info, string $docs = ''): string
         'audience' => 'Audience',
         'tone' => 'Tone of voice',
         'facts' => 'Facts and messages to use',
-        'licence_regulator' => 'Licence issued by',
-        'licence_no' => 'Licence number',
-        'licence_short' => 'Licence badge',
         'keywords' => 'Topics and search phrases to cover',
         'avoid' => 'Avoid',
     ];
     $filled = array_filter(array_intersect_key($info, $fields), fn($v) => $v !== '');
-    if (!$filled && $info['below'] === 'none' && $docs === '' && ($info['product'] ?? 'both') === 'both') {
+    if (!$filled && $info['below'] === 'none' && $docs === '' && ($info['product'] ?? 'both') === 'both' && !array_filter($info['brand_facts'] ?? [], fn($f) => trim((string)($f['value'] ?? '')) !== '')) {
         return '';
     }
     $L = ['## Project information', ''];
@@ -56,6 +63,13 @@ function gen_project_brief(array $info, string $docs = ''): string
             foreach ($lines as $x) {
                 $L[] = '  - ' . preg_replace('/^[-*•]\s*/u', '', $x);
             }
+        }
+    }
+    $known = array_filter($info['brand_facts'] ?? [], fn($f) => trim((string)$f['value']) !== '');
+    if ($known) { // the brand facts the project gives (its own fields included): figures the text may use
+        $L[] = '- Brand facts:';
+        foreach ($known as $f) {
+            $L[] = '  - ' . ($f['label'] ?? (GEN_PFACTS[$f['key']][0] ?? $f['key'])) . ': ' . str_replace("\n", ' ', $f['value']);
         }
     }
     if (($info['product'] ?? 'both') !== 'both') {

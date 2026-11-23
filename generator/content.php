@@ -57,7 +57,7 @@ function gen_copy_fields(array $cfg, array $skipSections): array
             $out[ltrim($path, '/')] = $v;
         }
     };
-    foreach (['content', 'meta', 'page', 'cta_label'] as $k) {
+    foreach (['content', 'meta', 'page', 'cta_label', 'brand_text'] as $k) {
         if (isset($cfg[$k])) {
             $walk($cfg[$k], $k, $k);
         }
@@ -164,7 +164,23 @@ function gen_content_system(array $cfg, array $info, string $projectPart, array 
         . ' reads naturally and is useful for search. The layout stays exactly as it is: you only replace text.';
     $L[] = '';
     $L[] = 'Language: write every text in ' . sx_brief_lang($loc) . " (locale $loc), whatever language the instructions or project information are in.";
-    $L[] = 'Site: ' . ($cfg['site']['name'] ?? $cfg['id']) . ', site type ' . $cfg['type'] . (!empty($cfg['angle']) ? ", angle {$cfg['angle']}" : '') . ($bname !== '' ? ", brand «{$bname}»" : '') . '.';
+    $multi = !empty($cfg['publisher']);
+    $L[] = 'Site: ' . ($cfg['site']['name'] ?? $cfg['id']) . ', site type ' . $cfg['type'] . (!empty($cfg['angle']) ? ", angle {$cfg['angle']}" : '') . ($bname !== '' ? ", " . ($multi ? 'promoted brand' : 'brand') . " $bname" : '') . '.';
+    if ($multi) { // a ranking or news site: run by the publisher, about several operators
+        $names = array_filter(array_map(fn($id) => sx_brand_data($GEN_ROOT, 'operators.json')[$id]['name'] ?? null, (array)($cfg['brands'] ?? [])));
+        $L[] = 'This site is an independent comparison run by ' . ($cfg['site']['name'] ?? 'a publisher') . ' about several operators (' . implode(', ', $names) . '). It is not any operator\'s own site:'
+            . ' headings, intros, table titles and FAQ are about the comparison and the operators in general, never titled as one brand\'s page.'
+            . ($bname !== '' ? " $bname is the brand the site recommends: name it as the top pick where it fits, without writing as if the site belonged to it." : '');
+    }
+    $facts = gen_content_brand_facts($brand, $cfg['market'], $m);
+    if ($facts) {
+        $L[] = '';
+        $L[] = "## {$bname} figures (what the site shows; use exactly these)";
+        $L[] = '';
+        foreach ($facts as $k => $v) {
+            $L[] = "- $k: $v";
+        }
+    }
     if ($offers !== '') {
         $L[] = "The brand offers $offers. Write only about these products; the site's pictures show them too.";
     }
@@ -185,10 +201,103 @@ function gen_content_system(array $cfg, array $info, string $projectPart, array 
     $L[] = '- Disclosures stay as clear as in the current text: when a text says the site earns a commission, is paid, or that something is advertising or a partner offer, the new text says so just as plainly (for example «we earn a commission when you sign up through our links»). Never soften or drop it.';
     $L[] = '- A text next to a picture (a screenshot caption, a card beside a screen) describes what that picture shows; the request says what each one shows.';
     $L[] = '- No absolute or guaranteed claims: never call anything absolutely, completely or 100% safe, guaranteed, risk-free or certain, and never promise wins, fixed payout times or bonuses. Say what is true instead (for example: the file comes from the official site; Android asks for permission to install it).';
-    $L[] = '- Facts: do not state amounts, times, percentages, odds, licences or awards unless they are in the project information, its documents or the current text. When unsure, write without the number.';
+    $L[] = '- Figures: the current text is template copy and its figures (amounts, times, percentages, odds, counts, years) are only examples. Use a figure only when it is in the brand figures above, the project information or its documents, and then exactly as given; otherwise write the sentence without a figure. Never state licences or awards that are not given.';
     $L[] = '- Follow the market rules above: age, products allowed, promotions allowed, payment methods and currency. No promises of winnings.';
     $L[] = '- Search: work the project\'s topics and search phrases in where they fit naturally, each page around its own subject, at most one search phrase per text; no keyword stuffing, no repeated sentences across fields.';
     return implode("\n", $L);
+}
+
+/** The brand's figures for the instructions: the market facts (minimum deposit, payout times, games, live tables) and
+ *  the brand's own (start year, licence), as the site shows them. */
+function gen_content_brand_facts(array $brand, string $market, array $m): array
+{
+    global $GEN_ROOT;
+    if (empty($brand['_id'])) {
+        return [];
+    }
+    $f = sx_brand_data($GEN_ROOT, "facts/$market.json")['brands'][$brand['_id']] ?? [];
+    $cur = $m['currency']['symbol'] ?? ($m['currency']['code'] ?? '');
+    $out = [];
+    if (isset($f['min_deposit'])) {
+        $out['Minimum deposit'] = $f['min_deposit'] . " $cur";
+    }
+    $pname = fn($p) => function_exists('sx_payment_name') && $p !== 'bank' ? sx_payment_name($p) : $p;
+    if (!empty($f['payments'])) {
+        $out['Payment methods (only these)'] = implode(', ', array_map($pname, $f['payments']));
+    }
+    foreach ($f['withdrawal_minutes'] ?? [] as $pay => $min) {
+        if (!empty($f['payments']) && !in_array($pay, $f['payments'], true)) {
+            continue;
+        }
+        $out['Withdrawal time, ' . $pname($pay)] = $min >= 1440 ? round($min / 1440) . ' days' : ($min >= 60 ? round($min / 60, 1) . ' hours' : "about $min minutes");
+    }
+    if (isset($f['games'])) {
+        $out['Casino games'] = $f['games'];
+    }
+    if (isset($f['live_tables'])) {
+        $out['Live tables'] = $f['live_tables'];
+    }
+    if (is_array($f['support'] ?? null)) {
+        $s = $f['support'];
+        $out['Support'] = implode(', ', array_filter([!empty($s['chat']) ? 'chat ' . $s['chat'] : null, !empty($s['email']) ? 'email' : null, !empty($s['phone']) ? 'phone' : 'no phone']));
+    }
+    foreach (['count' => 'Sports covered', 'markets_per_match' => 'Markets on a big match', 'live_events' => 'Live events a day', 'margin' => 'Margin on top football, %'] as $k => $lab) {
+        if (isset($f['sports'][$k])) {
+            $out[$lab] = $f['sports'][$k];
+        }
+    }
+    if (!empty($brand['facts']['founded'])) {
+        $out['Operating since'] = $brand['facts']['founded'];
+    }
+    if (!empty($brand['license_no'])) {
+        $out['Licence number'] = $brand['license_no'];
+    }
+    foreach (['version' => 'App version', 'updated' => 'App updated'] as $k => $lab) {
+        if (!empty($brand['app'][$k])) {
+            $out[$lab] = $brand['app'][$k];
+        }
+    }
+    foreach ($brand['app']['size_mb'] ?? [] as $os => $mb) {
+        $out["App size, $os"] = "$mb MB";
+    }
+    foreach ($brand['app']['min_os'] ?? [] as $os => $v) {
+        $out["Minimum $os"] = $v;
+    }
+    $n = 0;
+    foreach (gen_content_offers($brand['_id'], $market, $m) as $line) {
+        $out['Offer ' . (++$n)] = $line;
+    }
+    return $out;
+}
+
+/** The brand's offers in this market, one line each with every figure the site shows (title, value, code, terms). */
+function gen_content_offers(string $id, string $market, array $m): array
+{
+    global $GEN_ROOT;
+    $cur = $m['currency']['symbol'] ?? ($m['currency']['code'] ?? '');
+    $l = $m['default_locale'] ?? 'en';
+    $out = [];
+    foreach (sx_brand_data($GEN_ROOT, "promotions/$id.json")['promotions'] ?? [] as $p) {
+        if (!in_array($market, $p['markets'] ?? [$market], true)) {
+            continue;
+        }
+        $title = is_array($p['title'] ?? null) ? ($p['title'][$l] ?? reset($p['title'])) : (string)($p['title'] ?? '');
+        $v = $p['value'] ?? [];
+        $t = $p['terms'] ?? [];
+        $bits = array_filter([
+            isset($v['percent']) ? $v['percent'] . '%' . (isset($v['max']) ? " up to {$v['max']} $cur" : '') : null,
+            isset($v['count']) ? $v['count'] . ' free spins' : null,
+            isset($v['amount']) && !isset($v['percent']) ? "{$v['amount']} $cur" : null,
+            !empty($p['code']) ? "code {$p['code']}" : null,
+            !empty($t['wagering']) ? "wagering ×{$t['wagering']}" : null,
+            !empty($t['min_deposit']) ? "min deposit {$t['min_deposit']} $cur" : null,
+            !empty($t['min_odds']) ? "min odds {$t['min_odds']}" : null,
+            !empty($t['max_bet']) ? "max bet {$t['max_bet']} $cur" : null,
+            !empty($t['expiry_days']) ? "valid {$t['expiry_days']} days" : null,
+        ]);
+        $out[] = trim("{$p['type']}: $title" . ($bits ? ' (' . implode(', ', $bits) . ')' : ''));
+    }
+    return $out;
 }
 
 /** The request for one group: the prompt, and the sections that may get text below them. */
@@ -205,6 +314,11 @@ function gen_content_prompt(array $group, string $below, array $pictures = []): 
     $P[] = json_encode($fields, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     $P[] = '```';
     $P[] = '';
+    if (array_filter(array_keys($fields), fn($p) => str_starts_with($p, 'brand_text/'))) {
+        $P[] = 'Fields under brand_text/<brand id>/ are the editorial texts of one compared brand (its summary on ranking cards, verdict, pros, cons and score reasons).'
+            . ' Write them in your own words for this site: keep each about that brand and true to what it says, keep the figures it states exactly (they are that brand\'s), keep its brand name, and never mix brands.';
+        $P[] = '';
+    }
     if ($pics) {
         $P[] = 'Pictures beside these fields (the text must describe what the picture shows):';
         foreach ($pics as $path => $what) {
@@ -300,7 +414,8 @@ function gen_content_prepare(array $site, string $below, string $projectPart, ar
     $spec = json_decode($job['spec'] ?? '{}', true) ?: [];
     // always from the template's text (a second run does not rewrite the first run's text)
     $cfg = gen_site_full_config($site, $job['market'] ?? 'xx', $spec['brand_ids'] ?? [], false);
-    $brand = $site['brand'] ? (sx_brand_data($GEN_ROOT, 'operators.json')[$site['brand']] ?? []) : [];
+    $bid = $site['brand'] ?: ($cfg['promote'] ?? false ? ($cfg['featured'] ?? null) : null); // a ranking site: the brand it promotes
+    $brand = $bid ? (['_id' => $bid] + (sx_brand_data($GEN_ROOT, 'operators.json')[$bid] ?? [])) : [];
     $system = gen_content_system($cfg, $info, $projectPart, $brand);
     $pictures = gen_content_pictures($cfg, $brand['verticals'] ?? []);
     $meta = ['project' => $job['project_id'] ?? null, 'job' => (int)$site['job_id'], 'site' => $site['id'], 'kind' => 'text'];
@@ -309,7 +424,187 @@ function gen_content_prepare(array $site, string $below, string $projectPart, ar
         [$prompt, $afterOk] = gen_content_prompt($g, $below, $pictures);
         $req[] = ['group' => $g, 'after' => $afterOk, 'call' => ['prompt' => $prompt, 'system' => $system, 'json' => true, 'max' => 16384, 'meta' => $meta]];
     }
-    return ['brand' => $brand['name'] ?? '', 'multi' => !isset(gen_site_sections($site['type'])['']), 'req' => $req];
+    $allowed = gen_content_numbers(preg_replace('/^- No absolute.*$/m', '', $system)); // the figures given (not the rules' examples)
+    foreach ([24, 7, 365, (int)date('Y'), (int)date('Y') + 1] as $n) {
+        $allowed['any'][(string)$n] = true;
+    }
+    return ['brand' => $brand['name'] ?? '', 'multi' => !isset(gen_site_sections($site['type'])['']), 'req' => $req, 'allowed' => $allowed, 'system' => $system, 'meta' => $meta];
+}
+
+/** The figures a field may state: the site's, and for a compared brand's rating text (brand_text/…) also the ones its
+ *  current text states (they are that brand's figures). */
+function gen_content_allowed_for(array $allowed, string $path, string $old): array
+{
+    if (!str_starts_with($path, 'brand_text/')) {
+        return $allowed;
+    }
+    foreach (gen_content_numbers($old) as $k => $set) {
+        $allowed[$k] = ($allowed[$k] ?? []) + $set;
+    }
+    return $allowed;
+}
+
+/** A number as compared: separators gone, decimal point, no trailing zeros ("15 700" → "15700", "5,10" → "5.1"). */
+function gen_content_num(string $int, string $dec = ''): string
+{
+    $n = ltrim(preg_replace('/\D/u', '', $int), '0') ?: '0';
+    $dec = rtrim($dec, '0');
+    return $dec !== '' ? "$n.$dec" : $n;
+}
+
+/**
+ * The figures of a text: [[raw, kind, values]], kind money | pct | time (values in minutes) | mult (wagering) | count
+ * (a number with another unit, or any from 100 up) | plain (a small number without a unit, not a figure).
+ */
+function gen_content_figures(string $text): array
+{
+    $text = strip_tags(preg_replace('/\{[\w-]+\}/', '', $text));
+    $cur = '₸|тг|тенге|теңге|€|\$|£|R\$|A\$|KZT|EUR|BRL|AUD|USD|reais';
+    $time = ['min' => 'мин\p{L}*|минут|min(?:ute)?s?|minutos?', 'h' => 'час\p{L}*|ч(?!\p{L})|сағат\p{L}*|hours?|h(?!\p{L})|horas?', 'd' => 'дн\p{L}*|дня|день|сут\p{L}*|күн\p{L}*|days?|dias?'];
+    $count = 'сек\p{L}*|игр\p{L}*|слот\p{L}*|стол\p{L}*|рын\p{L}*|событ\p{L}*|вид\p{L}* спорт\p{L}*|фриспин\p{L}*|спин\p{L}*|вращ\p{L}*|MB|МБ|GB|ГБ'
+        . '|games|slots|tables|markets|events|sports|free spins|spins|jogos|mesas|mercados|eventos|giros|ойын\p{L}*|үстел\p{L}*|нарық\p{L}*|оқиға\p{L}*|мың|тыс\p{L}*|thousand';
+    $num = fn($g) => '(?<' . $g . '>\d{1,3}(?:[ \x{00A0}\x{202F}.,]\d{3})+|\d+)(?:[.,](?<' . $g . 'd>\d{1,2})(?!\d))?';
+    $unit = "$cur|%|" . implode('|', $time) . "|$count";
+    preg_match_all('/(?<![\p{L}\d.,])(?<pre>[×x]|' . $cur . ')?\s?' . $num('a') . '(?:\s?(?:–|-|—|до|to|a)\s?' . $num('b') . ')?(?<post>\s?(?:live-|лайв-)?(?:' . $unit . ')(?!\p{L}))?/iu', $text, $mm, PREG_SET_ORDER);
+    $out = [];
+    foreach ($mm as $x) {
+        $vals = [gen_content_num($x['a'], $x['ad'] ?? '')];
+        if (($x['b'] ?? '') !== '') {
+            $vals[] = gen_content_num($x['b'], $x['bd'] ?? '');
+        }
+        $pre = trim($x['pre'] ?? '');
+        $post = trim($x['post'] ?? '');
+        if (preg_match('/^(' . $cur . ')$/iu', $pre) || preg_match('/^(' . $cur . ')$/iu', $post)) {
+            $kind = 'money';
+        } elseif ($post === '%') {
+            $kind = 'pct';
+        } elseif ($pre !== '' && preg_match('/^[×x]$/iu', $pre)) {
+            $kind = 'mult';
+        } elseif ($post !== '' && ($t = array_key_first(array_filter($time, fn($re) => preg_match('/^(' . $re . ')$/iu', $post))))) {
+            $kind = 'time';
+            $vals = array_map(fn($v) => gen_content_num((string)round((float)$v * ['min' => 1, 'h' => 60, 'd' => 1440][$t])), $vals);
+        } elseif ($post !== '' || max(array_map('floatval', $vals)) >= 100) {
+            $kind = 'count';
+        } else {
+            $kind = 'plain';
+        }
+        $out[] = [trim($x[0]), $kind, $vals];
+    }
+    return $out;
+}
+
+/** The figures a text may state, from the instructions (brand figures, offers, market facts, project information and
+ *  documents): [kind => [value => true]], 'any' holding every number. */
+function gen_content_numbers(string $text): array
+{
+    $out = ['any' => [], 'money' => [], 'pct' => [], 'time' => [], 'mult' => []];
+    foreach (gen_content_figures($text) as [, $kind, $vals]) {
+        foreach ($vals as $v) {
+            $out['any'][$v] = true;
+            if (isset($out[$kind])) {
+                $out[$kind][$v] = true;
+            }
+        }
+    }
+    return $out;
+}
+
+/** The figures a text states that are not among $allowed: an amount, time, percentage or wagering multiple must be
+ *  given with that unit; another count, or any number from 100 up, must be given at all. */
+function gen_content_bad_figures(string $text, array $allowed): array
+{
+    $bad = [];
+    foreach (gen_content_figures($text) as [$raw, $kind, $vals]) {
+        if ($kind === 'plain') {
+            continue;
+        }
+        $set = in_array($kind, ['money', 'pct', 'time', 'mult'], true) ? ($allowed[$kind] ?? []) : ($allowed['any'] ?? []);
+        foreach ($vals as $v) {
+            if (!isset($set[$v])) {
+                $bad[] = $raw;
+                break;
+            }
+        }
+    }
+    return array_values(array_unique($bad));
+}
+
+/** A text with its sentences that state a figure not allowed taken out, or null when nothing would be left or the text
+ *  has markup (it is then not used). */
+function gen_content_drop_figures(string $text, array $allowed): ?string
+{
+    if ($text !== strip_tags($text)) {
+        return null;
+    }
+    $keep = array_filter(preg_split('/(?<=[.!?…])\s+/u', trim($text)), fn($s) => !gen_content_bad_figures($s, $allowed));
+    $out = trim(implode(' ', $keep));
+    return $out === '' ? null : $out;
+}
+
+/** The second request for a site: the fields whose figures were not in the data, with the figures named. */
+function gen_content_retry_call(array $prep, array $bad): array
+{
+    $fields = $notes = [];
+    foreach ($bad as $path => $b) {
+        $fields[$path] = $b['new'];
+        $notes[] = "- $path: " . implode('; ', $b['figs']);
+    }
+    $P = [];
+    $P[] = 'These texts state figures that are not in the brand figures, the project information or its documents, so they cannot be published:';
+    $P[] = implode("\n", $notes);
+    $P[] = '';
+    $P[] = 'Rewrite each text so it says the same without those figures. Use a figure only when it is given above in the instructions, exactly as given; otherwise write the sentence without a number. Keep the HTML tags and {placeholders} as they are.';
+    $P[] = '';
+    $P[] = '```json';
+    $P[] = json_encode($fields, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+    $P[] = '```';
+    $P[] = '';
+    $P[] = 'Answer with JSON only, in this shape: {"fields": {"<path>": "<new text>", …every path above…}}';
+    return ['prompt' => implode("\n", $P), 'system' => $prep['system'], 'json' => true, 'max' => 16384, 'meta' => $prep['meta']];
+}
+
+/** The second request's answer put into a site's "ai" entry: a text that now keeps to the data is used; one that still
+ *  does not loses the sentences with those figures, or is left out (the template's text stays). */
+function gen_content_retry_apply(array $prep, array $out, $reply): array
+{
+    $bad = $out['bad'] ?? [];
+    unset($out['bad']);
+    $got = [];
+    if (is_array($reply) && isset($reply['text'])) {
+        $json = trim($reply['text']);
+        if (preg_match('/```(?:json)?\s*(.*?)```/s', $json, $mm)) {
+            $json = $mm[1];
+        }
+        $got = (array)(json_decode($json, true)['fields'] ?? []);
+        $out['tokens'] += $reply['tokens'] ?? 0;
+    }
+    foreach ($bad as $path => $b) {
+        $new = $b['after'] ? (is_string($got[$path] ?? null) ? gen_content_after($got[$path]) : '') : gen_content_check($b['old'], $got[$path] ?? null);
+        if ($new !== null && $new !== '' && !$b['after']) {
+            $new = gen_content_brand($path, $new, $prep['brand']);
+        }
+        $ok = gen_content_allowed_for($prep['allowed'], $path, $b['old']);
+        if ($new === null || $new === '' || gen_content_bad_figures($new, $ok)) {
+            $new = $b['after'] ? null : gen_content_drop_figures((string)($new ?: $b['new']), $ok);
+            $new = $new !== null ? gen_content_check($b['old'], $new) : null;
+        }
+        if ($new === null || $new === '') {
+            $out['skipped']++;
+            $out['figures'] = ($out['figures'] ?? 0) + 1;
+            continue;
+        }
+        if ($b['after']) {
+            [, $pid, $sid] = $b['where'];
+            if ($pid !== null) {
+                $out['after'][$pid][$sid] = $new;
+            } else {
+                $out['after'][$sid] = $new;
+            }
+        } elseif ($new !== $b['old']) {
+            $out['fields'][$path] = $new;
+        }
+    }
+    return $out;
 }
 
 /** One site's "ai" entry from the replies to its requests ($replies: [i => result | Throwable]). Throws when one failed. */
@@ -322,17 +617,22 @@ function gen_content_assemble(array $prep, array $replies): array
             throw $r;
         }
         $a = gen_content_answer($r, $q['group'], $q['after']);
+        $allowed = $prep['allowed'] ?? null;
         foreach ($q['group'][3] as $path => $old) {
             $new = gen_content_check($old, $a['fields'][$path] ?? null);
             $new = $new === null ? null : gen_content_brand($path, $new, $prep['brand']);
-            if ($new === null) {
+            if ($new !== null && $allowed !== null && ($figs = gen_content_bad_figures($new, gen_content_allowed_for($allowed, $path, $old)))) { // asked again with the figures named
+                $out['bad'][$path] = ['old' => $old, 'new' => $new, 'figs' => $figs, 'after' => false];
+            } elseif ($new === null) {
                 $out['skipped']++;
             } elseif ($new !== $old) {
                 $out['fields'][$path] = $new;
             }
         }
         foreach ($a['after'] as $sid => $html) {
-            if (($h = gen_content_after($html)) !== '') {
+            if (($h = gen_content_after($html)) !== '' && $allowed !== null && ($figs = gen_content_bad_figures($h, $allowed))) {
+                $out['bad']["after/" . ($prep['multi'] && $a['pid'] !== null ? $a['pid'] . '/' : '') . $sid] = ['old' => '', 'new' => $h, 'figs' => $figs, 'after' => true, 'where' => [null, $prep['multi'] ? $a['pid'] : null, $sid]];
+            } elseif ($h !== '') {
                 if ($prep['multi'] && $a['pid'] !== null) {
                     $out['after'][$a['pid']][$sid] = $h;
                 } else {
@@ -439,6 +739,22 @@ function gen_content_run(int $jobId): void
     $jq = $db->prepare('SELECT market, spec, project_id FROM jobs WHERE id = ?');
     $jq->execute([$jobId]);
     $job = $jq->fetch() ?: [];
+    $qn = $db->prepare("SELECT COUNT(*) FROM sites WHERE job_id = ? AND json_extract(content, '$.state') = 'queued'");
+    $qn->execute([$jobId]);
+    $queued = (int)$qn->fetchColumn();
+    $od = $db->prepare('SELECT outdated FROM jobs WHERE id = ?');
+    $od->execute([$jobId]);
+    if ((int)$od->fetchColumn()) { // the project changed since the job's brand data was made: the text is written from the new data,
+        gen_job_brands_reload($jobId); // and the sites not being written get it now (those being written are rebuilt after their text)
+        gen_db_write($db->prepare("UPDATE sites SET status = 'refresh', error = NULL WHERE job_id = ? AND status IN ('built', 'failed')
+            AND (content IS NULL OR json_extract(content, '$.state') NOT IN ('queued', 'writing'))"), [$jobId]);
+        gen_db_write($db->prepare("UPDATE jobs SET outdated = 0, status = 'planned' WHERE id = ? AND status NOT IN ('running', 'checking')"), [$jobId]);
+        gen_spawn($jobId);
+    }
+    if ($queued) { // the brands' own rating texts the project does not give, before the sites that show them
+        require_once __DIR__ . '/brandfacts.php';
+        gen_btexts_write($db, $jobId, $part);
+    }
     $lim = gen_vertex_limits();
     $fail = function (string $id, Throwable $e) use ($set): bool { // one site's failure is that site's: the run goes on
         try {
@@ -472,6 +788,7 @@ function gen_content_run(int $jobId): void
         }
         $replies = $calls ? gen_vertex_many($calls, null, $lim) : [];
         $done = 0;
+        $ais = $again = [];
         foreach ($batch as $site) {
             if (!isset($preps[$site['id']])) {
                 continue;
@@ -481,11 +798,30 @@ function gen_content_run(int $jobId): void
                 foreach ($preps[$site['id']]['req'] as $n => $q) {
                     $mine[$n] = $replies[$site['id'] . '#' . $n] ?? null;
                 }
-                $ai = gen_content_assemble($preps[$site['id']], $mine);
+                $ais[$site['id']] = gen_content_assemble($preps[$site['id']], $mine);
+                if (!empty($ais[$site['id']]['bad'])) {
+                    $again[$site['id']] = gen_content_retry_call($preps[$site['id']], $ais[$site['id']]['bad']);
+                }
+            } catch (Throwable $e) {
+                if (!$fail($site['id'], $e)) {
+                    return;
+                }
+            }
+        }
+        $second = $again ? gen_vertex_many($again, null, $lim) : []; // once more for texts with figures not in the data
+        foreach ($batch as $site) {
+            if (!isset($ais[$site['id']])) {
+                continue;
+            }
+            try {
+                $ai = $ais[$site['id']];
+                if (array_key_exists('bad', $ai)) {
+                    $ai = gen_content_retry_apply($preps[$site['id']], $ai, $second[$site['id']] ?? null);
+                }
                 $plan = json_decode($site['plan'], true) ?: [];
                 $plan['ai'] = $ai;
                 gen_db_write($db->prepare("UPDATE sites SET plan = ?, status = 'refresh', error = NULL WHERE id = ?"), [json_encode($plan, JSON_UNESCAPED_UNICODE), $site['id']]); // new text, same design: a quick refresh
-                gen_db_write($set, [json_encode(['state' => 'done', 'at' => gen_now(), 'fields' => count($ai['fields']), 'after' => count(array_filter($ai['after'], 'is_string')) + array_sum(array_map(fn($x) => is_array($x) ? count($x) : 0, $ai['after'])), 'skipped' => $ai['skipped'], 'model' => $ai['model'], 'tokens' => $ai['tokens']]), $site['id']]);
+                gen_db_write($set, [json_encode(['state' => 'done', 'at' => gen_now(), 'fields' => count($ai['fields']), 'after' => count(array_filter($ai['after'], 'is_string')) + array_sum(array_map(fn($x) => is_array($x) ? count($x) : 0, $ai['after'])), 'skipped' => $ai['skipped'], 'figures' => $ai['figures'] ?? 0, 'model' => $ai['model'], 'tokens' => $ai['tokens']]), $site['id']]);
                 $done++;
             } catch (Throwable $e) {
                 if (!$fail($site['id'], $e)) {

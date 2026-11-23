@@ -73,6 +73,19 @@ function sx_licence_regulator(): string
     return (string)((sx_ctx('licence')['regulator'] ?? '') ?: tm(sx_ctx('market')['compliance']['regulator_default']));
 }
 
+/** The label of a ranking's partner slot: «Featured partner · paid placement, #n by score», or with the affiliate
+ *  disclosure off (the job's choice) a plain «Our pick» that says nothing about payment. */
+function sx_featured_label(int $n): string
+{
+    if ((SX::$ctx['disclosure'] ?? 'top') === 'off') {
+        return t('casinos.featured_pick');
+    }
+    if (!empty(SX::$ctx['promote'])) { // first by placement, not by score: no place «by score» to name
+        return t('casinos.featured') . ' · ' . t('casinos.featured_paid');
+    }
+    return t('casinos.featured') . ' · ' . t('casinos.featured_note', ['n' => $n]);
+}
+
 /** Escape for HTML text and attributes. */
 function e($s): string
 {
@@ -503,10 +516,10 @@ function sx_proof_points(): array
     if (!empty(SX::$ctx['cta_brand'])) {
         // Multi-brand sites: proof points describe the brand the CTA leads to, with this market's facts.
         $cb = sx_casino(SX::$ctx['cta_brand']);
-        $f = ($cb['f'] ? ['payout_minutes' => min($cb['f']['withdrawal_minutes'])] : []) + $cb['facts'];
-    } elseif (!empty($b['id']) && function_exists('sx_casino') && !empty(sx_casino($b['id'])['f']['withdrawal_minutes'])) {
+        $f = ($cb['f'] && sx_brand_withdrawals($cb['f']) ? ['payout_minutes' => min(sx_brand_withdrawals($cb['f']))] : []) + $cb['facts'];
+    } elseif (!empty($b['id']) && function_exists('sx_casino') && sx_brand_withdrawals(sx_casino($b['id'])['f'] ?? [])) {
         // This market's own facts (brands/facts/<market>.json) win over the brand-wide figure.
-        $f = ['payout_minutes' => min(sx_casino($b['id'])['f']['withdrawal_minutes'])] + $f;
+        $f = ['payout_minutes' => min(sx_brand_withdrawals(sx_casino($b['id'])['f']))] + $f;
     }
     $p = [];
     if (!empty($f['rating_source'])) {
@@ -519,8 +532,23 @@ function sx_proof_points(): array
     if (!empty($f['founded'])) {
         $p['since'] = ['clock', (string)$f['founded'], t('trust.since')];
     }
-    $p['payments'] = ['wallet', implode(' · ', array_map('sx_payment_name', array_slice($m['payments'], 0, 3))), t('footer.payments')];
+    $p['payments'] = ['wallet', implode(' · ', array_map('sx_payment_name', array_slice(sx_brand_payments(SX::$ctx['cta_brand'] ?? ($b['id'] ?? null)), 0, 3))), t('footer.payments')];
     return $p;
+}
+
+/** The payment methods to show for a brand: the market's, narrowed to those the brand takes when its facts list them. */
+function sx_brand_payments(?string $id): array
+{
+    $m = SX::$ctx['market']['payments'] ?? [];
+    $f = $id && function_exists('sx_casino') ? (sx_casino($id)['f'] ?? null) : null;
+    return array_values(array_intersect($m, $f['payments'] ?? [])) ?: $m;
+}
+
+/** A brand's withdrawal times (facts of this market) for the methods it takes: [method => minutes]. */
+function sx_brand_withdrawals(array $f): array
+{
+    $w = $f['withdrawal_minutes'] ?? [];
+    return !empty($f['payments']) && ($own = array_intersect_key($w, array_flip($f['payments']))) ? $own : $w;
 }
 
 /** Register a JSON-LD object for the page <head>. */
