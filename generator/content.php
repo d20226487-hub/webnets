@@ -418,11 +418,12 @@ function gen_content_prepare(array $site, string $below, string $projectPart, ar
     $brand = $bid ? (['_id' => $bid] + (sx_brand_data($GEN_ROOT, 'operators.json')[$bid] ?? [])) : [];
     $system = gen_content_system($cfg, $info, $projectPart, $brand);
     $pictures = gen_content_pictures($cfg, $brand['verticals'] ?? []);
-    $meta = ['project' => $job['project_id'] ?? null, 'job' => (int)$site['job_id'], 'site' => $site['id'], 'kind' => 'text'];
+    $meta = ['project' => $job['project_id'] ?? null, 'job' => (int)$site['job_id'], 'site' => $site['id'], 'kind' => 'text', 'limit' => 'tok_text'];
+    $max = gen_vertex_max('tok_text');
     $req = [];
     foreach (gen_content_groups($cfg, $site['type']) as $g) {
         [$prompt, $afterOk] = gen_content_prompt($g, $below, $pictures);
-        $req[] = ['group' => $g, 'after' => $afterOk, 'call' => ['prompt' => $prompt, 'system' => $system, 'json' => true, 'max' => 16384, 'meta' => $meta]];
+        $req[] = ['group' => $g, 'after' => $afterOk, 'call' => ['prompt' => $prompt, 'system' => $system, 'json' => true, 'max' => $max, 'meta' => $meta]];
     }
     $allowed = gen_content_numbers(preg_replace('/^- No absolute.*$/m', '', $system)); // the figures given (not the rules' examples)
     foreach ([24, 7, 365, (int)date('Y'), (int)date('Y') + 1] as $n) {
@@ -560,7 +561,7 @@ function gen_content_retry_call(array $prep, array $bad): array
     $P[] = '```';
     $P[] = '';
     $P[] = 'Answer with JSON only, in this shape: {"fields": {"<path>": "<new text>", …every path above…}}';
-    return ['prompt' => implode("\n", $P), 'system' => $prep['system'], 'json' => true, 'max' => 16384, 'meta' => $prep['meta']];
+    return ['prompt' => implode("\n", $P), 'system' => $prep['system'], 'json' => true, 'max' => gen_vertex_max('tok_text'), 'meta' => $prep['meta']];
 }
 
 /** The second request's answer put into a site's "ai" entry: a text that now keeps to the data is used; one that still

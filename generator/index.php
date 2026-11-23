@@ -176,7 +176,9 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     'Number of free spins': 'Количество фриспинов', 'Wagering (×)': 'Вейджер (×)', 'Min deposit': 'Мин. депозит', 'Max bet': 'Макс. ставка', 'Min odds': 'Мин. коэффициент', 'Days to use it': 'Дней на использование',
     'Valid until': 'Действует до', 'Conditions (who can claim, main terms)': 'Условия (кто может получить, главные условия)', 'Type': 'Тип', 'Value': 'Размер',
     'The project has no information or documents to read the offers from. Fill in «Project information» or upload a document first.': 'В проекте нет информации или документов, из которых можно взять акции. Сначала заполните «Информацию о проекте» или загрузите документ.', 'Minimum deposit (in the market currency)': 'Минимальный депозит (в валюте рынка)', 'Fastest withdrawal, minutes': 'Самый быстрый вывод, минут', 'Payment methods (comma separated)': 'Способы оплаты (через запятую)',
-    'Tagline': 'Слоган', 'Licence badge': 'Плашка лицензии', 'Minimum withdrawal (in the market currency)': 'Минимальный вывод (в валюте рынка)', 'Deposit and withdrawal times': 'Время депозита и вывода',
+    'Tagline': 'Слоган', 'Answer length': 'Длина ответа', 'The most tokens one answer may have, per task (1 024–65 536). Thinking models spend part of it on thinking. If an answer is «cut off at the limit», raise the one the error names; a higher limit costs only what is used.': 'Сколько токенов может быть в одном ответе, по задачам (1 024–65 536). Модели с рассуждением тратят часть лимита на рассуждение. Если ответ «обрезан на лимите», увеличьте лимит, который назван в ошибке; больший лимит стоит только того, что реально использовано.',
+    'Max output tokens: site texts': 'Макс. токенов ответа: тексты сайтов', 'Max output tokens: «Fill from the project» (master review)': 'Макс. токенов ответа: «Заполнить из проекта» (мастер обзор)',
+    'Max output tokens: brand texts (summary, verdict)': 'Макс. токенов ответа: тексты бренда (описание, вердикт)', 'Max output tokens: «Fill from the project» (offers)': 'Макс. токенов ответа: «Заполнить из проекта» (акции)', 'Licence badge': 'Плашка лицензии', 'Minimum withdrawal (in the market currency)': 'Минимальный вывод (в валюте рынка)', 'Deposit and withdrawal times': 'Время депозита и вывода',
     'Top game providers (comma separated)': 'Топ провайдеров игр (через запятую)', 'Game types (comma separated)': 'Виды игр (через запятую)', 'Top live casino games (comma separated)': 'Топ игр live-казино (через запятую)',
     'Bet types (comma separated)': 'Виды ставок (через запятую)', 'Minimum bet (in the market currency)': 'Минимальная ставка (в валюте рынка)', 'Support (channels, hours)': 'Служба поддержки (каналы, часы)',
     'Support email': 'Email службы поддержки', 'Verification': 'Верификация', 'Site languages (comma separated)': 'Языки сайта (через запятую)', 'e.g. Curaçao Gaming Control Board': 'например, Curaçao Gaming Control Board',
@@ -525,6 +527,8 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     return list.map(function (f, i) { return { f: f, r: rank[f.key] !== undefined ? rank[f.key] : 1000, i: i }; })
       .sort(function (a, b) { return a.r - b.r || a.i - b.i; }).map(function (x) { return x.f; });
   }
+  var VTOKENS = [['tok_text', 'Max output tokens: site texts'], ['tok_facts', 'Max output tokens: «Fill from the project» (master review)'],
+    ['tok_brand', 'Max output tokens: brand texts (summary, verdict)'], ['tok_offers', 'Max output tokens: «Fill from the project» (offers)']];
   var PFACTS_LONG = { summary: 2, verdict: 3, pros: 4, cons: 3, payment_times: 3, verification: 2 };
   var OTYPES = [['welcome_bonus', 'Welcome bonus'], ['deposit_bonus', 'Deposit bonus'], ['free_bets', 'Free bets'], ['promo_code', 'Promo code'], ['odds_boost', 'Odds boost'],
     ['cashback', 'Cashback'], ['loyalty', 'Loyalty programme'], ['tournaments', 'Tournament']];
@@ -1247,6 +1251,10 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
           return '<label class="field"><span class="lbl">' + L(f[1]) + '</span><input type="number" min="0" step="1" id="vl-' + f[0] + '" value="' + v.limits[f[0]] + '" placeholder="' + v.limits_default[f[0]] + '"></label>';
         }).join('')
         + '<label class="inl" style="align-self:end;margin-bottom:12px"><input type="checkbox" id="vl-retry_after"' + (v.limits.retry_after ? ' checked' : '') + '> ' + L('Honour the Retry-After header') + '</label></div>'
+        + '<h4 style="margin:14px 0 4px">' + L('Answer length') + '</h4><p class="muted" style="margin:0 0 8px;font-size:13px">' + L('The most tokens one answer may have, per task (1 024–65 536). Thinking models spend part of it on thinking. If an answer is «cut off at the limit», raise the one the error names; a higher limit costs only what is used.') + '</p>'
+        + '<div class="vlgrid">' + VTOKENS.map(function (f) {
+          return '<label class="field"><span class="lbl">' + L(f[1]) + '</span><input type="number" min="1024" max="65536" step="1024" id="vl-' + f[0] + '" value="' + v.limits[f[0]] + '" placeholder="' + v.limits_default[f[0]] + '"></label>';
+        }).join('') + '</div>'
         + '<div class="row"><button class="primary" type="submit">' + L('Save') + '</button><span id="vl-msg" role="status"></span></div></form>'
         + '<form id="vp" class="card mform" style="max-width:760px;margin-top:18px"><h3 style="margin-top:0">' + L('Prices') + '</h3>'
         + '<p class="muted" style="margin-top:0;font-size:14px">' + L('USD per 1 million tokens, from the Vertex AI price list of your Google Cloud account. A request\u2019s cost is worked out when it is made; requests made before a price was set get it when you save.') + '</p>'
@@ -1280,7 +1288,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
       document.getElementById('vl').onsubmit = function (e) {
         e.preventDefault();
         var body = { retry_after: document.getElementById('vl-retry_after').checked };
-        ['rpm', 'concurrency', 'batch', 'delay_ms', 'retries', 'backoff_ms', 'jitter_ms'].forEach(function (k) { var x = document.getElementById('vl-' + k).value; body[k] = x === '' ? v.limits_default[k] : +x; });
+        ['rpm', 'concurrency', 'batch', 'delay_ms', 'retries', 'backoff_ms', 'jitter_ms'].concat(VTOKENS.map(function (f) { return f[0]; })).forEach(function (k) { var x = document.getElementById('vl-' + k).value; body[k] = x === '' ? v.limits_default[k] : +x; });
         api('vertex/limits', body, 'PUT').then(function () { vertexPage(); setTimeout(function () { var m = document.getElementById('vl-msg'); if (m) { m.className = 'ok'; m.textContent = L('Saved.'); } }, 300); })
           .catch(function (x) { var m = document.getElementById('vl-msg'); m.className = 'err'; m.textContent = L(x.message || String(x)); });
       };

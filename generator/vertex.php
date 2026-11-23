@@ -132,7 +132,18 @@ function gen_http_post(string $url, string $body, array $headers, int $timeout =
 }
 
 /** Request limits for the text step, as in ACM (Settings → Vertex AI → Limits). */
-const GEN_VERTEX_LIMITS = ['rpm' => 60, 'concurrency' => 4, 'batch' => 10, 'delay_ms' => 0, 'retries' => 3, 'backoff_ms' => 1000, 'jitter_ms' => 250, 'retry_after' => true];
+const GEN_VERTEX_LIMITS = ['rpm' => 60, 'concurrency' => 4, 'batch' => 10, 'delay_ms' => 0, 'retries' => 3, 'backoff_ms' => 1000, 'jitter_ms' => 250, 'retry_after' => true,
+    'tok_text' => 32768, 'tok_facts' => 16384, 'tok_brand' => 8192, 'tok_offers' => 32768];
+
+/** The output token limits per task (thinking models spend part of it on thinking): key => the setting's name. */
+const GEN_VERTEX_TOKENS = ['tok_text' => 'Max output tokens: site texts', 'tok_facts' => 'Max output tokens: «Fill from the project» (master review)',
+    'tok_brand' => 'Max output tokens: brand texts (summary, verdict)', 'tok_offers' => 'Max output tokens: «Fill from the project» (offers)'];
+
+/** A task's output token limit from the settings (tok_text, tok_facts, tok_brand, tok_offers). */
+function gen_vertex_max(string $key): int
+{
+    return (int)(gen_vertex_limits()[$key] ?? GEN_VERTEX_LIMITS[$key]);
+}
 
 function gen_vertex_limits(): array
 {
@@ -146,6 +157,9 @@ function gen_vertex_limits_save(array $in): array
     $int = fn($k, $min, $max) => max($min, min($max, (int)($in[$k] ?? GEN_VERTEX_LIMITS[$k])));
     $v = ['rpm' => $int('rpm', 1, 6000), 'concurrency' => $int('concurrency', 1, 32), 'batch' => $int('batch', 1, 200), 'delay_ms' => $int('delay_ms', 0, 600000),
         'retries' => $int('retries', 0, 10), 'backoff_ms' => $int('backoff_ms', 0, 600000), 'jitter_ms' => $int('jitter_ms', 0, 60000), 'retry_after' => !empty($in['retry_after'])];
+    foreach (array_keys(GEN_VERTEX_TOKENS) as $k) {
+        $v[$k] = $int($k, 1024, 65536);
+    }
     gen_db()->prepare('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)')->execute(['vertex_limits', json_encode($v)]);
     return $v;
 }
@@ -173,7 +187,7 @@ function gen_vertex_prepare(string $prompt, string $system, bool $json, int $max
         $body = ['contents' => [['role' => 'user', 'parts' => [['text' => $prompt]]]], 'generationConfig' => ['maxOutputTokens' => $maxTokens, 'temperature' => 0.7] + ($json ? ['responseMimeType' => 'application/json'] : [])]
             + ($system !== '' ? ['systemInstruction' => ['parts' => [['text' => $system]]]] : []);
     }
-    return ['url' => $url, 'body' => json_encode($body, JSON_UNESCAPED_UNICODE), 'model' => $model, 'claude' => $claude];
+    return ['url' => $url, 'body' => json_encode($body, JSON_UNESCAPED_UNICODE), 'model' => $model, 'claude' => $claude, 'max' => $maxTokens];
 }
 
 /** A finished response as the result, recording its usage; throws for an error or an unusable answer. */
@@ -208,7 +222,9 @@ function gen_vertex_parse(int $code, string $out, array $prep, array $meta): arr
         throw new RuntimeException("Vertex AI ($model) returned no text (finish reason $finish).");
     }
     if ($cut) {
-        throw new RuntimeException("Vertex AI ($model): the reply was cut off at the token limit.");
+        $set = GEN_VERTEX_TOKENS[$meta['limit'] ?? ''] ?? null;
+        throw new RuntimeException("Vertex AI ($model): the reply was cut off at the limit of " . ($prep['max'] ?? '?') . ' output tokens.'
+            . ($set ? " Raise «{$set}» in Settings → Vertex AI → Limits." : ''));
     }
     return ['text' => $text, 'model' => $model, 'tokens' => $in + $outTok, 'input' => $in, 'output' => $outTok];
 }
@@ -418,6 +434,6 @@ function gen_usage_summary(string $where = '1'): array
 function gen_vertex_test(): array
 {
     $t0 = microtime(true);
-    $r = gen_vertex_generate('Reply with the single word OK.', '', false, 256, null, ['kind' => 'test']);
+    $r = gen_vertex_generate('Reply with the single word OK.', '', false, 1024, null, ['kind' => 'test']);
     return ['ok' => true, 'model' => $r['model'], 'reply' => mb_substr(trim($r['text']), 0, 80), 'ms' => (int)round((microtime(true) - $t0) * 1000)];
 }

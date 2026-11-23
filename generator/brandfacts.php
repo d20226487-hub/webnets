@@ -283,8 +283,8 @@ function gen_bfacts_fill(PDO $db, int $jobId, string $brandId): array
         . " Years as 4 digits, minutes and megabytes as whole numbers, dates as YYYY-MM-DD, lists as comma-separated text, taglines in the language named in the key."
         . " For each value found, quote the words it comes from.\n\nAnswer with JSON only: {\"facts\": {\"<key>\": <value or null>}, \"quotes\": {\"<key>\": \"<quoted words>\"}}\n\n"
         . "---\n\n$source";
-    $r = gen_vertex_generate($prompt, 'You extract facts from documents exactly as stated. You never invent or infer values.', true, 4096, null,
-        ['project' => (int)$p['id'] ?: null, 'job' => $jobId, 'kind' => 'facts']);
+    $r = gen_vertex_generate($prompt, 'You extract facts from documents exactly as stated. You never invent or infer values.', true, gen_vertex_max('tok_facts'), null,
+        ['project' => (int)$p['id'] ?: null, 'job' => $jobId, 'kind' => 'facts', 'limit' => 'tok_facts']);
     $json = trim($r['text']);
     if (preg_match('/```(?:json)?\s*(.*?)```/s', $json, $mm)) {
         $json = $mm[1];
@@ -584,8 +584,8 @@ function gen_pfacts_fill(PDO $db, int $projectId, array $fields): array
         . " The short description (one sentence, up to 140 characters), verdict (2–3 sentences), pros and cons (short items, one per line) are written in the documents' language from what the text says about the brand, with no claim or figure the text does not support; null when the text says nothing to base them on."
         . " For each value found, quote the words it comes from.\n\nAnswer with JSON only: {\"facts\": {\"<key>\": <value or null>}, \"quotes\": {\"<key>\": \"<quoted words>\"}}\n\n"
         . "---\n\n$source";
-    $r = gen_vertex_generate($prompt, 'You extract facts from documents exactly as stated. You never invent or infer values.', true, 4096, null,
-        ['project' => $projectId, 'kind' => 'facts']);
+    $r = gen_vertex_generate($prompt, 'You extract facts from documents exactly as stated. You never invent or infer values.', true, gen_vertex_max('tok_facts'), null,
+        ['project' => $projectId, 'kind' => 'facts', 'limit' => 'tok_facts']);
     $json = trim($r['text']);
     if (preg_match('/```(?:json)?\s*(.*?)```/s', $json, $mm)) {
         $json = $mm[1];
@@ -765,8 +765,8 @@ function gen_btexts_write(PDO $db, int $jobId, string $projectPart): void
             $allowed['any'][(string)$n] = true;
         }
         try {
-            $r = gen_vertex_generate(implode("\n", $P), 'You write short, honest editorial texts about gambling operators from the data given. You never invent facts or figures.', true, 4096, null,
-                ['project' => (int)$job['project_id'] ?: null, 'job' => $jobId, 'kind' => 'text']);
+            $r = gen_vertex_generate(implode("\n", $P), 'You write short, honest editorial texts about gambling operators from the data given. You never invent facts or figures.', true, gen_vertex_max('tok_brand'), null,
+                ['project' => (int)$job['project_id'] ?: null, 'job' => $jobId, 'kind' => 'text', 'limit' => 'tok_brand']);
             $json = trim($r['text']);
             if (preg_match('/```(?:json)?\s*(.*?)```/s', $json, $mm)) {
                 $json = $mm[1];
@@ -1056,7 +1056,7 @@ function gen_poffers_fill(PDO $db, int $projectId): array
         . " percent, max (largest bonus amount), amount, count (free spins), code, wagering (multiple), min_deposit, max_bet, min_odds, expiry_days, conditions (one sentence in the language of the documents: who can claim, main terms), and quote (up to 12 words of the document, copied exactly, that name the offer)."
         . " Amounts as whole numbers in the market currency. Take a value only when the text states it; a value the text does not state is null. Never invent offers or figures. At most 20 offers.\n\n"
         . "Answer with JSON only: {\"offers\": [{…}]}\n\n---\n\n$source";
-    $r = gen_vertex_generate($prompt, 'You extract facts from documents exactly as stated. You never invent or infer values.', true, 32768, null, ['project' => $projectId, 'kind' => 'offers']);
+    $r = gen_vertex_generate($prompt, 'You extract facts from documents exactly as stated. You never invent or infer values.', true, gen_vertex_max('tok_offers'), null, ['project' => $projectId, 'kind' => 'offers', 'limit' => 'tok_offers']);
     $json = trim($r['text']);
     if (preg_match('/```(?:json)?\s*(.*?)```/s', $json, $mm)) {
         $json = $mm[1];
