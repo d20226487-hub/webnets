@@ -352,8 +352,8 @@ try {
             gen_json(['error' => implode(' ', $errs)], 422);
             return;
         }
-        $q = $db->prepare('UPDATE projects SET name = ?, info = ? WHERE id = ?');
-        $q->execute([mb_substr($name, 0, 120), json_encode($info, JSON_UNESCAPED_UNICODE), (int)$seg[1]]);
+        // the writes wait out a build or an AI run writing at the same moment, instead of failing
+        $q = gen_db_write($db->prepare('UPDATE projects SET name = ?, info = ? WHERE id = ?'), [mb_substr($name, 0, 120), json_encode($info, JSON_UNESCAPED_UNICODE), (int)$seg[1]]);
         if (!$q->rowCount()) {
             throw new RuntimeException('No such project.');
         }
@@ -361,8 +361,7 @@ try {
         $licKeys = ['licence_regulator', 'licence_no', 'licence_short', 'brand_facts', 'offers']; // what the sites show: licence, brand facts and offers
         if (array_intersect_key($old, array_flip($licKeys)) !== array_intersect_key($info, array_flip($licKeys))) {
             // the licence is on the pages: the jobs with built sites are marked, and the user picks which to rebuild
-            $o = $db->prepare("UPDATE jobs SET outdated = 1 WHERE project_id = ? AND EXISTS (SELECT 1 FROM sites s WHERE s.job_id = jobs.id AND s.status IN ('built', 'failed'))");
-            $o->execute([(int)$seg[1]]);
+            $o = gen_db_write($db->prepare("UPDATE jobs SET outdated = 1 WHERE project_id = ? AND EXISTS (SELECT 1 FROM sites s WHERE s.job_id = jobs.id AND s.status IN ('built', 'failed'))"), [(int)$seg[1]]);
             $outdated = $o->rowCount();
         }
         gen_json(['ok' => true, 'outdated' => $outdated]);
@@ -559,6 +558,10 @@ try {
         gen_json(['error' => 'Not found'], 404);
     }
 } catch (Throwable $e) {
+    if (str_contains($e->getMessage(), 'database is locked')) { // still busy after the waits: say so, not SQLite's words
+        gen_json(['error' => 'The database stayed busy (a build or an AI run was writing to it), so this was not saved. Try again in a minute.'], 503);
+        return;
+    }
     gen_json(['error' => $e->getMessage()], 400);
 }
 

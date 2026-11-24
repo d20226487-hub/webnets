@@ -673,17 +673,20 @@ function gen_apply_ai(array $cfg, array $ai): array
 
 /** The content run of a job (generator/contentjob.php): every site queued for it, then a rebuild of those that got text. */
 /** A database write that waits out a busy database (a build or the difference tables writing at the same moment). */
-function gen_db_write(PDOStatement $st, array $args): void
+function gen_db_write(PDOStatement $st, array $args): PDOStatement
 {
     for ($try = 1; ; $try++) {
         try {
             $st->execute($args);
-            return;
+            return $st; // the statement that ran (a fresh one after a retry), e.g. for rowCount()
         } catch (PDOException $e) {
-            if ($try >= 6 || !str_contains($e->getMessage(), 'locked') && !str_contains($e->getMessage(), 'busy')) {
+            $m = $e->getMessage();
+            if ($try >= 6 || !str_contains($m, 'locked') && !str_contains($m, 'busy') && !str_contains($m, 'misuse')) {
                 throw $e;
             }
             sleep(2 * $try);
+            // a statement that failed part-way cannot run again (SQLite answers «API misuse»): a fresh one is prepared
+            $st = gen_db()->prepare($st->queryString);
         }
     }
 }
@@ -730,6 +733,7 @@ function gen_content_run(int $jobId): void
     $q = $db->prepare('SELECT p.id, p.info FROM projects p JOIN jobs j ON j.project_id = p.id WHERE j.id = ?');
     $q->execute([$jobId]);
     $p = $q->fetch() ?: ['id' => 0, 'info' => '{}'];
+    $q->closeCursor(); // reads left open would hold the database for the whole run (the worker could not write, nor this run after it)
     $info = gen_project_info(json_decode((string)$p['info'], true) ?: []);
     $docs = gen_pfiles_brief($db, (int)$p['id']);
     $part = gen_project_brief(['below' => 'none'] + $info, $docs);
@@ -740,12 +744,16 @@ function gen_content_run(int $jobId): void
     $jq = $db->prepare('SELECT market, spec, project_id FROM jobs WHERE id = ?');
     $jq->execute([$jobId]);
     $job = $jq->fetch() ?: [];
+    $jq->closeCursor();
     $qn = $db->prepare("SELECT COUNT(*) FROM sites WHERE job_id = ? AND json_extract(content, '$.state') = 'queued'");
     $qn->execute([$jobId]);
     $queued = (int)$qn->fetchColumn();
+    $qn->closeCursor();
     $od = $db->prepare('SELECT outdated FROM jobs WHERE id = ?');
     $od->execute([$jobId]);
-    if ((int)$od->fetchColumn()) { // the project changed since the job's brand data was made: the text is written from the new data,
+    $outdated = (int)$od->fetchColumn();
+    $od->closeCursor();
+    if ($outdated) { // the project changed since the job's brand data was made: the text is written from the new data,
         gen_job_brands_reload($jobId); // and the sites not being written get it now (those being written are rebuilt after their text)
         gen_db_write($db->prepare("UPDATE sites SET status = 'refresh', error = NULL WHERE job_id = ? AND status IN ('built', 'failed')
             AND (content IS NULL OR json_extract(content, '$.state') NOT IN ('queued', 'writing'))"), [$jobId]);

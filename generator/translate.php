@@ -220,7 +220,7 @@ function gen_tr_system(string $from, string $to, string $mk): string
     global $GEN_ROOT;
     $m = sx_json("$GEN_ROOT/markets/$mk.json");
     $name = is_array($m['name'] ?? null) ? ($m['name']['en'] ?? reset($m['name'])) : ($m['name'] ?? strtoupper($mk));
-    $src = GEN_LANG_NAMES[$from] ?? $from;
+    $src = $from === '' ? 'its language' : (GEN_LANG_NAMES[$from] ?? $from); // '': the project's own text, in whatever language it was written
     $dst = GEN_LANG_NAMES[$to] ?? $to;
     $age = (int)($m['min_age'] ?? 18);
     return implode("\n", [
@@ -233,6 +233,7 @@ function gen_tr_system(string $from, string $to, string $mk): string
         '- Keep placeholders in curly braces ({item}, {brand}, {n} …) exactly as they are.',
         '- Keep brand names, product and game titles, promo codes, URLs and e-mail addresses unchanged.',
         '- Keep every number, amount, percentage and currency exactly as in the source. Do not convert currencies, round or change figures.',
+        "- A text already written in $dst comes back as it is.",
         '- Add nothing the source does not say (no claims, promises, offers or figures) and leave nothing out.',
         "- Gambling in $name is for players aged $age and over: any age in the copy is $age.",
         "- Use the words players in $name search for, and the form of address usual for gambling websites in $dst.",
@@ -369,6 +370,7 @@ function gen_tr_offers(PDO $db, int $jobId, string $market, array $spec, array $
     $q = $db->prepare('SELECT p.id, p.info FROM projects p JOIN jobs j ON j.project_id = p.id WHERE j.id = ?');
     $q->execute([$jobId]);
     $p = $q->fetch() ?: [];
+    $q->closeCursor();
     $offers = gen_poffers_clean((json_decode((string)($p['info'] ?? '{}'), true) ?: [])['offers'] ?? []);
     if (!$offers) {
         return;
@@ -381,24 +383,39 @@ function gen_tr_offers(PDO $db, int $jobId, string $market, array $spec, array $
             }
         }
     }
-    $from = array_key_first($langs);
     $have = $db->prepare('SELECT 1 FROM tr_cache WHERE lang = ? AND src = ?');
     $put = $db->prepare('INSERT OR REPLACE INTO tr_cache (lang, src, out) VALUES (?, ?, ?)');
-    foreach (array_slice($langs, 1, null, true) as $c => $mk) {
+    foreach ($langs as $c => $mk) { // every language, the main one too: the project may write its offers in another one
         $todo = array_filter($texts, function ($t) use ($have, $c) {
             $have->execute([$c, $t]);
             $found = $have->fetchColumn();
             $have->closeCursor();
             return !$found;
         });
-        [$out] = gen_tr_texts($todo, $from, $c, $mk, ['project' => (int)($p['id'] ?? 0) ?: null, 'job' => $jobId, 'kind' => 'translate', 'limit' => 'tok_translate'], $lim, gen_tr_ages($market, $mk));
+        [$out] = gen_tr_texts($todo, '', $c, $mk, ['project' => (int)($p['id'] ?? 0) ?: null, 'job' => $jobId, 'kind' => 'translate', 'limit' => 'tok_translate'], $lim, gen_tr_ages($market, $mk));
         foreach ($out as $k => $t) {
             gen_db_write($put, [$c, $texts[$k], $t]);
         }
     }
+    // only what is not translated yet was sent; the feeds are written again and their texts compared (not their dates)
+    $sig = function (string $bid): string {
+        $file = gen_overlay_dir() . "/promotions/$bid.json";
+        $d = is_file($file) ? (json_decode((string)file_get_contents($file), true) ?: []) : [];
+        return md5(json_encode(array_map(fn($p) => [$p['title'] ?? null, $p['terms']['eligible'] ?? null], $d['promotions'] ?? []), JSON_UNESCAPED_UNICODE));
+    };
+    $changed = false;
     foreach ($spec['brand_ids'] ?? [] as $bid) {
+        $before = $sig($bid);
         gen_poffers_apply($db, $bid, $market);
+        $changed = $changed || $sig($bid) !== $before;
     }
+    if (!$changed) {
+        return;
+    }
+    // every built site shows the brands' offers: each is updated with them (the sites being translated are anyway)
+    gen_db_write($db->prepare("UPDATE sites SET status = 'refresh', error = NULL WHERE job_id = ? AND status = 'built'"), [$jobId]);
+    gen_db_write($db->prepare("UPDATE jobs SET status = 'planned' WHERE id = ? AND status NOT IN ('running', 'checking')"), [$jobId]);
+    gen_spawn($jobId);
 }
 
 /** A text's translation into $lang from tr_cache, else null. */
@@ -427,6 +444,7 @@ function gen_tr_run(int $jobId): void
     $jq = $db->prepare('SELECT market, spec, project_id FROM jobs WHERE id = ?');
     $jq->execute([$jobId]);
     $job = $jq->fetch() ?: [];
+    $jq->closeCursor(); // a read left open would hold the database for the whole run (the worker could not write, nor this run after it)
     $spec = json_decode($job['spec'] ?? '{}', true) ?: [];
     $langs = gen_job_langs($spec);
     $lim = gen_vertex_limits();

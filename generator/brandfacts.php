@@ -1010,7 +1010,7 @@ function gen_poffers_apply(PDO $db, string $id, string $market): void
     $all = function (string $t) use ($langs, $main, $db) {
         $out = [];
         foreach ($langs as $l) {
-            $out[$l] = $main !== null && $l !== $main ? (gen_tr_cached($db, $l, $t) ?? $t) : $t;
+            $out[$l] = $main !== null ? (gen_tr_cached($db, $l, $t) ?? $t) : $t; // the main language too: the project may write in another one
         }
         return $out;
     };
