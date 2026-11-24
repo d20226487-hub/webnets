@@ -783,6 +783,13 @@ function gen_site_config(string $type, string $market, ?string $brand, array $ch
     if (isset($cfg['content'])) { // payment rows only list the market's own methods, or the table renders empty
         $cfg['content'] = gen_fit_payments($cfg['content'], $m, $cfg['locale'], $useDemo);
     }
+    if ($cfg['locale'] !== 'ru' && isset($cfg['content'])) { // odds columns: «П1 / X / П2» is Russian notation, «1 / X / 2» elsewhere
+        array_walk_recursive($cfg['content'], function (&$v) {
+            if (is_string($v) && preg_match('/^П([12])$/u', $v, $mm)) {
+                $v = $mm[1];
+            }
+        });
+    }
     foreach (['content', 'meta', 'page', 'editor', 'cta_label'] as $k) {
         if (isset($cfg[$k])) {
             $cfg[$k] = $useDemo ? gen_swap_names($cfg[$k], $names) : gen_placeholders($cfg[$k], $k, $k);

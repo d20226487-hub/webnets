@@ -106,7 +106,7 @@ function gen_tr_fields(array $cfg): array
         }
         $t = trim(strip_tags($v));
         // an id, a setting, a code; a unit or value only when it is words («мин», «~10 мин»), not a figure or a symbol
-        if (!preg_match('/\p{L}/u', $t) || preg_match('/^[a-z0-9_.-]+$/', $t) || preg_match('/^[A-Z0-9_-]+$/', $t) || in_array($key, ['unit', 'value'], true) && !preg_match('/\p{L}{2}/u', $t)) {
+        if (!preg_match('/\p{L}/u', $t) || preg_match('/^[a-z0-9_.-]+$/', $t) || preg_match('/^[A-Z0-9_-]+$/', $t) || preg_match('/^П[12]$/u', $t) || in_array($key, ['unit', 'value'], true) && !preg_match('/\p{L}{2}/u', $t)) {
             return;
         }
         $out[implode("\t", $path)] = $v;
@@ -158,6 +158,13 @@ function gen_site_lang_configs(array $site, array $cfg, array $langs): array
         [$a, $miss] = gen_tr_apply($cfg, $tr);
         $a['locale'] = $c;
         $a['rules_market'] = $mk;
+        if ($c !== 'ru' && isset($a['content'])) { // odds columns: «П1 / П2» is Russian notation
+            array_walk_recursive($a['content'], function (&$v) {
+                if (is_string($v) && preg_match('/^П([12])$/u', $v, $mm)) {
+                    $v = $mm[1];
+                }
+            });
+        }
         if (!empty($cfg['site']['url'])) { // canonical links and the sitemap: the version's own folder
             $a['site']['url'] = rtrim($cfg['site']['url'], '/') . "/$c";
         }

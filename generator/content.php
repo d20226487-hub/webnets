@@ -40,8 +40,19 @@ function gen_content_columns(PDO $db): void
 /** Whether a config value is copy (the same rule as gen_placeholders()). */
 function gen_is_copy(string $key, $v): bool
 {
-    return is_string($v) && !in_array($key, GEN_KEEP, true) && !str_starts_with($key, 'show_') && !preg_match('~^(https?:|#|/|page:)~', $v)
-        && preg_match('/\s/u', trim($v));
+    if (!is_string($v) || in_array($key, GEN_KEEP, true) || str_starts_with($key, 'show_') || preg_match('~^(https?:|#|/|page:)~', $v)) {
+        return false;
+    }
+    $t = trim($v);
+    if (preg_match('/\s/u', $t)) {
+        return true;
+    }
+    // one word is copy too («Казино», «Регистрация», a placeholder word): unless it is an id, a setting, a code or a
+    // figure; a studio's name stays as it is, unless it is placeholder filler
+    if (!preg_match('/\p{L}/u', $t) || preg_match('/^[ПP][12]$/u', $t) || preg_match('/^[a-z0-9_.-]+$/', $t) || preg_match('/^[A-Z0-9_-]+$/', $t)) {
+        return false;
+    }
+    return !in_array($key, ['studio', 'provider'], true) || in_array(mb_strtolower($t), explode(' ', mb_strtolower(GEN_PLACEHOLDER)), true);
 }
 
 /** Copy fields of a site config: [path => text], paths like content/hero/title or content/home/faq/items/0/a. */
@@ -370,12 +381,25 @@ function gen_content_brand(string $path, string $text, string $brand): string
 }
 
 /** An answer's text for a field, or null when it breaks the field (tags, placeholders, length). */
+/** Whether a text is the generator's placeholder filler (every word from GEN_PLACEHOLDER), not template copy. */
+function gen_is_filler(string $s): bool
+{
+    static $words = null;
+    $words ??= array_flip(explode(' ', mb_strtolower(GEN_PLACEHOLDER)));
+    $w = preg_split('/\s+/u', mb_strtolower(trim(strip_tags($s))), -1, PREG_SPLIT_NO_EMPTY);
+    return $w && !array_diff_key(array_flip($w), $words);
+}
+
 function gen_content_check(string $old, $new): ?string
 {
     if (!is_string($new) || trim($new) === '') {
         return null;
     }
     $new = trim($new);
+    if (gen_is_filler($old)) { // placeholder text has no shape to keep: any plain text of a sensible length beats it staying on the page
+        $plain = trim(preg_replace('/\s+/u', ' ', strip_tags($new)));
+        return $plain !== '' && mb_strlen($plain) <= 600 && !preg_match('/\{[\w-]+\}/', $plain) ? $plain : null;
+    }
     $tags = fn($s) => preg_match_all('#</?([a-z][a-z0-9]*)#i', $s, $m) ? array_map('strtolower', $m[1]) : [];
     if ($tags($old) !== $tags($new)) {
         return null;
