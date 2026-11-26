@@ -75,8 +75,8 @@ function gen_rebuild_job(int $jobId): void
     $spec = json_decode($row['spec'], true);
     if (gen_user_brands($spec)) { // brand data is placeholder data: re-created with the current generator, same ids
         gen_materialise_brands($spec['brands'], $row['market'], $jobId, $spec['copy'] ?? 'demo');
-        $n = (int)($spec['sample_brands'] ?? 0); // and the sample rivals of casino rankings
-        $spec['sample_ids'] = $n > 0 ? gen_materialise_brands(gen_sample_brands($spec['brands'], $n, $jobId), $row['market'], $jobId, $spec['copy'] ?? 'demo') : [];
+        $rivals = gen_job_rivals($spec, $jobId); // and the rivals of casino rankings (named competitors, else made-up ones)
+        $spec['sample_ids'] = $rivals ? gen_materialise_brands($rivals, $row['market'], $jobId, $spec['copy'] ?? 'demo') : [];
         $db->prepare('UPDATE jobs SET spec = ? WHERE id = ?')->execute([json_encode($spec, JSON_UNESCAPED_UNICODE), $jobId]);
     }
     $db->prepare("UPDATE sites SET status = 'planned', error = NULL, mobile = NULL WHERE job_id = ?")->execute([$jobId]);
@@ -629,6 +629,10 @@ function gen_job_input(array $b): array
         'sample_brands' => max(0, min(count(GEN_SAMPLE_NAMES), (int)($b['sample_brands'] ?? 7)))];
     require_once __DIR__ . '/samplereviews.php';
     [$spec['reviews'], $revErr] = gen_sreviews_input($b['reviews'] ?? null);
+    [$rank, $rankErr] = gen_rank_input($b['rank'] ?? null, $spec['sample_brands']);
+    if ($rank) {
+        $spec['rank'] = $rank;
+    }
     [$shots, $shotErr] = gen_shots_input($b['shots'] ?? null);
     if ($shots) {
         $spec['shots'] = $shots;
@@ -644,6 +648,7 @@ function gen_job_input(array $b): array
         $langErr !== null => $langErr,
         $revErr !== null => $revErr,
         $shotErr !== null => $shotErr,
+        $rankErr !== null => $rankErr,
         !is_file("$GEN_ROOT/markets/{$spec['market']}.json") => 'Pick a market.',
         !$types => 'Tick at least one site type.',
         !$spec['brands'] => 'Add at least one brand.',
@@ -660,8 +665,8 @@ function gen_replan_job(int $jobId, array $spec): int
 {
     $db = gen_db();
     $spec['brand_ids'] = gen_materialise_brands($spec['brands'], $spec['market'], $jobId, $spec['copy'] ?? 'demo');
-    $n = (int)($spec['sample_brands'] ?? 0); // made-up rivals in casino rankings, next to the job's own brands
-    $spec['sample_ids'] = $n > 0 && gen_user_brands($spec) ? gen_materialise_brands(gen_sample_brands($spec['brands'], $n, $jobId), $spec['market'], $jobId, $spec['copy'] ?? 'demo') : [];
+    $rivals = gen_user_brands($spec) ? gen_job_rivals($spec, $jobId) : []; // rivals in casino rankings, next to the job's own brands: named competitors, else made-up ones
+    $spec['sample_ids'] = $rivals ? gen_materialise_brands($rivals, $spec['market'], $jobId, $spec['copy'] ?? 'demo') : [];
     $db->prepare('UPDATE jobs SET spec = ? WHERE id = ?')->execute([json_encode($spec, JSON_UNESCAPED_UNICODE), $jobId]);
     $old = [];
     $q = $db->prepare('SELECT id, plan FROM sites WHERE job_id = ?');

@@ -19,6 +19,7 @@ require_once __DIR__ . '/markets.php';
 require_once __DIR__ . '/types.php';
 require_once __DIR__ . '/translate.php';
 require_once __DIR__ . '/shots.php';
+require_once __DIR__ . '/ranking.php';
 
 const GEN_PLACEHOLDER = 'Placeholder copy for this section of the site to be written later with real content';
 
@@ -1253,6 +1254,9 @@ function gen_site_full_config(array $site, string $market, array $brands = [], b
     }
     $cfg = gen_apply_edits($cfg, $site['type'], gen_site_edits($spec, $site['type'], $plan)); // the user's edits (type, then site) go on top of the plan
     [$cfg, $cfg['shots_used']] = gen_shots_apply($cfg, $spec, $site['id']); // the job's real app screenshots in the phones
+    if (!empty($cfg['brands']) && ($rs = gen_rank_scores($cfg, $spec, gen_rank_base($cfg, $market)))) { // the job's ranking settings: this site's draw
+        $cfg['rank_scores'] = $rs;
+    }
     if (!empty($cfg['brands'])) { // the compared brands' rating texts as the site's own copy, so the text step words them per site
         $cfg['brand_text'] = gen_site_brand_text($cfg, $market);
     }

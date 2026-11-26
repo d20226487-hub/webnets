@@ -226,7 +226,8 @@ function sx_site_context(array $cfg, string $root): array
         ],
         'langs' => is_array($cfg['langs'] ?? null) ? array_values($cfg['langs']) : [], // multi-language sites: every version, the main one first (lib/langs.php)
         'lang_ui' => is_array($cfg['lang_ui'] ?? null) ? $cfg['lang_ui'] : [],
-        'reviews_pick' => is_array($cfg['reviews_pick'] ?? null) ? $cfg['reviews_pick'] : null, // generated sites: how many user reviews and their shares by stars // where the language switcher goes and how it looks
+        'reviews_pick' => is_array($cfg['reviews_pick'] ?? null) ? $cfg['reviews_pick'] : null,
+        'rank_scores' => is_array($cfg['rank_scores'] ?? null) ? $cfg['rank_scores'] : [], // generated rankings: each brand's criterion scores on this site // generated sites: how many user reviews and their shares by stars // where the language switcher goes and how it looks
         'licence' => is_array($cfg['licence'] ?? null) ? $cfg['licence'] : [], // the site's own licence wording (regulator, badge), over the market's
         'pins_over_angle' => !empty($cfg['pins_over_angle']), // a pinned layout outside the angle's list is kept (generated sites)
         'rows' => ($cfg['rows'] ?? 'swipe') === 'stack' ? 'stack' : 'swipe',

@@ -750,9 +750,8 @@ function gen_job_brands_reload(int $jobId): void
         return;
     }
     gen_materialise_brands($spec['brands'], $row['market'], $jobId, $spec['copy'] ?? 'demo');
-    $n = (int)($spec['sample_brands'] ?? 0); // same names, so the same ids
-    if ($n > 0 && !empty($spec['sample_ids'])) {
-        gen_materialise_brands(gen_sample_brands($spec['brands'], $n, $jobId), $row['market'], $jobId, $spec['copy'] ?? 'demo');
+    if (!empty($spec['sample_ids']) && ($rivals = gen_job_rivals($spec, $jobId))) { // same names, so the same ids
+        gen_materialise_brands($rivals, $row['market'], $jobId, $spec['copy'] ?? 'demo');
     }
 }
 

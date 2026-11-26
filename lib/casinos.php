@@ -50,6 +50,11 @@ function sx_casino(string $id): array
             }
         }
     }
+    foreach ($r ? (SX::$ctx['rank_scores'][$id] ?? []) : [] as $k => $v) { // the site's draw (generated rankings): scores that keep its order
+        if (isset($r['scores'][$k]) || in_array($k, array_keys(SX::$ctx['criteria'] ?? []), true)) {
+            $r['scores'][$k] = ['score' => (float)$v] + ($r['scores'][$k] ?? ['reason' => '']);
+        }
+    }
     return SX::$once['casino'][$id] = ($ops[$id] ?? []) + [
         'id' => $id,
         'f' => $facts[$id] ?? null,
@@ -104,7 +109,7 @@ function sx_casino_rank(?string $criterion = null): array
     $ids = sx_casino_ids();
     usort($ids, fn($a, $b) => [sx_casino_score($b, $criterion), sx_casino_score($b)] <=> [sx_casino_score($a, $criterion), sx_casino_score($a)]);
     $f = SX::$ctx['featured'] ?? null;
-    if (!empty(SX::$ctx['promote']) && $f && in_array($f, $ids, true)) { // a site made for its brand: the brand is first in every list, the rest by score
+    if (!empty(SX::$ctx['promote']) && empty(SX::$ctx['rank_scores']) && $f && in_array($f, $ids, true)) { // a site made for its brand: the brand is first in every list, the rest by score (unless its draw sets the order)
         $ids = array_values(array_merge([$f], array_diff($ids, [$f])));
     }
     return $ids;

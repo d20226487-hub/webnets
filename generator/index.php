@@ -67,7 +67,7 @@ form .field{display:grid;gap:6px;margin-bottom:16px}form label.lbl{font-weight:6
 table{border-collapse:collapse;width:100%}th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}th{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
 .types td{padding:10px}.wn{display:block;margin-top:4px;padding:6px 8px;border-radius:8px;background:var(--warnbg);color:var(--warn);font-size:12px;max-width:300px}
 .axis label.blk{color:var(--warn)}.axis label.off{opacity:.45;text-decoration:line-through;cursor:not-allowed}.axis label.blk::after{content:"⚠";font-size:12px}
-.brows{display:grid;gap:8px}tr.tset>td{padding:4px 10px 14px 34px;border-top:0}.tset .tset-box{margin:0;padding:12px 14px;border:1px solid var(--line);border-left:3px solid var(--accent,#6d5dfc);border-radius:10px;background:var(--panel)}.tset .tset-box+.tset-box{margin-top:10px}.tset-for{font-weight:400;font-size:13px}@media (max-width:720px){tr.tset>td{padding:4px 0 12px}}.shots{display:flex;flex-wrap:wrap;gap:12px;margin:4px 0 8px}.shot{display:grid;gap:8px;width:196px;padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}.shot.main{border-color:var(--accent,#6d5dfc)}.shot-head{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:13px}.shot-rm{min-width:30px;padding:2px 8px}.shot-frames{display:flex;gap:8px;align-items:flex-end;justify-content:center}.shot-f{overflow:hidden;border:4px solid #15171c;border-radius:16px;background:#000}.shot-f img{display:block;width:100%;height:100%;object-fit:cover}.shot-f.n{width:76px;aspect-ratio:9/19.5}.shot-f.w{width:86px;aspect-ratio:9/16}.shot-l{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:13px}.shot-l select{padding:4px 6px}.shot .shot-alt{width:100%;font-size:13px;padding:6px 8px}.shot-add{min-height:120px;width:196px;border-style:dashed}.shot-add.main{min-height:160px}.jrrow{gap:8px 14px;align-items:center;flex-wrap:wrap;margin:2px 0 6px}.jrrow input{width:84px}.jlrows{display:grid;gap:8px;margin:6px 0 8px}.jlrow{flex-wrap:nowrap}.jlrow .jlq{flex:1;min-width:0;appearance:none}.jlq::-webkit-search-cancel-button{display:none}.jlq::-webkit-calendar-picker-indicator{opacity:.55}.jlq.bad{border-color:#e5484d}.brow{display:grid;grid-template-columns:minmax(140px,1.4fr) minmax(140px,1.4fr) auto minmax(120px,1fr) auto;gap:8px;align-items:center}
+.brows{display:grid;gap:8px}tr.tset>td{padding:4px 10px 14px 34px;border-top:0}.tset .tset-box{margin:0;padding:12px 14px;border:1px solid var(--line);border-left:3px solid var(--accent,#6d5dfc);border-radius:10px;background:var(--panel)}.tset .tset-box+.tset-box{margin-top:10px}.tset-for{font-weight:400;font-size:13px}@media (max-width:720px){tr.tset>td{padding:4px 0 12px}}.shots{display:flex;flex-wrap:wrap;gap:12px;margin:4px 0 8px}.shot{display:grid;gap:8px;width:196px;padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}.shot.main{border-color:var(--accent,#6d5dfc)}.shot-head{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:13px}.shot-rm{min-width:30px;padding:2px 8px}.shot-frames{display:flex;gap:8px;align-items:flex-end;justify-content:center}.shot-f{overflow:hidden;border:4px solid #15171c;border-radius:16px;background:#000}.shot-f img{display:block;width:100%;height:100%;object-fit:cover}.shot-f.n{width:76px;aspect-ratio:9/19.5}.shot-f.w{width:86px;aspect-ratio:9/16}.shot-l{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:13px}.shot-l select{padding:4px 6px}.shot .shot-alt{width:100%;font-size:13px;padding:6px 8px}.shot-add{min-height:120px;width:196px;border-style:dashed}.shot-add.main{min-height:160px}.jrrow{gap:8px 14px;align-items:center;flex-wrap:wrap;margin:2px 0 6px}.jrrow input{width:84px}.jkrow{display:grid;gap:8px;align-items:center;grid-template-columns:minmax(140px,1.3fr) minmax(120px,1fr) auto auto}.jkrow .jkmin,.jkrow .jkmax{width:64px}@media (max-width:720px){.jkrow{grid-template-columns:1fr auto}.jkrow .jkdom{grid-column:1/-1}}.jlrows{display:grid;gap:8px;margin:6px 0 8px}.jlrow{flex-wrap:nowrap}.jlrow .jlq{flex:1;min-width:0;appearance:none}.jlq::-webkit-search-cancel-button{display:none}.jlq::-webkit-calendar-picker-indicator{opacity:.55}.jlq.bad{border-color:#e5484d}.brow{display:grid;grid-template-columns:minmax(140px,1.4fr) minmax(140px,1.4fr) auto minmax(120px,1fr) auto;gap:8px;align-items:center}
 .brow .cl{display:inline-flex;align-items:center;gap:6px;font-size:13px;white-space:nowrap}
 @media (max-width:720px){.types table,.types tbody,.types tr,.types td{display:block;width:auto}.types thead{display:none}.types tr{border-top:1px solid var(--line);padding:6px 0}.types td{padding:6px 4px}.wn{max-width:none}}
 @media (max-width:720px){.brow{grid-template-columns:1fr 1fr;padding:10px;border:1px solid var(--line);border-radius:10px}.brow input[type=text]{grid-column:1/-1}}.axis{display:flex;flex-wrap:wrap;gap:6px 14px;margin:2px 0 6px}.axis b{font-size:12px;color:var(--muted);font-weight:600;width:100%}
@@ -176,7 +176,12 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     'Number of free spins': 'Количество фриспинов', 'Wagering (×)': 'Вейджер (×)', 'Min deposit': 'Мин. депозит', 'Max bet': 'Макс. ставка', 'Min odds': 'Мин. коэффициент', 'Days to use it': 'Дней на использование',
     'Valid until': 'Действует до', 'Conditions (who can claim, main terms)': 'Условия (кто может получить, главные условия)', 'Type': 'Тип', 'Value': 'Размер',
     'The project has no information or documents to read the offers from. Fill in «Project information» or upload a document first.': 'В проекте нет информации или документов, из которых можно взять акции. Сначала заполните «Информацию о проекте» или загрузите документ.', 'Minimum deposit (in the market currency)': 'Минимальный депозит (в валюте рынка)', 'Fastest withdrawal, minutes': 'Самый быстрый вывод, минут', 'Payment methods (comma separated)': 'Способы оплаты (через запятую)',
-    'Tagline': 'Слоган', 'App screenshots': 'Скриншоты приложения', 'for every app site of this job': 'для всех сайтов приложения в этом задании', 'Sample user reviews': 'Примеры отзывов',
+    'Tagline': 'Слоган', 'Its position: from 1 to {0} (the number of brands in the ranking), the first number not above the second.': 'Место: от 1 до {0} (число брендов в рейтинге), первое число не больше второго.', 'Rankings': 'Рейтинги', 'for every casino review site of this job': 'для всех сайтов-обзоров казино в этом задании', 'Your brand’s score: from': 'Оценка вашего бренда: от', 'Its position: from': 'Его место: от',
+    'Competitors': 'Конкуренты', '+ Add competitor': '+ Добавить конкурента', 'Competitor name': 'Название конкурента', 'Domain (optional)': 'Домен (необязательно)', 'score': 'оценка', 'Lowest score': 'Наименьшая оценка', 'Highest score': 'Наибольшая оценка',
+    'Without competitors: made-up operators': 'Без конкурентов: вымышленных операторов', '{0} brands in each ranking.': 'Брендов в каждом рейтинге: {0}.', '{0} brands in each ranking; your brand can be at position {1}.': 'Брендов в каждом рейтинге: {0}; ваш бренд может быть на месте {1}.',
+    'With these score ranges your brand cannot take these positions: competitors that must score higher (or lower) leave no room, or a range is closer than 0.2 to your brand’s score. Widen a range or the positions.': 'С такими диапазонами оценок ваш бренд не может занять эти места: конкуренты, которые обязаны быть выше (или ниже), не оставляют места, или диапазон ближе 0,2 к оценке вашего бренда. Расширьте диапазон или места.',
+    'Each site draws its own ranking: your brand’s position and score within these ranges, and each competitor’s score within its range, so the rankings differ from site to site. The order always follows the scores: whoever is above your brand scores higher, overall and on every criterion, whoever is below scores lower. Empty score fields: your brand keeps its master review data, competitors without a range get 6.5–9.4. Competitors you name replace the made-up operators; their data (bonuses, payouts, texts) is example data until you replace it, so check it before a site goes live.': 'Каждый сайт получает свой рейтинг: место и оценку вашего бренда в этих диапазонах и оценку каждого конкурента в его диапазоне — рейтинги на сайтах разные. Порядок всегда следует оценкам: кто выше вашего бренда, у того оценка выше — и общая, и по каждому критерию; кто ниже — ниже. Пустые поля оценки: у вашего бренда остаются данные «Мастер обзора», конкуренты без диапазона получают 6,5–9,4. Названные конкуренты заменяют вымышленных операторов; их данные (бонусы, выплаты, тексты) — примерные, пока вы их не замените, поэтому проверьте их до запуска сайта.',
+    '«{0}»: a score range from 1 to 10, the first number not above the second.': '«{0}»: диапазон оценки от 1 до 10, первое число не больше второго.', 'Your brand’s score: from 1 to 10, the first number not above the second.': 'Оценка вашего бренда: от 1 до 10, первое число не больше второго.', 'App screenshots': 'Скриншоты приложения', 'for every app site of this job': 'для всех сайтов приложения в этом задании', 'Sample user reviews': 'Примеры отзывов',
     'for every site of this job that shows user reviews (brand reviews, app pages)': 'для всех сайтов задания с отзывами пользователей (отзывы о бренде, страницы приложения)', 'App screenshots (app sites)': 'Скриншоты приложения (сайты приложения)', 'Main screenshot': 'Главный скриншот', 'Screenshot {0}': 'Скриншот {0}', 'Remove screenshot': 'Убрать скриншот',
     'Narrow phone': 'Узкий телефон', 'Wider phone': 'Телефон шире', 'Keep in view': 'Оставить в кадре', 'Top': 'Верх', 'Middle': 'Середину', 'Bottom': 'Низ', 'What it shows, e.g. live betting': 'Что на нём, напр. лайв-ставки', 'What the screenshot shows': 'Что показывает скриншот',
     '+ Main screenshot': '+ Главный скриншот', '+ More screenshots ({0} of {1})': '+ Ещё скриншоты ({0} из {1})',
@@ -881,9 +886,13 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         + '<span class="muted" style="font-size:13px">' + L('Wide tables keep their sideways scroll either way.') + '</span></div>'
         + '<div class="field"><label class="lbl" for="jdisc">' + L('Affiliate disclosure (casino reviews, brand reviews, news)') + '</label><select id="jdisc"><option value="off" selected>' + L('Off (no disclosure)') + '</option><option value="top">' + L('A strip at the top of every page') + '</option><option value="footer">' + L('In the footer') + '</option></select>'
         + '<span class="muted" style="font-size:13px">' + L('The line saying the site earns a commission through its links. Most gambling advertising rules require it: with Off, checking the market’s rules is up to you, and each site carries a build note. Off also labels a ranking’s partner slot «Our pick» and leaves out the template’s texts about paid places and commissions.') + '</span></div>'
-        + '<div class="field"><label class="lbl" for="jsample">' + L('Sample brands in casino rankings') + '</label><input type="number" id="jsample" min="0" max="16" value="7" style="max-width:120px">'
-        + '<span class="muted" style="font-size:13px">' + L('Made-up operators listed next to your brands on casino review sites, so a ranking looks like a real one. Their data is placeholder; the featured (paid) slot is always one of your brands. 0 = your brands only.') + '</span></div>'
-        + '<div id="jf-park" hidden><div class="field tset-box" id="jf-shots"><span class="lbl">' + L('App screenshots') + ' <span class="muted tset-for">' + L('for every app site of this job') + '</span></span><div id="jshots" class="shots"></div>'
+        + '<div id="jf-park" hidden><div class="field tset-box" id="jf-rank"><span class="lbl">' + L('Rankings') + ' <span class="muted tset-for">' + L('for every casino review site of this job') + '</span></span>'
+        + '<div class="row jrrow">' + L('Your brand’s score: from') + ' <input type="text" inputmode="decimal" id="jkown0" placeholder="8.5"> ' + L('to') + ' <input type="text" inputmode="decimal" id="jkown1" placeholder="9.2"></div>'
+        + '<div class="row jrrow">' + L('Its position: from') + ' <input type="number" id="jkpos0" min="1" max="17" placeholder="1"> ' + L('to') + ' <input type="number" id="jkpos1" min="1" max="17" placeholder="3"></div>'
+        + '<span class="lbl" style="margin-top:6px">' + L('Competitors') + '</span><div id="jkriv" class="brows"></div><div class="row"><button type="button" id="jkadd">' + L('+ Add competitor') + '</button></div>'
+        + '<div class="row jrrow" id="jksample">' + L('Without competitors: made-up operators') + ' <input type="number" id="jsample" min="0" max="16" value="7"></div>'
+        + '<p class="muted" id="jkmsg" style="margin:4px 0 0;font-size:13px"></p>'
+        + '<span class="muted" style="font-size:13px">' + L('Each site draws its own ranking: your brand’s position and score within these ranges, and each competitor’s score within its range, so the rankings differ from site to site. The order always follows the scores: whoever is above your brand scores higher, overall and on every criterion, whoever is below scores lower. Empty score fields: your brand keeps its master review data, competitors without a range get 6.5–9.4. Competitors you name replace the made-up operators; their data (bonuses, payouts, texts) is example data until you replace it, so check it before a site goes live.') + '</span></div><div class="field tset-box" id="jf-shots"><span class="lbl">' + L('App screenshots') + ' <span class="muted tset-for">' + L('for every app site of this job') + '</span></span><div id="jshots" class="shots"></div>'
         + '<input type="file" id="jshotfile" accept="image/png,image/jpeg,image/webp" hidden><input type="file" id="jshotmore" accept="image/png,image/jpeg,image/webp" multiple hidden>'
         + '<p class="err" id="jshoterr" hidden></p>'
         + '<span class="muted" style="font-size:13px">' + L('Real screenshots of your app, portrait, at least 600 px wide. The main one takes the most prominent phone in every section; the others fill the rest, never twice in one section, in a different order on each site. A section shows no more phones than you upload. A screenshot always fills its phone and is trimmed, never stretched: «Keep in view» picks the part that stays visible, the two previews show a narrow and a wider phone. «What it shows» is used for the image description and the captions.') + '</span></div>'
@@ -1090,7 +1099,52 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
       }
       // per-type settings (screenshots, sample reviews) sit under the first ticked site type they apply to, and are
       // hidden while none of those types is ticked; the table is redrawn on market changes, so they are parked first
-      var TSET = [['jf-shots', ['app', 'app-multi']], ['jf-reviews', ['reviews', 'app', 'app-multi']]];
+      var TSET = [['jf-rank', ['casinos', 'casinos-one']], ['jf-shots', ['app', 'app-multi']], ['jf-reviews', ['reviews', 'app', 'app-multi']]];
+      // rankings: the competitors, and whether the ranges leave room for the positions (as the server checks it)
+      function rankRow(r) {
+        r = r || {};
+        var row = document.createElement('div');
+        row.className = 'jkrow';
+        row.innerHTML = '<input type="text" class="jkname" maxlength="60" placeholder="' + L('Competitor name') + '" value="' + esc(r.name || '') + '">'
+          + '<input type="text" class="jkdom" maxlength="120" placeholder="' + L('Domain (optional)') + '" value="' + esc(r.domain || '') + '">'
+          + '<span class="row" style="gap:6px;flex-wrap:nowrap">' + L('score') + ' <input type="text" inputmode="decimal" class="jkmin" placeholder="6.5" value="' + esc(r.min == null ? '' : r.min) + '" aria-label="' + L('Lowest score') + '"> – <input type="text" inputmode="decimal" class="jkmax" placeholder="9.4" value="' + esc(r.max == null ? '' : r.max) + '" aria-label="' + L('Highest score') + '"></span>'
+          + '<button type="button" class="jkrm" aria-label="' + L('Remove') + '">×</button>';
+        row.querySelector('.jkrm').onclick = function () { row.remove(); rankCheck(); };
+        [].forEach.call(row.querySelectorAll('input'), function (i) { i.oninput = rankCheck; });
+        document.getElementById('jkriv').appendChild(row);
+      }
+      function rankNum(v) { v = String(v == null ? '' : v).trim().replace(',', '.'); return v === '' || isNaN(+v) ? null : Math.round(+v * 10) / 10; }
+      function rankValue() {
+        var rivals = [].map.call(document.querySelectorAll('.jkrow'), function (r) {
+          return { name: r.querySelector('.jkname').value.trim(), domain: r.querySelector('.jkdom').value.trim(), min: r.querySelector('.jkmin').value, max: r.querySelector('.jkmax').value };
+        }).filter(function (r) { return r.name; });
+        return { own: [document.getElementById('jkown0').value, document.getElementById('jkown1').value], pos: [+document.getElementById('jkpos0').value || 0, +document.getElementById('jkpos1').value || 0], rivals: rivals };
+      }
+      function rankCheck() { // the same rule as the server (generator/ranking.php gen_rank_options)
+        var v = rankValue(), msg = document.getElementById('jkmsg'), GAP = 0.2;
+        document.getElementById('jksample').hidden = v.rivals.length > 0;
+        var ranges = v.rivals.length ? v.rivals.map(function (r) { return [rankNum(r.min) == null ? 6.5 : rankNum(r.min), rankNum(r.max) == null ? 9.4 : rankNum(r.max)]; })
+          : Array.apply(null, Array(+document.getElementById('jsample').value || 0)).map(function () { return [6.5, 9.4]; });
+        var n = ranges.length + 1, a = rankNum(v.own[0]), b = rankNum(v.own[1]);
+        if (a == null) a = b; if (b == null) b = a;
+        var p0 = v.pos[0] || v.pos[1] || 1, p1 = v.pos[1] || v.pos[0] || n;
+        if (p1 > n || p0 > p1) { msg.className = 'err'; msg.textContent = L('Its position: from 1 to {0} (the number of brands in the ranking), the first number not above the second.', n); return false; }
+        if (a == null) { msg.className = 'muted'; msg.textContent = L('{0} brands in each ranking.', n); return true; }
+        var ok = [];
+        for (var s = a; s <= b + 1e-9; s = Math.round((s + 0.1) * 10) / 10) {
+          var above = 0, flex = 0, bad = false;
+          ranges.forEach(function (r) { var up = r[1] >= s + GAP - 1e-9, down = r[0] <= s - GAP + 1e-9; if (!up && !down) bad = true; else if (up && !down) above++; else if (up) flex++; });
+          if (bad) continue;
+          for (var p = Math.max(p0, above + 1); p <= Math.min(p1, above + flex + 1); p++) if (ok.indexOf(p) < 0) ok.push(p);
+        }
+        ok.sort(function (x, y) { return x - y; });
+        msg.className = ok.length ? 'muted' : 'err';
+        msg.textContent = ok.length ? L('{0} brands in each ranking; your brand can be at position {1}.', n, ok.join(', ')) : L('With these score ranges your brand cannot take these positions: competitors that must score higher (or lower) leave no room, or a range is closer than 0.2 to your brand’s score. Widen a range or the positions.');
+        return ok.length > 0;
+      }
+      document.getElementById('jkadd').onclick = function () { rankRow(); rankCheck(); };
+      ['jkown0', 'jkown1', 'jkpos0', 'jkpos1', 'jsample'].forEach(function (id) { document.getElementById(id).oninput = rankCheck; });
+      rankCheck();
       function parkSettings() {
         var park = document.getElementById('jf-park');
         TSET.forEach(function (x) { var b = document.getElementById(x[0]); if (b) park.appendChild(b); });
@@ -1197,6 +1251,13 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
           SHOTS.more = (ed.spec.shots.more || []).map(withUrl);
           shotsDraw();
         }
+        if (ed.spec.rank) {
+          var rk = ed.spec.rank;
+          if (rk.own) { document.getElementById('jkown0').value = rk.own[0]; document.getElementById('jkown1').value = rk.own[1]; }
+          if (rk.pos) { document.getElementById('jkpos0').value = rk.pos[0]; document.getElementById('jkpos1').value = rk.pos[1]; }
+          (rk.rivals || []).forEach(rankRow);
+          rankCheck();
+        }
         if (ed.spec.reviews) {
           document.getElementById('jrmin').value = ed.spec.reviews.min;
           document.getElementById('jrmax').value = ed.spec.reviews.max;
@@ -1233,6 +1294,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         if (!totals()) { err.hidden = false; err.textContent = L('Tick at least one site type.'); return; }
         var brands = brandsValue();
         if (!brands.length) { err.hidden = false; err.textContent = L('Add at least one brand.'); document.querySelector('.bname').focus(); return; }
+        if (!rankCheck()) { err.hidden = false; err.textContent = document.getElementById('jkmsg').textContent; return; }
         var rv = reviewsValue();
         if (rv.min < 1 || rv.max > 60 || rv.min > rv.max) { err.hidden = false; err.textContent = L('Reviews per site: from 1 to 60, the first number not above the second.'); return; }
         if (reviewsSum() !== 100) { err.hidden = false; err.textContent = L('The shares of reviews by stars must add up to 100%.'); return; }
@@ -1241,7 +1303,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         try { localStorage.setItem(bkey, JSON.stringify(brands)); } catch (e) {}
         document.getElementById('go').disabled = true;
         api(ed ? 'jobs/' + ed.id : 'jobs', { project_id: +pid, name: document.getElementById('jname').value, market: mk.value, types: types, colors: colors,
-          brands: brands, copy: document.getElementById('jcopy').value, rows: document.getElementById('jrows').value, sample_brands: +document.getElementById('jsample').value || 0, disclosure: document.getElementById('jdisc').value, langs: langs, reviews: rv, shots: shotsValue() }, ed ? 'PUT' : 'POST')
+          brands: brands, copy: document.getElementById('jcopy').value, rows: document.getElementById('jrows').value, sample_brands: +document.getElementById('jsample').value || 0, disclosure: document.getElementById('jdisc').value, langs: langs, reviews: rv, shots: shotsValue(), rank: rankValue() }, ed ? 'PUT' : 'POST')
           .then(function (r) { location.hash = '#/j/' + r.id; })
           .catch(function (x) { err.hidden = false; err.textContent = L(x.message); document.getElementById('go').disabled = false; });
       };
