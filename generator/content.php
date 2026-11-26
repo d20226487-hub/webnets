@@ -787,6 +787,7 @@ function gen_content_run(int $jobId): void
     if ($queued) { // the brands' own rating texts the project does not give, before the sites that show them
         require_once __DIR__ . '/brandfacts.php';
         gen_btexts_write($db, $jobId, $part);
+        gen_sreviews_write($db, $jobId, $part); // sample user reviews of the job's brands, when its sites show reviews
     }
     $lim = gen_vertex_limits();
     $fail = function (string $id, Throwable $e) use ($set): bool { // one site's failure is that site's: the run goes on

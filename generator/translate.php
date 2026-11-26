@@ -238,7 +238,7 @@ function gen_tr_system(string $from, string $to, string $mk): string
         "- Translate the meaning naturally and idiomatically, not word for word. Keep each text about as long as the source: it fills the same place in the layout. Headings and button labels stay short.",
         '- Keep HTML tags and their attributes exactly; translate only the text between them.',
         '- Keep placeholders in curly braces ({item}, {brand}, {n} …) exactly as they are.',
-        '- Keep brand names, product and game titles, promo codes, URLs and e-mail addresses unchanged.',
+        '- Keep brand names, product and game titles, promo codes, URLs and e-mail addresses unchanged. Names of people and place names are written the way this language writes them (in its alphabet).',
         '- Keep every number, amount, percentage and currency exactly as in the source. Do not convert currencies, round or change figures.',
         "- A text already written in $dst comes back as it is.",
         '- Add nothing the source does not say (no claims, promises, offers or figures) and leave nothing out.',
@@ -374,12 +374,13 @@ function gen_tr_texts(array $texts, string $from, string $to, string $mk, array 
 function gen_tr_offers(PDO $db, int $jobId, string $market, array $spec, array $langs, array $lim): void
 {
     require_once __DIR__ . '/brandfacts.php';
+    $reviews = gen_sreviews_texts($db, $spec); // the sample reviews written in the main language: into the other languages
     $q = $db->prepare('SELECT p.id, p.info FROM projects p JOIN jobs j ON j.project_id = p.id WHERE j.id = ?');
     $q->execute([$jobId]);
     $p = $q->fetch() ?: [];
     $q->closeCursor();
     $offers = gen_poffers_clean((json_decode((string)($p['info'] ?? '{}'), true) ?: [])['offers'] ?? []);
-    if (!$offers) {
+    if (!$offers && !$reviews) {
         return;
     }
     $texts = [];
@@ -392,8 +393,9 @@ function gen_tr_offers(PDO $db, int $jobId, string $market, array $spec, array $
     }
     $have = $db->prepare('SELECT 1 FROM tr_cache WHERE lang = ? AND src = ?');
     $put = $db->prepare('INSERT OR REPLACE INTO tr_cache (lang, src, out) VALUES (?, ?, ?)');
-    foreach ($langs as $c => $mk) { // every language, the main one too: the project may write its offers in another one
-        $todo = array_filter($texts, function ($t) use ($have, $c) {
+    $main = array_key_first($langs);
+    foreach ($langs as $c => $mk) { // offers into every language, the main one too (the project may write them in another one); reviews into the others
+        $todo = array_filter($texts + ($c === $main ? [] : $reviews), function ($t) use ($have, $c) {
             $have->execute([$c, $t]);
             $found = $have->fetchColumn();
             $have->closeCursor();
@@ -401,19 +403,25 @@ function gen_tr_offers(PDO $db, int $jobId, string $market, array $spec, array $
         });
         [$out] = gen_tr_texts($todo, '', $c, $mk, ['project' => (int)($p['id'] ?? 0) ?: null, 'job' => $jobId, 'kind' => 'translate', 'limit' => 'tok_translate'], $lim, gen_tr_ages($market, $mk));
         foreach ($out as $k => $t) {
-            gen_db_write($put, [$c, $texts[$k], $t]);
+            gen_db_write($put, [$c, ($texts + $reviews)[$k], $t]);
         }
     }
     // only what is not translated yet was sent; the feeds are written again and their texts compared (not their dates)
     $sig = function (string $bid): string {
-        $file = gen_overlay_dir() . "/promotions/$bid.json";
-        $d = is_file($file) ? (json_decode((string)file_get_contents($file), true) ?: []) : [];
-        return md5(json_encode(array_map(fn($p) => [$p['title'] ?? null, $p['terms']['eligible'] ?? null], $d['promotions'] ?? []), JSON_UNESCAPED_UNICODE));
+        $read = function (string $rel) {
+            $file = gen_overlay_dir() . "/$rel";
+            return is_file($file) ? (json_decode((string)file_get_contents($file), true) ?: []) : [];
+        };
+        return md5(json_encode([array_map(fn($p) => [$p['title'] ?? null, $p['terms']['eligible'] ?? null], $read("promotions/$bid.json")['promotions'] ?? []),
+            array_map(fn($r) => [$r['id'] ?? null, $r['title'] ?? null], $read("reviews/$bid.json")['reviews'] ?? [])], JSON_UNESCAPED_UNICODE));
     };
     $changed = false;
     foreach ($spec['brand_ids'] ?? [] as $bid) {
         $before = $sig($bid);
-        gen_poffers_apply($db, $bid, $market);
+        if ($offers) {
+            gen_poffers_apply($db, $bid, $market);
+        }
+        gen_sreviews_apply($db, $bid, $market);
         $changed = $changed || $sig($bid) !== $before;
     }
     if (!$changed) {

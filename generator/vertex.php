@@ -133,12 +133,12 @@ function gen_http_post(string $url, string $body, array $headers, int $timeout =
 
 /** Request limits for the text step, as in ACM (Settings → Vertex AI → Limits). */
 const GEN_VERTEX_LIMITS = ['rpm' => 60, 'concurrency' => 4, 'batch' => 10, 'delay_ms' => 0, 'retries' => 3, 'backoff_ms' => 1000, 'jitter_ms' => 250, 'retry_after' => true,
-    'tok_text' => 32768, 'tok_facts' => 16384, 'tok_brand' => 8192, 'tok_offers' => 32768, 'tok_translate' => 32768];
+    'tok_text' => 32768, 'tok_facts' => 16384, 'tok_brand' => 8192, 'tok_offers' => 32768, 'tok_translate' => 32768, 'tok_reviews' => 32768];
 
 /** The output token limits per task (thinking models spend part of it on thinking): key => the setting's name. */
 const GEN_VERTEX_TOKENS = ['tok_text' => 'Max output tokens: site texts', 'tok_facts' => 'Max output tokens: «Fill from the project» (master review)',
     'tok_brand' => 'Max output tokens: brand texts (summary, verdict)', 'tok_offers' => 'Max output tokens: «Fill from the project» (offers)',
-    'tok_translate' => 'Max output tokens: translations'];
+    'tok_translate' => 'Max output tokens: translations', 'tok_reviews' => 'Max output tokens: sample reviews'];
 
 /** A task's output token limit from the settings (tok_text, tok_facts, tok_brand, tok_offers, tok_translate). */
 function gen_vertex_max(string $key): int

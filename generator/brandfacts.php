@@ -9,6 +9,7 @@
  */
 
 require_once __DIR__ . '/brands.php';
+require_once __DIR__ . '/samplereviews.php';
 
 /** The facts per brand: key => [label, kind, path in the brand data, can be hidden]. Paths: op:<operators.json path> | mk:<facts/<market>.json path>. */
 function gen_bfacts_schema(array $market, array $brand): array
@@ -930,6 +931,7 @@ function gen_reviews_sync(PDO $db, string $id, string $market): void
         }
         return $d;
     });
+    gen_sreviews_apply($db, $id, $market); // the reviews the AI wrote for the brand, when there are some
 }
 
 /* ---------------------------------------------------------------- project offers (Информация о проекте → Акции) */

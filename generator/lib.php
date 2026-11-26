@@ -1230,6 +1230,8 @@ function gen_site_full_config(array $site, string $market, array $brands = [], b
     if ($langs) { // where its language switcher goes and how it looks
         $cfg['lang_ui'] = gen_lang_ui($plan, $site['id']);
     }
+    require_once __DIR__ . '/samplereviews.php';
+    $cfg['reviews_pick'] = gen_sreviews_pick($spec, $site['id']); // sites that show user reviews: their own number of them
     if (gen_type_base($site['type']) === 'satellite') { // bonuses before the hero on some satellites, like the full-length landings (older plans: from the site id)
         $cfg['sections']['home']['offers'] = (bool)($plan['offers'] ?? crc32($site['id'] . '|offers') % 3 === 0);
     }

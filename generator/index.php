@@ -67,7 +67,7 @@ form .field{display:grid;gap:6px;margin-bottom:16px}form label.lbl{font-weight:6
 table{border-collapse:collapse;width:100%}th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}th{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
 .types td{padding:10px}.wn{display:block;margin-top:4px;padding:6px 8px;border-radius:8px;background:var(--warnbg);color:var(--warn);font-size:12px;max-width:300px}
 .axis label.blk{color:var(--warn)}.axis label.off{opacity:.45;text-decoration:line-through;cursor:not-allowed}.axis label.blk::after{content:"⚠";font-size:12px}
-.brows{display:grid;gap:8px}.jlrows{display:grid;gap:8px;margin:6px 0 8px}.jlrow{flex-wrap:nowrap}.jlrow .jlq{flex:1;min-width:0;appearance:none}.jlq::-webkit-search-cancel-button{display:none}.jlq::-webkit-calendar-picker-indicator{opacity:.55}.jlq.bad{border-color:#e5484d}.brow{display:grid;grid-template-columns:minmax(140px,1.4fr) minmax(140px,1.4fr) auto minmax(120px,1fr) auto;gap:8px;align-items:center}
+.brows{display:grid;gap:8px}.jrrow{gap:8px 14px;align-items:center;flex-wrap:wrap;margin:2px 0 6px}.jrrow input{width:84px}.jlrows{display:grid;gap:8px;margin:6px 0 8px}.jlrow{flex-wrap:nowrap}.jlrow .jlq{flex:1;min-width:0;appearance:none}.jlq::-webkit-search-cancel-button{display:none}.jlq::-webkit-calendar-picker-indicator{opacity:.55}.jlq.bad{border-color:#e5484d}.brow{display:grid;grid-template-columns:minmax(140px,1.4fr) minmax(140px,1.4fr) auto minmax(120px,1fr) auto;gap:8px;align-items:center}
 .brow .cl{display:inline-flex;align-items:center;gap:6px;font-size:13px;white-space:nowrap}
 @media (max-width:720px){.types table,.types tbody,.types tr,.types td{display:block;width:auto}.types thead{display:none}.types tr{border-top:1px solid var(--line);padding:6px 0}.types td{padding:6px 4px}.wn{max-width:none}}
 @media (max-width:720px){.brow{grid-template-columns:1fr 1fr;padding:10px;border:1px solid var(--line);border-radius:10px}.brow input[type=text]{grid-column:1/-1}}.axis{display:flex;flex-wrap:wrap;gap:6px 14px;margin:2px 0 6px}.axis b{font-size:12px;color:var(--muted);font-weight:600;width:100%}
@@ -176,9 +176,13 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     'Number of free spins': 'Количество фриспинов', 'Wagering (×)': 'Вейджер (×)', 'Min deposit': 'Мин. депозит', 'Max bet': 'Макс. ставка', 'Min odds': 'Мин. коэффициент', 'Days to use it': 'Дней на использование',
     'Valid until': 'Действует до', 'Conditions (who can claim, main terms)': 'Условия (кто может получить, главные условия)', 'Type': 'Тип', 'Value': 'Размер',
     'The project has no information or documents to read the offers from. Fill in «Project information» or upload a document first.': 'В проекте нет информации или документов, из которых можно взять акции. Сначала заполните «Информацию о проекте» или загрузите документ.', 'Minimum deposit (in the market currency)': 'Минимальный депозит (в валюте рынка)', 'Fastest withdrawal, minutes': 'Самый быстрый вывод, минут', 'Payment methods (comma separated)': 'Способы оплаты (через запятую)',
-    'Tagline': 'Слоган', 'The database stayed busy (a build or an AI run was writing to it), so this was not saved. Try again in a minute.': 'База данных была занята (шла сборка или ИИ записывал данные), поэтому изменения не сохранены. Попробуйте ещё раз через минуту.', 'Type a language or market…': 'Начните вводить язык или рынок…', 'Also rewrite the sites that have AI text ({0})': 'Переписать и сайты с текстом ИИ ({0})', 'Also translate the translated sites again ({0})': 'Перевести заново и переведённые сайты ({0})',
+    'Tagline': 'Слоган', 'Sample user reviews (brand review sites, app pages)': 'Примеры отзывов (сайты отзывов о бренде, страницы приложения)', 'From': 'От', 'to': 'до', 'reviews per site': 'отзывов на сайт',
+    'Fewest reviews per site': 'Минимум отзывов на сайт', 'Most reviews per site': 'Максимум отзывов на сайт', 'Share of {0}-star reviews, %': 'Доля отзывов на {0} звёзд, %', 'Total: {0}%': 'Сумма: {0}%',
+    'The AI writes your brands’ sample reviews from the master review in these shares by stars. Each site shows its own random number of them within the range, in the same shares, so review sites do not all look alike. At least 20% must have 1–3 stars.': 'ИИ пишет примеры отзывов о ваших брендах по «Мастер обзору» в этих долях по звёздам. Каждый сайт показывает своё случайное число отзывов в этом диапазоне, в тех же долях, — так сайты отзывов не похожи друг на друга. Не меньше 20% отзывов — на 1–3 звезды.',
+    'Reviews per site: from 1 to 60, the first number not above the second.': 'Отзывов на сайт: от 1 до 60, первое число не больше второго.', 'The shares of reviews by stars must add up to 100%.': 'Доли отзывов по звёздам должны в сумме давать 100%.',
+    'At least 20% of reviews must have 1–3 stars, so the reviews look real and negative ones stay visible.': 'Не меньше 20% отзывов должны быть на 1–3 звезды: так отзывы выглядят настоящими, а негативные остаются видны.', 'The database stayed busy (a build or an AI run was writing to it), so this was not saved. Try again in a minute.': 'База данных была занята (шла сборка или ИИ записывал данные), поэтому изменения не сохранены. Попробуйте ещё раз через минуту.', 'Type a language or market…': 'Начните вводить язык или рынок…', 'Also rewrite the sites that have AI text ({0})': 'Переписать и сайты с текстом ИИ ({0})', 'Also translate the translated sites again ({0})': 'Перевести заново и переведённые сайты ({0})',
     'Every approved site already has AI text. Tick «Also rewrite the sites that have AI text» to write it again.': 'У всех одобренных сайтов уже есть текст ИИ. Отметьте «Переписать и сайты с текстом ИИ», чтобы написать его заново.',
-    'Every approved site with AI text is already translated. Tick «Also translate the translated sites again» to translate them anew.': 'Все одобренные сайты с текстом ИИ уже переведены. Отметьте «Перевести заново и переведённые сайты», чтобы перевести их заново.', 'Max output tokens: translations': 'Макс. токенов ответа: переводы', 'Multi-language sites': 'Многоязычные сайты', '+ Add language': '+ Добавить язык',
+    'Every approved site with AI text is already translated. Tick «Also translate the translated sites again» to translate them anew.': 'Все одобренные сайты с текстом ИИ уже переведены. Отметьте «Перевести заново и переведённые сайты», чтобы перевести их заново.', 'Max output tokens: translations': 'Макс. токенов ответа: переводы', 'Max output tokens: sample reviews': 'Макс. токенов ответа: примеры отзывов', 'Multi-language sites': 'Многоязычные сайты', '+ Add language': '+ Добавить язык',
     'Multi-language sites: the market is the main language’s.': 'Многоязычные сайты: рынок — рынок основного языка.', 'Language and its market': 'Язык и его рынок', 'Main': 'Основной',
     'Every site in several languages: the main one at the site’s root, each other one in its own folder (/kk/, /en/), with a language switcher placed and styled differently on each site. Each language follows the rules of the market chosen for it (age, licence and responsible-gambling texts, allowed offers). The other languages are written by «Translate» on the job page, after the main text.': 'Каждый сайт на нескольких языках: основной — в корне сайта, остальные — каждый в своей папке (/kk/, /en/), с переключателем языка, который на каждом сайте стоит в своём месте и выглядит по-своему. Каждый язык следует правилам выбранного для него рынка (возраст, тексты о лицензии и ответственной игре, разрешённые акции). Остальные языки пишет кнопка «Перевести» на странице задачи, после основного текста.',
     'Add at least two languages, or turn multi-language sites off.': 'Добавьте хотя бы два языка или выключите многоязычные сайты.', 'Each language can be added once.': 'Каждый язык можно добавить один раз.',
@@ -543,7 +547,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
       .sort(function (a, b) { return a.r - b.r || a.i - b.i; }).map(function (x) { return x.f; });
   }
   var VTOKENS = [['tok_text', 'Max output tokens: site texts'], ['tok_facts', 'Max output tokens: «Fill from the project» (master review)'],
-    ['tok_brand', 'Max output tokens: brand texts (summary, verdict)'], ['tok_offers', 'Max output tokens: «Fill from the project» (offers)'], ['tok_translate', 'Max output tokens: translations']];
+    ['tok_brand', 'Max output tokens: brand texts (summary, verdict)'], ['tok_offers', 'Max output tokens: «Fill from the project» (offers)'], ['tok_translate', 'Max output tokens: translations'], ['tok_reviews', 'Max output tokens: sample reviews']];
   var PFACTS_LONG = { summary: 2, verdict: 3, pros: 4, cons: 3, payment_times: 3, verification: 2 };
   var OTYPES = [['welcome_bonus', 'Welcome bonus'], ['deposit_bonus', 'Deposit bonus'], ['free_bets', 'Free bets'], ['promo_code', 'Promo code'], ['odds_boost', 'Odds boost'],
     ['cashback', 'Cashback'], ['loyalty', 'Loyalty programme'], ['tournaments', 'Tournament']];
@@ -871,7 +875,26 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         + '<span class="muted" style="font-size:13px">' + L('The line saying the site earns a commission through its links. Most gambling advertising rules require it: with Off, checking the market’s rules is up to you, and each site carries a build note. Off also labels a ranking’s partner slot «Our pick» and leaves out the template’s texts about paid places and commissions.') + '</span></div>'
         + '<div class="field"><label class="lbl" for="jsample">' + L('Sample brands in casino rankings') + '</label><input type="number" id="jsample" min="0" max="16" value="7" style="max-width:120px">'
         + '<span class="muted" style="font-size:13px">' + L('Made-up operators listed next to your brands on casino review sites, so a ranking looks like a real one. Their data is placeholder; the featured (paid) slot is always one of your brands. 0 = your brands only.') + '</span></div>'
+        + '<div class="field"><span class="lbl">' + L('Sample user reviews (brand review sites, app pages)') + '</span>'
+        + '<div class="row jrrow">' + L('From') + ' <input type="number" id="jrmin" min="1" max="60" value="12" aria-label="' + L('Fewest reviews per site') + '"> ' + L('to') + ' <input type="number" id="jrmax" min="1" max="60" value="30" aria-label="' + L('Most reviews per site') + '"> ' + L('reviews per site') + '</div>'
+        + '<div class="row jrrow">' + [['5', 40], ['4', 25], ['3', 15], ['2', 10], ['1', 10]].map(function (x) { return '<label class="inl">' + x[0] + '★ <input type="number" class="jrstar" data-s="' + x[0] + '" min="0" max="100" value="' + x[1] + '" aria-label="' + L('Share of {0}-star reviews, %', x[0]) + '"> %</label>'; }).join('') + '<span class="muted" id="jrsum"></span></div>'
+        + '<span class="muted" style="font-size:13px">' + L('The AI writes your brands’ sample reviews from the master review in these shares by stars. Each site shows its own random number of them within the range, in the same shares, so review sites do not all look alike. At least 20% must have 1–3 stars.') + '</span></div>'
         + '<div class="row"><span class="muted" id="total"></span><span class="sp"></span><button class="primary" id="go">' + L('Generate sites') + '</button></div><p class="err" id="ferr" hidden></p></form>';
+      function reviewsValue() {
+        var stars = {};
+        [].forEach.call(document.querySelectorAll('.jrstar'), function (i) { stars[i.dataset.s] = +i.value || 0; });
+        return { min: +document.getElementById('jrmin').value || 0, max: +document.getElementById('jrmax').value || 0, stars: stars };
+      }
+      function reviewsSum() {
+        var v = reviewsValue(), sum = 0;
+        Object.keys(v.stars).forEach(function (s) { sum += v.stars[s]; });
+        var el = document.getElementById('jrsum');
+        el.textContent = L('Total: {0}%', sum);
+        el.className = sum === 100 ? 'muted' : 'err';
+        return sum;
+      }
+      [].forEach.call(document.querySelectorAll('.jrstar'), function (i) { i.oninput = reviewsSum; });
+      reviewsSum();
       var form = document.getElementById('jf'), mk = document.getElementById('jmarket'), avail = {}, jml = document.getElementById('jml'), jlrows = document.getElementById('jlrows');
       var PAIRS = [];
       cat.markets.forEach(function (m) { (m.locales || []).forEach(function (l) { PAIRS.push([l + '|' + m.id, langName(l) + ' (' + l + ') — ' + L(m.name) + ' (' + m.id.toUpperCase() + ')']); }); });
@@ -1069,6 +1092,12 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         document.getElementById('jrows').value = ed.spec.rows || 'swipe';
         document.getElementById('jdisc').value = ed.spec.disclosure || 'off';
         document.getElementById('jsample').value = ed.spec.sample_brands == null ? 0 : ed.spec.sample_brands;
+        if (ed.spec.reviews) {
+          document.getElementById('jrmin').value = ed.spec.reviews.min;
+          document.getElementById('jrmax').value = ed.spec.reviews.max;
+          [].forEach.call(document.querySelectorAll('.jrstar'), function (i) { i.value = ed.spec.reviews.stars[i.dataset.s]; });
+          reviewsSum();
+        }
         mk.value = ed.market;
         if (ed.spec.langs && ed.spec.langs.list) {
           jml.checked = true;
@@ -1099,12 +1128,15 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         if (!totals()) { err.hidden = false; err.textContent = L('Tick at least one site type.'); return; }
         var brands = brandsValue();
         if (!brands.length) { err.hidden = false; err.textContent = L('Add at least one brand.'); document.querySelector('.bname').focus(); return; }
+        var rv = reviewsValue();
+        if (rv.min < 1 || rv.max > 60 || rv.min > rv.max) { err.hidden = false; err.textContent = L('Reviews per site: from 1 to 60, the first number not above the second.'); return; }
+        if (reviewsSum() !== 100) { err.hidden = false; err.textContent = L('The shares of reviews by stars must add up to 100%.'); return; }
         var langs = langsValue();
         if (langs.on && langs.list.length < 2) { err.hidden = false; err.textContent = L('Add at least two languages, or turn multi-language sites off.'); return; }
         try { localStorage.setItem(bkey, JSON.stringify(brands)); } catch (e) {}
         document.getElementById('go').disabled = true;
         api(ed ? 'jobs/' + ed.id : 'jobs', { project_id: +pid, name: document.getElementById('jname').value, market: mk.value, types: types, colors: colors,
-          brands: brands, copy: document.getElementById('jcopy').value, rows: document.getElementById('jrows').value, sample_brands: +document.getElementById('jsample').value || 0, disclosure: document.getElementById('jdisc').value, langs: langs }, ed ? 'PUT' : 'POST')
+          brands: brands, copy: document.getElementById('jcopy').value, rows: document.getElementById('jrows').value, sample_brands: +document.getElementById('jsample').value || 0, disclosure: document.getElementById('jdisc').value, langs: langs, reviews: rv }, ed ? 'PUT' : 'POST')
           .then(function (r) { location.hash = '#/j/' + r.id; })
           .catch(function (x) { err.hidden = false; err.textContent = L(x.message); document.getElementById('go').disabled = false; });
       };

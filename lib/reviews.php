@@ -19,8 +19,65 @@ function sx_reviews(): array
     $file = sx_brand_file(SX::$ctx['root'], 'reviews/' . (SX::$ctx['brand']['id'] ?? '') . '.json');
     $all = is_file($file) ? json_decode(file_get_contents($file), true)['reviews'] ?? [] : [];
     $out = array_values(array_filter($all, fn($r) => ($r['status'] ?? '') === 'published' && ($r['market'] ?? '') === SX::$ctx['market']['id']));
+    $mine = array_values(array_filter($out, fn($r) => ($r['locale'] ?? '') === (SX::$ctx['locale'] ?? ''))); // a multi-language site: each version its own language's
+    if ($mine && count($mine) < count($out)) {
+        $out = $mine;
+    }
+    if ($pick = SX::$ctx['reviews_pick'] ?? null) { // generated sites: their own number of reviews, in the job's shares by stars
+        $out = sx_review_pick($out, (int)$pick['n'], (array)$pick['stars'], (string)($pick['seed'] ?? ''));
+    }
     usort($out, fn($a, $b) => strcmp($b['date'], $a['date']));
     return SX::$once['reviews'] = $out;
+}
+
+/** $n split by shares per star ['5' => 40, …] into whole counts that add up to $n (largest remainders first). */
+function sx_review_split(int $n, array $shares): array
+{
+    $total = array_sum($shares) ?: 1;
+    $out = $rest = [];
+    foreach ($shares as $s => $p) {
+        $exact = $n * $p / $total;
+        $out[(string)$s] = (int)floor($exact);
+        $rest[(string)$s] = $exact - floor($exact);
+    }
+    arsort($rest);
+    foreach (array_keys($rest) as $s) {
+        if (array_sum($out) >= $n) {
+            break;
+        }
+        $out[(string)$s]++;
+    }
+    return $out;
+}
+
+/**
+ * $n of the reviews, in the shares by stars as far as the reviews allow, the same ones on every language version of
+ * a site (picked by their id without the language), different from site to site ($seed). Newest first.
+ */
+function sx_review_pick(array $reviews, int $n, array $shares, string $seed): array
+{
+    if ($n >= count($reviews) || $n < 1) {
+        return $reviews;
+    }
+    $key = fn($r) => crc32($seed . '|' . preg_replace('/-[a-z]{2,3}$/', '', (string)($r['id'] ?? '')));
+    usort($reviews, fn($a, $b) => $key($a) <=> $key($b));
+    $by = [];
+    foreach ($reviews as $r) {
+        $by[(string)(int)$r['rating']][] = $r;
+    }
+    $sel = [];
+    foreach (sx_review_split($n, $shares) as $s => $k) {
+        $take = array_slice($by[(string)$s] ?? [], 0, $k);
+        $sel = array_merge($sel, $take);
+        $by[(string)$s] = array_slice($by[(string)$s] ?? [], count($take));
+    }
+    if (count($sel) < $n) { // too few at some rating: the others fill up
+        $left = array_merge(...array_values($by));
+        usort($left, fn($a, $b) => $key($a) <=> $key($b));
+        $sel = array_merge($sel, array_slice($left, 0, $n - count($sel)));
+    }
+    usort($sel, fn($a, $b) => strcmp($b['date'], $a['date']));
+    return $sel;
 }
 
 /**

@@ -612,6 +612,8 @@ function gen_job_input(array $b): array
         'rows' => in_array($b['rows'] ?? '', ['swipe', 'stack', 'both'], true) ? $b['rows'] : 'both',
         'disclosure' => in_array($b['disclosure'] ?? 'off', ['top', 'footer', 'off'], true) ? $b['disclosure'] : 'off',
         'sample_brands' => max(0, min(count(GEN_SAMPLE_NAMES), (int)($b['sample_brands'] ?? 7)))];
+    require_once __DIR__ . '/samplereviews.php';
+    [$spec['reviews'], $revErr] = gen_sreviews_input($b['reviews'] ?? null);
     [$langs, $langErr] = gen_job_langs_input((array)($b['langs'] ?? []));
     if ($langs) { // a multi-language job: its market is the main language's
         $spec['langs'] = $langs;
@@ -621,6 +623,7 @@ function gen_job_input(array $b): array
     $err = match (true) {
         $name === '' => 'Give the job a name.',
         $langErr !== null => $langErr,
+        $revErr !== null => $revErr,
         !is_file("$GEN_ROOT/markets/{$spec['market']}.json") => 'Pick a market.',
         !$types => 'Tick at least one site type.',
         !$spec['brands'] => 'Add at least one brand.',
