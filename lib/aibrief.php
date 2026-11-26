@@ -59,7 +59,7 @@ function sx_ai_brief(array $pages, ?string $only = null, bool $full = false, boo
     $L[] = '## Market guidance';
     $L[] = '';
     $L[] = sx_ai_market_facts($m, $loc, $b['licence'] ?? []);
-    if (($extra = sx_ai_setting("markets/{$m['id']}.md")) !== '') { // the market's own rules, written by hand
+    if (($extra = sx_ai_setting('markets/' . ($m['rules_id'] ?? $m['id']) . '.md')) !== '') { // the market's own rules, written by hand (a language version: its language's market's)
         $L[] = '';
         $L[] = $extra;
     }
@@ -197,7 +197,9 @@ function sx_ai_market_facts(array $m, string $loc, array $licence = []): string
     $notAllowed = array_keys(array_filter($m['promotions'] ?? [], fn($s) => $s !== 'allowed'));
     $c = $m['compliance'] ?? [];
     $L = ['### Market context (from the market settings)', ''];
-    $L[] = "- Market: {$m['name']} (`{$m['id']}`), languages " . implode(', ', $m['locales'] ?? []) . ", currency {$m['currency']['code']} ({$m['currency']['symbol']})";
+    $L[] = !empty($m['rules_id']) // a language version of a multi-language site: its language's market's rules, the main market's money
+        ? "- Market rules: {$m['rules_name']} (`{$m['rules_id']}`); currency {$m['currency']['code']} ({$m['currency']['symbol']}) and brand data of {$m['name']} (`{$m['id']}`), the site's main market"
+        : "- Market: {$m['name']} (`{$m['id']}`), languages " . implode(', ', $m['locales'] ?? []) . ", currency {$m['currency']['code']} ({$m['currency']['symbol']})";
     $L[] = "- Minimum age: {$age}+";
     $L[] = '- Products allowed: ' . ($on ? implode(', ', $on) : 'none') . ($off ? '; not allowed: ' . implode(', ', $off) : '');
     $L[] = '- Promotions allowed: ' . ($allowed ? implode(', ', $allowed) : 'none') . ($notAllowed ? '; not allowed: ' . implode(', ', $notAllowed) : '');

@@ -238,8 +238,11 @@ foreach ($sets as [$c, $pages, $pal]) {
 }
 foreach ($langPages as $code => $pages) {
     @mkdir("$dir/$code", 0777, true);
+    // each language version's own AI brief: its texts and its market's rules
+    file_put_contents("$dir/$code/ai-brief.txt", sx_ai_brief($pages, null, false, true));
+    $brief = count($pages) > 1 ? 'ai-brief.txt' : null;
     foreach ($pages as $p) {
-        $html = str_replace('</body>', sx_review_nav_script() . sx_review_device_toggle($p['file'], $code) . sx_review_devspec($p, $pages, $code, $p['prefix'], null) . '</body>', $p['html']);
+        $html = str_replace('</body>', sx_review_nav_script() . sx_review_device_toggle($p['file'], $code) . sx_review_devspec($p, $pages, $code, $p['prefix'], $brief) . '</body>', $p['html']);
         // the site's images (img/) are shared by the language versions, one folder up
         $html = preg_replace_callback('/\b(src|srcset)="([^"]*)"/', fn($m) => $m[1] . '="' . preg_replace('#(^|,\s*)img/#', '$1../img/', $m[2]) . '"', $html);
         file_put_contents("$dir/$code/{$p['file']}", sx_strip_comments($langLinks($html, $p, $code)));

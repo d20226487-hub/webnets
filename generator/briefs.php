@@ -132,10 +132,24 @@ function gen_site_brief(string $siteId): ?string
     return isset($d['brief']) ? ($d['system'] ?? '') . "\n\n---\n\n" . $d['brief'] : null;
 }
 
-/** File name for one site's brief inside a zip: <site id>-ai-brief.txt. */
-function gen_brief_name(string $siteId): string
+/** File name for one site's brief inside a zip: <site id>-ai-brief.txt, or <site id>-<language>-ai-brief.txt for a language version. */
+function gen_brief_name(string $siteId, string $lang = ''): string
 {
-    return preg_replace('/[^a-z0-9-]/i', '-', $siteId) . '-ai-brief.txt';
+    return preg_replace('/[^a-z0-9-]/i', '-', $siteId) . ($lang !== '' ? "-$lang" : '') . '-ai-brief.txt';
+}
+
+/** The AI briefs of a multi-language site's other language versions: [language code => text]. */
+function gen_site_brief_langs(string $siteId): array
+{
+    global $GEN_ROOT;
+    $out = [];
+    foreach (glob("$GEN_ROOT/dist/generated/$siteId/*/ai-brief.txt") ?: [] as $f) {
+        $code = basename(dirname($f));
+        if (preg_match('/^[a-z]{2,3}$/', $code)) {
+            $out[$code] = (string)file_get_contents($f);
+        }
+    }
+    return $out;
 }
 
 /** A name part safe in file names on any system: letters (any script), digits, - and . kept; runs of anything else become one -. */
@@ -193,6 +207,18 @@ function gen_send_site_brief(PDO $db, string $siteId): void
         gen_json(['error' => 'This site has no AI brief yet. Build it first.'], 404);
         return;
     }
+    $part = gen_job_project_brief($db, (int)$jobId);
+    if ($langs = gen_site_brief_langs($siteId)) { // a multi-language site: a zip with the brief of every language version
+        $stem = gen_brief_stem($db, (int)$jobId) . '_' . preg_replace('/[^a-z0-9-]/i', '-', $siteId);
+        $files = ["$stem/" . gen_brief_name($siteId) => $text];
+        foreach ($langs as $code => $t) {
+            $files["$stem/" . gen_brief_name($siteId, $code)] = gen_brief_with_project($t, $part);
+        }
+        header('Content-Type: application/zip');
+        gen_attachment("$stem.zip");
+        echo gen_zip($files);
+        return;
+    }
     header('Content-Type: text/plain; charset=utf-8');
     gen_attachment(gen_brief_stem($db, (int)$jobId) . '_' . gen_brief_name($siteId));
     echo $text;
@@ -213,6 +239,9 @@ function gen_send_job_briefs(PDO $db, int $jobId, array $types): void
         if ($text !== null) {
             $text = gen_brief_with_project($text, $part);
             $files[$stem . '/' . ($folders ? $r['type'] . '/' : '') . gen_brief_name($r['id'])] = $text; // unzips into one folder named like the zip
+            foreach (gen_site_brief_langs($r['id']) as $code => $t) { // and each language version's, beside it
+                $files[$stem . '/' . ($folders ? $r['type'] . '/' : '') . gen_brief_name($r['id'], $code)] = gen_brief_with_project($t, $part);
+            }
         }
     }
     if (!$files) {

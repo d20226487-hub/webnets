@@ -155,6 +155,7 @@ function sx_site_context(array $cfg, string $root): array
         }
         $market['locales'] = array_values(array_unique(array_merge($market['locales'], $rules['locales'])));
         $market['rules_id'] = $rules['id'];
+        $market['rules_name'] = $rules['name'] ?? $rules['id'];
     }
 
     if (!in_array($market['id'], $brand['markets'], true)) {
