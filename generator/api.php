@@ -271,6 +271,21 @@ try {
         }
         gen_tr_spawn((int)$seg[1]);
         gen_json(['ok' => true, 'sites' => count($todo)]);
+    } elseif ($path === 'shots' && $method === 'POST') { // an app screenshot from the job form, prepared by the browser
+        try {
+            gen_json(['id' => gen_shot_save(gen_body())]);
+        } catch (InvalidArgumentException $e) {
+            gen_json(['error' => $e->getMessage()], 422);
+        }
+    } elseif ($seg[0] === 'shots' && isset($seg[1]) && $method === 'GET') { // a stored screenshot (the job form's previews)
+        $f = gen_shot_file($seg[1], isset($_GET['s']));
+        if (!$f || !is_file($f)) {
+            gen_json(['error' => 'No such screenshot.'], 404);
+            return;
+        }
+        header('Content-Type: ' . (str_ends_with($f, '.webp') ? 'image/webp' : 'image/jpeg'));
+        header('Cache-Control: private, max-age=86400');
+        readfile($f);
     } elseif ($seg[0] === 'sites' && ($seg[2] ?? '') === 'ai' && $method === 'DELETE') { // back to the template's text
         $q = $db->prepare('SELECT job_id, plan FROM sites WHERE id = ?');
         $q->execute([$seg[1]]);
@@ -614,6 +629,10 @@ function gen_job_input(array $b): array
         'sample_brands' => max(0, min(count(GEN_SAMPLE_NAMES), (int)($b['sample_brands'] ?? 7)))];
     require_once __DIR__ . '/samplereviews.php';
     [$spec['reviews'], $revErr] = gen_sreviews_input($b['reviews'] ?? null);
+    [$shots, $shotErr] = gen_shots_input($b['shots'] ?? null);
+    if ($shots) {
+        $spec['shots'] = $shots;
+    }
     [$langs, $langErr] = gen_job_langs_input((array)($b['langs'] ?? []));
     if ($langs) { // a multi-language job: its market is the main language's
         $spec['langs'] = $langs;
@@ -624,6 +643,7 @@ function gen_job_input(array $b): array
         $name === '' => 'Give the job a name.',
         $langErr !== null => $langErr,
         $revErr !== null => $revErr,
+        $shotErr !== null => $shotErr,
         !is_file("$GEN_ROOT/markets/{$spec['market']}.json") => 'Pick a market.',
         !$types => 'Tick at least one site type.',
         !$spec['brands'] => 'Add at least one brand.',

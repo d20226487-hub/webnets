@@ -6,7 +6,7 @@ include __DIR__ . '/../_shared.php';
 <section class="<?= cx('apphero', ['apphero', null, 'stage']) ?>">
   <div class="<?= cx('container', ['apphero', 'inner']) ?>">
     <div class="<?= cls('apphero', 'device') ?>">
-      <?= sx_phone(['kind' => $props['screen'], 'image' => $props['image'] ?: null], '', false) ?>
+      <?= sx_phone(['kind' => $props['screen']] + sx_shot($props), '', false) ?>
     </div>
     <div class="<?= cls('apphero', 'copy') ?>">
       <p class="<?= cls('apphero', 'official') ?>"><?= sx_icon('shield') ?><?= e(t('app.official')) ?></p>

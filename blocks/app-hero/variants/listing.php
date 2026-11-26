@@ -24,7 +24,7 @@ include __DIR__ . '/../_shared.php';
       <?php if ($props['subtitle']): ?><p class="<?= cls('apphero', 'desc') ?>"><?= e($props['subtitle']) ?></p><?php endif; ?>
     </div>
     <div class="<?= cls('apphero', 'device') ?>">
-      <?= sx_phone(['kind' => $props['screen'], 'image' => $props['image'] ?: null], '', false) ?>
+      <?= sx_phone(['kind' => $props['screen']] + sx_shot($props), '', false) ?>
     </div>
   </div>
 </section>

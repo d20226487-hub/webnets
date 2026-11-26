@@ -20,7 +20,7 @@ $factLine = implode(' · ', array_map(fn($f) => $f[0], $facts));
       <p class="<?= cls('apphero', 'factline') ?>"><?= e($factLine) ?></p>
     </div>
     <div class="<?= cls('apphero', 'device') ?>">
-      <?= sx_phone(['kind' => $props['screen'], 'image' => $props['image'] ?: null], '', false) ?>
+      <?= sx_phone(['kind' => $props['screen']] + sx_shot($props), '', false) ?>
     </div>
   </div>
 </section>

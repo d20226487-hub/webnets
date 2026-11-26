@@ -8,7 +8,7 @@
     <ul class="<?= cls('shots', 'grid') ?>">
       <?php foreach ($props['screens'] as $s): ?>
         <li class="<?= cls('shots', 'item') ?>">
-          <?= sx_phone(['kind' => $s['kind'] ?? 'home', 'image' => $s['image'] ?? null]) ?>
+          <?= sx_phone(['kind' => $s['kind'] ?? 'home'] + sx_shot($s)) ?>
           <p class="<?= cls('shots', 'caption') ?>"><?= e($s['caption']) ?></p>
         </li>
       <?php endforeach; ?>

@@ -39,7 +39,7 @@ $specs = array_values(array_filter([
     <div class="<?= cls('apphero', 'side') ?>">
       <?= sx_install_group('hero') ?>
       <aside class="<?= cls('apphero', 'specs') ?>">
-        <div class="<?= cls('apphero', 'shot') ?>"><?= sx_phone(['kind' => $props['screen'], 'image' => $props['image'] ?: null], '', false) ?></div>
+        <div class="<?= cls('apphero', 'shot') ?>"><?= sx_phone(['kind' => $props['screen']] + sx_shot($props), '', false) ?></div>
         <p class="<?= cls('apphero', 'specstitle') ?>"><?= e(t('app.specs')) ?></p>
         <dl>
           <?php foreach ($specs as [$k, $v]): ?><div><dt><?= e($k) ?></dt><dd><?= e($v) ?></dd></div><?php endforeach; ?>

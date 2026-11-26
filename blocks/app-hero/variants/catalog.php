@@ -32,7 +32,7 @@ $stats = array_values(array_filter([
       <?php if (!empty($app['version'])): ?><p class="<?= cls('apphero', 'latest') ?>"><?= e(t('app.latest', ['v' => $app['version']])) ?><?= !empty($app['updated']) ? ' · ' . e(sx_date($app['updated'])) : '' ?></p><?php endif; ?>
     </div>
     <ul class="<?= cls('apphero', 'thumbs') ?> <?= cls('swipe') ?>">
-      <?php foreach ([$props['screen'], 'live', 'wallet', 'home'] as $k => $kind): ?><li><?= sx_phone(['kind' => $kind, 'image' => $k === 0 ? ($props['image'] ?: null) : null], '', $k > 0) ?></li><?php endforeach; ?>
+      <?php foreach ([$props['screen'], 'live', 'wallet', 'home'] as $k => $kind): ?><li><?= sx_phone(['kind' => $kind] + sx_shot($k === 0 ? $props : ($props['images'][$k - 1] ?? null)), '', $k > 0) ?></li><?php endforeach; ?>
     </ul>
   </div>
 </section>

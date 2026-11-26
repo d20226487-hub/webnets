@@ -180,8 +180,16 @@ function sx_phone_kind(string $kind, ?array $verticals = null): string
     return $kind;
 }
 
+/** A real screenshot's settings from a section's props (or one of its screens): image, small (the 390 px copy), focus, alt. */
+function sx_shot(?array $s): array
+{
+    return array_filter(['image' => $s['image'] ?? null, 'small' => $s['small'] ?? null, 'focus' => $s['focus'] ?? null, 'alt' => $s['alt'] ?? null],
+        fn($v) => is_string($v) && $v !== '');
+}
+
 /**
- * Phone mockup. $screen: {kind: home|live|slip|wallet|casino|install, image?: url}.
+ * Phone mockup. $screen: {kind: home|live|slip|wallet|casino|install, image?: url, small?: url of the 390 px copy,
+ * focus?: top|center|bottom (what stays in view when the frame trims the screenshot), alt?: text}.
  * With an image, the real screenshot is shown; without, a CSS-drawn screen in the preset's tokens.
  */
 function sx_phone(array $screen, string $extra = '', bool $lazy = true): string
@@ -193,7 +201,12 @@ function sx_phone(array $screen, string $extra = '', bool $lazy = true): string
     }
     $c = fn($el) => cls('phone', $el);
     if (!empty($screen['image'])) {
-        $inner = '<img src="' . sx_url($screen['image']) . '" alt="" width="390" height="844"' . ($lazy ? ' loading="lazy" decoding="async"' : ' fetchpriority="high"') . '>';
+        // a real screenshot fills the frame and is trimmed, never stretched: the focus decides what stays in view
+        $src = sx_url($screen['image']);
+        $set = !empty($screen['small']) ? ' srcset="' . sx_url($screen['small']) . ' 390w, ' . $src . ' 780w" sizes="(max-width: 640px) 50vw, 280px"' : '';
+        $pos = ['top' => 'center top', 'center' => 'center', 'bottom' => 'center bottom'][$screen['focus'] ?? 'top'] ?? 'center top';
+        $inner = '<img src="' . $src . '"' . $set . ' alt="' . e($screen['alt'] ?? '') . '" width="390" height="844" style="object-position:' . $pos . '"'
+            . ($lazy ? ' loading="lazy" decoding="async"' : ' fetchpriority="high"') . '>';
     } else {
         // Compact markup: <i> = text line (data-m muted, data-a accent, data-r right), <b> = odds chip (data-on).
         $b = SX::$ctx['brand'];

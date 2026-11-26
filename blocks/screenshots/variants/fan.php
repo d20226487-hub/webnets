@@ -1,11 +1,14 @@
 <?php /** Three phones fanned out with captions as a numbered list beside them. Uses the first 3 screens. */
 $screens = array_slice($props['screens'], 0, 3);
+if (count($screens) === 3 && !empty($screens[0]['main'])) { // the main screenshot in the middle phone, the largest
+    [$screens[0], $screens[1]] = [$screens[1], $screens[0]];
+}
 ?>
 <section class="<?= cx('shots', ['shots', null, 'fan']) ?>" id="screens">
   <div class="<?= cx('container', ['shots', 'inner']) ?>">
     <div class="<?= cls('shots', 'stage') ?>">
       <?php foreach ($screens as $i => $s): ?>
-        <?= sx_phone(['kind' => $s['kind'] ?? 'home', 'image' => $s['image'] ?? null], cls('shots', 'p' . ($i + 1))) ?>
+        <?= sx_phone(['kind' => $s['kind'] ?? 'home'] + sx_shot($s), cls('shots', 'p' . ($i + 1))) ?>
       <?php endforeach; ?>
     </div>
     <div class="<?= cls('shots', 'side') ?>">

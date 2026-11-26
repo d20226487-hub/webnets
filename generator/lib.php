@@ -18,6 +18,7 @@ require_once __DIR__ . '/edits.php';
 require_once __DIR__ . '/markets.php';
 require_once __DIR__ . '/types.php';
 require_once __DIR__ . '/translate.php';
+require_once __DIR__ . '/shots.php';
 
 const GEN_PLACEHOLDER = 'Placeholder copy for this section of the site to be written later with real content';
 
@@ -615,7 +616,7 @@ function gen_fit_product(string $type, array $choice, ?string $brand, array $bra
     return $choice;
 }
 
-function gen_site_config(string $type, string $market, ?string $brand, array $choice, string $id, string $seed, ?string $preset, array $colors, array $brands = [], ?int $slot = null, string $copy = 'demo', int $level = 0, ?int $palette = null, ?string $nav = null, array $style = [], array $menu = [], ?string $locale = null): array
+function gen_site_config(string $type, string $market, ?string $brand, array $choice, string $id, string $seed, ?string $preset, array $colors, array $brands = [], ?int $slot = null, string $copy = 'demo', int $level = 0, ?int $palette = null, ?string $nav = null, array $style = [], array $menu = [], ?string $locale = null, int $shots = 0): array
 {
     global $GEN_ROOT;
     $cfg = sx_json("$GEN_ROOT/sites/demos/" . gen_source($type, $market, $choice) . '.json');
@@ -666,6 +667,9 @@ function gen_site_config(string $type, string $market, ?string $brand, array $ch
     }
     if ($combos = gen_hero_combos($type, $cfg, $market)) {
         $combos = array_values(array_filter($combos, fn($cb) => $cb[0] === $want)) ?: $combos;
+        if ($shots > 0) { // real screenshots: no layout with more phones than there are screenshots (catalog: 4, device: 2)
+            $combos = array_values(array_filter($combos, fn($cb) => !($cb[0] === 'catalog' && $shots < 4) && !($cb[0] === 'device' && $shots < 2))) ?: $combos;
+        }
         [$hv, $hi, $multi] = $combos[($slot ?? crc32($id)) % count($combos)];
         if ($multi) {
             $cfg['variants']['home'][$fs['id']] = $hv;
@@ -1033,7 +1037,7 @@ function gen_fit_payments(array $content, array $m, string $locale, bool $useDem
 
 /** Keys whose string values are settings, not copy. */
 const GEN_KEEP = ['variant', 'rank_by', 'icon', 'url', 'href', 'link', 'link_page', 'pages', 'types', 'kind', 'slug', 'item', 'mobile', 'src',
-    'value', 'unit', 'code', 'id', 'type', 'platform', 'look', 'lead', 'topic', 'brand', 'image', 'art', 'theme', 'heading', 'items_source', 'mode'];
+    'value', 'unit', 'code', 'id', 'type', 'platform', 'look', 'lead', 'topic', 'brand', 'image', 'art', 'theme', 'heading', 'items_source', 'mode', 'small', 'focus'];
 
 /** Replace copy with placeholder text of about the same length (keeps layouts realistic), leave settings alone. */
 function gen_placeholders($v, string $key, string $path)
@@ -1200,6 +1204,7 @@ function gen_build_site(array $site, string $market, array $brands = []): array
             }
         }
     }
+    gen_shots_copy($site['id'], $cfg['shots_used'] ?? []); // the screenshots it shows, in its img/ folder
     file_put_contents($file, json_encode($cfg, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
     $r = gen_export_site($site['id'], $file);
     if ($r[0]) {
@@ -1226,7 +1231,7 @@ function gen_site_full_config(array $site, string $market, array $brands = [], b
         gen_db()->prepare('UPDATE sites SET choice = ? WHERE id = ?')->execute([json_encode($fitted), $site['id']]);
         $choice = $fitted;
     }
-    $cfg = gen_site_config($site['type'], $market, $site['brand'], $choice, $site['id'], $plan['seed'], $plan['preset'], $plan['colors'] ?? [], $brands, $plan['slot'] ?? $site['n'] - 1 + (int)$site['job_id'], $plan['copy'] ?? 'demo', (int)($plan['level'] ?? 0), isset($plan['palette']) ? (int)$plan['palette'] : null, $plan['nav'] ?? null, ['hue' => (int)($plan['hue'] ?? 0), 'flip' => !empty($plan['flip'])], $plan['menu'] ?? [], ($langs = gen_job_langs($spec)) ? array_key_first($langs) : null);
+    $cfg = gen_site_config($site['type'], $market, $site['brand'], $choice, $site['id'], $plan['seed'], $plan['preset'], $plan['colors'] ?? [], $brands, $plan['slot'] ?? $site['n'] - 1 + (int)$site['job_id'], $plan['copy'] ?? 'demo', (int)($plan['level'] ?? 0), isset($plan['palette']) ? (int)$plan['palette'] : null, $plan['nav'] ?? null, ['hue' => (int)($plan['hue'] ?? 0), 'flip' => !empty($plan['flip'])], $plan['menu'] ?? [], ($langs = gen_job_langs($spec)) ? array_key_first($langs) : null, gen_shots_count($spec));
     if ($langs) { // where its language switcher goes and how it looks
         $cfg['lang_ui'] = gen_lang_ui($plan, $site['id']);
     }
@@ -1247,6 +1252,7 @@ function gen_site_full_config(array $site, string $market, array $brands = [], b
         $cfg['promote'] = true;
     }
     $cfg = gen_apply_edits($cfg, $site['type'], gen_site_edits($spec, $site['type'], $plan)); // the user's edits (type, then site) go on top of the plan
+    [$cfg, $cfg['shots_used']] = gen_shots_apply($cfg, $spec, $site['id']); // the job's real app screenshots in the phones
     if (!empty($cfg['brands'])) { // the compared brands' rating texts as the site's own copy, so the text step words them per site
         $cfg['brand_text'] = gen_site_brand_text($cfg, $market);
     }

@@ -67,7 +67,7 @@ form .field{display:grid;gap:6px;margin-bottom:16px}form label.lbl{font-weight:6
 table{border-collapse:collapse;width:100%}th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}th{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
 .types td{padding:10px}.wn{display:block;margin-top:4px;padding:6px 8px;border-radius:8px;background:var(--warnbg);color:var(--warn);font-size:12px;max-width:300px}
 .axis label.blk{color:var(--warn)}.axis label.off{opacity:.45;text-decoration:line-through;cursor:not-allowed}.axis label.blk::after{content:"⚠";font-size:12px}
-.brows{display:grid;gap:8px}.jrrow{gap:8px 14px;align-items:center;flex-wrap:wrap;margin:2px 0 6px}.jrrow input{width:84px}.jlrows{display:grid;gap:8px;margin:6px 0 8px}.jlrow{flex-wrap:nowrap}.jlrow .jlq{flex:1;min-width:0;appearance:none}.jlq::-webkit-search-cancel-button{display:none}.jlq::-webkit-calendar-picker-indicator{opacity:.55}.jlq.bad{border-color:#e5484d}.brow{display:grid;grid-template-columns:minmax(140px,1.4fr) minmax(140px,1.4fr) auto minmax(120px,1fr) auto;gap:8px;align-items:center}
+.brows{display:grid;gap:8px}tr.tset>td{padding:4px 10px 14px 34px;border-top:0}.tset .tset-box{margin:0;padding:12px 14px;border:1px solid var(--line);border-left:3px solid var(--accent,#6d5dfc);border-radius:10px;background:var(--panel)}.tset .tset-box+.tset-box{margin-top:10px}.tset-for{font-weight:400;font-size:13px}@media (max-width:720px){tr.tset>td{padding:4px 0 12px}}.shots{display:flex;flex-wrap:wrap;gap:12px;margin:4px 0 8px}.shot{display:grid;gap:8px;width:196px;padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}.shot.main{border-color:var(--accent,#6d5dfc)}.shot-head{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:13px}.shot-rm{min-width:30px;padding:2px 8px}.shot-frames{display:flex;gap:8px;align-items:flex-end;justify-content:center}.shot-f{overflow:hidden;border:4px solid #15171c;border-radius:16px;background:#000}.shot-f img{display:block;width:100%;height:100%;object-fit:cover}.shot-f.n{width:76px;aspect-ratio:9/19.5}.shot-f.w{width:86px;aspect-ratio:9/16}.shot-l{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:13px}.shot-l select{padding:4px 6px}.shot .shot-alt{width:100%;font-size:13px;padding:6px 8px}.shot-add{min-height:120px;width:196px;border-style:dashed}.shot-add.main{min-height:160px}.jrrow{gap:8px 14px;align-items:center;flex-wrap:wrap;margin:2px 0 6px}.jrrow input{width:84px}.jlrows{display:grid;gap:8px;margin:6px 0 8px}.jlrow{flex-wrap:nowrap}.jlrow .jlq{flex:1;min-width:0;appearance:none}.jlq::-webkit-search-cancel-button{display:none}.jlq::-webkit-calendar-picker-indicator{opacity:.55}.jlq.bad{border-color:#e5484d}.brow{display:grid;grid-template-columns:minmax(140px,1.4fr) minmax(140px,1.4fr) auto minmax(120px,1fr) auto;gap:8px;align-items:center}
 .brow .cl{display:inline-flex;align-items:center;gap:6px;font-size:13px;white-space:nowrap}
 @media (max-width:720px){.types table,.types tbody,.types tr,.types td{display:block;width:auto}.types thead{display:none}.types tr{border-top:1px solid var(--line);padding:6px 0}.types td{padding:6px 4px}.wn{max-width:none}}
 @media (max-width:720px){.brow{grid-template-columns:1fr 1fr;padding:10px;border:1px solid var(--line);border-radius:10px}.brow input[type=text]{grid-column:1/-1}}.axis{display:flex;flex-wrap:wrap;gap:6px 14px;margin:2px 0 6px}.axis b{font-size:12px;color:var(--muted);font-weight:600;width:100%}
@@ -176,7 +176,15 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
     'Number of free spins': 'Количество фриспинов', 'Wagering (×)': 'Вейджер (×)', 'Min deposit': 'Мин. депозит', 'Max bet': 'Макс. ставка', 'Min odds': 'Мин. коэффициент', 'Days to use it': 'Дней на использование',
     'Valid until': 'Действует до', 'Conditions (who can claim, main terms)': 'Условия (кто может получить, главные условия)', 'Type': 'Тип', 'Value': 'Размер',
     'The project has no information or documents to read the offers from. Fill in «Project information» or upload a document first.': 'В проекте нет информации или документов, из которых можно взять акции. Сначала заполните «Информацию о проекте» или загрузите документ.', 'Minimum deposit (in the market currency)': 'Минимальный депозит (в валюте рынка)', 'Fastest withdrawal, minutes': 'Самый быстрый вывод, минут', 'Payment methods (comma separated)': 'Способы оплаты (через запятую)',
-    'Tagline': 'Слоган', 'Sample user reviews (brand review sites, app pages)': 'Примеры отзывов (сайты отзывов о бренде, страницы приложения)', 'From': 'От', 'to': 'до', 'reviews per site': 'отзывов на сайт',
+    'Tagline': 'Слоган', 'App screenshots': 'Скриншоты приложения', 'for every app site of this job': 'для всех сайтов приложения в этом задании', 'Sample user reviews': 'Примеры отзывов',
+    'for every site of this job that shows user reviews (brand reviews, app pages)': 'для всех сайтов задания с отзывами пользователей (отзывы о бренде, страницы приложения)', 'App screenshots (app sites)': 'Скриншоты приложения (сайты приложения)', 'Main screenshot': 'Главный скриншот', 'Screenshot {0}': 'Скриншот {0}', 'Remove screenshot': 'Убрать скриншот',
+    'Narrow phone': 'Узкий телефон', 'Wider phone': 'Телефон шире', 'Keep in view': 'Оставить в кадре', 'Top': 'Верх', 'Middle': 'Середину', 'Bottom': 'Низ', 'What it shows, e.g. live betting': 'Что на нём, напр. лайв-ставки', 'What the screenshot shows': 'Что показывает скриншот',
+    '+ Main screenshot': '+ Главный скриншот', '+ More screenshots ({0} of {1})': '+ Ещё скриншоты ({0} из {1})',
+    '«{0}» is not portrait: app screenshots are taller than wide.': '«{0}» не вертикальный: скриншоты приложения выше, чем шире.', '«{0}» is {1} px wide: at least 600 px are needed for a sharp phone.': '«{0}» шириной {1} px: для чёткой картинки нужно не меньше 600 px.',
+    'Real screenshots of your app, portrait, at least 600 px wide. The main one takes the most prominent phone in every section; the others fill the rest, never twice in one section, in a different order on each site. A section shows no more phones than you upload. A screenshot always fills its phone and is trimmed, never stretched: «Keep in view» picks the part that stays visible, the two previews show a narrow and a wider phone. «What it shows» is used for the image description and the captions.': 'Настоящие скриншоты вашего приложения, вертикальные, шириной от 600 px. Главный занимает самый заметный телефон в каждой секции; остальные заполняют другие телефоны — в одной секции без повторов, на каждом сайте в своём порядке. В секции не больше телефонов, чем загружено скриншотов. Скриншот всегда заполняет телефон и обрезается, а не растягивается: «Оставить в кадре» выбирает, какая часть видна; два превью показывают узкий и более широкий телефон. «Что на нём» идёт в описание картинки и подписи.',
+    'The screenshot is not a prepared WebP or JPEG image.': 'Скриншот не подготовлен как WebP или JPEG.', 'The screenshot is too large.': 'Скриншот слишком большой.', 'The screenshot is not a readable image.': 'Файл скриншота не читается как изображение.',
+    'Screenshots must be portrait (taller than wide) and at least 600 px wide.': 'Скриншоты должны быть вертикальными и шириной от 600 px.', 'Add the main screenshot first: it takes the most prominent phone.': 'Сначала добавьте главный скриншот: он занимает самый заметный телефон.',
+    'The main screenshot was not found. Upload it again.': 'Главный скриншот не найден. Загрузите его снова.', 'Sample user reviews (brand review sites, app pages)': 'Примеры отзывов (сайты отзывов о бренде, страницы приложения)', 'From': 'От', 'to': 'до', 'reviews per site': 'отзывов на сайт',
     'Fewest reviews per site': 'Минимум отзывов на сайт', 'Most reviews per site': 'Максимум отзывов на сайт', 'Share of {0}-star reviews, %': 'Доля отзывов на {0} звёзд, %', 'Total: {0}%': 'Сумма: {0}%',
     'The AI writes your brands’ sample reviews from the master review in these shares by stars. Each site shows its own random number of them within the range, in the same shares, so review sites do not all look alike. At least 20% must have 1–3 stars.': 'ИИ пишет примеры отзывов о ваших брендах по «Мастер обзору» в этих долях по звёздам. Каждый сайт показывает своё случайное число отзывов в этом диапазоне, в тех же долях, — так сайты отзывов не похожи друг на друга. Не меньше 20% отзывов — на 1–3 звезды.',
     'Reviews per site: from 1 to 60, the first number not above the second.': 'Отзывов на сайт: от 1 до 60, первое число не больше второго.', 'The shares of reviews by stars must add up to 100%.': 'Доли отзывов по звёздам должны в сумме давать 100%.',
@@ -875,10 +883,14 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         + '<span class="muted" style="font-size:13px">' + L('The line saying the site earns a commission through its links. Most gambling advertising rules require it: with Off, checking the market’s rules is up to you, and each site carries a build note. Off also labels a ranking’s partner slot «Our pick» and leaves out the template’s texts about paid places and commissions.') + '</span></div>'
         + '<div class="field"><label class="lbl" for="jsample">' + L('Sample brands in casino rankings') + '</label><input type="number" id="jsample" min="0" max="16" value="7" style="max-width:120px">'
         + '<span class="muted" style="font-size:13px">' + L('Made-up operators listed next to your brands on casino review sites, so a ranking looks like a real one. Their data is placeholder; the featured (paid) slot is always one of your brands. 0 = your brands only.') + '</span></div>'
-        + '<div class="field"><span class="lbl">' + L('Sample user reviews (brand review sites, app pages)') + '</span>'
+        + '<div id="jf-park" hidden><div class="field tset-box" id="jf-shots"><span class="lbl">' + L('App screenshots') + ' <span class="muted tset-for">' + L('for every app site of this job') + '</span></span><div id="jshots" class="shots"></div>'
+        + '<input type="file" id="jshotfile" accept="image/png,image/jpeg,image/webp" hidden><input type="file" id="jshotmore" accept="image/png,image/jpeg,image/webp" multiple hidden>'
+        + '<p class="err" id="jshoterr" hidden></p>'
+        + '<span class="muted" style="font-size:13px">' + L('Real screenshots of your app, portrait, at least 600 px wide. The main one takes the most prominent phone in every section; the others fill the rest, never twice in one section, in a different order on each site. A section shows no more phones than you upload. A screenshot always fills its phone and is trimmed, never stretched: «Keep in view» picks the part that stays visible, the two previews show a narrow and a wider phone. «What it shows» is used for the image description and the captions.') + '</span></div>'
+        + '<div class="field tset-box" id="jf-reviews"><span class="lbl">' + L('Sample user reviews') + ' <span class="muted tset-for">' + L('for every site of this job that shows user reviews (brand reviews, app pages)') + '</span></span>'
         + '<div class="row jrrow">' + L('From') + ' <input type="number" id="jrmin" min="1" max="60" value="12" aria-label="' + L('Fewest reviews per site') + '"> ' + L('to') + ' <input type="number" id="jrmax" min="1" max="60" value="30" aria-label="' + L('Most reviews per site') + '"> ' + L('reviews per site') + '</div>'
         + '<div class="row jrrow">' + [['5', 40], ['4', 25], ['3', 15], ['2', 10], ['1', 10]].map(function (x) { return '<label class="inl">' + x[0] + '★ <input type="number" class="jrstar" data-s="' + x[0] + '" min="0" max="100" value="' + x[1] + '" aria-label="' + L('Share of {0}-star reviews, %', x[0]) + '"> %</label>'; }).join('') + '<span class="muted" id="jrsum"></span></div>'
-        + '<span class="muted" style="font-size:13px">' + L('The AI writes your brands’ sample reviews from the master review in these shares by stars. Each site shows its own random number of them within the range, in the same shares, so review sites do not all look alike. At least 20% must have 1–3 stars.') + '</span></div>'
+        + '<span class="muted" style="font-size:13px">' + L('The AI writes your brands’ sample reviews from the master review in these shares by stars. Each site shows its own random number of them within the range, in the same shares, so review sites do not all look alike. At least 20% must have 1–3 stars.') + '</span></div></div>'
         + '<div class="row"><span class="muted" id="total"></span><span class="sp"></span><button class="primary" id="go">' + L('Generate sites') + '</button></div><p class="err" id="ferr" hidden></p></form>';
       function reviewsValue() {
         var stars = {};
@@ -895,6 +907,67 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
       }
       [].forEach.call(document.querySelectorAll('.jrstar'), function (i) { i.oninput = reviewsSum; });
       reviewsSum();
+      // app screenshots: prepared in the browser (780 px and a 390 px copy, WebP or JPEG), then stored by the server
+      var SHOTS = { main: null, more: [] }, SHOT_MORE = 8;
+      function shotErr(m) { var e = document.getElementById('jshoterr'); e.hidden = !m; e.textContent = m || ''; }
+      function shotPrep(file) {
+        return createImageBitmap(file).then(function (bm) {
+          if (bm.height <= bm.width) throw new Error(L('«{0}» is not portrait: app screenshots are taller than wide.', file.name));
+          if (bm.width < 600) throw new Error(L('«{0}» is {1} px wide: at least 600 px are needed for a sharp phone.', file.name, bm.width));
+          var draw = function (w, type) {
+            var c = document.createElement('canvas');
+            c.width = w; c.height = Math.round(bm.height * w / bm.width);
+            c.getContext('2d').drawImage(bm, 0, 0, c.width, c.height);
+            return c.toDataURL(type, 0.86);
+          };
+          var big = draw(780, 'image/webp'), type = big.indexOf('data:image/webp') === 0 ? 'image/webp' : 'image/jpeg'; // browsers without WebP: JPEG
+          if (type === 'image/jpeg') big = draw(780, type);
+          return { big: big, small: draw(390, type) };
+        });
+      }
+      function shotUpload(file) {
+        return shotPrep(file).then(function (d) { return api('shots', d, 'POST').then(function (r) { return { id: r.id, focus: 'top', alt: '', url: d.small }; }); });
+      }
+      function shotCard(s, main, i) {
+        var pos = { top: 'center top', center: 'center', bottom: 'center bottom' }[s.focus] || 'center top';
+        return '<div class="shot' + (main ? ' main' : '') + '" data-i="' + i + '"><div class="shot-head"><b>' + (main ? L('Main screenshot') : L('Screenshot {0}', i + 2)) + '</b><button type="button" class="shot-rm" aria-label="' + L('Remove screenshot') + '">×</button></div>'
+          + '<div class="shot-frames"><div class="shot-f n" title="' + L('Narrow phone') + '"><img src="' + esc(s.url) + '" alt="" style="object-position:' + pos + '"></div><div class="shot-f w" title="' + L('Wider phone') + '"><img src="' + esc(s.url) + '" alt="" style="object-position:' + pos + '"></div></div>'
+          + '<label class="shot-l">' + L('Keep in view') + ' <select class="shot-focus">' + [['top', 'Top'], ['center', 'Middle'], ['bottom', 'Bottom']].map(function (o) { return '<option value="' + o[0] + '"' + (s.focus === o[0] ? ' selected' : '') + '>' + L(o[1]) + '</option>'; }).join('') + '</select></label>'
+          + '<input type="text" class="shot-alt" maxlength="120" value="' + esc(s.alt) + '" placeholder="' + L('What it shows, e.g. live betting') + '" aria-label="' + L('What the screenshot shows') + '"></div>';
+      }
+      function shotsDraw() {
+        var box = document.getElementById('jshots');
+        box.innerHTML = (SHOTS.main ? shotCard(SHOTS.main, true, -1) : '<button type="button" class="shot-add main" id="jshotmain">' + L('+ Main screenshot') + '</button>')
+          + SHOTS.more.map(function (s, i) { return shotCard(s, false, i); }).join('')
+          + (SHOTS.main && SHOTS.more.length < SHOT_MORE ? '<button type="button" class="shot-add" id="jshotadd">' + L('+ More screenshots ({0} of {1})', SHOTS.more.length, SHOT_MORE) + '</button>' : '');
+        var m = document.getElementById('jshotmain'), a = document.getElementById('jshotadd');
+        if (m) m.onclick = function () { document.getElementById('jshotfile').click(); };
+        if (a) a.onclick = function () { document.getElementById('jshotmore').click(); };
+        [].forEach.call(box.querySelectorAll('.shot'), function (card) {
+          var i = +card.dataset.i, s = i < 0 ? SHOTS.main : SHOTS.more[i];
+          card.querySelector('.shot-rm').onclick = function () { if (i < 0) { SHOTS.main = SHOTS.more.shift() || null; } else { SHOTS.more.splice(i, 1); } shotsDraw(); };
+          card.querySelector('.shot-focus').onchange = function (e) { s.focus = e.target.value; shotsDraw(); };
+          card.querySelector('.shot-alt').oninput = function (e) { s.alt = e.target.value; };
+        });
+      }
+      function shotsBusy(on) { var b = document.getElementById('jshots'); b.style.opacity = on ? '.5' : ''; b.style.pointerEvents = on ? 'none' : ''; }
+      document.getElementById('jshotfile').onchange = function (e) {
+        var f = e.target.files[0]; e.target.value = '';
+        if (!f) return;
+        shotErr(''); shotsBusy(true);
+        shotUpload(f).then(function (s) { SHOTS.main = s; }).catch(function (x) { shotErr(L(x.message || String(x))); }).then(function () { shotsBusy(false); shotsDraw(); });
+      };
+      document.getElementById('jshotmore').onchange = function (e) {
+        var files = [].slice.call(e.target.files, 0, SHOT_MORE - SHOTS.more.length), errs = []; e.target.value = '';
+        shotErr(''); shotsBusy(true);
+        files.reduce(function (p, f) { return p.then(function () { return shotUpload(f).then(function (s) { SHOTS.more.push(s); }).catch(function (x) { errs.push(L(x.message || String(x))); }); }); }, Promise.resolve())
+          .then(function () { shotErr(errs.join(' ')); shotsBusy(false); shotsDraw(); });
+      };
+      function shotsValue() {
+        var one = function (s) { return { id: s.id, focus: s.focus, alt: s.alt }; };
+        return SHOTS.main ? { main: one(SHOTS.main), more: SHOTS.more.map(one) } : null;
+      }
+      shotsDraw();
       var form = document.getElementById('jf'), mk = document.getElementById('jmarket'), avail = {}, jml = document.getElementById('jml'), jlrows = document.getElementById('jlrows');
       var PAIRS = [];
       cat.markets.forEach(function (m) { (m.locales || []).forEach(function (l) { PAIRS.push([l + '|' + m.id, langName(l) + ' (' + l + ') — ' + L(m.name) + ' (' + m.id.toUpperCase() + ')']); }); });
@@ -971,6 +1044,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         var n = 0;
         [].forEach.call(document.querySelectorAll('.tcount'), function (i) { if (i.closest('tr').querySelector('.ton').checked) n += +i.value || 0; });
         document.getElementById('total').textContent = L('{0} sites will be generated', n);
+        placeSettings();
         return n;
       }
       var bkey = 'gen-brands-' + pid;
@@ -1014,8 +1088,33 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         });
         return any ? sp : null;
       }
+      // per-type settings (screenshots, sample reviews) sit under the first ticked site type they apply to, and are
+      // hidden while none of those types is ticked; the table is redrawn on market changes, so they are parked first
+      var TSET = [['jf-shots', ['app', 'app-multi']], ['jf-reviews', ['reviews', 'app', 'app-multi']]];
+      function parkSettings() {
+        var park = document.getElementById('jf-park');
+        TSET.forEach(function (x) { var b = document.getElementById(x[0]); if (b) park.appendChild(b); });
+        [].forEach.call(document.querySelectorAll('tr.tset'), function (tr) { tr.remove(); });
+      }
+      function placeSettings() {
+        parkSettings();
+        var at = {};
+        TSET.forEach(function (x) {
+          var cb = [].filter.call(document.querySelectorAll('.ton:checked'), function (c) { var T = cat.types[c.dataset.t]; return T && x[1].indexOf(T.base || c.dataset.t) > -1; })[0];
+          if (cb) (at[cb.dataset.t] = at[cb.dataset.t] || []).push(x[0]);
+        });
+        Object.keys(at).forEach(function (t) {
+          var row = document.querySelector('.ton[data-t="' + t + '"]').closest('tr'), tr = document.createElement('tr'), td = document.createElement('td');
+          tr.className = 'tset';
+          td.colSpan = 3;
+          at[t].forEach(function (id) { td.appendChild(document.getElementById(id)); });
+          tr.appendChild(td);
+          row.parentNode.insertBefore(tr, row.nextSibling);
+        });
+      }
       function drawTypes(checking) {
         var keep = readTypes();
+        parkSettings();
         document.getElementById('types').innerHTML = (checking ? '<p class="muted" id="tcheck" style="margin:0 0 8px">' + L('Checking the market rules… warnings appear here in a few seconds. You can fill in the form meanwhile.') + '</p>' : '')
           + '<div class="types" style="overflow-x:auto"><table><thead><tr><th>' + L('Type') + '</th><th>' + L('Sites') + '</th><th>' + L('Variations (tick one or more)') + '</th></tr></thead><tbody>'
           + Object.keys(cat.types).filter(function (t) { return (!cat.types[t].hidden || (ed && ed.spec.types[t])) && !(FITS && cat.types[t].needs && cat.types[t].needs !== prod && !cat.types[t].axes.product); }).map(function (t) { // a type with a product choice (rankings) can be about either product
@@ -1092,6 +1191,12 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         document.getElementById('jrows').value = ed.spec.rows || 'swipe';
         document.getElementById('jdisc').value = ed.spec.disclosure || 'off';
         document.getElementById('jsample').value = ed.spec.sample_brands == null ? 0 : ed.spec.sample_brands;
+        if (ed.spec.shots && ed.spec.shots.main) {
+          var withUrl = function (s) { return { id: s.id, focus: s.focus || 'top', alt: s.alt || '', url: '/generator/api/shots/' + s.id + '?s=1' }; };
+          SHOTS.main = withUrl(ed.spec.shots.main);
+          SHOTS.more = (ed.spec.shots.more || []).map(withUrl);
+          shotsDraw();
+        }
         if (ed.spec.reviews) {
           document.getElementById('jrmin').value = ed.spec.reviews.min;
           document.getElementById('jrmax').value = ed.spec.reviews.max;
@@ -1136,7 +1241,7 @@ details.warn summary{cursor:pointer;color:var(--warn);font-size:13px}details.war
         try { localStorage.setItem(bkey, JSON.stringify(brands)); } catch (e) {}
         document.getElementById('go').disabled = true;
         api(ed ? 'jobs/' + ed.id : 'jobs', { project_id: +pid, name: document.getElementById('jname').value, market: mk.value, types: types, colors: colors,
-          brands: brands, copy: document.getElementById('jcopy').value, rows: document.getElementById('jrows').value, sample_brands: +document.getElementById('jsample').value || 0, disclosure: document.getElementById('jdisc').value, langs: langs, reviews: rv }, ed ? 'PUT' : 'POST')
+          brands: brands, copy: document.getElementById('jcopy').value, rows: document.getElementById('jrows').value, sample_brands: +document.getElementById('jsample').value || 0, disclosure: document.getElementById('jdisc').value, langs: langs, reviews: rv, shots: shotsValue() }, ed ? 'PUT' : 'POST')
           .then(function (r) { location.hash = '#/j/' + r.id; })
           .catch(function (x) { err.hidden = false; err.textContent = L(x.message); document.getElementById('go').disabled = false; });
       };

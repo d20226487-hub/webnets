@@ -105,9 +105,11 @@ function gen_content_pictures(array $cfg, array $verticals): array
         }
         if (isset($v['kind']) && is_string($v['kind'])) {
             $kind = sx_phone_kind($v['kind'], $verticals ?: null);
+            // a real screenshot of the app: what the user says it shows, else only that it is the app
+            $what = !empty($v['image']) ? 'a real screenshot of the brand\'s app' . (!empty($v['alt']) ? ': ' . $v['alt'] : '') : (GEN_AI_PICTURES[$kind] ?? null);
             foreach ($v as $k => $x) {
-                if (is_string($x) && $k !== 'kind' && isset(GEN_AI_PICTURES[$kind])) {
-                    $out[ltrim("$path/$k", '/')] = GEN_AI_PICTURES[$kind];
+                if (is_string($x) && !in_array($k, ['kind', 'alt'], true) && $what !== null && gen_is_copy((string)$k, $x)) {
+                    $out[ltrim("$path/$k", '/')] = $what;
                 }
             }
         }

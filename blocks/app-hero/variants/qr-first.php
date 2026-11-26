@@ -25,7 +25,7 @@ $factLine = implode(' · ', array_map(fn($f) => $f[0], $facts));
       <p class="<?= cls('apphero', 'factline') ?>"><?= e($factLine) ?></p>
     </div>
     <div class="<?= cls('apphero', 'qrcard') ?>">
-      <?= sx_phone(['kind' => $props['screen'], 'image' => $props['image'] ?: null], cls('apphero', 'peek'), false) ?>
+      <?= sx_phone(['kind' => $props['screen']] + sx_shot($props), cls('apphero', 'peek'), false) ?>
       <?php if ($qrUrl && preg_match('#^https?://#', $qrUrl)): ?>
         <figure class="<?= cls('apphero', 'qr') ?>">
           <span class="<?= cls('apphero', 'code') ?>"><?= sx_qr_svg($qrUrl, t('app.scan')) ?></span>
